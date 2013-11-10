@@ -7,7 +7,7 @@ Marcos Duarte
 
 Introduction
 ------------
-- [Introduction to Biomechanics](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Introduction%20to%20Biomechanics.ipynb)
+- [Biomechanics](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Introduction%20to%20Biomechanics.ipynb)
 
 Scientific programming
 ----------------------
