@@ -20,6 +20,6 @@ Mechanics
 ---------
 - [Frame of reference](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Frame%20of%20reference.ipynb)
 - [Scalars and vectors](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Scalars%20and%20vectors.ipynb)   
-
 Kinematics I
+++++++++++++
 - [Kinematics of a particle](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Kinematics%20of%20a%20Particle.ipynb)
