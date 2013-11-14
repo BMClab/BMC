@@ -24,5 +24,5 @@ Mechanics
 ---------
 - [Frame of reference](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Frame%20of%20reference.ipynb)   
 - **Kinematics I**
- + [Kinematics of a particle](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Kinematics%20of%20a%20Particle.ipynb)
-   +[Spatial and temporal characteristcs of a movement pattern](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Spatial%20and%20temporal%20characteristcs.ipynb)
+ + [Kinematics of a particle](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Kinematics%20of%20a%20Particle.ipynb)   
+   +[Spatial and temporal characteristcs of a movement pattern](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Spatial%20and%20temporal%20characteristcs.ipynb)   
