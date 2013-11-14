@@ -18,7 +18,7 @@ Scientific programming
 
 Numerical data analysis
 -----------------------
-[Scalar and vector](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Scalar%20and%20vector.ipynb)
+- [Scalar and vector](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Scalar%20and%20vector.ipynb)
 
 Mechanics
 ---------
