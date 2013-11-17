@@ -19,10 +19,12 @@ Scientific programming
 Numerical data analysis
 -----------------------
 - [Scalar and vector](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Scalar%20and%20vector.ipynb)
+- [Propagation of uncertainty](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Propagation%20of%20uncertainty.ipynb)
 
 Mechanics
 ---------
 - [Frame of reference](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Frame%20of%20reference.ipynb)   
 - **Kinematics**
  + [Kinematics of a particle](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Kinematics%20of%20a%20Particle.ipynb)   
- + [Spatial and temporal characteristcs](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Spatial%20and%20temporal%20characteristcs.ipynb)   
+ + [Spatial and temporal characteristcs](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Spatial%20and%20temporal%20characteristcs.ipynb)
+ + [Angular kinematics (two-dimensional)](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/AngularKinematics2D.ipynb)  
