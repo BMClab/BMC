@@ -28,4 +28,4 @@ Mechanics
  + [Kinematics of a particle](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Kinematics%20of%20a%20Particle.ipynb)   
  + [Spatial and temporal characteristcs](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Spatial%20and%20temporal%20characteristcs.ipynb)
  + [Angular kinematics (two-dimensional)](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/AngularKinematics2D.ipynb)  
- + [Rigid-body transformations (2D)](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Transformation2D.ipynb)
+ + [Rigid-body transformations (two-dimensional)](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Transformation2D.ipynb)
