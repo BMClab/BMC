@@ -19,6 +19,8 @@ Scientific programming
 Numerical data analysis
 -----------------------
 - [Scalar and vector](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Scalar%20and%20vector.ipynb)
+- [Data filtering in signal processing](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/DataFiltering.ipynb)
+ + [Residual analysis to determine the optimal cutoff frequency](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/ResidualAnalysis.ipynb)
 - [Propagation of uncertainty](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Propagation%20of%20uncertainty.ipynb)
 
 Mechanics
