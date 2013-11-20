@@ -22,7 +22,7 @@ Numerical data analysis
 - [Data filtering in signal processing](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/DataFiltering.ipynb)
  + [Residual analysis to determine the optimal cutoff frequency](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/ResidualAnalysis.ipynb)
 - [Time normalization of data](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Time%20normalization.ipynb) 
-- [Ensemble average](ttp://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Ensemble%20average.ipynb)
+- [Ensemble average](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Ensemble%20average.ipynb)
 - [Propagation of uncertainty](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Propagation%20of%20uncertainty.ipynb)
 
 Mechanics
