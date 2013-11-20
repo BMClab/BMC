@@ -1,7 +1,7 @@
 BMC
 ===
 
-Biomechanics and Motor Control
+Data Analysis in Biomechanics and Motor Control
 
 Marcos Duarte
 
