@@ -25,7 +25,7 @@ Numerical data analysis
 - [Time normalization of data](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Time%20normalization.ipynb) 
 - [Ensemble average](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Ensemble%20average.ipynb)
 - [Propagation of uncertainty](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Propagation%20of%20uncertainty.ipynb)
-- [Curve fitting](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Curve%20Fitting.ipynb)
+- [Curve fitting](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/CurveFitting.ipynb)
 
 Mechanics
 ---------
