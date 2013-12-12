@@ -38,6 +38,6 @@ Mechanics
  + [Kinematic chain](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/KinematicChain.ipynb) 
  + [Rigid-body transformations (2D)](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Transformation2D.ipynb)   
  + [Rigid-body transformations (3D)](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Transformation3D.ipynb)  
- - **Kinematics**
+ - **Kinetics**
  + [Body segment parameters](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/BodySegmentParameters.ipynb)
 
