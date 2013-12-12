@@ -29,6 +29,7 @@ Numerical data analysis
 
 Mechanics
 ---------
+
 - **Kinematics**
  + [Frame of reference](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Frame%20of%20reference.ipynb)
  + [Kinematics of a particle](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Kinematics%20of%20a%20Particle.ipynb)   
@@ -37,7 +38,8 @@ Mechanics
  + [Angular kinematics (2D)](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/AngularKinematics2D.ipynb)  
  + [Kinematic chain](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/KinematicChain.ipynb) 
  + [Rigid-body transformations (2D)](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Transformation2D.ipynb)   
- + [Rigid-body transformations (3D)](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Transformation3D.ipynb)  
+ + [Rigid-body transformations (3D)](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Transformation3D.ipynb)   
+ 
  - **Kinetics**
  + [Body segment parameters](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/BodySegmentParameters.ipynb)
 
