@@ -43,3 +43,5 @@ Mechanics
  + [Body segment parameters](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/BodySegmentParameters.ipynb)
  + [Free body diagram](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/FreeBodyDiagram.ipynb)
  + [Gait analysis (2D)](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/GaitAnalysis2D.ipynb)
+
+Under construction.
