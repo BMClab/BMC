@@ -41,4 +41,4 @@ Mechanics
 - **Kinetics**
  + [Fundamental concepts](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/KineticsFundamentalConcepts.ipynb)
  + [Body segment parameters](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/BodySegmentParameters.ipynb)
-
+ + [Free body diagram](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/FreeBodyDiagram.ipynb)
