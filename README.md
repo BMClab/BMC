@@ -26,6 +26,7 @@ Numerical data analysis
 - [Ensemble average](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Ensemble%20average.ipynb)
 - [Propagation of uncertainty](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Propagation%20of%20uncertainty.ipynb)
 - [Curve fitting](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/CurveFitting.ipynb)
+- [Open C3D file](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/OpenC3Dfile.ipynb)
 
 Mechanics
 ---------
@@ -44,4 +45,4 @@ Mechanics
  + [Free body diagram](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/FreeBodyDiagram.ipynb)
  + [Gait analysis (2D)](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/GaitAnalysis2D.ipynb)
 
-Under construction.
+Under construction...
