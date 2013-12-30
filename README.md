@@ -20,13 +20,15 @@ Numerical data analysis
 -----------------------
 - [Scalar and vector](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Scalar%20and%20vector.ipynb)
 - [Matrix](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Matrix.ipynb)
+- [Probability and statistics of a random variable](http://nbviewer.ipython.org/github/duartexyz/BMC/blob/master/Probability%20and%20statistics%20of%20a%20random%20variable.ipynb)
+- [Prediction ellipse and ellipsoid](http://nbviewer.ipython.org/github/duartexyz/BMC/blob/master/Prediction%20ellipse%20and%20ellipsoid.ipynb)
 - [Data filtering in signal processing](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/DataFiltering.ipynb)
  + [Residual analysis for the optimal cutoff frequency](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/ResidualAnalysis.ipynb)
 - [Time normalization of data](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Time%20normalization.ipynb) 
 - [Ensemble average](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Ensemble%20average.ipynb)
-- [Propagation of uncertainty](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Propagation%20of%20uncertainty.ipynb)
 - [Curve fitting](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/CurveFitting.ipynb)
-- [Open C3D file](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/OpenC3Dfile.ipynb)
+- [Propagation of uncertainty](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Propagation%20of%20uncertainty.ipynb)
+- [Open files in C3D format](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/OpenC3Dfile.ipynb)
 
 Mechanics
 ---------
