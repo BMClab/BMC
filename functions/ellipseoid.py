@@ -83,7 +83,7 @@ def ellipseoid(P, y=None, z=None, pvalue=.95, units=None, show=True):
     >>> volume, axes, angles, center, R = ellipseoid(P, units='cm', show=True)
     """
 
-    from scipy import stats
+    from scipy.stats import f as F 
 
     P = np.array(P, ndmin=2, dtype=float)
     if P.shape[0] == 1:
@@ -106,7 +106,7 @@ def ellipseoid(P, y=None, z=None, pvalue=.95, units=None, show=True):
     U, s, Vt = np.linalg.svd(cov)
     # semi-axes (largest first)
     p, n = s.size, P.shape[0]
-    saxes = np.sqrt(s*stats.f.ppf(pvalue, p, dfd=n-p)*(n-1)*p*(n+1)/(n*(n-p)))
+    saxes = np.sqrt(s * F.ppf(pvalue, p, dfd=n-p) * (n-1) * p * (n+1)/(n*(n-p)))
     volume = 4/3*np.pi*np.prod(saxes) if p == 3 else np.pi*np.prod(saxes)
     # rotation matrix
     R = Vt
