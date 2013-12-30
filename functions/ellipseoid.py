@@ -111,8 +111,8 @@ def ellipseoid(P, y=None, z=None, pvalue=.95, units=None, show=True):
     # rotation matrix
     R = Vt
     if s.size == 2:
-        angles = np.rad2deg(np.arctan2(R[1, 0], R[0, 0]))
-        angles = np.array([angles, angles + 90])
+        angles = np.array([np.rad2deg(np.arctan2(R[1, 0], R[0, 0])),
+                           90-np.rad2deg(np.arctan2(R[1, 0], -R[0, 0]))])
     else:
         angles = rotXYZ(R, unit='deg')
     # centroid of the ellipse(oid)
