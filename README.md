@@ -20,8 +20,8 @@ Numerical data analysis
 -----------------------
 - [Scalar and vector](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Scalar%20and%20vector.ipynb)
 - [Matrix](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Matrix.ipynb)
-- [Probability and statistics of a random variable](http://nbviewer.ipython.org/github/duartexyz/BMC/blob/master/Probability%20and%20statistics%20of%20a%20random%20variable.ipynb)
-- [Prediction ellipse and ellipsoid](http://nbviewer.ipython.org/github/duartexyz/BMC/blob/master/Prediction%20ellipse%20and%20ellipsoid.ipynb)
+- [Confidence and prediction intervals](http://nbviewer.ipython.org/github/duartexyz/BMC/blob/master/Confidence%20and%20prediction%20intervals.ipynb)
+ + [Prediction ellipse and ellipsoid](http://nbviewer.ipython.org/github/duartexyz/BMC/blob/master/Prediction%20ellipse%20and%20ellipsoid.ipynb)
 - [Curve fitting](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/CurveFitting.ipynb)
 - [Propagation of uncertainty](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Propagation%20of%20uncertainty.ipynb)
 - [Data filtering in signal processing](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/DataFiltering.ipynb)
