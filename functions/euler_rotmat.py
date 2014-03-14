@@ -3,7 +3,7 @@
 from __future__ import division, print_function
 
 __author__ = 'Marcos Duarte'
-__version__ = 'euler_rot_matrix.py v.1 2014/03/10'
+__version__ = 'euler_rotmat.py v.1 2014/03/10'
 
 
 def euler_rotmat(order='xyz', frame='local', angles=None, unit='deg',
