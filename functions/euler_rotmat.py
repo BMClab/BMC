@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+"""Euler rotation matrix given sequence, frame, and angles."""
+
 from __future__ import division, print_function
 
 __author__ = 'Marcos Duarte'
