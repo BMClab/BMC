@@ -9,7 +9,7 @@ __author__ = 'Marcos Duarte'
 __version__ = 'ellipseoid.py v.1 2013/12/30'
 
 
-def ellipseoid(P, y=None, z=None, pvalue=.95, units=None, show=True):
+def ellipseoid(P, y=None, z=None, pvalue=.95, units=None, show=True, ax=None):
     """Calculates an ellipse(oid) as prediction interval for multivariate data.
 
     The prediction ellipse (or ellipsoid) is a prediction interval for a sample
@@ -38,6 +38,7 @@ def ellipseoid(P, y=None, z=None, pvalue=.95, units=None, show=True):
         Units of the input data.
     show : bool, optional (default = True)
         True (1) plots data in a matplotlib figure, False (0) to not plot.
+    ax     : a matplotlib.axes.Axes instance (default = None)
 
     Returns
     -------
@@ -65,10 +66,10 @@ def ellipseoid(P, y=None, z=None, pvalue=.95, units=None, show=True):
 
     References
     ----------
-    .. [1] http://www.jstor.org/stable/2282774.
-    .. [2] http://en.wikipedia.org/wiki/Principal_component_analysis.
-    .. [3] http://en.wikipedia.org/wiki/Singular_value_decomposition.
-    .. [4] http://www.sciencedirect.com/science/article/pii/S0966636213005961.
+    .. [1] http://www.jstor.org/stable/2282774
+    .. [2] http://en.wikipedia.org/wiki/Principal_component_analysis
+    .. [3] http://en.wikipedia.org/wiki/Singular_value_decomposition
+    .. [4] http://www.sciencedirect.com/science/article/pii/S0966636213005961
 
     Examples
     --------
@@ -119,12 +120,12 @@ def ellipseoid(P, y=None, z=None, pvalue=.95, units=None, show=True):
     center = np.mean(P, axis=0)
 
     if show:
-        _plot(P, volume, saxes, center, R, pvalue, units, fig=None, ax=None)
+        _plot(P, volume, saxes, center, R, pvalue, units, ax)
 
     return volume, saxes, angles, center, R
 
 
-def _plot(P, volume, saxes, center, R, pvalue, units, fig, ax):
+def _plot(P, volume, saxes, center, R, pvalue, units, ax):
     """Plot results of the ellipseoid function, see its help."""
 
     try:
@@ -152,8 +153,8 @@ def _plot(P, volume, saxes, center, R, pvalue, units, fig, ax):
                     [x[i,j],y[i,j],z[i,j]]=np.dot([x[i,j],y[i,j],z[i,j]],R)+center
 
         if saxes.size == 2:
-            if fig is None:
-                fig, ax = plt.subplots(1, 1, figsize=(6, 6))
+            if ax is None:
+                fig, ax = plt.subplots(1, 1, figsize=(5, 5))
             # plot raw data
             ax.plot(P[:, 0], P[:, 1], '.-', color=[0, 0, 1, .5])
             # plot ellipse
@@ -179,7 +180,7 @@ def _plot(P, volume, saxes, center, R, pvalue, units, fig, ax):
                 title = title + r'%.2f' % volume
         else:
             from mpl_toolkits.mplot3d import Axes3D
-            if fig is None:
+            if ax is None:
                 fig = plt.figure(figsize=(7, 7))
                 ax = fig.add_axes([0, 0, 1, 1], projection='3d')
             ax.view_init(20, 30)
@@ -217,7 +218,7 @@ def _plot(P, volume, saxes, center, R, pvalue, units, fig, ax):
         plt.title(title)
         plt.show()
 
-        return fig, ax
+        return ax
 
 
 def rotXYZ(R, unit='deg'):

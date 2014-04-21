@@ -24,6 +24,7 @@ Numerical data analysis
  + [Prediction ellipse and ellipsoid](http://nbviewer.ipython.org/github/duartexyz/BMC/blob/master/Prediction%20ellipse%20and%20ellipsoid.ipynb)
 - [Curve fitting](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/CurveFitting.ipynb)
 - [Propagation of uncertainty](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Propagation%20of%20uncertainty.ipynb)
+- [Frequency analysis]()
 - [Data filtering in signal processing](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/DataFiltering.ipynb)
  + [Residual analysis for the optimal cutoff frequency](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/ResidualAnalysis.ipynb)
 - [Time normalization of data](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Time%20normalization.ipynb) 
@@ -47,5 +48,11 @@ Mechanics
  + [Body segment parameters](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/BodySegmentParameters.ipynb)
  + [Free body diagram](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/FreeBodyDiagram.ipynb)
  + [Gait analysis (2D)](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/GaitAnalysis2D.ipynb)
+
+Stabilography
+-------------
+- [Measurements in Stabilography]()
+- [The inverted pendulum model for the human standing posture]()
+
 
 Under construction...
