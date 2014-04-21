@@ -11,10 +11,10 @@ Introduction
 
 Scientific programming
 ----------------------
-- [Python for scientific computing](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Python%20for%20scientific%20computing.ipynb)
-- [How to install Python](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/How%20to%20install%20Python.ipynb)
-- [Python tutorial](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Python%20tutorial.ipynb)
-- [Version control with Git and GitHub](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Version%20Control%20with%20Git%20and%20GitHub.ipynb)
+- [Python for scientific computing](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Python4ScientificComputing.ipynb)
+- [How to install Python](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/PythonInstallation.ipynb.ipynb)
+- [Python tutorial](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/PythonTutorial.ipynb)
+- [Version control with Git and GitHub](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/VersionControlGitGitHub.ipynb)
 
 Numerical data analysis
 -----------------------
@@ -24,7 +24,7 @@ Numerical data analysis
  + [Prediction ellipse and ellipsoid](http://nbviewer.ipython.org/github/duartexyz/BMC/blob/master/PredictionEllipseEllipsoid.ipynb)
 - [Curve fitting](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/CurveFitting.ipynb)
 - [Propagation of uncertainty](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Propagation%20of%20uncertainty.ipynb)
-- [Frequency analysis]()
+- [Frequency analysis](http://nbviewer.ipython.org/github/duartexyz/BMC/blob/master/FrequencyAnalysis.ipynb)
 - [Data filtering in signal processing](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/DataFiltering.ipynb)
  + [Residual analysis for the optimal cutoff frequency](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/ResidualAnalysis.ipynb)
 - [Time normalization of data](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Time%20normalization.ipynb) 
@@ -36,7 +36,7 @@ Mechanics
 - **Kinematics**
  + [Frame of reference](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Frame%20of%20reference.ipynb)
  + [Kinematics of a particle](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Kinematics%20of%20a%20Particle.ipynb)   
- + [Spatial and temporal characteristcs](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Spatial%20and%20temporal%20characteristcs.ipynb)
+ + [Spatial and temporal characteristcs](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/SpatialTemporalCharacteristcs.ipynb)
  + [Minimum jerk hypothesis](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/MinimumJerkHypothesis.ipynb) 
  + [Angular kinematics (2D)](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/AngularKinematics2D.ipynb)  
  + [Kinematic chain](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/KinematicChain.ipynb) 
@@ -51,8 +51,8 @@ Mechanics
 
 Stabilography
 -------------
-- [Measurements in Stabilography]()
-- [The inverted pendulum model for the human standing posture]()
+- [Measurements in Stabilography](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Stabilography.ipynb)
+- [The inverted pendulum model for the human standing posture](http://nbviewer.ipython.org/github/duartexyz/BMC/blob/master/InvertedPendulumModel.ipynb)
 
 
 Under construction...
