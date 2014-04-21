@@ -18,7 +18,7 @@ Scientific programming
 
 Numerical data analysis
 -----------------------
-- [Scalar and vector](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Scalar%20and%20vector.ipynb)
+- [Scalar and vector](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/ScalarVector.ipynb)
 - [Matrix](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Matrix.ipynb)
 - [Confidence and prediction intervals](http://nbviewer.ipython.org/github/duartexyz/BMC/blob/master/ConfidencePredictionIntervals.ipynb)
  + [Prediction ellipse and ellipsoid](http://nbviewer.ipython.org/github/duartexyz/BMC/blob/master/PredictionEllipseEllipsoid.ipynb)
