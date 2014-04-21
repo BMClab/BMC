@@ -12,7 +12,7 @@ Introduction
 Scientific programming
 ----------------------
 - [Python for scientific computing](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Python4ScientificComputing.ipynb)
-- [How to install Python](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/PythonInstallation.ipynb.ipynb)
+- [How to install Python](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/PythonInstallation.ipynb)
 - [Python tutorial](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/PythonTutorial.ipynb)
 - [Version control with Git and GitHub](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/VersionControlGitGitHub.ipynb)
 
