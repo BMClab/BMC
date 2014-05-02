@@ -37,7 +37,7 @@ def cogve(COP, freq, mass, height, show=False, ax=None):
 
     References
     ----------
-    .. [1] http://nbviewer.ipython.org/github/duartexyz/BMC/blob/master/InvertedPendulumModel.ipynb
+    .. [1] http://nbviewer.ipython.org/github/duartexyz/BMC/blob/master/IP_Model.ipynb
 
     Examples
     --------
