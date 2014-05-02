@@ -51,7 +51,7 @@ Mechanics
 
 Stabilography
 -------------
-- [The inverted pendulum model of the human standing posture](http://nbviewer.ipython.org/github/duartexyz/BMC/blob/master/InvertedPendulumModel.ipynb)
+- [The inverted pendulum model of the human standing posture](http://nbviewer.ipython.org/github/duartexyz/BMC/blob/master/IP_Model.ipynb)
 - [Measurements in stabilography](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Stabilography.ipynb)
 
 
