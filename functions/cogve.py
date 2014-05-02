@@ -37,7 +37,7 @@ def cogve(COP, freq, mass, height, show=False, ax=None):
 
     References
     ----------
-    .. [1] https://github.com/duartexyz/BMC
+    .. [1] http://nbviewer.ipython.org/github/duartexyz/BMC/blob/master/InvertedPendulumModel.ipynb
 
     Examples
     --------
@@ -71,7 +71,7 @@ def cogve(COP, freq, mass, height, show=False, ax=None):
     COPfft = scipy.fftpack.fft(COP, n=N) / N  # COP fft
     w = 2 * np.pi * scipy.fftpack.fftfreq(n=N, d=1 / freq)  # angular frequency
     # transfer function
-    TF = w02 / (w02 + w ** 2)  # equal to: w02 / (w02 - (j * w) ** 2)
+    TF = w02 / (w02 + w ** 2)
     COGv = np.real(scipy.fftpack.ifft(TF * COPfft) * N)
     COGv = COGv[0: N]
     # get back the mean and pad off data
