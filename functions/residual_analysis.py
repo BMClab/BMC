@@ -7,7 +7,7 @@ import numpy as np
 from scipy.signal import butter, filtfilt
 
 __author__ = 'Marcos Duarte <duartexyz@gmail.com>'
-__version__ = 'residual_analysis.py v.1 2013/08/10'
+__version__ = 'residual_analysis.py v.2 2014/05/31'
 
 
 def residual_analysis(y, freq=1, fclim=[], show=False):
@@ -42,7 +42,9 @@ def residual_analysis(y, freq=1, fclim=[], show=False):
     Notes
     -----
     A second-order zero-phase digital Butterworth low-pass filter is used.
-
+    # The cutoff frequency is correctyed for the number of passes:
+    # C = 0.802 # for dual pass; C = (2**(1/npasses) - 1)**0.25
+    
     The matplotlib figure with the results will show a plot of the residual
     analysis with the optimal cutoff frequency, a plot with the unfiltered and
     filtered signals at this optimal cutoff frequency (with the RMSE of the
@@ -66,11 +68,13 @@ def residual_analysis(y, freq=1, fclim=[], show=False):
 
     It is known that this residual analysis algorithm results in oversmoothing
     kinematic data [2]_. Use it with moderation.
+    This code is described elsewhere [3]_.
 
     References
     ----------
     .. [1] Winter DA (2009) Biomechanics and motor control of human movement.
     .. [2] http://www.clinicalgaitanalysis.com/faq/cutoff.html
+    .. [3] http://nbviewer.ipython.org/github/duartexyz/BMC/blob/master/ResidualAnalysis.ipynb
 
     Examples
     --------
@@ -89,12 +93,15 @@ def residual_analysis(y, freq=1, fclim=[], show=False):
     """
 
     from scipy.interpolate import UnivariateSpline
+    
+    # Correct the cutoff frequency for the number of passes in the filter
+    C = 0.802 # for dual pass; C = (2**(1/npasses) - 1)**0.25
 
     # signal filtering
-    freqs = np.linspace((freq / 2) / 101, freq / 2, 101)
+    freqs = np.linspace((freq/2) / 101, (freq/2)*C, 101)
     res = []
     for fc in freqs:
-        b, a = butter(2, fc / (freq / 2))
+        b, a = butter(2, (fc/C) / (freq / 2))
         yf = filtfilt(b, a, y)
         # residual between filtered and unfiltered signals
         res = np.hstack((res, np.sqrt(np.mean((yf - y) ** 2))))
@@ -105,7 +112,7 @@ def residual_analysis(y, freq=1, fclim=[], show=False):
     # decay starts after 3 lifetimes (exp(-3), 95% drop)
     if not len(fclim) or np.any(fclim < 0) or np.any(fclim > freq / 2):
         fc1 = 0
-        fc2 = np.nonzero(freqs >= 0.9 * (freq / 2))[0][0]
+        fc2 = 0.95*(len(freqs)-1)
         # log of exponential turns the problem to first order polynomial fit
         # make the data always greater than zero before taking the logarithm
         reslog = np.log(np.abs(res[fc1:fc2 + 1] - res[fc2]) +
@@ -156,14 +163,16 @@ def _plot(y, freq, freqs, res, fclim, fc_opt, B, A):
             ylin = np.poly1d([B, A])(freqs)
             ax1.plot(freqs, ylin, 'r--', linewidth=2)
             ax1.plot(freqs[fclim[0]], res[fclim[0]], 'r>',
-                     freqs[fclim[1]], res[fclim[1]], 'r<', ms=10)
+                     freqs[fclim[1]], res[fclim[1]], 'r<', ms=9)
             ax1.set_ylim(ymin=0, ymax=4 * A)
             ax1.plot([0, freqs[-1]], [A, A], 'r-', linewidth=2)
             ax1.plot([fc_opt, fc_opt], [0, A], 'r-', linewidth=2)
             ax1.plot(fc_opt, 0, 'ro', markersize=7, clip_on=False,
                      zorder=9, label='$Fc_{opt}$ = %.1f Hz' % fc_opt)
             ax1.legend(fontsize=12, loc='best', numpoints=1, framealpha=.5)
-            b, a = butter(2, fc_opt / (freq / 2))
+            # Correct the cutoff frequency for the number of passes
+            C = 0.802 # for dual pass; C = (2**(1/npasses) - 1)**0.25
+            b, a = butter(2, (fc_opt/C) / (freq / 2))
             yf = filtfilt(b, a, y)
             ax2.plot(time, yf, color=[1, 0, 0, .5],
                      linewidth=2, label='Opt. filtered')
