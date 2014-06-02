@@ -7,8 +7,8 @@ import numpy as np
 from scipy import signal
 import matplotlib.pyplot as plt
 
-__author__ = 'Marcos Duarte <duartexyz@gmail.com>'
-__version__ = 'butterworth_plot.py v.1 2014/06/01'
+__author__ = 'Marcos Duarte https://github.com/duartexyz'
+__version__ = 'butterworth_plot.py v.1 2014/06/02'
 
 
 def butterworth_plot(fig=None, ax=None):
@@ -17,7 +17,7 @@ def butterworth_plot(fig=None, ax=None):
     """
 
     if fig is None:
-        fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10, 4))
+        fig, ax = plt.subplots(1, 2, figsize=(10, 4))
         
     b1, a1 = signal.butter(1, 10, 'low', analog=True)
     w, h1 = signal.freqs(b1, a1)
@@ -38,31 +38,35 @@ def butterworth_plot(fig=None, ax=None):
     w = w/10
 
     # PLOT
-    ax1.plot(w, h1, 'b', w, h2, 'r', w, h4, 'g', w, h6, 'y', linewidth=2)
-    ax1.axvline(1, color='black') # cutoff frequency
+    ax[0].plot(w, h1, 'b', w, h2, 'r', w, h4, 'g', w, h6, 'y', linewidth=2)
+    ax[0].axvline(1, color='black') # cutoff frequency
+    ax[0].scatter(1, -3, marker='s', edgecolor='0', facecolor='1', s=400)
     #ax1.legend(('1', '2', '4', '6'), title='Filter order', loc='best')
-    ax1.set_xscale('log')
+    ax[0].set_xscale('log')
     fig.suptitle('Bode plot for low-pass Butterworth filter with different orders',
                  fontsize=16, y=1.05)
     #ax1.set_title('Magnitude', fontsize=14)
-    ax1.set_xlabel('Frequency / Critical frequency', fontsize=12)
-    ax1.set_ylabel('Magnitude [dB]', fontsize=12)
-    ax1.set_ylim(-120, 10)
-    ax1.grid(which='both', axis='both')
-    ax2.plot(w, ang1, 'b', w, ang2, 'r', w, ang4, 'g', w, ang6, 'y', linewidth=2)
-    ax2.axvline(1, color='black')  # cutoff frequency
-    ax2.legend(('1', '2', '4', '6'), title='Filter order', loc='best')
-    ax2.set_xscale('log')
+    ax[0].set_xlabel('Frequency / Critical frequency', fontsize=14)
+    ax[0].set_ylabel('Magnitude [dB]', fontsize=14)
+    ax[0].set_xlim(0.1, 10)
+    ax[0].set_ylim(-120, 10)
+    ax[0].grid(which='both', axis='both')
+    ax[1].plot(w, ang1, 'b', w, ang2, 'r', w, ang4, 'g', w, ang6, 'y', linewidth=2)
+    ax[1].axvline(1, color='black')  # cutoff frequency
+    ax[1].legend(('1', '2', '4', '6'), title='Filter order', loc='best')
+    ax[1].set_xscale('log')
     #ax2.set_title('Phase', fontsize=14)
-    ax2.set_xlabel('Frequency / Critical frequency', fontsize=12)
-    ax2.set_ylabel('Phase [degrees]', fontsize=12)
-    ax2.set_yticks(np.arange(0, -300, -45))
-    ax2.set_ylim(-300, 10)
-    ax2.grid(which='both', axis='both')
+    ax[1].set_xlabel('Frequency / Critical frequency', fontsize=14)
+    ax[1].set_ylabel('Phase [degrees]', fontsize=14)
+    ax[1].set_yticks(np.arange(0, -300, -45))
+    ax[1].set_ylim(-300, 10)
+    ax[1].grid(which='both', axis='both')
     plt.tight_layout(w_pad=1)
-    ax11 = plt.axes([.115, .35, .15, .35])  # inset plot
-    ax11.plot(w, h1, 'b', w, h2, 'r', w, h4, 'g', w, h6, 'y', linewidth=2)
-    ax11.set_yticks(np.arange(0, -7, -3))
-    ax11.set_ylim([-7, 1])
-    ax11.set_xlim([.5, 1.5])
-    ax11.grid(which='both', axis='both')
+    axi = plt.axes([.115, .4, .15, .35])  # inset plot
+    axi.plot(w, h1, 'b', w, h2, 'r', w, h4, 'g', w, h6, 'y', linewidth=2)
+    #ax11.set_yticks(np.arange(0, -7, -3))
+    axi.set_xticks((0.6, 1, 1.4))
+    axi.set_yticks((-6, -3, 0))
+    axi.set_ylim([-7, 1])
+    axi.set_xlim([.5, 1.5])
+    axi.grid(which='both', axis='both')
