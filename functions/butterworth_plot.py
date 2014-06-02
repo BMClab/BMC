@@ -42,7 +42,8 @@ def butterworth_plot(fig=None, ax=None):
     ax1.axvline(1, color='black') # cutoff frequency
     #ax1.legend(('1', '2', '4', '6'), title='Filter order', loc='best')
     ax1.set_xscale('log')
-    fig.suptitle('Bode plot for low-pass Butterworth filters', fontsize=18, y=1.06)
+    fig.suptitle('Bode plot for low-pass Butterworth filter with different orders',
+                 fontsize=16, y=1.05)
     #ax1.set_title('Magnitude', fontsize=14)
     ax1.set_xlabel('Frequency / Critical frequency', fontsize=12)
     ax1.set_ylabel('Magnitude [dB]', fontsize=12)
