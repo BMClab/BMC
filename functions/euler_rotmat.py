@@ -4,7 +4,7 @@
 
 from __future__ import division, print_function
 
-__author__ = 'Marcos Duarte'
+__author__ = 'Marcos Duarte, https://github.com/duartexyz/BMC'
 __version__ = 'euler_rotmat.py v.1 2014/03/10'
 
 

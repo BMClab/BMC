@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 
-"""Automatic search of filter cutoff frequency based on residual analysis."""
+"""Plot of frequency response of the Butterworth filter with different orders."""
 
 from __future__ import division, print_function
 import numpy as np
 from scipy import signal
 import matplotlib.pyplot as plt
 
-__author__ = 'Marcos Duarte https://github.com/duartexyz'
+__author__ = 'Marcos Duarte, https://github.com/duartexyz/BMC'
 __version__ = 'butterworth_plot.py v.1 2014/06/02'
 
 

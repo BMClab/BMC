@@ -2,7 +2,7 @@
 
 """Calculates the transformation between two coordinate systems using SVD."""
 
-__author__ = 'Marcos Duarte'
+__author__ = 'Marcos Duarte, https://github.com/duartexyz/BMC'
 __version__ = 'svdt.py v.1 2013/12/23'
 
 import numpy as np

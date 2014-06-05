@@ -4,7 +4,7 @@
 
 from __future__ import division, print_function
 
-__author__ = 'Marcos Duarte <duartexyz@gmail.com>'
+__author__ = 'Marcos Duarte, https://github.com/duartexyz/BMC'
 __version__ = 'tnorm.py v.1 2013/08/10'
 
 

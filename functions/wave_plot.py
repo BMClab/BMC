@@ -1,15 +1,12 @@
 #!/usr/bin/env python
 
-from __future__ import division, print_function
-
-__author__ = 'Marcos Duarte'
-__version__ = 'ellipseoid.py v.1 2013/12/30'
+__author__ = 'Marcos Duarte, https://github.com/duartexyz/BMC'
+__version__ = 'wave_plot.py v.1 2013/12/30'
 
 
 def wave_plot(freq, t, y, y2, ax=None):
     """Propertie of waves: amplitude, frequency, phase.
     """
-    import numpy as np
     import matplotlib.pyplot as plt
     from matplotlib.ticker import MultipleLocator
     

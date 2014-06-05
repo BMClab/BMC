@@ -27,6 +27,7 @@ Numerical data analysis
 - [Frequency analysis](http://nbviewer.ipython.org/github/duartexyz/BMC/blob/master/FrequencyAnalysis.ipynb)
 - [Data filtering in signal processing](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/DataFiltering.ipynb)
  + [Residual analysis for the optimal cutoff frequency](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/ResidualAnalysis.ipynb)
+- [Signal detection](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/SignalDetection.ipynb)
 - [Time normalization of data](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Time%20normalization.ipynb) 
 - [Ensemble average](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/Ensemble%20average.ipynb)
 - [Open files in C3D format](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/OpenC3Dfile.ipynb)

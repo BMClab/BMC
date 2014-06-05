@@ -5,7 +5,7 @@
 from __future__ import division, print_function
 import numpy as np
 
-__author__ = 'Marcos Duarte <duartexyz@gmail.com>'
+__author__ = 'Marcos Duarte, https://github.com/duartexyz/BMC'
 __version__ = 'cogve.py v.1 2013/08/10'
 
 
