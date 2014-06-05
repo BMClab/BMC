@@ -3,6 +3,7 @@
 """Time normalization (from 0 to 100% with step interval)."""
 
 from __future__ import division, print_function
+import numpy as np
 
 __author__ = 'Marcos Duarte, https://github.com/duartexyz/BMC'
 __version__ = 'tnorm.py v.1 2013/08/10'
@@ -111,7 +112,6 @@ def tnorm(y, axis=0, step=1, degree=3, smooth=0, mask=None, show=False):
     >>> yn, tn = tnorm(y, step=-50, degree=3, smooth=1, show=True)
     """
 
-    import numpy as np
     from scipy.interpolate import UnivariateSpline
 
     y = np.asarray(y)
@@ -139,7 +139,7 @@ def tnorm(y, axis=0, step=1, degree=3, smooth=0, mask=None, show=False):
     else:
         tn = np.linspace(0, 100, -step)
     yn = np.empty([tn.size, y.shape[1]]) * np.NaN
-    for col in xrange(y.shape[1]):
+    for col in np.arange(y.shape[1]):
         # ignore NaNs inside data for the interpolation
         ind = np.isfinite(y[:, col])
         if np.sum(ind) > 1:  # at least two points for the interpolation
@@ -166,7 +166,7 @@ def _plot(t, y, tn, yn):
     else:
         plt.figure()
         ax = plt.gca()
-        for col in xrange(y.shape[1]):
+        for col in np.arange(y.shape[1]):
             if y.shape[1] == 1:
                 ax.plot(t, y[:, col], 'bo-', lw=1, label='Original data')
                 ax.plot(tn, yn[:, col], '.-', color=[1, 0, 0, .6], lw=2,
