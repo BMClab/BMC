@@ -20,11 +20,11 @@ Numerical data analysis
 -----------------------
 - [Scalar and vector](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/NBs/ScalarVector.ipynb)
 - [Matrix](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/NBs/Matrix.ipynb)
-- [Confidence and prediction intervals](http://nbviewer.ipython.org/github/duartexyz/BMC/master/ConfidencePredictionIntervals.ipynb)
- + [Prediction ellipse and ellipsoid](http://nbviewer.ipython.org/github/duartexyz/BMC/master/PredictionEllipseEllipsoid.ipynb)
+- [Confidence and prediction intervals](http://nbviewer.ipython.org/github/duartexyz/BMC/master/NBs/ConfidencePredictionIntervals.ipynb)
+ + [Prediction ellipse and ellipsoid](http://nbviewer.ipython.org/github/duartexyz/BMC/master/NBs/PredictionEllipseEllipsoid.ipynb)
 - [Curve fitting](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/NBs/CurveFitting.ipynb)
 - [Propagation of uncertainty](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/NBs/Propagation%20of%20uncertainty.ipynb)
-- [Frequency analysis](http://nbviewer.ipython.org/github/duartexyz/BMC/master/FrequencyAnalysis.ipynb)
+- [Frequency analysis](http://nbviewer.ipython.org/github/duartexyz/BMC/master/NBs/FrequencyAnalysis.ipynb)
 - [Data filtering in signal processing](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/NBs/DataFiltering.ipynb)
  + [Residual analysis for the optimal cutoff frequency](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/NBs/ResidualAnalysis.ipynb)
 - [Signal detection](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/NBs/SignalDetection.ipynb)
@@ -52,7 +52,7 @@ Mechanics
 
 Stabilography
 -------------
-- [The inverted pendulum model of the human standing posture](http://nbviewer.ipython.org/github/duartexyz/BMC/master/IP_Model.ipynb)
+- [The inverted pendulum model of the human standing posture](http://nbviewer.ipython.org/github/duartexyz/BMC/master/NBs/IP_Model.ipynb)
 - [Measurements in stabilography](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/NBs/Stabilography.ipynb)
 
 
