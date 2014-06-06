@@ -2,6 +2,7 @@ BMC
 ===
 
 Scientific Computing in Biomechanics and Motor Control
+------------------------------------------------------
 
 Marcos Duarte
 
