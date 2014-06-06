@@ -5,6 +5,11 @@ Scientific Computing in Biomechanics and Motor Control
 
 Marcos Duarte
 
+This repository is a collection of lectures on scientific computing and data analysis in Biomechanics and Motor Control.  
+This material is written using the [IPython Notebook](http://ipython.org/notebook.html) within the [Python ecosystem for scientific computing]( http://scipy.org/).  
+You can view this material in different ways: you can simply read online by clicking on the links below; you can download a single notebook or all the material or yet fork this entire repository using the GitHub resources and run the notebooks in your computer or in the cloud.  
+
+
 Introduction
 ------------
 - [Biomechanics](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/NBs/Introduction%20to%20Biomechanics.ipynb)
