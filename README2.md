@@ -20,7 +20,7 @@ Numerical data analysis
 -----------------------
 - [Scalar and vector](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/NBs/ScalarVector.ipynb)
 - [Matrix](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/NBs/Matrix.ipynb)
-- [Confidence and prediction intervals](http://nbviewer.ipython.org/github/duartexyz/BMC/master/NBs/ConfidencePredictionIntervals.ipynb)
+- [Confidence and prediction intervals](http://nbviewer.ipython.org/github/duartexyz/BMC/blob/master/NBs/ConfidencePredictionIntervals.ipynb)
  + [Prediction ellipse and ellipsoid](http://nbviewer.ipython.org/github/duartexyz/BMC/master/NBs/PredictionEllipseEllipsoid.ipynb)
 - [Curve fitting](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/NBs/CurveFitting.ipynb)
 - [Propagation of uncertainty](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/NBs/Propagation%20of%20uncertainty.ipynb)
