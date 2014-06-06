@@ -24,7 +24,7 @@ Numerical data analysis
  + [Prediction ellipse and ellipsoid](http://nbviewer.ipython.org/github/duartexyz/BMC/blob/master/NBs/PredictionEllipseEllipsoid.ipynb)
 - [Curve fitting](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/NBs/CurveFitting.ipynb)
 - [Propagation of uncertainty](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/NBs/Propagation%20of%20uncertainty.ipynb)
-- [Frequency analysis](http://nbviewer.ipython.org/github/duartexyz/BMC/master/NBs/FrequencyAnalysis.ipynb)
+- [Frequency analysis](http://nbviewer.ipython.org/github/duartexyz/BMC/blob/master/NBs/FrequencyAnalysis.ipynb)
 - [Data filtering in signal processing](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/NBs/DataFiltering.ipynb)
  + [Residual analysis for the optimal cutoff frequency](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/NBs/ResidualAnalysis.ipynb)
 - [Signal detection](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/NBs/SignalDetection.ipynb)
