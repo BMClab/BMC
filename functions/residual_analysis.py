@@ -6,7 +6,7 @@ from __future__ import division, print_function
 import numpy as np
 from scipy.signal import butter, filtfilt
 
-__author__ = 'Marcos Duarte, https://github.com/duartexyz/BMC'
+__author__ = 'Marcos Duarte, https://github.com/demotu/BMC'
 __version__ = 'residual_analysis.py v.3 2014/06/13'
 
 

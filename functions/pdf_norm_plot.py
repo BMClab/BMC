@@ -1,6 +1,6 @@
 from __future__ import division, print_function
 
-__author__ = 'Marcos Duarte, https://github.com/duartexyz/BMC'
+__author__ = 'Marcos Duarte, https://github.com/demotu/BMC'
 __version__ = 'ellipseoid.py v.1 2013/12/30'
 
 

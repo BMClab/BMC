@@ -5,7 +5,7 @@
 from __future__ import division, print_function
 import numpy as np
 
-__author__ = 'Marcos Duarte, https://github.com/duartexyz/BMC'
+__author__ = 'Marcos Duarte, https://github.com/demotu/BMC'
 __version__ = 'cusum.py v.2 2014/06/09'
 
 
@@ -68,7 +68,7 @@ def cusum(x, h=1, v=1, ending=False, show=True, ax=None):
     References
     ----------
     .. [1] Gustafsson (2000) Adaptive Filtering and Change Detection.
-    .. [2] http://nbviewer.ipython.org/github/duartexyz/BMC/blob/master/NBs/ChangeDetection.ipynb
+    .. [2] hhttp://nbviewer.ipython.org/github/demotu/BMC/blob/master/NBs/CUSUM.ipynb
 
     Examples
     --------

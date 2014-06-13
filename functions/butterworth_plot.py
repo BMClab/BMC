@@ -7,7 +7,7 @@ import numpy as np
 from scipy import signal
 import matplotlib.pyplot as plt
 
-__author__ = 'Marcos Duarte, https://github.com/duartexyz/BMC'
+__author__ = 'Marcos Duarte, https://github.com/demotu/BMC'
 __version__ = 'butterworth_plot.py v.1 2014/06/02'
 
 

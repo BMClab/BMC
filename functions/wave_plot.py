@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-__author__ = 'Marcos Duarte, https://github.com/duartexyz/BMC'
+__author__ = 'Marcos Duarte, https://github.com/demotu/BMC'
 __version__ = 'wave_plot.py v.1 2013/12/30'
 
 

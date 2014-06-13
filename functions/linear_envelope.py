@@ -5,7 +5,7 @@
 from __future__ import division, print_function
 from scipy.signal import detrend, butter, filtfilt
 
-__author__ = 'Marcos Duarte, https://github.com/duartexyz/BMC'
+__author__ = 'Marcos Duarte, https://github.com/demotu/BMC'
 __version__ = 'linear_envelope.py v.1 2014/05/31'
 
 
