@@ -50,7 +50,7 @@ def onset_detection(x, threshold=0, n_above=1, n_below=0, show=False, ax=None):
     >>> x = np.random.randn(100)
     >>> onset_detection(x, threshold=0, n_above=10, n_below=1, show=True)
 
-    >>> x = np.random.randn(200)/10 
+    >>> x = np.random.randn(200)/10
     >>> x[51:151] += np.hstack((np.linspace(0,1,50), np.linspace(1,0,50)))
     >>> inds = onset_detection(x, np.std(x[:50]), 10, 0, True)
     >>> inds
@@ -59,7 +59,7 @@ def onset_detection(x, threshold=0, n_above=1, n_below=0, show=False, ax=None):
     >>> onset_detection(x, threshold=1, n_above=1, n_below=0, show=True)
     """
 
-    x = np.atleast_1d(x).astype('float64')    
+    x = np.atleast_1d(x).astype('float64')
     # deal with NaN's (by definition, NaN's are not greater than threshold)
     x[np.isnan(x)] = -np.inf
     # indices of data greater than or equal to threshold
@@ -86,7 +86,7 @@ def _plot(x, threshold, n_above, n_below, inds, ax):
         print('matplotlib is not available.')
     else:
         if ax is None:
-            fig, ax = plt.subplots(1, 1, figsize=(8, 4))
+            _, ax = plt.subplots(1, 1, figsize=(8, 4))
 
         if inds.size:
             for (indi, indf) in inds:
@@ -111,6 +111,6 @@ def _plot(x, threshold, n_above, n_below, inds, ax):
         ax.set_xlabel('Data #', fontsize=14)
         ax.set_ylabel('Amplitude', fontsize=14)
         ax.set_title('Onset detection (threshold=%.3g, n_above=%d, n_below=%d)'\
-                     %(threshold, n_above, n_below))
-        #plt.grid()
+                     % (threshold, n_above, n_below))
+        # plt.grid()
         plt.show()

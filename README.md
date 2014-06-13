@@ -30,7 +30,9 @@ Numerical data analysis
 - [Frequency analysis](http://nbviewer.ipython.org/github/duartexyz/BMC/blob/master/NBs/FrequencyAnalysis.ipynb)
 - [Data filtering in signal processing](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/NBs/DataFiltering.ipynb)
  + [Residual analysis for the optimal cutoff frequency](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/NBs/ResidualAnalysis.ipynb)
-- [Change detection](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/NBs/ChangeDetection.ipynb)
+- Change detection  
+ + [Amplitude-threshold method](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/NBs/AmplitudeThreshold.ipynb  
+ + [Cumulative Sum (CUSUM) algorithm](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/NBs/CUSUM.ipynb)
 - [Time normalization of data](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/NBs/Time%20normalization.ipynb) 
 - [Ensemble average](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/NBs/Ensemble%20average.ipynb)
 - [Open files in C3D format](http://nbviewer.ipython.org/urls/raw.github.com/duartexyz/BMC/master/NBs/OpenC3Dfile.ipynb)
