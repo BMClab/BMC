@@ -68,7 +68,7 @@ def cusum(x, h=1, v=1, ending=False, show=True, ax=None):
     References
     ----------
     .. [1] Gustafsson (2000) Adaptive Filtering and Change Detection.
-    .. [2] hhttp://nbviewer.ipython.org/github/demotu/BMC/blob/master/NBs/CUSUM.ipynb
+    .. [2] hhttp://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/CUSUM.ipynb
 
     Examples
     --------

@@ -10,55 +10,55 @@ This material is far from finished.
 
 Introduction
 ------------
-- [Biomechanics](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/NBs/Introduction%20to%20Biomechanics.ipynb)
+- [Biomechanics](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/Introduction%20to%20Biomechanics.ipynb)
 
 Scientific programming
 ----------------------
-- [Python for scientific computing](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/NBs/Python4ScientificComputing.ipynb)
-- [How to install Python](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/NBs/PythonInstallation.ipynb)
-- [Python tutorial](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/NBs/PythonTutorial.ipynb)
-- [Version control with Git and GitHub](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/NBs/VersionControlGitGitHub.ipynb)
+- [Python for scientific computing](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/Python4ScientificComputing.ipynb)
+- [How to install Python](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/PythonInstallation.ipynb)
+- [Python tutorial](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/PythonTutorial.ipynb)
+- [Version control with Git and GitHub](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/VersionControlGitGitHub.ipynb)
 
 Numerical data analysis
 -----------------------
-- [Scalar and vector](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/NBs/ScalarVector.ipynb)
-- [Matrix](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/NBs/Matrix.ipynb)
-- [Confidence and prediction intervals](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/NBs/ConfidencePredictionIntervals.ipynb)
- + [Prediction ellipse and ellipsoid](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/NBs/PredictionEllipseEllipsoid.ipynb)
-- [Curve fitting](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/NBs/CurveFitting.ipynb)
-- [Propagation of uncertainty](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/NBs/Propagation%20of%20uncertainty.ipynb)
-- [Frequency analysis](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/NBs/FrequencyAnalysis.ipynb)
-- [Data filtering in signal processing](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/NBs/DataFiltering.ipynb)
- + [Residual analysis for the optimal cutoff frequency](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/NBs/ResidualAnalysis.ipynb)
+- [Scalar and vector](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/ScalarVector.ipynb)
+- [Matrix](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/Matrix.ipynb)
+- [Confidence and prediction intervals](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/ConfidencePredictionIntervals.ipynb)
+ + [Prediction ellipse and ellipsoid](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/PredictionEllipseEllipsoid.ipynb)
+- [Curve fitting](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/CurveFitting.ipynb)
+- [Propagation of uncertainty](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/Propagation%20of%20uncertainty.ipynb)
+- [Frequency analysis](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/FrequencyAnalysis.ipynb)
+- [Data filtering in signal processing](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/DataFiltering.ipynb)
+ + [Residual analysis for the optimal cutoff frequency](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/ResidualAnalysis.ipynb)
 - **Change detection**  
- + [Amplitude-threshold method](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/NBs/AmplitudeThreshold.ipynb)  
- + [Cumulative Sum (CUSUM) algorithm](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/NBs/CUSUM.ipynb)
-- [Time normalization of data](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/NBs/Time%20normalization.ipynb) 
-- [Ensemble average](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/NBs/Ensemble%20average.ipynb)
-- [Open files in C3D format](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/NBs/OpenC3Dfile.ipynb)
+ + [Amplitude-threshold method](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/AmplitudeThreshold.ipynb)  
+ + [Cumulative Sum (CUSUM) algorithm](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/CUSUM.ipynb)
+- [Time normalization of data](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/Time%20normalization.ipynb) 
+- [Ensemble average](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/Ensemble%20average.ipynb)
+- [Open files in C3D format](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/OpenC3Dfile.ipynb)
 
 Mechanics
 ---------
 - **Kinematics**
- + [Frame of reference](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/NBs/Frame%20of%20reference.ipynb)
- + [Kinematics of a particle](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/NBs/Kinematics%20of%20a%20Particle.ipynb)   
- + [Spatial and temporal characteristcs](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/NBs/SpatialTemporalCharacteristcs.ipynb)
- + [Minimum jerk hypothesis](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/NBs/MinimumJerkHypothesis.ipynb) 
- + [Angular kinematics (2D)](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/NBs/AngularKinematics2D.ipynb)  
- + [Kinematic chain](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/NBs/KinematicChain.ipynb) 
- + [Rigid-body transformations (2D)](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/NBs/Transformation2D.ipynb)   
- + [Rigid-body transformations (3D)](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/NBs/Transformation3D.ipynb)
-   - [Determining rigid body transformation using the SVD algorithm](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/NBs/SVDalgorithm.ipynb)
+ + [Frame of reference](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/Frame%20of%20reference.ipynb)
+ + [Kinematics of a particle](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/Kinematics%20of%20a%20Particle.ipynb)   
+ + [Spatial and temporal characteristcs](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/SpatialTemporalCharacteristcs.ipynb)
+ + [Minimum jerk hypothesis](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/MinimumJerkHypothesis.ipynb) 
+ + [Angular kinematics (2D)](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/AngularKinematics2D.ipynb)  
+ + [Kinematic chain](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/KinematicChain.ipynb) 
+ + [Rigid-body transformations (2D)](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/Transformation2D.ipynb)   
+ + [Rigid-body transformations (3D)](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/Transformation3D.ipynb)
+   - [Determining rigid body transformation using the SVD algorithm](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/SVDalgorithm.ipynb)
 - **Kinetics**
- + [Fundamental concepts](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/NBs/KineticsFundamentalConcepts.ipynb)
- + [Body segment parameters](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/NBs/BodySegmentParameters.ipynb)
- + [Free body diagram](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/NBs/FreeBodyDiagram.ipynb)
- + [Gait analysis (2D)](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/NBs/GaitAnalysis2D.ipynb)
+ + [Fundamental concepts](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/KineticsFundamentalConcepts.ipynb)
+ + [Body segment parameters](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/BodySegmentParameters.ipynb)
+ + [Free body diagram](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/FreeBodyDiagram.ipynb)
+ + [Gait analysis (2D)](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/GaitAnalysis2D.ipynb)
 
 Stabilography
 -------------
-- [The inverted pendulum model of the human standing posture](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/NBs/IP_Model.ipynb)
-- [Measurements in stabilography](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/NBs/Stabilography.ipynb)
+- [The inverted pendulum model of the human standing posture](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/IP_Model.ipynb)
+- [Measurements in stabilography](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/Stabilography.ipynb)
 
 
 License
