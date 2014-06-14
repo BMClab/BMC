@@ -21,7 +21,7 @@ def cusum(x, h=1, v=1, ending=False, show=True, ax=None):
     v : number, optional (default = 1)
         drift term that prevents any change in the absence of change.
     ending : bool, optional (default = False)
-        True (1) to estimate when the change terminates; False (0) otherwise.
+        True (1) to estimate when the change ends; False (0) otherwise.
     show : bool, optional (default = True)
         True (1) plots data in matplotlib figure, False (0) don't plot.
     ax : a matplotlib.axes.Axes instance, optional (default = None).
@@ -33,7 +33,7 @@ def cusum(x, h=1, v=1, ending=False, show=True, ax=None):
     tai : 1D array_like, int
         index of when the change started.
     taf : 1D array_like, int
-        index of when the change terminated (if `ending` is True).
+        index of when the change ended (if `ending` is True).
     amp : 1D array_like, float
         amplitude of changes (if `ending` is True).
 
@@ -57,9 +57,9 @@ def cusum(x, h=1, v=1, ending=False, show=True, ax=None):
 
     If you want to delete the repeated sequential changes and keep only the
     beginning of the first sequential change, set the parameter `ending` to
-    True. In this case, the index of the change termination (`taf`) and the
-    amplitude of the change (or the total amplitude for a repeated sequential
-    change) are calculated and only the first change of the the repeated
+    True. In this case, the index of the ending of the change (`taf`) and the
+    amplitude of the change (or of the total amplitude for a repeated
+    sequential change) are calculated and only the first change of the repeated
     sequential changes is kept. In this case, it is likely that `ta`, `tai`,
     and `taf` will have less values than when `ending` was set to False.
 
@@ -73,7 +73,7 @@ def cusum(x, h=1, v=1, ending=False, show=True, ax=None):
     Examples
     --------
     >>> from onset_detection import onset_detection
-    >>> x = np.random.randn(10000)
+    >>> x = np.cumsum(np.random.randn(10000))
     >>> ta, tai, taf, amp = cusum(x, 10, .2, False, True)
 
     >>> x = np.random.randn(300)
@@ -100,8 +100,9 @@ def cusum(x, h=1, v=1, ending=False, show=True, ax=None):
             ta = np.append(ta, i)   # alarm index
             tai = np.append(tai, tap if gp[i] > h else tan)  # start of change
             gp[i], gn[i] = 0, 0     # reset alarm
+    # THE CLASSICAL CUSUM ALGORITHM ENDS HERE
 
-    # Estimation of when the change terminates (offline form)
+    # Estimation of when the change ends (offline form)
     if tai.size and ending:
         _, tai2, _, _ = cusum(x[::-1], h, v, ending=False, show=False)
         taf = x.size - tai2[::-1] - 1
