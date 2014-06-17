@@ -6,19 +6,19 @@ from __future__ import division, print_function
 import numpy as np
 
 __author__ = 'Marcos Duarte, https://github.com/demotu/BMC'
-__version__ = 'cusum.py v.2 2014/06/09'
+__version__ = 'cusum.py v.3 2014/06/17'
 
 
-def cusum(x, h=1, v=1, ending=False, show=True, ax=None):
+def cusum(x, threshold=1, drift=0, ending=False, show=True, ax=None):
     """Cumulative sum algorithm (CUSUM) to detect abrupt changes in data.
 
     Parameters
     ----------
     x : 1D array_like
         data.
-    h : positive number, optional (default = 1)
+    threshold : positive number, optional (default = 1)
         amplitude threshold for the change in the data.
-    v : number, optional (default = 1)
+    drift : positive number, optional (default = 0)
         drift term that prevents any change in the absence of change.
     ending : bool, optional (default = False)
         True (1) to estimate when the change ends; False (0) otherwise.
@@ -40,15 +40,15 @@ def cusum(x, h=1, v=1, ending=False, show=True, ax=None):
     Notes
     -----
     Tuning of the CUSUM algorithm according to Gustafsson (2000)[1]_:
-    Start with a very large threshold `h`.
-    Choose `v` to one half of the expected change, or adjust `v` such that
-    `g` = 0 more than 50% of the time.
-    Then set the threshold so the required number of false alarms (this can be
-    done automatically) or delay for detection is obtained.
-    If faster detection is sought, try to decrease `v`.
-    If fewer false alarms are wanted, try to increase `v`.
+    Start with a very large `threshold`.
+    Choose `drift` to one half of the expected change, or adjust `drift` such
+    that `g` = 0 more than 50% of the time.
+    Then set the `threshold` so the required number of false alarms (this can
+    be done automatically) or delay for detection is obtained.
+    If faster detection is sought, try to decrease `drift`.
+    If fewer false alarms are wanted, try to increase `drift`.
     If there is a subset of the change times that does not make sense,
-    try to increase `v`.
+    try to increase `drift`.
 
     Note that by default repeated sequential changes, i.e., changes that have
     the same beginning (`tai`) are not deleted because the changes were
@@ -83,28 +83,27 @@ def cusum(x, h=1, v=1, ending=False, show=True, ax=None):
 
     x = np.atleast_1d(x).astype('float64')
     gp, gn = np.zeros(x.size), np.zeros(x.size)
-    a = np.array([], dtype=int)
-    ta, tai, taf = a, a, a
+    ta, tai, taf = np.array([[], [], []], dtype=int)
     tap, tan = 0, 0
     amp = np.array([])
     # Find changes (online form)
     for i in range(1, x.size):
         s = x[i] - x[i-1]
-        gp[i] = gp[i-1] + s - v     # cumulative sum for + change
-        gn[i] = gn[i-1] - s - v     # cumulative sum for - change
+        gp[i] = gp[i-1] + s - drift  # cumulative sum for + change
+        gn[i] = gn[i-1] - s - drift  # cumulative sum for - change
         if gp[i] < 0:
             gp[i], tap = 0, i
         if gn[i] < 0:
             gn[i], tan = 0, i
-        if gp[i] > h or gn[i] > h:  # change detected!
-            ta = np.append(ta, i)   # alarm index
-            tai = np.append(tai, tap if gp[i] > h else tan)  # start of change
-            gp[i], gn[i] = 0, 0     # reset alarm
+        if gp[i] > threshold or gn[i] > threshold:  # change detected!
+            ta = np.append(ta, i)    # alarm index
+            tai = np.append(tai, tap if gp[i] > threshold else tan)  # start
+            gp[i], gn[i] = 0, 0      # reset alarm
     # THE CLASSICAL CUSUM ALGORITHM ENDS HERE
 
     # Estimation of when the change ends (offline form)
     if tai.size and ending:
-        _, tai2, _, _ = cusum(x[::-1], h, v, ending=False, show=False)
+        _, tai2, _, _ = cusum(x[::-1], threshold, drift, show=False)
         taf = x.size - tai2[::-1] - 1
         # Eliminate repeated changes, changes that have the same beginning
         tai, ind = np.unique(tai, return_index=True)
@@ -128,12 +127,12 @@ def cusum(x, h=1, v=1, ending=False, show=True, ax=None):
         amp = x[taf] - x[tai]
 
     if show:
-        _plot(x, h, v, ending, ax, ta, tai, taf, gp, gn)
+        _plot(x, threshold, drift, ending, ax, ta, tai, taf, gp, gn)
 
     return ta, tai, taf, amp
 
 
-def _plot(x, h, v, ending, ax, ta, tai, taf, gp, gn):
+def _plot(x, threshold, drift, ending, ax, ta, tai, taf, gp, gn):
     """Plot results of the `cusum` function, see its help."""
 
     try:
@@ -162,13 +161,14 @@ def _plot(x, h, v, ending, ax, ta, tai, taf, gp, gn):
         yrange = ymax - ymin if ymax > ymin else 1
         ax1.set_ylim(ymin - 0.1*yrange, ymax + 0.1*yrange)
         ax1.set_title('Time series and detected changes ' +
-                      '(h= %.3g, v= %.3g): N changes = %d' % (h, v, len(tai)))
+                      '(threshold= %.3g, drift= %.3g): N changes = %d'
+                      % (threshold, drift, len(tai)))
         ax2.plot(t, gp, 'y-', label='+')
         ax2.plot(t, gn, 'm-', label='-')
         ax2.set_xlim(-.01*x.size, x.size*1.01-1)
         ax2.set_xlabel('Data #', fontsize=14)
-        ax2.set_ylim(-0.01*h, 1.1*h)
-        ax2.axhline(h, color='r')
+        ax2.set_ylim(-0.01*threshold, 1.1*threshold)
+        ax2.axhline(threshold, color='r')
         ax1.set_ylabel('Amplitude', fontsize=14)
         ax2.set_title('Time series of the cumulative sums of ' +
                       'positive and negative changes')
