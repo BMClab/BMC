@@ -6,10 +6,10 @@ from __future__ import division, print_function
 import numpy as np
 
 __author__ = 'Marcos Duarte, https://github.com/demotu/BMC'
-__version__ = 'onset_detection.py v.2 2014/06/09'
+__version__ = 'detect_onset.py v.2 2014/06/09'
 
 
-def onset_detection(x, threshold=0, n_above=1, n_below=0, show=False, ax=None):
+def detect_onset(x, threshold=0, n_above=1, n_below=0, show=False, ax=None):
     """Detects onset in data based on amplitude threshold.
 
     Parameters
@@ -24,7 +24,7 @@ def onset_detection(x, threshold=0, n_above=1, n_below=0, show=False, ax=None):
     n_below : number, optional (default = 0)
         minimum number of samples (continuous or not) below `threshold`
         that will be ignored in the detection of `x` >= `threshold`.
-    show  : bool, optional (default = True)
+    show  : bool, optional (default = False)
         True (1) plots data in matplotlib figure, False (0) don't plot.
     ax : a matplotlib.axes.Axes instance, optional (default = None).
 
@@ -42,21 +42,21 @@ def onset_detection(x, threshold=0, n_above=1, n_below=0, show=False, ax=None):
 
     References
     ----------
-    .. [1] http://nbviewer.ipython.org/github/duartexyz/BMC/blob/master/notebooks/ChangeDetection.ipynb
+    .. [1] http://nbviewer.ipython.org/github/duartexyz/BMC/blob/master/notebooks/DetectOnset.ipynb
 
     Examples
     --------
-    >>> from onset_detection import onset_detection
+    >>> from detect_onset import detect_onset
     >>> x = np.random.randn(100)
-    >>> onset_detection(x, threshold=0, n_above=10, n_below=1, show=True)
+    >>> detect_onset(x, threshold=0, n_above=10, n_below=1, show=True)
 
     >>> x = np.random.randn(200)/10
     >>> x[51:151] += np.hstack((np.linspace(0,1,50), np.linspace(1,0,50)))
-    >>> inds = onset_detection(x, np.std(x[:50]), 10, 0, True)
+    >>> inds = detect_onset(x, np.std(x[:50]), 10, 0, True)
     >>> inds
 
     >>> x = [0, 0, 2, 0, np.nan, 0, 2, 3, 3, 0, 1, 1, 0]
-    >>> onset_detection(x, threshold=1, n_above=1, n_below=0, show=True)
+    >>> detect_onset(x, threshold=1, n_above=1, n_below=0, show=True)
     """
 
     x = np.atleast_1d(x).astype('float64')
@@ -79,7 +79,7 @@ def onset_detection(x, threshold=0, n_above=1, n_below=0, show=False, ax=None):
 
 
 def _plot(x, threshold, n_above, n_below, inds, ax):
-    """Plot results of the cogve function, see its help."""
+    """Plot results of the detect_onset function, see its help."""
     try:
         import matplotlib.pyplot as plt
     except ImportError:

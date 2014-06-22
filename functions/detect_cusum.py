@@ -6,10 +6,10 @@ from __future__ import division, print_function
 import numpy as np
 
 __author__ = 'Marcos Duarte, https://github.com/demotu/BMC'
-__version__ = 'cusum.py v.3 2014/06/17'
+__version__ = 'detect_cusum.py v.3 2014/06/17'
 
 
-def cusum(x, threshold=1, drift=0, ending=False, show=True, ax=None):
+def detect_cusum(x, threshold=1, drift=0, ending=False, show=True, ax=None):
     """Cumulative sum algorithm (CUSUM) to detect abrupt changes in data.
 
     Parameters
@@ -68,17 +68,17 @@ def cusum(x, threshold=1, drift=0, ending=False, show=True, ax=None):
     References
     ----------
     .. [1] Gustafsson (2000) Adaptive Filtering and Change Detection.
-    .. [2] hhttp://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/CUSUM.ipynb
+    .. [2] hhttp://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/DetectCUSUM.ipynb
 
     Examples
     --------
-    >>> from onset_detection import onset_detection
+    >>> from detect_cusum import detect_cusum
     >>> x = np.cumsum(np.random.randn(10000))
-    >>> ta, tai, taf, amp = cusum(x, 10, .2, False, True)
+    >>> ta, tai, taf, amp = detect_cusum(x, 10, .2, False, True)
 
     >>> x = np.random.randn(300)
     >>> x[100:200] += 6
-    >>> cusum(x, 3, 1.5, True, True)
+    >>> detect_cusum(x, 3, 1.5, True, True)
     """
 
     x = np.atleast_1d(x).astype('float64')
@@ -103,7 +103,7 @@ def cusum(x, threshold=1, drift=0, ending=False, show=True, ax=None):
 
     # Estimation of when the change ends (offline form)
     if tai.size and ending:
-        _, tai2, _, _ = cusum(x[::-1], threshold, drift, show=False)
+        _, tai2, _, _ = detect_cusum(x[::-1], threshold, drift, show=False)
         taf = x.size - tai2[::-1] - 1
         # Eliminate repeated changes, changes that have the same beginning
         tai, ind = np.unique(tai, return_index=True)
@@ -133,7 +133,7 @@ def cusum(x, threshold=1, drift=0, ending=False, show=True, ax=None):
 
 
 def _plot(x, threshold, drift, ending, ax, ta, tai, taf, gp, gn):
-    """Plot results of the `cusum` function, see its help."""
+    """Plot results of the detect_cusum function, see its help."""
 
     try:
         import matplotlib.pyplot as plt

@@ -31,8 +31,9 @@ Numerical data analysis
 - [Data filtering in signal processing](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/DataFiltering.ipynb)
  + [Residual analysis for the optimal cutoff frequency](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/ResidualAnalysis.ipynb)
 - **Change detection**  
- + [Amplitude-threshold method](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/AmplitudeThreshold.ipynb)  
- + [Cumulative Sum (CUSUM) algorithm](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/CUSUM.ipynb)
+ + [Detection of peaks](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/DetectCUSUM.ipynb) 
+ + [Detection of onset](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/DetectOnset.ipynb)  
+ + [Detection of changes using the Cumulative Sum (CUSUM)](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/DetectCUSUM.ipynb)
 - [Time normalization of data](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/Time%20normalization.ipynb) 
 - [Ensemble average](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/Ensemble%20average.ipynb)
 - [Open files in C3D format](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/OpenC3Dfile.ipynb)
