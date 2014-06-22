@@ -31,7 +31,7 @@ Numerical data analysis
 - [Data filtering in signal processing](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/DataFiltering.ipynb)
  + [Residual analysis for the optimal cutoff frequency](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/ResidualAnalysis.ipynb)
 - **Change detection**  
- + [Detection of peaks](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/DetectCUSUM.ipynb) 
+ + [Detection of peaks](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/DetectPeaks.ipynb) 
  + [Detection of onset](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/DetectOnset.ipynb)  
  + [Detection of changes using the Cumulative Sum (CUSUM)](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/DetectCUSUM.ipynb)
 - [Time normalization of data](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/Time%20normalization.ipynb) 
