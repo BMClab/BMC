@@ -43,7 +43,7 @@ def detect_peaks(x, mph=None, mpd=1, threshold=None, edge='rising', kpsh=False,
     Notes
     -----
     The minimum peak distance (mpd) option slows down a lot the function if
-    the data has several peaks (>1000). Try to decrease the number os peaks
+    the data has several peaks (>1000). Try to decrease the number of peaks
     by tuning the other parameters or smooth the data before calling this
     function with several peaks in the data.
 
