@@ -10,7 +10,7 @@ __version__ = 'detect_peaks.py v.2 2014/06/23'
 
 
 def detect_peaks(x, mph=None, mpd=1, threshold=None, edge='rising', kpsh=False,
-                 show=False, ax=None):
+                 valley=False, show=False, ax=None):
 
     """Detect peaks in data based on their amplitude and other features.
 
@@ -31,8 +31,10 @@ def detect_peaks(x, mph=None, mpd=1, threshold=None, edge='rising', kpsh=False,
         flat peak (None).
     kpsh : bool, optional (default = False)
         keep peaks with same height even if they are closer than `mpd`.
+    valley : bool, optional (default = False)
+        if True (1), detect valleys (local minima) instead of peaks.
     show : bool, optional (default = False)
-        True (1) plots data in matplotlib figure, False (0) don't plot.
+        if True (1), plot data in matplotlib figure.
     ax : a matplotlib.axes.Axes instance, optional (default = None).
 
     Returns
@@ -47,8 +49,8 @@ def detect_peaks(x, mph=None, mpd=1, threshold=None, edge='rising', kpsh=False,
     by tuning the other parameters or smooth the data before calling this
     function with several peaks in the data.
 
-    To detect valleys instead of peaks, just negate the data:
-    `ind_valleys = detect_peaks(-x)`
+    The detection of valleys instead of peaks is performed internally by simply
+    negating the data: `ind_valleys = detect_peaks(-x)`
 
     See this IPython Notebook [1]_.
 
@@ -68,12 +70,18 @@ def detect_peaks(x, mph=None, mpd=1, threshold=None, edge='rising', kpsh=False,
     >>> # set minimum peak height = 0 and minimum peak distance = 20
     >>> detect_peaks(x, mph=0, mpd=20, show=True)
 
+    >>> x = np.sin(2*np.pi*5*np.linspace(0, 1, 200)) + np.random.randn(200)/5
+    >>> # detection of valleys instaed of peaks
+    >>> detect_peaks(x, mph=0, mpd=20, valley=True, show=True)
+
     >>> x = [0, 1, 1, 0, 1, 1, 0]
     >>> # detect both edges
     >>> detect_peaks(x, edge='both', show=True)
     """
 
     x = np.atleast_1d(x).astype('float64')
+    if valley:
+        x = -x
     # deal with NaN's
     indnan = np.where(np.isnan(x))[0]
     if indnan.size:
@@ -118,16 +126,17 @@ def detect_peaks(x, mph=None, mpd=1, threshold=None, edge='rising', kpsh=False,
                 idel[i] = 0  # Keep current peak
         # remove the small peaks and sort back the indices by their occurrence
         ind = np.sort(ind[~idel])
-
     if show:
         if indnan.size:
             x[indnan] = np.nan
-        _plot(x, mph, mpd, threshold, edge, ax, ind)
+        if valley:
+            x = -x
+        _plot(x, mph, mpd, threshold, edge, valley, ax, ind)
 
     return ind
 
 
-def _plot(x, mph, mpd, threshold, edge, ax, ind):
+def _plot(x, mph, mpd, threshold, edge, valley, ax, ind):
     """Plot results of the detect_peaks function, see its help."""
     try:
         import matplotlib.pyplot as plt
@@ -139,15 +148,19 @@ def _plot(x, mph, mpd, threshold, edge, ax, ind):
 
         ax.plot(x, 'b', lw=1)
         if ind.size:
-            ax.plot(ind, x[ind], '+', mfc=None, mec='r', mew=2, ms=8)
-
+            label = 'valley' if valley else 'peak'
+            label = label + 's' if ind.size > 1 else label
+            ax.plot(ind, x[ind], '+', mfc=None, mec='r', mew=2, ms=8,
+                    label='%d %s' % (ind.size, label))
+            ax.legend(loc='best', framealpha=.5, numpoints=1)
         ax.set_xlim(-.02*x.size, x.size*1.02-1)
         ymin, ymax = x[np.isfinite(x)].min(), x[np.isfinite(x)].max()
         yrange = ymax - ymin if ymax > ymin else 1
         ax.set_ylim(ymin - 0.1*yrange, ymax + 0.1*yrange)
         ax.set_xlabel('Data #', fontsize=14)
         ax.set_ylabel('Amplitude', fontsize=14)
-        ax.set_title("Peak detection (mph=%s, mpd=%d, threshold=%s, edge='%s')"
-                     % (str(mph), mpd, str(threshold), edge))
+        mode = 'Valley detection' if valley else 'Peak detection'
+        ax.set_title("%s (mph=%s, mpd=%d, threshold=%s, edge='%s')"
+                     % (mode, str(mph), mpd, str(threshold), edge))
         # plt.grid()
         plt.show()
