@@ -6,7 +6,7 @@ from __future__ import division, print_function
 import numpy as np
 
 __author__ = 'Marcos Duarte, https://github.com/demotu/BMC'
-__version__ = 'detect_peaks.py v.2 2014/06/23'
+__version__ = 'detect_peaks.py v.3 2014/06/23'
 
 
 def detect_peaks(x, mph=None, mpd=1, threshold=None, edge='rising', kpsh=False,
@@ -56,7 +56,7 @@ def detect_peaks(x, mph=None, mpd=1, threshold=None, edge='rising', kpsh=False,
 
     References
     ----------
-    .. [1] http://nbviewer.ipython.org/github/duartexyz/BMC/blob/master/notebooks/DetectPeaks.ipynb
+    .. [1] http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/DetectPeaks.ipynb
 
     Examples
     --------
@@ -71,12 +71,16 @@ def detect_peaks(x, mph=None, mpd=1, threshold=None, edge='rising', kpsh=False,
     >>> detect_peaks(x, mph=0, mpd=20, show=True)
 
     >>> x = np.sin(2*np.pi*5*np.linspace(0, 1, 200)) + np.random.randn(200)/5
-    >>> # detection of valleys instaed of peaks
+    >>> # detection of valleys instead of peaks
     >>> detect_peaks(x, mph=0, mpd=20, valley=True, show=True)
 
     >>> x = [0, 1, 1, 0, 1, 1, 0]
     >>> # detect both edges
     >>> detect_peaks(x, edge='both', show=True)
+
+    >>> x = [-1, 1, -2, 2, 1, 2, 3, 0]
+    >>> # set threshold = 2
+    >>> detect_peaks(x, threshold = 2, show=True)
     """
 
     x = np.atleast_1d(x).astype('float64')
@@ -109,18 +113,15 @@ def detect_peaks(x, mph=None, mpd=1, threshold=None, edge='rising', kpsh=False,
         ind = ind[x[ind] >= mph]
     # remove peaks - neighbors < threshold
     if ind.size and threshold is not None:
-        tmp = []
-        for i in range(ind.size):
-            if np.min([x[ind]-x[ind-1], x[ind]-x[ind+1]]) < threshold:
-                tmp.append(ind[i])
-        ind = np.delete(ind, tmp)
+        dx = np.min(np.vstack([x[ind]-x[ind-1], x[ind]-x[ind+1]]), axis=0)
+        ind = np.delete(ind, np.where(dx < threshold)[0])
     # detect small peaks closer than minimum peak distance
     if ind.size and mpd > 1:
         ind = ind[np.argsort(x[ind])][::-1]  # sort ind by peak height
         idel = np.zeros(ind.size, dtype=bool)
         for i in range(ind.size):
             if not idel[i]:
-                # keep peaks with the same height
+                # keep peaks with the same height if kpsh is True
                 idel = idel | (ind >= ind[i] - mpd) & (ind <= ind[i] + mpd) \
                     & (x[ind[i]] > x[ind] if kpsh else True)
                 idel[i] = 0  # Keep current peak
