@@ -44,11 +44,6 @@ def detect_peaks(x, mph=None, mpd=1, threshold=None, edge='rising', kpsh=False,
 
     Notes
     -----
-    The minimum peak distance (mpd) option slows down a lot the function if
-    the data has several peaks (>1000). Try to decrease the number of peaks
-    by tuning the other parameters or smooth the data before calling this
-    function with several peaks in the data.
-
     The detection of valleys instead of peaks is performed internally by simply
     negating the data: `ind_valleys = detect_peaks(-x)`
 
@@ -78,12 +73,14 @@ def detect_peaks(x, mph=None, mpd=1, threshold=None, edge='rising', kpsh=False,
     >>> # detect both edges
     >>> detect_peaks(x, edge='both', show=True)
 
-    >>> x = [-1, 1, -2, 2, 1, 2, 3, 0]
+    >>> x = [-2, 1, -2, 2, 1, 1, 3, 0]
     >>> # set threshold = 2
     >>> detect_peaks(x, threshold = 2, show=True)
     """
 
     x = np.atleast_1d(x).astype('float64')
+    if x.size < 3:
+        return np.array([], dtype=int)
     if valley:
         x = -x
     # deal with NaN's
@@ -91,7 +88,7 @@ def detect_peaks(x, mph=None, mpd=1, threshold=None, edge='rising', kpsh=False,
     if indnan.size:
         x[indnan] = np.inf
     # find indices of all peaks
-    dx = np.diff(x)
+    dx = x[1:] - x[:-1]
     ine, ire, ife = np.array([[], [], []], dtype=int)
     if not edge:
         ine = np.where((np.hstack((dx, 0)) < 0) & (np.hstack((0, dx)) > 0))[0]
