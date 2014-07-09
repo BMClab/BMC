@@ -1,16 +1,15 @@
-#!/usr/bin/env python
-
 """Detect peaks in data based on their amplitude and other features."""
 
 from __future__ import division, print_function
 import numpy as np
 
-__author__ = 'Marcos Duarte, https://github.com/demotu/BMC'
-__version__ = 'detect_peaks.py v.3 2014/06/23'
+__author__ = "Marcos Duarte, https://github.com/demotu/BMC"
+__version__ = "1.0.4"
+__license__ = "MIT"
 
 
-def detect_peaks(x, mph=None, mpd=1, threshold=None, edge='rising', kpsh=False,
-                 valley=False, show=False, ax=None):
+def detect_peaks(x, mph=None, mpd=1, threshold=0, edge='rising',
+                 kpsh=False, valley=False, show=False, ax=None):
 
     """Detect peaks in data based on their amplitude and other features.
 
@@ -21,10 +20,11 @@ def detect_peaks(x, mph=None, mpd=1, threshold=None, edge='rising', kpsh=False,
     mph : {None, number}, optional (default = None)
         detect peaks that are greater than minimum peak height.
     mpd : positive integer, optional (default = 1)
-        detect peaks that are at least separated by minimum peak distance.
-    threshold : {None, positive number}, optional (default = None)
-        detect peaks that are greater than `threshold` w.r.t. their immediate
-        neighbors.
+        detect peaks that are at least separated by minimum peak distance (in
+        number of data).
+    threshold : positive number, optional (default = 0)
+        detect peaks (valleys) that are greater (smaller) than `threshold`
+        in relation to their immediate neighbors.
     edge : {None, 'rising', 'falling', 'both'}, optional (default = 'rising')
         for a flat peak, keep only the rising edge ('rising'), only the
         falling edge ('falling'), both edges ('both'), or don't detect a
@@ -109,7 +109,7 @@ def detect_peaks(x, mph=None, mpd=1, threshold=None, edge='rising', kpsh=False,
     if ind.size and mph is not None:
         ind = ind[x[ind] >= mph]
     # remove peaks - neighbors < threshold
-    if ind.size and threshold is not None:
+    if ind.size and threshold > 0:
         dx = np.min(np.vstack([x[ind]-x[ind-1], x[ind]-x[ind+1]]), axis=0)
         ind = np.delete(ind, np.where(dx < threshold)[0])
     # detect small peaks closer than minimum peak distance
