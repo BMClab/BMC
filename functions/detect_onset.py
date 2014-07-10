@@ -1,12 +1,11 @@
-#!/usr/bin/env python
-
 """Detects onset in data based on amplitude threshold."""
 
 from __future__ import division, print_function
 import numpy as np
 
 __author__ = 'Marcos Duarte, https://github.com/demotu/BMC'
-__version__ = 'detect_onset.py v.2 2014/06/09'
+__version__ = "1.0.5"
+__license__ = "MIT"
 
 
 def detect_onset(x, threshold=0, n_above=1, n_below=0, show=False, ax=None):
@@ -22,8 +21,8 @@ def detect_onset(x, threshold=0, n_above=1, n_below=0, show=False, ax=None):
         minimum number of continuous samples greater than or equal to
         `threshold` to detect (but see the parameter `n_below`).
     n_below : number, optional (default = 0)
-        minimum number of samples (continuous or not) below `threshold`
-        that will be ignored in the detection of `x` >= `threshold`.
+        minimum number of continuous samples below `threshold` that
+        will be ignored in the detection of `x` >= `threshold`.
     show  : bool, optional (default = False)
         True (1) plots data in matplotlib figure, False (0) don't plot.
     ax : a matplotlib.axes.Axes instance, optional (default = None).
@@ -42,18 +41,24 @@ def detect_onset(x, threshold=0, n_above=1, n_below=0, show=False, ax=None):
 
     References
     ----------
-    .. [1] http://nbviewer.ipython.org/github/duartexyz/BMC/blob/master/notebooks/DetectOnset.ipynb
+    .. [1] http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/DetectOnset.ipynb
 
     Examples
     --------
     >>> from detect_onset import detect_onset
-    >>> x = np.random.randn(100)
-    >>> detect_onset(x, threshold=0, n_above=10, n_below=1, show=True)
+    >>> x = np.random.randn(200)/10
+    >>> x[51:151] += np.hstack((np.linspace(0,1,50), np.linspace(1,0,50)))
+    >>> detect_onset(x, np.std(x[:50]), n_above=10, n_below=0, show=True)
 
     >>> x = np.random.randn(200)/10
     >>> x[51:151] += np.hstack((np.linspace(0,1,50), np.linspace(1,0,50)))
-    >>> inds = detect_onset(x, np.std(x[:50]), 10, 0, True)
-    >>> inds
+    >>> x[80:140:20] = 0
+    >>> detect_onset(x, np.std(x[:50]), n_above=10, n_below=0, show=True)
+
+    >>> x = np.random.randn(200)/10
+    >>> x[51:151] += np.hstack((np.linspace(0,1,50), np.linspace(1,0,50)))
+    >>> x[80:140:20] = 0
+    >>> detect_onset(x, np.std(x[:50]), n_above=10, n_below=1, show=True)
 
     >>> x = [0, 0, 2, 0, np.nan, 0, 2, 3, 3, 0, 1, 1, 0]
     >>> detect_onset(x, threshold=1, n_above=1, n_below=0, show=True)
