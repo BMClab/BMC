@@ -1,12 +1,11 @@
-#!/usr/bin/env python
-
 """Cumulative sum algorithm (CUSUM) to detect abrupt changes in data."""
 
 from __future__ import division, print_function
 import numpy as np
 
 __author__ = 'Marcos Duarte, https://github.com/demotu/BMC'
-__version__ = 'detect_cusum.py v.3 2014/06/17'
+__version__ = "1.0.4"
+__license__ = "MIT"
 
 
 def detect_cusum(x, threshold=1, drift=0, ending=False, show=True, ax=None):
@@ -73,12 +72,16 @@ def detect_cusum(x, threshold=1, drift=0, ending=False, show=True, ax=None):
     Examples
     --------
     >>> from detect_cusum import detect_cusum
-    >>> x = np.cumsum(np.random.randn(10000))
-    >>> ta, tai, taf, amp = detect_cusum(x, 10, .2, False, True)
+    >>> x = np.random.randn(300)/5
+    >>> x[100:200] += np.arange(0, 4, 4/100)
+    >>> ta, tai, taf, amp = detect_cusum(x, 2, .02, True, True)
 
     >>> x = np.random.randn(300)
     >>> x[100:200] += 6
-    >>> detect_cusum(x, 3, 1.5, True, True)
+    >>> detect_cusum(x, 4, 1.5, True, True)
+
+    >>> x = 2*np.sin(2*np.pi*np.arange(0, 3, .01))
+    >>> ta, tai, taf, amp = detect_cusum(x, 1, .05, True, True)
     """
 
     x = np.atleast_1d(x).astype('float64')
