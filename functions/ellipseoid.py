@@ -1,12 +1,11 @@
-#!/usr/bin/env python
-
 """Calculates an ellipse(oid) as prediction interval for multivariate data."""
 
 from __future__ import division, print_function
 import numpy as np
 
 __author__ = 'Marcos Duarte, https://github.com/demotu/BMC'
-__version__ = 'ellipseoid.py v.1 2013/12/30'
+__version__ = "1.0.2"
+__license__ = "MIT"
 
 
 def ellipseoid(P, y=None, z=None, pvalue=.95, units=None, show=True, ax=None):
@@ -19,7 +18,7 @@ def ellipseoid(P, y=None, z=None, pvalue=.95, units=None, show=True, ax=None):
 
     The semi-axes of the prediction ellipse(oid) are found by calculating the
     eigenvalues of the covariance matrix of the data and adjust the size of the
-    semi-axes to account for the necessary prediction probability. 
+    semi-axes to account for the necessary prediction probability.
 
     Parameters
     ----------
@@ -60,31 +59,32 @@ def ellipseoid(P, y=None, z=None, pvalue=.95, units=None, show=True, ax=None):
     eigenvectors and eigenvalues of the covariance matrix of the data using
     the concept of principal components analysis (PCA) [2]_ or singular value
     decomposition (SVD) [3]_.
-    
-    See [4]_ for a discussion about prediction and confidence intervals and
-    their use in posturography.
 
     References
     ----------
     .. [1] http://www.jstor.org/stable/2282774
     .. [2] http://en.wikipedia.org/wiki/Principal_component_analysis
     .. [3] http://en.wikipedia.org/wiki/Singular_value_decomposition
-    .. [4] http://www.sciencedirect.com/science/article/pii/S0966636213005961
 
     Examples
     --------
-    >>> import numpy as np
     >>> from ellipseoid import ellipseoid
     >>> y = np.cumsum(np.random.randn(3000)) / 50
     >>> x = np.cumsum(np.random.randn(3000)) / 100
     >>> area, axes, angles, center, R = ellipseoid(x, y, units='cm', show=True)
+    >>> print('Area =', area)
+    >>> print('Semi-axes =', axes)
+    >>> print('Angles =', angles)
+    >>> print('Center =', center)
+    >>> print('Rotation matrix =\n', R)
+
     >>> P = np.random.randn(1000, 3)
     >>> P[:, 2] = P[:, 2] + P[:, 1]*.5
     >>> P[:, 1] = P[:, 1] + P[:, 0]*.5
     >>> volume, axes, angles, center, R = ellipseoid(P, units='cm', show=True)
     """
 
-    from scipy.stats import f as F 
+    from scipy.stats import f as F
 
     P = np.array(P, ndmin=2, dtype=float)
     if P.shape[0] == 1:
@@ -107,7 +107,7 @@ def ellipseoid(P, y=None, z=None, pvalue=.95, units=None, show=True, ax=None):
     U, s, Vt = np.linalg.svd(cov)
     # semi-axes (largest first)
     p, n = s.size, P.shape[0]
-    saxes = np.sqrt(s * F.ppf(pvalue, p, dfd=n-p) * (n-1) * p * (n+1)/(n*(n-p)))
+    saxes = np.sqrt(s * F.ppf(pvalue, p, dfd=n-p)*(n-1)*p*(n+1)/(n*(n-p)))
     volume = 4/3*np.pi*np.prod(saxes) if p == 3 else np.pi*np.prod(saxes)
     # rotation matrix
     R = Vt
@@ -132,7 +132,7 @@ def _plot(P, volume, saxes, center, R, pvalue, units, ax):
         import matplotlib.pyplot as plt
     except ImportError:
         print('matplotlib is not available.')
-    else:
+    else:       
         # code based on https://github.com/minillinim/ellipsoid:
         # parametric equations
         u = np.linspace(0, 2*np.pi, 100)
@@ -150,7 +150,7 @@ def _plot(P, volume, saxes, center, R, pvalue, units, ax):
             # rotate data
             for i in range(len(x)):
                 for j in range(len(x)):
-                    [x[i,j],y[i,j],z[i,j]]=np.dot([x[i,j],y[i,j],z[i,j]],R)+center
+                    [x[i,j],y[i,j],z[i,j]] = np.dot([x[i,j],y[i,j],z[i,j]],R) + center
 
         if saxes.size == 2:
             if ax is None:
@@ -189,20 +189,22 @@ def _plot(P, volume, saxes, center, R, pvalue, units, ax):
             # plot ellipsoid
             ax.plot_surface(x, y, z, rstride=5, cstride=5, color=[0, 1, 0, .1],
                             linewidth=1, edgecolor=[.1, .9, .1, .4])
-            #ax.plot_wireframe(x, y, z, color=[0, 1, 0, .5], linewidth=1)
+            # ax.plot_wireframe(x, y, z, color=[0, 1, 0, .5], linewidth=1)
             #                  rstride=3, cstride=3, edgecolor=[0, 1, 0, .5])
             # plot axes
             for i in range(saxes.size):
                 # rotate axes
                 a = np.dot(np.diag(saxes)[i], R).reshape(3, 1)
                 # points for the axes extremities
-                a = np.dot(a, np.array([-1, 1], ndmin=2)) + center.reshape(3, 1)
+                a = np.dot(a, np.array([-1, 1], ndmin=2))+center.reshape(3, 1)
                 ax.plot(a[0], a[1], a[2], color=[1, 0, 0, .6], linewidth=2)
                 ax.text(a[0, 1], a[1, 1], a[2, 1], '%d' % (i+1),
                         fontsize=20, color='r')
             lims = [np.min([P.min(), x.min(), y.min(), z.min()]),
                     np.max([P.max(), x.max(), y.max(), z.max()])]
-            ax.set_xlim(lims); ax.set_ylim(lims); ax.set_zlim(lims)
+            ax.set_xlim(lims)
+            ax.set_ylim(lims)
+            ax.set_zlim(lims)
             title = r'Prediction ellipse (p=%4.2f): Volume=' % pvalue
             if units is not None:
                 units2 = ' [%s]' % units
