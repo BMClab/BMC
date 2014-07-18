@@ -11,14 +11,14 @@ __license__ = "MIT"
 def ellipseoid(P, y=None, z=None, pvalue=.95, units=None, show=True, ax=None):
     """Calculates an ellipse(oid) as prediction interval for multivariate data.
 
-    The prediction ellipse (or ellipsoid) is a prediction interval for a sample
-    of a bivariate (or trivariate) random variable and is such that there is
+    The prediction ellipse (ellipsoid) is a prediction interval for a sample
+    of a bivariate (trivariate) random variable and is such that there is
     pvalue*100% of probability that a new observation will be contained in the
-    ellipse (or ellipsoid) (Chew, 1966). [1]_.
+    ellipse (ellipsoid) (Chew, 1966). [1]_.
 
-    The semi-axes of the prediction ellipse(oid) are found by calculating the
-    eigenvalues of the covariance matrix of the data and adjust the size of the
-    semi-axes to account for the necessary prediction probability.
+    The semi-axes of the ellipse (ellipsoid) are found by calculating the
+    eigenvalues of the covariance matrix of the data and adjusting the size of
+    the semi-axes to account for the necessary prediction probability.
 
     Parameters
     ----------
@@ -28,9 +28,9 @@ def ellipseoid(P, y=None, z=None, pvalue=.95, units=None, show=True, ax=None):
         The shape of the 2-D array should be (n, 2) or (n, 3) where n is the
         number of observations.
     y : 1-D array_like, optional (default = None)
-        Ordinate values of the [x, y] or [x,y,z] data.
+        Ordinate values of the [x, y] or [x, y, z] data.
     z : 1-D array_like, optional (default = None)
-        Ordinate values of the [x, y] or [x,y,z] data.
+        Ordinate values of the [x, y] or [x, y, z] data.
     pvalue : float, optional (default = .95)
         Desired prediction probability of the ellipse(oid).
     units : str, optional (default = None)
@@ -41,7 +41,7 @@ def ellipseoid(P, y=None, z=None, pvalue=.95, units=None, show=True, ax=None):
 
     Returns
     -------
-    volume : float
+    area_vol : float
         Area of the ellipse or volume of the ellipsoid according to the inputs.
     axes : 2-D array
         Lengths of the semi-axes ellipse(oid) (largest first).
@@ -108,7 +108,7 @@ def ellipseoid(P, y=None, z=None, pvalue=.95, units=None, show=True, ax=None):
     # semi-axes (largest first)
     p, n = s.size, P.shape[0]
     saxes = np.sqrt(s * F.ppf(pvalue, p, dfd=n-p)*(n-1)*p*(n+1)/(n*(n-p)))
-    volume = 4/3*np.pi*np.prod(saxes) if p == 3 else np.pi*np.prod(saxes)
+    area_vol = 4/3*np.pi*np.prod(saxes) if p == 3 else np.pi*np.prod(saxes)
     # rotation matrix
     R = Vt
     if s.size == 2:
@@ -120,12 +120,12 @@ def ellipseoid(P, y=None, z=None, pvalue=.95, units=None, show=True, ax=None):
     center = np.mean(P, axis=0)
 
     if show:
-        _plot(P, volume, saxes, center, R, pvalue, units, ax)
+        _plot(P, area_vol, saxes, center, R, pvalue, units, ax)
 
-    return volume, saxes, angles, center, R
+    return area_vol, saxes, angles, center, R
 
 
-def _plot(P, volume, saxes, center, R, pvalue, units, ax):
+def _plot(P, area_vol, saxes, center, R, pvalue, units, ax):
     """Plot results of the ellipseoid function, see its help."""
 
     try:
@@ -174,10 +174,10 @@ def _plot(P, volume, saxes, center, R, pvalue, units, ax):
             if units is not None:
                 units2 = ' [%s]' % units
                 units = units + r'$^2$'
-                title = title + r'%.2f %s' % (volume, units)
+                title = title + r'%.2f %s' % (area_vol, units)
             else:
                 units2 = ''
-                title = title + r'%.2f' % volume
+                title = title + r'%.2f' % area_vol
         else:
             from mpl_toolkits.mplot3d import Axes3D
             if ax is None:
@@ -209,10 +209,10 @@ def _plot(P, volume, saxes, center, R, pvalue, units, ax):
             if units is not None:
                 units2 = ' [%s]' % units
                 units = units + r'$^3$'
-                title = title + r'%.2f %s' % (volume, units)
+                title = title + r'%.2f %s' % (area_vol, units)
             else:
                 units2 = ''
-                title = title + r'%.2f' % volume
+                title = title + r'%.2f' % area_vol
             ax.set_zlabel('Z' + units2, fontsize=18)
 
         ax.set_xlabel('X' + units2, fontsize=18)
