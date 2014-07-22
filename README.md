@@ -24,7 +24,7 @@ Numerical data analysis
 - [Scalar and vector](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/ScalarVector.ipynb)
 - [Matrix](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/Matrix.ipynb)
 - [Confidence and prediction intervals](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/ConfidencePredictionIntervals.ipynb)
- + [Prediction ellipse and ellipsoid](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/PredictionEllipseEllipsoid.ipynb)
+ + [Prediction ellipse and prediction ellipsoid](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/PredictionEllipseEllipsoid.ipynb)
 - [Curve fitting](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/CurveFitting.ipynb)
 - [Propagation of uncertainty](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/Propagation%20of%20uncertainty.ipynb)
 - [Frequency analysis](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/FrequencyAnalysis.ipynb)
