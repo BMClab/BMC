@@ -175,6 +175,6 @@ def _plot(x, threshold, drift, ending, ax, ta, tai, taf, gp, gn):
         ax1.set_ylabel('Amplitude', fontsize=14)
         ax2.set_title('Time series of the cumulative sums of ' +
                       'positive and negative changes')
-        ax2.legend(loc='best', framealpha=.5)
+        ax2.legend(loc='best', framealpha=.5, numpoints=1)
         plt.tight_layout()
         plt.show()

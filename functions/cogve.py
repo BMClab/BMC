@@ -102,7 +102,7 @@ def _plot(COP, COGv, freq, ax):
             _, ax = plt.subplots(1, 1)
         ax.plot(time, COP, color=[0, 0, 1, .8], lw=2, label='COP')
         ax.plot(time, COGv, color=[1, 0, 0, .8], lw=2, label='COGv')
-        ax.legend(fontsize=14, loc='best', framealpha=.5)
+        ax.legend(fontsize=14, loc='best', framealpha=.5, numpoints=1)
         ax.set_xlabel('Time [s]', fontsize=14)
         ax.set_ylabel('Amplitude [cm]', fontsize=14)
         ax.set_title('COGv estimation using the COP data', fontsize=16)

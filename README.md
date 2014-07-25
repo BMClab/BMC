@@ -34,7 +34,7 @@ Numerical data analysis
  + [Detection of peaks](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/DetectPeaks.ipynb) 
  + [Detection of onset](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/DetectOnset.ipynb)  
  + [Detection of changes using the Cumulative Sum (CUSUM)](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/DetectCUSUM.ipynb)
-- [Time normalization of data](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/Time%20normalization.ipynb) 
+- [Time normalization of data](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/TimeNormalization.ipynb) 
 - [Ensemble average](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/Ensemble%20average.ipynb)
 - [Open files in C3D format](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/OpenC3Dfile.ipynb)
 

@@ -1,15 +1,14 @@
-#!/usr/bin/env python
-
 """Time normalization (from 0 to 100% with step interval)."""
 
 from __future__ import division, print_function
 import numpy as np
 
 __author__ = 'Marcos Duarte, https://github.com/demotu/BMC'
-__version__ = 'tnorm.py v.1 2013/08/10'
+__version__ = "1.0.2"
+__license__ = "MIT"
 
 
-def tnorm(y, axis=0, step=1, degree=3, smooth=0, mask=None, show=False):
+def tnorm(y, axis=0, step=1, k=3, smooth=0, mask=None, show=False, ax=None):
     """Time normalization (from 0 to 100% with step interval).
 
     Time normalization is usually employed for the temporal alignment of data
@@ -30,49 +29,51 @@ def tnorm(y, axis=0, step=1, degree=3, smooth=0, mask=None, show=False):
     datum or spline interpolation (up to quintic splines) passing through each
     datum (knots) or not (in case a smoothing parameter > 0 is inputted).
 
+    See this IPython notebook [2]_.
+
     Parameters
     ----------
-    y      : 1-D or 2-D array_like
-             Array of independent input data. Must be increasing.
-             If 2-D array, the data in each axis will be interpolated.
+    y : 1-D or 2-D array_like
+        Array of independent input data. Must be increasing.
+        If 2-D array, the data in each axis will be interpolated.
 
-    axis   : int, 0 or 1, optional (default = 0)
-             Axis along which the interpolation is performed.
-             0: data in each column are interpolated; 1: for row interpolation
+    axis : int, 0 or 1, optional (default = 0)
+        Axis along which the interpolation is performed.
+        0: data in each column are interpolated; 1: for row interpolation
 
-    step   : float or int, optional (default = 1)
-             Interval from 0 to 100% to resample y or the number of points y
-             should be interpolated. In the later case, the desired number of
-             points should be expressed with step as a negative integer.
-             For example, step = 1 or step = -101 will result in the same
-             number of points at the interpolation (101 points).
+    step : float or int, optional (default = 1)
+        Interval from 0 to 100% to resample y or the number of points y
+        should be interpolated. In the later case, the desired number of
+        points should be expressed with step as a negative integer.
+        For instance, step = 1 or step = -101 will result in the same
+        number of points at the interpolation (101 points).
 
-    degree : int, optional (default = 3)
-             Degree of the smoothing spline. Must be 1 <= degree <= 5.
-             If 3, a cubic spline is used.
-             The number of data points must be larger than the spline degree.
+    k : int, optional (default = 3)
+        Degree of the smoothing spline. Must be 1 <= k <= 5.
+        If 3, a cubic spline is used.
+        The number of data points must be larger than k.
 
     smooth : float or None, optional (default = 0)
-             Positive smoothing factor used to choose the number of knots.
-             If 0, spline will interpolate through all data points.
-             If None, smooth=len(y).
+        Positive smoothing factor used to choose the number of knots.
+        If 0, spline will interpolate through all data points.
+        If None, smooth=len(y).
 
-    mask   : None or float, optional (default = None)
-             Mask to identify missing values which will be ignored.
-             It can be a list of values.
-             NaN values will be ignored and don't need to be in the mask.
+    mask : None or float, optional (default = None)
+        Mask to identify missing values which will be ignored.
+        It can be a list of values.
+        NaN values will be ignored and don't need to be in the mask.
 
-    show   : bool, optional (default = False)
-             True (1) plots data in a matplotlib figure.
-             False (0) to not plot.
+    show : bool, optional (default = False)
+        True (1) plot data in a matplotlib figure.
+        False (0) to not plot.
+    ax : a matplotlib.axes.Axes instance, optional (default = None).
 
     Returns
     -------
-    yn     : 1-D or 2-D array
-             Interpolated data (column oriented for 2-D array).
-
-    tn     : 1-D array
-             New x values (from 0 to 100) for the interpolated data.
+    yn : 1-D or 2-D array
+        Interpolated data (column oriented for 2-D array).
+    tn : 1-D array
+        New x values (from 0 to 100) for the interpolated data.
 
     Notes
     -----
@@ -83,6 +84,7 @@ def tnorm(y, axis=0, step=1, degree=3, smooth=0, mask=None, show=False):
     References
     ----------
     .. [1] http://www.sciencedirect.com/science/article/pii/S0021929010005038
+    .. [2] http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/TimeNormalization.ipynb
 
     See Also
     --------
@@ -91,25 +93,40 @@ def tnorm(y, axis=0, step=1, degree=3, smooth=0, mask=None, show=False):
 
     Examples
     --------
-    >>> y = [5,  4, 10,  8,  1, 10,  2,  7,  1,  3]
     >>> # Default options: cubic spline interpolation passing through
     >>> # each datum, 101 points, and no plot
-    >>> yn, tn = tnorm(y)
+    >>> y = [5,  4, 10,  8,  1, 10,  2,  7,  1,  3]
+    >>> tnorm(y)
+
     >>> # Plot with the default options
-    >>> tnorm(y, show=True)
+    >>> y = [5,  4, 10,  8,  1, 10,  2,  7,  1,  3]
+    >>> tnorm(y, show=True);
+
     >>> # Linear interpolation passing through each datum
-    >>> yn, tn = tnorm(y, degree=1, smooth=0, mask=None, show=True)
+    >>> y = [5,  4, 10,  8,  1, 10,  2,  7,  1,  3]
+    >>> yn, tn = tnorm(y, k=1, smooth=0, mask=None, show=True)
+
     >>> # Cubic spline interpolation with smoothing
-    >>> yn, tn = tnorm(y, degree=3, smooth=1, mask=None, show=True)
-    >>> import numpy as np
+    >>> y = [5,  4, 10,  8,  1, 10,  2,  7,  1,  3]
+    >>> yn, tn = tnorm(y, k=3, smooth=1, mask=None, show=True)
+
+    >>> # Cubic spline interpolation with smoothing and 50 points
     >>> x = np.linspace(-3, 3, 100)
     >>> y = np.exp(-x**2) + np.random.randn(100)/10
-    >>> # Cubic spline interpolation with smoothing and 50 points
-    >>> yn, tn = tnorm(y, step=-50, degree=3, smooth=1, show=True)
+    >>> yn, tn = tnorm(y, step=-50, k=3, smooth=1, show=True)
+
     >>> # Deal with missing data (use NaN as mask)
+    >>> x = np.linspace(-3, 3, 100)
+    >>> y = np.exp(-x**2) + np.random.randn(100)/10
     >>> y[0] = np.NaN # first point is also missing
     >>> y[30: 41] = np.NaN # make other 10 missing points
-    >>> yn, tn = tnorm(y, step=-50, degree=3, smooth=1, show=True)
+    >>> yn, tn = tnorm(y, step=-50, k=3, smooth=1, show=True)
+
+    >>> # Deal with 2-D array
+    >>> x = np.linspace(-3, 3, 100)
+    >>> y = np.exp(-x**2) + np.random.randn(100)/10
+    >>> y = np.vstack((y-1, y[::-1])).T
+    >>> yn, tn = tnorm(y, step=-50, k=3, smooth=1, show=True)
     """
 
     from scipy.interpolate import UnivariateSpline
@@ -143,11 +160,11 @@ def tnorm(y, axis=0, step=1, degree=3, smooth=0, mask=None, show=False):
         # ignore NaNs inside data for the interpolation
         ind = np.isfinite(y[:, col])
         if np.sum(ind) > 1:  # at least two points for the interpolation
-            spl = UnivariateSpline(t[ind], y[ind, col], k=degree, s=smooth)
+            spl = UnivariateSpline(t[ind], y[ind, col], k=k, s=smooth)
             yn[:, col] = spl(tn)
 
     if show:
-        _plot(t, y, tn, yn)
+        _plot(t, y, ax, tn, yn)
 
     if axis:
         y = y.T
@@ -157,26 +174,27 @@ def tnorm(y, axis=0, step=1, degree=3, smooth=0, mask=None, show=False):
     return yn, tn
 
 
-def _plot(t, y, tn, yn):
+def _plot(t, y, ax, tn, yn):
     """Plot results of the tnorm function, see its help."""
     try:
         import matplotlib.pyplot as plt
     except ImportError:
         print('matplotlib is not available.')
     else:
-        plt.figure()
-        ax = plt.gca()
+        if ax is None:
+            _, ax = plt.subplots(1, 1, figsize=(8, 5))
+
+        ax.set_color_cycle(['b', 'r', 'b', 'g', 'b', 'y', 'b', 'c', 'b', 'm'])
         for col in np.arange(y.shape[1]):
             if y.shape[1] == 1:
-                ax.plot(t, y[:, col], 'bo-', lw=1, label='Original data')
-                ax.plot(tn, yn[:, col], '.-', color=[1, 0, 0, .6], lw=2,
+                ax.plot(t, y[:, col], 'o-', lw=1, label='Original data')
+                ax.plot(tn, yn[:, col], '.-', lw=2,
                         label='Interpolated')
             else:
-                ax.plot(t, y[:, col], 'bo-', lw=1, label='Col= %d' % col)
-                ax.plot(tn, yn[:, col], '.-', color=[1, 0, 0, .6], lw=2)
-            ax.plot(tn, yn[:, col], '.-', color=[1, 0, 0, .6], lw=2)
+                ax.plot(t, y[:, col], 'o-', lw=1)
+                ax.plot(tn, yn[:, col], '.-', lw=2, label='Col= %d' % col)
             ax.locator_params(axis='y', nbins=7)
-            ax.legend(fontsize=12, loc='best', framealpha=.5)
+            ax.legend(fontsize=12, loc='best', framealpha=.5, numpoints=1)
         plt.xlabel('[%]')
         plt.tight_layout()
         plt.show()
