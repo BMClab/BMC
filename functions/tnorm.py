@@ -4,7 +4,7 @@ from __future__ import division, print_function
 import numpy as np
 
 __author__ = 'Marcos Duarte, https://github.com/demotu/BMC'
-__version__ = "1.0.2"
+__version__ = "1.0.3"
 __license__ = "MIT"
 
 
@@ -36,33 +36,28 @@ def tnorm(y, axis=0, step=1, k=3, smooth=0, mask=None, show=False, ax=None):
     y : 1-D or 2-D array_like
         Array of independent input data. Must be increasing.
         If 2-D array, the data in each axis will be interpolated.
-
     axis : int, 0 or 1, optional (default = 0)
         Axis along which the interpolation is performed.
         0: data in each column are interpolated; 1: for row interpolation
-
     step : float or int, optional (default = 1)
         Interval from 0 to 100% to resample y or the number of points y
         should be interpolated. In the later case, the desired number of
         points should be expressed with step as a negative integer.
         For instance, step = 1 or step = -101 will result in the same
         number of points at the interpolation (101 points).
-
+        If step == 0, the number of points will be the number of data in y.
     k : int, optional (default = 3)
         Degree of the smoothing spline. Must be 1 <= k <= 5.
         If 3, a cubic spline is used.
         The number of data points must be larger than k.
-
     smooth : float or None, optional (default = 0)
         Positive smoothing factor used to choose the number of knots.
         If 0, spline will interpolate through all data points.
         If None, smooth=len(y).
-
     mask : None or float, optional (default = None)
         Mask to identify missing values which will be ignored.
         It can be a list of values.
         NaN values will be ignored and don't need to be in the mask.
-
     show : bool, optional (default = False)
         True (1) plot data in a matplotlib figure.
         False (0) to not plot.
@@ -71,7 +66,7 @@ def tnorm(y, axis=0, step=1, k=3, smooth=0, mask=None, show=False, ax=None):
     Returns
     -------
     yn : 1-D or 2-D array
-        Interpolated data (column oriented for 2-D array).
+        Interpolated data (if axis == 0, column oriented for 2-D array).
     tn : 1-D array
         New x values (from 0 to 100) for the interpolated data.
 
@@ -97,10 +92,6 @@ def tnorm(y, axis=0, step=1, k=3, smooth=0, mask=None, show=False, ax=None):
     >>> # each datum, 101 points, and no plot
     >>> y = [5,  4, 10,  8,  1, 10,  2,  7,  1,  3]
     >>> tnorm(y)
-
-    >>> # Plot with the default options
-    >>> y = [5,  4, 10,  8,  1, 10,  2,  7,  1,  3]
-    >>> tnorm(y, show=True);
 
     >>> # Linear interpolation passing through each datum
     >>> y = [5,  4, 10,  8,  1, 10,  2,  7,  1,  3]
@@ -151,7 +142,9 @@ def tnorm(y, axis=0, step=1, k=3, smooth=0, mask=None, show=False, ax=None):
         return y.flatten(), None
 
     t = np.linspace(0, 100, y.shape[0])
-    if step > 0:
+    if step == 0:
+        tn = t
+    elif step > 0:
         tn = np.linspace(0, 100, np.round(100 / step + 1))
     else:
         tn = np.linspace(0, 100, -step)
