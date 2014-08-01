@@ -117,7 +117,7 @@ def hyperellipsoid(P, y=None, z=None, pvalue=.95, units=None, show=True, ax=None
     fppf = F.ppf(pvalue, p, n-p)*(n-1)*p*(n+1)/n/(n-p)
     # semi-axes (largest first)
     saxes = np.sqrt(s*fppf)
-    hypervolume = 2*np.pi**(p/2)/(p*gamma(p/2))*np.prod(saxes)
+    hypervolume = np.pi**(p/2)/gamma(p/2+1)*np.prod(saxes)
     # rotation matrix
     if p == 2 or p == 3:
         R = Vt
