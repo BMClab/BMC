@@ -1,77 +1,85 @@
-"""Calculates an ellipse(oid) as prediction interval for multivariate data."""
+"""Hyperellipsoid as prediction interval for multivariate data."""
 
 from __future__ import division, print_function
 import numpy as np
 
 __author__ = 'Marcos Duarte, https://github.com/demotu/BMC'
-__version__ = "1.0.2"
+__version__ = "1.0.3"
 __license__ = "MIT"
 
 
-def ellipseoid(P, y=None, z=None, pvalue=.95, units=None, show=True, ax=None):
-    """Calculates an ellipse(oid) as prediction interval for multivariate data.
+def hyperellipsoid(P, y=None, z=None, pvalue=.95, units=None, show=True, ax=None):
+    """
+    Hyperellipsoid as prediction interval for multivariate data.
 
-    The prediction ellipse (ellipsoid) is a prediction interval for a sample
-    of a bivariate (trivariate) random variable and is such that there is
-    pvalue*100% of probability that a new observation will be contained in the
-    ellipse (ellipsoid) (Chew, 1966). [1]_.
+    The prediction hyperellipsoid is a prediction interval for a sample
+    of a multivariate random variable and is such that there is pvalue*100% of
+    probability that a new observation will be contained in the hyperellipsoid
+    (Chew, 1966) [1]_.
 
-    The semi-axes of the ellipse (ellipsoid) are found by calculating the
-    eigenvalues of the covariance matrix of the data and adjusting the size of
-    the semi-axes to account for the necessary prediction probability.
+    The directions and lengths of the semi-axes are found, respectively, as the
+    eigenvectors and eigenvalues of the covariance matrix of the data using
+    the concept of principal components analysis (PCA) [2]_ or singular value
+    decomposition (SVD) [3]_ and the length of the semi-axes are adjusted to
+    account for the necessary prediction probability.
+
+    The volume of the hyperellipsoid is calculated with the same equation for
+    the volume of a n-dimensional ball [4]_ with the radius replaced by the
+    semi-axes of the hyperellipsoid.
+
+    This function calculates the exact prediction hyperellipsoid for the data,
+    which is considered a sample of a multivariate random variable with normal
+    distribution (i.e., the F distribution is used and not the approximation
+    by the chi-square distribution).
 
     Parameters
     ----------
     P : 1-D or 2-D array_like
         For a 1-D array, P is the abscissa values of the [x,y] or [x,y,z] data.
-        For a 2-D array, P is the joined values of the [x,y] or [x,y,z] data.
-        The shape of the 2-D array should be (n, 2) or (n, 3) where n is the
-        number of observations.
+        For a 2-D array, P is the joined values of the multivariate data.
+        The shape of the 2-D array should be (n, p) where n is the number of
+        observations (rows) and p the number of dimensions (columns).
     y : 1-D array_like, optional (default = None)
         Ordinate values of the [x, y] or [x, y, z] data.
     z : 1-D array_like, optional (default = None)
         Ordinate values of the [x, y] or [x, y, z] data.
     pvalue : float, optional (default = .95)
-        Desired prediction probability of the ellipse(oid).
+        Desired prediction probability of the hyperellipsoid.
     units : str, optional (default = None)
         Units of the input data.
     show : bool, optional (default = True)
         True (1) plots data in a matplotlib figure, False (0) to not plot.
-    ax     : a matplotlib.axes.Axes instance (default = None)
+        Only the results for p=2 (ellipse) or p=3 (ellipsoid) will be plotted.
+    ax : a matplotlib.axes.Axes instance (default = None)
 
     Returns
     -------
-    area_vol : float
-        Area of the ellipse or volume of the ellipsoid according to the inputs.
-    axes : 2-D array
-        Lengths of the semi-axes ellipse(oid) (largest first).
+    hypervolume : float
+        Hypervolume (e.g., area of the ellipse or volume of the ellipsoid).
+    axes : 1-D array
+        Lengths of the semi-axes hyperellipsoid (largest first).
     angles : 1-D array
-        Angles of the semi-axes ellipse(oid). For the ellipsoid (3D adata), the
-        angles are the Euler angles calculated in the XYZ sequence.
+        Angles of the semi-axes hyperellipsoid (only for 2D or 3D data).
+        For the ellipsoid (3D data), the angles are the Euler angles
+        calculated in the XYZ sequence.
     center : 1-D array
-        Centroid of the ellipse(oid).
+        Centroid of the hyperellipsoid.
     rotation : 2-D array
-        Rotation matrix of the semi-axes of the ellipse(oid).
-
-    Notes
-    -----
-    The directions and lengths of the semi-axes are found, respectively, as the
-    eigenvectors and eigenvalues of the covariance matrix of the data using
-    the concept of principal components analysis (PCA) [2]_ or singular value
-    decomposition (SVD) [3]_.
+        Rotation matrix for hyperellipsoid semi-axes (only for 2D or 3D data).
 
     References
     ----------
     .. [1] http://www.jstor.org/stable/2282774
     .. [2] http://en.wikipedia.org/wiki/Principal_component_analysis
     .. [3] http://en.wikipedia.org/wiki/Singular_value_decomposition
+    .. [4] http://en.wikipedia.org/wiki/Volume_of_an_n-ball
 
     Examples
     --------
-    >>> from ellipseoid import ellipseoid
+    >>> from hyperellipsoid import hyperellipsoid
     >>> y = np.cumsum(np.random.randn(3000)) / 50
     >>> x = np.cumsum(np.random.randn(3000)) / 100
-    >>> area, axes, angles, center, R = ellipseoid(x, y, units='cm', show=True)
+    >>> area, axes, angles, center, R = hyperellipsoid(x, y, units='cm')
     >>> print('Area =', area)
     >>> print('Semi-axes =', axes)
     >>> print('Angles =', angles)
@@ -81,15 +89,14 @@ def ellipseoid(P, y=None, z=None, pvalue=.95, units=None, show=True, ax=None):
     >>> P = np.random.randn(1000, 3)
     >>> P[:, 2] = P[:, 2] + P[:, 1]*.5
     >>> P[:, 1] = P[:, 1] + P[:, 0]*.5
-    >>> volume, axes, angles, center, R = ellipseoid(P, units='cm', show=True)
+    >>> volume, axes, angles, center, R = hyperellipsoid(P, units='cm')
     """
 
     from scipy.stats import f as F
+    from scipy.special import gamma
 
     P = np.array(P, ndmin=2, dtype=float)
     if P.shape[0] == 1:
-        P = P.T
-    elif P.shape[1] > 3:
         P = P.T
     if y is not None:
         y = np.array(y, copy=False, ndmin=2, dtype=float)
@@ -105,34 +112,39 @@ def ellipseoid(P, y=None, z=None, pvalue=.95, units=None, show=True, ax=None):
     cov = np.cov(P, rowvar=0)
     # singular value decomposition
     U, s, Vt = np.linalg.svd(cov)
-    # semi-axes (largest first)
     p, n = s.size, P.shape[0]
-    saxes = np.sqrt(s * F.ppf(pvalue, p, dfd=n-p)*(n-1)*p*(n+1)/(n*(n-p)))
-    area_vol = 4/3*np.pi*np.prod(saxes) if p == 3 else np.pi*np.prod(saxes)
+    # F percent point function
+    fppf = F.ppf(pvalue, p, n-p)*(n-1)*p*(n+1)/n/(n-p)
+    # semi-axes (largest first)
+    saxes = np.sqrt(s*fppf)
+    hypervolume = 2*np.pi**(p/2)/(p*gamma(p/2))*np.prod(saxes)
     # rotation matrix
-    R = Vt
-    if s.size == 2:
-        angles = np.array([np.rad2deg(np.arctan2(R[1, 0], R[0, 0])),
-                           90-np.rad2deg(np.arctan2(R[1, 0], -R[0, 0]))])
+    if p == 2 or p == 3:
+        R = Vt
+        if s.size == 2:
+            angles = np.array([np.rad2deg(np.arctan2(R[1, 0], R[0, 0])),
+                               90-np.rad2deg(np.arctan2(R[1, 0], -R[0, 0]))])
+        else:
+            angles = rotXYZ(R, unit='deg')
+        # centroid of the hyperellipsoid
+        center = np.mean(P, axis=0)
     else:
-        angles = rotXYZ(R, unit='deg')
-    # centroid of the ellipse(oid)
-    center = np.mean(P, axis=0)
+        R, angles = None, None
 
-    if show:
-        _plot(P, area_vol, saxes, center, R, pvalue, units, ax)
+    if show and (p == 2 or p == 3):
+        _plot(P, hypervolume, saxes, center, R, pvalue, units, ax)
 
-    return area_vol, saxes, angles, center, R
+    return hypervolume, saxes, angles, center, R
 
 
-def _plot(P, area_vol, saxes, center, R, pvalue, units, ax):
-    """Plot results of the ellipseoid function, see its help."""
+def _plot(P, hypervolume, saxes, center, R, pvalue, units, ax):
+    """Plot results of the hyperellipsoid function, see its help."""
 
     try:
         import matplotlib.pyplot as plt
     except ImportError:
         print('matplotlib is not available.')
-    else:       
+    else:
         # code based on https://github.com/minillinim/ellipsoid:
         # parametric equations
         u = np.linspace(0, 2*np.pi, 100)
@@ -150,7 +162,7 @@ def _plot(P, area_vol, saxes, center, R, pvalue, units, ax):
             # rotate data
             for i in range(len(x)):
                 for j in range(len(x)):
-                    [x[i,j],y[i,j],z[i,j]] = np.dot([x[i,j],y[i,j],z[i,j]],R) + center
+                    [x[i,j],y[i,j],z[i,j]] = np.dot([x[i,j],y[i,j],z[i,j]], R) + center
 
         if saxes.size == 2:
             if ax is None:
@@ -164,7 +176,7 @@ def _plot(P, area_vol, saxes, center, R, pvalue, units, ax):
                 # rotate axes
                 a = np.dot(np.diag(saxes)[i], R).reshape(2, 1)
                 # points for the axes extremities
-                a = np.dot(a, np.array([-1, 1], ndmin=2)) + center.reshape(2, 1)
+                a = np.dot(a, np.array([-1, 1], ndmin=2))+center.reshape(2, 1)
                 ax.plot(a[0], a[1], color=[1, 0, 0, .6], linewidth=2)
                 ax.text(a[0, 1], a[1, 1], '%d' % (i + 1),
                         fontsize=20, color='r')
@@ -174,10 +186,10 @@ def _plot(P, area_vol, saxes, center, R, pvalue, units, ax):
             if units is not None:
                 units2 = ' [%s]' % units
                 units = units + r'$^2$'
-                title = title + r'%.2f %s' % (area_vol, units)
+                title = title + r'%.2f %s' % (hypervolume, units)
             else:
                 units2 = ''
-                title = title + r'%.2f' % area_vol
+                title = title + r'%.2f' % hypervolume
         else:
             from mpl_toolkits.mplot3d import Axes3D
             if ax is None:
@@ -205,14 +217,14 @@ def _plot(P, area_vol, saxes, center, R, pvalue, units, ax):
             ax.set_xlim(lims)
             ax.set_ylim(lims)
             ax.set_zlim(lims)
-            title = r'Prediction ellipse (p=%4.2f): Volume=' % pvalue
+            title = r'Prediction ellipsoid (p=%4.2f): Volume=' % pvalue
             if units is not None:
                 units2 = ' [%s]' % units
                 units = units + r'$^3$'
-                title = title + r'%.2f %s' % (area_vol, units)
+                title = title + r'%.2f %s' % (hypervolume, units)
             else:
                 units2 = ''
-                title = title + r'%.2f' % area_vol
+                title = title + r'%.2f' % hypervolume
             ax.set_zlabel('Z' + units2, fontsize=18)
 
         ax.set_xlabel('X' + units2, fontsize=18)
