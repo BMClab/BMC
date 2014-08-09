@@ -35,7 +35,7 @@ Numerical data analysis
  + [Detection of onset](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/DetectOnset.ipynb)  
  + [Detection of changes using the Cumulative Sum (CUSUM)](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/DetectCUSUM.ipynb)
 - [Time normalization of data](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/TimeNormalization.ipynb) 
-- [EnsembleAverage](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/Ensemble%20average.ipynb)
+- [Ensemble average](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/EnsembleAverage.ipynb)
 - [Open files in C3D format](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/OpenC3Dfile.ipynb)
 
 Mechanics
