@@ -22,12 +22,17 @@ Scientific programming
 Numerical data analysis
 -----------------------
 - [Scalar and vector](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/ScalarVector.ipynb)
+- [Basic trigonometry](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/TrigonometryBasics.ipynb)
 - [Matrix](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/Matrix.ipynb)
 - [Confidence and prediction intervals](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/ConfidencePredictionIntervals.ipynb)
  + [Prediction ellipse and prediction ellipsoid](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/PredictionEllipseEllipsoid.ipynb)
 - [Curve fitting](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/CurveFitting.ipynb)
 - [Propagation of uncertainty](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/Propagation%20of%20uncertainty.ipynb)
-- [Frequency analysis](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/FrequencyAnalysis.ipynb)
+- **Frequency analysis**
+ + [Basic properties of signals](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/SignalBasicProperties.ipynb)
+ + [Fourier series analysis](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/FourierSeries.ipynb)
+ + [Fourier transform analysis](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/FourierTransform.ipynb)
+ + [Time-frequency analysis](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/TimeFrequencyAnalysis.ipynb)
 - [Data filtering in signal processing](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/DataFiltering.ipynb)
  + [Residual analysis for the optimal cutoff frequency](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/ResidualAnalysis.ipynb)
 - **Change detection**  
@@ -60,7 +65,6 @@ Stabilography
 -------------
 - [The inverted pendulum model of the human standing posture](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/IP_Model.ipynb)
 - [Measurements in stabilography](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/Stabilography.ipynb)
-
 
 License
 -------
