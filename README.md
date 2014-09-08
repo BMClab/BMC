@@ -31,8 +31,6 @@ Numerical data analysis
 - **Frequency analysis**
  + [Basic properties of signals](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/SignalBasicProperties.ipynb)
  + [Fourier series analysis](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/FourierSeries.ipynb)
- + [Fourier transform analysis](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/FourierTransform.ipynb)
- + [Time-frequency analysis](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/TimeFrequencyAnalysis.ipynb)
 - [Data filtering in signal processing](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/DataFiltering.ipynb)
  + [Residual analysis for the optimal cutoff frequency](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/ResidualAnalysis.ipynb)
 - **Change detection**  
