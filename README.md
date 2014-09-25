@@ -49,10 +49,10 @@ Mechanics
     - [Spatial and temporal characteristcs](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/SpatialTemporalCharacteristcs.ipynb)  
     - [Minimum jerk hypothesis](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/MinimumJerkHypothesis.ipynb)  
  + [Angular kinematics (2D)](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/AngularKinematics2D.ipynb)  
- + [Kinematic chain](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/KinematicChain.ipynb) 
+    - [Kinematic chain](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/KinematicChain.ipynb) 
  + [Rigid-body transformations (2D)](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/Transformation2D.ipynb)   
  + [Rigid-body transformations (3D)](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/Transformation3D.ipynb)
-   - [Determining rigid body transformation using the SVD algorithm](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/SVDalgorithm.ipynb)
+    - [Determining rigid body transformation using the SVD algorithm](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/SVDalgorithm.ipynb)
 - **Kinetics**
  + [Fundamental concepts](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/KineticsFundamentalConcepts.ipynb)
  + [Body segment parameters](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/BodySegmentParameters.ipynb)
