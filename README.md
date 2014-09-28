@@ -46,6 +46,7 @@ Mechanics
 - **Kinematics**
  + [Frame of reference](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/Frame%20of%20reference.ipynb)
  + [Kinematics of a particle](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/Kinematics%20of%20a%20Particle.ipynb)   
+    - [Projectile motion](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/ProjectileMotion.ipynb) 
     - [Spatial and temporal characteristcs](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/SpatialTemporalCharacteristcs.ipynb)  
     - [Minimum jerk hypothesis](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/MinimumJerkHypothesis.ipynb)  
  + [Angular kinematics (2D)](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/AngularKinematics2D.ipynb)  
