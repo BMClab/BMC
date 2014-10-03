@@ -46,6 +46,8 @@ def detect_peaks(x, mph=None, mpd=1, threshold=0, edge='rising',
     -----
     The detection of valleys instead of peaks is performed internally by simply
     negating the data: `ind_valleys = detect_peaks(-x)`
+    
+    The function can handle NaN's 
 
     See this IPython Notebook [1]_.
 
@@ -57,6 +59,7 @@ def detect_peaks(x, mph=None, mpd=1, threshold=0, edge='rising',
     --------
     >>> from detect_peaks import detect_peaks
     >>> x = np.random.randn(100)
+    >>> x[60:81] = np.nan
     >>> # detect all peaks and plot data
     >>> ind = detect_peaks(x, show=True)
     >>> print(ind)
@@ -64,6 +67,10 @@ def detect_peaks(x, mph=None, mpd=1, threshold=0, edge='rising',
     >>> x = np.sin(2*np.pi*5*np.linspace(0, 1, 200)) + np.random.randn(200)/5
     >>> # set minimum peak height = 0 and minimum peak distance = 20
     >>> detect_peaks(x, mph=0, mpd=20, show=True)
+
+    >>> x = [0, 1, 0, 2, 0, 3, 0, 2, 0, 1, 0]
+    >>> # set minimum peak distance = 2
+    >>> detect_peaks(x, mpd=2, show=True)
 
     >>> x = np.sin(2*np.pi*5*np.linspace(0, 1, 200)) + np.random.randn(200)/5
     >>> # detection of valleys instead of peaks
@@ -83,23 +90,26 @@ def detect_peaks(x, mph=None, mpd=1, threshold=0, edge='rising',
         return np.array([], dtype=int)
     if valley:
         x = -x
-    # deal with NaN's
+    # find indices of all peaks
+    dx = x[1:] - x[:-1]
+    # handle NaN's
     indnan = np.where(np.isnan(x))[0]
     if indnan.size:
         x[indnan] = np.inf
-    # find indices of all peaks
-    dx = x[1:] - x[:-1]
+        dx[np.where(np.isnan(dx))[0]] = np.inf
     ine, ire, ife = np.array([[], [], []], dtype=int)
     if not edge:
         ine = np.where((np.hstack((dx, 0)) < 0) & (np.hstack((0, dx)) > 0))[0]
-    if edge.lower() in ['rising', 'both']:
-        ire = np.where((np.hstack((dx, 0)) <= 0) & (np.hstack((0, dx)) > 0))[0]
-    if edge.lower() in ['falling', 'both']:
-        ife = np.where((np.hstack((dx, 0)) < 0) & (np.hstack((0, dx)) >= 0))[0]
+    else:
+        if edge.lower() in ['rising', 'both']:
+            ire = np.where((np.hstack((dx, 0)) <= 0) & (np.hstack((0, dx)) > 0))[0]
+        if edge.lower() in ['falling', 'both']:
+            ife = np.where((np.hstack((dx, 0)) < 0) & (np.hstack((0, dx)) >= 0))[0]
     ind = np.unique(np.hstack((ine, ire, ife)))
-    # deal with NaN's
-    if indnan.size:
-        ind = ind[np.in1d(ind, indnan, invert=True)]
+    # handle NaN's
+    if ind.size and indnan.size:
+        # NaN's and values close to NaN's cannot be peaks
+        ind = ind[np.in1d(ind, np.unique(np.hstack((indnan, indnan-1, indnan+1))), invert=True)]
     # first and last values of x cannot be peaks
     if ind.size and ind[0] == 0:
         ind = ind[1:]
@@ -124,6 +134,7 @@ def detect_peaks(x, mph=None, mpd=1, threshold=0, edge='rising',
                 idel[i] = 0  # Keep current peak
         # remove the small peaks and sort back the indices by their occurrence
         ind = np.sort(ind[~idel])
+
     if show:
         if indnan.size:
             x[indnan] = np.nan
