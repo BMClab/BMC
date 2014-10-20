@@ -44,7 +44,7 @@ Numerical data analysis
 Mechanics
 ---------
 - **Kinematics**
- + [Frame of reference](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/Frame%20of%20reference.ipynb)
+ + [Frame of reference](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/ReferenceFrame.ipynb)
     - [Determination of a coordinate system](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/CoordinateSystem.ipynb)
  + [Kinematics of a particle](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/Kinematics%20of%20a%20Particle.ipynb)   
     - [Projectile motion](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/ProjectileMotion.ipynb) 
