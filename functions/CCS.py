@@ -17,7 +17,7 @@ class CCS():
                  Oxyz=[0,0,0], xyz='auto', xyz_label=True, point=[],
                  proj_lines=True, vector=True, *args, **kwargs):
         if not ax:
-            fig = plt.figure(figsize=(5, 4))
+            fig = plt.figure(figsize=(5, 5))
             ax = fig.add_axes([0, 0, 1, 1], projection='3d')            
         ax.axis("off")
         i0, j0, k0 = Oijk
@@ -101,7 +101,7 @@ class CCS():
                                 lw=3, arrowstyle="-|>", color="c", alpha=.8)
                     ax.add_artist(v)
                     
-        ax.view_init(elev=20, azim=60)
+        ax.view_init(elev=20, azim=60)       
         plt.show()
 
 
