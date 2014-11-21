@@ -1,0 +1,25 @@
+Landmark Name	Abbreviation	Description
+Acromion	ACRO	Most lateral point on the lateral edge of the acromial process of the scapula
+Acropodion	TTIP	Tip of longest toe
+Bispinous breadth	BB	Distance between two ASIS
+Cervicale	CERV	Superior tip of the spine of the 7th certical vertebra
+Dactylion (3rd)	DAC3	Tip of 3 rd digit
+Gonion	GONI	Most lateral point on the posterior angle of mandible
+Iliospinale	ASIS	Inferior point of one of the anterior superior iliac spines
+Malleoli	MMAL, LMAL	Medial and lateral bony projections of the malleolus
+Metacarpale (3rd)	MET3	Distal palpable point on the metacarpal of the 3rd digit on the dorsal hand
+Mid-gonion	MIDG	Point midway between 2 gonion
+Mid-hip	MIDH	Point midway between 2 hip joint centers
+Mid-shoulder	MIDS	Point midway between 2 shoulder joint centers
+Omphalion	OMPH	Center of navel
+Pternion	HEEL	Posterior point of the heel
+Radiale	RADI	Lateral tip on the proximal head of the radius
+Sphyrion (tibia)	TSPH	Distal tip of the tibia – distal to medial malleolus
+Sphyrion fibulare	FSPH	Distal tip of the fibula – distal to lateral malleolus
+Stylion	RSTY	Distal dip of the styloid process of the radius
+Suprasternale	SUPR	Most caudal point on the jugular notch on the sternum
+Tibiale (medial)	MTIB	Most proximal point on the medial superior border of the head of the tibia
+Tibiale laterale	LTIB	Most proximal point on the lateral superior border of the head of the fibula
+Trochanterion	TROC	Superior border on the greater trochanter of the femur
+Vertex	VERT	Uppermost part of the head
+Xiphion	XYPH	Lowermost end of the sternum

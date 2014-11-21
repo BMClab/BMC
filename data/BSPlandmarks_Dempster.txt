@@ -1,0 +1,22 @@
+Segment	Definition
+Hand	Wrist axis/knuckle II middle finger
+Forearm	Elbow axis/ulnar styloid
+Upper arm	Glenohumeral axis/elbow axis
+Forearm and hand	Elbow axis/ulnar styloid
+Total arm	Glenohumeral joint/ulnar styloid
+Foot	Lateral malleolus/head metatarsalII
+Leg	Femoral condyles/medial malleolus
+Thigh	Greater trochanter/femoral condyles
+Foot and leg	Femoral condyles/medial malleolus
+Total leg	Greater trochanter/medial malleolus
+Head and neck	C7-T1 and 1st rib/ear canal
+Shoulder mass	Sternoclavicular joint/glenohumeral
+Thorax	C7-T1/T12-L1 and diaphragm
+Abdomen	T12-L1/L4-L5
+Pelvis	L4-L5/greater trochanter
+Thorax and abdomen	C7-T1/L4-L5
+Abdomen and pelvis	T12-L1/greater trochanter
+Trunk	Greater trochanter/glenohumeral joint
+Trunk head neck	Greater trochanter/glenohumeral joint
+Head, arms, and trunk (HAT)	Greater trochanter/glenohumeral joint
+HAT	Greater trochanter/mid rib
