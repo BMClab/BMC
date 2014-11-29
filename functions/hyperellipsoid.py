@@ -184,7 +184,7 @@ def _plot(P, hypervolume, saxes, center, R, pvalue, units, ax):
                         fontsize=20, color='r')
             plt.axis('equal')
             plt.grid()
-            title = r'Prediction (or tolerance) ellipse (p=%4.2f): Area=' % pvalue
+            title = r'Prediction or tolerance ellipse (p=%4.2f): Area=' % pvalue
             if units is not None:
                 units2 = ' [%s]' % units
                 units = units + r'$^2$'
@@ -219,7 +219,7 @@ def _plot(P, hypervolume, saxes, center, R, pvalue, units, ax):
             ax.set_xlim(lims)
             ax.set_ylim(lims)
             ax.set_zlim(lims)
-            title = r'Prediction (or tolerance) ellipsoid (p=%4.2f): Volume=' % pvalue
+            title = r'Prediction or tolerance ellipsoid (p=%4.2f): Volume=' % pvalue
             if units is not None:
                 units2 = ' [%s]' % units
                 units = units + r'$^3$'
