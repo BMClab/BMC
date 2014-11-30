@@ -1,4 +1,4 @@
-"""Prediction or tolerance hyperellipsoid for multivariate data."""
+"""Prediction hyperellipsoid for multivariate data."""
 
 from __future__ import division, print_function
 import numpy as np
@@ -10,7 +10,7 @@ __license__ = "MIT"
 
 def hyperellipsoid(P, y=None, z=None, pvalue=.95, units=None, show=True, ax=None):
     """
-    Prediction or tolerance hyperellipsoid for multivariate data.
+    Prediction hyperellipsoid for multivariate data.
 
     The hyperellipsoid is a prediction interval for a sample of a multivariate
     random variable and is such that there is pvalue*100% of probability that a
@@ -23,15 +23,15 @@ def hyperellipsoid(P, y=None, z=None, pvalue=.95, units=None, show=True, ax=None
     eigenvectors and eigenvalues of the covariance matrix of the data using
     the concept of principal components analysis (PCA) [2]_ or singular value
     decomposition (SVD) [3]_ and the length of the semi-axes are adjusted to
-    account for the necessary prediction or tolerance probability.
+    account for the necessary prediction probability.
 
     The volume of the hyperellipsoid is calculated with the same equation for
     the volume of a n-dimensional ball [4]_ with the radius replaced by the
     semi-axes of the hyperellipsoid.
 
-    This function calculates the prediction or tolerance hyperellipsoid for the
-    data, which is considered a (finite) sample of a multivariate random
-    variable with normal distribution (i.e., the F distribution is used and not
+    This function calculates the prediction hyperellipsoid for the data,
+    which is considered a (finite) sample of a multivariate random variable
+    with normal distribution (i.e., the F distribution is used and not
     the approximation by the chi-square distribution).
 
     Parameters
@@ -46,7 +46,7 @@ def hyperellipsoid(P, y=None, z=None, pvalue=.95, units=None, show=True, ax=None
     z : 1-D array_like, optional (default = None)
         Ordinate values of the [x, y] or [x, y, z] data.
     pvalue : float, optional (default = .95)
-        Desired prediction or tolerance probability of the hyperellipsoid.
+        Desired prediction probability of the hyperellipsoid.
     units : str, optional (default = None)
         Units of the input data.
     show : bool, optional (default = True)
@@ -184,7 +184,7 @@ def _plot(P, hypervolume, saxes, center, R, pvalue, units, ax):
                         fontsize=20, color='r')
             plt.axis('equal')
             plt.grid()
-            title = r'Prediction or tolerance ellipse (p=%4.2f): Area=' % pvalue
+            title = r'Prediction ellipse (p=%4.2f): Area=' % pvalue
             if units is not None:
                 units2 = ' [%s]' % units
                 units = units + r'$^2$'
@@ -219,7 +219,7 @@ def _plot(P, hypervolume, saxes, center, R, pvalue, units, ax):
             ax.set_xlim(lims)
             ax.set_ylim(lims)
             ax.set_zlim(lims)
-            title = r'Prediction or tolerance ellipsoid (p=%4.2f): Volume=' % pvalue
+            title = r'Prediction ellipsoid (p=%4.2f): Volume=' % pvalue
             if units is not None:
                 units2 = ' [%s]' % units
                 units = units + r'$^3$'
