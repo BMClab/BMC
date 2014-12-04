@@ -58,6 +58,7 @@ Mechanics
  + [Fundamental concepts](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/KineticsFundamentalConcepts.ipynb)
  + [Body segment parameters](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/BodySegmentParameters.ipynb)
  + [Free body diagram](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/FreeBodyDiagram.ipynb)
+ + [Biomechanical analysis of vertical jumps](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/VerticalJump.ipynb)
  + [Gait analysis (2D)](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/GaitAnalysis2D.ipynb)
 
 Stabilography
