@@ -12,12 +12,11 @@ def kistler_fp_cal(data, S_matrix=None, fxfy_range=0, fz_range=0, origin=None,
     """Kistler force plate calibration
 
     In order to get proper signals of a Kistler force plate, we have to
-    calibrate the acquired data accordging to the calibration from factory
-    (i.e., transform the readed values in volts of the 8 channels to values
-    in newtons for fx12, fx34, fy14, fy23, fz1, fz2, fz3, fz4) and then
-    calculate the resultant forces (Fx, Fy, Fz), resultant moments of force
-    (Mx, My, Mz), and center of pressure (COPx, COPy) quantities.
-    See [1]_ and [2]_
+    calibrate the acquired data according to the factory calibration (i.e.,
+    transform the readed values in volts of the 8 channels to values in newtons
+    for fx12, fx34, fy14, fy23, fz1, fz2, fz3, fz4) and then calculate the
+    resultant forces (Fx, Fy, Fz), resultant moments of force (Mx, My, Mz),
+    and center of pressure (COPx, COPy) quantities. See [1]_ and [2]_
 
     Parameters
     ----------
