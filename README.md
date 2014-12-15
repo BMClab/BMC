@@ -41,7 +41,7 @@ Numerical data analysis
 - [Ensemble average](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/EnsembleAverage.ipynb)
 - [Open files in C3D format](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/OpenC3Dfile.ipynb)
 - **Force plates**
- + [Kistler force plate calculation](http://nbviewer.ipython.org/github/duartexyz/BMC/blob/master/KistlerForcePlateCalculation.ipynb)
+ + [Kistler force plate calculation](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/KistlerForcePlateCalculation.ipynb)
 
 Mechanics
 ---------
