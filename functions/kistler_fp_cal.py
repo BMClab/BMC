@@ -58,7 +58,7 @@ def kistler_fp_cal(data, S_matrix=None, fxfy_range=0, fz_range=0, origin=None,
     References
     ----------
     .. [1] http://isbweb.org/software/movanal/vaughan/kistler.pdf
-    .. [2] http://nbviewer.ipython.org/github/duartexyz/BMC/blob/master/KistlerForcePlateCalculation.ipynb
+    .. [2] http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/KistlerForcePlateCalculation.ipynb
 
     """
 
