@@ -18,6 +18,7 @@ Scientific programming
 - [How to install Python](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/PythonInstallation.ipynb)
 - [Python tutorial](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/PythonTutorial.ipynb)
 - [Version control with Git and GitHub](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/VersionControlGitGitHub.ipynb)
+- [Code structure for data analysis](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/CodeStructure.ipynb)
 
 Numerical data analysis
 -----------------------
