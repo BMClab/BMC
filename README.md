@@ -5,7 +5,7 @@ BMC
 
 Marcos Duarte
 
-This repository is a collection of lectures and code on scientific computing and data analysis in Biomechanics and Motor Control. The lectures are written using the [IPython Notebook](http://ipython.org/notebook.html), part of the [Python ecosystem for scientific computing]( http://scipy.org/). You can view these lectures in different ways: simply read online by clicking on the links below; or download a single notebook or all the stuff or yet fork this entire repository using the GitHub resources and run the notebooks in your computer or in the cloud.  
+This repository is a collection of lectures and code on scientific computing and data analysis in Biomechanics and Motor Control. The lectures are written using the [IPython Notebook](http://ipython.org/notebook.html), part of the [Python ecosystem for scientific computing]( http://scipy.org/). You can view these lectures in different ways: simply read on line by clicking on the links below; or download a single notebook or all the stuff or yet fork this entire repository using the GitHub resources and run the notebooks in your computer or in the cloud.  
 This material is far from finished.
 
 Introduction
@@ -32,6 +32,7 @@ Numerical data analysis
 - **Frequency analysis**
  + [Basic properties of signals](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/SignalBasicProperties.ipynb)
  + [Fourier series](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/FourierSeries.ipynb)
+ + [Fast Fourier Transform and Power Spectral Density](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/FFTandPSD.ipynb)
 - [Data filtering in signal processing](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/DataFiltering.ipynb)
  + [Residual analysis for the optimal cutoff frequency](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/ResidualAnalysis.ipynb)
 - **Change detection**  
@@ -41,8 +42,6 @@ Numerical data analysis
 - [Time normalization of data](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/TimeNormalization.ipynb) 
 - [Ensemble average](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/EnsembleAverage.ipynb)
 - [Open files in C3D format](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/OpenC3Dfile.ipynb)
-- **Force plates**
- + [Kistler force plate calculation](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/KistlerForcePlateCalculation.ipynb)
 
 Mechanics
 ---------
@@ -63,11 +62,17 @@ Mechanics
  + [Free body diagram](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/FreeBodyDiagram.ipynb)
  + [Biomechanical analysis of vertical jumps](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/VerticalJump.ipynb)
  + [Gait analysis (2D)](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/GaitAnalysis2D.ipynb)
-
+ + Force plates
+    - [Kistler force plate calculation](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/KistlerForcePlateCalculation.ipynb)
+ 
 Stabilography
 -------------
 - [The inverted pendulum model of the human standing posture](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/IP_Model.ipynb)
 - [Measurements in stabilography](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/Stabilography.ipynb)
+
+Elctromyography
+---------------
+- [Introduction to data analysis in electromyography](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/Electromyography.ipynb)
 
 License
 -------
