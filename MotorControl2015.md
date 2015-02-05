@@ -39,6 +39,7 @@
 **Readings**   
  + Chapter 9 of Winter (2009)
  + Chapter 4 (pages 622-644) of Nigg & Herzog (2006)
+ + Chapter 9 of Robertson et al. (2013) 
  + Thelen (2003)
  + Millard et al. (2013)
  + McLean et al. (2003)
@@ -60,7 +61,7 @@
 
 **Readings**   
  + Chapter 4 of Nigg & Herzog (2006)  
- + Robertson et al. (2013)  
+ + Chapters 10 and 11 of Robertson et al. (2013)  
  + Pandy (2001)  
  + Erdemir et al. (2007)  
  
@@ -71,6 +72,7 @@
 - [OpenSim software](https://simtk.org/home/opensim)   
 
 **Readings**   
+ + Delp et al. (2007)
  + [OpenSim support site](http://opensim.stanford.edu/support/index.html)   
  
 **Assignments**   
