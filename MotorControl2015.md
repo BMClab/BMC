@@ -77,12 +77,12 @@
  
 ## Readings
 
-1. Zajac FE (1993) [Muscle coordination of movement: a perspective](http://e.guigon.free.fr/rsc/article/Zajac93.pdf). J Biomech. 1993;26 Suppl 1:109-24.   
-2. Delp SL, Anderson FC, Arnold AS, Loan P, Habib A, John CT, Guendelman E, Thelen DG (2007) [OpenSim: open-source software to create and analyze dynamic simulations of movement](http://www.ncbi.nlm.nih.gov/pubmed/18018689). IEEE Trans Biomed Eng. 2007 Nov;54(11):1940-50.   
-3. Pandy MG (2001) [Computer modeling and simulation](https://drive.google.com/open?id=0BxbW72zV7WmUbXZBR2VRMnF5UTA&authuser=0). Annu. Rev. Biomed. Eng., 3:245–73.  
+1. Zajac FE (1993) [Muscle coordination of movement: a perspective](http://e.guigon.free.fr/rsc/article/Zajac93.pdf). J Biomech., 26, Suppl 1:109-24.   
+2. Delp SL, Anderson FC, Arnold AS, Loan P, Habib A, John CT, Guendelman E, Thelen DG (2007) [OpenSim: open-source software to create and analyze dynamic simulations of movement](http://www.ncbi.nlm.nih.gov/pubmed/18018689). IEEE Trans Biomed Eng., 54, 1940-50.   
+3. Pandy MG (2001) [Computer modeling and simulation](https://drive.google.com/open?id=0BxbW72zV7WmUbXZBR2VRMnF5UTA&authuser=0). Annu. Rev. Biomed. Eng., 3, 245–73.  
 4. Nigg & Herzog (2006) [Biomechanics of the Musculo-skeletal System](https://books.google.com.br/books?id=hOIeAQAAIAAJ&dq=editions:ISBN0470017678). 3 Ed. Wiley.  
 5. Winter DA (2009) [Biomechanics and motor control of human movement](http://books.google.com.br/books?id=_bFHL08IWfwC). 4 ed. Hoboken, EUA: Wiley.   
-6. Thelen DG (2003) [Adjustment of muscle mechanics model parameters to simulate dynamic contractions in older adults](http://homepages.cae.wisc.edu/~thelen/pubs/jbme03.pdf). Journal of Biomechanical Engineering, 125(1):70–77.  
+6. Thelen DG (2003) [Adjustment of muscle mechanics model parameters to simulate dynamic contractions in older adults](http://homepages.cae.wisc.edu/~thelen/pubs/jbme03.pdf). Journal of Biomechanical Engineering, 125, 70–77.  
 7. Millard M, Uchida T, Seth A, Delp SL (2013) [Flexing computational muscle: modeling and simulation of musculotendon dynamics](http://www.ncbi.nlm.nih.gov/pubmed/23445050). Journal of Biomechanical Engineering, 135, 021005.  
 8. McLean SG, Su A, van den Bogert AJ (2003) [Development and validation of a 3-D model to predict knee joint loading during dynamic movement](http://www.ncbi.nlm.nih.gov/pubmed/14986412). Journal of Biomechanical Engineering, 125, 864-74.  
 9. Downey AB (2011) [Physical Modeling in MATLAB](http://greenteapress.com/matlab/). Green Tea Press.  
