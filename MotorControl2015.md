@@ -67,7 +67,7 @@
  +    
  
 ### Weeks 8 - 10
-- OpenSim   
+- [OpenSim software](https://simtk.org/home/opensim)   
 
 **Readings**   
  + [OpenSim support site](http://opensim.stanford.edu/support/index.html)   
