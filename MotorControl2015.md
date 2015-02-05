@@ -28,9 +28,10 @@
 
 **Readings**   
  + Chapter 4 (pages 501-534) of Nigg & Herzog (2006)
+ + [Models in Science](http://plato.stanford.edu/entries/models-science/) (from [Stanford Encyclopedia of Philosophy](http://plato.stanford.edu/index.html))
 
 **Assignments**   
- +    
+ +   
  
 ### Weeks 3, 4
 - Muscle modeling and simulation
@@ -43,7 +44,7 @@
  + McLean et al. (2003)
 
 **Assignments**   
- +    
+ +         
  
 ### Week 5
 - Ordinary differential equation and numerical integration
@@ -64,7 +65,7 @@
  + Erdemir et al. (2007)  
  
 **Assignments**   
- +    
+ +        
  
 ### Weeks 8 - 10
 - [OpenSim software](https://simtk.org/home/opensim)   
