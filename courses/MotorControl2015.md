@@ -38,13 +38,11 @@
 - Muscle modeling and simulation
 
 **Readings**   
- + Chapter 9 of Winter (2009)
+ + Chapter 9 of Winter (2009), chapter 4 of Oatis (2009)
  + Chapter 4 (pages 622-644) of Nigg & Herzog (2006)
  + Chapter 9 of Robertson et al. (2013)  
  + Zajac (1989)  
- + Thelen (2003)
- + Millard et al. (2013)
- + McLean et al. (2003)
+ + Thelen (2003), Millard et al. (2013), McLean et al. (2003)
 
 **Assignments**   
  +         
@@ -85,8 +83,9 @@
 - Zajac FE (1993) [Muscle coordination of movement: a perspective](http://e.guigon.free.fr/rsc/article/Zajac93.pdf). J Biomech., 26, Suppl 1:109-24.   
 - Delp SL, Anderson FC, Arnold AS, Loan P, Habib A, John CT, Guendelman E, Thelen DG (2007) [OpenSim: open-source software to create and analyze dynamic simulations of movement](http://www.ncbi.nlm.nih.gov/pubmed/18018689). IEEE Trans Biomed Eng., 54, 1940-50.   
 - Pandy MG (2001) [Computer modeling and simulation](https://drive.google.com/open?id=0BxbW72zV7WmUbXZBR2VRMnF5UTA&authuser=0). Annu. Rev. Biomed. Eng., 3, 245–73.  
-- Nigg & Herzog (2006) [Biomechanics of the Musculo-skeletal System](https://books.google.com.br/books?id=hOIeAQAAIAAJ&dq=editions:ISBN0470017678). 3rd Edition. Wiley. [4](https://drive.google.com/open?id=0BxbW72zV7WmUVlhPYk9NNm5HbTQ&authuser=0) 
+- Nigg & Herzog (2006) [Biomechanics of the Musculo-skeletal System](https://books.google.com.br/books?id=hOIeAQAAIAAJ&dq=editions:ISBN0470017678). 3rd Edition. Wiley. [4](https://drive.google.com/open?id=0BxbW72zV7WmUVlhPYk9NNm5HbTQ&authuser=0)  
 - Winter DA (2009) [Biomechanics and motor control of human movement](http://books.google.com.br/books?id=_bFHL08IWfwC). 4th Edition. Hoboken, EUA: Wiley.   
+- Oatis CA (2009) [Kinesiology : the mechanics and pathomechanics of human movement](https://books.google.com.br/books?id=SqZZSAAACAAJ). Lippincott Williams &​ Wilkins. 2nd Edition. [4](http://downloads.lww.com/wolterskluwer_vitalstream_com/sample-content/9780781774222_Oatis/samples/Oatis_CH04_045-068.pdf)
 - Zajac FE (1989) [Muscle and tendon: properties, models, scaling and application to biomechanics and motor control](https://drive.google.com/open?id=0BxbW72zV7WmUclNNaTd2TGVndFE&authuser=0). Critical Reviews in Biomedical Engineering 17:359-411.  
 - Thelen DG (2003) [Adjustment of muscle mechanics model parameters to simulate dynamic contractions in older adults](http://homepages.cae.wisc.edu/~thelen/pubs/jbme03.pdf). Journal of Biomechanical Engineering, 125, 70–77.  
 - Millard M, Uchida T, Seth A, Delp SL (2013) [Flexing computational muscle: modeling and simulation of musculotendon dynamics](http://www.ncbi.nlm.nih.gov/pubmed/23445050). Journal of Biomechanical Engineering, 135, 021005.  
