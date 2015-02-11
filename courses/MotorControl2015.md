@@ -31,7 +31,8 @@
  + [Models in Science](http://plato.stanford.edu/entries/models-science/) (from [Stanford Encyclopedia of Philosophy](http://plato.stanford.edu/index.html))
 
 **Assignments**   
- +   
+ + Write a computer program to plot the results of Example 2 (page 537 of Nigg & Herzog (2006)). Your code should have as inputs the initial position, initial velocity, and acceleration (constant) and as outputs, plots of the position, velocity and acceleration of the particle.  
+ + Study and run the computer programs about inverse dynamics in [Inverse dynamics benchmark data](http://isbweb.org/data/invdyn/index.html). See [this notebook](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/GaitAnalysis2D.ipynb) for a use of these data and code in Python.
  
 ### Weeks 3, 4
 - Muscle modeling and simulation
