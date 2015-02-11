@@ -91,5 +91,5 @@
 - Millard M, Uchida T, Seth A, Delp SL (2013) [Flexing computational muscle: modeling and simulation of musculotendon dynamics](http://www.ncbi.nlm.nih.gov/pubmed/23445050). Journal of Biomechanical Engineering, 135, 021005.  
 - Robertson G, Caldwell G, Hamill J, Kamen G (2013) [Research Methods in Biomechanics](http://books.google.com.br/books?id=gRn8AAAAQBAJ). 2nd Edition. Human Kinetics.  
 - Winter DA (2009) [Biomechanics and motor control of human movement](http://books.google.com.br/books?id=_bFHL08IWfwC). 4th Edition. Hoboken, EUA: Wiley.   
-- Zajac FE (1989) [Muscle and tendon: properties, models, scaling and application to biomechanics and motor control](https://drive.google.com/open?id=0BxbW72zV7WmUclNNaTd2TGVndFE&authuser=0). Critical Reviews in Biomedical Engineering 17:359-411.   
+- Zajac FE (1989) [Muscle and tendon: properties, models, scaling and application to biomechanics and motor control](https://drive.google.com/open?id=0BxbW72zV7WmUclNNaTd2TGVndFE&authuser=0). Critical Reviews in Biomedical Engineering 17, 359-411.   
 - Zajac FE (1993) [Muscle coordination of movement: a perspective](http://e.guigon.free.fr/rsc/article/Zajac93.pdf). J Biomech., 26, Suppl 1:109-24.   
