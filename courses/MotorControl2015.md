@@ -45,7 +45,8 @@
  + Thelen (2003), Millard et al. (2013), McLean et al. (2003)
 
 **Assignments**   
- +         
+ + Write computer programs to plot each component of the Hill-type muscle model having parameters as inputs.
+ + Run the muscle simulation from page 655 of Nigg & Herzog (2006).
  
 ### Week 5
 - Ordinary differential equation and numerical integration
@@ -62,6 +63,7 @@
 **Readings**   
  + Chapter 4 of Nigg & Herzog (2006)  
  + Chapters 10 and 11 of Robertson et al. (2013)  
+ + Zajac & Gordon (1989)
  + Pandy (2001)  
  + Erdemir et al. (2007)  
  
@@ -92,4 +94,5 @@
 - Robertson G, Caldwell G, Hamill J, Kamen G (2013) [Research Methods in Biomechanics](http://books.google.com.br/books?id=gRn8AAAAQBAJ). 2nd Edition. Human Kinetics.  
 - Winter DA (2009) [Biomechanics and motor control of human movement](http://books.google.com.br/books?id=_bFHL08IWfwC). 4th Edition. Hoboken, EUA: Wiley.   
 - Zajac FE (1989) [Muscle and tendon: properties, models, scaling and application to biomechanics and motor control](https://drive.google.com/open?id=0BxbW72zV7WmUclNNaTd2TGVndFE&authuser=0). Critical Reviews in Biomedical Engineering 17, 359-411.   
+Zajac FE, Gordon ME (1989) [Determining muscle's force and action in multi-articular movement](https://drive.google.com/open?id=0BxbW72zV7WmUcC1zSGpEOUxhWXM&authuser=0). Exercise and Sport Sciences Reviews, 17, 187-230.
 - Zajac FE (1993) [Muscle coordination of movement: a perspective](http://e.guigon.free.fr/rsc/article/Zajac93.pdf). J Biomech., 26, Suppl 1:109-24.   
