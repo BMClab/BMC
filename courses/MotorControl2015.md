@@ -41,14 +41,22 @@
  + Chapter 9 of Winter (2009), chapter 4 of Oatis (2009)
  + Chapter 4 (pages 622-644) of Nigg & Herzog (2006)
  + Chapter 9 of Robertson et al. (2013)  
+
+**Assignments**   
+ + Study and run the muscle simulation from page 655 of Nigg & Herzog (2006).
+ 
+### Weeks 4
+- Muscle modeling and simulation
+
+**Readings**   
  + Zajac (1989)  
  + Thelen (2003), Millard et al. (2013), McLean et al. (2003)
 
 **Assignments**   
  + Write computer programs to plot each component of the Hill-type muscle model having parameters as inputs.
- + Run the muscle simulation from page 655 of Nigg & Herzog (2006).
+ + Implement your own computer model for a muscle and run some simulations.
  
-### Week 5
+ ### Week 5
 - Ordinary differential equation and numerical integration
 
 **Readings**   
