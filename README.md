@@ -64,13 +64,17 @@ Mechanics
  + [Gait analysis (2D)](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/GaitAnalysis2D.ipynb)
  + Force plates
     - [Kistler force plate calculation](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/KistlerForcePlateCalculation.ipynb)
- 
+
+Modeling and simulation of human movement
+-----------------------------------------
+- [Muscle modeling](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/MuscleModeling.ipynb)  
+
 Stabilography
 -------------
 - [The inverted pendulum model of the human standing posture](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/IP_Model.ipynb)
 - [Measurements in stabilography](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/Stabilography.ipynb)
 
-Elctromyography
+Electromyography
 ---------------
 - [Introduction to data analysis in electromyography](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/Electromyography.ipynb)
 
