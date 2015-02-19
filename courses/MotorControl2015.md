@@ -35,7 +35,7 @@
  + Write a computer program to perform inverse dynamics with the data in [Inverse dynamics benchmark data](http://isbweb.org/data/invdyn/index.html). See [this notebook](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/GaitAnalysis2D.ipynb) for a solution in Python.
  
 ### Week 3
-- Muscle modeling and simulation
+- Muscle modeling and simulation  
  + [Muscle modeling](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/MuscleModeling.ipynb)  
 
 **Readings**   
@@ -48,7 +48,8 @@
  
 ### Week 4
 - Muscle modeling and simulation
-
+ + [Muscle modeling](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/MuscleModeling.ipynb)  
+ 
 **Readings**   
  + Zajac (1989)  
  + Anderson (2007), Thelen (2003), Millard et al. (2013), McLean et al. (2003)
