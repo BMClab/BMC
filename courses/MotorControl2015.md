@@ -1,6 +1,8 @@
 # Motor Control (v. 2015)  
 *Introduction to modeling and simulation of human movement*
 
+**NO CLASS TODAY, February 25**
+
 ### Instructor  
 - Marcos Duarte 
 
