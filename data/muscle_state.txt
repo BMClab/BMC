@@ -1,0 +1,11 @@
+[muscle]
+# muscle ID (short name)
+id = 
+# muscle name
+name = 
+# initial muscle-tendon length
+lmt0 = 0.332
+# initial muscle length
+lm0 = 0.10
+# initial tendon length
+lt0 = 

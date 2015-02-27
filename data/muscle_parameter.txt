@@ -1,0 +1,37 @@
+[muscle]
+# muscle ID (short name)
+id = 
+# muscle name
+name = 
+# maximum value for muscle excitation
+u_max = 1.0
+# minimum value for muscle excitation
+u_min = 0.01
+# activation time constant [s]
+t_act = 0.015
+# deactivation time constant [s]
+t_deact = 0.050
+# optimal CE length
+lmopt = 0.093
+# pennation angle at rest
+alpha0 = 0.0
+# maximum isometric muscle force
+fm0 = 7400
+# CE f-l shape factor
+gammal = 0.45
+# PE exponential shape factor
+kpe = 5.0
+# PE passive muscle strain due to maximum isometric force
+epsm0 = 0.6
+# CE f-v maximum muscle velocity for concentric activation
+vmmax = 10.0
+# CE f-v maximum force generated at the lengthening phase
+fmlen = 1.4
+# CE f-v shape factor
+af = 0.25
+# tendon slack length
+ltslack = 0.223
+# tendon strain at the maximal isometric muscle force
+epst0 = 0.04
+# tendon linear scale factor
+kttoe = 3.0
