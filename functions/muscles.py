@@ -8,7 +8,7 @@ import configparser
 
 
 __author__ = 'Marcos Duarte, https://github.com/demotu/BMC'
-__version__ = 'muscles.py v.1 2015/02/16'
+__version__ = 'muscles.py v.1 2015/03/01'
 
 
 class Thelen2003():
@@ -22,6 +22,7 @@ class Thelen2003():
             self.set_states(states)
 
         self.lm_data = []
+        self.lm_data2 = []
         self.a_data = []
 
 
@@ -101,10 +102,7 @@ class Thelen2003():
 
         if gammal is None: gammal = self.P['gammal']
 
-
         fl = np.exp(-(lm-1)**2/gammal)
-        if fl < 0.1:
-            fl = 0.1
             
         return fl
 
@@ -209,14 +207,22 @@ class Thelen2003():
         if fmlen is None: fmlen = self.P['fmlen']
         if af is None: af = self.P['af']
 
-        #vmmax = vmmax*lmopt
         if fm <= a*fl:  # isometric and concentric activation
-            b = a*fl + fm/af
-        else:             # eccentric activation
-            b = (2 + 2/af)*(a*fl*fmlen - fm)/(fmlen - 1) 
+            if fm > 0:
+                b = a*fl + fm/af
+            else:
+                b = a*fl
+        else:           # eccentric activation
+            asyE_thresh = 0.95  # from OpenSim Thelen2003Muscle
+            if fm < a*fl*fmlen*asyE_thresh:
+                b = (2 + 2/af)*(a*fl*fmlen - fm)/(fmlen - 1)
+            else:
+                fm0 = a*fl*fmlen*asyE_thresh
+                b = (2 + 2/af)*(a*fl*fmlen - fm0)/(fmlen - 1)
+
         vm = (0.25  + 0.75*a)*1*(fm - a*fl)/b
         vm = vm*vmmax*lmopt
-        
+
         return vm
         
         
@@ -258,6 +264,7 @@ class Thelen2003():
             fvm = a*fl*(af*vmmax*(3*a*fmlen - 3*a + fmlen - 1) + \
                   8*vm*fmlen*(af + 1)) / \
                   (af*vmmax*(3*a*fmlen - 3*a + fmlen - 1) + 8*vm*(af + 1))          
+        
         return fvm
         
         
@@ -404,7 +411,7 @@ class Thelen2003():
       
         if fun is None:
             fun = self.activation_dyn
-        f = ode(fun).set_integrator('dopri5', nsteps=1, max_step=0.01, atol=1e-8)  
+        f = ode(fun).set_integrator('dopri5', nsteps=1, max_step=0.005, atol=1e-8)  
         f.set_initial_value(a0, t0).set_f_params(t_act, t_deact)
         # suppress Fortran warning
         warnings.filterwarnings("ignore", category=UserWarning)
@@ -427,24 +434,32 @@ class Thelen2003():
         
         data = self.a_data        
         if t is not None and len(data):
-            a = np.interp(t, self.a_data[:, 0], self.a_data[:, 1])
+            if t <= self.a_data[0, 0]:
+                a = self.a_data[0, 2]
+            elif t >= self.a_data[-1, 0]:
+                a = self.a_data[-1, 2]
+            else:
+                a = np.interp(t, self.a_data[:, 0], self.a_data[:, 2])
         else:
             a = 1
-
-        return a   
+            
+        return a
 
         
     def lmt_eq(self, t, lmt0=None):
         """Equation for muscle-tendon length."""
 
-        if lmt0 is None: lmt0 = self.S['lmt0']
+        if lmt0 is None:
+            lmt0 = self.S['lmt0']
             
         return lmt0
 
         
     def vm_eq(self, t, lm, lm0, lmt0, lmopt, ltslack, alpha0, vmmax, fm0):
         """Equation for muscle velocity."""
-        
+
+        if lm < 0.1*lmopt:
+            lm = 0.1*lmopt
         #lt0 = lmt0 - lm0*np.cos(alpha0)        
         a = self.activation(t)
         lmt = self.lmt_eq(t, lmt0)
@@ -453,12 +468,15 @@ class Thelen2003():
         fse = self.force_se(lt=lt, ltslack=ltslack)
         fpe = self.force_pe(lm=lm/lmopt)
         fl = self.force_l(lm=lm/lmopt)
-        fm = fse/np.cos(alpha) - fpe
-        if fm < 0: fm=0
-        vm = self.velo_fm(fm=fm, a=a, fl=fl, lmopt=lmopt, vmmax=vmmax)
-        #fm = self.force_vm(vm=vm, fl=fl, lmopt=lmopt, a=a) + fpe  
-        #self.mdata = [t, lmt, lm, lt, vm, fm*fm0, fse*fm0, fl*fm0, fpe*fm0]
-        
+        fce_t = fse/np.cos(alpha) - fpe
+        #if fce_t < 0: fce_t=0
+        vm = self.velo_fm(fm=fce_t, a=a, fl=fl)
+        #print([t, a, lm, fse, fpe, fce_t, fl, vm])
+        #fce = self.force_vm(vm=vm, fl=fl, lmopt=lmopt, a=a) + fpe  
+        #d = [t, lmt, lm, lt, vm, fce*fm0, fse*fm0, a*fl*fm0, fpe*fm0]
+        #self.lm_data2.append(d)
+        #print(alpha, lm, lt, fl, fse, fpe, fce)
+
         return vm
 
 
@@ -476,23 +494,26 @@ class Thelen2003():
         
         if fun is None:
             fun = self.vm_eq
-        f = ode(fun).set_integrator('dopri5', nsteps=1, max_step=0.01, atol=1e-8)  
+        f = ode(fun).set_integrator('dopri5', nsteps=1, max_step=0.005, atol=1e-8)  
         f.set_initial_value(lm0, t0).set_f_params(lm0, lmt0, lmopt, ltslack, alpha0, vmmax, fm0)
         # suppress Fortran warning
         warnings.filterwarnings("ignore", category=UserWarning)
         data = []
+        #self.lm_data2 = []
         while f.t < t1:
             f.integrate(t1, step=True)
-            d = self.calc_data(f.t, f.y, lm0, lmt0, ltslack, lmopt, alpha0, fm0)
+            d = self.calc_data(f.t, np.max([f.y, 0.1*lmopt]), lm0, lmt0,
+                                           ltslack, lmopt, alpha0, fm0)
             data.append(d)
 
         warnings.resetwarnings()
         data = np.array(data)
+        self.lm_data = data
+        #self.lm_data2 = np.array(self.lm_data2)
+        #data = self.lm_data2
         if show:
             self.lm_plot(data, axs)
-      
-        self.lm_data = data
-
+        
         return data
         
         
@@ -506,10 +527,10 @@ class Thelen2003():
         fl = self.force_l(lm=lm/lmopt)
         fpe = self.force_pe(lm=lm/lmopt)
         fse = self.force_se(lt=lt, ltslack=ltslack)
-        fce = fse/np.cos(alpha) - fpe
-        vm = self.velo_fm(fm=fce, a=a ,fl=fl, lmopt=lmopt)
-        fm = self.force_vm(vm=vm, fl=fl, lmopt=lmopt, a=a) + fpe    
-        data = [t, lmt, lm, lt, vm, fm*fm0, fse*fm0, fl*fm0, fpe*fm0]
+        fce_t = fse/np.cos(alpha) - fpe
+        vm = self.velo_fm(fm=fce_t, a=a, fl=fl, lmopt=lmopt)
+        fce = self.force_vm(vm=vm, fl=fl, lmopt=lmopt, a=a) + fpe   
+        data = [t, lmt, lm, lt, vm, fce*fm0, fse*fm0, a*fl*fm0, fpe*fm0]
         
         return data
 
@@ -584,7 +605,7 @@ class Thelen2003():
         fse = fse*fm0
         fvm = fvm*fm0
             
-        xlim = self.margins(lm, margin=.05)
+        xlim = self.margins(lm, margin=.05, minmargin=False)
         axs[0].set_xlim(xlim)
         ylim = self.margins([0, 2], margin=.05)
         axs[0].set_ylim(ylim)
@@ -598,9 +619,9 @@ class Thelen2003():
         axs[0].set_xlabel('Length [m]')
         axs[0].set_ylabel('Scale factor')
         axs[0].locator_params(axis='both', nbins=5)
-        axs[0].set_title('Muscle F-L')
+        axs[0].set_title('Muscle F-L (a=1)')
         
-        xlim = self.margins([0, np.min(vm), np.max(vm)], margin=.05)
+        xlim = self.margins([0, np.min(vm), np.max(vm)], margin=.05, minmargin=False)
         axs[1].set_xlim(xlim)
         ylim = self.margins([0, fm0*1.2, np.max(fvm)*1.5], margin=.025)
         axs[1].set_ylim(ylim)
@@ -614,9 +635,9 @@ class Thelen2003():
         axs[1].legend(loc='upper right', frameon=True, framealpha=.5)
         axs[1].set_ylabel('Force [N]')
         axs[1].locator_params(axis='both', nbins=5)
-        axs[1].set_title('Muscle F-V')
+        axs[1].set_title('Muscle F-V (a=1)')
 
-        xlim = self.margins([lt0, ltslack, np.min(lt), np.max(lt)], margin=.05)
+        xlim = self.margins([lt0, ltslack, np.min(lt), np.max(lt)], margin=.05, minmargin=False)
         axs[2].set_xlim(xlim)
         ylim = self.margins([ft_lt0, 0, np.max(fse)], margin=.05)
         axs[2].set_ylim(ylim)
@@ -635,7 +656,9 @@ class Thelen2003():
         
         
     def lm_plot(self, x, axs):
-        """Plot results of actdyn_ode45 function."""
+        """Plot results of actdyn_ode45 function.
+            data = [t, lmt, lm, lt, vm, fm*fm0, fse*fm0, fl*fm0, fpe*fm0]
+        """
 
         try:
             import matplotlib.pyplot as plt
@@ -646,47 +669,65 @@ class Thelen2003():
         if axs is None:
             _, axs = plt.subplots(nrows=3, ncols=2, sharex=True, figsize=(10, 6))
 
-        axs[0, 0].plot(x[:, 0], x[:, 1], 'b')
+        axs[0, 0].plot(x[:, 0], x[:, 1], 'b', label='LMT')
+        axs[0, 0].plot(x[:, 0], x[:, 2] + x[:, 3], 'g--', label='LM+LT')
+        ylim = self.margins(x[:, 1], margin=.1)
+        axs[0, 0].set_ylim(ylim)
         axs[0, 0].set_ylabel('$L_{MT}\,(m)$')
         axs[0, 0].locator_params(axis='both', nbins=5)
+        axs[0, 0].legend(framealpha=.5, loc='best')
         
         axs[0, 1].plot(x[:, 0], x[:, 3], 'b')
         #axs[0, 1].plot(x[:, 0], lt0*np.ones(len(x)), 'r')
+        ylim = self.margins(x[:, 3], margin=.1)
+        axs[0, 1].set_ylim(ylim)
         axs[0, 1].set_ylabel('$L_{T}\,(m)$')
-        #axs[0, 1].set_ylim([.222, .232])
         axs[0, 1].locator_params(axis='both', nbins=5)
         
         axs[1, 0].plot(x[:, 0], x[:, 2], 'b')
-        #axs[0, 2].plot(x[:, 0], lmopt*np.ones(len(x)), 'r')
+        #axs[1, 0].plot(x[:, 0], lmopt*np.ones(len(x)), 'r')
+        ylim = self.margins(x[:, 2], margin=.1)
+        axs[1, 0].set_ylim(ylim)
         axs[1, 0].set_ylabel('$L_{M}\,(m)$')
         axs[1, 0].locator_params(axis='both', nbins=5)
         
         axs[1, 1].plot(x[:, 0], x[:, 4], 'b')
+        ylim = self.margins(x[:, 4], margin=.1)
+        axs[1, 1].set_ylim(ylim)
         axs[1, 1].set_ylabel('$V_{CE}\,(m/s)$')
-        #axs[1, 0].set_ylim([-.045, .005])
         axs[1, 1].locator_params(axis='both', nbins=5)
         
-        axs[2, 0].plot(x[:, 0], x[:, 5], 'b')
-        axs[2, 0].set_ylabel('$F_{M}\,(N)$')
-        #axs[1, 2].set_ylim([3000, 7500])
+        axs[2, 0].plot(x[:, 0], x[:, 5], 'b', label='CE')
+        axs[2, 0].plot(x[:, 0], x[:, 6], 'g--', label='Tendon')
+        axs[2, 0].set_ylabel('$Force\,(N)$')
+        ylim = self.margins(x[:, [5, 6]], margin=.1)
+        axs[2, 0].set_ylim(ylim)
         axs[2, 0].set_xlabel('Time (s)')
         axs[2, 0].locator_params(axis='both', nbins=5)
+        axs[2, 0].legend(framealpha=.5, loc='best')
         
-        axs[2, 1].plot(x[:, 0], x[:, 7], 'b', label='FL')
-        axs[2, 1].plot(x[:, 0], x[:, 8], 'b--', label='FPE')
+        #axs[2, 1].plot(x[:, 0], x[:, 7], 'b', label='FL')
+        axs[2, 1].plot(x[:, 0], x[:, 8], 'g--', label='FPE')
+        ylim = self.margins(x[:, [8]], margin=.1)
+        axs[2, 1].set_ylim(ylim)
         axs[2, 1].set_xlabel('Time (s)')
         axs[2, 1].set_ylabel('$Force\,(N)$')
         axs[2, 1].locator_params(axis='both', nbins=5)
-        plt.legend(framealpha=.5)
+        axs[2, 1].legend(framealpha=.5, loc='best')
         plt.suptitle('Simulation of muscle-tendon mechanics', fontsize=18,
                      y=1.03)
         plt.tight_layout()
         plt.show()
         
         
-    def margins(self, x, margin=0.01):
+    def margins(self, x, margin=0.01, minmargin=True):
         """Calculate plot limits with extra margins.
         """
-        lim = [np.min(x) - (np.max(x) - np.min(x))*margin,
-                np.max(x) + (np.max(x) - np.min(x))*margin]
+        rang = np.nanmax(x) - np.nanmin(x)
+        if rang < 0.001 and minmargin:
+            rang = 0.001*np.nanmean(x)/margin
+            if rang < 1:
+                rang = 1
+        lim = [np.nanmin(x) - rang*margin, np.nanmax(x) + rang*margin]
+
         return lim
