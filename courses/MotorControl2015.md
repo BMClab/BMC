@@ -48,14 +48,15 @@
 ### Week 4
 - Muscle modeling and simulation
  + [Muscle modeling](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/MuscleModeling.ipynb)  
+ + [Muscle simulation](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/MuscleSimulation.ipynb) 
  
 **Readings**   
  + Zajac (1989)  
  + Anderson (2007), Thelen (2003), Millard et al. (2013), McLean et al. (2003)
 
-**Assignments**   
+**Assignments (for March, 4th)**
+ + Add a function for the parallel elastic element (PEE) to the script from page 655 of Nigg & Herzog (2006).    
  + Write computer programs to plot each component of a Hill-type muscle model having parameters as inputs.
- + Implement your own computer model for a muscle and run some simulations.
  
 ### Week 5
 - Ordinary differential equation and numerical integration
