@@ -268,6 +268,258 @@ class Thelen2003():
         return fvm
         
         
+    def lmt_eq(self, t, lmt0=None):
+        """Equation for muscle-tendon length."""
+
+        if lmt0 is None:
+            lmt0 = self.S['lmt0']
+            
+        return lmt0
+
+        
+    def vm_eq(self, t, lm, lm0, lmt0, lmopt, ltslack, alpha0, vmmax, fm0):
+        """Equation for muscle velocity."""
+
+        if lm < 0.1*lmopt:
+            lm = 0.1*lmopt
+        #lt0 = lmt0 - lm0*np.cos(alpha0)        
+        a = self.activation(t)
+        lmt = self.lmt_eq(t, lmt0)
+        alpha = self.penn_ang(lmt=lmt, lm=lm, lm0=lm0, alpha0=alpha0)
+        lt = lmt - lm*np.cos(alpha)
+        fse = self.force_se(lt=lt, ltslack=ltslack)
+        fpe = self.force_pe(lm=lm/lmopt)
+        fl = self.force_l(lm=lm/lmopt)
+        fce_t = fse/np.cos(alpha) - fpe
+        #if fce_t < 0: fce_t=0
+        vm = self.velo_fm(fm=fce_t, a=a, fl=fl)
+        #print([t, a, lm, fse, fpe, fce_t, fl, vm])
+        #fce = self.force_vm(vm=vm, fl=fl, lmopt=lmopt, a=a) + fpe  
+        #d = [t, lmt, lm, lt, vm, fce*fm0, fse*fm0, a*fl*fm0, fpe*fm0]
+        #self.lm_data2.append(d)
+        #print(alpha, lm, lt, fl, fse, fpe, fce)
+
+        return vm
+
+
+    def lm_sol(self, fun=None, t0=0, t1=3, lm0=None, lmt0=None, ltslack=None, lmopt=None,
+               alpha0=None, vmmax=None, fm0=None,  show=False, axs=None):
+        """Runge-Kutta (4)5 ODE solver for muscle length."""
+
+        if lm0 is None: lm0 = self.S['lm0']
+        if lmt0 is None: lmt0 = self.S['lmt0']
+        if ltslack is None: ltslack = self.P['ltslack']
+        if alpha0 is None: alpha0 = self.P['alpha0']
+        if lmopt is None: lmopt = self.P['lmopt']
+        if vmmax is None: vmmax = self.P['vmmax']
+        if fm0 is None: fm0 = self.P['fm0']
+        
+        if fun is None:
+            fun = self.vm_eq
+        f = ode(fun).set_integrator('dopri5', nsteps=1, max_step=0.005, atol=1e-8)  
+        f.set_initial_value(lm0, t0).set_f_params(lm0, lmt0, lmopt, ltslack, alpha0, vmmax, fm0)
+        # suppress Fortran warning
+        warnings.filterwarnings("ignore", category=UserWarning)
+        data = []
+        #self.lm_data2 = []
+        while f.t < t1:
+            f.integrate(t1, step=True)
+            d = self.calc_data(f.t, np.max([f.y, 0.1*lmopt]), lm0, lmt0,
+                                           ltslack, lmopt, alpha0, fm0)
+            data.append(d)
+
+        warnings.resetwarnings()
+        data = np.array(data)
+        self.lm_data = data
+        #self.lm_data2 = np.array(self.lm_data2)
+        #data = self.lm_data2
+        if show:
+            self.lm_plot(data, axs)
+        
+        return data
+        
+        
+    def calc_data(self, t, lm, lm0, lmt0, ltslack, lmopt, alpha0, fm0):
+        """Calculus of muscle-tendon variables."""
+        
+        a = self.activation(t)
+        lmt = self.lmt_eq(t, lmt0=lmt0)
+        alpha = self.penn_ang(lmt=lmt, lm=lm, lm0=lm0, alpha0=alpha0)
+        lt = lmt - lm*np.cos(alpha)
+        fl = self.force_l(lm=lm/lmopt)
+        fpe = self.force_pe(lm=lm/lmopt)
+        fse = self.force_se(lt=lt, ltslack=ltslack)
+        fce_t = fse/np.cos(alpha) - fpe
+        vm = self.velo_fm(fm=fce_t, a=a, fl=fl, lmopt=lmopt)
+        fm = self.force_vm(vm=vm, fl=fl, lmopt=lmopt, a=a) + fpe   
+        data = [t, lmt, lm, lt, vm, fm*fm0, fse*fm0, a*fl*fm0, fpe*fm0]
+        
+        return data
+            
+    
+    def muscle_plot(self, a=1, axs=None):
+        """Plot muscle-tendon relationships with length and velocity."""
+
+        try:
+            import matplotlib.pyplot as plt
+        except ImportError:
+            print('matplotlib is not available.')
+            return
+        
+        if axs is None:
+            _, axs = plt.subplots(nrows=1, ncols=3, figsize=(9, 4))
+        
+        lmopt   = self.P['lmopt']
+        ltslack = self.P['ltslack']
+        vmmax   = self.P['vmmax']
+        alpha0  = self.P['alpha0']
+        fm0     = self.P['fm0']
+        lm0     = self.S['lm0']
+        lmt0    = self.S['lmt0']
+        lt0     = self.S['lt0']
+        if np.isnan(lt0): lt0 = lmt0 - lm0*np.cos(alpha0)
+        
+        lm  = np.linspace(0, 2, 101)
+        lt  = np.linspace(0, 1, 101)*0.05 + 1
+        vm  = np.linspace(-1, 1, 101)*vmmax*lmopt
+        fl  = np.zeros(lm.size)
+        fpe = np.zeros(lm.size)
+        fse = np.zeros(lt.size)
+        fvm = np.zeros(vm.size)
+        
+        fl_lm0  = self.force_l(lm0/lmopt)
+        fpe_lm0 = self.force_pe(lm0/lmopt)
+        fm_lm0  = fl_lm0 + fpe_lm0
+        ft_lt0  = self.force_se(lt0, ltslack)*fm0        
+        
+        for i in range(101):
+            fl[i]  = self.force_l(lm[i])
+            fpe[i] = self.force_pe(lm[i])
+            fse[i] = self.force_se(lt[i], ltslack=1)
+            fvm[i] = self.force_vm(vm[i], a=a, fl=fl_lm0)
+
+        lm  = lm*lmopt
+        lt  = lt*ltslack
+        fl  = fl
+        fpe = fpe
+        fse = fse*fm0
+        fvm = fvm*fm0
+            
+        xlim = self.margins(lm, margin=.05, minmargin=False)
+        axs[0].set_xlim(xlim)
+        ylim = self.margins([0, 2], margin=.05)
+        axs[0].set_ylim(ylim)
+        axs[0].plot(lm, fl, 'b', label='Active')
+        axs[0].plot(lm, fpe, 'b--', label='Passive')
+        axs[0].plot(lm, fl+fpe, 'b:', label='')
+        axs[0].plot([lm0, lm0], [ylim[0], fm_lm0], 'k:', lw=2, label='')
+        axs[0].plot([xlim[0], lm0], [fm_lm0, fm_lm0], 'k:', lw=2, label='')
+        axs[0].plot(lm0, fm_lm0, 'o', ms=6, mfc='r', mec='r', mew=2, label='fl(LM0)')
+        axs[0].legend(loc='best', frameon=True, framealpha=.5)
+        axs[0].set_xlabel('Length [m]')
+        axs[0].set_ylabel('Scale factor')
+        axs[0].locator_params(axis='both', nbins=5)
+        axs[0].set_title('Muscle F-L (a=1)')
+        
+        xlim = self.margins([0, np.min(vm), np.max(vm)], margin=.05, minmargin=False)
+        axs[1].set_xlim(xlim)
+        ylim = self.margins([0, fm0*1.2, np.max(fvm)*1.5], margin=.025)
+        axs[1].set_ylim(ylim)
+        axs[1].plot(vm, fvm, label='')
+        axs[1].set_xlabel('$\mathbf{^{CON}}\;$ Velocity [m/s] $\;\mathbf{^{EXC}}$')
+        axs[1].plot([0, 0], [ylim[0], fvm[50]], 'k:', lw=2, label='')
+        axs[1].plot([xlim[0], 0], [fvm[50], fvm[50]], 'k:', lw=2, label='')
+        axs[1].plot(0, fvm[50], 'o', ms=6, mfc='r', mec='r', mew=2, label='FM0(LM0)')
+        axs[1].plot(xlim[0], fm0, '+', ms=10, mfc='r', mec='r', mew=2, label='')
+        axs[1].text(vm[0], fm0, 'FM0')
+        axs[1].legend(loc='upper right', frameon=True, framealpha=.5)
+        axs[1].set_ylabel('Force [N]')
+        axs[1].locator_params(axis='both', nbins=5)
+        axs[1].set_title('Muscle F-V (a=1)')
+
+        xlim = self.margins([lt0, ltslack, np.min(lt), np.max(lt)], margin=.05, minmargin=False)
+        axs[2].set_xlim(xlim)
+        ylim = self.margins([ft_lt0, 0, np.max(fse)], margin=.05)
+        axs[2].set_ylim(ylim)
+        axs[2].plot(lt, fse, label='')
+        axs[2].set_xlabel('Length [m]')
+        axs[2].plot([lt0, lt0], [ylim[0], ft_lt0], 'k:', lw=2, label='')
+        axs[2].plot([xlim[0], lt0], [ft_lt0, ft_lt0], 'k:', lw=2, label='')
+        axs[2].plot(lt0, ft_lt0, 'o', ms=6, mfc='r', mec='r', mew=2, label='FT(LT0)')
+        axs[2].legend(loc='upper left', frameon=True, framealpha=.5)
+        axs[2].set_ylabel('Force [N]')
+        axs[2].locator_params(axis='both', nbins=5)
+        axs[2].set_title('Tendon')  
+        plt.suptitle('Muscle-tendon mechanics', fontsize=18, y=1.03)
+        plt.tight_layout(w_pad=.1)
+        plt.show()
+        
+        
+    def lm_plot(self, x, axs):
+        """Plot results of actdyn_ode45 function.
+            data = [t, lmt, lm, lt, vm, fm*fm0, fse*fm0, fl*fm0, fpe*fm0]
+        """
+
+        try:
+            import matplotlib.pyplot as plt
+        except ImportError:
+            print('matplotlib is not available.')
+            return
+        
+        if axs is None:
+            _, axs = plt.subplots(nrows=3, ncols=2, sharex=True, figsize=(10, 6))
+
+        axs[0, 0].plot(x[:, 0], x[:, 1], 'b', label='LMT')
+        axs[0, 0].plot(x[:, 0], x[:, 2] + x[:, 3], 'g--', label='LM+LT')
+        ylim = self.margins(x[:, 1], margin=.1)
+        axs[0, 0].set_ylim(ylim)
+        axs[0, 0].set_ylabel('$L_{MT}\,(m)$')
+        axs[0, 0].locator_params(axis='both', nbins=5)
+        axs[0, 0].legend(framealpha=.5, loc='best')
+        
+        axs[0, 1].plot(x[:, 0], x[:, 3], 'b')
+        #axs[0, 1].plot(x[:, 0], lt0*np.ones(len(x)), 'r')
+        ylim = self.margins(x[:, 3], margin=.1)
+        axs[0, 1].set_ylim(ylim)
+        axs[0, 1].set_ylabel('$L_{T}\,(m)$')
+        axs[0, 1].locator_params(axis='both', nbins=5)
+        
+        axs[1, 0].plot(x[:, 0], x[:, 2], 'b')
+        #axs[1, 0].plot(x[:, 0], lmopt*np.ones(len(x)), 'r')
+        ylim = self.margins(x[:, 2], margin=.1)
+        axs[1, 0].set_ylim(ylim)
+        axs[1, 0].set_ylabel('$L_{M}\,(m)$')
+        axs[1, 0].locator_params(axis='both', nbins=5)
+        
+        axs[1, 1].plot(x[:, 0], x[:, 4], 'b')
+        ylim = self.margins(x[:, 4], margin=.1)
+        axs[1, 1].set_ylim(ylim)
+        axs[1, 1].set_ylabel('$V_{CE}\,(m/s)$')
+        axs[1, 1].locator_params(axis='both', nbins=5)
+        
+        axs[2, 0].plot(x[:, 0], x[:, 5], 'b', label='Muscle')
+        axs[2, 0].plot(x[:, 0], x[:, 6], 'g--', label='Tendon')
+        axs[2, 0].set_ylabel('$Force\,(N)$')
+        ylim = self.margins(x[:, [5, 6]], margin=.1)
+        axs[2, 0].set_ylim(ylim)
+        axs[2, 0].set_xlabel('Time (s)')
+        axs[2, 0].locator_params(axis='both', nbins=5)
+        axs[2, 0].legend(framealpha=.5, loc='best')
+        
+        #axs[2, 1].plot(x[:, 0], x[:, 7], 'b', label='FL')
+        axs[2, 1].plot(x[:, 0], x[:, 8], 'b', label='FPE')
+        ylim = self.margins(x[:, [8]], margin=.1)
+        axs[2, 1].set_ylim(ylim)
+        axs[2, 1].set_xlabel('Time (s)')
+        axs[2, 1].set_ylabel('$Force\,(N)$')
+        axs[2, 1].locator_params(axis='both', nbins=5)
+        axs[2, 1].legend(framealpha=.5, loc='best')
+        plt.suptitle('Simulation of muscle-tendon mechanics', fontsize=18,
+                     y=1.03)
+        plt.tight_layout()
+        plt.show()
+        
+        
     def penn_ang(self, lmt, lm, lt=None, lm0=None, alpha0=None):
         """Pennation angle.
         
@@ -445,95 +697,6 @@ class Thelen2003():
             
         return a
 
-        
-    def lmt_eq(self, t, lmt0=None):
-        """Equation for muscle-tendon length."""
-
-        if lmt0 is None:
-            lmt0 = self.S['lmt0']
-            
-        return lmt0
-
-        
-    def vm_eq(self, t, lm, lm0, lmt0, lmopt, ltslack, alpha0, vmmax, fm0):
-        """Equation for muscle velocity."""
-
-        if lm < 0.1*lmopt:
-            lm = 0.1*lmopt
-        #lt0 = lmt0 - lm0*np.cos(alpha0)        
-        a = self.activation(t)
-        lmt = self.lmt_eq(t, lmt0)
-        alpha = self.penn_ang(lmt=lmt, lm=lm, lm0=lm0, alpha0=alpha0)
-        lt = lmt - lm*np.cos(alpha)
-        fse = self.force_se(lt=lt, ltslack=ltslack)
-        fpe = self.force_pe(lm=lm/lmopt)
-        fl = self.force_l(lm=lm/lmopt)
-        fce_t = fse/np.cos(alpha) - fpe
-        #if fce_t < 0: fce_t=0
-        vm = self.velo_fm(fm=fce_t, a=a, fl=fl)
-        #print([t, a, lm, fse, fpe, fce_t, fl, vm])
-        #fce = self.force_vm(vm=vm, fl=fl, lmopt=lmopt, a=a) + fpe  
-        #d = [t, lmt, lm, lt, vm, fce*fm0, fse*fm0, a*fl*fm0, fpe*fm0]
-        #self.lm_data2.append(d)
-        #print(alpha, lm, lt, fl, fse, fpe, fce)
-
-        return vm
-
-
-    def lm_sol(self, fun=None, t0=0, t1=3, lm0=None, lmt0=None, ltslack=None, lmopt=None,
-               alpha0=None, vmmax=None, fm0=None,  show=False, axs=None):
-        """Runge-Kutta (4)5 ODE solver for muscle length."""
-
-        if lm0 is None: lm0 = self.S['lm0']
-        if lmt0 is None: lmt0 = self.S['lmt0']
-        if ltslack is None: ltslack = self.P['ltslack']
-        if alpha0 is None: alpha0 = self.P['alpha0']
-        if lmopt is None: lmopt = self.P['lmopt']
-        if vmmax is None: vmmax = self.P['vmmax']
-        if fm0 is None: fm0 = self.P['fm0']
-        
-        if fun is None:
-            fun = self.vm_eq
-        f = ode(fun).set_integrator('dopri5', nsteps=1, max_step=0.005, atol=1e-8)  
-        f.set_initial_value(lm0, t0).set_f_params(lm0, lmt0, lmopt, ltslack, alpha0, vmmax, fm0)
-        # suppress Fortran warning
-        warnings.filterwarnings("ignore", category=UserWarning)
-        data = []
-        #self.lm_data2 = []
-        while f.t < t1:
-            f.integrate(t1, step=True)
-            d = self.calc_data(f.t, np.max([f.y, 0.1*lmopt]), lm0, lmt0,
-                                           ltslack, lmopt, alpha0, fm0)
-            data.append(d)
-
-        warnings.resetwarnings()
-        data = np.array(data)
-        self.lm_data = data
-        #self.lm_data2 = np.array(self.lm_data2)
-        #data = self.lm_data2
-        if show:
-            self.lm_plot(data, axs)
-        
-        return data
-        
-        
-    def calc_data(self, t, lm, lm0, lmt0, ltslack, lmopt, alpha0, fm0):
-        """Calculus of muscle-tendon variables."""
-        
-        a = self.activation(t)
-        lmt = self.lmt_eq(t, lmt0=lmt0)
-        alpha = self.penn_ang(lmt=lmt, lm=lm, lm0=lm0, alpha0=alpha0)
-        lt = lmt - lm*np.cos(alpha)
-        fl = self.force_l(lm=lm/lmopt)
-        fpe = self.force_pe(lm=lm/lmopt)
-        fse = self.force_se(lt=lt, ltslack=ltslack)
-        fce_t = fse/np.cos(alpha) - fpe
-        vm = self.velo_fm(fm=fce_t, a=a, fl=fl, lmopt=lmopt)
-        fce = self.force_vm(vm=vm, fl=fl, lmopt=lmopt, a=a) + fpe   
-        data = [t, lmt, lm, lt, vm, fce*fm0, fse*fm0, a*fl*fm0, fpe*fm0]
-        
-        return data
-
 
     def actvation_plot(self, data, axs):
         """Plot results of actdyn_ode45 function."""
@@ -555,169 +718,6 @@ class Thelen2003():
         plt.title('Activation dynamics')
         plt.tight_layout()
         plt.show()   
-            
-    
-    def muscle_plot(self, a=1, axs=None):
-        """Plot muscle-tendon relationships with length and velocity."""
-
-        try:
-            import matplotlib.pyplot as plt
-        except ImportError:
-            print('matplotlib is not available.')
-            return
-        
-        if axs is None:
-            _, axs = plt.subplots(nrows=1, ncols=3, figsize=(9, 4))
-        
-        lmopt   = self.P['lmopt']
-        ltslack = self.P['ltslack']
-        vmmax   = self.P['vmmax']
-        alpha0  = self.P['alpha0']
-        fm0     = self.P['fm0']
-        lm0     = self.S['lm0']
-        lmt0    = self.S['lmt0']
-        lt0     = self.S['lt0']
-        if np.isnan(lt0): lt0 = lmt0 - lm0*np.cos(alpha0)
-        
-        lm  = np.linspace(0, 2, 101)
-        lt  = np.linspace(0, 1, 101)*0.05 + 1
-        vm  = np.linspace(-1, 1, 101)*vmmax*lmopt
-        fl  = np.zeros(lm.size)
-        fpe = np.zeros(lm.size)
-        fse = np.zeros(lt.size)
-        fvm = np.zeros(vm.size)
-        
-        fl_lm0  = self.force_l(lm0/lmopt)
-        fpe_lm0 = self.force_pe(lm0/lmopt)
-        fm_lm0  = fl_lm0 + fpe_lm0
-        ft_lt0  = self.force_se(lt0, ltslack)*fm0        
-        
-        for i in range(101):
-            fl[i]  = self.force_l(lm[i])
-            fpe[i] = self.force_pe(lm[i])
-            fse[i] = self.force_se(lt[i], ltslack=1)
-            fvm[i] = self.force_vm(vm[i], a=a, fl=fl_lm0)
-
-        lm  = lm*lmopt
-        lt  = lt*ltslack
-        fl  = fl
-        fpe = fpe
-        fse = fse*fm0
-        fvm = fvm*fm0
-            
-        xlim = self.margins(lm, margin=.05, minmargin=False)
-        axs[0].set_xlim(xlim)
-        ylim = self.margins([0, 2], margin=.05)
-        axs[0].set_ylim(ylim)
-        axs[0].plot(lm, fl, 'b', label='Active')
-        axs[0].plot(lm, fpe, 'b--', label='Passive')
-        axs[0].plot(lm, fl+fpe, 'b:', label='')
-        axs[0].plot([lm0, lm0], [ylim[0], fm_lm0], 'k:', lw=2, label='')
-        axs[0].plot([xlim[0], lm0], [fm_lm0, fm_lm0], 'k:', lw=2, label='')
-        axs[0].plot(lm0, fm_lm0, 'o', ms=6, mfc='r', mec='r', mew=2, label='fl(LM0)')
-        axs[0].legend(loc='best', frameon=True, framealpha=.5)
-        axs[0].set_xlabel('Length [m]')
-        axs[0].set_ylabel('Scale factor')
-        axs[0].locator_params(axis='both', nbins=5)
-        axs[0].set_title('Muscle F-L (a=1)')
-        
-        xlim = self.margins([0, np.min(vm), np.max(vm)], margin=.05, minmargin=False)
-        axs[1].set_xlim(xlim)
-        ylim = self.margins([0, fm0*1.2, np.max(fvm)*1.5], margin=.025)
-        axs[1].set_ylim(ylim)
-        axs[1].plot(vm, fvm, label='')
-        axs[1].set_xlabel('$\mathbf{^{CON}}\;$ Velocity [m/s] $\;\mathbf{^{EXC}}$')
-        axs[1].plot([0, 0], [ylim[0], fvm[50]], 'k:', lw=2, label='')
-        axs[1].plot([xlim[0], 0], [fvm[50], fvm[50]], 'k:', lw=2, label='')
-        axs[1].plot(0, fvm[50], 'o', ms=6, mfc='r', mec='r', mew=2, label='FM0(LM0)')
-        axs[1].plot(xlim[0], fm0, '+', ms=10, mfc='r', mec='r', mew=2, label='')
-        axs[1].text(vm[0], fm0, 'FM0')
-        axs[1].legend(loc='upper right', frameon=True, framealpha=.5)
-        axs[1].set_ylabel('Force [N]')
-        axs[1].locator_params(axis='both', nbins=5)
-        axs[1].set_title('Muscle F-V (a=1)')
-
-        xlim = self.margins([lt0, ltslack, np.min(lt), np.max(lt)], margin=.05, minmargin=False)
-        axs[2].set_xlim(xlim)
-        ylim = self.margins([ft_lt0, 0, np.max(fse)], margin=.05)
-        axs[2].set_ylim(ylim)
-        axs[2].plot(lt, fse, label='')
-        axs[2].set_xlabel('Length [m]')
-        axs[2].plot([lt0, lt0], [ylim[0], ft_lt0], 'k:', lw=2, label='')
-        axs[2].plot([xlim[0], lt0], [ft_lt0, ft_lt0], 'k:', lw=2, label='')
-        axs[2].plot(lt0, ft_lt0, 'o', ms=6, mfc='r', mec='r', mew=2, label='FT(LT0)')
-        axs[2].legend(loc='upper left', frameon=True, framealpha=.5)
-        axs[2].set_ylabel('Force [N]')
-        axs[2].locator_params(axis='both', nbins=5)
-        axs[2].set_title('Tendon')  
-        plt.suptitle('Muscle-tendon mechanics', fontsize=18, y=1.03)
-        plt.tight_layout(w_pad=.1)
-        plt.show()
-        
-        
-    def lm_plot(self, x, axs):
-        """Plot results of actdyn_ode45 function.
-            data = [t, lmt, lm, lt, vm, fm*fm0, fse*fm0, fl*fm0, fpe*fm0]
-        """
-
-        try:
-            import matplotlib.pyplot as plt
-        except ImportError:
-            print('matplotlib is not available.')
-            return
-        
-        if axs is None:
-            _, axs = plt.subplots(nrows=3, ncols=2, sharex=True, figsize=(10, 6))
-
-        axs[0, 0].plot(x[:, 0], x[:, 1], 'b', label='LMT')
-        axs[0, 0].plot(x[:, 0], x[:, 2] + x[:, 3], 'g--', label='LM+LT')
-        ylim = self.margins(x[:, 1], margin=.1)
-        axs[0, 0].set_ylim(ylim)
-        axs[0, 0].set_ylabel('$L_{MT}\,(m)$')
-        axs[0, 0].locator_params(axis='both', nbins=5)
-        axs[0, 0].legend(framealpha=.5, loc='best')
-        
-        axs[0, 1].plot(x[:, 0], x[:, 3], 'b')
-        #axs[0, 1].plot(x[:, 0], lt0*np.ones(len(x)), 'r')
-        ylim = self.margins(x[:, 3], margin=.1)
-        axs[0, 1].set_ylim(ylim)
-        axs[0, 1].set_ylabel('$L_{T}\,(m)$')
-        axs[0, 1].locator_params(axis='both', nbins=5)
-        
-        axs[1, 0].plot(x[:, 0], x[:, 2], 'b')
-        #axs[1, 0].plot(x[:, 0], lmopt*np.ones(len(x)), 'r')
-        ylim = self.margins(x[:, 2], margin=.1)
-        axs[1, 0].set_ylim(ylim)
-        axs[1, 0].set_ylabel('$L_{M}\,(m)$')
-        axs[1, 0].locator_params(axis='both', nbins=5)
-        
-        axs[1, 1].plot(x[:, 0], x[:, 4], 'b')
-        ylim = self.margins(x[:, 4], margin=.1)
-        axs[1, 1].set_ylim(ylim)
-        axs[1, 1].set_ylabel('$V_{CE}\,(m/s)$')
-        axs[1, 1].locator_params(axis='both', nbins=5)
-        
-        axs[2, 0].plot(x[:, 0], x[:, 5], 'b', label='CE')
-        axs[2, 0].plot(x[:, 0], x[:, 6], 'g--', label='Tendon')
-        axs[2, 0].set_ylabel('$Force\,(N)$')
-        ylim = self.margins(x[:, [5, 6]], margin=.1)
-        axs[2, 0].set_ylim(ylim)
-        axs[2, 0].set_xlabel('Time (s)')
-        axs[2, 0].locator_params(axis='both', nbins=5)
-        axs[2, 0].legend(framealpha=.5, loc='best')
-        
-        #axs[2, 1].plot(x[:, 0], x[:, 7], 'b', label='FL')
-        axs[2, 1].plot(x[:, 0], x[:, 8], 'g--', label='FPE')
-        ylim = self.margins(x[:, [8]], margin=.1)
-        axs[2, 1].set_ylim(ylim)
-        axs[2, 1].set_xlabel('Time (s)')
-        axs[2, 1].set_ylabel('$Force\,(N)$')
-        axs[2, 1].locator_params(axis='both', nbins=5)
-        axs[2, 1].legend(framealpha=.5, loc='best')
-        plt.suptitle('Simulation of muscle-tendon mechanics', fontsize=18,
-                     y=1.03)
-        plt.tight_layout()
-        plt.show()
         
         
     def margins(self, x, margin=0.01, minmargin=True):
