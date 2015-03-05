@@ -22,8 +22,7 @@ class Thelen2003():
             self.set_states(states)
 
         self.lm_data = []
-        self.lm_data2 = []
-        self.a_data = []
+        self.act_data = []
 
 
     def set_parameters(self, var=None):
@@ -66,7 +65,7 @@ class Thelen2003():
         parser.optionxform = str  # make option names case sensitive
         parser.read(filename)
         if not parser:
-            raise ValueError('No %s file found!' %var)
+            raise ValueError('File %s not found!' %var)
         #if not 'Muscle' in parser.sections()[0]:
         #    raise ValueError('Wrong %s file!' %var)
         var = {}
@@ -293,11 +292,6 @@ class Thelen2003():
         fce_t = fse/np.cos(alpha) - fpe
         #if fce_t < 0: fce_t=0
         vm = self.velo_fm(fm=fce_t, a=a, fl=fl)
-        #print([t, a, lm, fse, fpe, fce_t, fl, vm])
-        #fce = self.force_vm(vm=vm, fl=fl, lmopt=lmopt, a=a) + fpe  
-        #d = [t, lmt, lm, lt, vm, fce*fm0, fse*fm0, a*fl*fm0, fpe*fm0]
-        #self.lm_data2.append(d)
-        #print(alpha, lm, lt, fl, fse, fpe, fce)
 
         return vm
 
@@ -321,7 +315,6 @@ class Thelen2003():
         # suppress Fortran warning
         warnings.filterwarnings("ignore", category=UserWarning)
         data = []
-        #self.lm_data2 = []
         while f.t < t1:
             f.integrate(t1, step=True)
             d = self.calc_data(f.t, np.max([f.y, 0.1*lmopt]), lm0, lmt0,
@@ -331,8 +324,6 @@ class Thelen2003():
         warnings.resetwarnings()
         data = np.array(data)
         self.lm_data = data
-        #self.lm_data2 = np.array(self.lm_data2)
-        #data = self.lm_data2
         if show:
             self.lm_plot(data, axs)
         
@@ -418,7 +409,8 @@ class Thelen2003():
         axs[0].legend(loc='best', frameon=True, framealpha=.5)
         axs[0].set_xlabel('Length [m]')
         axs[0].set_ylabel('Scale factor')
-        axs[0].locator_params(axis='both', nbins=5)
+        axs[0].xaxis.set_major_locator(plt.MaxNLocator(4))
+        axs[0].yaxis.set_major_locator(plt.MaxNLocator(4))
         axs[0].set_title('Muscle F-L (a=1)')
         
         xlim = self.margins([0, np.min(vm), np.max(vm)], margin=.05, minmargin=False)
@@ -434,10 +426,12 @@ class Thelen2003():
         axs[1].text(vm[0], fm0, 'FM0')
         axs[1].legend(loc='upper right', frameon=True, framealpha=.5)
         axs[1].set_ylabel('Force [N]')
-        axs[1].locator_params(axis='both', nbins=5)
+        axs[1].xaxis.set_major_locator(plt.MaxNLocator(4))
+        axs[1].yaxis.set_major_locator(plt.MaxNLocator(4))
         axs[1].set_title('Muscle F-V (a=1)')
 
-        xlim = self.margins([lt0, ltslack, np.min(lt), np.max(lt)], margin=.05, minmargin=False)
+        xlim = self.margins([lt0, ltslack, np.min(lt), np.max(lt)], margin=.05,
+                             minmargin=False)
         axs[2].set_xlim(xlim)
         ylim = self.margins([ft_lt0, 0, np.max(fse)], margin=.05)
         axs[2].set_ylim(ylim)
@@ -448,7 +442,8 @@ class Thelen2003():
         axs[2].plot(lt0, ft_lt0, 'o', ms=6, mfc='r', mec='r', mew=2, label='FT(LT0)')
         axs[2].legend(loc='upper left', frameon=True, framealpha=.5)
         axs[2].set_ylabel('Force [N]')
-        axs[2].locator_params(axis='both', nbins=5)
+        axs[2].xaxis.set_major_locator(plt.MaxNLocator(4))
+        axs[2].yaxis.set_major_locator(plt.MaxNLocator(4))
         axs[2].set_title('Tendon')  
         plt.suptitle('Muscle-tendon mechanics', fontsize=18, y=1.03)
         plt.tight_layout(w_pad=.1)
@@ -473,47 +468,43 @@ class Thelen2003():
         axs[0, 0].plot(x[:, 0], x[:, 2] + x[:, 3], 'g--', label='LM+LT')
         ylim = self.margins(x[:, 1], margin=.1)
         axs[0, 0].set_ylim(ylim)
-        axs[0, 0].set_ylabel('$L_{MT}\,(m)$')
-        axs[0, 0].locator_params(axis='both', nbins=5)
         axs[0, 0].legend(framealpha=.5, loc='best')
         
         axs[0, 1].plot(x[:, 0], x[:, 3], 'b')
         #axs[0, 1].plot(x[:, 0], lt0*np.ones(len(x)), 'r')
         ylim = self.margins(x[:, 3], margin=.1)
         axs[0, 1].set_ylim(ylim)
-        axs[0, 1].set_ylabel('$L_{T}\,(m)$')
-        axs[0, 1].locator_params(axis='both', nbins=5)
         
         axs[1, 0].plot(x[:, 0], x[:, 2], 'b')
         #axs[1, 0].plot(x[:, 0], lmopt*np.ones(len(x)), 'r')
         ylim = self.margins(x[:, 2], margin=.1)
         axs[1, 0].set_ylim(ylim)
-        axs[1, 0].set_ylabel('$L_{M}\,(m)$')
-        axs[1, 0].locator_params(axis='both', nbins=5)
         
         axs[1, 1].plot(x[:, 0], x[:, 4], 'b')
         ylim = self.margins(x[:, 4], margin=.1)
         axs[1, 1].set_ylim(ylim)
-        axs[1, 1].set_ylabel('$V_{CE}\,(m/s)$')
-        axs[1, 1].locator_params(axis='both', nbins=5)
         
         axs[2, 0].plot(x[:, 0], x[:, 5], 'b', label='Muscle')
         axs[2, 0].plot(x[:, 0], x[:, 6], 'g--', label='Tendon')
-        axs[2, 0].set_ylabel('$Force\,(N)$')
         ylim = self.margins(x[:, [5, 6]], margin=.1)
         axs[2, 0].set_ylim(ylim)
         axs[2, 0].set_xlabel('Time (s)')
-        axs[2, 0].locator_params(axis='both', nbins=5)
         axs[2, 0].legend(framealpha=.5, loc='best')
         
-        #axs[2, 1].plot(x[:, 0], x[:, 7], 'b', label='FL')
-        axs[2, 1].plot(x[:, 0], x[:, 8], 'b', label='FPE')
-        ylim = self.margins(x[:, [8]], margin=.1)
+        axs[2, 1].plot(x[:, 0], x[:, 8], 'b', label='PE')
+        ylim = self.margins(x[:, 8], margin=.1)
         axs[2, 1].set_ylim(ylim)
         axs[2, 1].set_xlabel('Time (s)')
-        axs[2, 1].set_ylabel('$Force\,(N)$')
-        axs[2, 1].locator_params(axis='both', nbins=5)
         axs[2, 1].legend(framealpha=.5, loc='best')
+        
+        axs = axs.flatten()
+        ylabel = ['$L_{MT}\,(m)$', '$L_{T}\,(m)$', '$L_{M}\,(m)$',
+                  '$V_{CE}\,(m/s)$', '$Force\,(N)$', '$Force\,(N)$']
+        for i, axi in enumerate(axs):
+            axi.set_ylabel(ylabel[i], fontsize=14)
+            axi.yaxis.set_major_locator(plt.MaxNLocator(4))
+            axi.yaxis.set_label_coords(-.2, 0.5)
+
         plt.suptitle('Simulation of muscle-tendon mechanics', fontsize=18,
                      y=1.03)
         plt.tight_layout()
@@ -676,7 +667,7 @@ class Thelen2003():
         if show:
             self.actvation_plot(data, axs)
 
-        self.a_data = data
+        self.act_data = data
         
         return data
 
@@ -684,14 +675,14 @@ class Thelen2003():
     def activation(self, t=None):
         """Activation signal."""
         
-        data = self.a_data        
+        data = self.act_data        
         if t is not None and len(data):
-            if t <= self.a_data[0, 0]:
-                a = self.a_data[0, 2]
-            elif t >= self.a_data[-1, 0]:
-                a = self.a_data[-1, 2]
+            if t <= self.act_data[0, 0]:
+                a = self.act_data[0, 2]
+            elif t >= self.act_data[-1, 0]:
+                a = self.act_data[-1, 2]
             else:
-                a = np.interp(t, self.a_data[:, 0], self.a_data[:, 2])
+                a = np.interp(t, self.act_data[:, 0], self.act_data[:, 2])
         else:
             a = 1
             
