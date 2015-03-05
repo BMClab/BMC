@@ -297,7 +297,7 @@ class Thelen2003():
 
 
     def lm_sol(self, fun=None, t0=0, t1=3, lm0=None, lmt0=None, ltslack=None, lmopt=None,
-               alpha0=None, vmmax=None, fm0=None,  show=False, axs=None):
+               alpha0=None, vmmax=None, fm0=None,  show=True, axs=None):
         """Runge-Kutta (4)5 ODE solver for muscle length."""
 
         if lm0 is None: lm0 = self.S['lm0']
@@ -616,7 +616,7 @@ class Thelen2003():
 
 
     def activation_sol(self, fun=None, t0=0, t1=3, a0=0, u_min=None,
-                       t_act=None, t_deact=None, show=False, axs=None):
+                       t_act=None, t_deact=None, show=True, axs=None):
         """Runge-Kutta (4)5 ODE solver for activation dynamics.
 
         Parameters
@@ -637,7 +637,7 @@ class Thelen2003():
             activation time constant [s]
         t_deact : float, optional (default from parameter file)
             deactivation time constant [s]
-        show : bool, optional (default = False)
+        show : bool, optional (default = True)
             if True (1), plot data in matplotlib figure
         axs : a matplotlib.axes.Axes instance, optional (default = None)
 
