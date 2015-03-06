@@ -4,8 +4,8 @@ id =
 # muscle name
 name = 
 # initial muscle-tendon length
-lmt0 = 0.332
+lmt0 = 0.313
 # initial muscle length
-lm0 = 0.10
+lm0 = 0.09
 # initial tendon length
 lt0 = 
