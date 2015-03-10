@@ -54,7 +54,7 @@
  + Zajac (1989)  
  + Anderson (2007), Thelen (2003), Millard et al. (2013), McLean et al. (2003)
 
-**Assignments (due by March 4th)**
+**Assignments (due by March 6th)**
  + Add a function for the parallel elastic element (PEE) to the script from page 655 of Nigg & Herzog (2006).    
  + Write computer programs to plot each component of a Hill-type muscle model having parameters as inputs.
  
@@ -64,8 +64,8 @@
 **Readings**   
  + Chapter 8 of Downey (2011)
  
-**Assignments**   
- +    
+**Assignments (due by March 13th)**   
+ + Write computer programs to solve the exercises 8.1 and 8.2 of Downey (2011).
  
 ### Weeks 6, 7
 - Musculoskeletal modeling and simulation
