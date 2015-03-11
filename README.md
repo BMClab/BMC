@@ -29,13 +29,14 @@ Numerical data analysis
  + [Prediction ellipse and prediction ellipsoid](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/PredictionEllipseEllipsoid.ipynb)
 - [Curve fitting](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/CurveFitting.ipynb)
 - [Propagation of uncertainty](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/Propagation%20of%20uncertainty.ipynb)
-- **Frequency analysis**
+- Frequency analysis  
  + [Basic properties of signals](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/SignalBasicProperties.ipynb)
  + [Fourier series](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/FourierSeries.ipynb)
  + [Fast Fourier Transform and Power Spectral Density](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/FFTandPSD.ipynb)
 - [Data filtering in signal processing](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/DataFiltering.ipynb)
- + [Residual analysis for the optimal cutoff frequency](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/ResidualAnalysis.ipynb)
-- **Change detection**  
+ + [Residual analysis for the optimal cutoff frequency](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/ResidualAnalysis.ipynb)  
+- [Ordinary Differential Equation](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/OrdinaryDifferentialEquation.ipynb)  
+- Change detection  
  + [Detection of peaks](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/DetectPeaks.ipynb) 
  + [Detection of onset](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/DetectOnset.ipynb)  
  + [Detection of changes using the Cumulative Sum (CUSUM)](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/DetectCUSUM.ipynb)
