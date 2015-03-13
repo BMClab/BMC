@@ -59,7 +59,7 @@
  + Write computer programs to plot each component of a Hill-type muscle model having parameters as inputs.
  
 ### Week 5
-- Ordinary differential equation and numerical integration
+- [Ordinary differential equation and numerical integration](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/OrdinaryDifferentialEquation.ipynb)
 
 **Readings**   
  + Chapter 8 of Downey (2011)
@@ -78,7 +78,7 @@
  + Erdemir et al. (2007)  
  
 **Assignments**   
- +        
+ + Study and run the script knee.m of chapter 4 from Nigg & Herzog (2006)   
  
 ### Weeks 8 - 10
 - [OpenSim software](https://simtk.org/home/opensim)   
