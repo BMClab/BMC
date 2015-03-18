@@ -68,7 +68,7 @@
  + Write computer programs to solve the exercises 8.1 and 8.2 of Downey (2011).
  
 ### Weeks 6, 7
-- Musculoskeletal modeling and simulation
+- [Musculoskeletal modeling and simulation](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/MusculoskeletaModelingSimulation.ipynb)
 
 **Readings**   
  + Chapter 4 of Nigg & Herzog (2006)  
@@ -78,7 +78,8 @@
  + Erdemir et al. (2007)  
  
 **Assignments**   
- + Study and run the script knee.m of chapter 4 from Nigg & Herzog (2006)   
+ + Study and run the script knee.m of chapter 4 from Nigg & Herzog (2006).   
+ + Change knee.m to use another integrator (e.g., ode45) and add plots for muscle length and velocity.  
  
 ### Weeks 8 - 10
 - [OpenSim software](https://simtk.org/home/opensim)   
