@@ -343,7 +343,7 @@ class Thelen2003():
         fce_t = fse/np.cos(alpha) - fpe
         vm = self.velo_fm(fm=fce_t, a=a, fl=fl, lmopt=lmopt)
         fm = self.force_vm(vm=vm, fl=fl, lmopt=lmopt, a=a) + fpe   
-        data = [t, lmt, lm, lt, vm, fm*fm0, fse*fm0, a*fl*fm0, fpe*fm0]
+        data = [t, lmt, lm, lt, vm, fm*fm0, fse*fm0, a*fl*fm0, fpe*fm0, alpha]
         
         return data
             
@@ -368,7 +368,8 @@ class Thelen2003():
         lm0     = self.S['lm0']
         lmt0    = self.S['lmt0']
         lt0     = self.S['lt0']
-        if np.isnan(lt0): lt0 = lmt0 - lm0*np.cos(alpha0)
+        if np.isnan(lt0):
+            lt0 = lmt0 - lm0*np.cos(alpha0)
         
         lm  = np.linspace(0, 2, 101)
         lt  = np.linspace(0, 1, 101)*0.05 + 1
@@ -449,10 +450,12 @@ class Thelen2003():
         plt.tight_layout(w_pad=.1)
         plt.show()
         
-        
-    def lm_plot(self, x, axs):
+        return axs
+
+
+    def lm_plot(self, x, axs=None):
         """Plot results of actdyn_ode45 function.
-            data = [t, lmt, lm, lt, vm, fm*fm0, fse*fm0, fl*fm0, fpe*fm0]
+            data = [t, lmt, lm, lt, vm, fm*fm0, fse*fm0, fl*fm0, fpe*fm0, alpha]
         """
 
         try:
@@ -465,7 +468,11 @@ class Thelen2003():
             _, axs = plt.subplots(nrows=3, ncols=2, sharex=True, figsize=(10, 6))
 
         axs[0, 0].plot(x[:, 0], x[:, 1], 'b', label='LMT')
-        axs[0, 0].plot(x[:, 0], x[:, 2] + x[:, 3], 'g--', label='LM+LT')
+        lmt = x[:, 2]*np.cos(x[:, 9]) + x[:, 3]
+        if np.sum(x[:, 9]) > 0:
+            axs[0, 0].plot(x[:, 0], lmt, 'g--', label=r'$LM \cos \alpha + LT$')
+        else:
+            axs[0, 0].plot(x[:, 0], lmt, 'g--', label=r'LM+LT')
         ylim = self.margins(x[:, 1], margin=.1)
         axs[0, 0].set_ylim(ylim)
         axs[0, 0].legend(framealpha=.5, loc='best')
@@ -497,10 +504,9 @@ class Thelen2003():
         axs[2, 1].set_xlabel('Time (s)')
         axs[2, 1].legend(framealpha=.5, loc='best')
         
-        axs = axs.flatten()
         ylabel = ['$L_{MT}\,(m)$', '$L_{T}\,(m)$', '$L_{M}\,(m)$',
                   '$V_{CE}\,(m/s)$', '$Force\,(N)$', '$Force\,(N)$']
-        for i, axi in enumerate(axs):
+        for i, axi in enumerate(axs.flat):
             axi.set_ylabel(ylabel[i], fontsize=14)
             axi.yaxis.set_major_locator(plt.MaxNLocator(4))
             axi.yaxis.set_label_coords(-.2, 0.5)
@@ -509,6 +515,8 @@ class Thelen2003():
                      y=1.03)
         plt.tight_layout()
         plt.show()
+        
+        return axs
         
         
     def penn_ang(self, lmt, lm, lt=None, lm0=None, alpha0=None):
@@ -689,7 +697,7 @@ class Thelen2003():
         return a
 
 
-    def actvation_plot(self, data, axs):
+    def actvation_plot(self, data, axs=None):
         """Plot results of actdyn_ode45 function."""
 
         try:
@@ -708,7 +716,9 @@ class Thelen2003():
         axs.legend()
         plt.title('Activation dynamics')
         plt.tight_layout()
-        plt.show()   
+        plt.show()
+        
+        return axs
         
         
     def margins(self, x, margin=0.01, minmargin=True):
