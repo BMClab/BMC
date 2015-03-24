@@ -67,7 +67,7 @@
 **Assignments (due by March 13th)**   
  + Write computer programs to solve the exercises 8.1 and 8.2 of Downey (2011).
  
-### Weeks 6, 7
+### Week 6
 - [Musculoskeletal modeling and simulation](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/MusculoskeletaModelingSimulation.ipynb)
 
 **Readings**   
@@ -81,15 +81,24 @@
  + Study and run the script knee.m of chapter 4 from Nigg & Herzog (2006).   
  + Change knee.m to use another integrator (e.g., ode45) and add plots for muscle length and velocity.  
  
-### Weeks 8 - 10
+### Week 7
+- [Optimization](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/Optimization.ipynb)
+
+**Readings**   
+ + Chapter 4 (page 609-621) of Nigg & Herzog (2006)  
+ 
+**Assignments**   
+ + Solve the example on the elbow forces using a different method
+ 
+### Week 8
+- [Musculoskeletal modeling and simulation](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/MusculoskeletaModelingSimulation.ipynb)
+
+### Weeks 9 - 10
 - [OpenSim software](https://simtk.org/home/opensim)   
 
 **Readings**   
  + Delp et al. (2007)
- + [OpenSim support site](http://opensim.stanford.edu/support/index.html)   
- 
-**Assignments**   
- +    
+ + [OpenSim support site](http://opensim.stanford.edu/support/index.html)    
  
 ## Readings
 
