@@ -91,7 +91,7 @@
  + Solve the example on the elbow forces using a different method
  
 ### Week 8
-- [Musculoskeletal modeling and simulation](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/MusculoskeletaModelingSimulation.ipynb)
+- [Dynamics of multibody systems](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/DynamicsMultibody.ipynb)
 
 ### Weeks 9 - 10
 - [OpenSim software](https://simtk.org/home/opensim)   
