@@ -93,7 +93,7 @@
 ### Week 8
 - [Dynamics of multibody systems](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/DynamicsMultibody.ipynb)
 
-## Readings
+**Readings**
  + Chapter 5 of Zatsiorsky (2002)
 
 ### Weeks 9 - 10
