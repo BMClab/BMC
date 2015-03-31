@@ -93,6 +93,9 @@
 ### Week 8
 - [Dynamics of multibody systems](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/DynamicsMultibody.ipynb)
 
+## Readings
+ + Chapter 5 of Zatsiorsky (2002)
+
 ### Weeks 9 - 10
 - [OpenSim software](https://simtk.org/home/opensim)   
 
@@ -116,4 +119,6 @@
 - Winter DA (2009) [Biomechanics and motor control of human movement](http://books.google.com.br/books?id=_bFHL08IWfwC). 4th Edition. Hoboken, EUA: Wiley.   
 - Zajac FE (1989) [Muscle and tendon: properties, models, scaling and application to biomechanics and motor control](https://drive.google.com/open?id=0BxbW72zV7WmUclNNaTd2TGVndFE&authuser=0). Critical Reviews in Biomedical Engineering 17, 359-411.   
 Zajac FE, Gordon ME (1989) [Determining muscle's force and action in multi-articular movement](https://drive.google.com/open?id=0BxbW72zV7WmUcC1zSGpEOUxhWXM&authuser=0). Exercise and Sport Sciences Reviews, 17, 187-230.
-- Zajac FE (1993) [Muscle coordination of movement: a perspective](http://e.guigon.free.fr/rsc/article/Zajac93.pdf). J Biomech., 26, Suppl 1:109-24.   
+- Zajac FE (1993) [Muscle coordination of movement: a perspective](http://e.guigon.free.fr/rsc/article/Zajac93.pdf). J Biomech., 26, Suppl 1:109-24.  
+- Zatsiorsky VM (2002) [Kinetics of human motion](http://books.google.com.br/books?id=wp3zt7oF8a0C). Human Kinetics.  
+
