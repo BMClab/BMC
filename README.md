@@ -72,7 +72,6 @@ Modeling and simulation of human movement
 - [Muscle modeling](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/MuscleModeling.ipynb)  
 - [Muscle simulation](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/MuscleSimulation.ipynb)  
 - [Musculoskeletal modeling and simulation](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/MusculoskeletaModelingSimulation.ipynb)
-- [Dynamics of planar systems with one and two links](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/DynamicsMultibody.ipynb)  
 
 Stabilography
 -------------
