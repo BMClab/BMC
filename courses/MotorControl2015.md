@@ -95,6 +95,8 @@
 
 **Readings**
  + Chapter 5 of Zatsiorsky (2002)
+ + Zajac & Gordon (1989)
+ + Zajac (1993)
 
 ### Weeks 9 - 10
 - [OpenSim software](https://simtk.org/home/opensim)   
