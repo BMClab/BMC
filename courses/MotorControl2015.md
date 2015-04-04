@@ -91,7 +91,7 @@
  + Solve the example on the elbow forces using a different method
  
 ### Week 8
-- [Dynamics of multibody systems](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/DynamicsMultibody.ipynb)
+- [Multibody dynamics of simple biomechanical models](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/MultibodyDynamics.ipynb)
 
 **Readings**
  + Chapter 5 of Zatsiorsky (2002)
