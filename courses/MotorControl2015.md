@@ -107,7 +107,7 @@
  + Hamner et al. (2010)
 
 **Assignments** 
- * Work with the data of [Muscle-actuated Simulation of Human Running](https://simtk.org/home/runningsim). Run Scale, Inverse Kinematics (IK), Reduced Residual Algorithm (RRA), and Computed Muscle Control (CMC) for these data.
+ * Study of [Muscle-actuated Simulation of Human Running](https://simtk.org/home/runningsim). Run Scale, Inverse Kinematics (IK), Reduced Residual Algorithm (RRA), and Computed Muscle Control (CMC) and interpret the results.
  
 ## Readings
 
