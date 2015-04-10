@@ -104,6 +104,10 @@
 **Readings**   
  + Delp et al. (2007)
  + [OpenSim support site](http://opensim.stanford.edu/support/index.html)    
+ + Hamner et al. (2010)
+
+**Assignments** 
+ * Work with the data of [Muscle-actuated Simulation of Human Running](https://simtk.org/home/runningsim). Run Scale, Inverse Kinematics (IK), Reduced Residual Algorithm (RRA), and Computed Muscle Control (CMC) for these data.
  
 ## Readings
 
@@ -111,6 +115,7 @@
 - Delp SL, Anderson FC, Arnold AS, Loan P, Habib A, John CT, Guendelman E, Thelen DG (2007) [OpenSim: open-source software to create and analyze dynamic simulations of movement](http://www.ncbi.nlm.nih.gov/pubmed/18018689). IEEE Trans Biomed Eng., 54, 1940-50.   
 - Downey AB (2011) [Physical Modeling in MATLAB](http://greenteapress.com/matlab/). Green Tea Press. 
 - Erdemir A, McLean S, Herzog W, van den Bogert AJ (2007) [Model-based estimation of muscle forces exerted during movements](http://www.ncbi.nlm.nih.gov/pubmed/17070969). Clinical Biomechanics, 22, 131–154.  
+- Hamner SR, Seth A, Delp SL (2010) [Muscle contributions to propulsion and support during running](https://nmbl.stanford.edu/publications/pdf/Hamner2010.pdf). Journal of Biomechanics, 43, 2709–2716.
 - McLean SG, Su A, van den Bogert AJ (2003) [Development and validation of a 3-D model to predict knee joint loading during dynamic movement](http://www.ncbi.nlm.nih.gov/pubmed/14986412). Journal of Biomechanical Engineering, 125, 864-74.  
 - Nigg & Herzog (2006) [Biomechanics of the Musculo-skeletal System](https://books.google.com.br/books?id=hOIeAQAAIAAJ&dq=editions:ISBN0470017678). 3rd Edition. Wiley. [4](https://drive.google.com/open?id=0BxbW72zV7WmUVlhPYk9NNm5HbTQ&authuser=0)  
 - Oatis CA (2009) [Kinesiology : the mechanics and pathomechanics of human movement](https://books.google.com.br/books?id=SqZZSAAACAAJ). Lippincott Williams &​ Wilkins. 2nd Edition. [4](http://downloads.lww.com/wolterskluwer_vitalstream_com/sample-content/9780781774222_Oatis/samples/Oatis_CH04_045-068.pdf)
