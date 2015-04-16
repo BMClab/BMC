@@ -91,7 +91,7 @@ Here is a suggestion to cite this GitHub repository:
 - Duarte, M. (2015) Notes on Scientific Computing for Biomechanics and Motor Control. GitHub repository, https://github.com/demotu/BMC.
 
 And a possible BibTeX entry:
-
+```
 @misc{Marcos2015,  
     author = {Duarte, M.},  
     title = {Notes on Scientific Computing for Biomechanics and Motor Control},  
@@ -100,7 +100,7 @@ And a possible BibTeX entry:
     journal = {GitHub repository},  
     howpublished = {\url{https://github.com/demotu/BMC}}  
 }  
-
+```
 License
 -------
 This work is licensed under the [Creative Commons Attribution 4.0 International License](http://creativecommons.org/licenses/by/4.0/).
