@@ -93,12 +93,12 @@ Here is a suggestion to cite this GitHub repository:
 And a possible BibTeX entry:
 
 @misc{Marcos2015,  
-  author = {Duarte, M.},  
-  title = {Notes on Scientific Computing for Biomechanics and Motor Control},  
-  year = {2015},  
-  publisher = {GitHub},  
-  journal = {GitHub repository},  
-  howpublished = {\url{https://github.com/demotu/BMC}}  
+    author = {Duarte, M.},  
+    title = {Notes on Scientific Computing for Biomechanics and Motor Control},  
+    year = {2015},  
+    publisher = {GitHub},  
+    journal = {GitHub repository},  
+    howpublished = {\url{https://github.com/demotu/BMC}}  
 }  
 
 License
