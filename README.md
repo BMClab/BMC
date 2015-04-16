@@ -88,7 +88,7 @@ How to cite this work
 
 Here is a suggestion to cite this GitHub repository:
 
-- Duarte, M. (2015) Notes on Scientific Computing for Biomechanics and Motor Control. GitHub repository, https://github.com/demotu/BMC.
+> Duarte, M. (2015) Notes on Scientific Computing for Biomechanics and Motor Control. GitHub repository, https://github.com/demotu/BMC.
 
 And a possible BibTeX entry:
 ```
