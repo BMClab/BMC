@@ -66,7 +66,8 @@ Mechanics
  + [Biomechanical analysis of vertical jumps](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/VerticalJump.ipynb)
  + [Gait analysis (2D)](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/GaitAnalysis2D.ipynb)
  + Force plates
-    - [Kistler force plate calculation](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/KistlerForcePlateCalculation.ipynb)
+    - [Kistler force plate calculation](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/KistlerForcePlateCalculation.ipynb)  
+    - [Open AMTI .bsf file](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/AMTIbsfFile.ipynb)  
 
 Modeling and simulation of human movement
 -----------------------------------------
