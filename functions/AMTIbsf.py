@@ -84,7 +84,7 @@ def loadbsf(filename, plot=1, axs=None):
     Examples
     --------
     >>> from AMTIbsf import loadbsf
-    >>> data, mh, ih = loadbsf(filename='./../data/amti_data.bsf', plot=1)
+    >>> data, mh, ih = loadbsf(filename='./../data/AMTIdata.bsf', plot=1)
 
     """
 
@@ -287,6 +287,7 @@ class ReadMainHeader:
         self.test_by = deco(unpack('<100s', f.read(100))[0])         # Examiner's name
         f.seek(2, 1)                                                 # 2 unidentified bytes
         self.units = unpack('<i', f.read(4))[0]                      # Units where 0 is English and 1 is metric
+
         self.instHeadCount = self.num_of_plats + self.num_of_instrs  # Instrument header count
         self.numDatasets = self.trl_lth * self.rate                  # Number of data sets in the file
         # Total number of channels:
@@ -317,6 +318,7 @@ class ReadInstHeader:
     def __init__(self, f, MNC, TNC):
             
         self.MNC = MNC                                                        # Maximum number of channels
+
         self.size_header = unpack('<i', f.read(4))[0]                         # Size of the structure in bytes
         self.ser_num = unpack('<i', f.read(4))[0]                             # Serial number of the instrument or platform
         self.layout_num = unpack('<i', f.read(4))[0]                          # The layout or platform number
