@@ -62,12 +62,12 @@ def loadbsf(filename, plot=1, axs=None):
     The headers can also be accessed as dictionaries (useful for saving) typing
     mh.__dict__
 
-    According to AMTI:
-    "If the file version is 100 that means the file is packed the old way. If 
-    the file version is 105 that means the file is packed the new way. Using 
-    the old way all data was stored as bits and then rebuilt. Using the new way 
-    the data is stored as doubles. This is because the new amplifiers process 
-    the data in the amplifier itself and send up already processed data."
+    AMTI .bsf file has two versions: 100 (old) and 105 (new).
+    In the new version, 105, the acquired data is saved as 8-byte doubles and 
+    already converted to engineering units, at least when the new AMTI amplifier 
+    is used and the full conditioned mode is selected in the AMTI configuration
+    software. In version 100, the raw data from the analog-to-digital converter
+    was saved as 2-byte integers.
 
     This code can also open the 'shfile' memory-mapped file by NetForce.
 
@@ -79,7 +79,7 @@ def loadbsf(filename, plot=1, axs=None):
     References
     ----------
     .. [1] http://www.amti.biz/NetForce.aspx
-    .. [2] https://github.com/demotu/BMC/blob/master/notebooks/AMTI_bsf_file.ipynb
+    .. [2] https://github.com/demotu/BMC/blob/master/notebooks/AMTIbsfFile.ipynb
     
     Examples
     --------
