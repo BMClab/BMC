@@ -24,7 +24,7 @@
 """
 
 __author__ = "Marcos Duarte, https://github.com/demotu/BMC"
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 __license__ = "MIT"
 
 import sys
@@ -98,7 +98,7 @@ def loadbsf(filename, plot=1, axs=None):
 
     if filename == 'shfile':  # memory-mapped file by NetForce
         try:
-            # bug in mmap for windows: file can't be opened with unknown size
+            # bug in Python mmap: file can't be opened with unknown size
             # read at least up to the first instrument:
             nbytes = 4 + 968 + 948
             f = mmap.mmap(fileno=-1, length=nbytes, tagname='shfile')  
@@ -116,12 +116,7 @@ def loadbsf(filename, plot=1, axs=None):
             return
 
     # read Main header
-    try:
-        mh = ReadMainHeader(f)
-    except:
-        print('Error reading Main Header in %s.' %filename)
-        f.close()
-        return    
+    mh = ReadMainHeader(f)
     
     if filename == 'shfile':
         try:
@@ -143,12 +138,7 @@ def loadbsf(filename, plot=1, axs=None):
     ih = []
     f.seek(4 + mh.size_header, 0)  # advances file to the first instrument header
     for i in range(mh.instHeadCount):
-        try:
-            ih.append(ReadInstHeader(f, MNC, mh.TNC))
-        except:
-            print('Error reading Instrument Header in %s.' %filename)
-            f.close()
-            return
+        ih.append(ReadInstHeader(f, MNC, mh.TNC))
         # go to the next instrument header
         f.seek(4 + mh.size_header + ih[i].size_header - f.tell(), 1)     
 
@@ -193,9 +183,9 @@ def loadbsf(filename, plot=1, axs=None):
     return data, mh, ih
 
 
-def deco(string):
+def deco(b):
     """Custom decoder for reading .bsf file from AMTI NetForce software."""
-    return string.decode('utf-8').partition('\x00')[0] 
+    return b.decode('latin1', errors='ignore').partition('\x00')[0] 
 
 
 def print_attr(classe, header='\nHeader:'):
@@ -262,7 +252,8 @@ class ReadMainHeader:
         self.num_of_plats = unpack('<i', f.read(4))[0]               # Number of active platforms
         self.num_of_instrs = unpack('<i', f.read(4))[0]              # Number of active instruments
         name = deco(unpack('<100s', f.read(100))[0])                 # Subject's name
-        self.name = "".join(name.split(", ")[::-1]).strip()          # name is saved as 'Lastname, Firstname'
+        name = ' '.join(name.split(', ')[::-1]).strip()              # name is saved as 'Lastname, Firstname'
+        self.name = ' '.join(name.split())                           # remove multiple whitespaces
         self.test_date = deco(unpack('<12s', f.read(12))[0 ])        # Test date
         self.sub_dob = deco(unpack('<12s', f.read(12))[0])           # Subject's date of birth
         self.weight = unpack('<d', f.read(8))[0]                     # Subject's weight
