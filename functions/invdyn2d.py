@@ -1,11 +1,7 @@
-#!/usr/bin/env python
-
-"""Euler rotation matrix given sequence, frame, and angles."""
-
-from __future__ import division, print_function
+"""Two-dimensional inverse-dynamics calculations of one segment."""
 
 __author__ = 'Marcos Duarte, https://github.com/demotu/BMC'
-__version__ = 'invdyn2d.py v.1 2014/20/02'
+__version__ = 'invdyn2d.py v.2 2015/11/13'
 
 
 def invdyn2d(rcm, rd, rp, acm, alpha, mass, Icm, Fd, Md):
@@ -51,14 +47,15 @@ def invdyn2d(rcm, rd, rp, acm, alpha, mass, Icm, Fd, Md):
     References
     ----------
     .. [1] http://isbweb.org/data/invdyn/index.html
-    .. [2] http://nbviewer.ipython.org/github/duartexyz/BMC/blob/master/GaitAnalysis2D.ipynb
+    .. [2] http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/GaitAnalysis2D.ipynb
 
     """
     
     from numpy import cross
      
+    g = 9.80665  # m/s2, standard acceleration of free fall (ISO 80000-3:2006)
     # Force and moment of force on the proximal joint
-    Fp = mass*acm - Fd - [0, -9.8*mass]
-    Mp = Icm*alpha - Md - cross(rd-rcm,Fd) - cross(rp-rcm,Fp)
+    Fp = mass*acm - Fd - [0, -g*mass]
+    Mp = Icm*alpha - Md - cross(rd-rcm, Fd) - cross(rp-rcm, Fp)
     
     return Fp, Mp
