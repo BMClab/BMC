@@ -6,7 +6,7 @@ BMC
 Marcos Duarte
 
 This repository is a collection of lecture notes and code on scientific computing and data analysis for Biomechanics and Motor Control. The notes are written using the [Jupyter Notebook](http://jupyter.org/), part of the [Python ecosystem for scientific computing](http://scipy.org/). You can view these lectures in different ways: simply read on line by clicking on the links below; or download a single notebook or all the stuff or yet fork this entire repository using the GitHub resources and run the notebooks in your computer or in the cloud.  
-I hope this material is useful to you and I am open to comments and suggestions (report an issue or do a pull request using the menu options above or write to me). 
+I hope you find this material useful and I am open to comments and suggestions (report an issue or do a pull request using the menu options above or write to me). 
 
 Introduction
 ------------
