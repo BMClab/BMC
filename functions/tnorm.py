@@ -4,7 +4,7 @@ from __future__ import division, print_function
 import numpy as np
 
 __author__ = 'Marcos Duarte, https://github.com/demotu/BMC'
-__version__ = "1.0.3"
+__version__ = "1.0.4"
 __license__ = "MIT"
 
 
@@ -69,6 +69,9 @@ def tnorm(y, axis=0, step=1, k=3, smooth=0, mask=None, show=False, ax=None):
         Interpolated data (if axis == 0, column oriented for 2-D array).
     tn : 1-D array
         New x values (from 0 to 100) for the interpolated data.
+    inds : list
+        Indexes of first and last rows without NaNs at the extremities of `y`.
+        If there is no NaN in the data, this list is [0, y.shape[0]-1].
 
     Notes
     -----
@@ -95,29 +98,29 @@ def tnorm(y, axis=0, step=1, k=3, smooth=0, mask=None, show=False, ax=None):
 
     >>> # Linear interpolation passing through each datum
     >>> y = [5,  4, 10,  8,  1, 10,  2,  7,  1,  3]
-    >>> yn, tn = tnorm(y, k=1, smooth=0, mask=None, show=True)
+    >>> yn, tn, indie = tnorm(y, k=1, smooth=0, mask=None, show=True)
 
     >>> # Cubic spline interpolation with smoothing
     >>> y = [5,  4, 10,  8,  1, 10,  2,  7,  1,  3]
-    >>> yn, tn = tnorm(y, k=3, smooth=1, mask=None, show=True)
+    >>> yn, tn, indie = tnorm(y, k=3, smooth=1, mask=None, show=True)
 
     >>> # Cubic spline interpolation with smoothing and 50 points
     >>> x = np.linspace(-3, 3, 100)
     >>> y = np.exp(-x**2) + np.random.randn(100)/10
-    >>> yn, tn = tnorm(y, step=-50, k=3, smooth=1, show=True)
+    >>> yn, tn, indie = tnorm(y, step=-50, k=3, smooth=1, show=True)
 
     >>> # Deal with missing data (use NaN as mask)
     >>> x = np.linspace(-3, 3, 100)
     >>> y = np.exp(-x**2) + np.random.randn(100)/10
     >>> y[0] = np.NaN # first point is also missing
     >>> y[30: 41] = np.NaN # make other 10 missing points
-    >>> yn, tn = tnorm(y, step=-50, k=3, smooth=1, show=True)
+    >>> yn, tn, indie = tnorm(y, step=-50, k=3, smooth=1, show=True)
 
     >>> # Deal with 2-D array
     >>> x = np.linspace(-3, 3, 100)
     >>> y = np.exp(-x**2) + np.random.randn(100)/10
     >>> y = np.vstack((y-1, y[::-1])).T
-    >>> yn, tn = tnorm(y, step=-50, k=3, smooth=1, show=True)
+    >>> yn, tn, indie = tnorm(y, step=-50, k=3, smooth=1, show=True)
     """
 
     from scipy.interpolate import UnivariateSpline
@@ -131,15 +134,21 @@ def tnorm(y, axis=0, step=1, k=3, smooth=0, mask=None, show=False, ax=None):
     if mask is not None:
         y[y == mask] = np.NaN
     # delete rows with missing values at the extremities
+    iini = 0
     while y.size and np.isnan(np.sum(y[0])):
         y = np.delete(y, 0, axis=0)
+        iini += 1
+    iend = y.shape[0]-1
     while y.size and np.isnan(np.sum(y[-1])):
         y = np.delete(y, -1, axis=0)
+        iend -= 1
     # check if there are still data
     if not y.size:
-        return None, None
+        return None, None, []
     if y.size == 1:
-        return y.flatten(), None
+        return y.flatten(), None, [0, 0]
+        
+    indie = [iini, iend]
 
     t = np.linspace(0, 100, y.shape[0])
     if step == 0:
@@ -164,7 +173,7 @@ def tnorm(y, axis=0, step=1, k=3, smooth=0, mask=None, show=False, ax=None):
     if yn.shape[1] == 1:
         yn = yn.flatten()
 
-    return yn, tn
+    return yn, tn, indie
 
 
 def _plot(t, y, ax, tn, yn):
@@ -177,7 +186,8 @@ def _plot(t, y, ax, tn, yn):
         if ax is None:
             _, ax = plt.subplots(1, 1, figsize=(8, 5))
 
-        ax.set_color_cycle(['b', 'r', 'b', 'g', 'b', 'y', 'b', 'c', 'b', 'm'])
+        ax.set_prop_cycle('color', ['b', 'r', 'b', 'g', 'b', 'y', 'b', 'c', 'b', 'm'])
+        #ax.set_color_cycle(['b', 'r', 'b', 'g', 'b', 'y', 'b', 'c', 'b', 'm'])
         for col in np.arange(y.shape[1]):
             if y.shape[1] == 1:
                 ax.plot(t, y[:, col], 'o-', lw=1, label='Original data')
