@@ -4,7 +4,7 @@ from __future__ import division, print_function
 import numpy as np
 
 __author__ = 'Marcos Duarte, https://github.com/demotu/BMC'
-__version__ = "1.0.4"
+__version__ = "1.0.5"
 __license__ = "MIT"
 
 
@@ -135,10 +135,10 @@ def tnorm(y, axis=0, step=1, k=3, smooth=0, mask=None, show=False, ax=None):
         y[y == mask] = np.NaN
     # delete rows with missing values at the extremities
     iini = 0
+    iend = y.shape[0]-1
     while y.size and np.isnan(np.sum(y[0])):
         y = np.delete(y, 0, axis=0)
         iini += 1
-    iend = y.shape[0]-1
     while y.size and np.isnan(np.sum(y[-1])):
         y = np.delete(y, -1, axis=0)
         iend -= 1
