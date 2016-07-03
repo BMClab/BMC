@@ -117,7 +117,10 @@ def detect_peaks(x, mph=None, mpd=1, threshold=0, edge='rising',
         ind = ind[:-1]
     # remove peaks < minimum peak height
     if ind.size and mph is not None:
-        ind = ind[x[ind] >= mph]
+        if valley:
+            ind = ind[-x[ind] >= mph]
+        else:
+            ind = ind[x[ind] >= mph]
     # remove peaks - neighbors < threshold
     if ind.size and threshold > 0:
         dx = np.min(np.vstack([x[ind]-x[ind-1], x[ind]-x[ind+1]]), axis=0)
