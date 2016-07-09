@@ -25,19 +25,20 @@ def fpcalibra(Lfp, Flc, COP, threshold=1e-10):
     Where Lc is the re-calibrated FP output.
 
     Cedraro et al. (2008) [1]_ proposed to use a calibrated three-component
-    load cell to measure the loads applied on the FP at known measurements
+    load cell to measure the forces applied on the FP at known measurements
     sites and an algorithm for the re-calibration.
     
     This code implements the re-calibration algorithm, see [2]_
     
     Parameters
     ----------
-    Lfp : numpy 2-D array (3, nsamples*nksites)
-        loads measured by the force plate at the measurements sites
+    Lfp : numpy 2-D array (6, nsamples*nksites)
+        loads [Fx, Fy, Fz, Mx, My, Mz] measured by the force plate due to the
+        corresponding forces applied at the measurements sites
     Flc : numpy 2-D array (3, nsamples*nksites)
-        loads measured by the load cell at the measurements sites
+        forces [Fx, Fy, Fz] measured by the load cell at the measurements sites
     COP : numpy 2-D array (3, nksites)
-        positions of the load cell at the measurements sites
+        positions [COPx, COPy, COPz] of the load cell at the measurements sites
     threshold  : float, optional
         threshold to stop the optimization (default 1e-10)
     
