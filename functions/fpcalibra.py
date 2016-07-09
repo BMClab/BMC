@@ -1,5 +1,4 @@
-"""Force plate calibration algorithm based on Cedraro et al. (2008).
-
+"""Force plate calibration algorithm.
 """
 
 __author__ = 'Marcos Duarte, https://github.com/demotu/BMC'
@@ -12,7 +11,7 @@ import time
 
 
 def fpcalibra(Lfp, Flc, COP, threshold=1e-10):
-    """Force plate calibration algorithm based on Cedraro et al. (2008).
+    """Force plate calibration algorithm.
     
     For a force plate (FP) re-calibration, the relationship between the
     measured FP output (L) and the known loads (Li) is approximated by:
@@ -25,7 +24,7 @@ def fpcalibra(Lfp, Flc, COP, threshold=1e-10):
     Where Lc is the re-calibrated FP output.
 
     Cedraro et al. (2008) [1]_ proposed to use a calibrated three-component
-    load cell to measure the forces applied on the FP at known measurements
+    load cell to measure the forces applied on the FP at known measurement
     sites and an algorithm for the re-calibration.
     
     This code implements the re-calibration algorithm, see [2]_
@@ -33,21 +32,24 @@ def fpcalibra(Lfp, Flc, COP, threshold=1e-10):
     Parameters
     ----------
     Lfp : numpy 2-D array (6, nsamples*nksites)
-        loads [Fx, Fy, Fz, Mx, My, Mz] measured by the force plate due to the
-        corresponding forces applied at the measurements sites
+        loads [Fx, Fy, Fz, Mx, My, Mz] (in N and Nm) measured by the force
+        plate due to the corresponding forces applied at the measurement sites
     Flc : numpy 2-D array (3, nsamples*nksites)
-        forces [Fx, Fy, Fz] measured by the load cell at the measurements sites
+        forces [Fx, Fy, Fz] (in N) measured by the load cell at the
+        measurement sites
     COP : numpy 2-D array (3, nksites)
-        positions [COPx, COPy, COPz] of the load cell at the measurements sites
+        positions [COPx, COPy, COPz] (in m) of the load cell at the
+        measurement sites
     threshold  : float, optional
         threshold to stop the optimization (default 1e-10)
     
     Returns
     -------
     C   : numpy 2-D (6-by-6) array
-        optimal force plate re-calibration matrix
+        optimal force plate re-calibration matrix (in dimensionless units)
     ang : numpy 1-D array [ang0, ..., angk]
-        optimal angles of rotation of the load cells at the measurment sites
+        optimal angles of rotation (in rad) of the load cells at the
+        measurement sites
 
     References
     ----------
@@ -67,7 +69,7 @@ def fpcalibra(Lfp, Flc, COP, threshold=1e-10):
     >>>               [-0.0012, -0.0385,  0.0002,  0.9328,  0.0007,  0.0017],
     >>>               [ 0.0347,  0.0003,  0.0008, -0.0002,  0.9325, -0.0024],
     >>>               [-0.0004, -0.0013, -0.0003, -0.0023,  0.0035,  1.0592]])
-    >>> # simulated 5 measurements sites (in m)
+    >>> # simulated 5 measurement sites (in m)
     >>> COP = np.array([[   0,  112,  112, -112, -112],
     >>>                 [   0,  192, -192,  192, -192],
     >>>                 [-124, -124, -124, -124, -124]])/1000
@@ -118,7 +120,6 @@ def fpcalibra(Lfp, Flc, COP, threshold=1e-10):
     R = lambda a : np.array([[np.cos(a), -np.sin(a), 0], [np.sin(a), np.cos(a), 0], [ 0, 0, 1]])
     # Pseudoiverse of the loads measured by the force plate
     Lpinv = pinv(Lfp)
-
     # cost function for the optimization
     def costfun(ang, P, R, Flc, C, Lfp, nk, ns, E):
         for k in range(nk):
@@ -145,7 +146,7 @@ def fpcalibra(Lfp, Flc, COP, threshold=1e-10):
         da.append(delta_ang.sum())
 
     tdelta = time.time() - start
-    print('\nOptimization finished after %d steps in %.1f s.\n' %(len(da), tdelta))
+    print('\nOptimization finished in %.1f s after %d steps.\n' %(tdelta, len(da)))
     print('Optimal calibration matrix:\n', C)
     print('\nOptimal angles:\n', res.x*180/np.pi)
     print('\n')
