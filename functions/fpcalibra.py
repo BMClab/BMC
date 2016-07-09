@@ -3,7 +3,7 @@
 """
 
 __author__ = 'Marcos Duarte, https://github.com/demotu/BMC'
-__version__ = 'fpcalibra.py v.1 2016/07/10'
+__version__ = 'fpcalibra.py v.1 2016/07/09'
 
 import numpy as np
 from numpy.linalg import pinv
@@ -11,47 +11,47 @@ from scipy.optimize import minimize
 import time
 
 
-def fpcalibra(Lfp, Flc, COP, threshold = 1e-10):
+def fpcalibra(Lfp, Flc, COP, threshold=1e-10):
     """Force plate calibration algorithm based on Cedraro et al. (2008).
     
-    For a force plate, FP, re-calibration, the relationship between the
-    measured FP output, $\mathbf{L}$, and the known loads, $\mathbf{L}_I$,
-    is approximated by: $\mathbf{L}_I = \mathbf{C}\mathbf{L} + \mathbf{E}$.  
-    Where $\mathbf{C}$ is the 6-by-6 re-calibration matrix and $\mathbf{E}$
-    is a gaussian, uncorrelated, zero mean noise six-by-one matrix.  
+    For a force plate (FP) re-calibration, the relationship between the
+    measured FP output (L) and the known loads (Li) is approximated by:
+    Li = C@L + E (@ is the operator for matrix multiplication).  
+    Where C is the 6-by-6 re-calibration matrix and E is a gaussian,
+    uncorrelated, zero mean noise six-by-one matrix.  
 
     The re-calibration matrix can be found by solving the equation above and
-    then $\mathbf{C}$ can be later used to re-calibrate the FP output:
-    $\mathbf{L}_C = \mathbf{C}\mathbf{L}$.  
-    Where $\mathbf{L}_C$ is the re-calibrated FP output.
+    then C can be later used to re-calibrate the FP output: Lc = C@L.  
+    Where Lc is the re-calibrated FP output.
 
-    Cedraro et al. (2008) propose to use a calibrated three-component load
-    cell to measure the loads applied on the FP at known measurements sites
-    and an algorithm for the re-calibration.
+    Cedraro et al. (2008) [1]_ proposed to use a calibrated three-component
+    load cell to measure the loads applied on the FP at known measurements
+    sites and an algorithm for the re-calibration.
     
-    This code implements this re-calibration algorithm, see [1]_
+    This code implements the re-calibration algorithm, see [2]_
     
     Parameters
     ----------
-    Lfp  : numpy 2-d array
+    Lfp : numpy 2-D array (3, nsamples*nksites)
         loads measured by the force plate at the measurements sites
-    Flc  : numpy 2-d array
+    Flc : numpy 2-D array (3, nsamples*nksites)
         loads measured by the load cell at the measurements sites
-    COP  : numpy 2-d array
+    COP : numpy 2-D array (3, nksites)
         positions of the load cell at the measurements sites
     threshold  : float, optional
-        threshold to stop the optimization
+        threshold to stop the optimization (default 1e-10)
     
     Returns
     -------
-    C    : numpy 6-by-6 array
-            force plate re-calibration matrix
-    ang    : numpy 1-d array [ang0, ... angk]
-            angles of rotation of the load cells at the measurment sites
+    C   : numpy 2-D (6-by-6) array
+        optimal force plate re-calibration matrix
+    ang : numpy 1-D array [ang0, ..., angk]
+        optimal angles of rotation of the load cells at the measurment sites
 
     References
     ----------
-    .. [1] http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/ForcePlateCalibration.ipynb
+    .. [1] Cedraro A, Cappello A, Chiari L (2008) Gait & Posture, 28, 488–494. 
+    .. [2] http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/ForcePlateCalibration.ipynb
 
     Example
     -------
@@ -69,8 +69,8 @@ def fpcalibra(Lfp, Flc, COP, threshold = 1e-10):
     >>> # simulated 5 measurements sites (in m)
     >>> COP = np.array([[   0,  112,  112, -112, -112],
     >>>                 [   0,  192, -192,  192, -192],
-    >>>                 [-124, -124, -124, -124, -124]]).T/1000
-    >>> nk = COP.shape[0]
+    >>>                 [-124, -124, -124, -124, -124]])/1000
+    >>> nk = COP.shape[1]
     >>> # simulated forces measured by the load cell (in N) before rotation
     >>> samples = np.linspace(1, 6000, 6000)
     >>> ns = samples.shape[0]
@@ -83,7 +83,7 @@ def fpcalibra(Lfp, Flc, COP, threshold = 1e-10):
     >>> # simulated loads measured by the force plate
     >>> Li = np.empty((6, ns*nk))
     >>> P = np.empty((6, 3, nk))
-    >>> for k, cop in enumerate(COP):
+    >>> for k, cop in enumerate(COP.T):
     >>>     P[:, :, k] = np.vstack((np.eye(3), Acop(*cop)))
     >>>     Li[:, k*ns:(k+1)*ns] = P[:, :, k] @ Flc[:, k*ns:(k+1)*ns]
     >>> Lfp = inv(C) @  Li
@@ -98,20 +98,20 @@ def fpcalibra(Lfp, Flc, COP, threshold = 1e-10):
     >>> C2, ang2 = fpcalibra(Lfp, Flc, COP)
     >>> 
     >>> e = np.sqrt(np.sum(C2-C)**2)
-    >>> print('\nResidual between simulated and optimal re-calibration matrices:', e)
+    >>> print('Residual between simulated and optimal re-calibration matrices:', e)
     >>> e = np.sqrt(np.sum(ang2-ang)**2)
-    >>> print('\nResidual between simulated and optimal rotation angles:', e)
+    >>> print('Residual between simulated and optimal rotation angles:', e)
     
     """
 
     # number of sites
-    nk = COP.shape[0]
+    nk = COP.shape[1]
     # number of samples
     ns = int(Lfp.shape[1]/nk)
     # function for the COP skew-symmetric matrix
     Acop = lambda x,y,z : np.array([[.0, -z, y], [z, .0, -x], [-y, x, .0]])
     P = np.empty((6, 3, nk))
-    for k, cop in enumerate(COP):
+    for k, cop in enumerate(COP.T):
         P[:, :, k] = np.vstack((np.eye(3), Acop(*cop)))    
     # function for the 2D rotation matrix
     R = lambda a : np.array([[np.cos(a), -np.sin(a), 0], [np.sin(a), np.cos(a), 0], [ 0, 0, 1]])
@@ -132,9 +132,9 @@ def fpcalibra(Lfp, Flc, COP, threshold = 1e-10):
     delta_ang = 10*threshold
     Li = np.empty((6, ns*nk))
     start = time.time()
-
+    # the optimization
     while np.all(delta_ang > threshold):
-        for k, cop in enumerate(COP):
+        for k in range(nk):
             Li[:, k*ns:(k+1)*ns] = P[:, :, k] @ R(ang0[k]) @ Flc[:, k*ns:(k+1)*ns]
         C = Li @ Lpinv
         res = minimize(fun=costfun, x0=ang0, args=(P, R, Flc, C, Lfp, nk, ns, E),
@@ -147,5 +147,6 @@ def fpcalibra(Lfp, Flc, COP, threshold = 1e-10):
     print('\nOptimization finished after %d steps in %.1f s.\n' %(len(da), tdelta))
     print('Optimal calibration matrix:\n', C)
     print('\nOptimal angles:\n', res.x*180/np.pi)
+    print('\n')
 
     return C, res.x
