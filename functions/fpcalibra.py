@@ -115,15 +115,15 @@ def fpcalibra(Lfp, Flc, COP, threshold=1e-10):
     Acop = lambda x,y,z : np.array([[.0, -z, y], [z, .0, -x], [-y, x, .0]])
     P = np.empty((6, 3, nk))
     for k, cop in enumerate(COP.T):
-        P[:, :, k] = np.vstack((np.eye(3), Acop(*cop)))    
+        P[:, :, k] = np.vstack((np.eye(3), Acop(*cop)))
     # function for the 2D rotation matrix
     R = lambda a : np.array([[np.cos(a), -np.sin(a), 0], [np.sin(a), np.cos(a), 0], [ 0, 0, 1]])
     # Pseudoiverse of the loads measured by the force plate
     Lpinv = pinv(Lfp)
     # cost function for the optimization
-    def costfun(ang, P, R, Flc, C, Lfp, nk, ns, E):
+    def costfun(ang, P, R, Flc, CLfp, nk, ns, E):
         for k in range(nk):
-            E[:,k*ns:(k+1)*ns] = P[:,:,k] @ R(ang[k]) @ Flc[:,k*ns:(k+1)*ns] - C @ Lfp[:,k*ns:(k+1)*ns]
+            E[:,k*ns:(k+1)*ns] = (P[:,:,k] @ R(ang[k])) @ Flc[:,k*ns:(k+1)*ns] - CLfp[:,k*ns:(k+1)*ns]
         return np.sum(E * E)
     # inequality constraints
     bnds = [(-np.pi/2, np.pi/2) for k in range(nk)]
@@ -137,9 +137,10 @@ def fpcalibra(Lfp, Flc, COP, threshold=1e-10):
     # the optimization
     while np.all(delta_ang > threshold):
         for k in range(nk):
-            Li[:, k*ns:(k+1)*ns] = P[:, :, k] @ R(ang0[k]) @ Flc[:, k*ns:(k+1)*ns]
+            Li[:,k*ns:(k+1)*ns] = (P[:,:,k] @ R(ang0[k])) @ Flc[:,k*ns:(k+1)*ns]
         C = Li @ Lpinv
-        res = minimize(fun=costfun, x0=ang0, args=(P, R, Flc, C, Lfp, nk, ns, E),
+        CLfp = C @ Lfp
+        res = minimize(fun=costfun, x0=ang0, args=(P, R, Flc, CLfp, nk, ns, E),
                        bounds=bnds, method='TNC', options={'disp': False})
         delta_ang = np.abs(res.x - ang0)
         ang0 = res.x
