@@ -10,7 +10,8 @@ I hope you find this material useful and I am open to comments and suggestions (
 
 Introduction
 ------------
-- [Biomechanics](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/Introduction%20to%20Biomechanics.ipynb)
+- [Biomechanics](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/Introduction%20to%20Biomechanics.ipynb)  
+- [The Biomechanics and Motor Control Laboratory](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/BMClab.ipynb)  
 
 Scientific programming
 ----------------------
