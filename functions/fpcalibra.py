@@ -2,15 +2,16 @@
 """
 
 __author__ = 'Marcos Duarte, https://github.com/demotu/BMC'
-__version__ = 'fpcalibra.py v.1 2016/07/09'
+__version__ = 'fpcalibra.py v.1.0.1 2016/08/19'
+__license__ = "MIT"
 
 import numpy as np
-from numpy.linalg import pinv
+from scipy.linalg import pinv, pinv2
 from scipy.optimize import minimize
 import time
 
 
-def fpcalibra(Lfp, Flc, COP, threshold=1e-10):
+def fpcalibra(Lfp, Flc, COP, threshold=1e-10, method='SVD'):
     """Force plate calibration algorithm.
     
     For a force plate (FP) re-calibration, the relationship between the
@@ -42,6 +43,9 @@ def fpcalibra(Lfp, Flc, COP, threshold=1e-10):
         measurement sites
     threshold  : float, optional
         threshold to stop the optimization (default 1e-10)
+    method  : string, optional
+        method for the pseudiinverse calculation, 'SVD' (default) or 'lstsq'
+        SVD is the Singular Value Decomposition and lstsq is least-squares
     
     Returns
     -------
@@ -59,7 +63,7 @@ def fpcalibra(Lfp, Flc, COP, threshold=1e-10):
     Example
     -------
     >>> from fpcalibra import fpcalibra
-    >>> import numpy as np
+     >>> import numpy as np
     >>> from numpy.linalg import inv
     >>>
     >>> # simulated true re-calibration matrix
@@ -69,7 +73,7 @@ def fpcalibra(Lfp, Flc, COP, threshold=1e-10):
     >>>               [-0.0012, -0.0385,  0.0002,  0.9328,  0.0007,  0.0017],
     >>>               [ 0.0347,  0.0003,  0.0008, -0.0002,  0.9325, -0.0024],
     >>>               [-0.0004, -0.0013, -0.0003, -0.0023,  0.0035,  1.0592]])
-    >>> # simulated 5 measurement sites (in m)
+    >>> # simulated 5 measurements sites (in m)
     >>> COP = np.array([[   0,  112,  112, -112, -112],
     >>>                 [   0,  192, -192,  192, -192],
     >>>                 [-124, -124, -124, -124, -124]])/1000
@@ -77,10 +81,11 @@ def fpcalibra(Lfp, Flc, COP, threshold=1e-10):
     >>> # simulated forces measured by the load cell (in N) before rotation
     >>> samples = np.linspace(1, 6000, 6000)
     >>> ns = samples.shape[0]
-    >>> Flc = np.array([100*np.sin(5*2*np.pi*samples/samples[-1]),
-    >>>                 100*np.cos(5*2*np.pi*samples/samples[-1]),
-    >>>                 samples/15 + 200])
-    >>> Flc = np.tile(Flc, nk)
+    >>> Flc = np.empty((3, nk*ns))
+    >>> for k in range(nk):
+    >>>     Flc[:, k*ns:(k+1)*ns] = np.array([100*np.sin(5*2*np.pi*samples/ns) + 2*np.random.randn(ns),
+    >>>                                       100*np.cos(5*2*np.pi*samples/ns) + 2*np.random.randn(ns),
+    >>>                                       samples/15 + 200 + 5*np.random.randn(ns)])
     >>> # function for the COP skew-symmetric matrix
     >>> Acop = lambda x,y,z : np.array([[.0, -z, y], [z, .0, -x], [-y, x, .0]])
     >>> # simulated loads measured by the force plate
@@ -104,7 +109,6 @@ def fpcalibra(Lfp, Flc, COP, threshold=1e-10):
     >>> print('Residual between simulated and optimal re-calibration matrices:', e)
     >>> e = np.sqrt(np.sum(ang2-ang)**2)
     >>> print('Residual between simulated and optimal rotation angles:', e)
-    
     """
 
     # number of sites
@@ -119,7 +123,10 @@ def fpcalibra(Lfp, Flc, COP, threshold=1e-10):
     # function for the 2D rotation matrix
     R = lambda a : np.array([[np.cos(a), -np.sin(a), 0], [np.sin(a), np.cos(a), 0], [ 0, 0, 1]])
     # Pseudoiverse of the loads measured by the force plate
-    Lpinv = pinv(Lfp)
+    if method.lower() == 'svd':
+        Lpinv = pinv2(Lfp)
+    else:
+        Lpinv = pinv(Lfp)        
     # cost function for the optimization
     def costfun(ang, P, R, Flc, CLfp, nk, ns, E):
         for k in range(nk):
