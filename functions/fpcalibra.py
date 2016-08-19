@@ -63,7 +63,7 @@ def fpcalibra(Lfp, Flc, COP, threshold=1e-10, method='SVD'):
     Example
     -------
     >>> from fpcalibra import fpcalibra
-     >>> import numpy as np
+    >>> import numpy as np
     >>> from numpy.linalg import inv
     >>>
     >>> # simulated true re-calibration matrix
