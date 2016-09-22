@@ -15,7 +15,7 @@ Introduction
 
 Scientific programming
 ----------------------
-- [Python for scientific computing](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/PythonForScientificComputing.ipynb), V.2 - [Slides of a talk](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/PythonForScientificComputing_Slides.ipynb)  
+- [Python for scientific computing](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/PythonForScientificComputing.ipynb)  
 - [How to install Python](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/PythonInstallation.ipynb)
 - [Python tutorial](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/PythonTutorial.ipynb)
 - [Version control with Git and GitHub](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/VersionControlGitGitHub.ipynb)
