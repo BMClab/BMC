@@ -70,6 +70,8 @@ Mechanics
     - [Kistler force plate calculation](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/KistlerForcePlateCalculation.ipynb)  
     - [Open AMTI .bsf file](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/AMTIbsfFile.ipynb)  
 	- [Algorithm for force plate calibration](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/ForcePlateCalibration.ipynb)
+ + Lagrangian mechanics
+    - [Lagrangian mechanics](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/LagrangianMechanics.ipynb)
 
 Modeling and simulation of human movement
 -----------------------------------------
