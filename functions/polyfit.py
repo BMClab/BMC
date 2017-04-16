@@ -10,7 +10,7 @@ import scipy.stats as stats
 import matplotlib.pyplot as plt
 
 def polyfit(x, y, degree, plot=True, xlabel='x', ylabel='y', title=True,
-            legend=True, axis=None):
+            legend=True, plotCI=True, plotPI=True, axis=None):
     """Least squares polynomial regression of order degree for x vs. y.
     
     Parameters
@@ -31,6 +31,10 @@ def polyfit(x, y, degree, plot=True, xlabel='x', ylabel='y', title=True,
         Show title (True) of not (False) in the plot.
     legend : bool, optional (default = True)
         Show legend (True) of not (False) in the plot.
+    plotCI : bool, optional (default = True)
+        Plot the shaded area for the confidence interval (True) of not (False).
+    plotPI : bool, optional (default = True)
+        Plot the shaded area for the prediction interval (True) of not (False).
     axis : matplotlib object, optional (default = None)
         Matplotlib axis object where to plot.
 
@@ -106,10 +110,12 @@ def polyfit(x, y, degree, plot=True, xlabel='x', ylabel='y', title=True,
             fig, axis = plt.subplots(1, 1, figsize=(10, 5))
         else:
             fig = 0
-        axis.fill_between(x2, yfit2+pi2, yfit2-pi2, color=[1, 0, 0, 0.1],
-                          edgecolor='', label='68% prediction interval')
-        axis.fill_between(x2, yfit2+ci2, yfit2-ci2, color=[1, 0, 0, 0.3],
-                          edgecolor='', label='95% confidence interval')
+        if plotPI:
+            axis.fill_between(x2, yfit2+pi2, yfit2-pi2, color=[1, 0, 0, 0.1],
+                              edgecolor='', label='68% prediction interval')
+        if plotCI:
+            axis.fill_between(x2, yfit2+ci2, yfit2-ci2, color=[1, 0, 0, 0.3],
+                              edgecolor='', label='95% confidence interval')
         axis.plot(x, y, 'o', color=[0, 0.1, .9, 1], markersize=8)
         axis.plot(x2, yfit2, 'r', linewidth=3, color=[1, 0, 0, .8],
                  label='Polynomial (degree {}) fit'.format(degree))
