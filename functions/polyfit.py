@@ -59,7 +59,10 @@ def polyfit(x, y, degree, plot=True, xlabel='x', ylabel='y', title=True,
     >>> import matplotlib.pyplot as plt
     >>> N = 100
     >>> x = np.sort(np.random.random(N)*6-2)
-    >>> y = np.polyval([3, 1, 4], x) + np.random.randn(N)*10
+    >>> y = np.polyval([3, 1, 4], x) + np.random.randn(N)*6
+    >>> # simplest use:
+    >>> polyfit(x, y, deg)
+    >>> # compare two models:
     >>> fig, ax = plt.subplots(1, 2, figsize=(14, 5))
     >>> p1, perr1, R21, yfit1, ci1, pi1 = polyfit(x, y, degree=1, axis=ax[0])
     >>> p2, perr2, R22, yfit2, ci2, pi2 = polyfit(x, y, degree=2, axis=ax[1])
@@ -77,7 +80,8 @@ def polyfit(x, y, degree, plot=True, xlabel='x', ylabel='y', title=True,
     perr = np.sqrt(np.diag(cov))                   
     # residuals
     res = y - yfit                                 
-    # reduced chi-squared
+    # reduced chi-squared (warning: calculation with no uncertainties)
+    # see p. 79 of https://www.astro.rug.nl/software/kapteyn/_downloads/statmain.pdf
     chi2red = np.sum(res**2)/(N - degree - 1)         
     # standard deviation of the error (residuals)
     s_err = np.sqrt(np.sum(res**2)/(N - degree - 1))  
@@ -126,9 +130,10 @@ def polyfit(x, y, degree, plot=True, xlabel='x', ylabel='y', title=True,
         if title:
             xs = ['', 'x'] + ['x^{:d}'.format(ideg) for ideg in range(2, degree+1)]
             title = ['({:.2f} \pm {:.2f}) {}'.format(i, j, k) for i, j, k in zip(p, perr, xs)]
-            R2str = '\quad (R^2 = ' + '{:.2f}'.format(R2) + ')'
+            R2str = '\, (R^2 = ' + '{:.2f}'.format(R2) + \
+                    ', \chi^2_{red} = ' + '{:.1f}'.format(chi2red) + ')'
             title = '$ y = ' + '+'.join(title) + R2str + '$'
-            axis.set_title(title, fontsize=14, color=[0, 0, 0])  
+            axis.set_title(title, fontsize=12, color=[0, 0, 0])  
         if fig:
             plt.show()
     
