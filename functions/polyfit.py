@@ -97,8 +97,8 @@ def polyfit(x, y, degree, plot=True, xlabel='x', ylabel='y', title=True,
     pi = t68 * s_err * np.sqrt(1 + 1/N + (x - np.mean(x))**2/np.sum((x-np.mean(x))**2))
     # plot
     if plot:
-        # generate more values in case number of input values is small
-        if N < 100:
+        # generate values if number of input values is too small or too large
+        if N < 50 or N > 200:
             x2 = np.linspace(np.min(x), np.max(x), 100)
             yfit2 = np.polyval(p, x2)
             ci2 = np.interp(x2, x, ci)
