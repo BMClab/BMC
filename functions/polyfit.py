@@ -9,9 +9,9 @@ import numpy as np
 import scipy.stats as stats
 import matplotlib.pyplot as plt
 
-def polyfit(x, y, degree, plot=True, xlabel='x', ylabel='y', title=True,
-            legend=True, plotCI=True, plotPI=True, axis=None):
-    """Least squares polynomial regression of order degree for x vs. y.
+def polyfit(x, y, degree, yerr=None, plot=True, xlabel='x', ylabel='y',
+            title=True, legend=True, plotCI=True, plotPI=True, axis=None):
+    """Least squares polynomial regression of order degree for x vs. y [1]_
     
     Parameters
     ----------
@@ -21,7 +21,10 @@ def polyfit(x, y, degree, plot=True, xlabel='x', ylabel='y', title=True,
         Dependent variable, y-coordinates of the N points (x[i], y[i]).
     degree : integer
         Degree of the polynomial to be fitted to the data.
-    plot : : bool, optional (default = True)
+    yerr : numpy array_like, shape (N,), optional (default = None)
+        Error (uncertainty) in y. If no error is entered, unitary equal errors
+        for all y values are assumed.
+    plot : bool, optional (default = True)
         Show plot (True) of not (False). 
     xlabel : string, optional (default = 'x')
         Label for the x (horizontal) axis.
@@ -52,7 +55,12 @@ def polyfit(x, y, degree, plot=True, xlabel='x', ylabel='y', title=True,
         Values of the 95% confidence interval evaluated at x.
     pi : numpy array, shape (N + 1,)
         Values of the 68% prediction interval evaluated at x.
-        
+
+    References
+    ----------
+    .. [1] https://docs.scipy.org/doc/numpy/reference/generated/numpy.polyfit.html
+    
+
     Examples
     --------
     >>> import numpy as np
@@ -64,25 +72,30 @@ def polyfit(x, y, degree, plot=True, xlabel='x', ylabel='y', title=True,
     >>> polyfit(x, y, deg)
     >>> # compare two models:
     >>> fig, ax = plt.subplots(1, 2, figsize=(14, 5))
-    >>> p1, perr1, R21, yfit1, ci1, pi1 = polyfit(x, y, degree=1, axis=ax[0])
-    >>> p2, perr2, R22, yfit2, ci2, pi2 = polyfit(x, y, degree=2, axis=ax[1])
+    >>> p1, perr1, R21, chi2red1, yfit1, ci1, pi1 = polyfit(x, y, degree=1, axis=ax[0])
+    >>> p2, perr2, R22, chi2red2, yfit2, ci2, pi2 = polyfit(x, y, degree=2, axis=ax[1])
     >>> plt.tight_layout()
     
     """
     
     x, y = np.asarray(x), np.asarray(y)
     N = y.size
+    if yerr is None:
+        yerr = np.ones(N)
+        errorbar = False
+    else:
+        errorbar = True
     # coefficients and covariance matrix of the least squares polynomial fit
-    p, cov = np.polyfit(x, y, degree, cov=True)
+    p, cov = np.polyfit(x, y, degree, w=1/yerr, cov=True)
     # evaluate the polynomial at x
     yfit = np.polyval(p, x)            
     # standard-deviation of the coefficients
     perr = np.sqrt(np.diag(cov))                   
     # residuals
     res = y - yfit                                 
-    # reduced chi-squared (warning: calculation with no uncertainties)
-    # see p. 79 of https://www.astro.rug.nl/software/kapteyn/_downloads/statmain.pdf
-    chi2red = np.sum(res**2)/(N - degree - 1)         
+    # reduced chi-squared, see for example page 79 of
+    # https://www.astro.rug.nl/software/kapteyn/_downloads/statmain.pdf
+    chi2red = np.sum(res**2/yerr**2)/(N - degree - 1)         
     # standard deviation of the error (residuals)
     s_err = np.sqrt(np.sum(res**2)/(N - degree - 1))  
     # sum of squared residuals
@@ -102,7 +115,7 @@ def polyfit(x, y, degree, plot=True, xlabel='x', ylabel='y', title=True,
     # plot
     if plot:
         # generate values if number of input values is too small or too large
-        if N < 50 or N > 200:
+        if N < 50 or N > 500:
             x2 = np.linspace(np.min(x), np.max(x), 100)
             yfit2 = np.polyval(p, x2)
             ci2 = np.interp(x2, x, ci)
@@ -120,7 +133,11 @@ def polyfit(x, y, degree, plot=True, xlabel='x', ylabel='y', title=True,
         if plotCI:
             axis.fill_between(x2, yfit2+ci2, yfit2-ci2, color=[1, 0, 0, 0.3],
                               edgecolor='', label='95% confidence interval')
-        axis.plot(x, y, 'o', color=[0, 0.1, .9, 1], markersize=8)
+        if errorbar:
+            axis.errorbar(x, y, yerr=yerr, fmt='o', capsize=0,
+                          color=[0, 0.1, .9, 1], markersize=8)
+        else:
+            axis.plot(x, y, 'o', color=[0, 0.1, .9, 1], markersize=8)
         axis.plot(x2, yfit2, 'r', linewidth=3, color=[1, 0, 0, .8],
                  label='Polynomial (degree {}) fit'.format(degree))
         axis.set_xlabel(xlabel, fontsize=16)
@@ -137,4 +154,4 @@ def polyfit(x, y, degree, plot=True, xlabel='x', ylabel='y', title=True,
         if fig:
             plt.show()
     
-    return p, perr, R2, yfit, ci, pi
+    return p, perr, R2, chi2red, yfit, ci, pi
