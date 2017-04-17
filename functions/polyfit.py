@@ -2,7 +2,7 @@
 """
 
 __author__ = 'Marcos Duarte, https://github.com/demotu/BMC'
-__version__ = 'polyfit.py v.1.0.0 2017/04/16'
+__version__ = 'polyfit.py v.1.0.1 2017/04/16'
 __license__ = "MIT"
 
 import numpy as np
@@ -49,6 +49,8 @@ def polyfit(x, y, degree, yerr=None, plot=True, xlabel='x', ylabel='y',
         Standard-deviation of the coefficients.
     R2 : float
         Coefficient of determination.
+    chi2red : float
+        Reduced chi-squared
     yfit : numpy array, shape (N + 1,)
         Values of the fitted polynomial evaluated at x.
     ci : numpy array, shape (N + 1,)
@@ -65,17 +67,19 @@ def polyfit(x, y, degree, yerr=None, plot=True, xlabel='x', ylabel='y',
     --------
     >>> import numpy as np
     >>> import matplotlib.pyplot as plt
-    >>> N = 100
-    >>> x = np.sort(np.random.random(N)*6-2)
-    >>> y = np.polyval([3, 1, 4], x) + np.random.randn(N)*6
-    >>> # simplest use:
-    >>> polyfit(x, y, deg)
+    >>> N = 50
+    >>> x = np.linspace(-2, 4, N)
+    >>> y = np.polyval([3, 1, 2], x) + np.random.randn(N)*8
+    >>> # simple use:
+    >>> polyfit(x, y, 2);
     >>> # compare two models:
     >>> fig, ax = plt.subplots(1, 2, figsize=(14, 5))
-    >>> p1, perr1, R21, chi2red1, yfit1, ci1, pi1 = polyfit(x, y, degree=1, axis=ax[0])
-    >>> p2, perr2, R22, chi2red2, yfit2, ci2, pi2 = polyfit(x, y, degree=2, axis=ax[1])
+    >>> p1, perr1, R21, chi2red1, yfit1, ci1, pi1 = polyfit(x, y, 1, axis=ax[0])
+    >>> p2, perr2, R22, chi2red2, yfit2, ci2, pi2 = polyfit(x, y, 2, axis=ax[1])
     >>> plt.tight_layout()
-    
+    >>> Enter error (uncertainty) in y:
+    >>> yerr = np.ones(N)*8
+    >>> polyfit(x, y, 2, yerr);
     """
     
     x, y = np.asarray(x), np.asarray(y)
