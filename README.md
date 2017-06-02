@@ -61,13 +61,14 @@ Mechanics
   + [Rigid-body transformations (3D)](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/Transformation3D.ipynb)
     - [Determining rigid body transformation using the SVD algorithm](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/SVDalgorithm.ipynb)
 - **Kinetics**
- + [Fundamental concepts](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/KineticsFundamentalConcepts.ipynb)
- + [Body segment parameters](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/BodySegmentParameters.ipynb)
- + [Free body diagram](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/FreeBodyDiagram.ipynb)
- + [Biomechanical analysis of vertical jumps](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/VerticalJump.ipynb)
- + [Gait analysis (2D)](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/GaitAnalysis2D.ipynb)
- + Force plates
+  + [Fundamental concepts](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/KineticsFundamentalConcepts.ipynb)
+  + [Body segment parameters](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/BodySegmentParameters.ipynb)
+  + [Free body diagram](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/FreeBodyDiagram.ipynb)
+  + [Biomechanical analysis of vertical jumps](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/VerticalJump.ipynb)
+  + [Gait analysis (2D)](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/GaitAnalysis2D.ipynb)
+  + Force plates
     - [Kistler force plate calculation](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/KistlerForcePlateCalculation.ipynb)
+    - [Zebris pressure platform](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/ReadZebrisPressurePlatformASCIIfiles.ipynb)
 
 Modeling and simulation of human movement
 -----------------------------------------
