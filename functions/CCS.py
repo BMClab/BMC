@@ -13,8 +13,8 @@ class CCS():
     """
     CCS plots Cartesian coordinate system and data.
     """    
-    def __init__(self, ax=None, Oijk=[0,0,0], ijk='auto', ijk_label=True,
-                 Oxyz=[0,0,0], xyz='auto', xyz_label=True, point=[],
+    def __init__(self, ax=None, Oijk=[0,0,0], ijk=[], ijk_label=True,
+                 Oxyz=[0,0,0], xyz=[], xyz_label=True, point=[],
                  proj_lines=True, vector=True, *args, **kwargs):
         if not ax:
             fig = plt.figure(figsize=(5, 5))
@@ -50,10 +50,9 @@ class CCS():
         ax.set_ylim3d(xyzmin, xyzmax)
         ax.set_zlim3d(xyzmin, xyzmax)
             
-        if xyz == 'auto':
+        if not len(xyz):
             xyz = np.max((xmax, ymax, zmax))
             xyz = [[xyz, 0, 0], [0, xyz, 0], [0, 0, xyz]]           
-            
         if len(xyz):
             xyz = np.asarray(xyz)
             x, y, z = xyz
@@ -71,10 +70,9 @@ class CCS():
                 ax.text(x0, y0+xyzmax, z0, "Y", fontsize=20, color='black')
                 ax.text(x0, y0, z0+xyzmax, "Z", fontsize=20, color='black')
 
-        if ijk == 'auto':
+        if not len(ijk):
             ijk = np.min((xmax, ymax, zmax))/2
-            ijk = [[ijk, 0, 0], [0, ijk, 0], [0, 0, ijk]]   
-            
+            ijk = [[ijk, 0, 0], [0, ijk, 0], [0, 0, ijk]]       
         if len(ijk):
             ijk = np.asarray(ijk)
             i, j, k = ijk
@@ -95,10 +93,10 @@ class CCS():
         if len(point):
             point = np.asarray(point)
             for xp, yp, zp in point:
-                ax.plot3D([xp], [yp], [zp], marker='o', color='c', alpha=.8, ms=10)
+                ax.plot3D([xp], [yp], [zp], marker='o', color='y', alpha=.8, ms=8)
                 if vector:
-                    v = Arrow3D([x0, xp], [y0, yp], [z0, zp], mutation_scale=20,
-                                lw=3, arrowstyle="-|>", color="c", alpha=.8)
+                    v = Arrow3D([x0, xp], [y0, yp], [z0, zp], mutation_scale=15,
+                                lw=3, arrowstyle="-|>", color="y", alpha=.8)
                     ax.add_artist(v)
                     
         ax.view_init(elev=20, azim=60)       
