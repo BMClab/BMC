@@ -50,7 +50,7 @@ Mechanics
 ---------
 - **Kinematics**
   + [Frame of reference](http://nbviewer.jupyter.org/github/demotu/BMC/blob/master/notebooks/ReferenceFrame.ipynb)
-  + [Kinematics of a particle](http://nbviewer.jupyter.org/github/demotu/BMC/blob/master/notebooks/KinematicsParticle.ipynb)   
+  + [Kinematics of particle](http://nbviewer.jupyter.org/github/demotu/BMC/blob/master/notebooks/KinematicsParticle.ipynb)   
     - [Projectile motion](http://nbviewer.jupyter.org/github/demotu/BMC/blob/master/notebooks/ProjectileMotion.ipynb) 
     - [Spatial and temporal characteristics](http://nbviewer.jupyter.org/github/demotu/BMC/blob/master/notebooks/SpatialTemporalCharacteristcs.ipynb)  
     - [Minimum jerk hypothesis](http://nbviewer.jupyter.org/github/demotu/BMC/blob/master/notebooks/MinimumJerkHypothesis.ipynb)  
