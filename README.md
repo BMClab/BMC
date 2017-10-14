@@ -54,7 +54,7 @@ Mechanics
     - [Projectile motion](http://nbviewer.jupyter.org/github/demotu/BMC/blob/master/notebooks/ProjectileMotion.ipynb) 
     - [Spatial and temporal characteristics](http://nbviewer.jupyter.org/github/demotu/BMC/blob/master/notebooks/SpatialTemporalCharacteristcs.ipynb)  
     - [Minimum jerk hypothesis](http://nbviewer.jupyter.org/github/demotu/BMC/blob/master/notebooks/MinimumJerkHypothesis.ipynb)  
-  + [Angular kinematics (2D)](http://nbviewer.jupyter.org/github/demotu/BMC/blob/master/notebooks/AngularKinematics2D.ipynb)  
+  + [Angular kinematics (2D)](http://nbviewer.jupyter.org/github/demotu/BMC/blob/master/notebooks/KinematicsAngular2D.ipynb)  
     - [Kinematic chain](http://nbviewer.jupyter.org/github/demotu/BMC/blob/master/notebooks/KinematicChain.ipynb) 
   + [Rigid-body transformations (2D)](http://nbviewer.jupyter.org/github/demotu/BMC/blob/master/notebooks/Transformation2D.ipynb)   
   + [Rigid-body transformations (3D)](http://nbviewer.jupyter.org/github/demotu/BMC/blob/master/notebooks/Transformation3D.ipynb)
