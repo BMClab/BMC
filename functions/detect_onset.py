@@ -1,14 +1,14 @@
 """Detects onset in data based on amplitude threshold."""
 
-from __future__ import division, print_function
 import numpy as np
 
 __author__ = 'Marcos Duarte, https://github.com/demotu/BMC'
-__version__ = "1.0.5"
+__version__ = "1.0.6"
 __license__ = "MIT"
 
 
-def detect_onset(x, threshold=0, n_above=1, n_below=0, show=False, ax=None):
+def detect_onset(x, threshold=0, n_above=1, n_below=0,
+                 threshold2=None, n_above2=1, show=False, ax=None):
     """Detects onset in data based on amplitude threshold.
 
     Parameters
@@ -18,11 +18,15 @@ def detect_onset(x, threshold=0, n_above=1, n_below=0, show=False, ax=None):
     threshold : number, optional (default = 0)
         minimum amplitude of `x` to detect.
     n_above : number, optional (default = 1)
-        minimum number of continuous samples greater than or equal to
-        `threshold` to detect (but see the parameter `n_below`).
+        minimum number of continuous samples >= `threshold`
+        to detect (but see the parameter `n_below`).
     n_below : number, optional (default = 0)
         minimum number of continuous samples below `threshold` that
         will be ignored in the detection of `x` >= `threshold`.
+    threshold2 : number or None, optional (default = None)
+        minimum amplitude of `n_above2` values in `x` to detect.
+    n_above2 : number, optional (default = 1)
+        minimum number of samples >= `threshold2` to detect.
     show  : bool, optional (default = False)
         True (1) plots data in matplotlib figure, False (0) don't plot.
     ax : a matplotlib.axes.Axes instance, optional (default = None).
@@ -58,10 +62,35 @@ def detect_onset(x, threshold=0, n_above=1, n_below=0, show=False, ax=None):
     >>> x = np.random.randn(200)/10
     >>> x[51:151] += np.hstack((np.linspace(0,1,50), np.linspace(1,0,50)))
     >>> x[80:140:20] = 0
-    >>> detect_onset(x, np.std(x[:50]), n_above=10, n_below=1, show=True)
+    >>> detect_onset(x, np.std(x[:50]), n_above=10, n_below=2, show=True)
 
     >>> x = [0, 0, 2, 0, np.nan, 0, 2, 3, 3, 0, 1, 1, 0]
     >>> detect_onset(x, threshold=1, n_above=1, n_below=0, show=True)
+
+    >>> x = np.random.randn(200)/10
+    >>> x[11:41] = np.ones(30)*.3
+    >>> x[51:151] += np.hstack((np.linspace(0,1,50), np.linspace(1,0,50)))
+    >>> x[80:140:20] = 0
+    >>> detect_onset(x, .2, n_above=10, n_below=1, show=True)
+
+    >>> x = np.random.randn(200)/10
+    >>> x[11:41] = np.ones(30)*.3
+    >>> x[51:151] += np.hstack((np.linspace(0,1,50), np.linspace(1,0,50)))
+    >>> x[80:140:20] = 0
+    >>> detect_onset(x, .4, n_above=10, n_below=1, show=True)
+
+    >>> x = np.random.randn(200)/10
+    >>> x[11:41] = np.ones(30)*.3
+    >>> x[51:151] += np.hstack((np.linspace(0,1,50), np.linspace(1,0,50)))
+    >>> x[80:140:20] = 0
+    >>> detect_onset(x, .2, n_above=10, n_below=1,
+                     threshold2=.4, n_above2=5, show=True)
+
+    Version history
+    ---------------
+    '1.0.6':
+        - Deleted 'from future import'
+        + Added parameters `threshold2` and `n_above2`
     """
 
     x = np.atleast_1d(x).astype('float64')
@@ -70,20 +99,27 @@ def detect_onset(x, threshold=0, n_above=1, n_below=0, show=False, ax=None):
     # indices of data greater than or equal to threshold
     inds = np.nonzero(x >= threshold)[0]
     if inds.size:
-        # initial and final indexes of continuous data
+        # initial and final indexes of almost continuous data
         inds = np.vstack((inds[np.diff(np.hstack((-np.inf, inds))) > n_below+1], \
                           inds[np.diff(np.hstack((inds, np.inf))) > n_below+1])).T
-        # indexes of continuous data longer than or equal to n_above
+        # indexes of almost continuous data longer than or equal to n_above
         inds = inds[inds[:, 1]-inds[:, 0] >= n_above-1, :]
+        # minimum amplitude of n_above2 values in x to detect
+        if threshold2 is not None and inds.size:
+            idel = np.ones(inds.shape[0], dtype=bool)
+            for i in range(inds.shape[0]):
+                if np.count_nonzero(x[inds[i, 0]: inds[i, 1]+1] >= threshold2) < n_above2:
+                    idel[i] = False
+            inds = inds[idel, :]
     if not inds.size:
-        inds = np.array([])  # standardize inds shape
+        inds = np.array([])  # standardize inds shape for output
     if show and x.size > 1:  # don't waste my time ploting one datum
-        _plot(x, threshold, n_above, n_below, inds, ax)
+        _plot(x, threshold, n_above, n_below, threshold2, n_above2, inds, ax)
 
     return inds
 
 
-def _plot(x, threshold, n_above, n_below, inds, ax):
+def _plot(x, threshold, n_above, n_below, threshold2, n_above2, inds, ax):
     """Plot results of the detect_onset function, see its help."""
     try:
         import matplotlib.pyplot as plt
@@ -115,7 +151,10 @@ def _plot(x, threshold, n_above, n_below, inds, ax):
         ax.set_ylim(ymin - 0.1*yrange, ymax + 0.1*yrange)
         ax.set_xlabel('Data #', fontsize=14)
         ax.set_ylabel('Amplitude', fontsize=14)
-        ax.set_title('Onset detection (threshold=%.3g, n_above=%d, n_below=%d)'\
-                     % (threshold, n_above, n_below))
+        if threshold2 is not None:
+            text = 'threshold=%.3g, n_above=%d, n_below=%d, threshold2=%.3g, n_above2=%d'
+        else:
+            text = 'threshold=%.3g, n_above=%d, n_below=%d, threshold2=%r, n_above2=%d'            
+        ax.set_title(text % (threshold, n_above, n_below, threshold2, n_above2))
         # plt.grid()
         plt.show()
