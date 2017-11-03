@@ -71,7 +71,7 @@ def detect_onset(x, threshold=0, n_above=1, n_below=0,
     >>> x[11:41] = np.ones(30)*.3
     >>> x[51:151] += np.hstack((np.linspace(0,1,50), np.linspace(1,0,50)))
     >>> x[80:140:20] = 0
-    >>> detect_onset(x, .2, n_above=10, n_below=1, show=True)
+    >>> detect_onset(x, .1, n_above=10, n_below=1, show=True)
 
     >>> x = np.random.randn(200)/10
     >>> x[11:41] = np.ones(30)*.3
@@ -83,7 +83,7 @@ def detect_onset(x, threshold=0, n_above=1, n_below=0,
     >>> x[11:41] = np.ones(30)*.3
     >>> x[51:151] += np.hstack((np.linspace(0,1,50), np.linspace(1,0,50)))
     >>> x[80:140:20] = 0
-    >>> detect_onset(x, .2, n_above=10, n_below=1,
+    >>> detect_onset(x, .1, n_above=10, n_below=1,
                      threshold2=.4, n_above2=5, show=True)
 
     Version history
