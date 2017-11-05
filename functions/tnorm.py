@@ -1,33 +1,35 @@
 """Time normalization (from 0 to 100% with step interval)."""
 
-from __future__ import division, print_function
 import numpy as np
 
 __author__ = 'Marcos Duarte, https://github.com/demotu/BMC'
-__version__ = "1.0.5"
+__version__ = "1.0.6"
 __license__ = "MIT"
 
 
-def tnorm(y, axis=0, step=1, k=3, smooth=0, mask=None, show=False, ax=None):
+def tnorm(y, axis=0, step=1, k=3, smooth=0, mask=None, nan_at_ext='delete',
+          show=False, ax=None):
     """Time normalization (from 0 to 100% with step interval).
 
     Time normalization is usually employed for the temporal alignment of data
     obtained from different trials with different duration (number of points).
     This code implements a procedure knwown as the normalization to percent
-    cycle, the most simple and common method used among the ones available,
-    but may not be the most adequate [1]_.
+    cycle.
 
-    NaNs and any value inputted as a mask parameter and that appears at the
-    extremities are removed before the interpolation because this code does not
-    perform extrapolation. For a 2D array, the entire row with NaN or a mask
-    value at the extermity is removed because of alignment issues with the data
-    from different columns. NaNs and any value inputted as a mask parameter and
-    that appears in the middle of the data (which may represent missing data)
-    are ignored and the interpolation is performed throught these points.
-
-    This code can perform simple linear interpolation passing throught each
+    This code can perform simple linear interpolation passing through each
     datum or spline interpolation (up to quintic splines) passing through each
     datum (knots) or not (in case a smoothing parameter > 0 is inputted).
+
+    NaNs and any value inputted as a mask parameter and that appears at the
+    extremities might be removed or replaced by the first/last not-NaN value
+    before the interpolation because this code does not perform extrapolation.
+    For a 2D array, the entire row with NaN or a mask value at the extermity
+    might be removed because of alignment issues with the data from different
+    columns. As result, if there is a column of only NaNs in the data, the
+    time normalization can't be performed (an empty NaNs and any value
+    inputted as a mask parameter and that appears in the middle of the data
+    (which may represent missing data) are ignored and the interpolation is
+    performed through these points.
 
     See this IPython notebook [2]_.
 
@@ -58,6 +60,12 @@ def tnorm(y, axis=0, step=1, k=3, smooth=0, mask=None, show=False, ax=None):
         Mask to identify missing values which will be ignored.
         It can be a list of values.
         NaN values will be ignored and don't need to be in the mask.
+    nan_at_ext : string, optional (default = 'delete')
+        Method to deal with NaNs at the extremities.
+        'delete' will delete any NaN at the extremities (the corresponding
+        entire row in `y` for a 2-D array).
+        'replace' will replace any NaN at the extremities by first/last
+        not-NaN value in `y`.
     show : bool, optional (default = False)
         True (1) plot data in a matplotlib figure.
         False (0) to not plot.
@@ -112,15 +120,37 @@ def tnorm(y, axis=0, step=1, k=3, smooth=0, mask=None, show=False, ax=None):
     >>> # Deal with missing data (use NaN as mask)
     >>> x = np.linspace(-3, 3, 100)
     >>> y = np.exp(-x**2) + np.random.randn(100)/10
-    >>> y[0] = np.NaN # first point is also missing
+    >>> y[:10] = np.NaN # first ten points are missing
     >>> y[30: 41] = np.NaN # make other 10 missing points
     >>> yn, tn, indie = tnorm(y, step=-50, k=3, smooth=1, show=True)
+
+    >>> # Deal with missing data at the extremities replacing by first/last not-NaN
+    >>> x = np.linspace(-3, 3, 100)
+    >>> y = np.exp(-x**2) + np.random.randn(100)/10
+    >>> y[0:10] = np.NaN # first ten points are missing
+    >>> y[-10:] = np.NaN # last ten points are missing
+    >>> yn, tn, indie = tnorm(y, step=-50, k=3, smooth=1, nan_at_ext='replace', show=True)
+
+    >>> # Deal with missing data at the extremities replacing by first/last not-NaN
+    >>> x = np.linspace(-3, 3, 100)
+    >>> y = np.exp(-x**2) + np.random.randn(100)/10
+    >>> y[0:10] = np.NaN # first ten points are missing
+    >>> y[-10:] = np.NaN # last ten points are missing
+    >>> yn, tn, indie = tnorm(y, step=-50, k=1, smooth=0, nan_at_ext='replace', show=True)
 
     >>> # Deal with 2-D array
     >>> x = np.linspace(-3, 3, 100)
     >>> y = np.exp(-x**2) + np.random.randn(100)/10
     >>> y = np.vstack((y-1, y[::-1])).T
     >>> yn, tn, indie = tnorm(y, step=-50, k=3, smooth=1, show=True)
+
+    Version history
+    ---------------
+    '1.0.6':
+        Deleted 'from __future__ import ...'
+        Added parameter `nan_at_ext`
+        Adjusted outputs to have always the same type
+
     """
 
     from scipy.interpolate import UnivariateSpline
@@ -133,21 +163,42 @@ def tnorm(y, axis=0, step=1, k=3, smooth=0, mask=None, show=False, ax=None):
     # turn mask into NaN
     if mask is not None:
         y[y == mask] = np.NaN
-    # delete rows with missing values at the extremities
+
     iini = 0
     iend = y.shape[0]-1
-    while y.size and np.isnan(np.sum(y[0])):
-        y = np.delete(y, 0, axis=0)
-        iini += 1
-    while y.size and np.isnan(np.sum(y[-1])):
-        y = np.delete(y, -1, axis=0)
-        iend -= 1
+    if nan_at_ext.lower() == 'delete':
+        # delete rows with missing values at the extremities
+        while y.size and np.isnan(np.sum(y[0])):
+            y = np.delete(y, 0, axis=0)
+            iini += 1
+        while y.size and np.isnan(np.sum(y[-1])):
+            y = np.delete(y, -1, axis=0)
+            iend -= 1
+    else:
+        # replace NaN at the extremities by first/last not-NaN
+        if np.any(np.isnan(y[0])):
+            for col in range(y.shape[1]):
+                ind_not_nan = np.nonzero(~np.isnan(y[:, col]))[0]
+                if ind_not_nan.size:
+                    y[0, col] = y[ind_not_nan[0], col]
+                else:
+                    y = np.empty((0, 0))
+                    break
+        if np.any(np.isnan(y[-1])):
+            for col in range(y.shape[1]):
+                ind_not_nan = np.nonzero(~np.isnan(y[:, col]))[0]
+                if ind_not_nan.size:
+                    y[-1, col] = y[ind_not_nan[-1], col]
+                else:
+                    y = np.empty((0, 0))
+                    break
+
     # check if there are still data
     if not y.size:
-        return None, None, []
+        return np.empty((0, 0)), np.empty(0), []
     if y.size == 1:
-        return y.flatten(), None, [0, 0]
-        
+        return y.flatten(), np.array(0), [0, 0]
+
     indie = [iini, iend]
 
     t = np.linspace(0, 100, y.shape[0])
