@@ -48,7 +48,7 @@ def critic_damp(fcut, freq, npass=2, fcorr=True, filt='critic'):
     a : 1D array
         a coefficients for the filter
     fc : number
-        actual cutoff frequency considering the number of passes
+        corrected cutoff frequency considering the number of passes
         
     Notes
     -----
@@ -65,10 +65,10 @@ def critic_damp(fcut, freq, npass=2, fcorr=True, filt='critic'):
     >>> from critic_damp import critic_damp
     >>> print('Critically damped filter')
     >>> b_cd, a_cd, fc_cd = critic_damp(fcut=10, freq=100, npass=2, fcorr=True, filt='critic')
-    >>> print('b:', b_cd, '\na:', a_cd, '\nActual Fc:', fc_cd)
+    >>> print('b:', b_cd, '\na:', a_cd, '\nCorrected Fc:', fc_cd)
     >>> print('Butterworth filter')
     >>> b_bw, a_bw, fc_bw = critic_damp(fcut=10, freq=100, npass=2, fcorr=True, filt='butter')
-    >>> print('b:', b_bw, '\na:', a_bw, '\nActual Fc:', fc_bw)
+    >>> print('b:', b_bw, '\na:', a_bw, '\nCorrected Fc:', fc_bw)
     >>> # illustrate the filter in action
     >>> import numpy as np
     >>> import matplotlib.pyplot as plt
