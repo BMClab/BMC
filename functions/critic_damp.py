@@ -9,7 +9,7 @@ __license__ = "MIT"
 
 
 
-def critic_damp(fcut, freq, npass=2, filt='critic', fcorr=True):
+def critic_damp(fcut, freq, npass=2, fcorr=True, filt='critic'):
     """Coefficients of critically damped or Butterworthdigital lowpass filter.
     
     A problem with a lowpass Butterworth filter is that it tends to overshoot
@@ -35,11 +35,11 @@ def critic_damp(fcut, freq, npass=2, filt='critic', fcorr=True):
     npass : number, optional (default = 2)
         number of passes the filter will be applied.
         choose 2 for a second order zero phase lag filter
+    fcorr : bool, optional (default = True)
+        correct (True) or not the cutoff frequency for the number of passes.
     filt : string ('critic', 'butter'), optional (default = 'critic')
         'critic' to calculate coefficients for critically damped lowpass filter
         'butter' to calculate coefficients for Butterworth lowpass filter
-    fcorr : bool, optional (default = True)
-        correct (True) or not the cutoff frequency for the number of passes.
 
     Returns
     -------
