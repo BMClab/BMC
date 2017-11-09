@@ -1,4 +1,4 @@
-"""Coefficients of Butterworth or critically damped digital lowpass filter."""
+"""Coefficients of critically damped or Butterworth digital lowpass filter."""
 
 import numpy as np
 import warnings
@@ -9,8 +9,8 @@ __license__ = "MIT"
 
 
 
-def butter_cd_coeff(fcut, freq, npass=2, filt='critic', fcorr=True):
-    """Coefficients of Butterworth or critically damped digital lowpass filter.
+def critic_damp(fcut, freq, npass=2, filt='critic', fcorr=True):
+    """Coefficients of critically damped or Butterworthdigital lowpass filter.
     
     A problem with a lowpass Butterworth filter is that it tends to overshoot
     or undershoot data with rapid changes (see for example, Winter (2009),
@@ -62,12 +62,12 @@ def butter_cd_coeff(fcut, freq, npass=2, filt='critic', fcorr=True):
 
     Examples
     --------
-    >>> from crit_damp import crit_damp
+    >>> from critic_damp import critic_damp
     >>> print('Critically damped filter')
-    >>> b_cd, a_cd, fc_cd = crit_damp(fcut=10, freq=100, npass=2, fcorr=True, filt='critic')
+    >>> b_cd, a_cd, fc_cd = critic_damp(fcut=10, freq=100, npass=2, fcorr=True, filt='critic')
     >>> print('b:', b_cd, '\na:', a_cd, '\nActual Fc:', fc_cd)
     >>> print('Butterworth filter')
-    >>> b_bw, a_bw, fc_bw = crit_damp(fcut=10, freq=100, npass=2, fcorr=True, filt='butter')
+    >>> b_bw, a_bw, fc_bw = critic_damp(fcut=10, freq=100, npass=2, fcorr=True, filt='butter')
     >>> print('b:', b_bw, '\na:', a_bw, '\nActual Fc:', fc_bw)
     >>> # illustrate the filter in action
     >>> import numpy as np
@@ -88,19 +88,32 @@ def butter_cd_coeff(fcut, freq, npass=2, filt='critic', fcorr=True):
     >>> plt.show()
     
     """
-    
+
+    if fcut > freq/2:
+        warnings.warn('Cutoff frequency can not be greater than Nyquist frequency.')
+
     # cutoff frequency correction for number of passes
-    if filt.lower() == 'butter':
-        if fcorr:
-            corr = 1/np.power(2**(1/npass)-1, 0.25)
-    elif filt.lower() == 'cd':
+    if filt.lower() == 'critic':
         if fcorr:
             corr = 1/np.power(2**(1/(2*npass))-1, 0.5)
+    elif filt.lower() == 'butter':
+        if fcorr:
+            corr = 1/np.power(2**(1/npass)-1, 0.25)
     else:
         warnings.warn('Invalid option for paraneter filt:', filt)
 
     # corrected cutoff frequency
-    fc = fcut*corr if fcorr else fcut
+    if fcorr:
+        fc = fcut*corr
+        if fc > (freq/2):
+            text = 'Warning: corrected cutoff frequency ({} Hz) is greater'+\
+            ' than Nyquist frequency ({} Hz). Using the uncorrected cutoff'+\
+            ' frequency ({} Hz).'
+            print(text.format(fc, freq/2, fcut))
+            fc = fcut
+    else:
+        fc = fcut
+
     # corrected angular cutoff frequency
     wc = np.tan(np.pi*fc/freq)
     # lowpass coefficients
