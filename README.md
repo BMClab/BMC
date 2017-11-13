@@ -33,7 +33,7 @@ Numerical data analysis
 - Frequency analysis  
   + [Basic properties of signals](http://nbviewer.jupyter.org/github/demotu/BMC/blob/master/notebooks/SignalBasicProperties.ipynb)
   + [Fourier series](http://nbviewer.jupyter.org/github/demotu/BMC/blob/master/notebooks/FourierSeries.ipynb)
-  + [Fast Fourier Transform and Power Spectral Density](http://nbviewer.jupyter.org/github/demotu/BMC/blob/master/notebooks/FFTandPSD.ipynb)
+  + [Fourier transform](http://nbviewer.jupyter.org/github/demotu/BMC/blob/master/notebooks/FourierTransform.ipynb)
 - [Data filtering in signal processing](http://nbviewer.jupyter.org/github/demotu/BMC/blob/master/notebooks/DataFiltering.ipynb)
   + [Residual analysis for the optimal cutoff frequency](http://nbviewer.jupyter.org/github/demotu/BMC/blob/master/notebooks/ResidualAnalysis.ipynb)  
 - [Ordinary Differential Equation](http://nbviewer.jupyter.org/github/demotu/BMC/blob/master/notebooks/OrdinaryDifferentialEquation.ipynb)  
