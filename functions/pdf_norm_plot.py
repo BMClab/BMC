@@ -32,7 +32,7 @@ def pdf_norm_plot(m=0, s=1, fig=None, ax=None):
     ax.set_ylim(0, ax.get_ylim()[1]*1.1)
     ymax = ax.get_ylim()[1]/0.45
     for i in range(-3, 4):
-        ax.axvline(i*s+m, ymin=0, ymax=f[n/2-i/8*n]/ax.get_ylim()[1], c='w', lw=3)
+        ax.axvline(int(i*s+m), ymin=0, ymax=1, c='w', lw=3)
     ax.axvline(-2.5*s+m, ymin=0.01, ymax=.15, c='k', lw=1)
     ax.axvline(2.5*s+m, ymin=0.01, ymax=.15, c='k', lw=1)
     ax.axvline(-3.5*s+m, ymin=0.01, ymax=.05, c='k', lw=1)
