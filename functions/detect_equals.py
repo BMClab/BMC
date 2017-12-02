@@ -1,4 +1,4 @@
-"""Find initial and final indices of sequential data identical to value."""
+"""Detect initial and final indices of sequential data identical to value."""
 
 import numpy as np
 
@@ -7,8 +7,8 @@ __version__ = "1.0.0"
 __license__ = "MIT"
 
 
-def find_equals(x, value=0, min_seq=1, show=False, ax=None):
-    """Find initial and final indices of sequential data identical to value.
+def detect_equals(x, value=0, min_seq=1, show=False, ax=None):
+    """Detect initial and final indices of sequential data identical to value.
 
     Parameters
     ----------
@@ -30,15 +30,15 @@ def find_equals(x, value=0, min_seq=1, show=False, ax=None):
 
     References
     ----------
-    .. [1] http://nbviewer.jupyter.org/github/demotu/BMC/blob/master/notebooks/find_equals.ipynb
+    .. [1] http://nbviewer.jupyter.org/github/demotu/BMC/blob/master/notebooks/detect_equals.ipynb
 
     Examples
     --------
     >>> import numpy as np
     >>> x = [1, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0]
-    >>> find_equals(x)
+    >>> detect_equals(x)
 
-    >>> inds = find_equals(x, value=0, min_seq=2, show=True)
+    >>> inds = detect_equals(x, value=0, min_seq=2, show=True)
     """
 
     isvalue = np.concatenate(([0], np.equal(x, value), [0]))
@@ -53,7 +53,7 @@ def find_equals(x, value=0, min_seq=1, show=False, ax=None):
 
 
 def _plot(x, value, min_seq, ax, inds):
-    """Plot results of the find_equals function, see its help."""
+    """Plot results of the detect_equals function, see its help."""
     try:
         import matplotlib.pyplot as plt
     except ImportError:
