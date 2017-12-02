@@ -44,7 +44,7 @@ def find_equals(x, value=0, min_seq=1, show=False, ax=None):
     isvalue = np.concatenate(([0], np.equal(x, value), [0]))
     inds = np.where(np.abs(np.diff(isvalue)) == 1)[0].reshape(-1, 2)
     if min_seq > 1:
-        inds = inds[np.where(np.abs(np.diff(inds, axis=1)) >= min_seq)[0]]
+        inds = inds[np.where(np.diff(inds, axis=1) >= min_seq)[0]]
     inds[:, 1] = inds[:, 1] - 1
     if show:
         _plot(x, value, min_seq, ax, inds)

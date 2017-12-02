@@ -90,7 +90,7 @@ def detect_onset(x, threshold=0, n_above=1, n_below=0,
     ---------------
     '1.0.6':
         Deleted 'from __future__ import'
-        dded parameters `threshold2` and `n_above2`
+        added parameters `threshold2` and `n_above2`
     """
 
     x = np.atleast_1d(x).astype('float64')
