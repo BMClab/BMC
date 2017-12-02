@@ -33,7 +33,7 @@ def detect_onset(x, threshold=0, n_above=1, n_below=0,
 
     Returns
     -------
-    inds : 1D array_like [indi, indf]
+    inds : 2D array_like [indi, indf]
         initial and final indeces of the onset events.
 
     Notes
