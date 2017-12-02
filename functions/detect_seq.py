@@ -7,7 +7,7 @@ __version__ = "1.0.0"
 __license__ = "MIT"
 
 
-def detect_equals(x, value=0, min_seq=1, show=False, ax=None):
+def detect_seq(x, value=0, min_seq=1, show=False, ax=None):
     """Detect initial and final indices of sequential data identical to value.
     
     Detects initial and final indices of sequential data identical to
@@ -36,15 +36,15 @@ def detect_equals(x, value=0, min_seq=1, show=False, ax=None):
 
     References
     ----------
-    .. [1] http://nbviewer.jupyter.org/github/demotu/BMC/blob/master/notebooks/detect_equals.ipynb
+    .. [1] http://nbviewer.jupyter.org/github/demotu/BMC/blob/master/notebooks/detect_seq.ipynb
 
     Examples
     --------
     >>> import numpy as np
     >>> x = [1, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0]
-    >>> detect_equals(x)
+    >>> detect_seq(x)
 
-    >>> inds = detect_equals(x, value=0, min_seq=2, show=True)
+    >>> inds = detect_seq(x, value=0, min_seq=2, show=True)
     """
 
     isvalue = np.concatenate(([0], np.equal(x, value), [0]))
@@ -59,7 +59,7 @@ def detect_equals(x, value=0, min_seq=1, show=False, ax=None):
 
 
 def _plot(x, value, min_seq, ax, inds):
-    """Plot results of the detect_equals function, see its help."""
+    """Plot results of the detect_seq function, see its help."""
     try:
         import matplotlib.pyplot as plt
     except ImportError:
