@@ -2,12 +2,12 @@
 
 """Automatic search of filter cutoff frequency based on residual analysis."""
 
-from __future__ import division, print_function
 import numpy as np
 from scipy.signal import butter, filtfilt
 
 __author__ = 'Marcos Duarte, https://github.com/demotu/BMC'
-__version__ = 'residual_analysis.py v.3 2014/06/13'
+__version__ = "1.0.5"
+__license__ = "MIT"
 
 
 def residual_analysis(y, freq=1, fclim=[], show=False, ax=None):
@@ -44,7 +44,7 @@ def residual_analysis(y, freq=1, fclim=[], show=False, ax=None):
     -----
     A second-order zero-phase digital Butterworth low-pass filter is used.
     # The cutoff frequency is correctyed for the number of passes:
-    # C = 0.802 # for dual pass; C = (2**(1/npasses) - 1)**0.25
+    # C = (2**(1/npasses) - 1)**0.25. C = 0.802 for a dual pass filter. 
 
     The matplotlib figure with the results will show a plot of the residual
     analysis with the optimal cutoff frequency, a plot with the unfiltered and
@@ -86,7 +86,7 @@ def residual_analysis(y, freq=1, fclim=[], show=False, ax=None):
     >>> fc_opt = residual_analysis(y, freq=1000, show=True)
     >>> # sane analysis but specifying the frequency limits and plot:
     >>> residual_analysis(y, freq=1000, fclim=[200,400], show=True)
-    >>> # Not always it's possible to find an optimal cutoff frequency
+    >>> # It's not always possible to find an optimal cutoff frequency
     >>> # or the one found can be wrong (run this example many times):
     >>> y = np.random.randn(100)
     >>> residual_analysis(y, freq=100, show=True)
@@ -96,28 +96,28 @@ def residual_analysis(y, freq=1, fclim=[], show=False, ax=None):
     from scipy.interpolate import UnivariateSpline
 
     # Correct the cutoff frequency for the number of passes in the filter
-    C = 0.802  # for dual pass; C = (2**(1/npasses) - 1)**0.25
+    C = 0.802  # for dual pass; C = (2**(1/npasses)-1)**0.25
 
     # signal filtering
-    freqs = np.linspace((freq/2) / 101, (freq/2)*C, 101)
+    freqs = np.linspace((freq/2) / 100, (freq/2)*C, 101, endpoint=False)
     res = []
     for fc in freqs:
         b, a = butter(2, (fc/C) / (freq / 2))
         yf = filtfilt(b, a, y)
         # residual between filtered and unfiltered signals
-        res = np.hstack((res, np.sqrt(np.mean((yf - y) ** 2))))
+        res = np.hstack((res, np.sqrt(np.mean((yf - y)**2))))
 
     # find the optimal cutoff frequency by fitting an exponential curve
     # y = A*exp(B*x)+C to the residual data and consider that the tail part
     # of the exponential (which should be the noisy part of the residuals)
     # decay starts after 3 lifetimes (exp(-3), 95% drop)
-    if not len(fclim) or np.any(fclim < 0) or np.any(fclim > freq / 2):
+    if not len(fclim) or np.any(fclim < 0) or np.any(fclim > freq/2):
         fc1 = 0
-        fc2 = 0.95*(len(freqs)-1)
+        fc2 = int(0.95*(len(freqs)-1))
         # log of exponential turns the problem to first order polynomial fit
         # make the data always greater than zero before taking the logarithm
         reslog = np.log(np.abs(res[fc1:fc2 + 1] - res[fc2]) +
-                        10 * np.finfo(np.float).eps)
+                        1000 * np.finfo(np.float).eps)
         Blog, Alog = np.polyfit(freqs[fc1:fc2 + 1], reslog, 1)
         fcini = np.nonzero(freqs >= -3 / Blog)  # 3 lifetimes
         fclim = [fcini[0][0], fc2] if np.size(fcini) else []
@@ -153,7 +153,7 @@ def _plot(y, freq, freqs, res, fclim, fc_opt, B, A, ax):
                            plt.subplot(222),
                            plt.subplot(224)])
 
-        plt.rc('axes', labelsize=12,  titlesize=12)
+        plt.rc('axes', labelsize=12, titlesize=12)
         plt.rc('xtick', labelsize=12)
         plt.rc('ytick', labelsize=12)
         ax[0].plot(freqs, res, 'b.', markersize=9)
