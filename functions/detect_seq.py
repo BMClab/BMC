@@ -9,7 +9,7 @@ __license__ = "MIT"
 
 def detect_seq(x, value=0, min_seq=1, show=False, ax=None):
     """Detect initial and final indices of sequential data identical to value.
-    
+
     Detects initial and final indices of sequential data identical to
     parameter value (default = 0) in a 1D numpy array_like.
     Use parameter min_seq to set the minimum number of sequential values to
