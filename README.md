@@ -69,7 +69,8 @@ Mechanics
   + [Gait analysis (2D)](http://nbviewer.jupyter.org/github/demotu/BMC/blob/master/notebooks/GaitAnalysis2D.ipynb)
   + Force plates
     - [Kistler force plate calculation](http://nbviewer.jupyter.org/github/demotu/BMC/blob/master/notebooks/KistlerForcePlateCalculation.ipynb)
-    - [Zebris pressure platform](http://nbviewer.jupyter.org/github/demotu/BMC/blob/master/notebooks/ReadZebrisPressurePlatformASCIIfiles.ipynb)
+    - [Zebris pressure platform](http://nbviewer.jupyter.org/github/demotu/BMC/blob/master/notebooks/ReadZebrisPressurePlatformASCIIfiles.ipynb)  
+  + [Lagrangian Mechanics](http://nbviewer.jupyter.org/github/demotu/BMC/blob/master/notebooks/LagrangianMechanics.ipynb)  
 
 Modeling and simulation of human movement
 -----------------------------------------
