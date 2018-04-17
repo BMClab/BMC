@@ -11,6 +11,7 @@ I hope this material is useful to you and I am open to suggestions or comments.
 Introduction
 ------------
 - [Biomechanics](http://nbviewer.jupyter.org/github/demotu/BMC/blob/master/notebooks/Biomechanics.ipynb)
+- [The Biomechanics and Motor Control Laboratory @ UFABC](http://nbviewer.jupyter.org/github/demotu/BMC/blob/master/notebooks/BMClab.ipynb)
 
 Scientific programming
 ----------------------
