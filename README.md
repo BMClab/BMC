@@ -82,7 +82,8 @@ Modeling and simulation of human movement
 Stabilography
 -------------
 - [The inverted pendulum model of the human standing posture](http://nbviewer.jupyter.org/github/demotu/BMC/blob/master/notebooks/IP_Model.ipynb)
-- [Measurements in stabilography](http://nbviewer.jupyter.org/github/demotu/BMC/blob/master/notebooks/Stabilography.ipynb)
+- [Measurements in stabilography](http://nbviewer.jupyter.org/github/demotu/BMC/blob/master/notebooks/Stabilography.ipynb)  
+- [Rambling and Trembling decomposition of the COP](http://nbviewer.jupyter.org/github/demotu/BMC/blob/master/notebooks/IEP.ipynb)
 
 Electromyography
 ---------------
