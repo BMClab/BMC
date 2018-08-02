@@ -1,6 +1,5 @@
 """Muscle modeling and simulation."""
 
-from __future__ import division, print_function
 import numpy as np
 from scipy.integrate import ode
 import warnings
