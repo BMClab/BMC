@@ -8,6 +8,8 @@ __version__ = "1.0.3"
 __license__ = "MIT"
 
 
+
+
 def hyperellipsoid(P, y=None, z=None, pvalue=.95, units=None, show=True, ax=None):
     """
     Prediction hyperellipsoid for multivariate data.
@@ -235,6 +237,64 @@ def _plot(P, hypervolume, saxes, center, R, pvalue, units, ax):
         plt.show()
 
         return ax
+
+
+
+def outside_hyperellipsoid(axes, angles, center, R, points):
+    """
+    Determine whether a set of points lies outside a given (hyper)ellipsoid
+    
+    This code is based on the discussion at the link below:
+    https://stackoverflow.com/questions/37031356/check-if-points-are-inside-ellipse-faster-than-contains-point-method
+    
+    The basic idea is to transform the (hyper)ellipsoid (and all points) to the origin-centered unit (hyper)sphere.
+    Then all points less than one unit from the origin lie inside the (hyper)ellipsoid.
+    And all points greater than one unit from the origin lie outside the (hyper)ellipsoid.
+
+    Parameters
+    ----------
+    (The first four parameters are outputs from "hyperellipsoid")
+    
+    axes : 1-D array
+        Lengths of the semi-axes hyperellipsoid (largest first).
+    angles : 1-D array
+        Angles of the semi-axes hyperellipsoid (only for 2D or 3D data).
+        For the ellipsoid (3D data), the angles are the Euler angles
+        calculated in the XYZ sequence.
+    center : 1-D array
+        Centroid of the hyperellipsoid.
+    rotation : 2-D array
+        Rotation matrix for hyperellipsoid semi-axes (only for 2D or 3D data).
+    points : 2-D array
+        The shape of the 2-D array is (n, p) where n is the number of
+            observations (rows) and p the number of dimensions (columns).
+
+    Returns
+    -------
+    b : 1-D array 
+        A binary hit-mass array with n values, where n is the number of points
+
+
+    Examples
+    --------
+    >>> from hyperellipsoid import hyperellipsoid,outside_hyperellipsoid
+    >>> P = np.random.randn(1000, 3)
+    >>> P[:, 2] = P[:, 2] + P[:, 1]*.5
+    >>> P[:, 1] = P[:, 1] + P[:, 0]*.5
+    >>> volume, axes, angles, center, R = hyperellipsoid(P, units='cm')
+    >>> b = outside_hyperellipsoid(axes, angles, center, R, P)
+    >>> print('Number of points outside ellipsoid: %d' %b.sum())
+    >>> print('Proportion of points outside ellipsoid: %.3f' %b.mean())
+    
+    NOTE: the proportion of points outside a 95% ellipsoid is expected to tend toward 0.05 as n increases.
+    """
+    rc  = points - center   #centered points
+    rct = np.asarray( np.matrix(R) * rc.T).T  #centered and un-rotated points
+    rad = (rct**2 / axes**2).sum(axis=1)   #centered, un-rotated and un-scaled points
+    b   = rad > 1   #check if points lie inside or outside the unit sphere
+    return b
+
+
 
 
 def rotXYZ(R, unit='deg'):
