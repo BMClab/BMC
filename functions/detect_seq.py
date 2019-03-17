@@ -1,65 +1,102 @@
-"""Detect initial and final indices of sequential data identical to value."""
+#!/usr/bin/env python
+
+"""Detect indices in x of sequential data identical to value."""
 
 import numpy as np
 
 __author__ = 'Marcos Duarte, https://github.com/demotu/BMC'
-__version__ = "1.0.0"
-__license__ = "MIT"
+__version__ = 'detect_seq.py v.1.0.0 2019/03/17'
 
 
-def detect_seq(x, value=0, min_seq=1, show=False, ax=None):
-    """Detect initial and final indices of sequential data identical to value.
-
-    Detects initial and final indices of sequential data identical to
-    parameter value (default = 0) in a 1D numpy array_like.
-    Use parameter min_seq to set the minimum number of sequential values to
-    detect (default = 1).
-    There is an option to plot the results.
+def detect_seq(x, value=np.nan, index=False, min_seq=1, max_alert=0,
+               show=False, ax=None):
+    """Detect indices in x of sequential data identical to value.
 
     Parameters
     ----------
     x : 1D numpy array_like
-        array to search for sequential data
-    value : number, optional (default = 0)
-        Value to detect as sequential data
-    min_seq : integer, optional (default = 1)
-        Minimum number of sequential values to detect
-    show : bool, optional (default = False)
+        data
+    value : number, optional. Default = np.nan
+        Value to be found in data
+    index : bool, optional. Default = False
+        Set to True to return a 2D array of initial and final indices where
+        data is equal to value or set to False to return an 1D array of Boolean
+        values with same length as x with True where x is equal to value and 
+        False where x is not equal to value.
+    min_seq : integer, optional. Default = 1
+        Minimum number of sequential values to detect        
+    max_alert : number, optional. Default = 0
+        Minimal number of sequential data for a message to be printed with
+        information about these indices. Set to 0 to not print any message.
+    show : bool, optional. Default = False
         Show plot (True) of not (False).
-    ax : matplotlib object, optional (default = None)
+    ax : matplotlib object, optional. Default = None
         Matplotlib axis object where to plot.
-
+        
     Returns
     -------
-    inds : 2D numpy array [indi, indf]
-        Initial and final indices of sequential data identical to value
-
+    idx : 1D or 2D numpy array_like
+        2D numpy array [indi, indf] of initial and final indices (if index is
+        equal to True) or 1D array of Boolean values with same length as x (if
+        index is equal to False).
+            
     References
     ----------
     .. [1] http://nbviewer.jupyter.org/github/demotu/BMC/blob/master/notebooks/detect_seq.ipynb
 
     Examples
     --------
-    >>> import numpy as np
     >>> x = [1, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0]
-    >>> detect_seq(x)
+    >>> detect_seq(x, 0)
 
-    >>> inds = detect_seq(x, value=0, min_seq=2, show=True)
+    >>> detect_seq(x, 0, index=True)
+
+    >>> detect_seq(x, 0, index=True, min_seq=2)  
+
+    >>> detect_seq(x, 10)
+
+    >>> detect_seq(x, 10, index=True)
+
+    >>> detect_seq(x, 0, index=True, min_seq=2, show=True)
+
+    >>> detect_seq(x, 0, index=True, max_alert=2)
+
     """
 
-    isvalue = np.concatenate(([0], np.equal(x, value), [0]))
-    inds = np.where(np.abs(np.diff(isvalue)) == 1)[0].reshape(-1, 2)
-    if min_seq > 1:
-        inds = inds[np.where(np.diff(inds, axis=1) >= min_seq)[0]]
-    inds[:, 1] = inds[:, 1] - 1
+    idx = np.r_[False, np.isnan(x) if np.isnan(value) else np.equal(x, value), False]
+
+    if index or min_seq > 1 or max_alert or show:
+        idx2 = np.where(np.abs(np.diff(idx))==1)[0].reshape(-1, 2)
+        if min_seq > 1:
+            idx2 = idx2[np.where(np.diff(idx2, axis=1) >= min_seq)[0]]
+            if not index:
+                idx = idx[1:-1]*False
+                for i, f in idx2:
+                    idx[i:f] = True           
+        idx2[:, 1] = idx2[:, 1] - 1
+
+    if index:
+        idx = idx2
+    elif len(idx) > len(x):
+        idx = idx[1:-1]
+
+    if max_alert and idx2.shape[0]:
+        seq = np.diff(idx2, axis=1)
+        for j in range(idx2.shape[0]):
+            bitlen = seq[j]
+            if bitlen >= max_alert:
+                text = 'Sequential data equal or longer than {}: ({}, {})'
+                print(text.format(max_alert, bitlen, idx2[j]))
+
     if show:
-        _plot(x, value, min_seq, ax, inds)
+        _plot(x, value, min_seq, ax, idx2)
+        
+    return idx
 
-    return inds
 
-
-def _plot(x, value, min_seq, ax, inds):
-    """Plot results of the detect_seq function, see its help."""
+def _plot(x, value, min_seq, ax, idx):
+    """Plot results of the detect_seq function, see its help.
+    """
     try:
         import matplotlib.pyplot as plt
     except ImportError:
@@ -69,17 +106,19 @@ def _plot(x, value, min_seq, ax, inds):
         if ax is None:
             _, ax = plt.subplots(1, 1, figsize=(8, 4))
 
-        if inds.size:
-            for (indi, indf) in inds:
+        if idx.size:
+            for (indi, indf) in idx:
                 if indi == indf:
                     ax.plot(indf, x[indf], 'ro', mec='r', ms=6)
                 else:
-                    ax.plot(range(indi, indf+1), x[indi:indf+1], 'r', lw=1)
-                    ax.axvline(x=indi, color='b', lw=1, ls='--')
-                ax.axvline(x=indf, color='b', lw=1, ls='--')
-            inds = np.vstack((np.hstack((0, inds[:, 1])),
-                              np.hstack((inds[:, 0], x.size-1)))).T
-            for (indi, indf) in inds:
+                    ax.plot(range(indi, indf+1), x[indi:indf+1], 'b', lw=1)
+                    ax.axvline(x=indi, color='r', lw=1, ls='--')
+                    ax.plot(indi, x[indi], 'r>', mec='r', ms=6)
+                    ax.plot(indf, x[indf], 'r<', mec='r', ms=6)
+                ax.axvline(x=indf, color='r', lw=1, ls='--')
+            idx = np.vstack((np.hstack((0, idx[:, 1])),
+                             np.hstack((idx[:, 0], x.size-1)))).T
+            for (indi, indf) in idx:
                 ax.plot(range(indi, indf+1), x[indi:indf+1], 'k', lw=1)
         else:
             ax.plot(x, 'k', lw=1)
