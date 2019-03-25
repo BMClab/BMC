@@ -2,8 +2,9 @@
 
 """Calculates the transformation between two coordinate systems using SVD."""
 
-__author__ = 'Marcos Duarte, https://github.com/demotu/BMC'
-__version__ = 'svdt.py v.1 2013/12/23'
+__author__ = "Marcos Duarte, https://github.com/demotu/BMC"
+__version__ = "1.0.1"
+__license__ = "MIT"
 
 import numpy as np
 
@@ -37,7 +38,7 @@ def svdt(A, B, order='col'):
     The output R has the shape (ni, 3, 3), L has the shape (ni, 3), and RMSE
     has the shape (ni,). If ni is equal to one, the outputs will have the
     singleton dimension dropped.
-    
+
     Part of this code is based on the programs written by Alberto Leardini,
     Christoph Reinschmidt, and Ton van den Bogert.
 
@@ -47,11 +48,13 @@ def svdt(A, B, order='col'):
         Coordinates [x,y,z] of at least three markers with two possible shapes:
         order='row': 2D array (n, 3), where n is the number of markers.
         order='col': 1D array (3*nmarkers,) like [x1, y1, z1, ..., xn, yn, zn].
+
     B   : 2D Numpy array
         Coordinates [x,y,z] of at least three markers with two possible shapes:
         order='row': 2D array (n, 3), where n is the number of markers.
         order='col': 2D array (ni, n*3), where ni is the number of instants.
         If ni=1, B is a 1D array like A.
+
     order : string
         'col': specifies that A and B are column oriented (default).
         'row': specifies that A and B are row oriented.
@@ -63,11 +66,13 @@ def svdt(A, B, order='col'):
         order='row': (3, 3).
         order='col': (ni, 3, 3), where ni is the number of instants.
         If ni=1, R will have the singleton dimension dropped.
+
     L   : Numpy array
         Translation vector between A and B with two possible shapes:
         order='row': (3,) if order = 'row'.
         order='col': (ni, 3), where ni is the number of instants.
         If ni=1, L will have the singleton dimension dropped.
+
     RMSE : array
         Root-mean-squared error for the rigid body model: B = R*A + L + err
         with two possible shapes:
@@ -106,26 +111,26 @@ def svdt(A, B, order='col'):
     >>> B = np.array([[0,0,0], [0,1,0], [-1,0,0], [-1,1,0]])  # four markers
     >>> R, L, RMSE = svdt(A, B, order='row')
     """
-    
+
     A, B = np.asarray(A), np.asarray(B)
     if order == 'row' or B.ndim == 1:
         if B.ndim == 1:
-            A = A.reshape(A.size/3, 3)
-            B = B.reshape(B.size/3, 3)
-        R, L, RMSE = _svd(A, B)
+            A = A.reshape(int(A.size/3), 3)
+            B = B.reshape(int(B.size/3), 3)
+        R, L, RMSE = svd(A, B)
     else:
-        A = A.reshape(A.size/3, 3)
+        A = A.reshape(int(A.size/3), 3)
         ni = B.shape[0]
         R = np.empty((ni, 3, 3))
         L = np.empty((ni, 3))
         RMSE = np.empty(ni)
         for i in range(ni):
-            R[i, :, :], L[i, :], RMSE[i] = _svd(A, B[i, :].reshape(A.shape))
+            R[i, :, :], L[i, :], RMSE[i] = svd(A, B[i, :].reshape(A.shape))
 
     return R, L, RMSE
 
 
-def _svd(A, B):
+def svd(A, B):
     """Calculates the transformation between two coordinate systems using SVD.
 
     See the help of the svdt function.
