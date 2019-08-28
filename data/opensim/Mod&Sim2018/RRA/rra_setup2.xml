@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<OpenSimDocument Version="30000">
+	<RRATool name="rra_run_1">
+		<defaults>
+			<ControlLinear name="default">
+				<is_model_control>true</is_model_control>
+				<extrapolate>true</extrapolate>
+				<default_min>-1</default_min>
+				<default_max>1</default_max>
+				<filter_on>false</filter_on>
+				<use_steps>false</use_steps>
+				<x_nodes />
+				<min_nodes />
+				<max_nodes />
+				<kp>100</kp>
+				<kv>20</kv>
+			</ControlLinear>
+			<CoordinateActuator name="default">
+				<!--Flag indicating whether the force is disabled or not. Disabled means that the force is not active in subsequent dynamics realizations.-->
+				<isDisabled>false</isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving for control values.-->
+				<min_control>-Inf</min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving for control values.-->
+				<max_control>Inf</max_control>
+				<!--Name of the generalized coordinate to which the actuator applies.-->
+				<coordinate>Unassigned</coordinate>
+				<!--The maximum generalized force produced by this actuator.-->
+				<optimal_force>300</optimal_force>
+			</CoordinateActuator>
+			<PointActuator name="default">
+				<!--Flag indicating whether the force is disabled or not. Disabled means that the force is not active in subsequent dynamics realizations.-->
+				<isDisabled>false</isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving for control values.-->
+				<min_control>-Inf</min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving for control values.-->
+				<max_control>Inf</max_control>
+				<!--Name of Body to which this actuator is applied.-->
+				<body></body>
+				<!--Location of application point; in body frame unless point_is_global=true-->
+				<point>0 0 0</point>
+				<!--Interpret point in Ground frame if true; otherwise, body frame.-->
+				<point_is_global>false</point_is_global>
+				<!--Force application direction; in body frame unless force_is_global=true.-->
+				<direction>-1 -0 -0</direction>
+				<!--Interpret direction in Ground frame if true; otherwise, body frame.-->
+				<force_is_global>true</force_is_global>
+				<!--The maximum force produced by this actuator when fully activated.-->
+				<optimal_force>1000</optimal_force>
+			</PointActuator>
+			<TorqueActuator name="default">
+				<!--Flag indicating whether the force is disabled or not. Disabled means that the force is not active in subsequent dynamics realizations.-->
+				<isDisabled>false</isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving for control values.-->
+				<min_control>-Inf</min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving for control values.-->
+				<max_control>Inf</max_control>
+				<!--Name of Body to which the torque actuator is applied.-->
+				<bodyA>Unassigned</bodyA>
+				<!--Name of Body to which the equal and opposite torque is applied.-->
+				<bodyB>Unassigned</bodyB>
+				<!--Interpret axis in Ground frame if true; otherwise, body A's frame.-->
+				<torque_is_global>true</torque_is_global>
+				<!--Fixed direction about which torque is applied, in Ground or body A frame depending on 'torque_is_global' property.-->
+				<axis>-1 -0 -0</axis>
+				<!--The maximum torque produced by this actuator when fully activated.-->
+				<optimal_force>1</optimal_force>
+			</TorqueActuator>
+			<Thelen2003Muscle name="default">
+				<!--Flag indicating whether the force is disabled or not. Disabled means that the force is not active in subsequent dynamics realizations.-->
+				<isDisabled>false</isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving for control values.-->
+				<min_control>0.01</min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving for control values.-->
+				<max_control>1</max_control>
+				<!--The set of points defining the path of the muscle.-->
+				<GeometryPath>
+					<!--The set of points defining the path-->
+					<PathPointSet>
+						<objects />
+						<groups />
+					</PathPointSet>
+					<!--The wrap objecs that are associated with this path-->
+					<PathWrapSet>
+						<objects />
+						<groups />
+					</PathWrapSet>
+					<!--Used to display the path in the 3D window-->
+					<VisibleObject name="display">
+						<!--Set of geometry files and associated attributes, allow .vtp, .stl, .obj-->
+						<GeometrySet>
+							<objects />
+							<groups />
+						</GeometrySet>
+						<!--Three scale factors for display purposes: scaleX scaleY scaleZ-->
+						<scale_factors> 1 1 1</scale_factors>
+						<!--transform relative to owner specified as 3 rotations (rad) followed by 3 translations rX rY rZ tx ty tz-->
+						<transform> 0 0 0 0 0 0</transform>
+						<!--Whether to show a coordinate frame-->
+						<show_axes>false</show_axes>
+						<!--Display Pref. 0:Hide 1:Wire 3:Flat 4:Shaded Can be overriden for individual geometries-->
+						<display_preference>4</display_preference>
+					</VisibleObject>
+				</GeometryPath>
+				<!--The maximum force this actuator can produce.-->
+				<optimal_force>1</optimal_force>
+				<!--Maximum isometric force that the fibers can generate-->
+				<max_isometric_force>0</max_isometric_force>
+				<!--Optimal length of the muscle fibers-->
+				<optimal_fiber_length>0</optimal_fiber_length>
+				<!--Resting length of the tendon-->
+				<tendon_slack_length>0</tendon_slack_length>
+				<!--Angle between tendon and fibers at optimal fiber length expressed in radians-->
+				<pennation_angle_at_optimal>0</pennation_angle_at_optimal>
+				<!--Maximum contraction velocity of the fibers, in optimal fiberlengths/second-->
+				<max_contraction_velocity>10</max_contraction_velocity>
+				<!--time constant for ramping up muscle activation-->
+				<activation_time_constant>0.01</activation_time_constant>
+				<!--time constant for ramping down of muscle activation-->
+				<deactivation_time_constant>0.04</deactivation_time_constant>
+				<!--tendon strain at maximum isometric muscle force-->
+				<FmaxTendonStrain>0.033</FmaxTendonStrain>
+				<!--passive muscle strain at maximum isometric muscle force-->
+				<FmaxMuscleStrain>0.6</FmaxMuscleStrain>
+				<!--shape factor for Gaussian active muscle force-length relationship-->
+				<KshapeActive>0.5</KshapeActive>
+				<!--exponential shape factor for passive force-length relationship-->
+				<KshapePassive>4</KshapePassive>
+				<!--force-velocity shape factor-->
+				<Af>0.3</Af>
+				<!--maximum normalized lengthening force-->
+				<Flen>1.8</Flen>
+			</Thelen2003Muscle>
+			<CMC_Joint name="default">
+				<!--Flag (true or false) indicating whether or not a task is enabled.-->
+				<on>false</on>
+				<!--Weight with which a task is tracked relative to other tasks. To track a task more tightly, make the weight larger.-->
+				<weight> 1 1 1</weight>
+				<!--Name of body frame with respect to which a tracking objective is specified. The special name 'center_of_mass' refers to the system center of mass. This property is not used for tracking joint angles.-->
+				<wrt_body>-1</wrt_body>
+				<!--Name of body frame in which the tracking objectives are expressed.  This property is not used for tracking joint angles.-->
+				<express_body>-1</express_body>
+				<!--Array of 3 flags (each true or false) specifying whether a component of a task is active.  For example, tracking the trajectory of a point in space could have three components (x,y,z).  This allows each of those to be made active (true) or inactive (false).  A task for tracking a joint coordinate only has one component.-->
+				<active>false false false </active>
+				<!--Position error feedback gain (stiffness). To achieve critical damping of errors, choose kv = 2*sqrt(kp).-->
+				<kp> 1 1 1</kp>
+				<!--Velocity error feedback gain (damping). To achieve critical damping of errors, choose kv = 2*sqrt(kp).-->
+				<kv> 1 1 1</kv>
+				<!--Feedforward acceleration gain.  This is normally set to 1.0, so no gain.-->
+				<ka> 1 1 1</ka>
+				<!--Direction vector[3] for component 0 of a task. Joint tasks do not use this propery.-->
+				<r0> 0 0 0</r0>
+				<!--Direction vector[3] for component 1 of a task. Joint tasks do not use this property.-->
+				<r1> 0 0 0</r1>
+				<!--Direction vector[3] for component 2 of a task. Joint tasks do not use this property.-->
+				<r2> 0 0 0</r2>
+				<!--Name of the coordinate to be tracked.-->
+				<coordinate />
+				<!--Error limit on the tracking accuracy for this coordinate. If the tracking errors approach this limit, the weighting for this coordinate is increased. -->
+				<limit>0</limit>
+			</CMC_Joint>
+		</defaults>
+		<!--Name of the .osim file used to construct a model.-->
+		<model_file>../../Scale/Rajagopal2015_scaled.osim</model_file>
+		<!--Replace the model's force set with sets specified in <force_set_files>? If false, the force set is appended to.-->
+		<replace_force_set>true</replace_force_set>
+		<!--List of xml files used to construct an force set for the model.-->
+		<force_set_files> rra_actuators.xml</force_set_files>
+		<!--Directory used for writing results.-->
+		<results_directory>results</results_directory>
+		<!--Output precision.  It is 8 by default.-->
+		<output_precision>20</output_precision>
+		<!--Initial time for the simulation.-->
+		<initial_time>0</initial_time>
+		<!--Final time for the simulation.-->
+		<final_time>0.80666667</final_time>
+		<!--Flag indicating whether or not to compute equilibrium values for states other than the coordinates or speeds.  For example, equilibrium muscle fiber lengths or muscle forces.-->
+		<solve_for_equilibrium_for_auxiliary_states>false</solve_for_equilibrium_for_auxiliary_states>
+		<!--Maximum number of integrator steps.-->
+		<maximum_number_of_integrator_steps>20000</maximum_number_of_integrator_steps>
+		<!--Maximum integration step size.-->
+		<maximum_integrator_step_size>1</maximum_integrator_step_size>
+		<!--Minimum integration step size.-->
+		<minimum_integrator_step_size>1e-008</minimum_integrator_step_size>
+		<!--Integrator error tolerance. When the error is greater, the integrator step size is decreased.-->
+		<integrator_error_tolerance>1e-006</integrator_error_tolerance>
+		<!--Set of analyses to be run during the investigation.-->
+		<AnalysisSet name="Analyses">
+			<objects />
+			<groups />
+		</AnalysisSet>
+		<!--Controller objects in the model.-->
+		<ControllerSet name="Controllers">
+			<objects />
+			<groups />
+		</ControllerSet>
+		<!--XML file (.xml) containing the forces applied to the model as ExternalLoads.-->
+		<external_loads_file>grf_run.xml</external_loads_file>
+		<!--Motion (.mot) or storage (.sto) file containing the desired point trajectories.-->
+		<desired_points_file />
+		<!--Motion (.mot) or storage (.sto) file containing the desired kinematic trajectories.-->
+		<desired_kinematics_file>../IK/results/ik_output_run.mot</desired_kinematics_file>
+		<!--File containing the tracking tasks. Which coordinates are tracked and with what weights are specified here.-->
+		<task_set_file>rra_tasks_run_1.xml</task_set_file>
+		<!--DEPRECATED File containing the constraints on the controls.-->
+		<constraints_file />
+		<!--Low-pass cut-off frequency for filtering the desired kinematics. A negative value results in no filtering. The default value is -1.0, so no filtering.-->
+		<lowpass_cutoff_frequency>15</lowpass_cutoff_frequency>
+		<!--Preferred optimizer algorithm (currently support "ipopt" or "cfsqp", the latter requiring the osimFSQP library.-->
+		<optimizer_algorithm>ipopt</optimizer_algorithm>
+		<!--Step size used by the optimizer to compute numerical derivatives. A value between 1.0e-4 and 1.0e-8 is usually appropriate.-->
+		<numerical_derivative_step_size>0.0001</numerical_derivative_step_size>
+		<!--Convergence criterion for the optimizer. The smaller this value, the deeper the convergence. Decreasing this number can improve a solution, but will also likely increase computation time.-->
+		<optimization_convergence_tolerance>1e-005</optimization_convergence_tolerance>
+		<!--Flag (true or false) indicating whether or not to make an adjustment in the center of mass of a body to reduced DC offsets in MX and MZ. If true, a new model is writen out that has altered anthropometry.-->
+		<adjust_com_to_reduce_residuals>true</adjust_com_to_reduce_residuals>
+		<!--Initial time used when computing average residuals in order to adjust the body's center of mass.  If both initial and final time are set to -1 (their default value) then the main initial and final time settings will be used.-->
+		<initial_time_for_com_adjustment>-1</initial_time_for_com_adjustment>
+		<!--Final time used when computing average residuals in order to adjust the body's center of mass.-->
+		<final_time_for_com_adjustment>-1</final_time_for_com_adjustment>
+		<!--Name of the body whose center of mass is adjusted. The heaviest segment in the model should normally be chosen. For a gait model, the torso segment is usually the best choice.-->
+		<adjusted_com_body>torso</adjusted_com_body>
+		<!--Name of the output model file (.osim) containing adjustments to anthropometry made to reduce average residuals. This file is written if the property adjust_com_to_reduce_residuals is set to true. If a name is not specified, the model is written out to a file called adjusted_model.osim.-->
+		<output_model_file>Rajagopal2015_scaled.osim</output_model_file>
+		<!--True-false flag indicating whether or not to turn on verbose printing for cmc.-->
+		<use_verbose_printing>false</use_verbose_printing>
+	</RRATool>
+</OpenSimDocument>

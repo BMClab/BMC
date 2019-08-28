@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<OpenSimDocument Version="30000">
+	<ForceSet name="LowerBody_RRA">
+		<objects>
+			<PointActuator name="FX">
+				<!--Name of Body to which this actuator is applied.-->
+				<body>pelvis</body>
+				<!--Location of application point; in body frame unless point_is_global=true-->
+				<point>-0.0699009 0 0</point>
+				<!--Force application direction; in body frame unless force_is_global=true.-->
+				<direction>1 -0 -0</direction>
+				<!--The maximum force produced by this actuator when fully activated.-->
+				<optimal_force>1</optimal_force>
+				<min_control> -Inf </min_control>
+				<max_control> Inf </max_control>
+			</PointActuator>
+			<PointActuator name="FY">
+				<!--Name of Body to which this actuator is applied.-->
+				<body>pelvis</body>
+				<!--Location of application point; in body frame unless point_is_global=true-->
+				<point>-0.0699009 0 0</point>
+				<!--Force application direction; in body frame unless force_is_global=true.-->
+				<direction>-0 1 -0</direction>
+				<!--The maximum force produced by this actuator when fully activated.-->
+				<optimal_force>1</optimal_force>
+				<min_control> -Inf </min_control>
+				<max_control> Inf </max_control>
+			</PointActuator>
+			<PointActuator name="FZ">
+				<!--Name of Body to which this actuator is applied.-->
+				<body>pelvis</body>
+				<!--Location of application point; in body frame unless point_is_global=true-->
+				<point>-0.0699009 0 0</point>
+				<!--Force application direction; in body frame unless force_is_global=true.-->
+				<direction>-0 -0 1</direction>
+				<!--The maximum force produced by this actuator when fully activated.-->
+				<optimal_force>1</optimal_force>
+				<min_control> -Inf </min_control>
+				<max_control> Inf </max_control>
+			</PointActuator>
+			<TorqueActuator name="MX">
+				<!--Name of Body to which the torque actuator is applied.-->
+				<bodyA>pelvis</bodyA>
+				<!--Name of Body to which the equal and opposite torque is applied.-->
+				<bodyB>ground</bodyB>
+				<!--Fixed direction about which torque is applied, in Ground or body A frame depending on 'torque_is_global' property.-->
+				<axis>1 -0 -0</axis>
+				<!--The maximum torque produced by this actuator when fully activated.-->
+				<optimal_force>1</optimal_force>
+				<min_control> -Inf </min_control>
+				<max_control> Inf </max_control>
+			</TorqueActuator>
+			<TorqueActuator name="MY">
+				<!--Name of Body to which the torque actuator is applied.-->
+				<bodyA>pelvis</bodyA>
+				<!--Name of Body to which the equal and opposite torque is applied.-->
+				<bodyB>ground</bodyB>
+				<!--Fixed direction about which torque is applied, in Ground or body A frame depending on 'torque_is_global' property.-->
+				<axis>-0 1 -0</axis>
+				<!--The maximum torque produced by this actuator when fully activated.-->
+				<optimal_force>1</optimal_force>
+				<min_control> -Inf </min_control>
+				<max_control> Inf </max_control>
+			</TorqueActuator>
+			<TorqueActuator name="MZ">
+				<!--Name of Body to which the torque actuator is applied.-->
+				<bodyA>pelvis</bodyA>
+				<!--Name of Body to which the equal and opposite torque is applied.-->
+				<bodyB>ground</bodyB>
+				<!--Fixed direction about which torque is applied, in Ground or body A frame depending on 'torque_is_global' property.-->
+				<axis>-0 -0 1</axis>
+				<!--The maximum torque produced by this actuator when fully activated.-->
+				<optimal_force>1</optimal_force>
+				<min_control> -Inf </min_control>
+				<max_control> Inf </max_control>
+			</TorqueActuator>
+			<CoordinateActuator name="hip_flexion_r">
+				<!--Name of the generalized coordinate to which the actuator applies.-->
+				<coordinate>hip_flexion_r</coordinate>
+				<!--The maximum generalized force produced by this actuator.-->
+				<optimal_force>1000</optimal_force>
+				<min_control> -1 </min_control>
+				<max_control> 1 </max_control>
+			</CoordinateActuator>
+			<CoordinateActuator name="hip_adduction_r">
+				<!--Name of the generalized coordinate to which the actuator applies.-->
+				<coordinate>hip_adduction_r</coordinate>
+				<!--The maximum generalized force produced by this actuator.-->
+				<optimal_force>1000</optimal_force>
+				<min_control> -1 </min_control>
+				<max_control> 1 </max_control>
+			</CoordinateActuator>
+			<CoordinateActuator name="hip_rotation_r">
+				<!--Name of the generalized coordinate to which the actuator applies.-->
+				<coordinate>hip_rotation_r</coordinate>
+				<!--The maximum generalized force produced by this actuator.-->
+				<optimal_force>1000</optimal_force>
+				<min_control> -1 </min_control>
+				<max_control> 1 </max_control>
+			</CoordinateActuator>
+			<CoordinateActuator name="knee_angle_r">
+				<!--Name of the generalized coordinate to which the actuator applies.-->
+				<coordinate>knee_angle_r</coordinate>
+				<!--The maximum generalized force produced by this actuator.-->
+				<optimal_force>1000</optimal_force>
+				<min_control> -1 </min_control>
+				<max_control> 1 </max_control>
+			</CoordinateActuator>
+			<CoordinateActuator name="ankle_angle_r">
+				<!--Name of the generalized coordinate to which the actuator applies.-->
+				<coordinate>ankle_angle_r</coordinate>
+				<!--The maximum generalized force produced by this actuator.-->
+				<optimal_force>1000</optimal_force>
+				<min_control> -1 </min_control>
+				<max_control> 1 </max_control>
+			</CoordinateActuator>
+			<CoordinateActuator name="hip_flexion_l">
+				<!--Name of the generalized coordinate to which the actuator applies.-->
+				<coordinate>hip_flexion_l</coordinate>
+				<!--The maximum generalized force produced by this actuator.-->
+				<optimal_force>1000</optimal_force>
+				<min_control> -1 </min_control>
+				<max_control> 1 </max_control>
+			</CoordinateActuator>
+			<CoordinateActuator name="hip_adduction_l">
+				<!--Name of the generalized coordinate to which the actuator applies.-->
+				<coordinate>hip_adduction_l</coordinate>
+				<!--The maximum generalized force produced by this actuator.-->
+				<optimal_force>1000</optimal_force>
+				<min_control> -1 </min_control>
+				<max_control> 1 </max_control>
+			</CoordinateActuator>
+			<CoordinateActuator name="hip_rotation_l">
+				<!--Name of the generalized coordinate to which the actuator applies.-->
+				<coordinate>hip_rotation_l</coordinate>
+				<!--The maximum generalized force produced by this actuator.-->
+				<optimal_force>1000</optimal_force>
+				<min_control> -1 </min_control>
+				<max_control> 1 </max_control>
+			</CoordinateActuator>
+			<CoordinateActuator name="knee_angle_l">
+				<!--Name of the generalized coordinate to which the actuator applies.-->
+				<coordinate>knee_angle_l</coordinate>
+				<!--The maximum generalized force produced by this actuator.-->
+				<optimal_force>1000</optimal_force>
+				<min_control> -1 </min_control>
+				<max_control> 1 </max_control>
+			</CoordinateActuator>
+			<CoordinateActuator name="ankle_angle_l">
+				<!--Name of the generalized coordinate to which the actuator applies.-->
+				<coordinate>ankle_angle_l</coordinate>
+				<!--The maximum generalized force produced by this actuator.-->
+				<optimal_force>1000</optimal_force>
+				<min_control> -1 </min_control>
+				<max_control> 1 </max_control>
+			</CoordinateActuator>
+			<CoordinateActuator name="lumbar_extension">
+				<!--Name of the generalized coordinate to which the actuator applies.-->
+				<coordinate>lumbar_extension</coordinate>
+				<!--The maximum generalized force produced by this actuator.-->
+				<optimal_force>1000</optimal_force>
+				<min_control> -1 </min_control>
+				<max_control> 1 </max_control>
+			</CoordinateActuator>
+			<CoordinateActuator name="lumbar_bending">
+				<!--Name of the generalized coordinate to which the actuator applies.-->
+				<coordinate>lumbar_bending</coordinate>
+				<!--The maximum generalized force produced by this actuator.-->
+				<optimal_force>1000</optimal_force>
+				<min_control> -1 </min_control>
+				<max_control> 1 </max_control>
+			</CoordinateActuator>
+			<CoordinateActuator name="lumbar_rotation">
+				<!--Name of the generalized coordinate to which the actuator applies.-->
+				<coordinate>lumbar_rotation</coordinate>
+				<!--The maximum generalized force produced by this actuator.-->
+				<optimal_force>1000</optimal_force>
+				<min_control> -1 </min_control>
+				<max_control> 1 </max_control>
+			</CoordinateActuator>
+			<CoordinateActuator name="arm_flex_r">
+				<!--Name of the generalized coordinate to which the actuator applies.-->
+				<coordinate>arm_flex_r</coordinate>
+				<!--The maximum generalized force produced by this actuator.-->
+				<optimal_force>500</optimal_force>
+				<min_control> -1 </min_control>
+				<max_control> 1 </max_control>
+			</CoordinateActuator>
+			<CoordinateActuator name="arm_add_r">
+				<!--Name of the generalized coordinate to which the actuator applies.-->
+				<coordinate>arm_add_r</coordinate>
+				<!--The maximum generalized force produced by this actuator.-->
+				<optimal_force>500</optimal_force>
+				<min_control> -1 </min_control>
+				<max_control> 1 </max_control>
+			</CoordinateActuator>
+			<CoordinateActuator name="arm_rot_r">
+				<!--Name of the generalized coordinate to which the actuator applies.-->
+				<coordinate>arm_rot_r</coordinate>
+				<!--The maximum generalized force produced by this actuator.-->
+				<optimal_force>500</optimal_force>
+				<min_control> -1 </min_control>
+				<max_control> 1 </max_control>
+			</CoordinateActuator>
+			<CoordinateActuator name="elbow_flex_r">
+				<!--Name of the generalized coordinate to which the actuator applies.-->
+				<coordinate>elbow_flex_r</coordinate>
+				<!--The maximum generalized force produced by this actuator.-->
+				<optimal_force>500</optimal_force>
+				<min_control> -1 </min_control>
+				<max_control> 1 </max_control>
+			</CoordinateActuator>
+			<CoordinateActuator name="pro_sup_r">
+				<!--Name of the generalized coordinate to which the actuator applies.-->
+				<coordinate>pro_sup_r</coordinate>
+				<!--The maximum generalized force produced by this actuator.-->
+				<optimal_force>500</optimal_force>
+				<min_control> -1 </min_control>
+				<max_control> 1 </max_control>
+			</CoordinateActuator>
+			<CoordinateActuator name="arm_flex_l">
+				<!--Name of the generalized coordinate to which the actuator applies.-->
+				<coordinate>arm_flex_l</coordinate>
+				<!--The maximum generalized force produced by this actuator.-->
+				<optimal_force>500</optimal_force>
+				<min_control> -1 </min_control>
+				<max_control> 1 </max_control>
+			</CoordinateActuator>
+			<CoordinateActuator name="arm_add_l">
+				<!--Name of the generalized coordinate to which the actuator applies.-->
+				<coordinate>arm_add_l</coordinate>
+				<!--The maximum generalized force produced by this actuator.-->
+				<optimal_force>500</optimal_force>
+				<min_control> -1 </min_control>
+				<max_control> 1 </max_control>
+			</CoordinateActuator>
+			<CoordinateActuator name="arm_rot_l">
+				<!--Name of the generalized coordinate to which the actuator applies.-->
+				<coordinate>arm_rot_l</coordinate>
+				<!--The maximum generalized force produced by this actuator.-->
+				<optimal_force>500</optimal_force>
+				<min_control> -1 </min_control>
+				<max_control> 1 </max_control>
+			</CoordinateActuator>
+			<CoordinateActuator name="elbow_flex_l">
+				<!--Name of the generalized coordinate to which the actuator applies.-->
+				<coordinate>elbow_flex_l</coordinate>
+				<!--The maximum generalized force produced by this actuator.-->
+				<optimal_force>500</optimal_force>
+				<min_control> -1 </min_control>
+				<max_control> 1 </max_control>
+			</CoordinateActuator>
+			<CoordinateActuator name="pro_sup_l">
+				<!--Name of the generalized coordinate to which the actuator applies.-->
+				<coordinate>pro_sup_l</coordinate>
+				<!--The maximum generalized force produced by this actuator.-->
+				<optimal_force>500</optimal_force>
+				<min_control> -1 </min_control>
+				<max_control> 1 </max_control>
+			</CoordinateActuator>
+		</objects>
+	</ForceSet>
+</OpenSimDocument>
