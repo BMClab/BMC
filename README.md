@@ -89,10 +89,10 @@ Modeling and simulation of human movement
 Biomechanical tasks Analysis
 -------------
 
-* [The inverted pendulum model of the human standing posture](http://nbviewer.jupyter.org/github/bmclab/BMC/blob/master/notebooks/IP_Model.ipynb)  
-* [Measurements in stabilography](http://nbviewer.jupyter.org/github/bmclab/BMC/blob/master/notebooks/Stabilography.ipynb)  
+* [The inverted pendulum model of the human standing posture](http://nbviewer.jupyter.org/github/bmclab/BMC/blob/master/notebooks/IP_Model.ipynb)
+* [Measurements in stabilography](http://nbviewer.jupyter.org/github/bmclab/BMC/blob/master/notebooks/Stabilography.ipynb) 
 * [Rambling and Trembling decomposition of the COP](http://nbviewer.jupyter.org/github/bmclab/BMC/blob/master/notebooks/IEP.ipynb)
-* [Biomechanical analysis of vertical jumps](http://nbviewer.jupyter.org/github/bmclab/BMC/blob/master/notebooks/VerticalJump.ipynb)  
+* [Biomechanical analysis of vertical jumps](http://nbviewer.jupyter.org/github/bmclab/BMC/blob/master/notebooks/VerticalJump.ipynb)
 * [Gait analysis (2D)](http://nbviewer.jupyter.org/github/bmclab/BMC/blob/master/notebooks/GaitAnalysis2D.ipynb)
 
 * Force plates  
