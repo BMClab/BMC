@@ -1,5 +1,5 @@
-BMC: Notes on Scientific Computing for Biomechanics and Motor Control  
----------------------------------------------------------------------
+BMC - Notes on Scientific Computing for Biomechanics and Motor Control  
+----------------------------------------------------------------------
 
 **Marcos Duarte and Renato Watanabe**
 
