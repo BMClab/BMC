@@ -1,8 +1,5 @@
-BMC
-===
-
-Notes on Scientific Computing for Biomechanics and Motor Control  
-----------------------------------------------------------------
+BMC: Notes on Scientific Computing for Biomechanics and Motor Control  
+---------------------------------------------------------------------
 **Marcos Duarte and Renato Watanabe**
 
 This repository is a collection of lecture notes and code on scientific computing and data analysis for Biomechanics and Motor Control.  
