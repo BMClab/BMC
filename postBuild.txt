@@ -1,3 +1,4 @@
 jupyter contrib nbextension install --user
 jupyter nbextension enable --py widgetsnbextension
+jupyter nbextension enable --py equation-numbering
 jupyter labextension install @jupyter-widgets/jupyterlab-manager
