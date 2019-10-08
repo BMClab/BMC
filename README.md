@@ -3,7 +3,13 @@ BMC - Notes on Scientific Computing for Biomechanics and Motor Control
 
 **Marcos Duarte and Renato Watanabe**
 
-This repository is a collection of lecture notes and code on scientific computing and data analysis for Biomechanics and Motor Control. The notes (notebooks) are written using [Jupyter Notebook](http://jupyter.org/), part of the [Python ecosystem for scientific computing]( http://scipy.org/). You can view and run interactively these notebooks in different ways: simply read online by clicking on the links below (non-interactive); download a single notebook or all the stuff or fork this entire repository using the GitHub resources and run the notebooks in your computer; run the notebooks in the cloud, using for example, Binder (click on the next link below). We hope this material is useful to you and we are open to suggestions and comments.  
+This repository is a collection of lecture notes and code on scientific computing and data analysis for Biomechanics and Motor Control. These notes (notebooks) are written using [Jupyter Notebook](http://jupyter.org/), part of the [Python ecosystem for scientific computing]( http://scipy.org/).  
+You can view and run interactively these notebooks in different ways:   
+- Read online by clicking on the links in the summary below (non-interactive way);   
+- Download one notebook or everything or yet fork this repository using the GitHub resources (click on the **Clone or download** button above) and run the notebooks in your computer (after you installed the Python echosystem in your computer);  
+- Run the notebooks in the cloud using for example [Binder](https://mybinder.org/) (click on the **launch binder** button below).  
+
+We hope this material is useful to you and we are open to suggestions and comments.  
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/BMClab/BMC/master)
 
