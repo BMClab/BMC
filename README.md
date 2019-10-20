@@ -75,7 +75,7 @@ Mechanics
   * [Free body diagram](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/FreeBodyDiagram.ipynb)
     - [Free body diagram for particles](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/FBDParticles.ipynb)
     - [Free body diagram for rigid bodies](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/FreeBodyDiagramForRigidBodies.ipynb)
-  * [3D Rigid body kinetics](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/Tridimensional%20rigid%20body%20Kinetics.ipynb)
+  * [3D Rigid body kinetics](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/Kinetics3dRigidBody.ipynb)
   * [Matrix formalism of the Newton-Euler equations](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/MatrixFormalism.ipynb)  
   * [Lagrangian Mechanics](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/lagrangian_mechanics.ipynb)  
 
