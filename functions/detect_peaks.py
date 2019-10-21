@@ -4,12 +4,12 @@ from __future__ import division, print_function
 import numpy as np
 
 __author__ = "Marcos Duarte, https://github.com/demotu/BMC"
-__version__ = "1.0.5"
+__version__ = "1.0.6"
 __license__ = "MIT"
 
 
 def detect_peaks(x, mph=None, mpd=1, threshold=0, edge='rising',
-                 kpsh=False, valley=False, show=False, ax=None):
+                 kpsh=False, valley=False, show=False, ax=None, title=True):
 
     """Detect peaks in data based on their amplitude and other features.
 
@@ -38,6 +38,9 @@ def detect_peaks(x, mph=None, mpd=1, threshold=0, edge='rising',
     show : bool, optional (default = False)
         if True (1), plot data in matplotlib figure.
     ax : a matplotlib.axes.Axes instance, optional (default = None).
+    title : bool or string, optional (default = True)
+        if True, show standard title. If False or empty string, doesn't show
+        any title. If string, shows string as title.
 
     Returns
     -------
@@ -48,8 +51,8 @@ def detect_peaks(x, mph=None, mpd=1, threshold=0, edge='rising',
     -----
     The detection of valleys instead of peaks is performed internally by simply
     negating the data: `ind_valleys = detect_peaks(-x)`
-    
-    The function can handle NaN's 
+
+    The function can handle NaN's
 
     See this IPython Notebook [1]_.
 
@@ -86,11 +89,19 @@ def detect_peaks(x, mph=None, mpd=1, threshold=0, edge='rising',
     >>> # set threshold = 2
     >>> detect_peaks(x, threshold = 2, show=True)
 
+    >>> x = [-2, 1, -2, 2, 1, 1, 3, 0]
+    >>> fig, axs = plt.subplots(ncols=2, nrows=1, figsize=(10, 4))
+    >>> detect_peaks(x, show=True, ax=axs[0], threshold=0.5, title=False)
+    >>> detect_peaks(x, show=True, ax=axs[1], threshold=1.5, title=False)
+
     Version history
     ---------------
+    '1.0.6':
+        Fix issue of when specifying ax object only the first plot was shown
+        Add parameter to choose if a title is shown and input a title
     '1.0.5':
         The sign of `mph` is inverted if parameter `valley` is True
-    
+
     """
 
     x = np.atleast_1d(x).astype('float64')
@@ -140,7 +151,7 @@ def detect_peaks(x, mph=None, mpd=1, threshold=0, edge='rising',
             if not idel[i]:
                 # keep peaks with the same height if kpsh is True
                 idel = idel | (ind >= ind[i] - mpd) & (ind <= ind[i] + mpd) \
-                    & (x[ind[i]] > x[ind] if kpsh else True)
+                       & (x[ind[i]] > x[ind] if kpsh else True)
                 idel[i] = 0  # Keep current peak
         # remove the small peaks and sort back the indices by their occurrence
         ind = np.sort(ind[~idel])
@@ -152,12 +163,12 @@ def detect_peaks(x, mph=None, mpd=1, threshold=0, edge='rising',
             x = -x
             if mph is not None:
                 mph = -mph
-        _plot(x, mph, mpd, threshold, edge, valley, ax, ind)
+        _plot(x, mph, mpd, threshold, edge, valley, ax, ind, title)
 
     return ind
 
 
-def _plot(x, mph, mpd, threshold, edge, valley, ax, ind):
+def _plot(x, mph, mpd, threshold, edge, valley, ax, ind, title):
     """Plot results of the detect_peaks function, see its help."""
     try:
         import matplotlib.pyplot as plt
@@ -166,6 +177,9 @@ def _plot(x, mph, mpd, threshold, edge, valley, ax, ind):
     else:
         if ax is None:
             _, ax = plt.subplots(1, 1, figsize=(8, 4))
+            no_ax = True
+        else:
+            no_ax = False
 
         ax.plot(x, 'b', lw=1)
         if ind.size:
@@ -180,8 +194,12 @@ def _plot(x, mph, mpd, threshold, edge, valley, ax, ind):
         ax.set_ylim(ymin - 0.1*yrange, ymax + 0.1*yrange)
         ax.set_xlabel('Data #', fontsize=14)
         ax.set_ylabel('Amplitude', fontsize=14)
-        mode = 'Valley detection' if valley else 'Peak detection'
-        ax.set_title("%s (mph=%s, mpd=%d, threshold=%s, edge='%s')"
-                     % (mode, str(mph), mpd, str(threshold), edge))
+        if title:
+            if not isinstance(title, str):
+                mode = 'Valley detection' if valley else 'Peak detection'
+                title = "%s (mph=%s, mpd=%d, threshold=%s, edge='%s')"% \
+                        (mode, str(mph), mpd, str(threshold), edge)
+            ax.set_title(title)
         # plt.grid()
-        plt.show()
+        if no_ax:
+            plt.show()
