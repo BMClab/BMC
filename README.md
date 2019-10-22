@@ -57,7 +57,7 @@ Mechanics
 * **Kinematics**  
   * [Frame of reference](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/ReferenceFrame.ipynb)  
   * [Time-varying frame of reference](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/Time-varying%20frames.ipynb)
-  * [Polar and cylindrical frame of reference ](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/PolarCoordinates.ipynb)
+  * [Polar and cylindrical frame of reference ](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/PolarBasis.ipynb)
   * [Kinematics of particle](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/KinematicsParticle.ipynb)  
     * [Projectile motion](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/ProjectileMotion.ipynb)  
     * [Spatial and temporal characteristics](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/SpatialTemporalCharacteristcs.ipynb)  
