@@ -6,14 +6,15 @@ __author__ = "Marcos Duarte, https://github.com/BMClab/"
 __version__ = "1.0.0"
 __license__ = "MIT"
 
+import numpy as np
 import pandas as pd
 import ezc3d
 from dfmlevel import dfmlevel
 
 
 
-def read_c3d(fname, analog='all', point='all', order='XYZ', resamp=False,
-             short_label=True):
+def read_c3d(fname, analog='all', point='all', rot=[[1,0,0],[0,1,0],[0,0,1]],
+             order='XYZ', resamp=False, short_label=True):
     """
     Get data from c3d file using ezc3d library.
 
@@ -30,6 +31,12 @@ def read_c3d(fname, analog='all', point='all', order='XYZ', resamp=False,
     n_ini : integer, optional (default = 0)
 
     names : list, optional (default = ['Marker', 'Coordinate'])
+    
+    rot : string or 3x3 numpy array (default = 'I')
+        Rotation matrix to transform both analog and point data.
+        It should be the local (the c3d data) to the global (the outputed data)
+        coordinate system.
+        E.g., if c3d axes are ZXY then c3d=[[0,1,0],[[0,0,1]],[1,0,0]].
 
     order : string, optional (default = 'XYZ')
 
@@ -43,6 +50,7 @@ def read_c3d(fname, analog='all', point='all', order='XYZ', resamp=False,
 
     """
 
+    rot = np.asarray(rot)
     c3d = ezc3d.c3d(fname)
     info = [[analog, 'ANALOG', 'analogs'] if analog is not None else False,
             [ point,  'POINT',  'points'] if point  is not None else False]
@@ -64,6 +72,9 @@ def read_c3d(fname, analog='all', point='all', order='XYZ', resamp=False,
                 labels = [label.split(': ')[-1] for label in labels]
             if signal[1] == 'ANALOG':
                 data = c3d['data'][signal[2]][0, idx, :].T
+                if not np.all(np.equal(rot, np.eye(3))):
+                    for i in range(int(data.shape[1]/3)):
+                        data[:, 3*i:3*(i+1)] = data[:, 3*i:3*(i+1)]@rot.T
                 if resamp:
                     pass
                 an = pd.DataFrame(data=data, columns=labels)
@@ -71,6 +82,9 @@ def read_c3d(fname, analog='all', point='all', order='XYZ', resamp=False,
                 an.index.name = 'Time'
             elif signal[1] == 'POINT':
                 data = c3d['data'][signal[2]][:3, idx, :].reshape((int(3*len(labels)), -1), order='F').T
+                if not np.all(np.equal(rot, np.eye(3))):
+                    for i in range(int(data.shape[1]/3)):
+                        data[:, 3*i:3*(i+1)] = data[:, 3*i:3*(i+1)]@rot.T
                 if resamp:
                     pass
                 pt = dfmlevel(data, labels=labels, index=None, n_ini=0,
