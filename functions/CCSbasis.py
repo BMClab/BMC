@@ -50,12 +50,11 @@ class CCSbasis():
         ax.set_ylim3d(2*xyzmin, 2*xyzmax)
         ax.set_zlim3d(2*xyzmin, 2*xyzmax)
         
-        print(len(xyz))
+        
         if not len(xyz):
             xyz = np.max((xmax, ymax, zmax))
             xyz = [[xyz, 0, 0], [0, xyz, 0], [0, 0, xyz]]           
         if len(xyz):
-            print(xyz)
             xyz = np.asarray(xyz)
             x, y, z = xyz
             xa = Arrow3D([x0, x0+x[0]], [y0, y0+x[1]], [z0, z0+x[2]],
@@ -95,7 +94,7 @@ class CCSbasis():
         if len(point):
             point = np.asarray(point)
             for xp, yp, zp in point:
-                ax.plot3D([xp], [yp], [zp], marker='o', color='y', alpha=.8, ms=8)
+#                 ax.plot3D([xp], [yp], [zp], marker='', color='y', alpha=.8, ms=8)
                 if vector:
                     v = Arrow3D([x0, xp], [y0, yp], [z0, zp], mutation_scale=15,
                                 lw=3, arrowstyle="-|>", color="y", alpha=.8)
