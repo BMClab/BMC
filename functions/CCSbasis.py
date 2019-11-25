@@ -41,9 +41,9 @@ class CCSbasis():
                     ax.plot3D([xp, xp], [yp, yp], [z0, zp], 'k:')
 
         xmin, xmax, ymin, ymax, zmin, zmax = ax.get_w_lims()
-        xr = 0.1*(xmax - xmin)
-        yr = 0.1*(ymax - ymin)
-        zr = 0.1*(zmax - zmin)
+        xr = 0.1*(np.max([xmax, ymax, zmax]) - np.min([xmin, ymin, zmin]))
+        yr = 0.1*(np.max([xmax, ymax, zmax]) - np.min([xmin, ymin, zmin]))
+        zr = 0.1*(np.max([xmax, ymax, zmax]) - np.min([xmin, ymin, zmin]))
         xyzmin = np.min((xmin - xr, ymin - yr, zmin - zr))
         xyzmax = np.max((xmax + xr, ymax + yr, zmax + zr))
         ax.set_xlim3d(2*xyzmin, 2*xyzmax)
