@@ -95,9 +95,7 @@ def read_trc(fname, fname2='', units='', dropna=False, na=0.0, df_multi=True,
         and columns: Frame#, time and position data.
         Dataframe with shape (nframes, 3*nmarkers) with "Marker", "Coordinate"
         and "XYZ" as labels, "Time" as index, and data position as columns.
-
     """
-
     with open(file=fname, mode='rt', encoding='utf-8', newline='') as f:
         if show_msg:
             print('Opening file "{}" ... '.format(fname), end='')
@@ -132,7 +130,7 @@ def read_trc(fname, fname2='', units='', dropna=False, na=0.0, df_multi=True,
         markers = np.asarray(header[3])[np.arange(2, 2+3*nmarkers, 3)].tolist()
         n3 = np.repeat(range(1, nmarkers+1), 3).tolist()
         xyz = [a+str(b) for a, b in zip(['X', 'Y', 'Z']*nmarkers, n3)]
-        header[4] = ['', ''] +  xyz
+        header[4] = ['', ''] + xyz
         if units == 'm':
             if header[2][4] == 'mm':
                 df.iloc[:, 2:] = df.iloc[:, 2:]/1000
@@ -182,7 +180,6 @@ def read_trc(fname, fname2='', units='', dropna=False, na=0.0, df_multi=True,
     return h, df
 
 
-
 def read_anc(fname, show_msg=True):
     """Read .anc file format from Cortex MAC.
 
@@ -209,7 +206,6 @@ def read_anc(fname, show_msg=True):
         (True) or not (False).
 
     """
-
     with open(file=fname, mode='rt', encoding='utf-8', newline='') as f:
         if show_msg:
             print('Opening file "{}" ... '.format(fname), end='')
@@ -233,7 +229,6 @@ def read_anc(fname, show_msg=True):
             print('done.')
 
     return h, data
-
 
 
 def read_cal(fname, show_msg=True):
@@ -267,7 +262,6 @@ def read_cal(fname, show_msg=True):
         parameter from the froce plate calibration file
         keys: 'fp', 'scale', 'size', 'cal_matrix', 'origin', 'center', 'orientation'
     """
-
     fp, scale, size, cal_matrix, origin, center, orientation = [], [], [], [], [], [], []
     with open(file=fname, mode='rt', encoding='utf-8', newline='') as f:
         if show_msg:
@@ -300,7 +294,6 @@ def read_cal(fname, show_msg=True):
             print('done.')
 
     return forcepla
-
 
 
 def read_forces(fname, time=True, forcepla=[], mm2m=True, show_msg=True):
@@ -344,7 +337,6 @@ def read_forces(fname, time=True, forcepla=[], mm2m=True, show_msg=True):
         force plate data with shape (nsamples, 7*nforceplates)
 
     """
-
     with open(file=fname, mode='rt', encoding='utf-8', newline='') as f:
         if show_msg:
             print('Opening file "{}" ... '.format(fname), end='')
@@ -383,7 +375,6 @@ def read_forces(fname, time=True, forcepla=[], mm2m=True, show_msg=True):
     return h, df
 
 
-
 def read_mot(fname, show_msg=True):
     """Read .mot file format from OpenSim.
 
@@ -417,7 +408,6 @@ def read_mot(fname, show_msg=True):
         force plate data with shape (datarows, datacolumns)
 
     """
-
     # column names of the .mot dataframe
     cols = ['time',
             'R_ground_force_vx', 'R_ground_force_vy', 'R_ground_force_vz',
@@ -446,10 +436,9 @@ def read_mot(fname, show_msg=True):
     return h, df
 
 
-
-def read_delsys(fname, fname2='', sensors=None, freq_trc=150, emg=True, imu=False,
-                resample=[1200, 150], freqs=[20, 20, 450], show_msg=True,
-                show=False, ax=None, suptitle=''):
+def read_delsys(fname, fname2='', sensors=None, freq_trc=150, emg=True,
+                imu=False, resample=[1200, 150], freqs=[20, 20, 450],
+                show_msg=True, show=False, ax=None, suptitle=''):
     """Read Delsys csv file from Cortex MAC (Asynchronous device data file).
 
     Parameters
@@ -465,7 +454,7 @@ def read_delsys(fname, fname2='', sensors=None, freq_trc=150, emg=True, imu=Fals
         will be .emg and .imu for the files with EMG data and with IMU data (if
         parameters `emg` and `imu` are True).
     sensors : list of strings, optional
-        Names of the sensors to be used as column names for the EMG and IM data.
+        Names of sensors to be used as column names for the EMG and IM data.
     freq_trc : number, optional (default = 150)
         Sampling frequency of the markers data
     emg : bool, optional (default = True)
@@ -498,9 +487,7 @@ def read_delsys(fname, fname2='', sensors=None, freq_trc=150, emg=True, imu=Fals
         df_emg and df_imu if paramters `emg` and `imu`.
         The units of df_emg will be mV (the raw signal is multiplied by 1000).
         The units of the IMU data are according to Delsys specification.
-
     """
-
     with open(file=fname, mode='rt', newline=None) as f:
         if show_msg:
             print('Opening file "{}" ... '.format(fname), end='')
@@ -573,7 +560,7 @@ def read_delsys(fname, fname2='', sensors=None, freq_trc=150, emg=True, imu=Fals
             nrows_imu = int(np.min(idxs[:, 3]-idxs[:, 2]) + 1)
             cols = [sensor + channel.split(',')[3] for sensor in sensors
                     for channel in channels[1:int(count2/count)]]
-            f.seek(0)    
+            f.seek(0)
             t_imu = pd.read_csv(f, sep=',', header=None, names=None, index_col=None, usecols=[2],
                                 skiprows=idxs[0, 2], nrows=nrows_imu, squeeze=True,
                                 dtype=np.float32, encoding='utf-8', engine='c').values
@@ -674,7 +661,6 @@ def _plot_df_emg(df, ax, suptitle):
             plt.show()
 
 
-
 def write_trc(fname, header, df, show_msg=True):
     """Write .trc file format from Cortex MAC.
 
@@ -691,9 +677,7 @@ def write_trc(fname, header, df, show_msg=True):
     show_msg : bool (default = True)
         Whether to print messages about the execution of the intermediary steps
         (True) or not (False).
-
     """
-
     with open(file=fname, mode='wt', encoding='utf-8', newline='') as f:
         if show_msg:
             print('Saving file "{}" ... '.format(fname), end='')
@@ -705,7 +689,6 @@ def write_trc(fname, header, df, show_msg=True):
                   line_terminator='\t\n', float_format='%.6f')
         if show_msg:
             print('done.')
-
 
 
 def write_forces(fname, header, df, scale=1, show_msg=True):
@@ -726,9 +709,7 @@ def write_forces(fname, header, df, scale=1, show_msg=True):
     show_msg : bool (default = True)
         Whether to print messages about the execution of the intermediary steps
         (True) or not (False).
-
     """
-
     with open(file=fname, mode='wt', encoding='utf-8', newline='') as f:
         if show_msg:
             print('Saving file "{}" ... '.format(fname), end='')
@@ -753,7 +734,6 @@ def write_forces(fname, header, df, scale=1, show_msg=True):
             print('done.')
 
 
-
 def write_mot(fname, df, show_msg=True):
     """Write .mot file format from Cortex MAC.
 
@@ -768,9 +748,7 @@ def write_mot(fname, df, show_msg=True):
     show_msg : bool (default = True)
         Whether to print messages about the execution of the intermediary steps
         (True) or not (False).
-
     """
-
     with open(file=fname, mode='wt', encoding='utf-8', newline='') as f:
         if show_msg:
             print('Saving file "{}" ... '.format(fname), end='')
@@ -786,7 +764,6 @@ def write_mot(fname, df, show_msg=True):
                   line_terminator='\n', float_format='%.6f')
         if show_msg:
             print('done.')
-
 
 
 def write_v3dtxt(fname, trc, forces, freq=0, show_msg=True):
@@ -819,9 +796,7 @@ def write_v3dtxt(fname, trc, forces, freq=0, show_msg=True):
     show_msg : bool (default = True)
         Whether to print messages about the execution of the intermediary steps
         (True) or not (False).
-
     """
-
     if isinstance(trc, str):
         if trc:
             _, trc = read_trc(trc, fname2='', units='', df_multi=False)
@@ -875,7 +850,6 @@ def write_v3dtxt(fname, trc, forces, freq=0, show_msg=True):
             print('done.')
 
 
-
 def grf_moments(data, O, show_msg=True):
     """Calculate force plate moments around its origin given
     3 forces, 2 COPs, 1 free moment, and its geometric position.
@@ -895,7 +869,6 @@ def grf_moments(data, O, show_msg=True):
     grf : Numpy array (n, 8)
         array with [Fx, Fy, Fz, Mx, My, Mz]
     """
-
     Fx, Fy, Fz, COPx, COPy, COPz, Tz = np.hsplit(data, 7)
 
     COPz = np.nanmean(COPz)  # most cases is zero
@@ -913,11 +886,9 @@ def grf_moments(data, O, show_msg=True):
     return grf
 
 
-
 def step_id(df_f, df_t, forcepla=[2], R='RCAL', L='LCAL', show_msg=True):
-    """Identification of step side based on .forces and .trc files
+    """Identification of step side based on .forces and .trc files.
     """
-
     if show_msg:
         print('Step identification ... ', end='')
     if not isinstance(forcepla, list):
@@ -961,12 +932,10 @@ def step_id(df_f, df_t, forcepla=[2], R='RCAL', L='LCAL', show_msg=True):
     return df
 
 
-
 def filter_forces(df, h, forcepla=[2], fc_forces=20, fc_cop=6, threshold=50,
                   show_msg=True):
     """Filter force data from the treadmill.
     """
-
     if not isinstance(forcepla, list):
         forcepla = [forcepla]
     if not forcepla:
@@ -1025,11 +994,9 @@ def filter_forces(df, h, forcepla=[2], fc_forces=20, fc_cop=6, threshold=50,
     return df2
 
 
-
 def to_mot(fname_f, fname_t, forcepla=[2], R='RCAL', L='LCAL', show_msg=True):
     """Generate .mot file from .forces and .trc files
     """
-
     if not isinstance(forcepla, list):
         forcepla = [forcepla]
     # read .forces and .trc files
@@ -1049,11 +1016,9 @@ def to_mot(fname_f, fname_t, forcepla=[2], R='RCAL', L='LCAL', show_msg=True):
     write_mot(fname, df_m, show_msg=show_msg)
 
 
-
 def polyfit2d(x, y, z, order=[1, 1], show_msg=True):
     """Fit 2d polynomial of order order to the x, y, z data.
     """
-
     A = np.polynomial.polynomial.polyvander2d(x, y, order)
     coeff, r, rank, s = np.linalg.lstsq(A, z)
     if show_msg:
@@ -1064,11 +1029,9 @@ def polyfit2d(x, y, z, order=[1, 1], show_msg=True):
     return coeff, r, rank, s
 
 
-
 def polyval2d(coeff, x, y, order=[], grid=True, N=[50, 50]):
     """Evaluate 2d polynomial with coefficients coeff of order order at x, y.
     """
-
     if not len(order):
         order = 2*[int(np.sqrt(coeff.shape[0])-1)]
 
@@ -1091,11 +1054,9 @@ def polyval2d(coeff, x, y, order=[], grid=True, N=[50, 50]):
         return z_fit
 
 
-
 def fpcal(fname_cal, fnames, forcepla=2):
     """Calibrate data in files fnames using the coefficients in file fname_cal.
     """
-
     ch = [ch + str(forcepla) for ch in ['X', 'Z', 'FY', 'FX', 'FZ']]
     # calibration data
     c = np.load(fname_cal)
