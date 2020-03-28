@@ -4,8 +4,8 @@
 
 import numpy as np
 
-__author__ = 'Marcos Duarte, https://github.com/demotu/BMC'
-__version__ = 'detect_seq.py v.1.0.0 2019/03/17'
+__author__ = 'Marcos Duarte, https://github.com/demotu'
+__version__ = 'detect_seq.py v.1.0.1 2019/03/17'
 
 
 def detect_seq(x, value=np.nan, index=False, min_seq=1, max_alert=0,
@@ -42,7 +42,7 @@ def detect_seq(x, value=np.nan, index=False, min_seq=1, max_alert=0,
             
     References
     ----------
-    .. [1] http://nbviewer.jupyter.org/github/demotu/BMC/blob/master/notebooks/detect_seq.ipynb
+    .. [1] https://github.com/demotu/detecta/blob/master/docs/detect_seq.ipynb
 
     Examples
     --------
@@ -61,6 +61,10 @@ def detect_seq(x, value=np.nan, index=False, min_seq=1, max_alert=0,
 
     >>> detect_seq(x, 0, index=True, max_alert=2)
 
+    Version history
+    ---------------
+    '1.0.1':
+        Part of the detecta module - https://pypi.org/project/detecta/  
     """
 
     idx = np.r_[False, np.isnan(x) if np.isnan(value) else np.equal(x, value), False]

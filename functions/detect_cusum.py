@@ -1,10 +1,9 @@
 """Cumulative sum algorithm (CUSUM) to detect abrupt changes in data."""
 
-from __future__ import division, print_function
 import numpy as np
 
-__author__ = 'Marcos Duarte, https://github.com/demotu/BMC'
-__version__ = "1.0.4"
+__author__ = 'Marcos Duarte, https://github.com/demotu'
+__version__ = "1.0.5"
 __license__ = "MIT"
 
 
@@ -67,11 +66,10 @@ def detect_cusum(x, threshold=1, drift=0, ending=False, show=True, ax=None):
     References
     ----------
     .. [1] Gustafsson (2000) Adaptive Filtering and Change Detection.
-    .. [2] hhttp://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/DetectCUSUM.ipynb
+    .. [2] https://github.com/demotu/detecta/blob/master/docs/detect_cusum.ipynb
 
     Examples
     --------
-    >>> from detect_cusum import detect_cusum
     >>> x = np.random.randn(300)/5
     >>> x[100:200] += np.arange(0, 4, 4/100)
     >>> ta, tai, taf, amp = detect_cusum(x, 2, .02, True, True)
@@ -82,6 +80,11 @@ def detect_cusum(x, threshold=1, drift=0, ending=False, show=True, ax=None):
 
     >>> x = 2*np.sin(2*np.pi*np.arange(0, 3, .01))
     >>> ta, tai, taf, amp = detect_cusum(x, 1, .05, True, True)
+ 
+    Version history
+    ---------------
+    '1.0.5':
+        Part of the detecta module - https://pypi.org/project/detecta/   
     """
 
     x = np.atleast_1d(x).astype('float64')

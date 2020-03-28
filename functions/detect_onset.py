@@ -2,8 +2,8 @@
 
 import numpy as np
 
-__author__ = 'Marcos Duarte, https://github.com/demotu/BMC'
-__version__ = "1.0.6"
+__author__ = 'Marcos Duarte, https://github.com/demotu'
+__version__ = "1.0.7"
 __license__ = "MIT"
 
 
@@ -45,11 +45,10 @@ def detect_onset(x, threshold=0, n_above=1, n_below=0,
 
     References
     ----------
-    .. [1] http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/DetectOnset.ipynb
+    .. [1] https://github.com/demotu/detecta/blob/master/docs/detect_onset.ipynb
 
     Examples
     --------
-    >>> from detect_onset import detect_onset
     >>> x = np.random.randn(200)/10
     >>> x[51:151] += np.hstack((np.linspace(0,1,50), np.linspace(1,0,50)))
     >>> detect_onset(x, np.std(x[:50]), n_above=10, n_below=0, show=True)
@@ -88,9 +87,11 @@ def detect_onset(x, threshold=0, n_above=1, n_below=0,
 
     Version history
     ---------------
+    '1.0.7':
+        Part of the detecta module - https://pypi.org/project/detecta/ 
     '1.0.6':
         Deleted 'from __future__ import'
-        added parameters `threshold2` and `n_above2`
+        added parameters `threshold2` and `n_above2`    
     """
 
     x = np.atleast_1d(x).astype('float64')
