@@ -43,9 +43,9 @@ Numerical data analysis
 * [Ordinary Differential Equation](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/OrdinaryDifferentialEquation.ipynb)  
 * [Optimization](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/Optimization.ipynb)  
 * Change detection  
-  * [Detection of peaks](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/DetectPeaks.ipynb)  
-  * [Detection of onset](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/DetectOnset.ipynb)  
-  * [Detection of changes using the Cumulative Sum (CUSUM)](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/DetectCUSUM.ipynb)  
+  * [Detection of peaks](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/detect_peaks.ipynb)  
+  * [Detection of onset](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/detect_onset.ipynb)  
+  * [Detection of changes using the Cumulative Sum (CUSUM)](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/detect_cusum.ipynb)  
   * [Detection of sequential data](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/detect_seq.ipynb)  
 * [Time normalization of data](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/TimeNormalization.ipynb)  
 * [Ensemble average](http://nbviewer.jupyter.org/github/bmclab/BMC/blob/master/notebooks/EnsembleAverage.ipynb)  
