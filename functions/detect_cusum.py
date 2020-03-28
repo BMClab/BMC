@@ -1,11 +1,14 @@
 """Cumulative sum algorithm (CUSUM) to detect abrupt changes in data."""
 
 from __future__ import division, print_function
+import warnings
 import numpy as np
 
 __author__ = 'Marcos Duarte, https://github.com/demotu/BMC'
 __version__ = "1.0.4"
 __license__ = "MIT"
+
+warnings.warn('A newest version is available at https://pypi.org/project/detecta/')
 
 
 def detect_cusum(x, threshold=1, drift=0, ending=False, show=True, ax=None):

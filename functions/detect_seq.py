@@ -2,10 +2,13 @@
 
 """Detect indices in x of sequential data identical to value."""
 
+import warnings
 import numpy as np
 
 __author__ = 'Marcos Duarte, https://github.com/demotu/BMC'
 __version__ = 'detect_seq.py v.1.0.0 2019/03/17'
+
+warnings.warn('A newest version is available at https://pypi.org/project/detecta/')
 
 
 def detect_seq(x, value=np.nan, index=False, min_seq=1, max_alert=0,
@@ -16,13 +19,13 @@ def detect_seq(x, value=np.nan, index=False, min_seq=1, max_alert=0,
     ----------
     x : 1D numpy array_like
         data
-    value : number, optional. Default = np.nan
-        Value to be found in data
+    value : number or 1D numpy array_like, optional. Default = np.nan
+        Value(s) to be found in data.
     index : bool, optional. Default = False
         Set to True to return a 2D array of initial and final indices where
-        data is equal to value or set to False to return an 1D array of Boolean
-        values with same length as x with True where x is equal to value and 
-        False where x is not equal to value.
+        data is equal to value(s) or set to False to return an 1D array of
+        Boolean values with same length as x with True where x is equal to
+        value(s) and False where x is not equal to value(s).
     min_seq : integer, optional. Default = 1
         Minimum number of sequential values to detect        
     max_alert : number, optional. Default = 0
@@ -63,7 +66,10 @@ def detect_seq(x, value=np.nan, index=False, min_seq=1, max_alert=0,
 
     """
 
-    idx = np.r_[False, np.isnan(x) if np.isnan(value) else np.equal(x, value), False]
+    value = np.unique(np.array(value, ndmin=1))
+    idx = np.full(len(x)+2, False)
+    for v in value:
+        idx = idx + np.r_[False, np.isnan(x) if np.isnan(v) else np.equal(x, v), False]
 
     if index or min_seq > 1 or max_alert or show:
         idx2 = np.where(np.abs(np.diff(idx))==1)[0].reshape(-1, 2)
@@ -101,32 +107,32 @@ def _plot(x, value, min_seq, ax, idx):
         import matplotlib.pyplot as plt
     except ImportError:
         print('matplotlib is not available.')
+
+    x = np.asarray(x)
+    if ax is None:
+        _, ax = plt.subplots(1, 1, figsize=(8, 4))
+
+    if idx.size:
+        for (indi, indf) in idx:
+            if indi == indf:
+                ax.plot(indf, x[indf], 'ro', mec='r', ms=6)
+            else:
+                ax.plot(range(indi, indf+1), x[indi:indf+1], 'b', lw=1)
+                ax.axvline(x=indi, color='r', lw=1, ls='--')
+                #ax.plot(indi, x[indi], 'r>', mec='r', ms=6)
+                #ax.plot(indf, x[indf], 'r<', mec='r', ms=6)
+            ax.axvline(x=indf, color='r', lw=1, ls='--')
+        idx = np.vstack((np.hstack((0, idx[:, 1])),
+                         np.hstack((idx[:, 0], x.size-1)))).T
+        for (indi, indf) in idx:
+            ax.plot(range(indi, indf+1), x[indi:indf+1], 'k', lw=1)
     else:
-        x = np.asarray(x)
-        if ax is None:
-            _, ax = plt.subplots(1, 1, figsize=(8, 4))
+        ax.plot(x, 'k', lw=1)
 
-        if idx.size:
-            for (indi, indf) in idx:
-                if indi == indf:
-                    ax.plot(indf, x[indf], 'ro', mec='r', ms=6)
-                else:
-                    ax.plot(range(indi, indf+1), x[indi:indf+1], 'b', lw=1)
-                    ax.axvline(x=indi, color='r', lw=1, ls='--')
-                    ax.plot(indi, x[indi], 'r>', mec='r', ms=6)
-                    ax.plot(indf, x[indf], 'r<', mec='r', ms=6)
-                ax.axvline(x=indf, color='r', lw=1, ls='--')
-            idx = np.vstack((np.hstack((0, idx[:, 1])),
-                             np.hstack((idx[:, 0], x.size-1)))).T
-            for (indi, indf) in idx:
-                ax.plot(range(indi, indf+1), x[indi:indf+1], 'k', lw=1)
-        else:
-            ax.plot(x, 'k', lw=1)
-
-        ax.set_xlim(-.02*x.size, x.size*1.02-1)
-        ymin, ymax = x[np.isfinite(x)].min(), x[np.isfinite(x)].max()
-        yrange = ymax - ymin if ymax > ymin else 1
-        ax.set_ylim(ymin - 0.1*yrange, ymax + 0.1*yrange)
-        text = 'Value=%.3g, minimum number=%d'
-        ax.set_title(text % (value, min_seq))
-        plt.show()
+    ax.set_xlim(-.02*x.size, x.size*1.02-1)
+    ymin, ymax = x[np.isfinite(x)].min(), x[np.isfinite(x)].max()
+    yrange = ymax - ymin if ymax > ymin else 1
+    ax.set_ylim(ymin - 0.1*yrange, ymax + 0.1*yrange)
+    text = 'Value={}, minimum number={}'.format(value, min_seq)
+    ax.set_title(text)
+    plt.show()

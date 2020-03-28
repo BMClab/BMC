@@ -1,11 +1,14 @@
 """Detect peaks in data based on their amplitude and other features."""
 
 from __future__ import division, print_function
+import warnings
 import numpy as np
 
 __author__ = "Marcos Duarte, https://github.com/demotu/BMC"
 __version__ = "1.0.6"
 __license__ = "MIT"
+
+warnings.warn('A newest version is available at https://pypi.org/project/detecta/')
 
 
 def detect_peaks(x, mph=None, mpd=1, threshold=0, edge='rising',
