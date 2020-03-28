@@ -1,14 +1,17 @@
 """Detects onset in data based on amplitude threshold."""
 
+import warnings
 import numpy as np
 
-__author__ = 'Marcos Duarte, https://github.com/demotu'
+__author__ = 'Marcos Duarte, https://github.com/demotu/BMC'
 __version__ = "1.0.7"
 __license__ = "MIT"
 
+warnings.warn('A newest version is available at https://pypi.org/project/detecta/')
 
-def detect_onset(x, threshold=0, n_above=1, n_below=0,
-                 threshold2=None, n_above2=1, show=False, ax=None):
+
+def detect_onset(x, threshold=0, n_above=1, n_below=0, threshold2=None,
+                 n_above2=1, del_ini_end=True, show=False, ax=None):
     """Detects onset in data based on amplitude threshold.
 
     Parameters
@@ -27,7 +30,9 @@ def detect_onset(x, threshold=0, n_above=1, n_below=0,
         minimum amplitude of `n_above2` values in `x` to detect.
     n_above2 : number, optional (default = 1)
         minimum number of samples >= `threshold2` to detect.
-    show  : bool, optional (default = False)
+    del_ini_end : bool, optional (default = True)
+        True (1) delete first and last events if they are first and last data
+    show : bool, optional (default = False)
         True (1) plots data in matplotlib figure, False (0) don't plot.
     ax : a matplotlib.axes.Axes instance, optional (default = None).
 
@@ -45,10 +50,11 @@ def detect_onset(x, threshold=0, n_above=1, n_below=0,
 
     References
     ----------
-    .. [1] https://github.com/demotu/detecta/blob/master/docs/detect_onset.ipynb
+    .. [1] http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/DetectOnset.ipynb
 
     Examples
     --------
+    >>> from detect_onset import detect_onset
     >>> x = np.random.randn(200)/10
     >>> x[51:151] += np.hstack((np.linspace(0,1,50), np.linspace(1,0,50)))
     >>> detect_onset(x, np.std(x[:50]), n_above=10, n_below=0, show=True)
@@ -88,10 +94,11 @@ def detect_onset(x, threshold=0, n_above=1, n_below=0,
     Version history
     ---------------
     '1.0.7':
-        Part of the detecta module - https://pypi.org/project/detecta/ 
+        Included parameter 'del_ini_end' to delete first and last events
+        if they are first and last data (default behavior)
     '1.0.6':
         Deleted 'from __future__ import'
-        added parameters `threshold2` and `n_above2`    
+        added parameters `threshold2` and `n_above2`
     """
 
     x = np.atleast_1d(x).astype('float64')
@@ -112,9 +119,13 @@ def detect_onset(x, threshold=0, n_above=1, n_below=0,
                 if np.count_nonzero(x[inds[i, 0]: inds[i, 1]+1] >= threshold2) < n_above2:
                     idel[i] = False
             inds = inds[idel, :]
+        if del_ini_end and inds.size:
+            inds = np.delete(inds, 0, 0) if inds[0, 0] == 0 else inds
+            if inds.size:
+                inds = np.delete(inds, -1, 0) if inds[-1, 1] == x.shape[0]-1 else inds            
     if not inds.size:
         inds = np.array([])  # standardize inds shape for output
-    if show and x.size > 1:  # don't waste my time ploting one datum
+    if show and x.size > 1:  # don't plot if only one datum
         _plot(x, threshold, n_above, n_below, threshold2, n_above2, inds, ax)
 
     return inds

@@ -1,10 +1,14 @@
 """Detect peaks in data based on their amplitude and other features."""
 
+from __future__ import division, print_function
+import warnings
 import numpy as np
 
-__author__ = "Marcos Duarte, https://github.com/demotu"
-__version__ = "1.0.7"
+__author__ = "Marcos Duarte, https://github.com/demotu/BMC"
+__version__ = "1.0.6"
 __license__ = "MIT"
+
+warnings.warn('A newest version is available at https://pypi.org/project/detecta/')
 
 
 def detect_peaks(x, mph=None, mpd=1, threshold=0, edge='rising',
@@ -57,10 +61,11 @@ def detect_peaks(x, mph=None, mpd=1, threshold=0, edge='rising',
 
     References
     ----------
-    .. [1] https://github.com/demotu/detecta/blob/master/docs/detect_peaks.ipynb
+    .. [1] http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/DetectPeaks.ipynb
 
     Examples
     --------
+    >>> from detect_peaks import detect_peaks
     >>> x = np.random.randn(100)
     >>> x[60:81] = np.nan
     >>> # detect all peaks and plot data
@@ -94,13 +99,12 @@ def detect_peaks(x, mph=None, mpd=1, threshold=0, edge='rising',
 
     Version history
     ---------------
-    '1.0.7':
-        Part of the detecta module - https://pypi.org/project/detecta/  
     '1.0.6':
         Fix issue of when specifying ax object only the first plot was shown
         Add parameter to choose if a title is shown and input a title
     '1.0.5':
         The sign of `mph` is inverted if parameter `valley` is True
+
     """
 
     x = np.atleast_1d(x).astype('float64')
