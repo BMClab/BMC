@@ -7,7 +7,7 @@ import warnings
 import numpy as np
 
 
-__author__ = 'Marcos Duarte, https://github.com/demotu/BMC'
+__author__ = 'Marcos Duarte, https://github.com/demotu'
 __version__ = 'findpeaks.py v.1 2014/06/23'
 
 warnings.warn('A newest version is available at https://pypi.org/project/detecta/')

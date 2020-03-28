@@ -6,7 +6,7 @@ from __future__ import division, print_function
 import warnings
 import numpy as np
 
-__author__ = 'Marcos Duarte, https://github.com/demotu/BMC'
+__author__ = 'Marcos Duarte, https://github.com/demotu'
 __version__ = 'onset_detection.py v.2 2014/06/09'
 
 warnings.warn('A newest version is available at https://pypi.org/project/detecta/')

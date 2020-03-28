@@ -5,7 +5,7 @@
 import warnings
 import numpy as np
 
-__author__ = 'Marcos Duarte, https://github.com/demotu/BMC'
+__author__ = 'Marcos Duarte, https://github.com/demotu'
 __version__ = 'detect_seq.py v.1.0.0 2019/03/17'
 
 warnings.warn('A newest version is available at https://pypi.org/project/detecta/')
