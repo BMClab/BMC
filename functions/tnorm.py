@@ -1,10 +1,13 @@
 """Time normalization (from 0 to 100% with step interval)."""
 
+import warnings
 import numpy as np
 
 __author__ = 'Marcos Duarte, https://github.com/demotu/BMC'
-__version__ = "1.0.7"
+__version__ = "1.0.6"
 __license__ = "MIT"
+
+warnings.warn('A newest version is available at https://pypi.org/project/tnorma/')
 
 
 def tnorm(y, axis=0, step=1, k=3, smooth=0, mask=None, nan_at_ext='delete',
@@ -145,8 +148,6 @@ def tnorm(y, axis=0, step=1, k=3, smooth=0, mask=None, nan_at_ext='delete',
 
     Version history
     ---------------
-    '1.0.7':
-        Cast parameter to int in linspace
     '1.0.6':
         Deleted 'from __future__ import ...'
         Added parameter `nan_at_ext`
