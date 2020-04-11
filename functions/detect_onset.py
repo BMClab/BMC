@@ -3,7 +3,7 @@
 import warnings
 import numpy as np
 
-__author__ = 'Marcos Duarte, https://github.com/demotu/BMC'
+__author__ = 'Marcos Duarte, https://github.com/demotu'
 __version__ = "1.0.7"
 __license__ = "MIT"
 

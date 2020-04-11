@@ -3,10 +3,13 @@
 """Estimate power spectral density characteristcs using Welch's method."""
 
 from __future__ import division, print_function
+import warnings
 import numpy as np
 
-__author__ = 'Marcos Duarte, https://github.com/demotu/BMC'
+__author__ = 'Marcos Duarte, https://github.com/demotu'
 __version__ = 'tnorm.py v.1 2013/09/16'
+
+warnings.warn('A newest version is available at https://pypi.org/project/psd2/')
 
 
 def psd(x, fs=1.0, window='hanning', nperseg=None, noverlap=None, nfft=None,
@@ -103,10 +106,9 @@ def psd(x, fs=1.0, window='hanning', nperseg=None, noverlap=None, nfft=None,
 
     Examples (also from scipy.signal.welch)
     --------
-    >>> import numpy as np
-    >>> from psd import psd
     #Generate a test signal, a 2 Vrms sine wave at 1234 Hz, corrupted by
     # 0.001 V**2/Hz of white noise sampled at 10 kHz and calculate the PSD:
+    >>> from psd import psd
     >>> fs = 10e3
     >>> N = 1e5
     >>> amp = 2*np.sqrt(2)
@@ -153,25 +155,24 @@ def _plot(x, fs, f, P, mpf, fmax, fpcntile, scales, xlim, units, ax):
             ax.set_yscale('log')
         if scales.lower() == 'semilogx' or scales.lower() == 'loglog':
             ax.set_xscale('log')
-        plt.plot(f, P, linewidth=2)
+        ax.plot(f, P, linewidth=2)
         ylim = ax.get_ylim()
-        plt.plot([fmax, fmax], [np.max(P), np.max(P)], 'ro',
+        ax.plot([fmax, fmax], [np.max(P), np.max(P)], 'ro',
                  label='Fpeak  = %.2f' % fmax)
-        plt.plot([fpcntile[50], fpcntile[50]], ylim, 'r', lw=1.5,
+        ax.plot([fpcntile[50], fpcntile[50]], ylim, 'r', lw=1.5,
                  label='F50%%   = %.2f' % fpcntile[50])
-        plt.plot([mpf, mpf], ylim, 'r--', lw=1.5,
+        ax.plot([mpf, mpf], ylim, 'r--', lw=1.5,
                  label='Fmean = %.2f' % mpf)
-        plt.plot([fpcntile[95], fpcntile[95]], ylim, 'r-.', lw=2,
+        ax.plot([fpcntile[95], fpcntile[95]], ylim, 'r-.', lw=2,
                  label='F95%%   = %.2f' % fpcntile[95])
         leg = ax.legend(loc='best', numpoints=1, framealpha=.5,
                         title='Frequencies [Hz]')
         plt.setp(leg.get_title(), fontsize=12)
-        plt.xlabel('Frequency [$Hz$]', fontsize=12)
-        plt.ylabel('Magnitude [%s$^2/Hz$]' % units, fontsize=12)
-        plt.title('Power spectral density', fontsize=12)
+        ax.set_xlabel('Frequency [$Hz$]', fontsize=12)
+        ax.set_ylabel('Magnitude [%s$^2/Hz$]' % units, fontsize=12)
+        ax.set_title('Power spectral density', fontsize=12)
         if xlim:
             ax.set_xlim(xlim)
         ax.set_ylim(ylim)
         plt.tight_layout()
-        plt.grid()
         plt.show()

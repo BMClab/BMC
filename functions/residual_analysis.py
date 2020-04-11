@@ -3,11 +3,14 @@
 """Automatic search of filter cutoff frequency based on residual analysis."""
 
 import numpy as np
+import warnings
 from scipy.signal import butter, filtfilt
 
-__author__ = 'Marcos Duarte, https://github.com/demotu/BMC'
+__author__ = 'Marcos Duarte, https://github.com/demotu'
 __version__ = "1.0.5"
 __license__ = "MIT"
+
+warnings.warn('A newest version is available at https://pypi.org/project/optcutfreq/')
 
 
 def residual_analysis(y, freq=1, fclim=[], show=False, ax=None):
