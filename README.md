@@ -66,7 +66,7 @@ These notes (notebooks) are written using [Jupyter Notebook](http://jupyter.org/
 * **Kinetics**  
   * [Fundamental concepts](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/KineticsFundamentalConcepts.ipynb)
   * [Newton Laws for particles](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/newtonLawForParticles.ipynb)  
-  * [Center of mass and moment of inertia](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/notebooks/CenterOfMassAndMomentOfInertia.ipynb)  
+  * [Center of mass and moment of inertia](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/CenterOfMassAndMomentOfInertia.ipynb)  
   * [Newton-Euler Laws](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/notebooks/newton_euler_equations.ipynb)
   * [Free body diagram](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/FreeBodyDiagram.ipynb)
     * [Free body diagram for particles](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/FBDParticles.ipynb)
