@@ -49,7 +49,7 @@ These notes (notebooks) are written using [Jupyter Notebook](http://jupyter.org/
 
 ## Mechanics
 
-### Kinematics*
+### Kinematics
 
 * [Frame of reference](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/ReferenceFrame.ipynb)  
 * [Time-varying frame of reference](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/Time-varying%20frames.ipynb)
@@ -67,7 +67,8 @@ These notes (notebooks) are written using [Jupyter Notebook](http://jupyter.org/
 
 ### Kinetics
 
-* [Fundamental concepts](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/KineticsFundamentalConcepts.ipynb)
+* [Fundamental concepts](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/KineticsFundamentalConcepts.ipynb)  
+* [Center of Mass and Moment of Inertia](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/CenterOfMassAndMomentOfInertia.ipynb) 
 * [Newton Laws for particles](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/newtonLawForParticles.ipynb)
 * [Newton-Euler Laws](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/notebooks/newton_euler_equations.ipynb)
 * [Free body diagram](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/FreeBodyDiagram.ipynb)
