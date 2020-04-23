@@ -1,4 +1,4 @@
-# Notes on Scientific Computing for Biomechanics and Motor Control  
+# BMC - Notes on Scientific Computing for Biomechanics and Motor Control
 
 Marcos Duarte and Renato Watanabe
 
@@ -39,41 +39,43 @@ These notes (notebooks) are written using [Jupyter Notebook](http://jupyter.org/
 * [Ordinary Differential Equation](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/OrdinaryDifferentialEquation.ipynb)  
 * [Optimization](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/Optimization.ipynb)  
 * Change detection  
-  * [Detection of peaks](https://nbviewer.jupyter.org/github/demotu/detecta/blob/master/docs/detect_peaks.ipynb)  
-  * [Detection of onset](https://nbviewer.jupyter.org/github/demotu/detecta/blob/master/docs/detect_onset.ipynb)  
-  * [Detection of changes using the Cumulative Sum (CUSUM)](https://nbviewer.jupyter.org/github/demotu/detecta/blob/master/docs/detect_cusum.ipynb)  
-  * [Detection of sequential data](https://nbviewer.jupyter.org/github/demotu/detecta/blob/master/docs/detect_seq.ipynb)  
+  * [Detection of peaks](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/DetectPeaks.ipynb)  
+  * [Detection of onset](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/DetectOnset.ipynb)  
+  * [Detection of changes using the Cumulative Sum (CUSUM)](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/DetectCUSUM.ipynb)  
+  * [Detection of sequential data](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/detect_seq.ipynb)  
 * [Time normalization of data](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/TimeNormalization.ipynb)  
 * [Ensemble average](http://nbviewer.jupyter.org/github/bmclab/BMC/blob/master/notebooks/EnsembleAverage.ipynb)  
 * [Open files in C3D format](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/OpenC3Dfile.ipynb)  
 
 ## Mechanics
 
-* **Kinematics**  
-  * [Frame of reference](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/ReferenceFrame.ipynb)  
-  * [Time-varying frame of reference](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/Time-varying%20frames.ipynb)
-  * [Polar and cylindrical frame of reference](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/PolarBasis.ipynb)
-  * [Kinematics of particle](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/KinematicsParticle.ipynb)  
-    * [Projectile motion](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/ProjectileMotion.ipynb)  
-    * [Spatial and temporal characteristics](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/SpatialTemporalCharacteristcs.ipynb)  
-    * [Minimum jerk hypothesis](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/MinimumJerkHypothesis.ipynb)  
-  * [Kinematics of Rigid Body](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/KinematicsOfRigidBody.ipynb)  
-    * [Angular kinematics (2D)](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/KinematicsAngular2D.ipynb)  
-    * [Kinematic chain](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/KinematicChain.ipynb)  
-    * [Rigid-body transformations (2D)](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/Transformation2D.ipynb)  
-    * [Rigid-body transformations (3D)](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/Transformation3D.ipynb)  
-    * [Determining rigid body transformation using the SVD algorithm](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/SVDalgorithm.ipynb)  
-* **Kinetics**  
-  * [Fundamental concepts](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/KineticsFundamentalConcepts.ipynb)
-  * [Newton Laws for particles](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/newtonLawForParticles.ipynb)  
-  * [Center of mass and moment of inertia](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/CenterOfMassAndMomentOfInertia.ipynb)  
-  * [Newton-Euler Laws](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/notebooks/newton_euler_equations.ipynb)
-  * [Free body diagram](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/FreeBodyDiagram.ipynb)
-    * [Free body diagram for particles](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/FBDParticles.ipynb)
-    * [Free body diagram for rigid bodies](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/FreeBodyDiagramForRigidBodies.ipynb)
-  * [3D Rigid body kinetics](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/Kinetics3dRigidBody.ipynb)
-  * [Matrix formalism of the Newton-Euler equations](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/MatrixFormalism.ipynb)  
-  * [Lagrangian Mechanics](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/lagrangian_mechanics.ipynb)  
+### Kinematics*
+
+* [Frame of reference](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/ReferenceFrame.ipynb)  
+* [Time-varying frame of reference](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/Time-varying%20frames.ipynb)
+* [Polar and cylindrical frame of reference](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/PolarBasis.ipynb)
+* [Kinematics of particle](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/KinematicsParticle.ipynb)  
+  * [Projectile motion](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/ProjectileMotion.ipynb)  
+  * [Spatial and temporal characteristics](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/SpatialTemporalCharacteristcs.ipynb)  
+  * [Minimum jerk hypothesis](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/MinimumJerkHypothesis.ipynb)  
+* [Kinematics of Rigid Body](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/KinematicsOfRigidBody.ipynb)  
+  * [Angular kinematics (2D)](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/KinematicsAngular2D.ipynb)  
+  * [Kinematic chain](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/KinematicChain.ipynb)  
+  * [Rigid-body transformations (2D)](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/Transformation2D.ipynb)  
+  * [Rigid-body transformations (3D)](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/Transformation3D.ipynb)  
+  * [Determining rigid body transformation using the SVD algorithm](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/SVDalgorithm.ipynb)  
+
+### Kinetics
+
+* [Fundamental concepts](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/KineticsFundamentalConcepts.ipynb)
+* [Newton Laws for particles](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/newtonLawForParticles.ipynb)
+* [Newton-Euler Laws](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/notebooks/newton_euler_equations.ipynb)
+* [Free body diagram](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/FreeBodyDiagram.ipynb)
+  * [Free body diagram for particles](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/FBDParticles.ipynb)
+  * [Free body diagram for rigid bodies](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/FreeBodyDiagramForRigidBodies.ipynb)
+* [3D Rigid body kinetics](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/Kinetics3dRigidBody.ipynb)
+* [Matrix formalism of the Newton-Euler equations](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/MatrixFormalism.ipynb)  
+* [Lagrangian Mechanics](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/lagrangian_mechanics.ipynb)  
 
 ## Modeling and simulation of human movement
 
@@ -88,9 +90,9 @@ These notes (notebooks) are written using [Jupyter Notebook](http://jupyter.org/
 * [The inverted pendulum model of the human standing posture](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/IP_Model.ipynb)
 * [Measurements in stabilography](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/Stabilography.ipynb)  
 * [Rambling and Trembling decomposition of the COP](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/IEP.ipynb)  
-* [Biomechanical analysis of vertical jumps](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/VerticalJump.ipynb)
+* [Biomechanical analysis of vertical jumps](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/VerticalJump.ipynb)  
 * [Gait analysis (2D)](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/GaitAnalysis2D.ipynb)  
-* Force plates
+* Force plates  
   * [Kistler force plate calculation](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/KistlerForcePlateCalculation.ipynb)  
   * [Zebris pressure platform](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/ReadZebrisPressurePlatformASCIIfiles.ipynb)  
 
