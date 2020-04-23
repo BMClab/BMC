@@ -49,30 +49,34 @@ These notes (notebooks) are written using [Jupyter Notebook](http://jupyter.org/
 
 ## Mechanics
 
-* **Kinematics**  
-  * [Frame of reference](./notebooks/ReferenceFrame.ipynb)  
-  * [Time-varying frame of reference](./notebooks/Time-varying%20frames.ipynb)
-  * [Polar and cylindrical frame of reference](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/PolarBasis.ipynb)
-  * [Kinematics of particle](./notebooks/KinematicsParticle.ipynb)  
-    * [Projectile motion](./notebooks/ProjectileMotion.ipynb)  
-    * [Spatial and temporal characteristics](./notebooks/SpatialTemporalCharacteristcs.ipynb)  
-    * [Minimum jerk hypothesis](./notebooks/MinimumJerkHypothesis.ipynb)  
-  * [Kinematics of Rigid Body](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/KinematicsOfRigidBody.ipynb)  
-    - [Angular kinematics (2D)](./notebooks/KinematicsAngular2D.ipynb)  
-    - [Kinematic chain](./notebooks/KinematicChain.ipynb)  
-    - [Rigid-body transformations (2D)](./notebooks/Transformation2D.ipynb)  
-    - [Rigid-body transformations (3D)](./notebooks/Transformation3D.ipynb)  
-    - [Determining rigid body transformation using the SVD algorithm](./notebooks/SVDalgorithm.ipynb)  
-* **Kinetics**  
-  * [Fundamental concepts](./notebooks/KineticsFundamentalConcepts.ipynb)
-  * [Newton Laws for particles](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/newtonLawForParticles.ipynb)
-  * [Newton-Euler Laws](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/notebooks/newton_euler_equations.ipynb)
-  * [Free body diagram](./notebooks/FreeBodyDiagram.ipynb)
-    - [Free body diagram for particles](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/FBDParticles.ipynb)
-    - [Free body diagram for rigid bodies](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/FreeBodyDiagramForRigidBodies.ipynb)
-  * [3D Rigid body kinetics](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/Kinetics3dRigidBody.ipynb)
-  * [Matrix formalism of the Newton-Euler equations](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/MatrixFormalism.ipynb)  
-  * [Lagrangian Mechanics](./notebooks/lagrangian_mechanics.ipynb)  
+### Kinematics
+
+* [Frame of reference](./notebooks/ReferenceFrame.ipynb)  
+* [Time-varying frame of reference](./notebooks/Time-varying%20frames.ipynb)
+* [Polar and cylindrical frame of reference](./notebooks/PolarBasis.ipynb)
+* [Kinematics of particle](./notebooks/KinematicsParticle.ipynb)  
+  * [Projectile motion](./notebooks/ProjectileMotion.ipynb)  
+  * [Spatial and temporal characteristics](./notebooks/SpatialTemporalCharacteristcs.ipynb)  
+  * [Minimum jerk hypothesis](./notebooks/MinimumJerkHypothesis.ipynb)  
+* [Kinematics of Rigid Body](./notebooks/KinematicsOfRigidBody.ipynb)  
+  * [Angular kinematics (2D)](./notebooks/KinematicsAngular2D.ipynb)  
+  * [Kinematic chain](./notebooks/KinematicChain.ipynb)  
+  * [Rigid-body transformations (2D)](./notebooks/Transformation2D.ipynb)  
+  * [Rigid-body transformations (3D)](./notebooks/Transformation3D.ipynb)  
+  * [Determining rigid body transformation using the SVD algorithm](./notebooks/SVDalgorithm.ipynb)  
+
+### Kinetics
+
+* [Fundamental concepts](./notebooks/KineticsFundamentalConcepts.ipynb)  
+* [Center of Mass and Moment of Inertia](./notebooks/CenterOfMassAndMomentOfInertia.ipynb)  
+* [Newton Laws for particles](./notebooks/newtonLawForParticles.ipynb)
+* [Newton-Euler Laws](./notebooks/newton_euler_equations.ipynb)
+* [Free body diagram](./notebooks/FreeBodyDiagram.ipynb)
+  * [Free body diagram for particles](./notebooks/FBDParticles.ipynb)
+  * [Free body diagram for rigid bodies](./notebooks/FreeBodyDiagramForRigidBodies.ipynb)
+* [3D Rigid body kinetics](./notebooks/Kinetics3dRigidBody.ipynb)
+* [Matrix formalism of the Newton-Euler equations](./notebooks/MatrixFormalism.ipynb)  
+* [Lagrangian Mechanics](./notebooks/lagrangian_mechanics.ipynb)  
 
 ## Modeling and simulation of human movement
 
@@ -84,14 +88,14 @@ These notes (notebooks) are written using [Jupyter Notebook](http://jupyter.org/
 
 ## Biomechanical tasks Analysis
 
-  * [The inverted pendulum model of the human standing posture](./notebooks/IP_Model.ipynb)
-  * [Measurements in stabilography](./notebooks/Stabilography.ipynb)  
-  * [Rambling and Trembling decomposition of the COP](./notebooks/IEP.ipynb)  
-  * [Biomechanical analysis of vertical jumps](./notebooks/VerticalJump.ipynb)  
-  * [Gait analysis (2D)](./notebooks/GaitAnalysis2D.ipynb)  
-  * Force plates  
-    - [Kistler force plate calculation](./notebooks/KistlerForcePlateCalculation.ipynb)  
-    - [Zebris pressure platform](./notebooks/ReadZebrisPressurePlatformASCIIfiles.ipynb)  
+* [The inverted pendulum model of the human standing posture](./notebooks/IP_Model.ipynb)
+* [Measurements in stabilography](./notebooks/Stabilography.ipynb)  
+* [Rambling and Trembling decomposition of the COP](./notebooks/IEP.ipynb)  
+* [Biomechanical analysis of vertical jumps](./notebooks/VerticalJump.ipynb)  
+* [Gait analysis (2D)](./notebooks/GaitAnalysis2D.ipynb)  
+* Force plates  
+  * [Kistler force plate calculation](./notebooks/KistlerForcePlateCalculation.ipynb)  
+  * [Zebris pressure platform](./notebooks/ReadZebrisPressurePlatformASCIIfiles.ipynb)  
 
 ## Electromyography
 
