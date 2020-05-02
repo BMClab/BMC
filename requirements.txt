@@ -3,6 +3,7 @@ scipy
 matplotlib
 seaborn
 pandas
+statsmodels
 sympy
 ipywidgets
 detecta
