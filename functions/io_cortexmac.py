@@ -23,7 +23,7 @@
 """
 
 __author__ = "Marcos Duarte, https://github.com/demotu/BMC"
-__version__ = "1.0.2"
+__version__ = "1.0.3"
 __license__ = "MIT"
 
 import os
@@ -33,7 +33,7 @@ import pandas as pd
 from scipy import signal
 from critic_damp import critic_damp
 from linear_envelope import linear_envelope
-from detect_onset import detect_onset
+from detecta import detect_onset
 from fractions import Fraction
 
 
@@ -106,6 +106,10 @@ def read_trc(fname, fname2='', units='', dropna=False, na=0.0, df_multi=True,
         nmarkers = int((len(header[3])-2)/3)
         # column labels
         markers = np.asarray(header[3])[np.arange(2, 2+3*nmarkers, 3)].tolist()
+        # rename duplicated markers
+        x = markers
+        markers = [v + str(x[:i].count(v) + 1) if (x.count(v) > 1
+                       and x[:i].count(v) > 0) else v for i, v in enumerate(x)]
         markers3 = [m for m in markers for i in range(3)]
         markersxyz = [a+b for a, b in zip(markers3, ['x', 'y', 'z']*nmarkers)]
         # read data
@@ -979,7 +983,7 @@ def filter_forces(df, h, forcepla=[2], fc_forces=20, fc_cop=6, threshold=50,
                 q = np.hstack((z[0]*np.ones(npad), COP[ini:end+1], z[1]*np.ones(npad)))
                 # filter data
                 q2 = signal.filtfilt(b_cd, a_cd, q)
-                
+
                 COP[ini-npad2:end+1+npad2] = q2[npad-npad2:-npad+npad2]
 
         df2[cop] = COP
