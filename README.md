@@ -35,7 +35,8 @@ These notes (notebooks) are written using [Jupyter Notebook](http://jupyter.org/
   * [Basic properties of signals](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/SignalBasicProperties.ipynb)  
   * [Fourier series](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/FourierSeries.ipynb)
   * [Fourier transform](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/FourierTransform.ipynb)
-* [Data filtering in signal processing](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/DataFiltering.ipynb)  
+* Signal processing  
+  * [Data filtering](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/DataFiltering.ipynb)  
   * [Residual analysis for the optimal cutoff frequency](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/ResidualAnalysis.ipynb)  
 * [Ordinary Differential Equation](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/OrdinaryDifferentialEquation.ipynb)  
 * [Optimization](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/Optimization.ipynb)  
