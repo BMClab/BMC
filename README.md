@@ -60,9 +60,10 @@ These notes (notebooks) are written using [Jupyter Notebook](http://jupyter.org/
   * [Projectile motion](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/ProjectileMotion.ipynb)  
   * [Spatial and temporal characteristics](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/SpatialTemporalCharacteristcs.ipynb)  
   * [Minimum jerk hypothesis](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/MinimumJerkHypothesis.ipynb)  
-* [Kinematics of Rigid Body](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/KinematicsOfRigidBody.ipynb)  
+* Kinematics of Rigid Body  
   * [Angular kinematics (2D)](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/KinematicsAngular2D.ipynb)  
   * [Kinematic chain](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/KinematicChain.ipynb)  
+  * [Velocity and Acceleration of a point of a rigid body](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/KinematicsOfRigidBody.ipynb)  
   * [Rigid-body transformations (2D)](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/Transformation2D.ipynb)  
   * [Rigid-body transformations (3D)](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/Transformation3D.ipynb)  
   * [Determining rigid body transformation using the SVD algorithm](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/SVDalgorithm.ipynb)  
