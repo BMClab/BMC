@@ -49,7 +49,9 @@ These notes (notebooks) are written using [Jupyter Notebook](http://jupyter.org/
   * [Detection of sequential data](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/detect_seq.ipynb)  
 * [Time normalization of data](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/TimeNormalization.ipynb)  
 * [Ensemble average](https://nbviewer.jupyter.org/github/bmclab/BMC/blob/master/notebooks/EnsembleAverage.ipynb)  
-* [Open files in C3D format](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/OpenC3Dfile.ipynb)  
+* C3D files  
+  * [C3D format](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/OpenC3Dfile.ipynb)  
+  * [Read C3D files using the EZC3D library](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/read_c3d_xr.ipynb)  
 
 ## Mechanics
 
