@@ -16,6 +16,7 @@ These notes (notebooks) are written using [Jupyter Notebook](http://jupyter.org/
 ## Scientific programming
 
 * [Python for scientific computing](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/PythonForScientificComputing.ipynb)  
+* [How to install Python](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/PythonInstallation.ipynb)
 * [Python tutorial](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/PythonTutorial.ipynb)
 * [Version control with Git and GitHub](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/VersionControlGitGitHub.ipynb)  
 * [Code structure for data analysis](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/CodeStructure.ipynb)  
