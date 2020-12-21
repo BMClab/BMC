@@ -72,6 +72,7 @@ These notes (notebooks) are written using [Jupyter Notebook](http://jupyter.org/
   * [Velocity and Acceleration of a point of a rigid body](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/KinematicsOfRigidBody.ipynb)  
   * [Rigid-body transformations (2D)](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/Transformation2D.ipynb)  
   * [Rigid-body transformations (3D)](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/Transformation3D.ipynb)  
+  * [Angular velocity in of a rigid body in three dimensions](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/AngularVelocity3D.ipynb)  
   * [Determining rigid body transformation using the SVD algorithm](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/SVDalgorithm.ipynb)  
 
 ### Kinetics
@@ -87,7 +88,7 @@ These notes (notebooks) are written using [Jupyter Notebook](http://jupyter.org/
 * [Matrix formalism of the Newton-Euler equations](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/MatrixFormalism.ipynb)  
 * [Lagrangian Mechanics](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/lagrangian_mechanics.ipynb)  
 
-## Modeling and simulation of human movement
+## Modeling and simulation of human motion
 
 * [Body segment parameters](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/BodySegmentParameters.ipynb)
 * [Muscle modeling](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/MuscleModeling.ipynb)  
@@ -95,7 +96,7 @@ These notes (notebooks) are written using [Jupyter Notebook](http://jupyter.org/
 * [Musculoskeletal modeling and simulation](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/MusculoskeletaModelingSimulation.ipynb)  
 * [Multibody dynamics of simple biomechanical models](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/MultibodyDynamics.ipynb)  
 
-## Biomechanical tasks Analysis
+## Human motion data analysis
 
 * [The inverted pendulum model of the human standing posture](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/IP_Model.ipynb)
 * [Measurements in stabilography](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/Stabilography.ipynb)  
