@@ -16,7 +16,6 @@ These notes (notebooks) are written using [Jupyter Notebook](http://jupyter.org/
 ## Scientific programming
 
 * [Python for scientific computing](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/PythonForScientificComputing.ipynb)  
-* [How to install Python](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/PythonInstallation.ipynb)
 * [Python tutorial](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/PythonTutorial.ipynb)
 * [Version control with Git and GitHub](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/VersionControlGitGitHub.ipynb)  
 * [Code structure for data analysis](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/CodeStructure.ipynb)  
@@ -50,9 +49,7 @@ These notes (notebooks) are written using [Jupyter Notebook](http://jupyter.org/
   * [Detection of sequential data](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/detect_seq.ipynb)  
 * [Time normalization of data](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/TimeNormalization.ipynb)  
 * [Ensemble average](https://nbviewer.jupyter.org/github/bmclab/BMC/blob/master/notebooks/EnsembleAverage.ipynb)  
-* C3D files  
-  * [C3D format](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/OpenC3Dfile.ipynb)  
-  * [Read C3D files using the EZC3D library](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/read_c3d_xr.ipynb)  
+* [Open files in C3D format](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/OpenC3Dfile.ipynb)  
 
 ## Mechanics
 
@@ -72,7 +69,6 @@ These notes (notebooks) are written using [Jupyter Notebook](http://jupyter.org/
   * [Velocity and Acceleration of a point of a rigid body](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/KinematicsOfRigidBody.ipynb)  
   * [Rigid-body transformations (2D)](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/Transformation2D.ipynb)  
   * [Rigid-body transformations (3D)](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/Transformation3D.ipynb)  
-  * [Angular velocity in of a rigid body in three dimensions](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/AngularVelocity3D.ipynb)  
   * [Determining rigid body transformation using the SVD algorithm](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/SVDalgorithm.ipynb)  
 
 ### Kinetics
@@ -88,7 +84,7 @@ These notes (notebooks) are written using [Jupyter Notebook](http://jupyter.org/
 * [Matrix formalism of the Newton-Euler equations](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/MatrixFormalism.ipynb)  
 * [Lagrangian Mechanics](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/lagrangian_mechanics.ipynb)  
 
-## Modeling and simulation of human motion
+## Modeling and simulation of human movement
 
 * [Body segment parameters](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/BodySegmentParameters.ipynb)
 * [Muscle modeling](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/MuscleModeling.ipynb)  
@@ -96,7 +92,7 @@ These notes (notebooks) are written using [Jupyter Notebook](http://jupyter.org/
 * [Musculoskeletal modeling and simulation](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/MusculoskeletaModelingSimulation.ipynb)  
 * [Multibody dynamics of simple biomechanical models](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/MultibodyDynamics.ipynb)  
 
-## Human motion data analysis
+## Biomechanical tasks Analysis
 
 * [The inverted pendulum model of the human standing posture](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/IP_Model.ipynb)
 * [Measurements in stabilography](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/Stabilography.ipynb)  
