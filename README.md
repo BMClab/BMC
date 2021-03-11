@@ -1,12 +1,10 @@
 # BMC - Notes on Scientific Computing for Biomechanics and Motor Control
 
-Marcos Duarte and Renato Watanabe
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/BMClab/BMC/master?filepath=README.ipynb)
+[![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/BMClab/BMC/blob/master/README.ipynb)
 
 This repository is a collection of lecture notes and code on scientific computing and data analysis for Biomechanics and Motor Control.  
 These notes (notebooks) are written using [Jupyter Notebook](http://jupyter.org/), part of the [Python ecosystem for scientific computing]( http://scipy.org/).
-
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/BMClab/BMC/master?filepath=README.ipynb)
-[![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/BMClab/BMC/blob/master/README.ipynb)
 
 ## Introduction
 
