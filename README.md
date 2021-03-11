@@ -1,4 +1,4 @@
-# BMC - Notes on Scientific Computing for Biomechanics and Motor Control
+# Notes on Scientific Computing for Biomechanics and Motor Control
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/BMClab/BMC/master?filepath=README.ipynb)
 [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/BMClab/BMC/blob/master/README.ipynb)
