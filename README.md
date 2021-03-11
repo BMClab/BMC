@@ -110,16 +110,14 @@ These notes (notebooks) are written using [Jupyter Notebook](http://jupyter.org/
 
 Here is a suggestion to cite this GitHub repository:
 
-> Marcos Duarte, & Renato Naville Watanabe. (2021, March 11). Notes on Scientific Computing for Biomechanics and Motor Control (Version v0.0.2). Zenodo. http://doi.org/10.5281/zenodo.4599319
+> Marcos Duarte and Renato Naville Watanabe. (2021). Notes on Scientific Computing for Biomechanics and Motor Control (Version v0.0.2). Zenodo. http://doi.org/10.5281/zenodo.4599319
 
-And a possible BibTeX entry:
+And a BibTeX entry:
 
 ```tex
 @software{marcos_duarte_2021_4599319,
-  author       = {Marcos Duarte and
-                  Renato Naville Watanabe},
-  title        = {{Notes on Scientific Computing for Biomechanics and 
-                   Motor Control}},
+  author       = {Marcos Duarte and Renato Naville Watanabe},
+  title        = {{Notes on Scientific Computing for Biomechanics and Motor Control}},
   month        = mar,
   year         = 2021,
   publisher    = {Zenodo},
