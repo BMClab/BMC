@@ -110,7 +110,7 @@ These notes (notebooks) are written using [Jupyter Notebook](http://jupyter.org/
 
 Here is a suggestion to cite this GitHub repository:
 
-> Duarte, M., Watanabe, R.N. (2018) Notes on Scientific Computing for Biomechanics and Motor Control. GitHub repository, <https://github.com/BMClab/BMC>.
+> Marcos Duarte, & Renato Naville Watanabe. (2021, March 11). Notes on Scientific Computing for Biomechanics and Motor Control (Version v0.0.2). Zenodo. http://doi.org/10.5281/zenodo.4599319
 
 And a possible BibTeX entry:
 
