@@ -115,7 +115,7 @@ Here is a suggestion to cite this GitHub repository:
 And a BibTeX entry:
 
 ```tex
-@software{marcos_duarte_2021_4599319,
+@misc{marcos_duarte_2021_4599319,
   author       = {Marcos Duarte and Renato Naville Watanabe},
   title        = {{Notes on Scientific Computing for Biomechanics and Motor Control}},
   month        = mar,
