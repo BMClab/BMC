@@ -1,12 +1,11 @@
-# BMC - Notes on Scientific Computing for Biomechanics and Motor Control
+# Notes on Scientific Computing for Biomechanics and Motor Control
 
-Marcos Duarte and Renato Watanabe
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/BMClab/BMC/master?filepath=README.ipynb)
+[![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/BMClab/BMC/blob/master/README.ipynb)  
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4599319.svg)](https://doi.org/10.5281/zenodo.4599319)
 
 This repository is a collection of lecture notes and code on scientific computing and data analysis for Biomechanics and Motor Control.  
 These notes (notebooks) are written using [Jupyter Notebook](http://jupyter.org/), part of the [Python ecosystem for scientific computing]( http://scipy.org/).
-
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/BMClab/BMC/master?filepath=README.ipynb)
-[![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/BMClab/BMC/blob/master/README.ipynb)
 
 ## Introduction
 
@@ -111,18 +110,20 @@ These notes (notebooks) are written using [Jupyter Notebook](http://jupyter.org/
 
 Here is a suggestion to cite this GitHub repository:
 
-> Duarte, M., Watanabe, R.N. (2018) Notes on Scientific Computing for Biomechanics and Motor Control. GitHub repository, <https://github.com/BMClab/BMC>.
+> Marcos Duarte and Renato Naville Watanabe. (2021). Notes on Scientific Computing for Biomechanics and Motor Control (Version v0.0.2). Zenodo. http://doi.org/10.5281/zenodo.4599319
 
-And a possible BibTeX entry:
+And a BibTeX entry:
 
 ```tex
-@misc{Duarte2018,  
-    author = {Duarte, M. and Watanabe, R.N.},
-    title = {Notes on Scientific Computing for Biomechanics and Motor Control},  
-    year = {2018},  
-    publisher = {GitHub},  
-    journal = {GitHub repository},  
-    howpublished = {\url{https://github.com/BMClab/BMC}}  
+@misc{marcos_duarte_2021_4599319,
+  author       = {Marcos Duarte and Renato Naville Watanabe},
+  title        = {{Notes on Scientific Computing for Biomechanics and Motor Control}},
+  month        = mar,
+  year         = 2021,
+  publisher    = {Zenodo},
+  version      = {v0.0.2},
+  doi          = {10.5281/zenodo.4599319},
+  url          = {https://doi.org/10.5281/zenodo.4599319}
 }
 ```
 
