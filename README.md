@@ -25,6 +25,7 @@ These notes (notebooks) are written using [Jupyter Notebook](http://jupyter.org/
 * [Basic trigonometry](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/TrigonometryBasics.ipynb)  
 * [Matrix](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/Matrix.ipynb)  
 * [Descriptive statistics](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/Statistics-Descriptive.ipynb)  
+* [Bayesian Statistics](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/statistics_bayesian.ipynb)
 * Confidence and prediction intervals  
   * [One-dimensional intervals](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/ConfidencePredictionIntervals.ipynb)  
   * [Prediction ellipse (2D) and prediction ellipsoid (3D)](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/PredictionEllipseEllipsoid.ipynb)  
