@@ -168,7 +168,7 @@ def loadbsf(filename, plot=1, axs=None):
         print('Error reading data in %s.' %filename)
         f.close()
         return
-    data = np.array(data).reshape((mh.numDatasets, mh.TNC))
+    data = np.array(data).reshape((int(mh.numDatasets), int(mh.TNC)))
     # In NetForce file, data is always in Imperial units, scale factor for force platform:
     scale = np.array([1, 1, 1, 0.0254, 0.0254, 0.0254]) / lbforce_per_N
     for i in range(mh.num_of_plats):
