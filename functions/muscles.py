@@ -6,8 +6,8 @@ import warnings
 import configparser
 
 
-__author__ = 'Marcos Duarte, https://github.com/demotu/BMC'
-__version__ = 'muscles.py v.1 2015/03/01'
+__author__ = 'Marcos Duarte, https://github.com/BMClab/BMC'
+__version__ = 'muscles.py v.1.01 2021/07/15'
 
 
 class Thelen2003():
@@ -316,7 +316,7 @@ class Thelen2003():
         data = []
         while f.t < t1:
             f.integrate(t1, step=True)
-            d = self.calc_data(f.t, np.max([f.y, 0.1*lmopt]), lm0, lmt0,
+            d = self.calc_data(f.t, np.max([f.y[0], 0.1*lmopt]), lm0, lmt0,
                                            ltslack, lmopt, alpha0, fm0)
             data.append(d)
 
@@ -357,7 +357,7 @@ class Thelen2003():
             return
         
         if axs is None:
-            _, axs = plt.subplots(nrows=1, ncols=3, figsize=(9, 4))
+            fig, axs = plt.subplots(nrows=1, ncols=3, figsize=(9, 4))
         
         lmopt   = self.P['lmopt']
         ltslack = self.P['ltslack']
@@ -418,7 +418,7 @@ class Thelen2003():
         ylim = self.margins([0, fm0*1.2, np.max(fvm)*1.5], margin=.025)
         axs[1].set_ylim(ylim)
         axs[1].plot(vm, fvm, label='')
-        axs[1].set_xlabel('$\mathbf{^{CON}}\;$ Velocity [m/s] $\;\mathbf{^{EXC}}$')
+        axs[1].set_xlabel(r'$\mathbf{^{CON}}\;$ Velocity [m/s] $\;\mathbf{^{EXC}}$')
         axs[1].plot([0, 0], [ylim[0], fvm[50]], 'k:', lw=2, label='')
         axs[1].plot([xlim[0], 0], [fvm[50], fvm[50]], 'k:', lw=2, label='')
         axs[1].plot(0, fvm[50], 'o', ms=6, mfc='r', mec='r', mew=2, label='FM0(LM0)')
@@ -445,7 +445,7 @@ class Thelen2003():
         axs[2].xaxis.set_major_locator(plt.MaxNLocator(4))
         axs[2].yaxis.set_major_locator(plt.MaxNLocator(4))
         axs[2].set_title('Tendon')  
-        plt.suptitle('Muscle-tendon mechanics', fontsize=18, y=1.03)
+        plt.suptitle('Muscle-tendon mechanics')
         plt.tight_layout(w_pad=.1)
         plt.show()
         
@@ -464,7 +464,7 @@ class Thelen2003():
             return
         
         if axs is None:
-            _, axs = plt.subplots(nrows=3, ncols=2, sharex=True, figsize=(10, 6))
+            fig, axs = plt.subplots(nrows=3, ncols=2, sharex=True, figsize=(9, 6))
 
         axs[0, 0].plot(x[:, 0], x[:, 1], 'b', label='LMT')
         lmt = x[:, 2]*np.cos(x[:, 9]) + x[:, 3]
@@ -503,15 +503,15 @@ class Thelen2003():
         axs[2, 1].set_xlabel('Time (s)')
         axs[2, 1].legend(framealpha=.5, loc='best')
         
-        ylabel = ['$L_{MT}\,(m)$', '$L_{T}\,(m)$', '$L_{M}\,(m)$',
-                  '$V_{CE}\,(m/s)$', '$Force\,(N)$', '$Force\,(N)$']
+        ylabel = [r'$L_{MT}\,(m)$', r'$L_{T}\,(m)$', r'$L_{M}\,(m)$',
+                  r'$V_{CE}\,(m/s)$', r'$Force\,(N)$', r'$Force\,(N)$']
         for i, axi in enumerate(axs.flat):
-            axi.set_ylabel(ylabel[i], fontsize=14)
+            axi.set_ylabel(ylabel[i])
             axi.yaxis.set_major_locator(plt.MaxNLocator(4))
-            axi.yaxis.set_label_coords(-.2, 0.5)
+            fig.align_ylabels(axs)
+            #axi.yaxis.set_label_coords(-.2, 0.5)
 
-        plt.suptitle('Simulation of muscle-tendon mechanics', fontsize=18,
-                     y=1.03)
+        plt.suptitle('Simulation of muscle-tendon mechanics')
         plt.tight_layout()
         plt.show()
         
@@ -668,7 +668,7 @@ class Thelen2003():
         data = []
         while f.t < t1:
             f.integrate(t1, step=True)
-            data.append([f.t, self.excitation(f.t), np.max([f.y, u_min])])
+            data.append([f.t, self.excitation(f.t), np.max([f.y[0], u_min])])
         warnings.resetwarnings()
         data = np.array(data)
         if show:
@@ -731,3 +731,4 @@ class Thelen2003():
         lim = [np.nanmin(x) - rang*margin, np.nanmax(x) + rang*margin]
 
         return lim
+
