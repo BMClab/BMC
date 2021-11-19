@@ -70,7 +70,7 @@ These notes (notebooks) are written using [Jupyter Notebook](http://jupyter.org/
   * [Rigid-body transformations (2D)](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/Transformation2D.ipynb)  
   * [Rigid-body transformations (3D)](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/Transformation3D.ipynb)  
   * [Determining rigid body transformation using the SVD algorithm](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/SVDalgorithm.ipynb)  
-  * [Angular velocity in three-dimensions movements](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/AngularVelocity3D.ipynb)
+  * [Angular velocity in three-dimension movements](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/AngularVelocity3D.ipynb)
 
 ### Kinetics
 
