@@ -32,7 +32,7 @@ These notes (notebooks) are written using [Jupyter Notebook](http://jupyter.org/
 * Curve fitting  
   * [Fundamentals of curve fitting](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/CurveFitting.ipynb)  
   * [Polynomial fitting](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/PolynomialFitting.ipynb)  
-* [Propagation of uncertainty](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/Propagation%20of%20uncertainty.ipynb)  
+* [Propagation of uncertainty](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/PropagationUncertainty.ipynb)  
 * Frequency analysis  
   * [Basic properties of signals](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/SignalBasicProperties.ipynb)  
   * [Fourier series](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/FourierSeries.ipynb)
