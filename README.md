@@ -4,7 +4,8 @@ This repository is a collection of lecture notes and code on scientific computin
 These notes (notebooks) are written using [Jupyter Notebook](http://jupyter.org/), part of the [Python ecosystem for scientific computing]( http://scipy.org/).
 
 [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/BMClab/BMC/blob/master/README.ipynb)  
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/BMClab/BMC/master?filepath=README.ipynb)  
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/BMClab/BMC/master?filepath=README.ipynb) Classic Notebook  
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/BMClab/BMC/master?labpath=README.ipynb) JupyterLab  
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4599319.svg)](https://doi.org/10.5281/zenodo.4599319)  
 
 ## Introduction
