@@ -1,0 +1,14 @@
+name: bmclab-bmc
+channels:
+  - conda-forge
+dependencies:
+  - python
+  - numpy
+  - scipy
+  - matplotlib
+  - pandas
+  - seaborn
+  - sympy
+  - ipywidgets
+  - jupyter_contrib_nbextensions
+  - rise
