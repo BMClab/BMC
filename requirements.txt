@@ -13,3 +13,4 @@ pyversions
 tnorma
 jupyter_contrib_nbextensions
 rise
+watermark
