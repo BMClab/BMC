@@ -57,7 +57,7 @@ These notes (notebooks) are written using [Jupyter Notebook](http://jupyter.org/
 ### Kinematics
 
 * [Frame of reference](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/ReferenceFrame.ipynb)  
-* [Time-varying frame of reference](http://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/Time-varying%20frames.ipynb)
+* [Time-varying frame of reference](https://nbviewer.org/github/BMClab/bmc/blob/master/notebooks/PathFrame.ipynb)
 * [Polar and cylindrical frame of reference](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/PolarBasis.ipynb)
 * Kinematics of particle  
   * [One-dimensional motion](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/KinematicsParticle.ipynb)  
