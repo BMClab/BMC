@@ -1,8 +1,10 @@
 """
 CCS plots Cartesian coordinate system and data.
+
+Implemented correction for matplotlib >= 3.5.0
+See https://github.com/matplotlib/matplotlib/issues/21688#issuecomment-974912574
 """
 
-from __future__ import division, print_function  # version compatibility
 import numpy as np
 from matplotlib import pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
@@ -12,6 +14,33 @@ from mpl_toolkits.mplot3d import proj3d
 class CCS():
     """
     CCS plots Cartesian coordinate system and data.
+    
+    Example
+    =======
+    
+    import numpy as np
+
+    m1 = np.array([1, 2, 5])
+    m2 = np.array([2, 3, 3])
+    m3 = np.array([4, 0, 2])
+
+    v1 = m2 - m1                # first axis
+    v2 = np.cross(v1, m3 - m1)  # second axis
+    v3 = np.cross(v1, v2)       # third axis
+
+    # Vector normalization
+    e1 = v1/np.linalg.norm(v1)
+    e2 = v2/np.linalg.norm(v2)
+    e3 = v3/np.linalg.norm(v3)
+
+    origin = np.mean((m1, m2, m3), axis=0)
+    markers = np.vstack((m1, m2, m3))
+    basis = np.vstack((e1, e2, e3))
+
+    %matplotlib notebook  
+
+    CCS(xyz=[], Oijk=origin, ijk=basis, point=markers, vector=True);
+    
     """    
     def __init__(self, ax=None, Oijk=[0,0,0], ijk=[], ijk_label=True,
                  Oxyz=[0,0,0], xyz=[], xyz_label=True, point=[],
@@ -104,12 +133,16 @@ class CCS():
 
 
 class Arrow3D(FancyArrowPatch):
+    """See https://github.com/matplotlib/matplotlib/issues/21688#issuecomment-974912574
+    """
     def __init__(self, xs, ys, zs, *args, **kwargs):
-        FancyArrowPatch.__init__(self, (0,0), (0,0), *args, **kwargs)
+        super().__init__((0,0), (0,0), *args, **kwargs)
         self._verts3d = xs, ys, zs
-
-    def draw(self, renderer):
+        
+    def do_3d_projection(self, renderer=None):
         xs3d, ys3d, zs3d = self._verts3d
-        xs, ys, zs = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+        xs, ys, zs = proj3d.proj_transform(xs3d, ys3d, zs3d, self.axes.M)
         self.set_positions((xs[0], ys[0]), (xs[1], ys[1]))
-        FancyArrowPatch.draw(self, renderer)
+        return np.min(zs)        
+        
+        
