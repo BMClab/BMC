@@ -2,7 +2,6 @@
 CCS plots Cartesian coordinate system and data.
 """
 
-from __future__ import division, print_function  # version compatibility
 import numpy as np
 from matplotlib import pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
@@ -94,7 +93,7 @@ class CCSbasis():
         if len(point):
             point = np.asarray(point)
             for xp, yp, zp in point:
-#                 ax.plot3D([xp], [yp], [zp], marker='', color='y', alpha=.8, ms=8)
+                ax.plot3D([xp], [yp], [zp], marker='', color='y', alpha=.8, ms=8)
                 if vector:
                     v = Arrow3D([x0, xp], [y0, yp], [z0, zp], mutation_scale=15,
                                 lw=3, arrowstyle="-|>", color="y", alpha=.8)
@@ -105,12 +104,14 @@ class CCSbasis():
 
 
 class Arrow3D(FancyArrowPatch):
+    """See https://github.com/matplotlib/matplotlib/issues/21688#issuecomment-974912574
+    """
     def __init__(self, xs, ys, zs, *args, **kwargs):
-        FancyArrowPatch.__init__(self, (0,0), (0,0), *args, **kwargs)
+        super().__init__((0,0), (0,0), *args, **kwargs)
         self._verts3d = xs, ys, zs
-
-    def draw(self, renderer):
+        
+    def do_3d_projection(self, renderer=None):
         xs3d, ys3d, zs3d = self._verts3d
-        xs, ys, zs = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+        xs, ys, zs = proj3d.proj_transform(xs3d, ys3d, zs3d, self.axes.M)
         self.set_positions((xs[0], ys[0]), (xs[1], ys[1]))
-        FancyArrowPatch.draw(self, renderer)
+        return np.min(zs)        
