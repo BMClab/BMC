@@ -51,6 +51,7 @@ These notes (notebooks) are written using [Jupyter Notebook](http://jupyter.org/
 * [Time normalization of data](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/TimeNormalization.ipynb)  
 * [Ensemble average](https://nbviewer.jupyter.org/github/bmclab/BMC/blob/master/notebooks/EnsembleAverage.ipynb)  
 * [Open files in C3D format](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/OpenC3Dfile.ipynb)  
+* [Camera calibration and point reconstruction based on direct linear transformation (DLT)](https://nbviewer.jupyter.org/github/BMClab/BMC/blob/master/notebooks/DLT.ipynb)  
 
 ## Mechanics
 
