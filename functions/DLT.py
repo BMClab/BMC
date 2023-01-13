@@ -28,7 +28,7 @@ There are more accurate (but more complex) algorithms for camera calibration
  been ported to Python. However, DLT is classic, simple, and effective (fast)
  for most applications.
 
-About DLT, see: http://kwon3d.com/theory/dlt/dlt.html
+About DLT, see: https://docs.opencv.org/3.4/d9/dab/tutorial_homography.html
 """
 
 import numpy as np
@@ -61,6 +61,7 @@ class DLT2():
     This code can perform 2D or 3D DLT with any number of views (cameras).
     For 3D DLT, at least two views (cameras) are necessary.
     """
+
     def __init__(self):
         #Nothing special to add here
         pass 
