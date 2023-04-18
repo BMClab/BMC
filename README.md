@@ -84,7 +84,7 @@ These notes (notebooks) are written using [Jupyter Notebook](http://org/), part 
   * [Free body diagram for particles](https://nbviewer.org/github/BMClab/bmc/blob/master/notebooks/FBDParticles.ipynb)
   * [Free body diagram for rigid bodies](https://nbviewer.org/github/BMClab/bmc/blob/master/notebooks/FreeBodyDiagramForRigidBodies.ipynb)
 * [3D Rigid body kinetics](https://nbviewer.org/github/BMClab/bmc/blob/master/notebooks/Kinetics3dRigidBody.ipynb)
-* [Matrix formalism of the Newton-Euler equations](https://nbviewer.org/github/BMClab/bmc/blob/master/notebooks/MatrixFormalism.ipynb)  
+* [Matrix formalism of the Equations of Motion](https://nbviewer.org/github/BMClab/bmc/blob/master/notebooks/MatrixFormalism.ipynb)  
 * [Lagrangian Mechanics](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/lagrangian_mechanics.ipynb)  
 
 ## Modeling and simulation of human movement
