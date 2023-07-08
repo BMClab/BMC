@@ -2,7 +2,7 @@
 """
 
 __author__ = 'Marcos Duarte, https://github.com/demotu/BMC'
-__version__ = 'polyfit.py v.1.0.1 2017/04/16'
+__version__ = 'polyfit.py v.1.0.3 20123/07/07'
 __license__ = "MIT"
 
 import numpy as np
@@ -57,6 +57,8 @@ def polyfit(x, y, degree, yerr=None, plot=True, xlabel='x', ylabel='y',
         Values of the 95% confidence interval evaluated at x.
     pi : numpy array, shape (N + 1,)
         Values of the 68% prediction interval evaluated at x.
+    MSE : float
+        Mean squared error of the regression.
 
     References
     ----------
@@ -74,40 +76,53 @@ def polyfit(x, y, degree, yerr=None, plot=True, xlabel='x', ylabel='y',
     >>> polyfit(x, y, 2);
     >>> # compare two models:
     >>> fig, ax = plt.subplots(1, 2, figsize=(14, 5))
-    >>> p1, perr1, R21, chi2red1, yfit1, ci1, pi1 = polyfit(x, y, 1, axis=ax[0])
-    >>> p2, perr2, R22, chi2red2, yfit2, ci2, pi2 = polyfit(x, y, 2, axis=ax[1])
+    >>> p1, perr1, R21, chi2red1, yfit1, ci1, pi1, MSE = polyfit(x, y, 1, axis=ax[0])
+    >>> p2, perr2, R22, chi2red2, yfit2, ci2, pi2, MSE = polyfit(x, y, 2, axis=ax[1])
     >>> plt.tight_layout()
     >>> Enter error (uncertainty) in y:
     >>> yerr = np.ones(N)*8
     >>> polyfit(x, y, 2, yerr);
-    """
     
+    
+    Version history
+    ---------------
+    '1.0.3':
+        Correct the order of the terms in title and account for zeros in yerr.
+    '1.0.2':
+        Included output 'MSE', mean squared error of the regression.
+        
+    """
+
     x, y = np.asarray(x), np.asarray(y)
     N = y.size
     if yerr is None:
         yerr = np.ones(N)
         errorbar = False
     else:
-        errorbar = True
+       # replace zeros in yerr (because in the fit, weigths = 1/yerr)
+       yerr[np.where(yerr == 0)] = 10 * np.finfo(np.float64).eps
+       errorbar = True
     # coefficients and covariance matrix of the least squares polynomial fit
     p, cov = np.polyfit(x, y, degree, w=1/yerr, cov=True)
     # evaluate the polynomial at x
-    yfit = np.polyval(p, x)            
+    yfit = np.polyval(p, x)
     # standard-deviation of the coefficients
-    perr = np.sqrt(np.diag(cov))                   
+    perr = np.sqrt(np.diag(cov))
     # residuals
-    res = y - yfit                                 
+    res = y - yfit
     # reduced chi-squared, see for example page 79 of
     # https://www.astro.rug.nl/software/kapteyn/_downloads/statmain.pdf
-    chi2red = np.sum(res**2/yerr**2)/(N - degree - 1)         
+    chi2red = np.sum(res**2/yerr**2)/(N - degree - 1)
     # standard deviation of the error (residuals)
-    s_err = np.sqrt(np.sum(res**2)/(N - degree - 1))  
+    s_err = np.sqrt(np.sum(res**2)/(N - degree - 1))
     # sum of squared residuals
-    SSres = np.sum(res**2)                            
+    SSres = np.sum(res**2)
+    # mean squared error
+    MSE = SSres/N
     # sum of squared totals
-    SStot = np.sum((y - np.mean(y))**2)              
+    SStot = np.sum((y - np.mean(y))**2)
     # coefficient of determination
-    R2 = 1 - SSres/SStot                               
+    R2 = 1 - SSres/SStot
     # adjusted coefficient of determination
     R2adj = 1 - (SSres/(N - degree - 1)) / (SStot/(N - 1))
     # 95% (2 SD) confidence interval for the fit
@@ -133,23 +148,23 @@ def polyfit(x, y, degree, yerr=None, plot=True, xlabel='x', ylabel='y',
             fig = 0
         if plotPI:
             axis.fill_between(x2, yfit2+pi2, yfit2-pi2, color=[1, 0, 0, 0.1],
-                              edgecolor='', label='68% prediction interval')
+                              edgecolor=None, label='68% prediction interval')
         if plotCI:
             axis.fill_between(x2, yfit2+ci2, yfit2-ci2, color=[1, 0, 0, 0.3],
-                              edgecolor='', label='95% confidence interval')
+                              edgecolor=None, label='95% confidence interval')
         if errorbar:
             axis.errorbar(x, y, yerr=yerr, fmt='o', capsize=0,
                           color=[0, 0.1, .9, 1], markersize=8)
         else:
             axis.plot(x, y, 'o', color=[0, 0.1, .9, 1], markersize=8)
-        axis.plot(x2, yfit2, 'r', linewidth=3, color=[1, 0, 0, .8],
+        axis.plot(x2, yfit2, linewidth=3, color=[1, 0, 0, .8],
                  label='Polynomial (degree {}) fit'.format(degree))
         axis.set_xlabel(xlabel, fontsize=16)
         axis.set_ylabel(ylabel, fontsize=16)
         if legend:
             axis.legend()
         if title:
-            xs = ['', 'x'] + ['x^{:d}'.format(ideg) for ideg in range(2, degree+1)]
+            xs = ['x^{:d}'.format(ideg) for ideg in range(2, degree+1)] + ['x', '']
             title = ['({:.2f} \pm {:.2f}) {}'.format(i, j, k) for i, j, k in zip(p, perr, xs)]
             R2str = '\, (R^2 = ' + '{:.2f}'.format(R2) + \
                     ', \chi^2_{red} = ' + '{:.1f}'.format(chi2red) + ')'
@@ -157,5 +172,5 @@ def polyfit(x, y, degree, yerr=None, plot=True, xlabel='x', ylabel='y',
             axis.set_title(title, fontsize=12, color=[0, 0, 0])  
         if fig:
             plt.show()
-    
-    return p, perr, R2, chi2red, yfit, ci, pi
+
+    return p, perr, R2, chi2red, yfit, ci, pi, MSE
