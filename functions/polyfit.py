@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 def polyfit(x, y, degree, yerr=None, plot=True, xlabel='x', ylabel='y',
             title=True, legend=True, plotCI=True, plotPI=True, axis=None):
     """Least squares polynomial regression of order degree for x vs. y [1]_
-    
+
     Parameters
     ----------
     x : numpy array_like, shape (N,)
@@ -42,7 +42,7 @@ def polyfit(x, y, degree, yerr=None, plot=True, xlabel='x', ylabel='y',
         Matplotlib axis object where to plot.
 
     Returns
-    -------    
+    -------
     p : numpy array, shape (deg + 1,)
         Coefficients of the least squares polynomial fit.
     perr : numpy array, shape (deg + 1,)
@@ -63,7 +63,7 @@ def polyfit(x, y, degree, yerr=None, plot=True, xlabel='x', ylabel='y',
     References
     ----------
     .. [1] https://docs.scipy.org/doc/numpy/reference/generated/numpy.polyfit.html
-    
+
 
     Examples
     --------
@@ -82,15 +82,15 @@ def polyfit(x, y, degree, yerr=None, plot=True, xlabel='x', ylabel='y',
     >>> Enter error (uncertainty) in y:
     >>> yerr = np.ones(N)*8
     >>> polyfit(x, y, 2, yerr);
-    
-    
+
+
     Version history
     ---------------
     '1.0.3':
         Correct the order of the terms in title and account for zeros in yerr.
     '1.0.2':
         Included output 'MSE', mean squared error of the regression.
-        
+
     """
 
     x, y = np.asarray(x), np.asarray(y)
@@ -100,7 +100,7 @@ def polyfit(x, y, degree, yerr=None, plot=True, xlabel='x', ylabel='y',
         errorbar = False
     else:
        # replace zeros in yerr (because in the fit, weigths = 1/yerr)
-       yerr[np.where(yerr == 0)] = 10 * np.finfo(np.float64).eps
+       yerr[np.where(yerr == 0)] = 10 * np.finfo(np.float32).eps
        errorbar = True
     # coefficients and covariance matrix of the least squares polynomial fit
     p, cov = np.polyfit(x, y, degree, w=1/yerr, cov=True)
@@ -169,7 +169,7 @@ def polyfit(x, y, degree, yerr=None, plot=True, xlabel='x', ylabel='y',
             R2str = '\, (R^2 = ' + '{:.2f}'.format(R2) + \
                     ', \chi^2_{red} = ' + '{:.1f}'.format(chi2red) + ')'
             title = '$ y = ' + '+'.join(title) + R2str + '$'
-            axis.set_title(title, fontsize=12, color=[0, 0, 0])  
+            axis.set_title(title, fontsize=12, color=[0, 0, 0])
         if fig:
             plt.show()
 
