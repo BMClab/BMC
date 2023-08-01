@@ -30,7 +30,7 @@ def mse(y, axis1=0, axis2=1, central=np.nanmedian, normalization=np.nanmedian):
 
     References
     ----------
-    .. [1] https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/similarity.ipynb
+    .. [1] https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/Similarity.ipynb
 
     Examples
     --------
@@ -103,7 +103,7 @@ def similarity(y, axis1=0, axis2=1, threshold=0, nmin=3,
 
     References
     ----------
-    .. [1] https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/similarity.ipynb
+    .. [1] https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/Similarity.ipynb
 
     Examples
     --------
