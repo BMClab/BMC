@@ -88,7 +88,7 @@ def similarity(y: np.ndarray, axis1: int=0, axis2: int=1, threshold: float=0,
     recursive :bool, optional (default = True)
         Whether to calculate similarity `metric` recursevely, updating the score
         calculation each time a vector is discarded.
-        With `recursive` True, the output `score_all` will contain at each row
+        With `recursive` True, the output `scores` will contain at each row
         the updated score values for the used `metric` for each data vector.
         The first row will contain the calculated original scores before any
         vector was discarded. On the subsequent rows, the vector discarded is
@@ -96,7 +96,7 @@ def similarity(y: np.ndarray, axis1: int=0, axis2: int=1, threshold: float=0,
         The last row will contain the updated scores of the final vectors kept.
         With the `recursive` False, the comparison of score values with `threshold`
         are made only once and vectors are discarded accordingly at once.
-        In this case, the output `score_all` will contain only two rows, the
+        In this case, the output `scores` will contain only two rows, the
         first row will contain the calculated original scores before any vectors
         were discarded. At the second row, the vectors discarded are represented
         with NaN values and the kept vectors by their updated scores.
@@ -105,7 +105,7 @@ def similarity(y: np.ndarray, axis1: int=0, axis2: int=1, threshold: float=0,
     msg : bool, optional (default = True)
         Whether to print some messages.
     kwargs : optional
-        Options for the metric function (see mse function).
+        Options for the metric function (e.g., see `_mse` function).
 
     Returns
     -------
@@ -115,8 +115,9 @@ def similarity(y: np.ndarray, axis1: int=0, axis2: int=1, threshold: float=0,
         Indexes of kept vectors.
     inotkept : numpy array
         Indexes of not kept (discarded) vectors.
-    score_all : numpy array
-        Mean Squared Error values.
+    scores : 2-D numpy array
+        Metric score values of each vector (as columns) for each round of
+        vector selection (one row per round plus the final values).
 
     References
     ----------
@@ -135,7 +136,7 @@ def similarity(y: np.ndarray, axis1: int=0, axis2: int=1, threshold: float=0,
     >>>    p = rng.integers(20)
     >>>    y[j:j+p, i] = y[j:j+p, i] + rng.integers(10) - 5
     >>>    y[:, i] += rng.integers(4) - 2
-    >>> ys, ikept, inotkept, score_all = similarity(y)
+    >>> ys, ikept, inotkept, scores = similarity(y)
     >>> fig, axs = plt.subplots(2, 1, sharex=True)
     >>> axs[0].plot(y, label=list(range(n)))
     >>> axs[0].legend(loc=(1.01, 0))
@@ -154,7 +155,7 @@ def similarity(y: np.ndarray, axis1: int=0, axis2: int=1, threshold: float=0,
         raise ValueError('The input array must be at least a 2-D array.')
     y = y.copy()
     score = metric(y, axis1=axis1, axis2=axis2, **kwargs)
-    score_all = np.atleast_2d(score)
+    scores = np.atleast_2d(score)
     ikept = np.where(~np.isnan(score))[0]  # indexes of kept vectors
     # indexes of not kept (discarded) vectors
     inotkept = np.where(np.isnan(score))[0]
@@ -177,7 +178,7 @@ def similarity(y: np.ndarray, axis1: int=0, axis2: int=1, threshold: float=0,
                 inotkept = np.r_[inotkept, idx[idx2[-(y.shape[axis2] - nmin):]][::-1]]
                 y.swapaxes(0, axis2)[inotkept, ...] = np.nan
                 score = metric(y, axis1=axis1, axis2=axis2, **kwargs)
-                score_all = np.vstack((score_all, score))
+                scores = np.vstack((scores, score))
             elif msg:
                 print(
                     f'Number of vectors to discard is greater than number to keep ({nkept}).')
@@ -186,7 +187,7 @@ def similarity(y: np.ndarray, axis1: int=0, axis2: int=1, threshold: float=0,
             inotkept = np.r_[inotkept, idx[nkept-1]]
             y.swapaxes(0, axis2)[inotkept[-1], ...] = np.nan
             score = metric(y, axis1=axis1, axis2=axis2, **kwargs)
-            score_all = np.vstack((score_all, score))
+            scores = np.vstack((scores, score))
             idx = np.argsort(score)
             score = score[idx]
             nkept = nkept - 1
@@ -201,4 +202,4 @@ def similarity(y: np.ndarray, axis1: int=0, axis2: int=1, threshold: float=0,
             print(
                 f'Vectors discarded (in dimension {axis2}, n={len(inotkept)}): {inotkept}')
 
-    return y, ikept, inotkept, score_all
+    return y, ikept, inotkept, scores
