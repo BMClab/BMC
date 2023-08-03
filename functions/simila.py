@@ -2,7 +2,7 @@
 """
 
 __author__ = 'Marcos Duarte, https://github.com/demotu/BMC'
-__version__ = 'similarity.py v.1.0.0 20123/07/31'
+__version__ = 'simila.py v.1.0.0 20123/07/31'
 __license__ = "MIT"
 
 import numpy as np
