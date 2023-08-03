@@ -8,8 +8,9 @@ __license__ = "MIT"
 import numpy as np
 
 
-def mse_(y: np.ndarray, axis1: int=0, axis2: int=1, central: callable=np.nanmedian,
-         normalization: callable=np.nanmedian) -> np.ndarray:
+def mse(y: np.ndarray, axis1: int=0, axis2: int=1, central: callable=np.nanmedian,
+         normalization: callable=np.nanmedian
+         ) -> np.ndarray:
     """Mean Squared Error of `y` w.r.t. `central` across axis2 over axis1.
 
     Parameters
@@ -41,7 +42,7 @@ def mse_(y: np.ndarray, axis1: int=0, axis2: int=1, central: callable=np.nanmedi
     >>> rng = np.random.default_rng()
     >>> y = rng.random((100, 10))
     >>> y +=  np.atleast_2d(np.sin(2*np.pi*np.linspace(0, 1, 100))).T
-    >>> mse_(y, axis1=0, axis2=1, central=np.nanmedian, normalization=np.nanmedian)
+    >>> mse(y, axis1=0, axis2=1, central=np.nanmedian, normalization=np.nanmedian)
 
     Version history
     ---------------
@@ -62,9 +63,10 @@ def mse_(y: np.ndarray, axis1: int=0, axis2: int=1, central: callable=np.nanmedi
 
 
 def similarity(y: np.ndarray, axis1: int=0, axis2: int=1, threshold: float=0,
-               nmin: int=3, recursive: bool=True, metric: callable=mse_,
-               msg: bool=True, **kwargs: callable) -> tuple[np.ndarray, np.ndarray,
-                                                            np.ndarray, np.ndarray]:
+               nmin: int=3, recursive: bool=True, metric: callable=mse,
+               drop=False, msg: bool=True, **kwargs: callable
+               ) ->tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+
     """Select data vectors by similarity using a metric score.
 
     Parameters
@@ -100,12 +102,14 @@ def similarity(y: np.ndarray, axis1: int=0, axis2: int=1, threshold: float=0,
         first row will contain the calculated original scores before any vectors
         were discarded. At the second row, the vectors discarded are represented
         with NaN values and the kept vectors by their updated scores.
-    metric : optional (default=mse_)
+    metric : optional (default=mse)
         Function to use as metric to compute similarity.
+    drop : bool, optional (default = False)
+        Whether to drop (delete) the discarded vectors from `y` in the output.
     msg : bool, optional (default = True)
         Whether to print some messages.
     kwargs : optional
-        Options for the metric function (e.g., see `_mse` function).
+        Options for the metric function (e.g., see `mse` function).
 
     Returns
     -------
@@ -180,8 +184,9 @@ def similarity(y: np.ndarray, axis1: int=0, axis2: int=1, threshold: float=0,
                 score = metric(y, axis1=axis1, axis2=axis2, **kwargs)
                 scores = np.vstack((scores, score))
             elif msg:
-                print(
-                    f'Number of vectors to discard is greater than number to keep ({nkept}).')
+                pass
+                #print(
+                #    f'Number of vectors to discard is greater than number to keep ({nkept}).')
     else:  # discard vectors with largest updated score one by one
         while nkept > nmin and score[nkept-1] > threshold:
             inotkept = np.r_[inotkept, idx[nkept-1]]
@@ -192,12 +197,14 @@ def similarity(y: np.ndarray, axis1: int=0, axis2: int=1, threshold: float=0,
             score = score[idx]
             nkept = nkept - 1
         if msg and nkept == nmin and score[nkept-1] > threshold:
-            print(
-                f'Number of vectors to discard is greater than number to keep ({nkept}).')
+            pass
+            #print(
+            #    f'Number of vectors to discard is greater than number to keep ({nkept}).')
 
     if len(inotkept):
         ikept = np.setdiff1d(ikept, inotkept)
-        y = y.swapaxes(0, axis2)[ikept, ...].swapaxes(0, axis2)
+        if drop:
+            y = y.swapaxes(0, axis2)[ikept, ...].swapaxes(0, axis2)
         if msg:
             print(
                 f'Vectors discarded (in dimension {axis2}, n={len(inotkept)}): {inotkept}')
