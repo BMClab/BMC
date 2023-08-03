@@ -106,6 +106,9 @@ def similarity(y: np.ndarray, axis1: int=0, axis2: int=1, threshold: float=0,
         Function to use as metric to compute similarity.
     drop : bool, optional (default = False)
         Whether to drop (delete) the discarded vectors from `y` in the output.
+        If False, the values of the vectors discarded will be replaced by nans
+        and the returned array will have the same dimensions as the original
+        array.
     msg : bool, optional (default = True)
         Whether to print some messages.
     kwargs : optional
@@ -114,11 +117,13 @@ def similarity(y: np.ndarray, axis1: int=0, axis2: int=1, threshold: float=0,
     Returns
     -------
     y : numpy array
-        Array similar to input `y` but with vectors discarded.
+        Array similar to input `y` but with vectors discarded (deleted) if
+        option `drop` is True or with all values of vectors discarded replaced
+        by nans if option `drop` is False.
     ikept : numpy array
         Indexes of kept vectors.
     inotkept : numpy array
-        Indexes of not kept (discarded) vectors.
+        Indexes of not kept (discarded or replaced by nan) vectors.
     scores : 2-D numpy array
         Metric score values of each vector (as columns) for each round of
         vector selection (one row per round plus the final values).
@@ -183,10 +188,6 @@ def similarity(y: np.ndarray, axis1: int=0, axis2: int=1, threshold: float=0,
                 y.swapaxes(0, axis2)[inotkept, ...] = np.nan
                 score = metric(y, axis1=axis1, axis2=axis2, **kwargs)
                 scores = np.vstack((scores, score))
-            elif msg:
-                pass
-                #print(
-                #    f'Number of vectors to discard is greater than number to keep ({nkept}).')
     else:  # discard vectors with largest updated score one by one
         while nkept > nmin and score[nkept-1] > threshold:
             inotkept = np.r_[inotkept, idx[nkept-1]]
@@ -196,10 +197,6 @@ def similarity(y: np.ndarray, axis1: int=0, axis2: int=1, threshold: float=0,
             idx = np.argsort(score)
             score = score[idx]
             nkept = nkept - 1
-        if msg and nkept == nmin and score[nkept-1] > threshold:
-            pass
-            #print(
-            #    f'Number of vectors to discard is greater than number to keep ({nkept}).')
 
     if len(inotkept):
         ikept = np.setdiff1d(ikept, inotkept)
