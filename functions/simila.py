@@ -21,25 +21,25 @@ logger.addHandler(ch)
 def mse(y: np.ndarray, axis1: int = 0, axis2: int = 1, central: Callable = np.nanmedian,
         normalization: Callable = np.nanmedian
         ) -> np.ndarray:
-    """Mean Squared Error of `y` w.r.t. `central` across axis2 over axis1.
+    """Mean Squared Error of `y` w.r.t. `central` across `axis2` over `axis1`.
 
     Parameters
     ----------
-    y : numpy array
-        an at least 2D array of data for the calculation of mean squared error
-        w.r.t. to a `central` statistics.
-    axis1 : integer, optional (default = 0)
-        axis to slice `y` ndarray in the calculation of mse.
-    axis2 : integer, optional (default = 1)
-        axis to slice `y` ndarray in the calculation of the `central`.
-    central : Python function, optional (default = np.nanmedian)
-        function to calculate statistics on `y` w.r.t. mse is computed.
-    normalization : Python function, optional (default = np.nanmedian)
-        function to normalize the calculated mse values
+    y : numpy.ndarray
+        At least a 2-D array of data for the calculation of mean squared error
+        w.r.t. to a `central` statistics of the data.
+    axis1 : integer, optional, default = 0
+        Axis to slice `y` ndarray in the calculation of mse.
+    axis2 : integer, optional, default = 1
+        Axis to slice `y` ndarray in the calculation of the `central`.
+    central : Python function, optional, default = np.nanmedian
+        Function to calculate statistics on `y` w.r.t. mse is computed.
+    normalization : Python function, optional, default = np.nanmedian
+        Function to normalize the calculated mse values
 
     Returns
     -------
-    score : numpy array
+    score : numpy.ndarray
         Mean Squared Error values
 
     References
@@ -79,27 +79,27 @@ def similarity(y: np.ndarray, axis1: int = 0, axis2: int = 1, threshold: float =
                drop=True, msg: bool = True, **kwargs: Callable
                ) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
 
-    """Select data vectors by similarity using a metric score.
+    """Select vectors in numpy.ndarray by their similarity using a metric score.
 
     Parameters
     ----------
-    y : numpy array
+    y : numpy.ndarray
         Array for the calculation of mse w.r.t. to a central statistics.
-    axis1 : integer, optional (default = 0)
+    axis1 : integer, optional, default = 0
         Axis to slice `y` ndarray in the calculation of mse.
-    axis2 : integer, optional (default = 1)
+    axis2 : integer, optional, default = 1
         Axis to slice `y` ndarray in the calculation of the `central`.
-    threshold : float, optional (default = 0)
+    threshold : float, optional, default = 0
         If greater than 0, vector with mse above it will be discarded.
         If 0, threshold will be automatically calculated as the
         minimum of [q[1] + 1.5*(q[2]-q[0]), score[-2], 3], where q's are the
         quantiles and score[-2] is the before-last largest score of `metric`
         among vectors calculated at the first time, not updated by `repeat`
         option.
-    nmin : integer, optional (default = 3)
+    nmin : integer, optional, default = 3
         If greater than 0, minumum number of vectors to keep.
         If lower than 0, maximum number of vectors to discard.
-    repeat :bool, optional (default = True)
+    repeat :bool, optional, default = True
         Whether to calculate similarity `metric` repeatedly, updating the
         score calculation each time a vector is discarded.
         With `repeat` True, the output `scores` will contain at each row
@@ -116,29 +116,29 @@ def similarity(y: np.ndarray, axis1: int = 0, axis2: int = 1, threshold: float =
         vectors were discarded. At the second row, the vectors discarded are
         represented with NaN values and the kept vectors by their updated
         scores.
-    metric : optional (default=mse)
+    metric : optional, default=mse
         Function to use as metric to compute similarity.
-    drop : bool, optional (default = True)
+    drop : bool, optional, default = True
         Whether to drop (delete) the discarded vectors from `y` in the output.
         If False, the values of the vectors discarded will be replaced by nans
         and the returned array will have the same dimensions as the original
         array.
-    msg : bool, optional (default = True)
+    msg : bool, optional, default = True
         Whether to print some messages.
     kwargs : optional
         Options for the metric function (e.g., see `mse` function).
 
     Returns
     -------
-    y : numpy array
+    y : numpy.ndarray
         Array similar to input `y` but with vectors discarded (deleted) if
         option `drop` is True or with all values of vectors discarded replaced
         by nans if option `drop` is False.
-    ikept : numpy array
+    ikept : numpy.ndarray
         Indexes of kept vectors.
-    inotkept : numpy array
+    inotkept : numpy.ndarray
         Indexes of not kept (discarded or replaced by nan) vectors.
-    scores : 2-D numpy array
+    scores : 2-D numpy.ndarray
         Metric score values of each vector (as columns) for each round of
         vector selection (one row per round plus the final values).
 
@@ -148,7 +148,6 @@ def similarity(y: np.ndarray, axis1: int = 0, axis2: int = 1, threshold: float =
 
     Examples
     --------
-    >>> import numpy as np
     >>> import matplotlib.pyplot as plt
     >>> rng = np.random.default_rng()
     >>> t, n = 100, 10
