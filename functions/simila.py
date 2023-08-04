@@ -1,9 +1,9 @@
 """Select data vectors by similarity using a metric score.
 """
 
+import logging
 from typing import Callable
 import numpy as np
-import logging
 
 __author__ = 'Marcos Duarte, https://github.com/demotu/BMC'
 __version__ = 'simila.py v.1.0.0 20123/07/31'
@@ -69,7 +69,7 @@ def mse(y: np.ndarray, axis1: int = 0, axis2: int = 1, central: Callable = np.na
     score[idx] = np.nanmean((y - central(y, axis=axis2, keepdims=True))**2, axis=axis1)
     if normalization is not None:
         score = score/normalization(score)
-    logger.debug(f'idx: {idx}, score: {score}')
+    logger.debug('idx: %s, score: %s', idx, score)
 
     return score
 
@@ -185,7 +185,7 @@ def similarity(y: np.ndarray, axis1: int = 0, axis2: int = 1, threshold: float =
     score = score[idx]
     nkept = np.count_nonzero(~np.isnan(score))  # number of kept vectors
     if nkept < 3:
-        logger.debug(f'nkept: {nkept}')
+        logger.debug('nkept: %s', nkept)
         raise ValueError('The input array must have at least 3 valid vectors.')
     if nmin < 0:
         nmin = np.max([3, nkept + nmin])
@@ -201,8 +201,8 @@ def similarity(y: np.ndarray, axis1: int = 0, axis2: int = 1, threshold: float =
                 inotkept = np.r_[inotkept, idx[idx2[-(y.shape[axis2] - nmin):]][::-1]]
                 y.swapaxes(0, axis2)[inotkept, ...] = np.nan
                 score = metric(y, axis1=axis1, axis2=axis2, **kwargs)
-                logger.debug(f'not repeat - score: {score}')
                 scores = np.vstack((scores, score))
+                logger.debug('not repeat - score: %s', score)
     else:  # discard vector with largest updated score one by one
         while nkept > nmin and score[nkept-1] > threshold:
             inotkept = np.r_[inotkept, idx[nkept-1]]
@@ -212,7 +212,7 @@ def similarity(y: np.ndarray, axis1: int = 0, axis2: int = 1, threshold: float =
             idx = np.argsort(score)
             score = score[idx]
             nkept = nkept - 1
-            logger.debug(f'repeat - nkept: {nkept}, score: {score}')
+            logger.debug('repeat - nkept: %s, score: %s', nkept, score)
 
     if len(inotkept):
         ikept = np.setdiff1d(ikept, inotkept)
