@@ -1,4 +1,4 @@
-"""Select data vectors by similarity using a metric score.
+"""Select vectors in numpy.ndarray by their similarity using a metric score.
 """
 
 import logging
@@ -18,20 +18,25 @@ ch.setFormatter(formatter)
 logger.addHandler(ch)
 
 
-def mse(y: np.ndarray, axis1: int = 0, axis2: int = 1, central: Callable = np.nanmedian,
-        normalization: Callable = np.nanmedian
+def mse(y: np.ndarray, target: np.ndarray | None = None, axis1: int = 0, axis2: int = 1,
+        central: Callable = np.nanmedian, normalization: Callable = np.nanmedian
         ) -> np.ndarray:
-    """Mean Squared Error of `y` w.r.t. `central` across `axis2` over `axis1`.
+    """Mean Squared Error of `y` w.r.t. `target` or `central` along `axis2` at `axis1`.
 
     Parameters
     ----------
     y : numpy.ndarray
-        At least a 2-D array of data for the calculation of mean squared error
-        w.r.t. to a `central` statistics of the data.
+        At least a 2-D numpy.ndarray of data for the calculation of mean squared
+        error w.r.t. to a `target` or a `central` statistics of the data.
+    target : 1-D numpy.ndarray of length `axis1`, optional, default = None
+        Reference value to calculate the mean squared error of `y` w.r.t. this
+        vector. If it is None, the mse value will be calculated w.r.t. a `central`
+        calculated along `axis2` of `y`.
     axis1 : integer, optional, default = 0
-        Axis to slice `y` ndarray in the calculation of mse.
+        Axis of `y` for which the mse will be calculated at each value.
     axis2 : integer, optional, default = 1
-        Axis to slice `y` ndarray in the calculation of the `central`.
+        Axis of `y` along which the `central` statistics might be calculated or
+        along which the target will be subtracted.
     central : Python function, optional, default = np.nanmedian
         Function to calculate statistics on `y` w.r.t. mse is computed.
     normalization : Python function, optional, default = np.nanmedian
@@ -62,11 +67,16 @@ def mse(y: np.ndarray, axis1: int = 0, axis2: int = 1, central: Callable = np.na
 
     logger.debug('mse...')
 
-    score = np.empty((y.shape[axis2]))
+    score: np.ndarray = np.empty((y.shape[axis2]), dtype=float)
     score.fill(np.nan)
-    idx = np.where(~np.all(np.isnan(y), axis=axis1))[0]  # masked array is slow
+    idx: np.ndarray = np.where(~np.all(np.isnan(y), axis=axis1))[0]
     y = y.swapaxes(0, axis2)[idx, ...].swapaxes(0, axis2)  # faster than .take
-    score[idx] = np.nanmean((y - central(y, axis=axis2, keepdims=True))**2, axis=axis1)
+    if target is not None:
+        logger.debug('target shape: %s', target.shape)
+        score[idx] = np.nanmean((y - target)**2, axis=axis1)
+    else:
+        score[idx] = np.nanmean((y - central(y, axis=axis2, keepdims=True))**2, axis=axis1)
+
     if normalization is not None:
         score = score/normalization(score)
     logger.debug('idx: %s, score: %s', idx, score)
@@ -81,18 +91,33 @@ def similarity(y: np.ndarray, axis1: int = 0, axis2: int = 1, threshold: float =
 
     """Select vectors in numpy.ndarray by their similarity using a metric score.
 
+    For example, if `y` is a 2-D numpy.ndarray, with shape (n, m), axis1=0 (n is
+    the number of rows) and axis2=1 (m is the number of columns), this function
+    will select the vectors along the columns, that are more similar to a `central`
+    statistics of `y` or to a `target` using a `metric` score.
+    The metric score can be calculated repeatedly until all selected vectors
+    have a `metric` score not greater than a `threshold` (but the minimum number
+    of vectors to keep or the maximum number of vectors to discard can be
+    specified with parameter `nmin`.
+
+    A possible use of this function is to discard time-series data from bad trials
+    (columns) in a 2-D array where the criterion is the similarity of the trial
+    w.r.t. the median trial (the median statistics is more robust than the mean in
+    case there are very bad trials). After the bad trials are discarded, the mean of
+    all trials could then be calculated more reliablly.
+
     Parameters
     ----------
     y : numpy.ndarray
-        Array for the calculation of mse w.r.t. to a central statistics.
+        Array for the calculation of a `metric` w.r.t. to a `target` or a `central` statistics.
     axis1 : integer, optional, default = 0
         Axis to slice `y` ndarray in the calculation of mse.
     axis2 : integer, optional, default = 1
         Axis to slice `y` ndarray in the calculation of the `central`.
     threshold : float, optional, default = 0
-        If greater than 0, vector with mse above it will be discarded.
+        If greater than 0, vector with `metric` score above this value will be discarded.
         If 0, threshold will be automatically calculated as the
-        minimum of [q[1] + 1.5*(q[2]-q[0]), score[-2], 3], where q's are the
+        minimum of [q[2] + 1.5*(q[2]-q[0]), score[-2], 3], where q's are the
         quantiles and score[-2] is the before-last largest score of `metric`
         among vectors calculated at the first time, not updated by `repeat`
         option.
@@ -158,12 +183,18 @@ def similarity(y: np.ndarray, axis1: int = 0, axis2: int = 1, threshold: float =
     >>>    p = rng.integers(20)
     >>>    y[j:j+p, i] = y[j:j+p, i] + rng.integers(10) - 5
     >>>    y[:, i] += rng.integers(4) - 2
-    >>> ys, ikept, inotkept, scores = similarity(y)
-    >>> fig, axs = plt.subplots(2, 1, sharex=True)
+    >>> ysr, ikeptr, inotkeptr, scoresr = similarity(y)
+    >>> ysn, ikeptn, inotkeptn, scoresn = similarity(y, repeat=False)
+    >>> fig, axs = plt.subplots(3, 1, sharex=True, figsize=(8, 8))
     >>> axs[0].plot(y, label=list(range(n)))
     >>> axs[0].legend(loc=(1.01, 0))
-    >>> axs[1].plot(ys, label= ikept.tolist())
+    >>> axs[0].set_title(f'Original vectors (n={n})')
+    >>> axs[1].plot(ysr, label= ikeptr.tolist())
+    >>> axs[1].set_title(f'Vectors maintained with repeat selection (n={len(ikeptr)})')
     >>> axs[1].legend(loc=(1.01, 0))
+    >>> axs[2].plot(ysn, label= ikeptn.tolist())
+    >>> axs[2].set_title(f'Vectors maintained without repeat selection (n={len(ikeptn)})')
+    >>> axs[2].legend(loc=(1.01, 0))
     >>> plt.show()
 
     Version history
@@ -177,25 +208,26 @@ def similarity(y: np.ndarray, axis1: int = 0, axis2: int = 1, threshold: float =
     if y.ndim < 2:
         raise ValueError('The input array must be at least a 2-D array.')
     y = y.copy()
-    score = metric(y, axis1=axis1, axis2=axis2, **kwargs)
-    scores = np.atleast_2d(score)
-    ikept = np.where(~np.isnan(score))[0]  # indexes of kept vectors
-    inotkept = np.where(np.isnan(score))[0]  # indexes of discarded vectors
-    idx = np.argsort(score)
+    score: np.ndarray = metric(y, axis1=axis1, axis2=axis2, **kwargs)
+    scores: np.ndarray = np.atleast_2d(score)
+    ikept: np.ndarray = np.where(~np.isnan(score))[0]  # indexes of kept vectors
+    inotkept: np.ndarray = np.where(np.isnan(score))[0]  # indexes of discarded vectors
+    idx: np.ndarray = np.argsort(score)
     score = score[idx]
-    nkept = np.count_nonzero(~np.isnan(score))  # number of kept vectors
+    nkept: int = np.count_nonzero(~np.isnan(score))  # number of kept vectors
     if nkept < 3:
         logger.debug('nkept: %s', nkept)
         raise ValueError('The input array must have at least 3 valid vectors.')
     if nmin < 0:
         nmin = np.max([3, nkept + nmin])
-    if threshold == 0:
-        q = np.nanquantile(a=score, q=[.25, .50, .75])
-        threshold = np.min([q[1] + 1.5*(q[2]-q[0]), score[-2], 3.])
+    if threshold == 0:  # threshold suggestion
+        qs: np.ndarray = np.nanquantile(a=score, q=[.25, .50, .75])
+        threshold = np.min([qs[2] + 1.5*(qs[2]-qs[0]), score[-2], 3.])
         if msg:
             print(f'Calculated threshold: {threshold}')
+
     if not repeat:  # discard all vectors at once
-        idx2 = np.nonzero(score > threshold)[0]  # vectors to discard
+        idx2: np.ndarray = np.nonzero(score > threshold)[0]  # vectors to discard
         if len(idx2) > 0:
             if nkept > nmin:  # keep at least nmin vectors
                 inotkept = np.r_[inotkept, idx[idx2[-(y.shape[axis2] - nmin):]][::-1]]
