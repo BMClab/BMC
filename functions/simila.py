@@ -56,7 +56,7 @@ def mse(y: np.ndarray, target: np.ndarray | None = None, axis1: int = 0, axis2: 
     >>> import numpy as np
     >>> rng = np.random.default_rng()
     >>> y = rng.random((100, 10))
-    >>> y +=  np.atleast_2d(np.sin(2*np.pi*np.linspace(0, 1, 100))).T
+    >>> y = y + np.atleast_2d(np.sin(2*np.pi*np.linspace(0, 1, 100))).T
     >>> mse(y, axis1=0, axis2=1, central=np.nanmedian, normalization=np.nanmedian)
 
     Version history
@@ -96,32 +96,41 @@ def similarity(y: np.ndarray, axis1: int = 0, axis2: int = 1, threshold: float =
     function will select the vectors along the columns, that are more similar
     to a `central` statistics of `y` or to a `target` using a `metric` score.
     The metric score can be calculated repeatedly until all selected vectors
-    have a `metric` score not greater than a `threshold`, but the minimum number
-    of vectors to keep or the maximum number of vectors to discard can be
-    specified with parameter `nmin`.
+    have a `metric` score not greater than a `threshold`, but the minimum
+    number of vectors to keep or the maximum number of vectors to discard
+    can be specified with parameter `nmin`.
 
-    A possible use of this function is to discard time-series data from bad
-    trials (columns) in a 2-D array where the criterion is the similarity of
-    the trial w.r.t. the median trial (the median statistics is more robust
-    than the mean in case there are very bad trials). After the bad trials are
-    discarded, the mean of all trials could then be calculated more reliablly.
+    The default `metric` and target are the mean squared error (`mse`) of `y`
+    w.r.t. to the median of `y` along `axis2`. The `mse` metric is equivalent
+    to the squared Euclidean distance and it is prefered because it
+    penalizes largest differences more than the Euclidian distance. But any
+    other `metric` that can be calculated with a function can be used.
+
+    A possible use of this function is to discard the time-series data from bad
+    trials (treated as outliers) stored in a 2-D array (each trial as a column
+    and instants as rows) where the criterion is the similarity of the trial
+    w.r.t. the median trial (the median statistics is more robust to remove
+    outliers than the mean in case there are very bad trials). After the bad
+    trials are discarded, the mean of all trials could then be calculated more
+    reliablly.
 
     Parameters
     ----------
     y : numpy.ndarray
-        Array for the calculation of a `metric` w.r.t. to a `target` or a
-        `central` statistics.
+        Array for the calculation of similarity (defined by a `metric`) of its
+        vectors w.r.t. to a `target` or a `central` statistics of `y`.
     axis1 : integer, optional, default = 0
-        Axis to slice `y` ndarray in the calculation of mse.
+        Axis of `y` for which the `metric` will be calculated at each value and
+        possibly averaged in the `metric` calculation.
     axis2 : integer, optional, default = 1
-        Axis to slice `y` ndarray in the calculation of the `central`.
+        Axis of `y` along which the different vectors are going to be compared
+        with the `threshold` for their similarity (using their `metric` score).
     threshold : float, optional, default = 0
-        If greater than 0, vector with `metric` score above this value will b
-        discarded.
-        If 0, threshold will be automatically calculated as the
-        minimum of [q[2] + 1.5*(q[2]-q[0]), score[-2], 3], where q's are the
+        If greater than 0, vector with `metric` score above this value will be
+        discarded. If 0, threshold will be automatically calculated as the
+        minimum of [qs[2] + 1.5*(qs[2]-qs[0]), score[-2], 3], where qs are the
         quantiles and score[-2] is the before-last largest score of `metric`
-        among vectors calculated at the first time, not updated by `repeat`
+        among vectors calculated at the first time, not updated by the `repeat`
         option.
     nmin : integer, optional, default = 3
         If greater than 0, minumum number of vectors to keep.
@@ -179,7 +188,7 @@ def similarity(y: np.ndarray, axis1: int = 0, axis2: int = 1, threshold: float =
     >>> rng = np.random.default_rng()
     >>> t, n = 100, 10
     >>> y = rng.random((t, n)) / 2
-    >>> y +=  np.atleast_2d(2*np.sin(2*np.pi*np.linspace(0, 1, t))).T
+    >>> y = y + np.atleast_2d(2*np.sin(2*np.pi*np.linspace(0, 1, t))).T
     >>> for i in range(0, n, 2):
     >>>    j = rng.integers(t-20)
     >>>    p = rng.integers(20)
@@ -222,7 +231,7 @@ def similarity(y: np.ndarray, axis1: int = 0, axis2: int = 1, threshold: float =
         raise ValueError('The input array must have at least 3 valid vectors.')
     if nmin < 0:
         nmin = np.max([3, nkept + nmin])
-    if threshold == 0:  # threshold suggestion
+    if threshold == 0:  # automatic threshold calculation
         qs: np.ndarray = np.nanquantile(a=score, q=[.25, .50, .75])
         threshold = np.min([qs[2] + 1.5*(qs[2]-qs[0]), score[-2], 3.])
         if msg:
