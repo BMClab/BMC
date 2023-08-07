@@ -91,31 +91,33 @@ def similarity(y: np.ndarray, axis1: int = 0, axis2: int = 1, threshold: float =
 
     """Select vectors in numpy.ndarray by their similarity using a metric score.
 
-    For example, if `y` is a 2-D numpy.ndarray, with shape (n, m), axis1=0 (n is
-    the number of rows) and axis2=1 (m is the number of columns), this function
-    will select the vectors along the columns, that are more similar to a `central`
-    statistics of `y` or to a `target` using a `metric` score.
+    For example, if `y` is a 2-D numpy.ndarray, with shape (n, m), `axis1`=0
+    (n is the number of rows) and `axis2`=1 (m is the number of columns), this
+    function will select the vectors along the columns, that are more similar
+    to a `central` statistics of `y` or to a `target` using a `metric` score.
     The metric score can be calculated repeatedly until all selected vectors
-    have a `metric` score not greater than a `threshold` (but the minimum number
+    have a `metric` score not greater than a `threshold`, but the minimum number
     of vectors to keep or the maximum number of vectors to discard can be
     specified with parameter `nmin`.
 
-    A possible use of this function is to discard time-series data from bad trials
-    (columns) in a 2-D array where the criterion is the similarity of the trial
-    w.r.t. the median trial (the median statistics is more robust than the mean in
-    case there are very bad trials). After the bad trials are discarded, the mean of
-    all trials could then be calculated more reliablly.
+    A possible use of this function is to discard time-series data from bad
+    trials (columns) in a 2-D array where the criterion is the similarity of
+    the trial w.r.t. the median trial (the median statistics is more robust
+    than the mean in case there are very bad trials). After the bad trials are
+    discarded, the mean of all trials could then be calculated more reliablly.
 
     Parameters
     ----------
     y : numpy.ndarray
-        Array for the calculation of a `metric` w.r.t. to a `target` or a `central` statistics.
+        Array for the calculation of a `metric` w.r.t. to a `target` or a
+        `central` statistics.
     axis1 : integer, optional, default = 0
         Axis to slice `y` ndarray in the calculation of mse.
     axis2 : integer, optional, default = 1
         Axis to slice `y` ndarray in the calculation of the `central`.
     threshold : float, optional, default = 0
-        If greater than 0, vector with `metric` score above this value will be discarded.
+        If greater than 0, vector with `metric` score above this value will b
+        discarded.
         If 0, threshold will be automatically calculated as the
         minimum of [q[2] + 1.5*(q[2]-q[0]), score[-2], 3], where q's are the
         quantiles and score[-2] is the before-last largest score of `metric`
