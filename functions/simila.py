@@ -135,7 +135,7 @@ def similarity(y: np.ndarray, axis1: int = 0, axis2: int = 1, threshold: float =
     nmin : integer, optional, default = 3
         If greater than 0, minumum number of vectors to keep.
         If lower than 0, maximum number of vectors to discard.
-    repeat :bool, optional, default = True
+    repeat : bool, optional, default = True
         Whether to calculate similarity `metric` repeatedly, updating the
         score calculation each time a vector is discarded.
         With `repeat` True, the output `scores` will contain at each row
