@@ -1,4 +1,4 @@
-"""Select vectors in numpy.ndarray by their similarity using a metric score.
+"""Select vectors in array by their similarity using a metric score.
 """
 
 import logging
@@ -27,7 +27,7 @@ def mse(y: np.ndarray, target: np.ndarray | None = None, axis1: int = 0, axis2: 
     ----------
     y : numpy.ndarray
         At least a 2-D numpy.ndarray of data for the calculation of mean squared
-        error w.r.t. to a `target` or a `central` statistics of the data.
+        error w.r.t. a `target` or a `central` statistics of the data.
     target : 1-D numpy.ndarray of length `axis1`, optional, default = None
         Reference value to calculate the mean squared error of `y` w.r.t. this
         vector. If it is None, the mse value will be calculated w.r.t. a `central`
@@ -89,19 +89,19 @@ def similarity(y: np.ndarray, axis1: int = 0, axis2: int = 1, threshold: float =
                drop=True, msg: bool = True, **kwargs: Callable
                ) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
 
-    """Select vectors in numpy.ndarray by their similarity using a metric score.
+    """Select vectors in array by their similarity using a metric score.
 
     For example, if `y` is a 2-D numpy.ndarray, with shape (n, m), `axis1`=0
     (n is the number of rows) and `axis2`=1 (m is the number of columns), this
     function will select the vectors along the columns, that are more similar
-    to a `central` statistics of `y` or to a `target` using a `metric` score.
+    to a `central` statistics of `y` or to a `target`, using a `metric` score.
     The metric score can be calculated repeatedly until all selected vectors
     have a `metric` score not greater than a `threshold`, but the minimum
     number of vectors to keep or the maximum number of vectors to discard
     can be specified with parameter `nmin`.
 
     The default `metric` and target are the mean squared error (`mse`) of `y`
-    w.r.t. to the median of `y` along `axis2`. The `mse` metric is equivalent
+    w.r.t. the median of `y` along `axis2`. The `mse` metric is equivalent
     to the squared Euclidean distance and it is prefered because it
     penalizes largest differences more than the Euclidian distance. But any
     other `metric` that can be calculated with a function can be used.
@@ -118,7 +118,7 @@ def similarity(y: np.ndarray, axis1: int = 0, axis2: int = 1, threshold: float =
     ----------
     y : numpy.ndarray
         Array for the calculation of similarity (defined by a `metric`) of its
-        vectors w.r.t. to a `target` or a `central` statistics of `y`.
+        vectors w.r.t. a `target` or a `central` statistics of `y`.
     axis1 : integer, optional, default = 0
         Axis of `y` for which the `metric` will be calculated at each value and
         possibly averaged in the `metric` calculation.
