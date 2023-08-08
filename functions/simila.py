@@ -198,7 +198,7 @@ def similarity(y: np.ndarray, axis1: int = 0, axis2: int = 1, threshold: float =
     >>> ysn, ikeptn, inotkeptn, scoresn = similarity(y, repeat=False)
     >>> fig, axs = plt.subplots(3, 1, sharex=True, figsize=(8, 8))
     >>> axs[0].plot(y, label=list(range(n)))
-    >>> axs[0].legend(loc=(1.01, 0))
+    >>> axs[0].legend(loc=(1.01, 0), ncol=2)
     >>> axs[0].set_title(f'Original vectors (n={n})')
     >>> axs[1].plot(ysr, label= ikeptr.tolist())
     >>> axs[1].set_title(f'Vectors maintained with repeat selection (n={len(ikeptr)})')
