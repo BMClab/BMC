@@ -7,7 +7,7 @@ import configparser
 
 
 __author__ = 'Marcos Duarte, https://github.com/BMClab/BMC'
-__version__ = 'muscles.py v.1.01 2021/07/15'
+__version__ = 'muscles.py v.1.02 2022/08/15'
 
 
 class Thelen2003():
@@ -27,7 +27,6 @@ class Thelen2003():
     def set_parameters(self, var=None):
         """Load and set parameters for the muscle model.
         """
-        
         if var is None:
             var = './../data/muscle_parameter.txt'
         if isinstance(var, str):
@@ -35,16 +34,15 @@ class Thelen2003():
         elif isinstance(var, dict):
             self.P = var
         else:
-            raise ValueError('Wrong parameters!')    
-            
+            raise ValueError('Wrong parameters!')
+
         print('The parameters were successfully loaded ' +
               'and are stored in the variable P.')
-        
+
 
     def set_states(self, var=None):
         """Load and set states for the muscle model.
         """
-        
         if var is None:
             var = './../data/muscle_state.txt'
         if isinstance(var, str):
@@ -52,21 +50,22 @@ class Thelen2003():
         elif isinstance(var, dict):
             self.S = var
         else:
-            raise ValueError('Wrong states!')    
-            
+            raise ValueError('Wrong states!')
+
         print('The states were successfully loaded ' +
               'and are stored in the variable S.')
-              
+
 
     def config_parser(self, filename, var):
-
+        """
+        """
         parser = configparser.ConfigParser()
         parser.optionxform = str  # make option names case sensitive
         parser.read(filename)
         if not parser:
-            raise ValueError('File %s not found!' %var)
+            raise ValueError(f'File {var} not found!')
         #if not 'Muscle' in parser.sections()[0]:
-        #    raise ValueError('Wrong %s file!' %var)
+        #    raise ValueError(f'Wrong {var} file!')
         var = {}
         for key, value in parser.items(parser.sections()[0]):
             if key.lower() in ['name', 'id']:
@@ -75,54 +74,46 @@ class Thelen2003():
                 try:
                     value = float(value)
                 except ValueError:
-                    print('"%s" value "%s" was replaced by NaN.' %(key, value))
+                    print(f'{key} value {value} was replaced by NaN.')
                     value = np.nan
                 var.update({key: value})
-        
-        return var   
-        
+
+        return var
+
 
     def force_l(self, lm, gammal=None):
         """Thelen (2003) force of the contractile element vs. muscle length.
 
         Parameters
-        ----------
         lm : float
             normalized muscle fiber length
         gammal : float, optional (default from parameter file)
             shape factor
-
         Returns
-        -------
         fl : float
             normalized force of the muscle contractile element
         """
 
         if gammal is None: gammal = self.P['gammal']
-
         fl = np.exp(-(lm-1)**2/gammal)
-            
         return fl
 
 
     def force_pe(self, lm, kpe=None, epsm0=None):
         """Thelen (2003) force of the muscle parallel element vs. muscle length.
-        
+
         Parameters
-        ----------
         lm : float
             normalized muscle fiber length
         kpe : float, optional (default from parameter file)
             exponential shape factor
         epsm0 : float, optional (default from parameter file)
             passive muscle strain due to maximum isometric force
-    
         Returns
-        -------
         fpe : float
             normalized force of the muscle parallel (passive) element
         """
-        
+
         if kpe is None: kpe = self.P['kpe']
         if epsm0 is None: epsm0 = self.P['epsm0']
 
@@ -130,15 +121,14 @@ class Thelen2003():
             fpe = 0
         else:
             fpe = (np.exp(kpe*(lm-1)/epsm0)-1)/(np.exp(kpe)-1)
-        
+
         return fpe
-        
-    
+
+
     def force_se(self, lt, ltslack=None, epst0=None, kttoe=None):
         """Thelen (2003) force-length relationship of tendon vs. tendon length.
-        
+
         Parameters
-        ----------
         lt : float
             tendon length (normalized or not)
         ltslack : float, optional (default from parameter file)
@@ -147,13 +137,11 @@ class Thelen2003():
             tendon strain at the maximal isometric muscle force
         kttoe : float, optional (default from parameter file)
             linear scale factor
-    
         Returns
-        -------
         fse : float
             normalized force of the tendon series element
         """
-    
+
         if ltslack is None: ltslack = self.P['ltslack']
         if epst0 is None: epst0 = self.P['epst0']
         if kttoe is None: kttoe = self.P['kttoe']
@@ -170,15 +158,14 @@ class Thelen2003():
             fse = fttoe/(np.exp(kttoe)-1)*(np.exp(kttoe*epst/epsttoe)-1)
         else:
             fse = ktlin*(epst-epsttoe) + fttoe
-            
+
         return fse
-        
-        
+
+
     def velo_fm(self, fm, a, fl, lmopt=None, vmmax=None, fmlen=None, af=None):
         """Thelen (2003) velocity of the force-velocity relationship vs. CE force.
-        
+
         Parameters
-        ----------
         fm : float
             normalized muscle force
         a : float
@@ -193,9 +180,7 @@ class Thelen2003():
             normalized maximum force generated at the lengthening phase
         af : float, optional (default from parameter file)
             shape factor
-    
         Returns
-        -------
         vm : float
             velocity of the muscle
         """
@@ -222,13 +207,12 @@ class Thelen2003():
         vm = vm*vmmax*lmopt
 
         return vm
-        
-        
+
+
     def force_vm(self, vm, a, fl, lmopt=None, vmmax=None, fmlen=None, af=None):
         """Thelen (2003) force of the contractile element vs. muscle velocity.
-        
+
         Parameters
-        ----------
         vm : float
             muscle velocity
         a : float
@@ -243,9 +227,7 @@ class Thelen2003():
             normalized normalized maximum force generated at the lengthening phase
         af : float, optional (default from parameter file)
             shape factor
-    
         Returns
-        -------
         fvm : float
             normalized force of the muscle contractile element
         """
@@ -261,26 +243,26 @@ class Thelen2003():
         else:        # eccentric activation
             fvm = a*fl*(af*vmmax*(3*a*fmlen - 3*a + fmlen - 1) + \
                   8*vm*fmlen*(af + 1)) / \
-                  (af*vmmax*(3*a*fmlen - 3*a + fmlen - 1) + 8*vm*(af + 1))          
-        
+                  (af*vmmax*(3*a*fmlen - 3*a + fmlen - 1) + 8*vm*(af + 1))
+
         return fvm
-        
-        
+
+
     def lmt_eq(self, t, lmt0=None):
         """Equation for muscle-tendon length."""
 
         if lmt0 is None:
             lmt0 = self.S['lmt0']
-            
+
         return lmt0
 
-        
+
     def vm_eq(self, t, lm, lm0, lmt0, lmopt, ltslack, alpha0, vmmax, fm0):
         """Equation for muscle velocity."""
 
         if lm < 0.1*lmopt:
             lm = 0.1*lmopt
-        #lt0 = lmt0 - lm0*np.cos(alpha0)        
+        #lt0 = lmt0 - lm0*np.cos(alpha0)
         a = self.activation(t)
         lmt = self.lmt_eq(t, lmt0)
         alpha = self.penn_ang(lmt=lmt, lm=lm, lm0=lm0, alpha0=alpha0)
@@ -306,10 +288,10 @@ class Thelen2003():
         if lmopt is None: lmopt = self.P['lmopt']
         if vmmax is None: vmmax = self.P['vmmax']
         if fm0 is None: fm0 = self.P['fm0']
-        
+
         if fun is None:
             fun = self.vm_eq
-        f = ode(fun).set_integrator('dopri5', nsteps=1, max_step=0.005, atol=1e-8)  
+        f = ode(fun).set_integrator('dopri5', nsteps=1, max_step=0.005, atol=1e-8)
         f.set_initial_value(lm0, t0).set_f_params(lm0, lmt0, lmopt, ltslack, alpha0, vmmax, fm0)
         # suppress Fortran warning
         warnings.filterwarnings("ignore", category=UserWarning)
@@ -325,13 +307,13 @@ class Thelen2003():
         self.lm_data = data
         if show:
             self.lm_plot(data, axs)
-        
+
         return data
-        
-        
+
+
     def calc_data(self, t, lm, lm0, lmt0, ltslack, lmopt, alpha0, fm0):
         """Calculus of muscle-tendon variables."""
-        
+
         a = self.activation(t)
         lmt = self.lmt_eq(t, lmt0=lmt0)
         alpha = self.penn_ang(lmt=lmt, lm=lm, lm0=lm0, alpha0=alpha0)
@@ -341,12 +323,12 @@ class Thelen2003():
         fse = self.force_se(lt=lt, ltslack=ltslack)
         fce_t = fse/np.cos(alpha) - fpe
         vm = self.velo_fm(fm=fce_t, a=a, fl=fl, lmopt=lmopt)
-        fm = self.force_vm(vm=vm, fl=fl, lmopt=lmopt, a=a) + fpe   
+        fm = self.force_vm(vm=vm, fl=fl, lmopt=lmopt, a=a) + fpe
         data = [t, lmt, lm, lt, vm, fm*fm0, fse*fm0, a*fl*fm0, fpe*fm0, alpha]
-        
+
         return data
-            
-    
+
+
     def muscle_plot(self, a=1, axs=None):
         """Plot muscle-tendon relationships with length and velocity."""
 
@@ -355,10 +337,10 @@ class Thelen2003():
         except ImportError:
             print('matplotlib is not available.')
             return
-        
+
         if axs is None:
             fig, axs = plt.subplots(nrows=1, ncols=3, figsize=(9, 4))
-        
+
         lmopt   = self.P['lmopt']
         ltslack = self.P['ltslack']
         vmmax   = self.P['vmmax']
@@ -369,7 +351,7 @@ class Thelen2003():
         lt0     = self.S['lt0']
         if np.isnan(lt0):
             lt0 = lmt0 - lm0*np.cos(alpha0)
-        
+
         lm  = np.linspace(0, 2, 101)
         lt  = np.linspace(0, 1, 101)*0.05 + 1
         vm  = np.linspace(-1, 1, 101)*vmmax*lmopt
@@ -377,12 +359,12 @@ class Thelen2003():
         fpe = np.zeros(lm.size)
         fse = np.zeros(lt.size)
         fvm = np.zeros(vm.size)
-        
+
         fl_lm0  = self.force_l(lm0/lmopt)
         fpe_lm0 = self.force_pe(lm0/lmopt)
         fm_lm0  = fl_lm0 + fpe_lm0
-        ft_lt0  = self.force_se(lt0, ltslack)*fm0        
-        
+        ft_lt0  = self.force_se(lt0, ltslack)*fm0
+
         for i in range(101):
             fl[i]  = self.force_l(lm[i])
             fpe[i] = self.force_pe(lm[i])
@@ -395,7 +377,7 @@ class Thelen2003():
         fpe = fpe
         fse = fse*fm0
         fvm = fvm*fm0
-            
+
         xlim = self.margins(lm, margin=.05, minmargin=False)
         axs[0].set_xlim(xlim)
         ylim = self.margins([0, 2], margin=.05)
@@ -412,7 +394,7 @@ class Thelen2003():
         axs[0].xaxis.set_major_locator(plt.MaxNLocator(4))
         axs[0].yaxis.set_major_locator(plt.MaxNLocator(4))
         axs[0].set_title('Muscle F-L (a=1)')
-        
+
         xlim = self.margins([0, np.min(vm), np.max(vm)], margin=.05, minmargin=False)
         axs[1].set_xlim(xlim)
         ylim = self.margins([0, fm0*1.2, np.max(fvm)*1.5], margin=.025)
@@ -444,17 +426,17 @@ class Thelen2003():
         axs[2].set_ylabel('Force [N]')
         axs[2].xaxis.set_major_locator(plt.MaxNLocator(4))
         axs[2].yaxis.set_major_locator(plt.MaxNLocator(4))
-        axs[2].set_title('Tendon')  
+        axs[2].set_title('Tendon')
         plt.suptitle('Muscle-tendon mechanics')
         plt.tight_layout(w_pad=.1)
         plt.show()
-        
+
         return axs
 
 
     def lm_plot(self, x, axs=None):
         """Plot results of actdyn_ode45 function.
-            data = [t, lmt, lm, lt, vm, fm*fm0, fse*fm0, fl*fm0, fpe*fm0, alpha]
+        data = [t, lmt, lm, lt, vm, fm*fm0, fse*fm0, fl*fm0, fpe*fm0, alpha]
         """
 
         try:
@@ -462,7 +444,7 @@ class Thelen2003():
         except ImportError:
             print('matplotlib is not available.')
             return
-        
+
         if axs is None:
             fig, axs = plt.subplots(nrows=3, ncols=2, sharex=True, figsize=(9, 6))
 
@@ -475,34 +457,34 @@ class Thelen2003():
         ylim = self.margins(x[:, 1], margin=.1)
         axs[0, 0].set_ylim(ylim)
         axs[0, 0].legend(framealpha=.5, loc='best')
-        
+
         axs[0, 1].plot(x[:, 0], x[:, 3], 'b')
         #axs[0, 1].plot(x[:, 0], lt0*np.ones(len(x)), 'r')
         ylim = self.margins(x[:, 3], margin=.1)
         axs[0, 1].set_ylim(ylim)
-        
+
         axs[1, 0].plot(x[:, 0], x[:, 2], 'b')
         #axs[1, 0].plot(x[:, 0], lmopt*np.ones(len(x)), 'r')
         ylim = self.margins(x[:, 2], margin=.1)
         axs[1, 0].set_ylim(ylim)
-        
+
         axs[1, 1].plot(x[:, 0], x[:, 4], 'b')
         ylim = self.margins(x[:, 4], margin=.1)
         axs[1, 1].set_ylim(ylim)
-        
+
         axs[2, 0].plot(x[:, 0], x[:, 5], 'b', label='Muscle')
         axs[2, 0].plot(x[:, 0], x[:, 6], 'g--', label='Tendon')
         ylim = self.margins(x[:, [5, 6]], margin=.1)
         axs[2, 0].set_ylim(ylim)
         axs[2, 0].set_xlabel('Time (s)')
         axs[2, 0].legend(framealpha=.5, loc='best')
-        
+
         axs[2, 1].plot(x[:, 0], x[:, 8], 'b', label='PE')
         ylim = self.margins(x[:, 8], margin=.1)
         axs[2, 1].set_ylim(ylim)
         axs[2, 1].set_xlabel('Time (s)')
         axs[2, 1].legend(framealpha=.5, loc='best')
-        
+
         ylabel = [r'$L_{MT}\,(m)$', r'$L_{T}\,(m)$', r'$L_{M}\,(m)$',
                   r'$V_{CE}\,(m/s)$', r'$Force\,(N)$', r'$Force\,(N)$']
         for i, axi in enumerate(axs.flat):
@@ -514,15 +496,14 @@ class Thelen2003():
         plt.suptitle('Simulation of muscle-tendon mechanics')
         plt.tight_layout()
         plt.show()
-        
+
         return axs
-        
-        
+
+
     def penn_ang(self, lmt, lm, lt=None, lm0=None, alpha0=None):
         """Pennation angle.
-        
+
         Parameters
-        ----------
         lmt : float
             muscle-tendon length
         lt : float, optional (default=None)
@@ -533,9 +514,7 @@ class Thelen2003():
             initial muscle fiber length
         alpha0 : float, optional (default from parameter file)
             initial pennation angle
-
         Returns
-        -------
         alpha : float
             pennation angle
         """
@@ -551,18 +530,17 @@ class Thelen2003():
             elif lmt is not None and lt is not None:
                 cosalpha = 1/(np.sqrt(1 + (w/(lmt-lt))**2))
             alpha = np.arccos(cosalpha)
-            
+
         if alpha > 1.4706289:  # np.arccos(0.1), 84.2608 degrees
             alpha = 1.4706289
-        
+
         return alpha
-        
+
 
     def excitation(self, t, u_max=None, u_min=None, t0=0, t1=5):
         """Excitation signal, a square wave.
 
         Parameters
-        ----------
         t : float
             time instant [s]
         u_max : float (0 < u_max <= 1), optional (default from parameter file)
@@ -573,16 +551,14 @@ class Thelen2003():
             initial time instant for muscle excitation equals to u_max [s]
         t1 : float, optional (default=5)
             final time instant for muscle excitation equals to u_max [s]
-
         Returns
-        -------
         u : float (0 < u <= 1)
             excitation signal
         """
 
         if u_max is None: u_max = self.P['u_max']
         if u_min is None: u_min = self.P['u_min']
-        
+
         u = u_min
         if t >= t0 and t <= t1:
             u = u_max
@@ -594,7 +570,6 @@ class Thelen2003():
         """Thelen (2003) activation dynamics, the derivative of `a` at `t`.
 
         Parameters
-        ----------
         t : float
             time instant [s]
         a : float (0 <= a <= 1)
@@ -603,16 +578,14 @@ class Thelen2003():
             activation time constant [s]
         t_deact : float, optional (default from parameter file)
             deactivation time constant [s]
-    
         Returns
-        -------
-        adot : float 
+        adot : float
             derivative of `a` at `t`
         """
 
         if t_act is None: t_act = self.P['t_act']
         if t_deact is None: t_deact = self.P['t_deact']
-        
+
         u = self.excitation(t)
         if u > a:
             adot = (u - a)/(t_act*(0.5 + 1.5*a))
@@ -652,16 +625,16 @@ class Thelen2003():
         -------
         data : 2-d array
             array with columns [time, excitation, activation]
-            
+
         """
 
         if u_min is None: u_min = self.P['u_min']
         if t_act is None: t_act = self.P['t_act']
         if t_deact is None: t_deact = self.P['t_deact']
-      
+
         if fun is None:
             fun = self.activation_dyn
-        f = ode(fun).set_integrator('dopri5', nsteps=1, max_step=0.005, atol=1e-8)  
+        f = ode(fun).set_integrator('dopri5', nsteps=1, max_step=0.005, atol=1e-8)
         f.set_initial_value(a0, t0).set_f_params(t_act, t_deact)
         # suppress Fortran warning
         warnings.filterwarnings("ignore", category=UserWarning)
@@ -675,14 +648,14 @@ class Thelen2003():
             self.actvation_plot(data, axs)
 
         self.act_data = data
-        
+
         return data
 
 
     def activation(self, t=None):
         """Activation signal."""
-        
-        data = self.act_data        
+
+        data = self.act_data
         if t is not None and len(data):
             if t <= self.act_data[0, 0]:
                 a = self.act_data[0, 2]
@@ -692,7 +665,7 @@ class Thelen2003():
                 a = np.interp(t, self.act_data[:, 0], self.act_data[:, 2])
         else:
             a = 1
-            
+
         return a
 
 
@@ -704,10 +677,10 @@ class Thelen2003():
         except ImportError:
             print('matplotlib is not available.')
             return
-            
+
         if axs is None:
             _, axs = plt.subplots(nrows=1, ncols=1, figsize=(6, 4))
-                
+
         axs.plot(data[:, 0], data[:, 1], color=[1, 0, 0, .6], label='Excitation')
         axs.plot(data[:, 0], data[:, 2], color=[0, 0, 1, .6], label='Activation')
         axs.set_xlabel('Time [s]')
@@ -716,10 +689,10 @@ class Thelen2003():
         plt.title('Activation dynamics')
         plt.tight_layout()
         plt.show()
-        
+
         return axs
-        
-        
+
+
     def margins(self, x, margin=0.01, minmargin=True):
         """Calculate plot limits with extra margins.
         """
