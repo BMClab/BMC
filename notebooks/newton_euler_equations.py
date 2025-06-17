@@ -127,7 +127,7 @@ def _(mo):
 
         The animation below illustrates the relationship between force, torque, and momentum vectors:   
 
-        <center><figure><img src="../images/TorqueAnim.gif" alt="Torque animation" width="300"/><figcaption><i>Figure. Relationship between force ($\mathbf{\vec{F}}$), torque ($\mathbf{\vec{M}}$), linear momentum ($\mathbf{\vec{L}}$) and angular momentum ($\mathbf{\vec{H}}$). Adapted from <a href="https://en.wikipedia.org/wiki/File:Torque_animation.gif">Wikipedia</a>.</i></figcaption></figure></center>
+        <center><figure><img src="https://github.com/BMClab/BMC/blob/master/images/TorqueAnim.gif?raw=1" alt="Torque animation" width="300"/><figcaption><i>Figure. Relationship between force ($\mathbf{\vec{F}}$), torque ($\mathbf{\vec{M}}$), linear momentum ($\mathbf{\vec{L}}$) and angular momentum ($\mathbf{\vec{H}}$). Adapted from <a href="https://en.wikipedia.org/wiki/File:Torque_animation.gif">Wikipedia</a>.</i></figcaption></figure></center>
         """
     )
     return
@@ -206,7 +206,7 @@ def _(mo):
 
         Free moments are moments created by a pair of forces. They do not sum um to the resultant force, since they have have the same magnitude and opposite directions, but create a moment because there is a distance between these forces.
 
-        <center><figure><img src="../images/freeMoment.png" width=500/></figure></center>
+        <center><figure><img src="https://github.com/BMClab/BMC/blob/master/images/freeMoment.png?raw=1" width=500/></figure></center>
 
         But where the resultant force should be applied in the body? If the resultant force were applied to any point different from the point O, it would produce an additional  moment to the body relative to point O. So, the resultant force must be applied to the point O.
 
@@ -220,7 +220,7 @@ def _(mo):
 
         It is worth to note that if the resultant force  <span class="notranslate">$\vec{\bf{F}}$</span> is zero, than the moment is the same relative to any point.
 
-        <center><figure><img src="../images/equivalentSystem.png" width=850/></figure></center>
+        <center><figure><img src="https://github.com/BMClab/BMC/blob/master/images/equivalentSystem.png?raw=1" width=850/></figure></center>
         """
     )
     return
@@ -376,17 +376,17 @@ def _(mo):
         r"""
         ## Problems
 
-        1. (Sample problem 2/5, Taylor's book)Calculate the magnitude of the moment about the base point *O* of the 600-N force in five different ways for the structure shown below (hint: use the equation for torque in different ways, and also the principles of moments and of transmissibility)[.](../images/torque.png)  
+        1. (Sample problem 2/5, Taylor's book)Calculate the magnitude of the moment about the base point *O* of the 600-N force in five different ways for the structure shown below (hint: use the equation for torque in different ways, and also the principles of moments and of transmissibility)
         <center><figure><img src="https://github.com/BMClab/BMC/blob/master/images/torque2.png?raw=1" alt="Torque" width="250"/></figure></center>
 
         2. (Example 17.7, Hibbeler's book) A uniform$50kg$crate rests on a horizontal surface for which the coefficient of kinetic friction is$\mu_k = 0.2$. Determine the acceleration if a force of$P = 600 N$is applied to the crate as shown in the figure.  
-        <center><figure><img src="../images/hibbeler_17_7.png" alt="crate" width="350"/></figure></center>  
+        <center><figure><img src="https://github.com/BMClab/BMC/blob/master/images/hibbeler_17_7.png?raw=1" alt="crate" width="350"/></figure></center>
 
         3. (Example 17.10, Hibbeler's book) At the instant shown in the figure, the$20kg$slender rod has an angular velocity of$\omega = S rad/s$. Determine the angular acceleration and the horizontal and vertical components of reaction of the pin on the rod at this instant.  
-        <center><figure><img src="../images/hibbeler_17_10.png" alt="rod" width="350"/></figure></center>  
+        <center><figure><img src="https://github.com/BMClab/BMC/blob/master/images/hibbeler_17_10.png?raw=1" alt="rod" width="350"/></figure></center>
 
         4. (Example 17.12, Hibbeler's book) The slender rod shown in the figure has a mass$m$and length$l$and is released from rest when$\theta = 0^o$. Determine the horizontal and vertical components of force which the pin at$A$exerts on the rod at the instant$\theta = 90^o$.  
-        <center><figure><img src="../images/hibbeler_17_12.png" alt="pendulum" width="300"/></figure></center>  
+        <center><figure><img src="https://github.com/BMClab/BMC/blob/master/images/hibbeler_17_12.png?raw=1" alt="pendulum" width="300"/></figure></center>
 
         """
     )

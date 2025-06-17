@@ -528,7 +528,7 @@ def _(mo):
 
         Below is the free-body diagram of a particle with the gravity force and a linear drag force due to the air resistance. 
 
-        <figure><center><img src="../images/ballGravLinearRes.png" alt="Linear spring" width="700"/><figcaption><i>Figure. Particle under action of gravity and linear air resistance.</i></figcaption></center></figure>  
+        <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/ballGravLinearRes.png?raw=1" alt="Linear spring" width="700"/><figcaption><i>Figure. Particle under action of gravity and linear air resistance.</i></figcaption></center></figure>
 
         the forces being applied in the ball are:
 
@@ -558,7 +558,7 @@ def _(mo):
 
         Below, is the free-body diagram of a particle with the gravity force and a drag force due to the air resistance proportional to the square of the particle velocity. 
 
-        <figure><center><img src="../images/ballGravSquareRes.png" alt="Linear spring" width="700"/><figcaption><i>Figure. Particle under action of gravity and nonlinear air resistance.</i></figcaption></center></figure> 
+        <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/ballGravSquareRes.png?raw=1" alt="Linear spring" width="700"/><figcaption><i>Figure. Particle under action of gravity and nonlinear air resistance.</i></figcaption></center></figure>
     
         The forces being applied in the ball are:
 
@@ -588,7 +588,7 @@ def _(mo):
 
         This situation is very similar to the example of horizontal movement with one spring and two masses, with a damper added in parallel to the spring.
 
-        <figure><center><img src="../images/twomassDamp.png" alt="Linear spring"/><figcaption><i>Figure. Linear spring and damping on bidimensional horizontal movement.</i></figcaption></center></figure>    
+        <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/twomassDamp.png?raw=1" alt="Linear spring"/><figcaption><i>Figure. Linear spring and damping on bidimensional horizontal movement.</i></figcaption></center></figure>
         """
     )
     return
@@ -600,7 +600,7 @@ def _(mo):
         r"""
         Now, the forces acting on each mass are the force due to the spring and the force due to the damper. 
 
-        <figure><center><img src="../images/twomassDampFBD.png" alt="Linear spring" width="200"/><figcaption><i>Figure. FBD of linear spring and damping on bidimensional horizontal movement.</i></figcaption></center></figure>    
+        <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/twomassDampFBD.png?raw=1" alt="Linear spring" width="200"/><figcaption><i>Figure. FBD of linear spring and damping on bidimensional horizontal movement.</i></figcaption></center></figure>
 
         So, the forces acting on mass 1 is:
 
@@ -760,7 +760,7 @@ def _(mo):
 
         The length$L_{MT}$is the length of the muscle plus the tendon. In our model$L_{MT}$is constant, but it could be a function of the joint angle. 
 
-        <figure><center><img src="../images/simpleMuscle.png" alt="Linear spring" width="500"/><figcaption><i>Figure. Simple muscle model.</i></figcaption></center></figure>    
+        <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/simpleMuscle.png?raw=1" alt="Linear spring" width="500"/><figcaption><i>Figure. Simple muscle model.</i></figcaption></center></figure>
 
         The length of the tendon will be denoted by$l_T(t)$and the muscle length, by$l_{m}(t)$. Both lengths are related by each other  by the following expression:
 
@@ -776,7 +776,7 @@ def _(mo):
         r"""
         The free-body diagram of the muscle mass is depicted below.
 
-        <figure><center><img src="../images/simpleMuscleFBD.png" alt="Linear spring" width="200"/><figcaption><i>Figure. FBD of simple muscle model.</i></figcaption></center></figure>    
+        <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/simpleMuscleFBD.png?raw=1" alt="Linear spring" width="200"/><figcaption><i>Figure. FBD of simple muscle model.</i></figcaption></center></figure>
     
         The resultant force being applied in the muscle mass is:
 
@@ -899,17 +899,17 @@ def _(mo):
            2. Friction force on m2
            3. Tension on the rope attached to masses m1 and m2
            4. Acceleration of m1  
-        <figure><img src="./../images/friction_block.png" width="300"/></figure>
+        <figure><img src="https://github.com/BMClab/BMC/blob/master/images/friction_block.png?raw=1" width="300"/></figure>
 
 
         4. (Example 13.4 of Hibbeler's book) A smooth 2-kg collar C, shown in the figure below, is attached to a spring having a stiffness k = 3 N/m and an unstretched length of 0.75 m. If the collar is released from rest at A, determine its acceleration and the normal force of the rod on the collar at the instant y = 1 m.
-        <figure><img src="./../images/spring_collar.png" width="200"/></figure>
+        <figure><img src="https://github.com/BMClab/BMC/blob/master/images/spring_collar.png?raw=1" width="200"/></figure>
 
         5. (Example 13.5 of Hibbeler's book) The 100-kg block A shown in the figure below is released from rest. If the masses of the pulleys and the cord are neglected, determine the speed of the 20-kg block B in 2 s.
-        <figure><img src="./../images/pulley_block.png" width="200"/></figure>
+        <figure><img src="https://github.com/BMClab/BMC/blob/master/images/pulley_block.png?raw=1" width="200"/></figure>
 
         6. (Example 13.9 of Hibbeler's book) The 60-kg skateboarder in the figure below coasts down the circular track. If he starts from rest when e = 0$^o$, determine the magnitude of the normal reaction the track exerts on him when e = 60$^o$. Neglect his size for the calculation.
-        <figure><img src="./../images/skateboarder.png" width="300"/></figure>
+        <figure><img src="https://github.com/BMClab/BMC/blob/master/images/skateboarder.png?raw=1" width="300"/></figure>
 
         7. Solve the problems 2.3.9, 2.3.20, 11.1.6, 13.1.6 (a, b, c, d, f), 13.1.7, 13.1.10 (a, b) from Ruina and Pratap's book.  
         """
