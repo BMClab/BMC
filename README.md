@@ -10,7 +10,7 @@ These notes (notebooks) are written using [Jupyter Notebook](http://org/), part 
 
 ## Introduction
 
-* [Biomechanics](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/Biomechanics.ipynb)  
+* [Biomechanics](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/Biomechanics.ipynb)  [![Open in molab](https://molab.marimo.io/molab-shield.png)](https://molab.marimo.io/notebooks/nb_hQt3XiQeU8LGVduaEnbcqz)
 * [The Biomechanics and Motor Control Laboratory @ UFABC](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/BMClab.ipynb)  
 
 ## Scientific programming
