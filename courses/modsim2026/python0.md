@@ -1,4 +1,4 @@
-# Introduction to Python for Modelind and Simulation
+# Introduction to Python for Modeling and Simulation
 
 ## "IDE"
 
