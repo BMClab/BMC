@@ -58,7 +58,12 @@ marimo edit
 
 ### Option 4 — fully browser-based (zero install, WASM)
 
-If even pip is locked down by the corporate proxy, use the in-browser version at the marimo playground: [https://marimo.new/](https://marimo.new/) — it runs via Pyodide/WebAssembly with nothing installed locally. Good fallback when network egress to PyPI is also blocked.
+If even pip is locked down by the corporate proxy, use the in-browser version at the marimo playground: [marimo.new](https://marimo.new/) — it runs via Pyodide/WebAssembly with nothing installed locally. Good fallback when network egress to PyPI is also blocked.
+
+Related links if useful:
+
+- [marimo.app](https://marimo.app/) — same engine, but lets you save and generate shareable permalinks.
+- [molab.marimo.io](https://molab.marimo.io/) — free cloud-hosted version backed by a real server (better for heavier ML/AI work that Pyodide can't handle).
 
 Common gotchas on locked-down corporate machines:
 
