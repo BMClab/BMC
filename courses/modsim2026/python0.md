@@ -58,7 +58,7 @@ marimo edit
 
 ### Option 4 — fully browser-based (zero install, WASM)
 
-If even pip is locked down by the corporate proxy, use the in-browser version at the marimo playground — it runs via Pyodide/WebAssembly with nothing installed locally. Good fallback when network egress to PyPI is also blocked.
+If even pip is locked down by the corporate proxy, use the in-browser version at the marimo playground: [https://marimo.new/](https://marimo.new/) — it runs via Pyodide/WebAssembly with nothing installed locally. Good fallback when network egress to PyPI is also blocked.
 
 Common gotchas on locked-down corporate machines:
 
