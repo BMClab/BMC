@@ -936,6 +936,7 @@ def _(mo):
     ## Video lectures
     - [Differential equations introduction](https://www.khanacademy.org/math/differential-equations/first-order-differential-equations/differential-equations-intro/v/differential-equation-introduction) - Khan Academy.
     - [Overview of Differential Equations](https://youtu.be/ghjOS7Q82s0?si=8dJEhIhFSfciSDH7) - Lecture by Gilbert Strang.
+    - [This is why you're learning differential equations](https://youtu.be/ifbaAqfqpc4?si=0V6cOiY5QCMzmcur).
     """)
     return
 

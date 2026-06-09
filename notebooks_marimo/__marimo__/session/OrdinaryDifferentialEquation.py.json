@@ -725,12 +725,12 @@
     },
     {
       "id": "tZnO",
-      "code_hash": "c9a58c6491a0f6d2449931b05ea730b8",
+      "code_hash": "7b65be3b99fff24e0d578da1df9afe2a",
       "outputs": [
         {
           "type": "data",
           "data": {
-            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"video-lectures\">Video lectures</h2>\n<ul>\n<li><a href=\"https://www.khanacademy.org/math/differential-equations/first-order-differential-equations/differential-equations-intro/v/differential-equation-introduction\" rel=\"noopener noreferrer\" target=\"_blank\">Differential equations introduction</a> - Khan Academy.</li>\n<li><a href=\"https://youtu.be/ghjOS7Q82s0?si=8dJEhIhFSfciSDH7\" rel=\"noopener noreferrer\" target=\"_blank\">Overview of Differential Equations</a> - Lecture by Gilbert Strang.</li>\n</ul></span>"
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"video-lectures\">Video lectures</h2>\n<ul>\n<li><a href=\"https://www.khanacademy.org/math/differential-equations/first-order-differential-equations/differential-equations-intro/v/differential-equation-introduction\" rel=\"noopener noreferrer\" target=\"_blank\">Differential equations introduction</a> - Khan Academy.</li>\n<li><a href=\"https://youtu.be/ghjOS7Q82s0?si=8dJEhIhFSfciSDH7\" rel=\"noopener noreferrer\" target=\"_blank\">Overview of Differential Equations</a> - Lecture by Gilbert Strang.</li>\n<li><a href=\"https://youtu.be/ifbaAqfqpc4?si=0V6cOiY5QCMzmcur\" rel=\"noopener noreferrer\" target=\"_blank\">This is why you're learning differential equations</a>.</li>\n</ul></span>"
           }
         }
       ],
