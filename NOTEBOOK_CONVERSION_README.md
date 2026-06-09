@@ -1,6 +1,8 @@
 # Jupyter to Marimo Notebook Conversion
 
-This document describes the conversion of all Jupyter notebooks in the `notebooks/` directory to Marimo notebooks.
+This document describes the conversion of Jupyter notebooks in the `notebooks/` directory to Marimo notebooks in `notebooks_marimo/`.
+
+The long-term direction for this repository is marimo-only notebook development. Existing Jupyter notebooks remain available during the transition, but new notebook work should target marimo unless there is a specific compatibility reason to use `.ipynb`.
 
 ## Overview
 
@@ -11,9 +13,8 @@ This document describes the conversion of all Jupyter notebooks in the `notebook
 ## Directory Structure
 
 ```
-├── notebooks/                    # Converted Marimo notebooks (.py files) - NOW ACTIVE
-├── notebooks_original/           # Backup of all original Jupyter notebooks
-└── convert_notebooks.py          # Conversion script used
+├── notebooks/                    # Original Jupyter notebooks (.ipynb files)
+└── notebooks_marimo/             # Converted Marimo notebooks (.py files)
 ```
 
 ## What is Marimo?
@@ -68,18 +69,18 @@ To open and run a converted notebook:
 cd /path/to/BMC
 
 # Open a specific notebook
-marimo edit notebooks/Biomechanics.py
+uv run marimo edit notebooks_marimo/Biomechanics.py
 
 # Or start marimo and browse notebooks
-marimo edit
+uv run marimo edit
 ```
 
 ### Installing Marimo
 
-If marimo is not installed:
+Install the project environment from `pyproject.toml` and `uv.lock`:
 
 ```bash
-pip install marimo
+uv sync
 ```
 
 ### Key Differences from Jupyter
@@ -94,7 +95,7 @@ pip install marimo
 The conversion was performed using the `marimo convert` command:
 
 ```bash
-marimo convert notebook.ipynb -o notebook.py
+uv run marimo convert notebook.ipynb -o notebook.py
 ```
 
 ### What Was Converted
@@ -124,7 +125,7 @@ After conversion, you may need to:
 
 ### Image Reference Fix Applied
 
-**Issue**: Some Marimo notebooks referenced images using relative paths like `../images/` which don't work correctly when notebooks are executed from the `notebooks/` directory.
+**Issue**: Some Marimo notebooks referenced images using relative paths like `../images/` which don't work correctly when notebooks are executed from the `notebooks_marimo/` directory.
 **Solution**: All image references have been converted to use GitHub URLs with `?raw=1` parameter for reliable access.
 **Files affected**: 15+ notebooks contained image references that were fixed.
 **Examples of fixes**:
@@ -133,9 +134,9 @@ After conversion, you may need to:
 
 ## Backup and Safety
 
-- **Original Jupyter notebooks** are preserved in `notebooks_original/`
-- **Current notebooks** in `notebooks/` are now the Marimo versions with corrected image references
-- **Conversion script** (`convert_notebooks.py`) is available for reference
+- **Original Jupyter notebooks** are preserved in `notebooks/`
+- **Converted Marimo notebooks** live in `notebooks_marimo/`
+- **Generated Marimo session state** under `notebooks_marimo/__marimo__/` should not be committed unless there is a specific reason to preserve it
 
 ## Next Steps
 
@@ -148,8 +149,8 @@ After conversion, you may need to:
 
 For issues with:
 - **Marimo**: Visit [marimo.io](https://marimo.io/) or [GitHub](https://github.com/marimo-team/marimo)
-- **Conversion problems**: Check the conversion script or re-run individual conversions
-- **Notebook content**: Refer to the original notebooks in `notebooks_original/`
+- **Conversion problems**: Re-run individual conversions with `uv run marimo convert`
+- **Notebook content**: Refer to the original notebooks in `notebooks/`
 
 ---
 

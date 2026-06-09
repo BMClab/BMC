@@ -29,5 +29,10 @@ dependencies = [
 
 [dependency-groups]
 dev = [
+    "nbstripout>=0.9.1",
     "pytest>=9.0.3",
 ]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test*.py"]
