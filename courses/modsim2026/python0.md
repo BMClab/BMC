@@ -13,6 +13,65 @@
 
 - [GitHub repo with Python notebooks](https://github.com/marimo-team/learn/tree/main/python)
 
+## Install Python
+
+Install a current Python 3 version before installing marimo. The official
+download page is [python.org/downloads](https://www.python.org/downloads/).
+After installation, open a new terminal and check that Python works:
+
+Windows PowerShell:
+
+```powershell
+python --version
+python -m pip --version
+```
+
+macOS/Linux:
+
+```bash
+python3 --version
+python3 -m pip --version
+```
+
+### Windows
+
+Use the Python Install Manager from
+[python.org/downloads](https://www.python.org/downloads/) or the Microsoft
+Store. After installing, the `python` command should work in PowerShell. If it
+does not, check the Windows "App execution aliases" settings or reinstall and
+enable the PATH option.
+
+### macOS
+
+Use the official `.pkg` installer from
+[python.org/downloads](https://www.python.org/downloads/) or install Python with
+Homebrew:
+
+```bash
+brew install python
+```
+
+On macOS, the command is usually `python3`, not `python`.
+
+### Linux
+
+Python is already installed on most Linux distributions. For this course, make
+sure `pip` and `venv` are also installed. On Ubuntu/Debian:
+
+```bash
+sudo apt update
+sudo apt install python3 python3-pip python3-venv
+```
+
+On Fedora:
+
+```bash
+sudo dnf install python3 python3-pip
+```
+
+Do not remove or overwrite the system Python on Linux. Use a virtual
+environment for course packages.
+
 ## Install marimo into a user-local Python environment so you don't need admin/root
 
 The reliable, no-admin approaches:
