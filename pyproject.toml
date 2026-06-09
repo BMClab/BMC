@@ -26,3 +26,8 @@ dependencies = [
     "tnorma>=0.0.3",
     "watermark>=2.6.0",
 ]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.3",
+]
