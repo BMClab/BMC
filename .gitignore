@@ -127,3 +127,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Claude Code personal settings (keep hooks/CLAUDE.md shareable, settings personal)
+.claude/settings.local.json

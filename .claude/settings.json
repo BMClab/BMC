@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(uv run ruff:*)",
+      "Bash(uv run pytest:*)",
+      "Bash(uv run python -m unittest:*)",
+      "Bash(uv run python -m pytest:*)",
+      "Bash(uv run marimo export:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          { "type": "command", "command": "\"$CLAUDE_PROJECT_DIR/.claude/hooks/ruff-format.sh\"" },
+          { "type": "command", "command": "\"$CLAUDE_PROJECT_DIR/.claude/hooks/marimo-session-guard.sh\"" }
+        ]
+      }
+    ]
+  }
+}
