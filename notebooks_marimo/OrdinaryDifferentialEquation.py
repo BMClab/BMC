@@ -1,157 +1,438 @@
 import marimo
 
-__generated_with = "0.13.15"
-app = marimo.App()
+__generated_with = "0.23.9"
+app = marimo.App(width="medium")
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        # Ordinary Differential Equation
+    mo.md(r"""
+    # Introduction to Ordinary Differential Equation
 
-        > Marcos Duarte  
-        > Laboratory of Biomechanics and Motor Control ([http://demotu.org/](http://demotu.org/))  
-        > Federal University of ABC, Brazil
-        """
-    )
+    > Marcos Duarte,
+    > [Laboratory of Biomechanics and Motor Control](https://bmclab.pesquisa.ufabc.edu.br/),
+    > Federal University of ABC, Brazil
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        An ordinary differential equation (ODE) is an equation containing a function of one independent variable and its derivatives.  
+    mo.md(r"""
+    ## How to use this tutorial
 
-        Solve an ODE is finding such a function whose derivatives satisfy the equation. The order of an ODE refers to the order of the derivatives; e.g., a first order ODE has only first derivatives. A linear ODE has only linear terms for the function of one independent variable and in general its solution can be obtained analytically. By contrast, a nonlinear ODE doesn't have an exact analytical solution and it has to be solved by numerical methods. The equation is referred as partial differential equation when contains a function of more than one independent variable and its derivatives.  
+    This notebook is written as a guided study session. You will read a short explanation, predict what should happen, run a small computation, and then use the result to answer the next question. Keep a scratchpad nearby and write your answers before you reveal the plots.
 
-        A simple and well known example of ODE is Newton's second law of motion:$m\frac{\mathrm{d}^2 \mathbf{x}}{\mathrm{d}t^2}(t) = \mathbf{F}$$\mathbf{x}$is the function with a derivative and$t$is the independent variable. Note that the force,$\mathbf{F}$, can be constant (e.g., the gravitational force) or a function of position,$\mathbf{F}(\mathbf{x}(t))$, (e.g., the force of a spring) or a function of other quantity. If$\mathbf{F}$is constant or a linear function of$\mathbf{x}$, this equation is a second-order linear ODE. 
-        """
-    )
+    You do not need to finish every challenge on the first pass. Start by running each cell in order. Then return to the challenges and change one parameter at a time. The goal is not only to make the code run; the goal is to connect the equations, the numerical method, and the motion you see in the plots.
+
+    **Challenge 0.** Before you begin, write down one mechanical system you already know that changes over time: a bouncing ball, a pendulum, a person walking, a mass on a spring, or something else. What variable would you measure to describe its state?
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## First-order ODE
+    mo.md(r"""
+    An ordinary differential equation (ODE) is an equation that relates a function of one independent variable to one or more of its derivatives. In this tutorial, the independent variable will usually be time. Solving an ODE means finding a function whose derivatives satisfy that relationship.
 
-        A first-order ODE has the general form:$\frac{\mathrm{d} y}{\mathrm{d} x} = f(x, y)$Where$f(x, y)$is an expression for the derivative of$y$that can be evaluated given$x$and$y$. When$f(x, y)$is linear w.r.t.$y$, the equation is a first-order linear ODE which can be written in the form:$\frac{\mathrm{d} y}{\mathrm{d} x} + P(x)y = Q(x)$"""
-    )
+    The order of an ODE is the order of its highest derivative. For example, a first-order ODE contains only first derivatives. A linear ODE is linear in the unknown function and its derivatives; many important linear ODEs have analytical solutions, but others are still solved numerically in practice. Nonlinear ODEs can sometimes be solved exactly, but numerical methods are often the practical approach.
+
+    An equation is called a partial differential equation when the unknown function depends on more than one independent variable.
+
+    Newton's second law gives a simple example:
+
+    $$
+    m\frac{\mathrm{d}^2 \mathbf{x}}{\mathrm{d}t^2}(t) = \mathbf{F}.
+    $$
+
+    Here, $\mathbf{x}(t)$ is the position as a function of time and $t$ is the independent variable. The force $\mathbf{F}$ may be constant, such as gravitational force, or it may depend on position, velocity, time, or other quantities. If $\mathbf{F}$ is constant or a linear function of $\mathbf{x}$, this equation is a second-order linear ODE.
+
+    **Guiding questions 1.**
+    1. Which quantity is changing with time in Newton's second law?
+    2. Which derivative appears in the equation?
+    3. What extra information would you need before predicting a unique motion?
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Numerical methods for solving ODE
+    mo.md(r"""
+    ## First-order ODE
 
-        When an ODE can't be solved analytically, usually because it's nonlinear, numerical methods are used, a procedure also referred as numerical integration (Downey, 2011; Kitchin, 2013; Kiusalaas, 2013; [Wikipedia](http://en.wikipedia.org/wiki/Numerical_methods_for_ordinary_differential_equations)). In numerical methods, a first-order differential equation can be solved as an Initial Value Problem (IVP) of the form:$\dot{y}(t) = f(t, y(t)), \quad y(t_0) = y_0$In numerical methods, a higher-order ODE is usually transformed into a system of first-order ODE and then this system is solved using numerical integration. 
-        """
-    )
+    A first-order ODE has the general form
+
+    $$
+    \frac{\mathrm{d} y}{\mathrm{d} x} = f(x, y).
+    $$
+
+    The function $f(x, y)$ gives the derivative of $y$ at a given pair $(x, y)$. When $f(x, y)$ is linear with respect to $y$, the equation is a first-order linear ODE, which can be written as
+
+    $$
+    \frac{\mathrm{d} y}{\mathrm{d} x} + P(x)y = Q(x).
+    $$
+
+    **Challenge 1.** Suppose $y$ is position and $x$ is time. In one sentence, explain why knowing only $\mathrm{d}y/\mathrm{d}x$ at a single instant is not enough to reconstruct the full motion.
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### Euler method
+    mo.md(r"""
+    ## Numerical methods for solving ODEs
 
-        The most simple method to solve an ODE is using the Euler method.  
-        First, the derivative of$y$is approximated by:$\dot{y}(t) \approx \frac{y(t+h)-y(t)}{h}$Where$h$is the step size.  
-        Rearranging the equation above:$y(t+h) \approx y(t) +h\dot{y}(t)$And replacing$\dot{y}(t)$:$y(t+h) \approx y(t) +hf(t, y(t))$The ODE then can be solved starting at$t_0$, which has a known value for$y_0$:$y(t+h) \approx y_0 + hf(t_0, y_0)$And using the equation recursively for a sequence of values for$t$$(t_0, t_0+h, t_0+2h, ...)$:$y_{n+1} = y_n + hf(t_n, y_n)$This is the Euler method to solve an ODE with a known initial value. 
-        """
-    )
+    When an ODE is difficult or impossible to solve analytically, numerical methods approximate the solution at selected points. This process is also called numerical integration. For an initial value problem (IVP), a first-order ODE is written as
+
+    $$
+    \dot{y}(t) = f(t, y(t)), \qquad y(t_0) = y_0.
+    $$
+
+    Higher-order ODEs are commonly rewritten as systems of first-order ODEs and then solved with the same numerical integration tools.
+
+    **Guiding questions 2.**
+    1. What does the initial condition $y(t_0)=y_0$ tell you?
+    2. Why do you think numerical integration advances in small time steps?
+    3. What might go wrong if the time step is too large?
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### Other numerical methods for solving ODE
+    mo.md(r"""
+    ## Initial Value Problems (IVP)
 
-        There are other methods for solving an ODE. One family of methods, usually more accurate, uses more points in the interval$[t_n,t_{n+1}]$and are known as [Runge–Kutta methods](http://en.wikipedia.org/wiki/Runge%E2%80%93Kutta_method). In the Python ecosystem, Runge–Kutta methods are available using the [`scipy.integrate.ode`](http://docs.scipy.org/doc/scipy-0.14.0/reference/generated/scipy.integrate.ode.html) library of numeric integrators. The library [`scipy.integrate.odeint`](http://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.odeint.html) has other popular integrator known as `lsoda`, from the FORTRAN library odepack.
-        """
-    )
+    When solving ODEs with a known set of initial conditions, we are solving an initial value problem (IVP). The solution often describes how a system changes over time from a specified initial state.
+
+    A solution to an IVP is a function that satisfies both the differential equation and the initial condition. For a first-order problem,
+
+    $$
+    \dot{y}(t) = f(t, y(t)), \qquad y(t_0)=y_0.
+    $$
+
+    Higher-order IVPs can be rewritten as systems of first-order IVPs. For example, a second-order equation can be written as
+
+    $$
+    y''(t) = f(t, y(t), y'(t)).
+    $$
+
+    Define a state vector with the original variable and its derivative:
+
+    $$
+    x_1(t) = y(t), \qquad x_2(t) = y'(t).
+    $$
+
+    Then the same problem becomes two coupled first-order equations:
+
+    $$
+    \dot{x}_1(t)=x_2(t), \qquad \dot{x}_2(t)=f(t, x_1(t), x_2(t)).
+    $$
+
+    In the same way, an ODE of order $N$ can be represented as a system of $N$ first-order ODEs. A simple pendulum, a projectile under gravity, and many biomechanical models are naturally written this way before numerical integration.
+
+    **Challenge 2.** A mass-spring-damper model can be written as $m x'' + c x' + kx = F(t)$. Before looking ahead, define two state variables that would convert this equation into two first-order ODEs.
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Examples
+    mo.md(r"""
+    ### Euler method
 
-        ### Motion under constant force
+    The Euler method is the simplest numerical method for solving an initial value problem. First, approximate the derivative of $y$ with a finite difference:
 
-        Consider a football ball kicked up from an initial height$y_0$and with initial velocity$v_0$. Determine the equation of motion of the ball in the vertical direction.  
+    $$
+    \dot{y}(t) \approx \frac{y(t+h)-y(t)}{h},
+    $$
 
-        Neglecting the air resistance, Newton's second law of motion applied to this problem for the instants the ball is in the air gives:$m\frac{\mathrm{d}^2 y}{\mathrm{d}t^2} = -mg$Consider$g=9.8m/s^2$,$y_0(t_0=0)=1m$, and$v_0(t_0=0)=20m/s$.
+    where $h$ is the step size. Rearranging gives
 
-        We know the analytical solution for this problem:$y(t) = y_0 + v_0 t - \frac{g}{2}t^2$Let's solve this problem numerically and compare the results.
+    $$
+    y(t+h) \approx y(t) + h\dot{y}(t).
+    $$
 
-        A second-order ODE can be transformed into two first-order ODE, introducing a new variable:$\dot{y} = v$$\dot{v} = a$And rewriting Newton's second law as a couple of equations:$\left\{
-        \begin{array}{r}
-        \frac{\mathrm{d} y}{\mathrm{d}t} = &v, \quad y(t_0) = y_0
-        \\
-        \frac{\mathrm{d} v}{\mathrm{d}t} = &-g, \quad v(t_0) = v_0
-        \end{array}
-        \right.$First, let's import the necessary Python libraries and customize the environment:
-        """
-    )
+    Replacing $\dot{y}(t)$ by $f(t, y(t))$ gives
+
+    $$
+    y(t+h) \approx y(t) + hf(t, y(t)).
+    $$
+
+    Starting from the known value $y(t_0)=y_0$, this becomes the recursive update
+
+    $$
+    y_{n+1} = y_n + h f(t_n, y_n).
+    $$
+
+    **Challenge 3.** Euler's method is simple, but it makes a local straight-line prediction. Sketch what you expect to happen when the real trajectory is strongly curved and the step size $h$ is large.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## Explicit and Semi-Implicit Euler Methods
+
+    For a state with position $y$ and velocity $v$, the update order matters. The forward, or explicit, Euler method uses only the current state:
+
+    $$
+    y_{i+1}=y_i+h v_i, \qquad v_{i+1}=v_i+h a(t_i, y_i, v_i).
+    $$
+
+    A common alternative in mechanics is the semi-implicit Euler method, also called symplectic Euler or Euler-Cromer. It updates velocity first and then uses the new velocity to update position:
+
+    $$
+    v_{i+1}=v_i+h a(t_i, y_i, v_i), \qquad y_{i+1}=y_i+h v_{i+1}.
+    $$
+
+    This is not the fully implicit backward Euler method, which would evaluate the derivative at the future state and usually requires solving an algebraic equation at every step. The semi-implicit version is still simple to implement, and for many mechanical systems it behaves better than forward Euler.
+
+    **Guiding questions 3.**
+    1. In forward Euler, which value of velocity updates position?
+    2. In semi-implicit Euler, which value of velocity updates position?
+    3. Why might the second choice matter for oscillating systems?
+    """)
+    return
+
+
+@app.function
+def euler_method(acceleration, T=10, y0=(0.0, 0.0), h=0.01, method=2):
+    """
+    First-order numerical approximation for two coupled first-order ODEs.
+
+    The state is [position, velocity]. The acceleration function has the
+    signature acceleration(t, state) and returns dv/dt.
+    """
+    import numpy as np
+
+    n_samples = int(np.ceil(T / h))
+    y = np.zeros((2, n_samples))
+    y[:, 0] = np.asarray(y0, dtype=float)
+    t = np.linspace(0, T, n_samples, endpoint=False)
+
+    for i in range(n_samples - 1):
+        if method == 1:
+            y[0, i + 1] = y[0, i] + h * y[1, i]
+            y[1, i + 1] = y[1, i] + h * acceleration(t[i], y[:, i])
+        elif method == 2:
+            y[1, i + 1] = y[1, i] + h * acceleration(t[i], y[:, i])
+            y[0, i + 1] = y[0, i] + h * y[1, i + 1]
+        elif method == 3:
+            y[0, i + 1] = y[0, i] + h * y[1, i]
+            next_state = np.array([y[0, i + 1], y[1, i]])
+            y[1, i + 1] = y[1, i] + h * acceleration(t[i], next_state)
+        else:
+            raise ValueError("Valid options for method are 1, 2, or 3.")
+
+    return t, y
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ### Other numerical methods for solving ODEs
+
+    More accurate methods use additional evaluations of the derivative inside each interval $[t_n, t_{n+1}]$. A common family is the [Runge-Kutta methods](https://en.wikipedia.org/wiki/Runge%E2%80%93Kutta_methods).
+
+    In SciPy, the current general-purpose interface for initial value problems is [`scipy.integrate.solve_ivp`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.solve_ivp.html). SciPy recommends `solve_ivp` for new code. It provides explicit Runge-Kutta methods such as `RK45` and `DOP853`, implicit methods for stiff systems such as `Radau` and `BDF`, and `LSODA`, which automatically switches between nonstiff and stiff methods.
+
+    **Challenge 4.** When you later compare Euler with `solve_ivp`, predict which method will be more accurate for the same output time step and explain why.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## Examples
+
+    Now you will work through examples. Each example starts with a model, rewrites it as an IVP, and then asks you to inspect or modify the numerical solution.
+
+    First, import the required Python libraries and customize the plotting environment.
+    """)
     return
 
 
 @app.cell
 def _():
     import numpy as np
-    # '%matplotlib inline' command supported automatically in marimo
-    import matplotlib.pyplot as plt
+
     import matplotlib
-    matplotlib.rcParams['lines.linewidth'] = 3
-    matplotlib.rcParams['font.size'] = 13
-    matplotlib.rcParams['lines.markersize'] = 5
-    matplotlib.rc('axes', grid=False, labelsize=14, titlesize=16, ymargin=0.05)
-    matplotlib.rc('legend', numpoints=1, fontsize=11)
+    import matplotlib.pyplot as plt
+
+    matplotlib.rcParams["lines.linewidth"] = 3
+    matplotlib.rcParams["font.size"] = 13
+    matplotlib.rcParams["lines.markersize"] = 5
+    matplotlib.rc("axes", grid=False, labelsize=14, titlesize=16, ymargin=0.05)
+    matplotlib.rc("legend", numpoints=1, fontsize=11)
     return np, plt
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        This is the equation for calculating the ball trajectory given the model and using the Euler method:
-        """
-    )
+    mo.md(r"""
+    ### Example: Simple Pendulum under Gravity
+
+    A simple pendulum is a compact example of an IVP. Let $\theta$ be the angular position and $\omega=\dot{\theta}$ be the angular velocity. For a pendulum of length $d$ under gravity $g$, the equation of motion is
+
+    $$
+    \ddot{\theta}(t) = -\frac{g}{d}\sin(\theta(t)).
+    $$
+
+    With initial conditions $\theta(0)=45^\circ$ and $\omega(0)=0$, the second-order IVP can be written as two first-order equations:
+
+    $$
+    \dot{\theta} = \omega, \qquad
+    \dot{\omega} = -\frac{g}{d}\sin(\theta).
+    $$
+
+    We will solve this system with the semi-implicit Euler method.
+
+    **Before you run the next cell**, predict whether the angular velocity will be largest near the top of the swing or near the bottom. Then compare your prediction with the plot.
+    """)
     return
+
+
+@app.function
+def pendulum_acceleration(t, state):
+    """Return angular acceleration for a simple pendulum."""
+    import numpy as np
+
+    del t
+    length = 0.5
+    gravity = 10
+    return -(gravity / length) * np.sin(state[0])
+
+
+@app.function
+def plot_pendulum(t, y, labels):
+    """Plot angular position and velocity for the pendulum example."""
+    import matplotlib.pyplot as plt
+
+    fig, ax1 = plt.subplots(1, 1, figsize=(10, 4))
+    ax1.set_title(labels[0])
+    ax1.plot(t, y[0, :], "b", label="Angular position")
+    ax1.set_xlabel("Time [s]")
+    ax1.set_ylabel(labels[1], color="b")
+    ax1.tick_params("y", colors="b")
+
+    ax2 = ax1.twinx()
+    ax2.plot(t, y[1, :], "r-.", label="Angular velocity")
+    ax2.set_ylabel(labels[2], color="r")
+    ax2.tick_params("y", colors="r")
+    plt.tight_layout()
+    plt.show()
 
 
 @app.cell
 def _(np):
-    def ball_euler(t0, tend, y0, v0, h):
-        (t, y, v, i) = ([t0], [y0], [v0], 0)
-        a = -9.8
-        while t[-1] <= tend and y[-1] > 0:
-            y.append(y[-1] + h * v[-1])
-            v.append(v[-1] + h * a)
-            i = i + 1
-            t.append(i * h)
-        return (np.array(t), np.array(y), np.array(v))
-    return (ball_euler,)
+    T_pendulum = 10
+    y0_pendulum = [45 * np.pi / 180, 0]
+    h_pendulum = 0.01
+    t_pendulum, theta = euler_method(
+        pendulum_acceleration,
+        T=T_pendulum,
+        y0=y0_pendulum,
+        h=h_pendulum,
+        method=2,
+    )
+    pendulum_labels = [
+        "Trajectory of a simple pendulum under gravity",
+        "Angular position [deg]",
+        "Angular velocity [deg/s]",
+    ]
+    return pendulum_labels, t_pendulum, theta
+
+
+@app.cell
+def _(np, pendulum_labels, t_pendulum, theta):
+    plot_pendulum(t_pendulum, np.rad2deg(theta), pendulum_labels)
+    return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Initial values:
-        """
-    )
+    mo.md(r"""
+    **Challenge 5.** Change the initial angle to $10^\circ$, $45^\circ$, and $90^\circ$. Does the plot look like a perfect sine wave in all three cases? What does that tell you about the small-angle approximation?
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ### Motion under Constant Force
+
+    Consider a football kicked upward from an initial height $y_0$ with initial vertical velocity $v_0$. We want the equation of motion in the vertical direction.
+
+    Neglecting air resistance, Newton's second law gives
+
+    $$
+    m\frac{\mathrm{d}^2 y}{\mathrm{d}t^2} = -mg.
+    $$
+
+    We will use $g=9.8\,\mathrm{m/s^2}$, $y_0=1\,\mathrm{m}$ at $t_0=0$, and $v_0=20\,\mathrm{m/s}$. The analytical solution is
+
+    $$
+    y(t) = y_0 + v_0 t - \frac{g}{2}t^2.
+    $$
+
+    To solve the same problem numerically, rewrite the second-order ODE as two first-order ODEs:
+
+    $$
+    \dot{y} = v, \qquad \dot{v} = a.
+    $$
+
+    For constant gravitational acceleration,
+
+    $$
+    \left\{
+    \begin{array}{rl}
+    \frac{\mathrm{d} y}{\mathrm{d}t} &= v, \quad y(t_0) = y_0,\\
+    \frac{\mathrm{d} v}{\mathrm{d}t} &= -g, \quad v(t_0) = v_0.
+    \end{array}
+    \right.
+    $$
+
+    **Guiding questions 4.**
+    1. Which two variables define the state of the ball?
+    2. Which equation updates position?
+    3. Which equation updates velocity?
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    This function calculates the vertical trajectory with the Euler method.
+    """)
+    return
+
+
+@app.function
+def ball_euler(t0, tend, y0, v0, h):
+    """Integrate vertical ball motion with the explicit Euler method."""
+    import numpy as np
+
+    t = [t0]
+    y = [y0]
+    v = [v0]
+    a = -9.8
+    while t[-1] <= tend and y[-1] > 0:
+        y.append(y[-1] + h * v[-1])
+        v.append(v[-1] + h * a)
+        t.append(t[-1] + h)
+    return np.array(t), np.array(y), np.array(v)
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    Set the initial conditions.
+    """)
     return
 
 
@@ -159,246 +440,323 @@ def _(mo):
 def _():
     y0 = 1
     v0 = 20
-
-    a = -9.8
     return v0, y0
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Let's call the function with different step sizes:
-        """
-    )
+    mo.md(r"""
+    Now integrate the same motion with two step sizes.
+    """)
     return
 
 
 @app.cell
-def _(ball_euler, v0, y0):
+def _(v0, y0):
     t100, y100, v100 = ball_euler(0, 10, y0, v0, 0.1)
-    t10, y10, v10    = ball_euler(0, 10, y0, v0, 0.01)
+    t10, y10, v10 = ball_euler(0, 10, y0, v0, 0.01)
     return t10, t100, v10, v100, y10, y100
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Here are the plots for the results:
-        """
-    )
+    mo.md(r"""
+    Here are the numerical results compared with the analytical solution.
+    """)
     return
 
 
 @app.cell
 def _(plt, v0, y0):
     def plots(t100, y100, v100, t10, y10, v10, title):
-        """Plots of numerical integration results.
-        """
+        """Plot numerical integration results against the analytical solution."""
         a = -9.8
-    
+
         fig, axs = plt.subplots(nrows=2, ncols=2, sharex=True, figsize=(10, 5))
 
-        axs[0, 0].plot(t10, y0 + v0*t10 + 0.5*a*t10**2, color=[0, 0, 1, .7], label='Analytical')
-        axs[0, 0].plot(t100, y100, '--', color=[0, 1, 0, .7], label='h = 100ms')
-        axs[0, 0].plot(t10, y10, ':', color=[1, 0, 0, .7], label='h =   10ms')
+        axs[0, 0].plot(
+            t10,
+            y0 + v0 * t10 + 0.5 * a * t10**2,
+            color=[0, 0, 1, 0.7],
+            label="Analytical",
+        )
+        axs[0, 0].plot(t100, y100, "--", color=[0, 1, 0, 0.7], label="h = 100 ms")
+        axs[0, 0].plot(t10, y10, ":", color=[1, 0, 0, 0.7], label="h = 10 ms")
 
-        axs[0, 1].plot(t10, v0 + a*t10, color=[0, 0, 1, .5], label='Analytical')
-        axs[0, 1].plot(t100, v100, '--', color=[0, 1, 0, .7], label='h = 100ms')
-        axs[0, 1].plot(t10, v10, ':', color=[1, 0, 0, .7], label='h =   10ms')
+        axs[0, 1].plot(t10, v0 + a * t10, color=[0, 0, 1, 0.5], label="Analytical")
+        axs[0, 1].plot(t100, v100, "--", color=[0, 1, 0, 0.7], label="h = 100 ms")
+        axs[0, 1].plot(t10, v10, ":", color=[1, 0, 0, 0.7], label="h = 10 ms")
 
-        axs[1, 0].plot(t10, y0 + v0*t10 + 0.5*a*t10**2 - (y0 + v0*t10 + 0.5*a*t10**2),
-                       color=[0, 0, 1, .7], label='Analytical')
-        axs[1, 0].plot(t100, y100 - (y0 + v0*t100 + 0.5*a*t100**2), '--',
-                       color=[0, 1, 0, .7], label='h = 100ms')
-        axs[1, 0].plot(t10, y10 - (y0 + v0*t10 + 0.5*a*t10**2), ':',
-                       color=[1, 0, 0, .7], label='h =   10ms')
+        axs[1, 0].plot(
+            t10,
+            y0 + v0 * t10 + 0.5 * a * t10**2 - (y0 + v0 * t10 + 0.5 * a * t10**2),
+            color=[0, 0, 1, 0.7],
+            label="Analytical",
+        )
+        axs[1, 0].plot(
+            t100,
+            y100 - (y0 + v0 * t100 + 0.5 * a * t100**2),
+            "--",
+            color=[0, 1, 0, 0.7],
+            label="h = 100 ms",
+        )
+        axs[1, 0].plot(
+            t10,
+            y10 - (y0 + v0 * t10 + 0.5 * a * t10**2),
+            ":",
+            color=[1, 0, 0, 0.7],
+            label="h = 10 ms",
+        )
 
-        axs[1, 1].plot(t10, v0 + a*t10 - (v0 + a*t10), color=[0, 0, 1, .7], label='Analytical')
-        axs[1, 1].plot(t100, v100 - (v0 + a*t100), '--', color=[0, 1, 0, .7], label='h = 100ms')
-        axs[1, 1].plot(t10, v10 - (v0 + a*t10), ':', color=[1, 0, 0, .7], label='h =   10ms')
+        axs[1, 1].plot(
+            t10,
+            v0 + a * t10 - (v0 + a * t10),
+            color=[0, 0, 1, 0.7],
+            label="Analytical",
+        )
+        axs[1, 1].plot(
+            t100,
+            v100 - (v0 + a * t100),
+            "--",
+            color=[0, 1, 0, 0.7],
+            label="h = 100 ms",
+        )
+        axs[1, 1].plot(
+            t10,
+            v10 - (v0 + a * t10),
+            ":",
+            color=[1, 0, 0, 0.7],
+            label="h = 10 ms",
+        )
 
-        ylabel = ['y [m]', 'v [m/s]', 'y error [m]', 'v error [m/s]']
+        ylabel = ["y [m]", "v [m/s]", "y error [m]", "v error [m/s]"]
         axs[0, 0].set_xlim(t10[0], t10[-1])
-        axs[1, 0].set_xlabel('Time [s]')
-        axs[1, 1].set_xlabel('Time [s]')
+        axs[1, 0].set_xlabel("Time [s]")
+        axs[1, 1].set_xlabel("Time [s]")
         axs[0, 1].legend()
         axs = axs.flatten()
         for i, ax in enumerate(axs):
             ax.set_ylabel(ylabel[i])
-        plt.suptitle('Kinematics of a soccer ball - %s method'%title, y=1.02, fontsize=16)
+        plt.suptitle(f"Kinematics of a football - {title} method", y=1.02, fontsize=16)
         plt.tight_layout()
         plt.show()
+
     return (plots,)
 
 
 @app.cell
 def _(plots, t10, t100, v10, v100, y10, y100):
-    plots(t100, y100, v100, t10, y10, v10, 'Euler')
+    plots(t100, y100, v100, t10, y10, v10, "Euler")
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Let's use the integrator `lsoda` to solve the same problem:
-        """
-    )
+    mo.md(r"""
+    **Challenge 6.** Compare the error curves for $h=100$ ms and $h=10$ ms. Which error changes more when the step size decreases: position or velocity? Explain your answer from the update equations.
+    """)
     return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    `solve_ivp` can call the LSODA method for the same problem. LSODA is useful as a robust general solver because it switches automatically between methods for nonstiff and stiff systems.
+    """)
+    return
+
+
+@app.function
+def ball_constant_force(t, yv):
+    y, v = yv
+    a = -9.8
+    return [v, a]
+
+
+@app.function
+def solve_trajectory(fun, t0, tend, yv0, h, method):
+    import numpy as np
+    from scipy.integrate import solve_ivp
+
+    t_eval = np.arange(t0, tend + h / 2, h)
+    solution = solve_ivp(
+        fun=fun,
+        t_span=(t0, tend),
+        y0=yv0,
+        method=method,
+        t_eval=t_eval,
+    )
+    if not solution.success:
+        raise RuntimeError(solution.message)
+    return solution.t, solution.y[0], solution.y[1]
 
 
 @app.cell
 def _():
-    from scipy.integrate import odeint, ode
-
-    def ball_eq(yv, t):
-    
-        y = yv[0]  # position 
-        v = yv[1]  # velocity
-        a = -9.8   # acceleration
-    
-        return [v, a]
-    return ball_eq, ode, odeint
-
-
-@app.cell
-def _(ball_eq, np, odeint):
-    _yv0 = [1, 20]
-    t10_1 = np.arange(0, 4, 0.1)
-    _yv10 = odeint(ball_eq, _yv0, t10_1)
-    (y10_1, v10_1) = (_yv10[:, 0], _yv10[:, 1])
-    t100_1 = np.arange(0, 4, 0.01)
-    yv100 = odeint(ball_eq, _yv0, t100_1)
-    (y100_1, v100_1) = (yv100[:, 0], yv100[:, 1])
+    t100_1, y100_1, v100_1 = solve_trajectory(
+        ball_constant_force, 0, 4, [1, 20], 0.1, method="LSODA"
+    )
+    t10_1, y10_1, v10_1 = solve_trajectory(
+        ball_constant_force, 0, 4, [1, 20], 0.01, method="LSODA"
+    )
     return t100_1, t10_1, v100_1, v10_1, y100_1, y10_1
 
 
 @app.cell
 def _(plots, t100_1, t10_1, v100_1, v10_1, y100_1, y10_1):
-    plots(t100_1, y100_1, v100_1, t10_1, y10_1, v10_1, 'lsoda')
+    plots(t100_1, y100_1, v100_1, t10_1, y10_1, v10_1, "LSODA")
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Let's use an explicit runge-kutta method of order (4)5 due to Dormand and Prince (a.k.a. ode45 in Matlab):
-        """
-    )
+    mo.md(r"""
+    `solve_ivp` also offers explicit Runge-Kutta methods. Its default method, `RK45`, is an explicit Dormand-Prince method of order 5(4), similar in spirit to MATLAB's `ode45`.
+    """)
     return
 
 
-@app.function
-def ball_eq_1(t, yv):
-    y = yv[0]
-    v = yv[1]
-    a = -9.8
-    return [v, a]
-
-
 @app.cell
-def _(np, ode):
-    def ball_sol(fun, t0, tend, yv0, h):
-        f = ode(fun).set_integrator('dopri5')
-        f.set_initial_value(_yv0, t0)
-        data = []
-        while f.successful() and f.t < tend:
-            f.integrate(f.t + h)
-            data.append([f.t, f.y[0], f.y[1]])
-        data = np.array(data)
-        return data
-    return (ball_sol,)
-
-
-@app.cell
-def _(ball_sol):
-    data = ball_sol(ball_eq_1, 0, 4, [1, 20], 0.1)
-    (t100_2, y100_2, v100_2) = (data[:, 0], data[:, 1], data[:, 2])
-    data = ball_sol(ball_eq_1, 0, 4, [1, 20], 0.01)
-    (t10_2, y10_2, v10_2) = (data[:, 0], data[:, 1], data[:, 2])
+def _():
+    t100_2, y100_2, v100_2 = solve_trajectory(
+        ball_constant_force, 0, 4, [1, 20], 0.1, method="RK45"
+    )
+    t10_2, y10_2, v10_2 = solve_trajectory(
+        ball_constant_force, 0, 4, [1, 20], 0.01, method="RK45"
+    )
     return t100_2, t10_2, v100_2, v10_2, y100_2, y10_2
 
 
 @app.cell
 def _(plots, t100_2, t10_2, v100_2, v10_2, y100_2, y10_2):
-    plots(t100_2, y100_2, v100_2, t10_2, y10_2, v10_2, 'dopri5 (ode45)')
+    plots(t100_2, y100_2, v100_2, t10_2, y10_2, v10_2, "RK45")
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### Motion under varying force
-
-        Let's consider the air resistance in the calculations for the vertical trajectory of the football ball.  
-        According to the Laws of the Game from FIFA, the ball is spherical, has a circumference of$0.69m$, and a mass of$0.43kg$.  
-        We will model the magnitude of the [drag force](http://en.wikipedia.org/wiki/Drag_%28physics%29) due to the air resistance by:$F_d(v) = \frac{1}{2}\rho C_d A v^2$Where$\rho$is the air density$(1.22kg/m^3)$,$A$the ball cross sectional area$(0.0379m^2)$, and$C_d$the drag coefficient, which for now we will consider constant and equal to$0.25$(Bray and Kerwin, 2003).  
-        Applying Newton's second law of motion to the new problem:$m\frac{\mathrm{d}^2 y}{\mathrm{d}t^2} = -mg -\frac{1}{2}\rho C_d A v^2\frac{v}{||v||}$In the equation above,$-v/||v||$takes into account that the drag force always acts opposite to the direction of motion.  
-        Reformulating the second-order ODE above as a couple of first-order equations:$\left\{
-        \begin{array}{l l}
-        \frac{\mathrm{d} y}{\mathrm{d}t} = &v, \quad &y(t_0) = y_0
-        \\
-        \frac{\mathrm{d} v}{\mathrm{d}t} = &-g -\frac{1}{2m}\rho C_d A v^2\frac{v}{||v||}, \quad &v(t_0) = v_0
-        \end{array}
-        \right.$Although (much) more complicated, it's still possible to find an analytical solution for this problem. But for now let's explore the power of numerical integration and use the `lsoda` method (the most simple method to call in terms of number of lines of code) to solve this problem:
-        """
-    )
+    mo.md(r"""
+    **Challenge 7.** Compare the Euler, LSODA, and RK45 plots. If you had to choose a method for a new biomechanical simulation, what evidence in these plots would influence your choice?
+    """)
     return
 
 
-@app.cell
-def _(np):
-    def ball_eq_2(yv, t):
-        g = 9.8
-        m = 0.43
-        rho = 1.22
-        cd = 0.25
-        A = 0.0379
-        y = yv[0]
-        v = yv[1]
-        a = -g - 1 / (2 * m) * rho * cd * A * v * np.abs(v)
-        return [v, a]
-    return (ball_eq_2,)
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ### Motion under varying force
+
+    Now include air resistance in the vertical trajectory of the football. Current IFAB Law 2 specifies that a football must be spherical, have a circumference between 68 cm and 70 cm, and weigh between 410 g and 450 g at the start of the match. The representative values used here, circumference $0.69\,\mathrm{m}$ and mass $0.43\,\mathrm{kg}$, are the midpoints of those ranges.
+
+    Model the magnitude of the drag force as
+
+    $$
+    F_d(v) = \frac{1}{2}\rho C_d A v^2,
+    $$
+
+    where $\rho=1.22\,\mathrm{kg/m^3}$ is air density, $A=0.0379\,\mathrm{m^2}$ is the ball cross-sectional area, and $C_d=0.25$ is an approximate constant drag coefficient from Bray and Kerwin (2003). Drag acts opposite to velocity, so the vertical equation is
+
+    $$
+    m\frac{\mathrm{d}^2 y}{\mathrm{d}t^2}
+    =
+    -mg - \frac{1}{2}\rho C_d A v|v|.
+    $$
+
+    As a first-order system,
+
+    $$
+    \left\{
+    \begin{array}{rl}
+    \frac{\mathrm{d} y}{\mathrm{d}t} &= v, \quad y(t_0) = y_0,\\
+    \frac{\mathrm{d} v}{\mathrm{d}t} &=
+    -g - \frac{1}{2m}\rho C_d A v|v|, \quad v(t_0) = v_0.
+    \end{array}
+    \right.
+    $$
+
+    We will solve this nonlinear IVP numerically with `solve_ivp`.
+
+    **Before you run the next cell**, predict what air resistance will do to the maximum height and time of flight. Will the ball spend more time rising, more time falling, or both?
+    """)
+    return
+
+
+@app.function
+def ball_with_drag(t, yv):
+    import numpy as np
+
+    y, v = yv
+    g = 9.8
+    m = 0.43
+    rho = 1.22
+    cd = 0.25
+    area = 0.0379
+    a = -g - rho * cd * area * v * np.abs(v) / (2 * m)
+    return [v, a]
 
 
 @app.cell
-def _(ball_eq_2, np, odeint):
-    _yv0 = [1, 20]
-    t10_3 = np.arange(0, 4, 0.01)
-    _yv10 = odeint(ball_eq_2, _yv0, t10_3)
-    (y10_3, v10_3) = (_yv10[:, 0], _yv10[:, 1])
+def _():
+    t10_3, y10_3, v10_3 = solve_trajectory(
+        ball_with_drag, 0, 4, [1, 20], 0.01, method="LSODA"
+    )
     return t10_3, v10_3, y10_3
 
 
 @app.cell
 def _(plt, v0, y0):
     def plots_1(t10, y10, v10):
-        """Plots of numerical integration results.
-        """
+        """Plot vertical ball motion with and without air resistance."""
         a = -9.8
-        (fig, axs) = plt.subplots(nrows=2, ncols=2, sharex=True, figsize=(10, 5))
-        axs[0, 0].plot(t10, y0 + v0 * t10 + 0.5 * a * t10 ** 2, color=[0, 0, 1, 0.7], label='No resistance')
-        axs[0, 0].plot(t10, y10, '-', color=[1, 0, 0, 0.7], label='With resistance')
-        axs[0, 1].plot(t10, v0 + a * t10, color=[0, 0, 1, 0.7], label='No resistance')
-        axs[0, 1].plot(t10, v10, '-', color=[1, 0, 0, 0.7], label='With resistance')
-        axs[1, 0].plot(t10, y0 + v0 * t10 + 0.5 * a * t10 ** 2 - (y0 + v0 * t10 + 0.5 * a * t10 ** 2), color=[0, 0, 1, 0.7], label='Real')
-        axs[1, 0].plot(t10, y10 - (y0 + v0 * t10 + 0.5 * a * t10 ** 2), '-', color=[1, 0, 0, 0.7], label='h=10 ms')
-        axs[1, 1].plot(t10, v0 + a * t10 - (v0 + a * t10), color=[0, 0, 1, 0.7], label='No resistance')
-        axs[1, 1].plot(t10, v10 - (v0 + a * t10), '-', color=[1, 0, 0, 0.7], label='With resistance')
-        ylabel = ['y [m]', 'v [m/s]', 'y diff [m]', 'v diff [m/s]']
-        axs[1, 0].set_xlabel('Time [s]')
-        axs[1, 1].set_xlabel('Time [s]')
+        fig, axs = plt.subplots(nrows=2, ncols=2, sharex=True, figsize=(10, 5))
+        axs[0, 0].plot(
+            t10,
+            y0 + v0 * t10 + 0.5 * a * t10**2,
+            color=[0, 0, 1, 0.7],
+            label="No resistance",
+        )
+        axs[0, 0].plot(t10, y10, "-", color=[1, 0, 0, 0.7], label="With resistance")
+        axs[0, 1].plot(t10, v0 + a * t10, color=[0, 0, 1, 0.7], label="No resistance")
+        axs[0, 1].plot(t10, v10, "-", color=[1, 0, 0, 0.7], label="With resistance")
+        axs[1, 0].plot(
+            t10,
+            y0 + v0 * t10 + 0.5 * a * t10**2 - (y0 + v0 * t10 + 0.5 * a * t10**2),
+            color=[0, 0, 1, 0.7],
+            label="No resistance",
+        )
+        axs[1, 0].plot(
+            t10,
+            y10 - (y0 + v0 * t10 + 0.5 * a * t10**2),
+            "-",
+            color=[1, 0, 0, 0.7],
+            label="With resistance",
+        )
+        axs[1, 1].plot(
+            t10,
+            v0 + a * t10 - (v0 + a * t10),
+            color=[0, 0, 1, 0.7],
+            label="No resistance",
+        )
+        axs[1, 1].plot(
+            t10,
+            v10 - (v0 + a * t10),
+            "-",
+            color=[1, 0, 0, 0.7],
+            label="With resistance",
+        )
+        ylabel = ["y [m]", "v [m/s]", "y difference [m]", "v difference [m/s]"]
+        axs[1, 0].set_xlabel("Time [s]")
+        axs[1, 1].set_xlabel("Time [s]")
         axs[0, 1].legend()
         axs = axs.flatten()
-        for (i, ax) in enumerate(axs):
+        for i, ax in enumerate(axs):
             ax.set_ylabel(ylabel[i])
-        plt.suptitle('Kinematics of a soccer ball - effect of air resistance', y=1.02, fontsize=16)
+        plt.suptitle(
+            "Kinematics of a football - effect of air resistance", y=1.02, fontsize=16
+        )
         plt.tight_layout()
         plt.show()
+
     return (plots_1,)
 
 
@@ -410,36 +768,212 @@ def _(plots_1, t10_3, v10_3, y10_3):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Exercises
+    mo.md(r"""
+    ### Example: Mass-Spring-Damper System
 
-        1. Run the simulations above considering different values for the parameters.  
-        2. Model and run simulations for the two-dimensional case of the ball trajectory and investigate the effect of air resistance. Hint: chapter 9 of Downey (2011) presents part of the solution.
-        """
+    Now consider a system made of a mass, a spring, and a damper. This is a basic model for many mechanical and biomechanical systems: a shoe midsole, a vehicle suspension, a vibrating instrument string, or a simplified muscle-tendon element.
+
+    Let $x$ be displacement from equilibrium and $v=\dot{x}$ be velocity. A linear mass-spring-damper model is
+
+    $$
+    m\ddot{x} + c\dot{x} + kx = F(t),
+    $$
+
+    where $m$ is mass, $c$ is damping, $k$ is spring stiffness, and $F(t)$ is an external force. As a first-order IVP,
+
+    $$
+    \dot{x}=v, \qquad
+    \dot{v}=\frac{F(t)-cv-kx}{m}.
+    $$
+
+    **Challenge 8.** Before running the simulation, decide what should happen when damping increases: should the oscillations grow, stay the same, or decay faster?
+    """)
+    return
+
+
+@app.function
+def mass_spring_damper_acceleration(
+    t,
+    state,
+    mass=1.0,
+    stiffness=25.0,
+    damping=1.0,
+    external_force=0.0,
+):
+    """Return acceleration for a linear mass-spring-damper system."""
+    del t
+    position, velocity = state
+    return (external_force - damping * velocity - stiffness * position) / mass
+
+
+@app.function
+def simulate_mass_spring_damper(
+    mass=1.0,
+    stiffness=25.0,
+    damping=1.0,
+    external_force=0.0,
+    initial_state=(0.1, 0.0),
+    T=6.0,
+    h=0.01,
+):
+    def acceleration(t, state):
+        return mass_spring_damper_acceleration(
+            t,
+            state,
+            mass=mass,
+            stiffness=stiffness,
+            damping=damping,
+            external_force=external_force,
+        )
+
+    return euler_method(acceleration, T=T, y0=initial_state, h=h, method=2)
+
+
+@app.function
+def plot_mass_spring_damper(time, state, title):
+    import matplotlib.pyplot as plt
+
+    fig, ax1 = plt.subplots(1, 1, figsize=(10, 4))
+    ax1.set_title(title)
+    ax1.plot(time, state[0], "b", label="Displacement")
+    ax1.set_xlabel("Time [s]")
+    ax1.set_ylabel("Displacement [m]", color="b")
+    ax1.tick_params("y", colors="b")
+
+    ax2 = ax1.twinx()
+    ax2.plot(time, state[1], "r-.", label="Velocity")
+    ax2.set_ylabel("Velocity [m/s]", color="r")
+    ax2.tick_params("y", colors="r")
+    plt.tight_layout()
+    plt.show()
+
+
+@app.cell
+def _():
+    mass_spring_time, mass_spring_state = simulate_mass_spring_damper(
+        mass=1.0,
+        stiffness=25.0,
+        damping=1.2,
+        initial_state=(0.1, 0.0),
+        T=6.0,
+        h=0.01,
+    )
+    return mass_spring_state, mass_spring_time
+
+
+@app.cell
+def _(mass_spring_state, mass_spring_time):
+    plot_mass_spring_damper(
+        mass_spring_time,
+        mass_spring_state,
+        "Mass-spring-damper response",
     )
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## References
+    mo.md(r"""
+    **Challenge 9.** Try damping values $c=0$, $c=1.2$, and $c=10$. Which case is underdamped? Which case returns to equilibrium without oscillating? What changes if you double the stiffness?
+    """)
+    return
 
-        - Bray K, Kerwin DG (2003) [Modelling the flight of a soccer ball in a direct free kick](http://people.stfx.ca/smackenz/Courses/HK474/Labs/Jump%20Float%20Lab/Bray%202002%20Modelling%20the%20flight%20of%20a%20soccer%20ball%20in%20a%20direct%20free%20kick.pdf). Journal of Sports Sciences, 21, 75–85.   
-        - Downey AB (2011) [Physical Modeling in MATLAB](http://greenteapress.com/matlab/). Green Tea Press.  
-        - FIFA (2015) [Laws of the Game 2014/2015](http://www.fifa.com/aboutfifa/footballdevelopment/technicalsupport/refereeing/laws-of-the-game/).
-        - Kitchin J (2013) [pycse - Python Computations in Science and Engineering](http://kitchingroup.cheme.cmu.edu/pycse/).  
-        - Kiusalaas (2013) [Numerical methods in engineering with Python 3](http://books.google.com.br/books?id=aJkXoxxoCoUC). 3rd edition. Cambridge University Press.  
-        """
-    )
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## Checkpoint questions
+
+    Pause here before the final problems. These questions connect the examples in this notebook with mechanics examples used elsewhere in the course.
+
+    1. In the football-with-drag example, what would terminal velocity mean? Which term in the ODE prevents the downward speed from growing without bound?
+    2. In a one-mass spring problem, why is the displacement usually measured from the equilibrium position instead of from the unstretched spring length?
+    3. If you had a force-platform record from a vertical jump, which signal would you integrate to estimate velocity? What initial condition would you need?
+    4. A two-mass spring-damper system needs more state variables than the one-mass example. What are the minimum state variables if the two masses move only along one horizontal line?
+    5. In a simple muscle-tendon model, which elements would behave like springs, which element would behave like a damper, and which element would represent active force production?
+    6. When would you trust a coarse Euler solution for teaching or estimation, and when would you switch to `solve_ivp` with tighter tolerances?
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## Practice problems
+
+    Work through these in order if you are studying independently. For each one, first write the IVP on paper, then modify or reuse code from this notebook.
+
+    1. **IVP audit.** Explain in your own words why an IVP needs both a differential equation and an initial condition. Then give one example where changing only the initial condition changes the entire motion.
+
+    2. **Pendulum amplitude.** For the pendulum, change only the initial angular velocity. What changes in the plot and what stays similar? Repeat with initial angles of $10^\circ$, $45^\circ$, and $90^\circ$.
+
+    3. **Projectile with terminal velocity.** A $10$ kg projectile is launched vertically upward with $v_0=50\,\mathrm{m/s}$. Compare the maximum height when drag is neglected with the height when the drag force is $F_D=0.01v|v|$. Does the object approach a terminal velocity on the way down?
+
+    4. **Euler step-size audit.** For the football example, find a step size for Euler's method that makes the position error visually small. How small is small enough for your purpose? Explain your criterion.
+
+    5. **Two-dimensional projectile IVP.** Extend the vertical football model to two dimensions. Use state variables $x$, $y$, $v_x$, and $v_y$. Then add drag forces that oppose each velocity component.
+
+    6. **Design a mass-spring-damper system.** Use mass $m=2$ kg and choose stiffness and damping values so the system returns close to equilibrium quickly but does not oscillate more than once. Report the values you tried and justify your final choice.
+
+    7. **One-mass spring problem.** A $1$ kg block is attached to a spring with stiffness $k=100\,\mathrm{N/m}$. At $t=0$, the block is displaced $0.1$ m from equilibrium and released from rest. Write the IVP, simulate the motion with $c=0$, and then find a damping value that removes visible oscillation.
+
+    8. **Compare solvers on an oscillator.** Compare semi-implicit Euler and `solve_ivp` on the same mass-spring-damper system. Which method changes more when you increase the step size? Which result would you use as a reference solution?
+
+    9. **Two-mass spring-damper system.** Two masses move on a horizontal line and are connected by a spring and damper. Define a state vector, write the first-order ODEs, and predict what happens to the distance between the masses when damping is increased.
+
+    10. **Simple muscle-tendon model.** Treat the tendon as one spring, the muscle fibers as another spring, the viscous tissue as a damper, and the contractile element as an active force. Define a one-dimensional IVP for tendon length and explain what each parameter represents.
+
+    11. **Force-platform record.** A force platform measures vertical ground reaction force during a jump. Given body mass and the force-time curve, write the ODE for the center-of-mass acceleration. What numerical integrations would you perform to estimate takeoff velocity and jump height?
+
+    12. **Your own movement model.** Create your own IVP from a movement you care about. Define the state variables, initial conditions, model parameters, and one parameter you would like to estimate from data.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## Video lectures
+    - [Differential equations introduction](https://www.khanacademy.org/math/differential-equations/first-order-differential-equations/differential-equations-intro/v/differential-equation-introduction) - Khan Academy.
+    - [Overview of Differential Equations](https://youtu.be/ghjOS7Q82s0?si=8dJEhIhFSfciSDH7) - Lecture by Gilbert Strang.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## Go deeper
+
+    Use these references when you want another explanation or more examples:
+
+    - [SciPy `solve_ivp` documentation](https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.solve_ivp.html) for solver options, events, tolerances, and examples.
+    - [SciPy integration tutorial](https://docs.scipy.org/doc/scipy/tutorial/integrate.html) for a broader overview of numerical integration in Python.
+    - [OpenStax University Physics: Damped Oscillations](https://openstax.org/books/university-physics-volume-1/pages/15-5-damped-oscillations) for the physics of damping, driven oscillations, and energy loss.
+    - [MIT OpenCourseWare: Damped Harmonic Oscillators](https://ocw.mit.edu/courses/18-03sc-differential-equations-fall-2011/pages/unit-ii-second-order-constant-coefficient-linear-equations/damped-harmonic-oscillators/) for a differential-equations treatment of spring-mass-damper systems.
+    - [IFAB Law 2: The Ball](https://www.theifab.com/laws/latest/the-ball/) for current football size and mass ranges used in the projectile example.
+    - [What is the fastest possible volleyball serve?](https://uio-ccse.github.io/computational-essay-showroom/essays/exampleessays/volleyball/Volleyball.html) for an example about the ball movement during a volleyball serve.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## References
+
+    - Bray K, Kerwin DG (2003) [Modelling the flight of a soccer ball in a direct free kick](https://people.stfx.ca/smackenz/courses/hk474/labs/jump%20float%20lab/bray%202002%20modelling%20the%20flight%20of%20a%20soccer%20ball%20in%20a%20direct%20free%20kick.pdf). Journal of Sports Sciences, 21, 75-85.
+    - Downey AB (2023) [Modeling and Simulation in Python: An Introduction for Scientists and Engineers](https://greenteapress.com/wp/modsimpy/). Green Tea Press.
+    - IFAB (2025/26) [Current IFAB Law 2: The Ball](https://www.theifab.com/laws/latest/the-ball/).
+    - Kiusalaas J (2013) [Numerical Methods in Engineering with Python 3](https://api.pageplace.de/preview/DT0400.9781139604413_A24435840/preview-9781139604413_A24435840.pdf). 3rd edition. Cambridge University Press.
+    """)
     return
 
 
 @app.cell
 def _():
     import marimo as mo
+
     return (mo,)
 
 
