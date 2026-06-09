@@ -131,5 +131,7 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# Claude Code personal settings (keep hooks/CLAUDE.md shareable, settings personal)
-.claude/settings.local.json
+# Claude Code local config — keep out of the repo (shared agent instructions live in AGENTS.md)
+.claude/
+/CLAUDE.md
+/CLAUDE.local.md
