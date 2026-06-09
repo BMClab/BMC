@@ -210,7 +210,7 @@ def euler_method(acceleration, T=10, y0=(0.0, 0.0), h=0.01, method=2):
     n_samples = int(np.ceil(T / h))
     y = np.zeros((2, n_samples))
     y[:, 0] = np.asarray(y0, dtype=float)
-    t = np.linspace(0, T, n_samples, endpoint=False)
+    t = h * np.arange(n_samples)
 
     for i in range(n_samples - 1):
         if method == 1:
@@ -219,12 +219,8 @@ def euler_method(acceleration, T=10, y0=(0.0, 0.0), h=0.01, method=2):
         elif method == 2:
             y[1, i + 1] = y[1, i] + h * acceleration(t[i], y[:, i])
             y[0, i + 1] = y[0, i] + h * y[1, i + 1]
-        elif method == 3:
-            y[0, i + 1] = y[0, i] + h * y[1, i]
-            next_state = np.array([y[0, i + 1], y[1, i]])
-            y[1, i + 1] = y[1, i] + h * acceleration(t[i], next_state)
         else:
-            raise ValueError("Valid options for method are 1, 2, or 3.")
+            raise ValueError("Valid options for method are 1 or 2.")
 
     return t, y
 
@@ -302,7 +298,7 @@ def pendulum_acceleration(t, state):
 
     del t
     length = 0.5
-    gravity = 10
+    gravity = 9.8
     return -(gravity / length) * np.sin(state[0])
 
 
@@ -311,7 +307,7 @@ def plot_pendulum(t, y, labels):
     """Plot angular position and velocity for the pendulum example."""
     import matplotlib.pyplot as plt
 
-    fig, ax1 = plt.subplots(1, 1, figsize=(10, 4))
+    _, ax1 = plt.subplots(1, 1, figsize=(10, 4))
     ax1.set_title(labels[0])
     ax1.plot(t, y[0, :], "b", label="Angular position")
     ax1.set_xlabel("Time [s]")
@@ -453,8 +449,8 @@ def _(mo):
 
 @app.cell
 def _(v0, y0):
-    t100, y100, v100 = ball_euler(0, 10, y0, v0, 0.1)
-    t10, y10, v10 = ball_euler(0, 10, y0, v0, 0.01)
+    t100, y100, v100 = ball_euler(0, 4, y0, v0, 0.1)
+    t10, y10, v10 = ball_euler(0, 4, y0, v0, 0.01)
     return t10, t100, v10, v100, y10, y100
 
 
@@ -472,7 +468,7 @@ def _(plt, v0, y0):
         """Plot numerical integration results against the analytical solution."""
         a = -9.8
 
-        fig, axs = plt.subplots(nrows=2, ncols=2, sharex=True, figsize=(10, 5))
+        _, axs = plt.subplots(nrows=2, ncols=2, sharex=True, figsize=(10, 5))
 
         axs[0, 0].plot(
             t10,
@@ -708,7 +704,7 @@ def _(plt, v0, y0):
     def plots_1(t10, y10, v10):
         """Plot vertical ball motion with and without air resistance."""
         a = -9.8
-        fig, axs = plt.subplots(nrows=2, ncols=2, sharex=True, figsize=(10, 5))
+        _, axs = plt.subplots(nrows=2, ncols=2, sharex=True, figsize=(10, 5))
         axs[0, 0].plot(
             t10,
             y0 + v0 * t10 + 0.5 * a * t10**2,
@@ -833,7 +829,7 @@ def simulate_mass_spring_damper(
 def plot_mass_spring_damper(time, state, title):
     import matplotlib.pyplot as plt
 
-    fig, ax1 = plt.subplots(1, 1, figsize=(10, 4))
+    _, ax1 = plt.subplots(1, 1, figsize=(10, 4))
     ax1.set_title(title)
     ax1.plot(time, state[0], "b", label="Displacement")
     ax1.set_xlabel("Time [s]")
@@ -874,7 +870,7 @@ def _(mass_spring_state, mass_spring_time):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    **Challenge 9.** Try damping values $c=0$, $c=1.2$, and $c=10$. Which case is underdamped? Which case returns to equilibrium without oscillating? What changes if you double the stiffness?
+    **Challenge 9.** Try damping values $c=0$, $c=1.2$, and $c=10$ (with $m=1$ and $k=25$, so the natural frequency is $\omega_n=5\,\mathrm{rad/s}$). Classify each response as undamped, underdamped, or critically damped. Which case oscillates without ever settling? Which returns to equilibrium without oscillating? What changes if you double the stiffness?
     """)
     return
 
