@@ -1,5 +1,6 @@
 import importlib.util
 from pathlib import Path
+import re
 import unittest
 
 import numpy as np
@@ -100,6 +101,18 @@ class OrdinaryDifferentialEquationTests(unittest.TestCase):
         self.assertIn("**IVP audit.**", source)
         self.assertIn("**Projectile with terminal velocity.**", source)
         self.assertIn("**Your own movement model.**", source)
+
+    def test_notebook_reactive_graph_validates(self):
+        module = load_notebook_module()
+
+        module.app._maybe_initialize()
+
+    def test_guiding_question_numbers_are_unique(self):
+        source = NOTEBOOK_PATH.read_text(encoding="utf-8")
+
+        numbers = re.findall(r"\*\*Guiding questions? (\d+)", source)
+
+        self.assertEqual(numbers, list(dict.fromkeys(numbers)))
 
     def test_euler_method_supports_explicit_and_semi_implicit_updates(self):
         module = load_notebook_module()

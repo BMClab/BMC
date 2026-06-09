@@ -69,31 +69,12 @@ def _(mo):
     The function $f(x, y)$ gives the derivative of $y$ at a given pair $(x, y)$. When $f(x, y)$ is linear with respect to $y$, the equation is a first-order linear ODE, which can be written as
 
     $$
-    \frac{\mathrm{d} y}{\mathrm{d} x} + P(x)y = Q(x).
+    \frac{\mathrm{d} y}{\mathrm{d} x} + p(x)y = q(x)
     $$
+
+    where \(p(x)\) and \(q(x)\) are continuous functions of \(x\). In this form, the equation's linearity means the dependent variable \(y\) and its derivative $\mathrm{d}y/\mathrm{d}x$ are raised to the first power and are not multiplied together.
 
     **Challenge 1.** Suppose $y$ is position and $x$ is time. In one sentence, explain why knowing only $\mathrm{d}y/\mathrm{d}x$ at a single instant is not enough to reconstruct the full motion.
-    """)
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    ## Numerical methods for solving ODEs
-
-    When an ODE is difficult or impossible to solve analytically, numerical methods approximate the solution at selected points. This process is also called numerical integration. For an initial value problem (IVP), a first-order ODE is written as
-
-    $$
-    \dot{y}(t) = f(t, y(t)), \qquad y(t_0) = y_0.
-    $$
-
-    Higher-order ODEs are commonly rewritten as systems of first-order ODEs and then solved with the same numerical integration tools.
-
-    **Guiding questions 2.**
-    1. What does the initial condition $y(t_0)=y_0$ tell you?
-    2. Why do you think numerical integration advances in small time steps?
-    3. What might go wrong if the time step is too large?
     """)
     return
 
@@ -114,13 +95,13 @@ def _(mo):
     Higher-order IVPs can be rewritten as systems of first-order IVPs. For example, a second-order equation can be written as
 
     $$
-    y''(t) = f(t, y(t), y'(t)).
+    \ddot{y}(t) = f(t, y(t), \dot{y}(t)).
     $$
 
     Define a state vector with the original variable and its derivative:
 
     $$
-    x_1(t) = y(t), \qquad x_2(t) = y'(t).
+    x_1(t) = y(t), \qquad x_2(t) = \dot{y}(t).
     $$
 
     Then the same problem becomes two coupled first-order equations:
@@ -131,7 +112,20 @@ def _(mo):
 
     In the same way, an ODE of order $N$ can be represented as a system of $N$ first-order ODEs. A simple pendulum, a projectile under gravity, and many biomechanical models are naturally written this way before numerical integration.
 
-    **Challenge 2.** A mass-spring-damper model can be written as $m x'' + c x' + kx = F(t)$. Before looking ahead, define two state variables that would convert this equation into two first-order ODEs.
+    **Guiding question 2.**
+    1. What does the initial condition $y(t_0)=y_0$ tell you?
+
+    **Challenge 2.** A mass-spring-damper model can be written as $m \ddot{x} + c \dot{x} + kx = F(t)$. Before looking ahead, define two state variables that would convert this equation into two first-order ODEs.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## Numerical methods for solving ODEs
+
+    When an ODE is difficult or impossible to solve analytically, numerical methods approximate the solution at selected points. This process is also called numerical integration.
     """)
     return
 
@@ -165,7 +159,113 @@ def _(mo):
     y_{n+1} = y_n + h f(t_n, y_n).
     $$
 
+
+    **Guiding questions 3.**
+    1. Why do you think numerical integration advances in small time steps?
+    2. What might go wrong if the time step is too large?
+
     **Challenge 3.** Euler's method is simple, but it makes a local straight-line prediction. Sketch what you expect to happen when the real trajectory is strongly curved and the step size $h$ is large.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ### Euler's method pseudocode
+
+    ```bash
+    # Initialization
+    Define the differential equation fdot(t, y)
+    Input initial time t0, initial value y0
+    Input step size h, and the number of steps n
+    Create array and store initial values
+
+    # Iteration
+    for i from 1 to n:
+        # Calculate the slope at the current point
+        slope = fdot(t0, y0)
+        # Calculate the next time and y-value
+        ti = t0 + h
+        yi = y0 + h * slope
+        # Store new values (ti, yi)
+        array[i] = ti, yi
+        # Update variables for the next iteration
+        t0 = ti
+        y0 = yi
+    ```
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ### Example: Exact and approximate solutions for an exponential growth ODE
+
+    Consider $\dot{f(t)}=.8*e^{2*t}$ with initial condition $f_{0}=.4$. In this case, the exact solution is known: $f(t)=.4e^{2*t}$.
+    Let's solve this ODE numerically and compare the solutions in the interval $t[0,1]$.
+
+    First, let's import the Python libraries we will use and configure some settings:
+    """)
+    return
+
+
+@app.cell
+def _():
+    import numpy as np
+
+    import matplotlib
+    import matplotlib.pyplot as plt
+
+    matplotlib.rcParams["lines.linewidth"] = 3
+    matplotlib.rcParams["font.size"] = 13
+    matplotlib.rcParams["lines.markersize"] = 5
+    matplotlib.rc("axes", grid=False, labelsize=14, titlesize=16, ymargin=0.05)
+    matplotlib.rc("legend", numpoints=1, fontsize=11)
+    return np, plt
+
+
+@app.cell
+def _(np, plt):
+    def exp_growth(step=0.1):
+        fdot = lambda t, y: 0.8 * np.exp(2 * t)
+        t0, y0 = 0.0, 0.4
+        h = step
+        n = int(1 / h + 1)
+        array = np.empty(shape=[n, 2])
+        array[0, :] = t0, y0
+
+        for i in range(1, n):
+            slope = fdot(t0, y0)
+            ti = t0 + h
+            yi = y0 + h * slope
+            array[i, :] = ti, yi
+            t0, y0 = ti, yi
+
+        t, f_num = array.T
+        f_lit = 0.4 * np.exp(2 * t)
+        plt.figure()
+        plt.plot(t, f_num, "bo:", label="Approximate")
+        plt.plot(t, f_lit, "r", label="Exact")
+        plt.legend()
+        plt.show()
+
+
+    exp_growth()
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    **Guiding questions 4**
+    1. Within the iteration loop, which rows can be reordered and which cannot?
+    2. Why pre-assign an array?
+
+    **Challenge 4** Implement this solution without using a pre-assigned array.
+
+    **Challenge 5** Modify the code to increase the step and compare the exact and approximate solutions.
     """)
     return
 
@@ -189,40 +289,12 @@ def _(mo):
 
     This is not the fully implicit backward Euler method, which would evaluate the derivative at the future state and usually requires solving an algebraic equation at every step. The semi-implicit version is still simple to implement, and for many mechanical systems it behaves better than forward Euler.
 
-    **Guiding questions 3.**
+    **Guiding questions 6.**
     1. In forward Euler, which value of velocity updates position?
     2. In semi-implicit Euler, which value of velocity updates position?
     3. Why might the second choice matter for oscillating systems?
     """)
     return
-
-
-@app.function
-def euler_method(acceleration, T=10, y0=(0.0, 0.0), h=0.01, method=2):
-    """
-    First-order numerical approximation for two coupled first-order ODEs.
-
-    The state is [position, velocity]. The acceleration function has the
-    signature acceleration(t, state) and returns dv/dt.
-    """
-    import numpy as np
-
-    n_samples = int(np.ceil(T / h))
-    y = np.zeros((2, n_samples))
-    y[:, 0] = np.asarray(y0, dtype=float)
-    t = h * np.arange(n_samples)
-
-    for i in range(n_samples - 1):
-        if method == 1:
-            y[0, i + 1] = y[0, i] + h * y[1, i]
-            y[1, i + 1] = y[1, i] + h * acceleration(t[i], y[:, i])
-        elif method == 2:
-            y[1, i + 1] = y[1, i] + h * acceleration(t[i], y[:, i])
-            y[0, i + 1] = y[0, i] + h * y[1, i + 1]
-        else:
-            raise ValueError("Valid options for method are 1 or 2.")
-
-    return t, y
 
 
 @app.cell(hide_code=True)
@@ -234,7 +306,7 @@ def _(mo):
 
     In SciPy, the current general-purpose interface for initial value problems is [`scipy.integrate.solve_ivp`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.solve_ivp.html). SciPy recommends `solve_ivp` for new code. It provides explicit Runge-Kutta methods such as `RK45` and `DOP853`, implicit methods for stiff systems such as `Radau` and `BDF`, and `LSODA`, which automatically switches between nonstiff and stiff methods.
 
-    **Challenge 4.** When you later compare Euler with `solve_ivp`, predict which method will be more accurate for the same output time step and explain why.
+    **Challenge 6.** When you later compare Euler with `solve_ivp`, predict which method will be more accurate for the same output time step and explain why.
     """)
     return
 
@@ -249,21 +321,6 @@ def _(mo):
     First, import the required Python libraries and customize the plotting environment.
     """)
     return
-
-
-@app.cell
-def _():
-    import numpy as np
-
-    import matplotlib
-    import matplotlib.pyplot as plt
-
-    matplotlib.rcParams["lines.linewidth"] = 3
-    matplotlib.rcParams["font.size"] = 13
-    matplotlib.rcParams["lines.markersize"] = 5
-    matplotlib.rc("axes", grid=False, labelsize=14, titlesize=16, ymargin=0.05)
-    matplotlib.rc("legend", numpoints=1, fontsize=11)
-    return np, plt
 
 
 @app.cell(hide_code=True)
@@ -289,6 +346,36 @@ def _(mo):
     **Before you run the next cell**, predict whether the angular velocity will be largest near the top of the swing or near the bottom. Then compare your prediction with the plot.
     """)
     return
+
+
+@app.function
+def euler_method(acceleration, T=10, y0=(0.0, 0.0), h=0.01, method=2):
+    """
+    First-order numerical approximation for two coupled first-order ODEs.
+
+    The state is [position, velocity]. The acceleration function has the
+    signature acceleration (t, state) and returns dv/dt.
+
+    The Euler method can be 1 (explicit), or 2 (semi-implicit).
+    """
+    import numpy as np
+
+    n_samples = int(np.ceil(T / h))
+    y = np.zeros((2, n_samples))
+    y[:, 0] = np.asarray(y0, dtype=float)
+    t = h * np.arange(n_samples)
+
+    for i in range(n_samples - 1):
+        if method == 1:
+            y[0, i + 1] = y[0, i] + h * y[1, i]
+            y[1, i + 1] = y[1, i] + h * acceleration(t[i], y[:, i])
+        elif method == 2:
+            y[1, i + 1] = y[1, i] + h * acceleration(t[i], y[:, i])
+            y[0, i + 1] = y[0, i] + h * y[1, i + 1]
+        else:
+            raise ValueError("Valid options for method are 1 or 2.")
+
+    return t, y
 
 
 @app.function
@@ -351,7 +438,7 @@ def _(np, pendulum_labels, t_pendulum, theta):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    **Challenge 5.** Change the initial angle to $10^\circ$, $45^\circ$, and $90^\circ$. Does the plot look like a perfect sine wave in all three cases? What does that tell you about the small-angle approximation?
+    **Challenge 7.** Change the initial angle to $10^\circ$, $45^\circ$, and $90^\circ$. Does the plot look like a perfect sine wave in all three cases? What does that tell you about the small-angle approximation?
     """)
     return
 
@@ -392,7 +479,7 @@ def _(mo):
     \right.
     $$
 
-    **Guiding questions 4.**
+    **Guiding questions 5.**
     1. Which two variables define the state of the ball?
     2. Which equation updates position?
     3. Which equation updates velocity?
@@ -549,7 +636,7 @@ def _(plots, t10, t100, v10, v100, y10, y100):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    **Challenge 6.** Compare the error curves for $h=100$ ms and $h=10$ ms. Which error changes more when the step size decreases: position or velocity? Explain your answer from the update equations.
+    **Challenge 8.** Compare the error curves for $h=100$ ms and $h=10$ ms. Which error changes more when the step size decreases: position or velocity? Explain your answer from the update equations.
     """)
     return
 
@@ -632,7 +719,7 @@ def _(plots, t100_2, t10_2, v100_2, v10_2, y100_2, y10_2):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    **Challenge 7.** Compare the Euler, LSODA, and RK45 plots. If you had to choose a method for a new biomechanical simulation, what evidence in these plots would influence your choice?
+    **Challenge 9.** Compare the Euler, LSODA, and RK45 plots. If you had to choose a method for a new biomechanical simulation, what evidence in these plots would influence your choice?
     """)
     return
 
@@ -782,7 +869,7 @@ def _(mo):
     \dot{v}=\frac{F(t)-cv-kx}{m}.
     $$
 
-    **Challenge 8.** Before running the simulation, decide what should happen when damping increases: should the oscillations grow, stay the same, or decay faster?
+    **Challenge 10.** Before running the simulation, decide what should happen when damping increases: should the oscillations grow, stay the same, or decay faster?
     """)
     return
 
@@ -870,7 +957,7 @@ def _(mass_spring_state, mass_spring_time):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    **Challenge 9.** Try damping values $c=0$, $c=1.2$, and $c=10$ (with $m=1$ and $k=25$, so the natural frequency is $\omega_n=5\,\mathrm{rad/s}$). Classify each response as undamped, underdamped, or critically damped. Which case oscillates without ever settling? Which returns to equilibrium without oscillating? What changes if you double the stiffness?
+    **Challenge 11.** Try damping values $c=0$, $c=1.2$, and $c=10$ (with $m=1$ and $k=25$, so the natural frequency is $\omega_n=5\,\mathrm{rad/s}$). Classify each response as undamped, underdamped, or critically damped. Which case oscillates without ever settling? Which returns to equilibrium without oscillating? What changes if you double the stiffness?
     """)
     return
 
@@ -930,9 +1017,8 @@ def _(mo):
 def _(mo):
     mo.md(r"""
     ## Video lectures
-    - [Differential equations introduction](https://www.khanacademy.org/math/differential-equations/first-order-differential-equations/differential-equations-intro/v/differential-equation-introduction) - Khan Academy.
-    - [Overview of Differential Equations](https://youtu.be/ghjOS7Q82s0?si=8dJEhIhFSfciSDH7) - Lecture by Gilbert Strang.
-    - [This is why you're learning differential equations](https://youtu.be/ifbaAqfqpc4?si=0V6cOiY5QCMzmcur).
+    - [Euler's method](https://www.khanacademy.org/math/differential-equations/first-order-differential-equations/eulers-method-tutorial/v/eulers-method) - Khan Academy.
+    - Numerical solutions of Ordinary Differential Equations: [Integrating ODEs](https://youtu.be/QBeNXHrAYns?si=lf5vPgCjHs-8-Bc1), [Euler's method](https://youtu.be/MstPeOTCVzQ?si=_kLTgq0d1oI-fZ9O)
     """)
     return
 
