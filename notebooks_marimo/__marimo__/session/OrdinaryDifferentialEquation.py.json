@@ -7,12 +7,12 @@
   "cells": [
     {
       "id": "Hbol",
-      "code_hash": "438bb40ce7d7af86604ba295e5685e59",
+      "code_hash": "bb884acabad3b7fb2ec1dbbde665bd24",
       "outputs": [
         {
           "type": "data",
           "data": {
-            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h1 id=\"introduction-to-ordinary-differential-equation\">Introduction to Ordinary Differential Equation</h1>\n<blockquote>\n<span class=\"paragraph\">Marcos Duarte,\n<a href=\"https://bmclab.pesquisa.ufabc.edu.br/\" rel=\"noopener noreferrer\" target=\"_blank\">Laboratory of Biomechanics and Motor Control</a>,\nFederal University of ABC, Brazil</span>\n</blockquote></span>"
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h1 id=\"introduction-to-numerical-solution-of-ordinary-differential-equation\">Introduction to numerical solution of Ordinary Differential Equation</h1>\n<blockquote>\n<span class=\"paragraph\">Marcos Duarte,\n<a href=\"https://bmclab.pesquisa.ufabc.edu.br/\" rel=\"noopener noreferrer\" target=\"_blank\">Laboratory of Biomechanics and Motor Control</a>,\nFederal University of ABC, Brazil</span>\n</blockquote></span>"
           }
         }
       ],
@@ -33,12 +33,12 @@
     },
     {
       "id": "vblA",
-      "code_hash": "d819e9448dd8d6a0e7cae395fa5ac975",
+      "code_hash": "b4331a1d2cac1eedeee81887967498a5",
       "outputs": [
         {
           "type": "data",
           "data": {
-            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\">An ordinary differential equation (ODE) is an equation that relates a function of one independent variable to one or more of its derivatives. In this tutorial, the independent variable will usually be time. Solving an ODE means finding a function whose derivatives satisfy that relationship.</span>\n<span class=\"paragraph\">The order of an ODE is the order of its highest derivative. For example, a first-order ODE contains only first derivatives. A linear ODE is linear in the unknown function and its derivatives; many important linear ODEs have analytical solutions, but others are still solved numerically in practice. Nonlinear ODEs can sometimes be solved exactly, but numerical methods are often the practical approach.</span>\n<span class=\"paragraph\">An equation is called a partial differential equation when the unknown function depends on more than one independent variable.</span>\n<span class=\"paragraph\">Newton's second law gives a simple example:</span>\n<marimo-tex class=\"arithmatex\">||[\nm\\frac{\\mathrm{d}^2 \\mathbf{x}}{\\mathrm{d}t^2}(t) = \\mathbf{F}.\n||]</marimo-tex><span class=\"paragraph\">Here, <marimo-tex class=\"arithmatex\">||(\\mathbf{x}(t)||)</marimo-tex> is the position as a function of time and <marimo-tex class=\"arithmatex\">||(t||)</marimo-tex> is the independent variable. The force <marimo-tex class=\"arithmatex\">||(\\mathbf{F}||)</marimo-tex> may be constant, such as gravitational force, or it may depend on position, velocity, time, or other quantities. If <marimo-tex class=\"arithmatex\">||(\\mathbf{F}||)</marimo-tex> is constant or a linear function of <marimo-tex class=\"arithmatex\">||(\\mathbf{x}||)</marimo-tex>, this equation is a second-order linear ODE.</span>\n<span class=\"paragraph\"><strong>Guiding questions 1.</strong></span>\n<ol>\n<li>Which quantity is changing with time in Newton's second law?</li>\n<li>Which derivative appears in the equation?</li>\n<li>What extra information would you need before predicting a unique motion?</li>\n</ol></span>"
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"an-unassuming-derivation-of-a-numerical-solution-to-an-ordinary-differential-equation-ode\">An unassuming derivation of a numerical solution to an Ordinary Differential Equation (ODE)</h2>\n<span class=\"paragraph\">Imagine you are in a car. You want to know where the car is at each moment, but you do not have a formula for its position. What you do have is simpler: the initial position of the car and measurements of its speed from time to time.</span>\n<span class=\"paragraph\">That is already enough to make progress.</span>\n<span class=\"paragraph\">Velocity tells us how fast position is changing:</span>\n<marimo-tex class=\"arithmatex\">||[\nv(t) = \\frac{\\mathrm{d}x(t)}{\\mathrm{d}t}.\n||]</marimo-tex><span class=\"paragraph\">The notation <marimo-tex class=\"arithmatex\">||(x(t)||)</marimo-tex> and <marimo-tex class=\"arithmatex\">||(v(t)||)</marimo-tex> is just a reminder that both position and velocity can change with time.</span>\n<span class=\"paragraph\">If we look at two nearby instants, we can approximate the velocity by asking how much the position changed during that time interval:</span>\n<marimo-tex class=\"arithmatex\">||[\nv_i \\approx \\frac{x_{i+1} - x_i}{t_{i+1} - t_i}.\n||]</marimo-tex><span class=\"paragraph\">Here, <marimo-tex class=\"arithmatex\">||(i||)</marimo-tex> labels one measured instant and <marimo-tex class=\"arithmatex\">||(i+1||)</marimo-tex> labels the next one. To keep the first idea simple, suppose the measurements are equally spaced in time. Then</span>\n<marimo-tex class=\"arithmatex\">||[\nt_{i+1} - t_i = \\Delta t,\n||]</marimo-tex><span class=\"paragraph\">and the approximation becomes</span>\n<marimo-tex class=\"arithmatex\">||[\nv_i \\approx \\frac{x_{i+1} - x_i}{\\Delta t}.\n||]</marimo-tex><span class=\"paragraph\">Now comes the useful trick. Rearrange this expression to isolate the next position:</span>\n<marimo-tex class=\"arithmatex\">||[\nx_{i+1} \\approx x_i + v_i \\Delta t.\n||]</marimo-tex><span class=\"paragraph\">This says something very practical: if you know where the car is now, and you know its current speed, you can estimate where it will be after one small time step.</span>\n<span class=\"paragraph\">For example, suppose</span>\n<marimo-tex class=\"arithmatex\">||[\nx_0 = 100\\ \\mathrm{m}, \\qquad v_0 = 20\\ \\mathrm{m/s}, \\qquad \\Delta t = 10\\ \\mathrm{s}.\n||]</marimo-tex><span class=\"paragraph\">Then</span>\n<marimo-tex class=\"arithmatex\">||[\nx_1 \\approx 100 + 20 \\cdot 10 = 300\\ \\mathrm{m}.\n||]</marimo-tex><span class=\"paragraph\">The index <marimo-tex class=\"arithmatex\">||(1||)</marimo-tex> means the next measured instant, which in this example is <marimo-tex class=\"arithmatex\">||(t=10||)</marimo-tex> s.</span>\n<span class=\"paragraph\">Now suppose that at <marimo-tex class=\"arithmatex\">||(t=10||)</marimo-tex> s the measured speed is</span>\n<marimo-tex class=\"arithmatex\">||[\nv_1 = 25\\ \\mathrm{m/s}.\n||]</marimo-tex><span class=\"paragraph\">Because we already estimated <marimo-tex class=\"arithmatex\">||(x_1||)</marimo-tex>, we can repeat the same step:</span>\n<marimo-tex class=\"arithmatex\">||[\nx_2 \\approx x_1 + v_1 \\Delta t,\n||]</marimo-tex><span class=\"paragraph\">so</span>\n<marimo-tex class=\"arithmatex\">||[\nx_2 \\approx 300 + 25 \\cdot 10 = 550\\ \\mathrm{m}.\n||]</marimo-tex><span class=\"paragraph\">Another way to see the same calculation is to keep a running table. The position in each row is the position after applying the speed from the previous interval:</span>\n<table>\n<thead>\n<tr>\n<th style=\"text-align: right;\"><marimo-tex class=\"arithmatex\">||(i||)</marimo-tex></th>\n<th style=\"text-align: right;\">Time <marimo-tex class=\"arithmatex\">||(t_i||)</marimo-tex> [s]</th>\n<th style=\"text-align: right;\">Speed used over previous interval [m/s]</th>\n<th style=\"text-align: right;\">Position <marimo-tex class=\"arithmatex\">||(x_i||)</marimo-tex> [m]</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td style=\"text-align: right;\">0</td>\n<td style=\"text-align: right;\">0</td>\n<td style=\"text-align: right;\">--</td>\n<td style=\"text-align: right;\">100</td>\n</tr>\n<tr>\n<td style=\"text-align: right;\">1</td>\n<td style=\"text-align: right;\">10</td>\n<td style=\"text-align: right;\">20</td>\n<td style=\"text-align: right;\">300</td>\n</tr>\n<tr>\n<td style=\"text-align: right;\">2</td>\n<td style=\"text-align: right;\">20</td>\n<td style=\"text-align: right;\">25</td>\n<td style=\"text-align: right;\">550</td>\n</tr>\n</tbody>\n</table>\n<span class=\"paragraph\">The first row is the initial condition. The second row uses <marimo-tex class=\"arithmatex\">||(v_0=20\\ \\mathrm{m/s}||)</marimo-tex>, and the third row uses <marimo-tex class=\"arithmatex\">||(v_1=25\\ \\mathrm{m/s}||)</marimo-tex>.</span>\n<span class=\"paragraph\">And there is the pattern:</span>\n<marimo-tex class=\"arithmatex\">||[\nx_{i+1} \\approx x_i + v_i \\Delta t.\n||]</marimo-tex><span class=\"paragraph\">To estimate the position farther into the future, we do not jump there all at once. We move step by step, always using the current position and the current velocity to estimate the next position.</span>\n<span class=\"paragraph\">This is the basic idea behind Euler's method for numerically solving a first-order ordinary differential equation:</span>\n<marimo-tex class=\"arithmatex\">||[\n\\frac{\\mathrm{d}x(t)}{\\mathrm{d}t} = v(t).\n||]</marimo-tex><span class=\"paragraph\">In this example:</span>\n<ul>\n<li><marimo-tex class=\"arithmatex\">||(x_0||)</marimo-tex> is the initial condition;</li>\n<li><marimo-tex class=\"arithmatex\">||(v(t)||)</marimo-tex> gives the rate of change of position;</li>\n<li><marimo-tex class=\"arithmatex\">||(\\Delta t||)</marimo-tex> is the time step;</li>\n<li><marimo-tex class=\"arithmatex\">||(x_{i+1} \\approx x_i + v_i\\Delta t||)</marimo-tex> is the Euler update.</li>\n</ul>\n<span class=\"paragraph\">Notice what we obtained: a list of estimated positions at selected times. We did not obtain a single formula for <marimo-tex class=\"arithmatex\">||(x(t)||)</marimo-tex>. That is what makes this a numerical solution.</span>\n<span class=\"paragraph\">Because the calculation starts from a known initial value, this kind of problem is called an initial value problem, or IVP.</span>\n<span class=\"paragraph\"><strong>Challenge 1.</strong> Write a pseudocode to implement the Euler's method for numerically solving a first-order ordinary differential equation.</span></span>"
           }
         }
       ],
@@ -46,12 +46,12 @@
     },
     {
       "id": "bkHC",
-      "code_hash": "5d34dfba55d1dc9bbdd1a3eec1f084ff",
+      "code_hash": "694abc94680c81d010a0acc0781dd9c6",
       "outputs": [
         {
           "type": "data",
           "data": {
-            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"first-order-ode\">First-order ODE</h2>\n<span class=\"paragraph\">A first-order ODE has the general form</span>\n<marimo-tex class=\"arithmatex\">||[\n\\frac{\\mathrm{d} y}{\\mathrm{d} x} = f(x, y).\n||]</marimo-tex><span class=\"paragraph\">The function <marimo-tex class=\"arithmatex\">||(f(x, y)||)</marimo-tex> gives the derivative of <marimo-tex class=\"arithmatex\">||(y||)</marimo-tex> at a given pair <marimo-tex class=\"arithmatex\">||((x, y)||)</marimo-tex>. When <marimo-tex class=\"arithmatex\">||(f(x, y)||)</marimo-tex> is linear with respect to <marimo-tex class=\"arithmatex\">||(y||)</marimo-tex>, the equation is a first-order linear ODE, which can be written as</span>\n<marimo-tex class=\"arithmatex\">||[\n\\frac{\\mathrm{d} y}{\\mathrm{d} x} + P(x)y = Q(x).\n||]</marimo-tex><span class=\"paragraph\"><strong>Challenge 1.</strong> Suppose <marimo-tex class=\"arithmatex\">||(y||)</marimo-tex> is position and <marimo-tex class=\"arithmatex\">||(x||)</marimo-tex> is time. In one sentence, explain why knowing only <marimo-tex class=\"arithmatex\">||(\\mathrm{d}y/\\mathrm{d}x||)</marimo-tex> at a single instant is not enough to reconstruct the full motion.</span></span>"
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"ordinary-differential-equation\">Ordinary Differential Equation</h2>\n<span class=\"paragraph\">An ODE is an equation that relates a function of one independent variable to one or more of its derivatives. In this tutorial, the independent variable will usually be time. Solving an ODE means finding a function whose derivatives satisfy that relationship.</span>\n<span class=\"paragraph\">The order of an ODE is the order of its highest derivative. For example, a first-order ODE contains only first derivatives. A linear ODE is linear in the unknown function and its derivatives; many important linear ODEs have analytical solutions, but others are still solved numerically in practice. Nonlinear ODEs can sometimes be solved exactly, but numerical methods are often the practical approach.</span>\n<span class=\"paragraph\">An equation is called a partial differential equation when the unknown function depends on more than one independent variable.</span>\n<span class=\"paragraph\">Newton's second law gives a simple example:</span>\n<marimo-tex class=\"arithmatex\">||[\nm\\frac{\\mathrm{d}^2 \\mathbf{x}}{\\mathrm{d}t^2}(t) = \\mathbf{F}.\n||]</marimo-tex><span class=\"paragraph\">Here, <marimo-tex class=\"arithmatex\">||(\\mathbf{x}(t)||)</marimo-tex> is the position as a function of time and <marimo-tex class=\"arithmatex\">||(t||)</marimo-tex> is the independent variable. The force <marimo-tex class=\"arithmatex\">||(\\mathbf{F}||)</marimo-tex> may be constant, such as gravitational force, or it may depend on position, velocity, time, or other quantities. If <marimo-tex class=\"arithmatex\">||(\\mathbf{F}||)</marimo-tex> is constant or a linear function of <marimo-tex class=\"arithmatex\">||(\\mathbf{x}||)</marimo-tex>, this equation is a second-order linear ODE.</span>\n<span class=\"paragraph\"><strong>Guiding questions 1.</strong></span>\n<ol>\n<li>Which quantity is changing with time in Newton's second law?</li>\n<li>Which derivative appears in the equation?</li>\n<li>What extra information would you need before predicting a unique motion?</li>\n</ol></span>"
           }
         }
       ],
@@ -59,12 +59,12 @@
     },
     {
       "id": "lEQa",
-      "code_hash": "fa2fd2bd804df6f1bb8d77d25145e880",
+      "code_hash": "4b2a6faa6856eaa1b4eb12c4c5e1d316",
       "outputs": [
         {
           "type": "data",
           "data": {
-            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"numerical-methods-for-solving-odes\">Numerical methods for solving ODEs</h2>\n<span class=\"paragraph\">When an ODE is difficult or impossible to solve analytically, numerical methods approximate the solution at selected points. This process is also called numerical integration. For an initial value problem (IVP), a first-order ODE is written as</span>\n<marimo-tex class=\"arithmatex\">||[\n\\dot{y}(t) = f(t, y(t)), \\qquad y(t_0) = y_0.\n||]</marimo-tex><span class=\"paragraph\">Higher-order ODEs are commonly rewritten as systems of first-order ODEs and then solved with the same numerical integration tools.</span>\n<span class=\"paragraph\"><strong>Guiding questions 2.</strong></span>\n<ol>\n<li>What does the initial condition <marimo-tex class=\"arithmatex\">||(y(t_0)=y_0||)</marimo-tex> tell you?</li>\n<li>Why do you think numerical integration advances in small time steps?</li>\n<li>What might go wrong if the time step is too large?</li>\n</ol></span>"
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"first-order-ode\">First-order ODE</h2>\n<span class=\"paragraph\">A first-order ODE has the general form</span>\n<marimo-tex class=\"arithmatex\">||[\n\\frac{\\mathrm{d} y}{\\mathrm{d} x} = f(x, y).\n||]</marimo-tex><span class=\"paragraph\">The function <marimo-tex class=\"arithmatex\">||(f(x, y)||)</marimo-tex> gives the derivative of <marimo-tex class=\"arithmatex\">||(y||)</marimo-tex> at a given pair <marimo-tex class=\"arithmatex\">||((x, y)||)</marimo-tex>. When <marimo-tex class=\"arithmatex\">||(f(x, y)||)</marimo-tex> is linear with respect to <marimo-tex class=\"arithmatex\">||(y||)</marimo-tex>, the equation is a first-order linear ODE, which can be written as</span>\n<marimo-tex class=\"arithmatex\">||[\n\\frac{\\mathrm{d} y}{\\mathrm{d} x} + p(x)y = q(x)\n||]</marimo-tex><span class=\"paragraph\">where <marimo-tex class=\"arithmatex\">||(p(x)||)</marimo-tex> and <marimo-tex class=\"arithmatex\">||(q(x)||)</marimo-tex> are continuous functions of <marimo-tex class=\"arithmatex\">||(x||)</marimo-tex>. In this form, the equation's linearity means the dependent variable <marimo-tex class=\"arithmatex\">||(y||)</marimo-tex> and its derivative <marimo-tex class=\"arithmatex\">||(\\mathrm{d}y/\\mathrm{d}x||)</marimo-tex> are raised to the first power and are not multiplied together.</span>\n<span class=\"paragraph\"><strong>Challenge 2.</strong> Suppose <marimo-tex class=\"arithmatex\">||(y||)</marimo-tex> is position and <marimo-tex class=\"arithmatex\">||(x||)</marimo-tex> is time. In one sentence, explain why knowing only <marimo-tex class=\"arithmatex\">||(\\mathrm{d}y/\\mathrm{d}x||)</marimo-tex> at a single instant is not enough to reconstruct the full motion.</span></span>"
           }
         }
       ],
@@ -72,12 +72,12 @@
     },
     {
       "id": "PKri",
-      "code_hash": "6ac31697192005e9667e96c398b23630",
+      "code_hash": "cdc66907ab66f5b0a0a25c8039b5f67d",
       "outputs": [
         {
           "type": "data",
           "data": {
-            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"initial-value-problems-ivp\">Initial Value Problems (IVP)</h2>\n<span class=\"paragraph\">When solving ODEs with a known set of initial conditions, we are solving an initial value problem (IVP). The solution often describes how a system changes over time from a specified initial state.</span>\n<span class=\"paragraph\">A solution to an IVP is a function that satisfies both the differential equation and the initial condition. For a first-order problem,</span>\n<marimo-tex class=\"arithmatex\">||[\n\\dot{y}(t) = f(t, y(t)), \\qquad y(t_0)=y_0.\n||]</marimo-tex><span class=\"paragraph\">Higher-order IVPs can be rewritten as systems of first-order IVPs. For example, a second-order equation can be written as</span>\n<marimo-tex class=\"arithmatex\">||[\ny''(t) = f(t, y(t), y'(t)).\n||]</marimo-tex><span class=\"paragraph\">Define a state vector with the original variable and its derivative:</span>\n<marimo-tex class=\"arithmatex\">||[\nx_1(t) = y(t), \\qquad x_2(t) = y'(t).\n||]</marimo-tex><span class=\"paragraph\">Then the same problem becomes two coupled first-order equations:</span>\n<marimo-tex class=\"arithmatex\">||[\n\\dot{x}_1(t)=x_2(t), \\qquad \\dot{x}_2(t)=f(t, x_1(t), x_2(t)).\n||]</marimo-tex><span class=\"paragraph\">In the same way, an ODE of order <marimo-tex class=\"arithmatex\">||(N||)</marimo-tex> can be represented as a system of <marimo-tex class=\"arithmatex\">||(N||)</marimo-tex> first-order ODEs. A simple pendulum, a projectile under gravity, and many biomechanical models are naturally written this way before numerical integration.</span>\n<span class=\"paragraph\"><strong>Challenge 2.</strong> A mass-spring-damper model can be written as <marimo-tex class=\"arithmatex\">||(m x'' + c x' + kx = F(t)||)</marimo-tex>. Before looking ahead, define two state variables that would convert this equation into two first-order ODEs.</span></span>"
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"initial-value-problems-ivp\">Initial Value Problems (IVP)</h2>\n<span class=\"paragraph\">When solving ODEs with a known set of initial conditions, we are solving an initial value problem (IVP). The solution often describes how a system changes over time from a specified initial state.</span>\n<span class=\"paragraph\">A solution to an IVP is a function that satisfies both the differential equation and the initial condition. For a first-order problem,</span>\n<marimo-tex class=\"arithmatex\">||[\n\\dot{y}(t) = f(t, y(t)), \\qquad y(t_0)=y_0.\n||]</marimo-tex><span class=\"paragraph\">Higher-order IVPs can be rewritten as systems of first-order IVPs. For example, a second-order equation can be written as</span>\n<marimo-tex class=\"arithmatex\">||[\n\\ddot{y}(t) = f(t, y(t), \\dot{y}(t)).\n||]</marimo-tex><span class=\"paragraph\">Define a state vector with the original variable and its derivative:</span>\n<marimo-tex class=\"arithmatex\">||[\nx_1(t) = y(t), \\qquad x_2(t) = \\dot{y}(t).\n||]</marimo-tex><span class=\"paragraph\">Then the same problem becomes two coupled first-order equations:</span>\n<marimo-tex class=\"arithmatex\">||[\n\\dot{x}_1(t)=x_2(t), \\qquad \\dot{x}_2(t)=f(t, x_1(t), x_2(t)).\n||]</marimo-tex><span class=\"paragraph\">In the same way, an ODE of order <marimo-tex class=\"arithmatex\">||(N||)</marimo-tex> can be represented as a system of <marimo-tex class=\"arithmatex\">||(N||)</marimo-tex> first-order ODEs. A simple pendulum, a projectile under gravity, and many biomechanical models are naturally written this way before numerical integration.</span>\n<span class=\"paragraph\"><strong>Guiding question 2.</strong></span>\n<ol>\n<li>What does the initial condition <marimo-tex class=\"arithmatex\">||(y(t_0)=y_0||)</marimo-tex> tell you?</li>\n</ol>\n<span class=\"paragraph\"><strong>Challenge 3.</strong> A mass-spring-damper model can be written as <marimo-tex class=\"arithmatex\">||(m \\ddot{x} + c \\dot{x} + kx = F(t)||)</marimo-tex>. Before looking ahead, define two state variables that would convert this equation into two first-order ODEs.</span></span>"
           }
         }
       ],
@@ -85,12 +85,12 @@
     },
     {
       "id": "Xref",
-      "code_hash": "263c4350fe703282c0c31fcff82489fb",
+      "code_hash": "4a32b4f98a59cb3eacc621135a6c29b4",
       "outputs": [
         {
           "type": "data",
           "data": {
-            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h3 id=\"euler-method\">Euler method</h3>\n<span class=\"paragraph\">The Euler method is the simplest numerical method for solving an initial value problem. First, approximate the derivative of <marimo-tex class=\"arithmatex\">||(y||)</marimo-tex> with a finite difference:</span>\n<marimo-tex class=\"arithmatex\">||[\n\\dot{y}(t) \\approx \\frac{y(t+h)-y(t)}{h},\n||]</marimo-tex><span class=\"paragraph\">where <marimo-tex class=\"arithmatex\">||(h||)</marimo-tex> is the step size. Rearranging gives</span>\n<marimo-tex class=\"arithmatex\">||[\ny(t+h) \\approx y(t) + h\\dot{y}(t).\n||]</marimo-tex><span class=\"paragraph\">Replacing <marimo-tex class=\"arithmatex\">||(\\dot{y}(t)||)</marimo-tex> by <marimo-tex class=\"arithmatex\">||(f(t, y(t))||)</marimo-tex> gives</span>\n<marimo-tex class=\"arithmatex\">||[\ny(t+h) \\approx y(t) + hf(t, y(t)).\n||]</marimo-tex><span class=\"paragraph\">Starting from the known value <marimo-tex class=\"arithmatex\">||(y(t_0)=y_0||)</marimo-tex>, this becomes the recursive update</span>\n<marimo-tex class=\"arithmatex\">||[\ny_{n+1} = y_n + h f(t_n, y_n).\n||]</marimo-tex><span class=\"paragraph\"><strong>Challenge 3.</strong> Euler's method is simple, but it makes a local straight-line prediction. Sketch what you expect to happen when the real trajectory is strongly curved and the step size <marimo-tex class=\"arithmatex\">||(h||)</marimo-tex> is large.</span></span>"
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"numerical-methods-for-solving-odes\">Numerical methods for solving ODEs</h2>\n<span class=\"paragraph\">When an ODE is difficult or impossible to solve analytically, numerical methods approximate the solution at selected points. This process is also called numerical integration.</span></span>"
           }
         }
       ],
@@ -98,12 +98,12 @@
     },
     {
       "id": "SFPL",
-      "code_hash": "9f9951ab279aef5bb2c488778ed83ddc",
+      "code_hash": "28a5643ececf5edd584cdb7700e37759",
       "outputs": [
         {
           "type": "data",
           "data": {
-            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"explicit-and-semi-implicit-euler-methods\">Explicit and Semi-Implicit Euler Methods</h2>\n<span class=\"paragraph\">For a state with position <marimo-tex class=\"arithmatex\">||(y||)</marimo-tex> and velocity <marimo-tex class=\"arithmatex\">||(v||)</marimo-tex>, the update order matters. The forward, or explicit, Euler method uses only the current state:</span>\n<marimo-tex class=\"arithmatex\">||[\ny_{i+1}=y_i+h v_i, \\qquad v_{i+1}=v_i+h a(t_i, y_i, v_i).\n||]</marimo-tex><span class=\"paragraph\">A common alternative in mechanics is the semi-implicit Euler method, also called symplectic Euler or Euler-Cromer. It updates velocity first and then uses the new velocity to update position:</span>\n<marimo-tex class=\"arithmatex\">||[\nv_{i+1}=v_i+h a(t_i, y_i, v_i), \\qquad y_{i+1}=y_i+h v_{i+1}.\n||]</marimo-tex><span class=\"paragraph\">This is not the fully implicit backward Euler method, which would evaluate the derivative at the future state and usually requires solving an algebraic equation at every step. The semi-implicit version is still simple to implement, and for many mechanical systems it behaves better than forward Euler.</span>\n<span class=\"paragraph\"><strong>Guiding questions 3.</strong></span>\n<ol>\n<li>In forward Euler, which value of velocity updates position?</li>\n<li>In semi-implicit Euler, which value of velocity updates position?</li>\n<li>Why might the second choice matter for oscillating systems?</li>\n</ol></span>"
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h3 id=\"euler-method\">Euler method</h3>\n<span class=\"paragraph\">The Euler method is the simplest numerical method for solving an initial value problem. First, approximate the derivative of <marimo-tex class=\"arithmatex\">||(y||)</marimo-tex> with a finite difference:</span>\n<marimo-tex class=\"arithmatex\">||[\n\\dot{y}(t) \\approx \\frac{y(t+h)-y(t)}{h},\n||]</marimo-tex><span class=\"paragraph\">where <marimo-tex class=\"arithmatex\">||(h||)</marimo-tex> is the step size. Rearranging gives</span>\n<marimo-tex class=\"arithmatex\">||[\ny(t+h) \\approx y(t) + h\\dot{y}(t).\n||]</marimo-tex><span class=\"paragraph\">Replacing <marimo-tex class=\"arithmatex\">||(\\dot{y}(t)||)</marimo-tex> by <marimo-tex class=\"arithmatex\">||(f(t, y(t))||)</marimo-tex> gives</span>\n<marimo-tex class=\"arithmatex\">||[\ny(t+h) \\approx y(t) + hf(t, y(t)).\n||]</marimo-tex><span class=\"paragraph\">Starting from the known value <marimo-tex class=\"arithmatex\">||(y(t_0)=y_0||)</marimo-tex>, this becomes the recursive update</span>\n<marimo-tex class=\"arithmatex\">||[\ny_{n+1} = y_n + h f(t_n, y_n).\n||]</marimo-tex><span class=\"paragraph\"><strong>Guiding questions 3.</strong></span>\n<ol>\n<li>Why do you think numerical integration advances in small time steps?</li>\n<li>What might go wrong if the time step is too large?</li>\n</ol>\n<span class=\"paragraph\"><strong>Challenge 4.</strong> Euler's method is simple, but it makes a local straight-line prediction. Sketch what you expect to happen when the real trajectory is strongly curved and the step size <marimo-tex class=\"arithmatex\">||(h||)</marimo-tex> is large.</span></span>"
           }
         }
       ],
@@ -111,12 +111,12 @@
     },
     {
       "id": "BYtC",
-      "code_hash": "b15f7362d0e3b9f832b996aa8dafd554",
+      "code_hash": "c06fa21930e44c273de9e95f610bdc06",
       "outputs": [
         {
           "type": "data",
           "data": {
-            "text/plain": ""
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h3 id=\"eulers-method-pseudocode\">Euler's method pseudocode</h3>\n<div class=\"language-bash codehilite\"><pre><span></span><code><span class=\"c1\"># Initialization</span>\nDefine<span class=\"w\"> </span>the<span class=\"w\"> </span>differential<span class=\"w\"> </span>equation<span class=\"w\"> </span>fdot<span class=\"o\">(</span>t,<span class=\"w\"> </span>y<span class=\"o\">)</span>\nInput<span class=\"w\"> </span>initial<span class=\"w\"> </span><span class=\"nb\">time</span><span class=\"w\"> </span>t0,<span class=\"w\"> </span>initial<span class=\"w\"> </span>value<span class=\"w\"> </span>y0\nInput<span class=\"w\"> </span>step<span class=\"w\"> </span>size<span class=\"w\"> </span>h,<span class=\"w\"> </span>and<span class=\"w\"> </span>the<span class=\"w\"> </span>number<span class=\"w\"> </span>of<span class=\"w\"> </span>steps<span class=\"w\"> </span>n\nCreate<span class=\"w\"> </span>array<span class=\"w\"> </span>and<span class=\"w\"> </span>store<span class=\"w\"> </span>initial<span class=\"w\"> </span>values\n\n<span class=\"c1\"># Iteration</span>\n<span class=\"k\">for</span><span class=\"w\"> </span>i<span class=\"w\"> </span>from<span class=\"w\"> </span><span class=\"m\">1</span><span class=\"w\"> </span>to<span class=\"w\"> </span>n:\n<span class=\"w\">    </span><span class=\"c1\"># Calculate the slope at the current point</span>\n<span class=\"w\">    </span><span class=\"nv\">slope</span><span class=\"w\"> </span><span class=\"o\">=</span><span class=\"w\"> </span>fdot<span class=\"o\">(</span>t0,<span class=\"w\"> </span>y0<span class=\"o\">)</span>\n<span class=\"w\">    </span><span class=\"c1\"># Calculate the next time and y-value</span>\n<span class=\"w\">    </span><span class=\"nv\">ti</span><span class=\"w\"> </span><span class=\"o\">=</span><span class=\"w\"> </span>t0<span class=\"w\"> </span>+<span class=\"w\"> </span>h\n<span class=\"w\">    </span><span class=\"nv\">yi</span><span class=\"w\"> </span><span class=\"o\">=</span><span class=\"w\"> </span>y0<span class=\"w\"> </span>+<span class=\"w\"> </span>h<span class=\"w\"> </span>*<span class=\"w\"> </span>slope\n<span class=\"w\">    </span><span class=\"c1\"># Store new values (ti, yi)</span>\n<span class=\"w\">    </span>array<span class=\"o\">[</span>i<span class=\"o\">]</span><span class=\"w\"> </span><span class=\"o\">=</span><span class=\"w\"> </span>ti,<span class=\"w\"> </span>yi\n<span class=\"w\">    </span><span class=\"c1\"># Update variables for the next iteration</span>\n<span class=\"w\">    </span><span class=\"nv\">t0</span><span class=\"w\"> </span><span class=\"o\">=</span><span class=\"w\"> </span>ti\n<span class=\"w\">    </span><span class=\"nv\">y0</span><span class=\"w\"> </span><span class=\"o\">=</span><span class=\"w\"> </span>yi\n</code></pre></div></span>"
           }
         }
       ],
@@ -124,12 +124,12 @@
     },
     {
       "id": "RGSE",
-      "code_hash": "29f6ff939e4281ebe2df173a6c5517d7",
+      "code_hash": "2f8396ef6e0996f8c080ad3d374ec939",
       "outputs": [
         {
           "type": "data",
           "data": {
-            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h3 id=\"other-numerical-methods-for-solving-odes\">Other numerical methods for solving ODEs</h3>\n<span class=\"paragraph\">More accurate methods use additional evaluations of the derivative inside each interval <marimo-tex class=\"arithmatex\">||([t_n, t_{n+1}]||)</marimo-tex>. A common family is the <a href=\"https://en.wikipedia.org/wiki/Runge%E2%80%93Kutta_methods\" rel=\"noopener noreferrer\" target=\"_blank\">Runge-Kutta methods</a>.</span>\n<span class=\"paragraph\">In SciPy, the current general-purpose interface for initial value problems is <a href=\"https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.solve_ivp.html\" rel=\"noopener noreferrer\" target=\"_blank\"><code>scipy.integrate.solve_ivp</code></a>. SciPy recommends <code>solve_ivp</code> for new code. It provides explicit Runge-Kutta methods such as <code>RK45</code> and <code>DOP853</code>, implicit methods for stiff systems such as <code>Radau</code> and <code>BDF</code>, and <code>LSODA</code>, which automatically switches between nonstiff and stiff methods.</span>\n<span class=\"paragraph\"><strong>Challenge 4.</strong> When you later compare Euler with <code>solve_ivp</code>, predict which method will be more accurate for the same output time step and explain why.</span></span>"
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h3 id=\"example-exact-and-approximate-solutions-for-an-exponential-growth-ode\">Example: Exact and approximate solutions for an exponential growth ODE</h3>\n<span class=\"paragraph\">Consider <marimo-tex class=\"arithmatex\">||(\\dot{f(t)}=.8*e^{2*t}||)</marimo-tex> with initial condition <marimo-tex class=\"arithmatex\">||(f_{0}=.4||)</marimo-tex>. In this case, the exact solution is known: <marimo-tex class=\"arithmatex\">||(f(t)=.4e^{2*t}||)</marimo-tex>.\nLet's solve this ODE numerically and compare the solutions in the interval <marimo-tex class=\"arithmatex\">||(t[0,1]||)</marimo-tex>.</span>\n<span class=\"paragraph\">First, let's import the Python libraries we will use and configure some settings:</span></span>"
           }
         }
       ],
@@ -137,19 +137,6 @@
     },
     {
       "id": "Kclp",
-      "code_hash": "0a76c493c6966d19612d1db094dd094c",
-      "outputs": [
-        {
-          "type": "data",
-          "data": {
-            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"examples\">Examples</h2>\n<span class=\"paragraph\">Now you will work through examples. Each example starts with a model, rewrites it as an IVP, and then asks you to inspect or modify the numerical solution.</span>\n<span class=\"paragraph\">First, import the required Python libraries and customize the plotting environment.</span></span>"
-          }
-        }
-      ],
-      "console": []
-    },
-    {
-      "id": "emfo",
       "code_hash": "f66b92bea852adafc6d042195032b81a",
       "outputs": [
         {
@@ -162,7 +149,79 @@
       "console": []
     },
     {
+      "id": "emfo",
+      "code_hash": "8af4c5cf579cddc15ebb5cc823abb584",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": [
+        {
+          "type": "streamMedia",
+          "name": "media",
+          "mimetype": "application/vnd.marimo+mimebundle",
+          "data": "{\"image/png\": \"data:image/png;base64,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\", \"__metadata__\": {\"image/png\": {\"width\": 554, \"height\": 417}}}"
+        }
+      ]
+    },
+    {
       "id": "Hstk",
+      "code_hash": "386fa82a858eedee4a663fc8018344e9",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\"><strong>Guiding questions 4</strong></span>\n<ol>\n<li>Within the iteration loop, which rows can be reordered and which cannot?</li>\n<li>Why pre-assign an array?</li>\n</ol>\n<span class=\"paragraph\"><strong>Challenge 5</strong> Implement this solution without using a pre-assigned array.</span>\n<span class=\"paragraph\"><strong>Challenge 6</strong> Modify the code to increase the step and compare the exact and approximate solutions.</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "nWHF",
+      "code_hash": "b597d88e855d2375d661f79015f39feb",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"explicit-and-semi-implicit-euler-methods\">Explicit and Semi-Implicit Euler Methods</h2>\n<span class=\"paragraph\">For a state with position <marimo-tex class=\"arithmatex\">||(y||)</marimo-tex> and velocity <marimo-tex class=\"arithmatex\">||(v||)</marimo-tex>, the update order matters. The forward, or explicit, Euler method uses only the current state:</span>\n<marimo-tex class=\"arithmatex\">||[\ny_{i+1}=y_i+h v_i, \\qquad v_{i+1}=v_i+h a(t_i, y_i, v_i).\n||]</marimo-tex><span class=\"paragraph\">A common alternative in mechanics is the semi-implicit Euler method, also called symplectic Euler or Euler-Cromer. It updates velocity first and then uses the new velocity to update position:</span>\n<marimo-tex class=\"arithmatex\">||[\nv_{i+1}=v_i+h a(t_i, y_i, v_i), \\qquad y_{i+1}=y_i+h v_{i+1}.\n||]</marimo-tex><span class=\"paragraph\">This is not the fully implicit backward Euler method, which would evaluate the derivative at the future state and usually requires solving an algebraic equation at every step. The semi-implicit version is still simple to implement, and for many mechanical systems it behaves better than forward Euler.</span>\n<span class=\"paragraph\"><strong>Guiding questions 6.</strong></span>\n<ol>\n<li>In forward Euler, which value of velocity updates position?</li>\n<li>In semi-implicit Euler, which value of velocity updates position?</li>\n<li>Why might the second choice matter for oscillating systems?</li>\n</ol></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "iLit",
+      "code_hash": "76df333e8cea05bf3fcb8c44dbad0e90",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h3 id=\"other-numerical-methods-for-solving-odes\">Other numerical methods for solving ODEs</h3>\n<span class=\"paragraph\">More accurate methods use additional evaluations of the derivative inside each interval <marimo-tex class=\"arithmatex\">||([t_n, t_{n+1}]||)</marimo-tex>. A common family is the <a href=\"https://en.wikipedia.org/wiki/Runge%E2%80%93Kutta_methods\" rel=\"noopener noreferrer\" target=\"_blank\">Runge-Kutta methods</a>.</span>\n<span class=\"paragraph\">In SciPy, the current general-purpose interface for initial value problems is <a href=\"https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.solve_ivp.html\" rel=\"noopener noreferrer\" target=\"_blank\"><code>scipy.integrate.solve_ivp</code></a>. SciPy recommends <code>solve_ivp</code> for new code. It provides explicit Runge-Kutta methods such as <code>RK45</code> and <code>DOP853</code>, implicit methods for stiff systems such as <code>Radau</code> and <code>BDF</code>, and <code>LSODA</code>, which automatically switches between nonstiff and stiff methods.</span>\n<span class=\"paragraph\"><strong>Challenge 7.</strong> When you later compare Euler with <code>solve_ivp</code>, predict which method will be more accurate for the same output time step and explain why.</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "ZHCJ",
+      "code_hash": "0a76c493c6966d19612d1db094dd094c",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"examples\">Examples</h2>\n<span class=\"paragraph\">Now you will work through examples. Each example starts with a model, rewrites it as an IVP, and then asks you to inspect or modify the numerical solution.</span>\n<span class=\"paragraph\">First, import the required Python libraries and customize the plotting environment.</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "ROlb",
       "code_hash": "1637fd84873336ee6058f15e1b92a47e",
       "outputs": [
         {
@@ -175,7 +234,20 @@
       "console": []
     },
     {
-      "id": "nWHF",
+      "id": "qnkX",
+      "code_hash": "6f78ab93e2568657e4a7b8713dff283e",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "TqIu",
       "code_hash": "2f6dbecc7efa2f4157d187680bb4df5b",
       "outputs": [
         {
@@ -188,7 +260,7 @@
       "console": []
     },
     {
-      "id": "iLit",
+      "id": "Vxnm",
       "code_hash": "cc35710cd62ff8f3ec8c1d0fe7e204d9",
       "outputs": [
         {
@@ -201,7 +273,7 @@
       "console": []
     },
     {
-      "id": "ZHCJ",
+      "id": "DnEU",
       "code_hash": "a0e9deebda3c8599d460771400b6d604",
       "outputs": [
         {
@@ -214,7 +286,7 @@
       "console": []
     },
     {
-      "id": "ROlb",
+      "id": "ulZA",
       "code_hash": "c0e1e4ac63196d796addd8e3f0e43530",
       "outputs": [
         {
@@ -234,33 +306,33 @@
       ]
     },
     {
-      "id": "qnkX",
-      "code_hash": "5c4015e56f021d41ec7bef42311f078d",
+      "id": "ecfG",
+      "code_hash": "a543a93c87e0517b4e55ee7c00c0b696",
       "outputs": [
         {
           "type": "data",
           "data": {
-            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\"><strong>Challenge 5.</strong> Change the initial angle to <marimo-tex class=\"arithmatex\">||(10^\\circ||)</marimo-tex>, <marimo-tex class=\"arithmatex\">||(45^\\circ||)</marimo-tex>, and <marimo-tex class=\"arithmatex\">||(90^\\circ||)</marimo-tex>. Does the plot look like a perfect sine wave in all three cases? What does that tell you about the small-angle approximation?</span></span>"
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\"><strong>Challenge 8.</strong> Change the initial angle to <marimo-tex class=\"arithmatex\">||(10^\\circ||)</marimo-tex>, <marimo-tex class=\"arithmatex\">||(45^\\circ||)</marimo-tex>, and <marimo-tex class=\"arithmatex\">||(90^\\circ||)</marimo-tex>. Does the plot look like a perfect sine wave in all three cases? What does that tell you about the small-angle approximation?</span></span>"
           }
         }
       ],
       "console": []
     },
     {
-      "id": "TqIu",
-      "code_hash": "93757352cd10d457079eac926138c4a8",
+      "id": "Pvdt",
+      "code_hash": "ab98f1a274c2a6d74bd773a642f6b9c7",
       "outputs": [
         {
           "type": "data",
           "data": {
-            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h3 id=\"motion-under-constant-force\">Motion under Constant Force</h3>\n<span class=\"paragraph\">Consider a football kicked upward from an initial height <marimo-tex class=\"arithmatex\">||(y_0||)</marimo-tex> with initial vertical velocity <marimo-tex class=\"arithmatex\">||(v_0||)</marimo-tex>. We want the equation of motion in the vertical direction.</span>\n<span class=\"paragraph\">Neglecting air resistance, Newton's second law gives</span>\n<marimo-tex class=\"arithmatex\">||[\nm\\frac{\\mathrm{d}^2 y}{\\mathrm{d}t^2} = -mg.\n||]</marimo-tex><span class=\"paragraph\">We will use <marimo-tex class=\"arithmatex\">||(g=9.8\\,\\mathrm{m/s^2}||)</marimo-tex>, <marimo-tex class=\"arithmatex\">||(y_0=1\\,\\mathrm{m}||)</marimo-tex> at <marimo-tex class=\"arithmatex\">||(t_0=0||)</marimo-tex>, and <marimo-tex class=\"arithmatex\">||(v_0=20\\,\\mathrm{m/s}||)</marimo-tex>. The analytical solution is</span>\n<marimo-tex class=\"arithmatex\">||[\ny(t) = y_0 + v_0 t - \\frac{g}{2}t^2.\n||]</marimo-tex><span class=\"paragraph\">To solve the same problem numerically, rewrite the second-order ODE as two first-order ODEs:</span>\n<marimo-tex class=\"arithmatex\">||[\n\\dot{y} = v, \\qquad \\dot{v} = a.\n||]</marimo-tex><span class=\"paragraph\">For constant gravitational acceleration,</span>\n<marimo-tex class=\"arithmatex\">||[\n\\left\\{\n\\begin{array}{rl}\n\\frac{\\mathrm{d} y}{\\mathrm{d}t} &amp;= v, \\quad y(t_0) = y_0,\\\\\n\\frac{\\mathrm{d} v}{\\mathrm{d}t} &amp;= -g, \\quad v(t_0) = v_0.\n\\end{array}\n\\right.\n||]</marimo-tex><span class=\"paragraph\"><strong>Guiding questions 4.</strong></span>\n<ol>\n<li>Which two variables define the state of the ball?</li>\n<li>Which equation updates position?</li>\n<li>Which equation updates velocity?</li>\n</ol></span>"
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h3 id=\"motion-under-constant-force\">Motion under Constant Force</h3>\n<span class=\"paragraph\">Consider a football kicked upward from an initial height <marimo-tex class=\"arithmatex\">||(y_0||)</marimo-tex> with initial vertical velocity <marimo-tex class=\"arithmatex\">||(v_0||)</marimo-tex>. We want the equation of motion in the vertical direction.</span>\n<span class=\"paragraph\">Neglecting air resistance, Newton's second law gives</span>\n<marimo-tex class=\"arithmatex\">||[\nm\\frac{\\mathrm{d}^2 y}{\\mathrm{d}t^2} = -mg.\n||]</marimo-tex><span class=\"paragraph\">We will use <marimo-tex class=\"arithmatex\">||(g=9.8\\,\\mathrm{m/s^2}||)</marimo-tex>, <marimo-tex class=\"arithmatex\">||(y_0=1\\,\\mathrm{m}||)</marimo-tex> at <marimo-tex class=\"arithmatex\">||(t_0=0||)</marimo-tex>, and <marimo-tex class=\"arithmatex\">||(v_0=20\\,\\mathrm{m/s}||)</marimo-tex>. The analytical solution is</span>\n<marimo-tex class=\"arithmatex\">||[\ny(t) = y_0 + v_0 t - \\frac{g}{2}t^2.\n||]</marimo-tex><span class=\"paragraph\">To solve the same problem numerically, rewrite the second-order ODE as two first-order ODEs:</span>\n<marimo-tex class=\"arithmatex\">||[\n\\dot{y} = v, \\qquad \\dot{v} = a.\n||]</marimo-tex><span class=\"paragraph\">For constant gravitational acceleration,</span>\n<marimo-tex class=\"arithmatex\">||[\n\\left\\{\n\\begin{array}{rl}\n\\frac{\\mathrm{d} y}{\\mathrm{d}t} &amp;= v, \\quad y(t_0) = y_0,\\\\\n\\frac{\\mathrm{d} v}{\\mathrm{d}t} &amp;= -g, \\quad v(t_0) = v_0.\n\\end{array}\n\\right.\n||]</marimo-tex><span class=\"paragraph\"><strong>Guiding questions 5.</strong></span>\n<ol>\n<li>Which two variables define the state of the ball?</li>\n<li>Which equation updates position?</li>\n<li>Which equation updates velocity?</li>\n</ol></span>"
           }
         }
       ],
       "console": []
     },
     {
-      "id": "Vxnm",
+      "id": "ZBYS",
       "code_hash": "6af542e46b98e6fe20aa1c6a5641a7f7",
       "outputs": [
         {
@@ -273,7 +345,7 @@
       "console": []
     },
     {
-      "id": "DnEU",
+      "id": "aLJB",
       "code_hash": "47527aeb343bb6efa06f0c6bb66678f6",
       "outputs": [
         {
@@ -286,7 +358,7 @@
       "console": []
     },
     {
-      "id": "ulZA",
+      "id": "nHfw",
       "code_hash": "edb4567a67cfd746ee3cee1a6d318dd5",
       "outputs": [
         {
@@ -299,7 +371,7 @@
       "console": []
     },
     {
-      "id": "ecfG",
+      "id": "xXTn",
       "code_hash": "434fd73f78f9404e98dc3a38417ea3ca",
       "outputs": [
         {
@@ -312,7 +384,7 @@
       "console": []
     },
     {
-      "id": "Pvdt",
+      "id": "AjVT",
       "code_hash": "81a89b1c73d1f4f3394eaeba06ffb446",
       "outputs": [
         {
@@ -325,7 +397,7 @@
       "console": []
     },
     {
-      "id": "ZBYS",
+      "id": "pHFh",
       "code_hash": "7feed385fbaf4608517ae5e3baba7396",
       "outputs": [
         {
@@ -338,7 +410,7 @@
       "console": []
     },
     {
-      "id": "aLJB",
+      "id": "NCOB",
       "code_hash": "fa76b0d70a65457eb775f76a89e95c3c",
       "outputs": [
         {
@@ -351,7 +423,7 @@
       "console": []
     },
     {
-      "id": "nHfw",
+      "id": "aqbW",
       "code_hash": "310f975fa98bc72679f8cded81a261c7",
       "outputs": [
         {
@@ -364,7 +436,7 @@
       "console": []
     },
     {
-      "id": "xXTn",
+      "id": "TRpd",
       "code_hash": "3171d4ce62f0efe36e5a286ead4d253e",
       "outputs": [
         {
@@ -384,20 +456,20 @@
       ]
     },
     {
-      "id": "AjVT",
-      "code_hash": "050bbd716a61940ba431d30717182e6a",
+      "id": "TXez",
+      "code_hash": "fcfc134ed37cc6033f58536082ec33af",
       "outputs": [
         {
           "type": "data",
           "data": {
-            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\"><strong>Challenge 6.</strong> Compare the error curves for <marimo-tex class=\"arithmatex\">||(h=100||)</marimo-tex> ms and <marimo-tex class=\"arithmatex\">||(h=10||)</marimo-tex> ms. Which error changes more when the step size decreases: position or velocity? Explain your answer from the update equations.</span></span>"
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\"><strong>Challenge 9.</strong> Compare the error curves for <marimo-tex class=\"arithmatex\">||(h=100||)</marimo-tex> ms and <marimo-tex class=\"arithmatex\">||(h=10||)</marimo-tex> ms. Which error changes more when the step size decreases: position or velocity? Explain your answer from the update equations.</span></span>"
           }
         }
       ],
       "console": []
     },
     {
-      "id": "pHFh",
+      "id": "dNNg",
       "code_hash": "0f19ce86cfe5dbb70fe18bc4ef0b5750",
       "outputs": [
         {
@@ -410,7 +482,7 @@
       "console": []
     },
     {
-      "id": "NCOB",
+      "id": "yCnT",
       "code_hash": "e43619eaa6cbc8a087cb56b0059f0826",
       "outputs": [
         {
@@ -423,7 +495,7 @@
       "console": []
     },
     {
-      "id": "aqbW",
+      "id": "wlCL",
       "code_hash": "80ca2887d20f7da9506b83962e755f8a",
       "outputs": [
         {
@@ -436,7 +508,7 @@
       "console": []
     },
     {
-      "id": "TRpd",
+      "id": "kqZH",
       "code_hash": "29aec186aa6a03925e8296a95fb79cff",
       "outputs": [
         {
@@ -449,7 +521,7 @@
       "console": []
     },
     {
-      "id": "TXez",
+      "id": "wAgl",
       "code_hash": "4f29f7c9c5e53fbf1bd9769df20392e2",
       "outputs": [
         {
@@ -469,7 +541,7 @@
       ]
     },
     {
-      "id": "dNNg",
+      "id": "rEll",
       "code_hash": "73a933474ba4f0ca8effa20970c38586",
       "outputs": [
         {
@@ -482,7 +554,7 @@
       "console": []
     },
     {
-      "id": "yCnT",
+      "id": "dGlV",
       "code_hash": "fdb21fc668e15ea3d2b203ee28805d62",
       "outputs": [
         {
@@ -495,7 +567,7 @@
       "console": []
     },
     {
-      "id": "wlCL",
+      "id": "SdmI",
       "code_hash": "a77581194c55e6eeb4b749c1aab1b602",
       "outputs": [
         {
@@ -515,20 +587,20 @@
       ]
     },
     {
-      "id": "kqZH",
-      "code_hash": "a1d8de2e51736faf2102d106078994db",
+      "id": "lgWD",
+      "code_hash": "1af431be289a35e4576b317353efa478",
       "outputs": [
         {
           "type": "data",
           "data": {
-            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\"><strong>Challenge 7.</strong> Compare the Euler, LSODA, and RK45 plots. If you had to choose a method for a new biomechanical simulation, what evidence in these plots would influence your choice?</span></span>"
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\"><strong>Challenge 10.</strong> Compare the Euler, LSODA, and RK45 plots. If you had to choose a method for a new biomechanical simulation, what evidence in these plots would influence your choice?</span></span>"
           }
         }
       ],
       "console": []
     },
     {
-      "id": "wAgl",
+      "id": "yOPj",
       "code_hash": "b38d61fe37c0cd5645ec6d27df31a520",
       "outputs": [
         {
@@ -541,7 +613,7 @@
       "console": []
     },
     {
-      "id": "rEll",
+      "id": "fwwy",
       "code_hash": "3da2985ede28c7788d987559b99147f7",
       "outputs": [
         {
@@ -554,7 +626,7 @@
       "console": []
     },
     {
-      "id": "dGlV",
+      "id": "LJZf",
       "code_hash": "d7b1ada78352f32b608d7fca30e32021",
       "outputs": [
         {
@@ -567,7 +639,7 @@
       "console": []
     },
     {
-      "id": "SdmI",
+      "id": "urSm",
       "code_hash": "ef26c1caa0165bb1ff9d1745298e4103",
       "outputs": [
         {
@@ -580,7 +652,7 @@
       "console": []
     },
     {
-      "id": "lgWD",
+      "id": "jxvo",
       "code_hash": "a99ccc7ee0d748a213894f9d88a3dce1",
       "outputs": [
         {
@@ -600,20 +672,20 @@
       ]
     },
     {
-      "id": "yOPj",
-      "code_hash": "f2a3151e50b5a3ccb28765d808f905b9",
+      "id": "mWxS",
+      "code_hash": "264f4a3ed259684323f8e13718092ed3",
       "outputs": [
         {
           "type": "data",
           "data": {
-            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h3 id=\"example-mass-spring-damper-system\">Example: Mass-Spring-Damper System</h3>\n<span class=\"paragraph\">Now consider a system made of a mass, a spring, and a damper. This is a basic model for many mechanical and biomechanical systems: a shoe midsole, a vehicle suspension, a vibrating instrument string, or a simplified muscle-tendon element.</span>\n<span class=\"paragraph\">Let <marimo-tex class=\"arithmatex\">||(x||)</marimo-tex> be displacement from equilibrium and <marimo-tex class=\"arithmatex\">||(v=\\dot{x}||)</marimo-tex> be velocity. A linear mass-spring-damper model is</span>\n<marimo-tex class=\"arithmatex\">||[\nm\\ddot{x} + c\\dot{x} + kx = F(t),\n||]</marimo-tex><span class=\"paragraph\">where <marimo-tex class=\"arithmatex\">||(m||)</marimo-tex> is mass, <marimo-tex class=\"arithmatex\">||(c||)</marimo-tex> is damping, <marimo-tex class=\"arithmatex\">||(k||)</marimo-tex> is spring stiffness, and <marimo-tex class=\"arithmatex\">||(F(t)||)</marimo-tex> is an external force. As a first-order IVP,</span>\n<marimo-tex class=\"arithmatex\">||[\n\\dot{x}=v, \\qquad\n\\dot{v}=\\frac{F(t)-cv-kx}{m}.\n||]</marimo-tex><span class=\"paragraph\"><strong>Challenge 8.</strong> Before running the simulation, decide what should happen when damping increases: should the oscillations grow, stay the same, or decay faster?</span></span>"
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h3 id=\"example-mass-spring-damper-system\">Example: Mass-Spring-Damper System</h3>\n<span class=\"paragraph\">Now consider a system made of a mass, a spring, and a damper. This is a basic model for many mechanical and biomechanical systems: a shoe midsole, a vehicle suspension, a vibrating instrument string, or a simplified muscle-tendon element.</span>\n<span class=\"paragraph\">Let <marimo-tex class=\"arithmatex\">||(x||)</marimo-tex> be displacement from equilibrium and <marimo-tex class=\"arithmatex\">||(v=\\dot{x}||)</marimo-tex> be velocity. A linear mass-spring-damper model is</span>\n<marimo-tex class=\"arithmatex\">||[\nm\\ddot{x} + c\\dot{x} + kx = F(t),\n||]</marimo-tex><span class=\"paragraph\">where <marimo-tex class=\"arithmatex\">||(m||)</marimo-tex> is mass, <marimo-tex class=\"arithmatex\">||(c||)</marimo-tex> is damping, <marimo-tex class=\"arithmatex\">||(k||)</marimo-tex> is spring stiffness, and <marimo-tex class=\"arithmatex\">||(F(t)||)</marimo-tex> is an external force. As a first-order IVP,</span>\n<marimo-tex class=\"arithmatex\">||[\n\\dot{x}=v, \\qquad\n\\dot{v}=\\frac{F(t)-cv-kx}{m}.\n||]</marimo-tex><span class=\"paragraph\"><strong>Challenge 11.</strong> Before running the simulation, decide what should happen when damping increases: should the oscillations grow, stay the same, or decay faster?</span></span>"
           }
         }
       ],
       "console": []
     },
     {
-      "id": "fwwy",
+      "id": "CcZR",
       "code_hash": "0f481b5ecc5a3a9a993ae0571b706004",
       "outputs": [
         {
@@ -626,7 +698,7 @@
       "console": []
     },
     {
-      "id": "LJZf",
+      "id": "YWSi",
       "code_hash": "70a1c24d231363ea29836a2b950ef816",
       "outputs": [
         {
@@ -639,7 +711,7 @@
       "console": []
     },
     {
-      "id": "urSm",
+      "id": "zlud",
       "code_hash": "b90d28b00804c6d333017398aa28c1b3",
       "outputs": [
         {
@@ -652,7 +724,7 @@
       "console": []
     },
     {
-      "id": "jxvo",
+      "id": "tZnO",
       "code_hash": "45532d710ec4a4b57f81788f055313f8",
       "outputs": [
         {
@@ -665,7 +737,7 @@
       "console": []
     },
     {
-      "id": "mWxS",
+      "id": "xvXZ",
       "code_hash": "0b51c1a7db0dbef54baa5d1076c9ce0b",
       "outputs": [
         {
@@ -685,20 +757,20 @@
       ]
     },
     {
-      "id": "CcZR",
-      "code_hash": "2ac6f2a336c4874762c3b167b0bc3ccb",
+      "id": "CLip",
+      "code_hash": "3a89862af86d3932cca1dea774a76774",
       "outputs": [
         {
           "type": "data",
           "data": {
-            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\"><strong>Challenge 9.</strong> Try damping values <marimo-tex class=\"arithmatex\">||(c=0||)</marimo-tex>, <marimo-tex class=\"arithmatex\">||(c=1.2||)</marimo-tex>, and <marimo-tex class=\"arithmatex\">||(c=10||)</marimo-tex> (with <marimo-tex class=\"arithmatex\">||(m=1||)</marimo-tex> and <marimo-tex class=\"arithmatex\">||(k=25||)</marimo-tex>, so the natural frequency is <marimo-tex class=\"arithmatex\">||(\\omega_n=5\\,\\mathrm{rad/s}||)</marimo-tex>). Classify each response as undamped, underdamped, or critically damped. Which case oscillates without ever settling? Which returns to equilibrium without oscillating? What changes if you double the stiffness?</span></span>"
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\"><strong>Challenge 12.</strong> Try damping values <marimo-tex class=\"arithmatex\">||(c=0||)</marimo-tex>, <marimo-tex class=\"arithmatex\">||(c=1.2||)</marimo-tex>, and <marimo-tex class=\"arithmatex\">||(c=10||)</marimo-tex> (with <marimo-tex class=\"arithmatex\">||(m=1||)</marimo-tex> and <marimo-tex class=\"arithmatex\">||(k=25||)</marimo-tex>, so the natural frequency is <marimo-tex class=\"arithmatex\">||(\\omega_n=5\\,\\mathrm{rad/s}||)</marimo-tex>). Classify each response as undamped, underdamped, or critically damped. Which case oscillates without ever settling? Which returns to equilibrium without oscillating? What changes if you double the stiffness?</span></span>"
           }
         }
       ],
       "console": []
     },
     {
-      "id": "YWSi",
+      "id": "YECM",
       "code_hash": "81036cc9a7d6f684b893dbf6db87890c",
       "outputs": [
         {
@@ -711,7 +783,7 @@
       "console": []
     },
     {
-      "id": "zlud",
+      "id": "cEAS",
       "code_hash": "05d2de91bed2293909eb38019f4b88d1",
       "outputs": [
         {
@@ -724,20 +796,20 @@
       "console": []
     },
     {
-      "id": "tZnO",
-      "code_hash": "7b65be3b99fff24e0d578da1df9afe2a",
+      "id": "iXej",
+      "code_hash": "3ac6b7dfad013bab52b112eee0912086",
       "outputs": [
         {
           "type": "data",
           "data": {
-            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"video-lectures\">Video lectures</h2>\n<ul>\n<li><a href=\"https://www.khanacademy.org/math/differential-equations/first-order-differential-equations/differential-equations-intro/v/differential-equation-introduction\" rel=\"noopener noreferrer\" target=\"_blank\">Differential equations introduction</a> - Khan Academy.</li>\n<li><a href=\"https://youtu.be/ghjOS7Q82s0?si=8dJEhIhFSfciSDH7\" rel=\"noopener noreferrer\" target=\"_blank\">Overview of Differential Equations</a> - Lecture by Gilbert Strang.</li>\n<li><a href=\"https://youtu.be/ifbaAqfqpc4?si=0V6cOiY5QCMzmcur\" rel=\"noopener noreferrer\" target=\"_blank\">This is why you're learning differential equations</a>.</li>\n</ul></span>"
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"video-lectures\">Video lectures</h2>\n<ul>\n<li><a href=\"https://www.khanacademy.org/math/differential-equations/first-order-differential-equations/eulers-method-tutorial/v/eulers-method\" rel=\"noopener noreferrer\" target=\"_blank\">Euler's method</a> - Khan Academy.</li>\n<li>Numerical solutions of Ordinary Differential Equations: <a href=\"https://youtu.be/QBeNXHrAYns?si=lf5vPgCjHs-8-Bc1\" rel=\"noopener noreferrer\" target=\"_blank\">Integrating ODEs</a>, <a href=\"https://youtu.be/MstPeOTCVzQ?si=_kLTgq0d1oI-fZ9O\" rel=\"noopener noreferrer\" target=\"_blank\">Euler's method</a></li>\n</ul></span>"
           }
         }
       ],
       "console": []
     },
     {
-      "id": "xvXZ",
+      "id": "EJmg",
       "code_hash": "95c455708fc451e7f9f5c40550587305",
       "outputs": [
         {
@@ -750,7 +822,7 @@
       "console": []
     },
     {
-      "id": "CLip",
+      "id": "UmEG",
       "code_hash": "c2405a3bf01ce67d04baf98135606706",
       "outputs": [
         {
@@ -763,7 +835,7 @@
       "console": []
     },
     {
-      "id": "YECM",
+      "id": "vEBW",
       "code_hash": "1d0db38904205bec4d6f6f6a1f6cec3e",
       "outputs": [
         {

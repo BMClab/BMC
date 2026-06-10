@@ -7,7 +7,7 @@ app = marimo.App(width="medium")
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    # Introduction to Ordinary Differential Equation
+    # Introduction to numerical solution of Ordinary Differential Equation
 
     > Marcos Duarte,
     > [Laboratory of Biomechanics and Motor Control](https://bmclab.pesquisa.ufabc.edu.br/),
@@ -33,7 +33,124 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    An ordinary differential equation (ODE) is an equation that relates a function of one independent variable to one or more of its derivatives. In this tutorial, the independent variable will usually be time. Solving an ODE means finding a function whose derivatives satisfy that relationship.
+    ## An unassuming derivation of a numerical solution to an Ordinary Differential Equation (ODE)
+
+    Imagine you are in a car. You want to know where the car is at each moment, but you do not have a formula for its position. What you do have is simpler: the initial position of the car and measurements of its speed from time to time.
+
+    That is already enough to make progress.
+
+    Velocity tells us how fast position is changing:
+
+    $$
+    v(t) = \frac{\mathrm{d}x(t)}{\mathrm{d}t}.
+    $$
+
+    The notation \(x(t)\) and \(v(t)\) is just a reminder that both position and velocity can change with time.
+
+    If we look at two nearby instants, we can approximate the velocity by asking how much the position changed during that time interval:
+
+    $$
+    v_i \approx \frac{x_{i+1} - x_i}{t_{i+1} - t_i}.
+    $$
+
+    Here, \(i\) labels one measured instant and \(i+1\) labels the next one. To keep the first idea simple, suppose the measurements are equally spaced in time. Then
+
+    $$
+    t_{i+1} - t_i = \Delta t,
+    $$
+
+    and the approximation becomes
+
+    $$
+    v_i \approx \frac{x_{i+1} - x_i}{\Delta t}.
+    $$
+
+    Now comes the useful trick. Rearrange this expression to isolate the next position:
+
+    $$
+    x_{i+1} \approx x_i + v_i \Delta t.
+    $$
+
+    This says something very practical: if you know where the car is now, and you know its current speed, you can estimate where it will be after one small time step.
+
+    For example, suppose
+
+    $$
+    x_0 = 100\ \mathrm{m}, \qquad v_0 = 20\ \mathrm{m/s}, \qquad \Delta t = 10\ \mathrm{s}.
+    $$
+
+    Then
+
+    $$
+    x_1 \approx 100 + 20 \cdot 10 = 300\ \mathrm{m}.
+    $$
+
+    The index \(1\) means the next measured instant, which in this example is \(t=10\) s.
+
+    Now suppose that at \(t=10\) s the measured speed is
+
+    $$
+    v_1 = 25\ \mathrm{m/s}.
+    $$
+
+    Because we already estimated \(x_1\), we can repeat the same step:
+
+    $$
+    x_2 \approx x_1 + v_1 \Delta t,
+    $$
+
+    so
+
+    $$
+    x_2 \approx 300 + 25 \cdot 10 = 550\ \mathrm{m}.
+    $$
+
+    Another way to see the same calculation is to keep a running table. The position in each row is the position after applying the speed from the previous interval:
+
+    | \(i\) | Time \(t_i\) [s] | Speed used over previous interval [m/s] | Position \(x_i\) [m] |
+    |---:|---:|---:|---:|
+    | 0 | 0 | -- | 100 |
+    | 1 | 10 | 20 | 300 |
+    | 2 | 20 | 25 | 550 |
+
+    The first row is the initial condition. The second row uses \(v_0=20\ \mathrm{m/s}\), and the third row uses \(v_1=25\ \mathrm{m/s}\).
+
+    And there is the pattern:
+
+    $$
+    x_{i+1} \approx x_i + v_i \Delta t.
+    $$
+
+    To estimate the position farther into the future, we do not jump there all at once. We move step by step, always using the current position and the current velocity to estimate the next position.
+
+    This is the basic idea behind Euler's method for numerically solving a first-order ordinary differential equation:
+
+    $$
+    \frac{\mathrm{d}x(t)}{\mathrm{d}t} = v(t).
+    $$
+
+    In this example:
+
+    - \(x_0\) is the initial condition;
+    - \(v(t)\) gives the rate of change of position;
+    - \(\Delta t\) is the time step;
+    - \(x_{i+1} \approx x_i + v_i\Delta t\) is the Euler update.
+
+    Notice what we obtained: a list of estimated positions at selected times. We did not obtain a single formula for \(x(t)\). That is what makes this a numerical solution.
+
+    Because the calculation starts from a known initial value, this kind of problem is called an initial value problem, or IVP.
+
+    **Challenge 1.** Write a pseudocode to implement the Euler's method for numerically solving a first-order ordinary differential equation.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## Ordinary Differential Equation
+
+    An ODE is an equation that relates a function of one independent variable to one or more of its derivatives. In this tutorial, the independent variable will usually be time. Solving an ODE means finding a function whose derivatives satisfy that relationship.
 
     The order of an ODE is the order of its highest derivative. For example, a first-order ODE contains only first derivatives. A linear ODE is linear in the unknown function and its derivatives; many important linear ODEs have analytical solutions, but others are still solved numerically in practice. Nonlinear ODEs can sometimes be solved exactly, but numerical methods are often the practical approach.
 
@@ -74,7 +191,7 @@ def _(mo):
 
     where \(p(x)\) and \(q(x)\) are continuous functions of \(x\). In this form, the equation's linearity means the dependent variable \(y\) and its derivative $\mathrm{d}y/\mathrm{d}x$ are raised to the first power and are not multiplied together.
 
-    **Challenge 1.** Suppose $y$ is position and $x$ is time. In one sentence, explain why knowing only $\mathrm{d}y/\mathrm{d}x$ at a single instant is not enough to reconstruct the full motion.
+    **Challenge 2.** Suppose $y$ is position and $x$ is time. In one sentence, explain why knowing only $\mathrm{d}y/\mathrm{d}x$ at a single instant is not enough to reconstruct the full motion.
     """)
     return
 
@@ -115,7 +232,7 @@ def _(mo):
     **Guiding question 2.**
     1. What does the initial condition $y(t_0)=y_0$ tell you?
 
-    **Challenge 2.** A mass-spring-damper model can be written as $m \ddot{x} + c \dot{x} + kx = F(t)$. Before looking ahead, define two state variables that would convert this equation into two first-order ODEs.
+    **Challenge 3.** A mass-spring-damper model can be written as $m \ddot{x} + c \dot{x} + kx = F(t)$. Before looking ahead, define two state variables that would convert this equation into two first-order ODEs.
     """)
     return
 
@@ -164,7 +281,7 @@ def _(mo):
     1. Why do you think numerical integration advances in small time steps?
     2. What might go wrong if the time step is too large?
 
-    **Challenge 3.** Euler's method is simple, but it makes a local straight-line prediction. Sketch what you expect to happen when the real trajectory is strongly curved and the step size $h$ is large.
+    **Challenge 4.** Euler's method is simple, but it makes a local straight-line prediction. Sketch what you expect to happen when the real trajectory is strongly curved and the step size $h$ is large.
     """)
     return
 
@@ -229,7 +346,9 @@ def _():
 @app.cell
 def _(np, plt):
     def exp_growth(step=0.1):
-        fdot = lambda t, y: 0.8 * np.exp(2 * t)
+        def fdot(t, y):
+            return 0.8 * np.exp(2 * t)
+
         t0, y0 = 0.0, 0.4
         h = step
         n = int(1 / h + 1)
@@ -251,7 +370,6 @@ def _(np, plt):
         plt.legend()
         plt.show()
 
-
     exp_growth()
     return
 
@@ -263,9 +381,9 @@ def _(mo):
     1. Within the iteration loop, which rows can be reordered and which cannot?
     2. Why pre-assign an array?
 
-    **Challenge 4** Implement this solution without using a pre-assigned array.
+    **Challenge 5** Implement this solution without using a pre-assigned array.
 
-    **Challenge 5** Modify the code to increase the step and compare the exact and approximate solutions.
+    **Challenge 6** Modify the code to increase the step and compare the exact and approximate solutions.
     """)
     return
 
@@ -306,7 +424,7 @@ def _(mo):
 
     In SciPy, the current general-purpose interface for initial value problems is [`scipy.integrate.solve_ivp`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.solve_ivp.html). SciPy recommends `solve_ivp` for new code. It provides explicit Runge-Kutta methods such as `RK45` and `DOP853`, implicit methods for stiff systems such as `Radau` and `BDF`, and `LSODA`, which automatically switches between nonstiff and stiff methods.
 
-    **Challenge 6.** When you later compare Euler with `solve_ivp`, predict which method will be more accurate for the same output time step and explain why.
+    **Challenge 7.** When you later compare Euler with `solve_ivp`, predict which method will be more accurate for the same output time step and explain why.
     """)
     return
 
@@ -438,7 +556,7 @@ def _(np, pendulum_labels, t_pendulum, theta):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    **Challenge 7.** Change the initial angle to $10^\circ$, $45^\circ$, and $90^\circ$. Does the plot look like a perfect sine wave in all three cases? What does that tell you about the small-angle approximation?
+    **Challenge 8.** Change the initial angle to $10^\circ$, $45^\circ$, and $90^\circ$. Does the plot look like a perfect sine wave in all three cases? What does that tell you about the small-angle approximation?
     """)
     return
 
@@ -636,7 +754,7 @@ def _(plots, t10, t100, v10, v100, y10, y100):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    **Challenge 8.** Compare the error curves for $h=100$ ms and $h=10$ ms. Which error changes more when the step size decreases: position or velocity? Explain your answer from the update equations.
+    **Challenge 9.** Compare the error curves for $h=100$ ms and $h=10$ ms. Which error changes more when the step size decreases: position or velocity? Explain your answer from the update equations.
     """)
     return
 
@@ -719,7 +837,7 @@ def _(plots, t100_2, t10_2, v100_2, v10_2, y100_2, y10_2):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    **Challenge 9.** Compare the Euler, LSODA, and RK45 plots. If you had to choose a method for a new biomechanical simulation, what evidence in these plots would influence your choice?
+    **Challenge 10.** Compare the Euler, LSODA, and RK45 plots. If you had to choose a method for a new biomechanical simulation, what evidence in these plots would influence your choice?
     """)
     return
 
@@ -869,7 +987,7 @@ def _(mo):
     \dot{v}=\frac{F(t)-cv-kx}{m}.
     $$
 
-    **Challenge 10.** Before running the simulation, decide what should happen when damping increases: should the oscillations grow, stay the same, or decay faster?
+    **Challenge 11.** Before running the simulation, decide what should happen when damping increases: should the oscillations grow, stay the same, or decay faster?
     """)
     return
 
@@ -957,7 +1075,7 @@ def _(mass_spring_state, mass_spring_time):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    **Challenge 11.** Try damping values $c=0$, $c=1.2$, and $c=10$ (with $m=1$ and $k=25$, so the natural frequency is $\omega_n=5\,\mathrm{rad/s}$). Classify each response as undamped, underdamped, or critically damped. Which case oscillates without ever settling? Which returns to equilibrium without oscillating? What changes if you double the stiffness?
+    **Challenge 12.** Try damping values $c=0$, $c=1.2$, and $c=10$ (with $m=1$ and $k=25$, so the natural frequency is $\omega_n=5\,\mathrm{rad/s}$). Classify each response as undamped, underdamped, or critically damped. Which case oscillates without ever settling? Which returns to equilibrium without oscillating? What changes if you double the stiffness?
     """)
     return
 

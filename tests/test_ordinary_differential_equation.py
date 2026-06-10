@@ -72,6 +72,23 @@ class OrdinaryDifferentialEquationTests(unittest.TestCase):
     def test_notebook_has_conversational_tutorial_challenges_and_links(self):
         source = NOTEBOOK_PATH.read_text(encoding="utf-8")
 
+        self.assertIn(
+            "## An unassuming derivation of a numerical solution to an Ordinary Differential Equation (ODE)",
+            source,
+        )
+        self.assertLess(
+            source.index(
+                "## An unassuming derivation of a numerical solution to an Ordinary Differential Equation (ODE)"
+            ),
+            source.index("## Ordinary Differential Equation"),
+        )
+        self.assertIn("Imagine you are in a car", source)
+        self.assertIn("| \\(i\\) | Time \\(t_i\\) [s] |", source)
+        self.assertIn("| 0 | 0 | -- | 100 |", source)
+        self.assertIn("| 1 | 10 | 20 | 300 |", source)
+        self.assertIn("| 2 | 20 | 25 | 550 |", source)
+        self.assertIn("That is what makes this a numerical solution.", source)
+        self.assertIn("initial value problem, or IVP", source)
         self.assertIn("## How to use this tutorial", source)
         self.assertIn("You will", source)
         self.assertGreaterEqual(source.count("**Challenge"), 6)
@@ -154,7 +171,9 @@ class OrdinaryDifferentialEquationTests(unittest.TestCase):
         source = NOTEBOOK_PATH.read_text(encoding="utf-8")
 
         self.assertLess(
-            source.index("# Introduction to Ordinary Differential Equation"),
+            source.index(
+                "# Introduction to numerical solution of Ordinary Differential Equation"
+            ),
             source.index("@app.function\ndef ball_euler"),
         )
         self.assertLess(
