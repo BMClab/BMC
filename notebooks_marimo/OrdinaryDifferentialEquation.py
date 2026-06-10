@@ -112,8 +112,9 @@ def _(mo):
     | 0 | 0 | -- | 100 |
     | 1 | 10 | 20 | 300 |
     | 2 | 20 | 25 | 550 |
+    | 3 | 30 | 30 | ? |
 
-    The first row is the initial condition. The second row uses \(v_0=20\ \mathrm{m/s}\), and the third row uses \(v_1=25\ \mathrm{m/s}\).
+    The first row is the initial condition. The second row uses \(v_0=20\ \mathrm{m/s}\), and the third row uses \(v_1=25\ \mathrm{m/s}\). Calculate the new position at \(t=30\ \mathrm{s}\).
 
     And there is the pattern:
 
@@ -136,7 +137,7 @@ def _(mo):
     - \(\Delta t\) is the time step;
     - \(x_{i+1} \approx x_i + v_i\Delta t\) is the Euler update.
 
-    Notice what we obtained: a list of estimated positions at selected times. We did not obtain a single formula for \(x(t)\). That is what makes this a numerical solution.
+    Notice what we obtained: a list of estimated positions at selected times. We did not obtain a single formula for \(x(t)\). That is what makes this a numerical solution. Because we started with speed and estimated position by summing increments, this process is numerical integration.
 
     Because the calculation starts from a known initial value, this kind of problem is called an initial value problem, or IVP.
 
