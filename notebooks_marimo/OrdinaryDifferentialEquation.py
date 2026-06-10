@@ -138,8 +138,52 @@ def _(mo):
     - \(x_{i+1} \approx x_i + v_i\Delta t\) is the Euler update.
 
     Notice what we obtained: a list of estimated positions at selected times. We did not obtain a single formula for \(x(t)\). That is what makes this a numerical solution. Because we started with speed and estimated position by summing increments, this process is numerical integration.
-
     Because the calculation starts from a known initial value, this kind of problem is called an initial value problem, or IVP.
+
+    **The case when only the acceleration is known**
+    Now imagine that we only have access to the car's acceleration, for example from a smartphone accelerometer, and that we know the initial position and speed. Can we still find the position at a later time? Let's try a similar approach for this more challenging problem.
+
+    Acceleration tells us how fast velocity is changing:
+
+    $$
+    a(t) = \frac{\mathrm{d}v(t)}{\mathrm{d}t}.
+    $$
+
+    If the acceleration is measured at equally spaced instants, we can use the same finite-difference idea:
+
+    $$
+    a_i \approx \frac{v_{i+1} - v_i}{\Delta t}.
+    $$
+
+    Rearranging gives an update for the next speed:
+
+    $$
+    v_{i+1} \approx v_i + a_i\Delta t.
+    $$
+
+    Alongside that, we keep using the current speed to update position. So the state we carry from one row to the next is not just position anymore; it is the pair \((x_i, v_i)\). In the simplest Euler version, the next state is defined by these two coupled equations:
+
+    $$
+    \left\{
+    \begin{array}{l}
+    x_{i+1} \approx x_i + v_i\Delta t,\\
+    v_{i+1} \approx v_i + a_i\Delta t.
+    \end{array}
+    \right.
+    $$
+
+    They are coupled because the position update needs the current speed, and the speed update needs the current acceleration. This idea will come back later when we rewrite higher-order ODEs as systems of first-order equations.
+
+    Suppose the car starts at \(x_0=100\ \mathrm{m}\), starts with \(v_0=20\ \mathrm{m/s}\), and \(\Delta t=10\ \mathrm{s}\). If the first three acceleration measurements are \(a_0=0.5\ \mathrm{m/s^2}\), \(a_1=0.5\ \mathrm{m/s^2}\), and \(a_2=0.5\ \mathrm{m/s^2}\), the calculation looks like this:
+
+    | \(i\) | Time \(t_i\) [s] | Acceleration used over next interval [m/s^2] | Speed \(v_i\) [m/s] | Position \(x_i\) [m] |
+    |---:|---:|---:|---:|---:|
+    | 0 | 0 | 0.5 | 20 | 100 |
+    | 1 | 10 | 0.5 | 25 | 300 |
+    | 2 | 20 | 0.5 | 30 | 550 |
+    | 3 | 30 | -- | 35 | ? |
+
+    Use the row at \(t=20\ \mathrm{s}\) to calculate the new position at \(t=30\ \mathrm{s}\). Here, acceleration is first accumulated into speed, and speed is then accumulated into position. This is a double numerical integration: acceleration to velocity, then velocity to position.
 
     **Challenge 1.** Write a pseudocode to implement the Euler's method for numerically solving a first-order ordinary differential equation.
     """)
