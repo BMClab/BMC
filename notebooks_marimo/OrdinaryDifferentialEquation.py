@@ -185,6 +185,8 @@ def _(mo):
 
     Use the row at \(t=20\ \mathrm{s}\) to calculate the new position at \(t=30\ \mathrm{s}\). Here, acceleration is first accumulated into speed, and speed is then accumulated into position. This is a double numerical integration: acceleration to velocity, then velocity to position.
 
+    Next we will switch to a more formal description of ordinary differential equations and work through more examples. If a problem starts to feel abstract, come back to the car: ask which quantities play the role of position and velocity, and which equation is giving you the acceleration-like rate of change. Once those pieces are named, the numerical task is the same kind of step-by-step update.
+
     **Challenge 1.** Write a pseudocode to implement the Euler's method for numerically solving a first-order ordinary differential equation.
     """)
     return
