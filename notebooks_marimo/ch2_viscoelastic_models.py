@@ -497,7 +497,7 @@ def _(mo):
 
 @app.cell
 def _(mo):
-    _img = mo.image(src="fig2_16.png", width=600)
+    _img = mo.image(src="https://raw.githubusercontent.com/BMClab/BMC/refs/heads/master/notebooks_marimo/fig2_16.png", width=600)
     mo.vstack([
         _img,
         mo.md("*Figure 2.16 — Physiological tissue responses to constant load and constant deformation (Yamaguchi)*"),
