@@ -28,9 +28,20 @@ def _(mo):
     mo.md(r"""
     ## How to use this marimo version
 
-    This notebook keeps the same computational models, parameter values, and plots from the classic notebook `notebooks/MuscleModeling.ipynb`. The executable sections below use the Thelen (2003) and McLean, Su, and van den Bogert (2003) formulations already used in that notebook.
+    This notebook is a guided study session about Hill-type muscle modeling. Read a short explanation, predict the shape of the response, run the code, and then use the result to answer the challenge questions.
 
-    Chapter 2 of Yamaguchi's *Dynamic Modeling of Musculoskeletal Motion: A Vectorized Approach* is used only for the final challenges. Those Yamaguchi-inspired tasks are prompts for you to implement later; this notebook does not solve them or use those equations to generate the plots below.
+    The executable sections keep the same computational models, parameter values, and plots from the classic notebook `notebooks/MuscleModeling.ipynb`. They use the Thelen (2003) and McLean, Su, and van den Bogert (2003) formulations already used in that notebook.
+
+    Chapter 2 of Yamaguchi's *Dynamic Modeling of Musculoskeletal Motion: A Vectorized Approach* is used only for prompts and problems. Those Yamaguchi-inspired tasks ask you to implement activation, force-length, force-velocity, passive muscle, and tendon functions later; this notebook does not solve those tasks or use those equations to generate the plots below.
+
+    The goal is not to memorize one "correct" muscle model. The goal is to connect the pieces:
+
+    1. a neural control signal becomes muscle activation;
+    2. activation scales active muscle force;
+    3. active force changes with muscle fiber length and velocity;
+    4. passive muscle and tendon elasticity change the force transmitted to the skeleton.
+
+    **Challenge 0.** Before running the notebook, sketch what you expect from a muscle that receives a step command: does activation jump instantly, rise smoothly, overshoot, or decay slowly?
     """)
     return
 
@@ -52,6 +63,15 @@ def _(mo):
     Hill-type muscle models are presented in several texts (e.g., Erdermir et al. 2007; He et al., 1991; McMahon, 1984; Nigg and Herzog, 2007; Robertson et al., 2013, Thelen, 2003; Tsianos and Loeb, 2013, Winters, 1990; Zajac, 1989; Zatsiorsky and Prilutsky, 2012) and implemented in many software for modeling and simulation of the musculoskeletal dynamics of human movement (e.g., the free and open source software [OpenSim](https://simtk.org/home/opensim)).
 
     Next, let's see a brief overview of a Hill-type muscle model and a basic implementation in Python.
+
+    **The modeling story.** A Hill-type model is a compact way to represent the macroscopic behavior of a muscle-tendon actuator. It does not model every cross-bridge directly. Instead, it uses empirical functions that reproduce important observations:
+
+    - muscle can pull but not push;
+    - active force is largest near an optimal fiber length;
+    - passive force grows when muscle or tendon is stretched;
+    - shortening muscle produces less force than an isometric muscle;
+    - lengthening muscle can produce more force than an isometric muscle;
+    - activation cannot change instantaneously.
     """)
     return
 
@@ -72,6 +92,13 @@ def _(mo):
     Let's now revise the models of a Hill-type muscle with three components and activation dynamics by two references:
      1. [Thelen (2003)](http://simtk-confluence.stanford.edu:8080/display/OpenSim/Thelen+2003+Muscle+Model) with some of the adjustments described in Millard et al. (2013). Hereafter, Thelen2003Muscle or T03.
      2. [McLean, Su, van den Bogert (2003)](http://www.ncbi.nlm.nih.gov/pubmed/14986412). Hereafter, McLean2003Muscle or M03.
+
+    **Guiding questions 1.**
+
+    1. Which element produces active tensile force?
+    2. Which element accounts for passive force when the muscle is stretched?
+    3. Why does a tendon belong in series with the muscle?
+    4. If tendon is elastic, why might muscle fiber length change even when the whole muscle-tendon length is fixed?
 
     First, let's import the necessary Python libraries and customize the environment:
     """)
@@ -103,6 +130,10 @@ def _(mo):
 
     1. The active force of the contractile element (CE), which in turn depends on the spatial superposition of the actin and myosin molecules to form cross-bridges at the sarcomere. A maximum number of cross-bridges will be formed at an optimal fiber length, generating a maximum force. When a fiber is too stretched or too shortened, fewer cross-bridges will be formed, decreasing the force generated.
     2. The passive and parallel elastic element (PE), which behaves as a nonlinear spring where no force is generated below a certain length (the slack length) and force increases with the muscle elongation.
+
+    **Before running the force-length plots**, predict where total force can exceed the maximum active isometric force. Is that because the active curve is larger, because the passive curve has turned on, or both?
+
+    **Chapter 2 bridge problem.** In a separate scratch cell or notebook, design a normalized active force-length function inspired by Yamaguchi's qualitative description: near zero at very short and very long fiber lengths, maximal near optimal fiber length, and scaled by activation. Do not replace the Thelen or McLean curves here; use them as comparison targets.
     """)
     return
 
@@ -233,6 +264,8 @@ def _(fce_M03, fce_T03, lm, plt):
 def _(mo):
     mo.md(r"""
     Similar results when the same parameters are used.
+
+    **Checkpoint.** The two models have similar peaks but not identical shapes. Which part of the curve would matter most for a simulation with large joint excursions: the width around the optimum, the force at very short lengths, or the force at stretched lengths?
     """)
     return
 
@@ -268,6 +301,8 @@ def _(mo):
     $$ k_{PE} = \frac{F_{M0}}{(WL_{Mopt})^2} $$
 
     McLean2003Muscle adopted $L_{Mslack} = L_{Mopt}$.
+
+    **Passive-force prompt.** Passive muscle force is independent of activation. If activation were zero, which plotted force components would still be able to transmit tension?
 
     The corresponding Python functions are:
     """)
@@ -449,6 +484,10 @@ def _(mo):
 
     where $k_T$ is the tendon stiffness. The stiffness parameter $k_T$ is chosen such that the tendon elongation is 4% at the maximum isometric force, $k_T=(1/\epsilon_{T0})^2=625$ for $F_{M0}=1$.
 
+    **Tendon prompt.** Chapter 2 emphasizes that tendon elasticity can change the relationship between muscle fiber length and whole muscle-tendon length. Before plotting the tendon curves, predict which model is initially more compliant and which becomes stiffer at larger stretch.
+
+    **Chapter 2 bridge problem.** Implement a tendon force-strain curve with a toe region followed by a linear region in a separate scratch cell or notebook. Then formulate, but do not solve here, the fixed-length muscle-tendon equilibrium problem where tendon force must equal muscle force.
+
     The corresponding Python functions are:
     """)
     return
@@ -629,6 +668,10 @@ def _(mo):
 
     where $\lambda(a)$ is a scaling factor to account for the influence of the activation level $a$ on the force-velocity relationship, $\bar{f}_{Mlen}$ is the asymptotic (maximum) value of $\bar{F}_M$, $S$ is a parameter to double the slope of the force-velocity curve at zero velocity, and $\gamma$ is a dimensionless parameter to ensure the transition between the hyperbolic and linear parts of the lengthening phase.
     McLean2013Muscle adopted $A_f=0.25$, $V_{Mmax}=10L_{Mopt}/s$, $\bar{f}_{Mlen}=1.5$, $S=2.0$, and $\gamma=5.67$.
+
+    **Before running the force-velocity plot**, predict the asymmetry. Should a muscle that is shortening quickly, held isometric, or lengthening slowly produce the largest active force?
+
+    **Chapter 2 bridge problem.** Implement Hill's shortening force-velocity equation in a separate scratch cell or notebook. Then compute the shortening velocity at which positive muscle power is maximal. Treat the eccentric branch as a design problem: what finite force limit would you choose, and why?
     """)
     return
 
@@ -958,6 +1001,8 @@ def _(mo):
     #### Muscle power
 
     The muscle power is the product between force and velocity:
+
+    **Power prompt.** The force curve alone does not reveal where the muscle does the most mechanical work per unit time. Before running the next plot, mark the shortening velocity where you expect power to peak.
     """)
     return
 
@@ -1004,6 +1049,10 @@ def _(mo):
     #### Force-length-velocity relationship
 
     Let's visualize the effects of the length and velocity on the total (active plus passive) muscle force:
+
+    **Before running the surface plot**, predict the ridge of high force. Should it occur at short fibers, optimal fibers, stretched fibers, fast shortening, or lengthening?
+
+    **Model-building prompt.** A compact force calculation often has the form active activation scaling times active length and velocity factors, plus passive force. In this notebook, keep the Thelen and McLean implementation as the reference. For your own Yamaguchi-based version, write the inputs and outputs first: activation, normalized fiber length, normalized fiber velocity, passive force, tendon strain, and total tensile force.
     """)
     return
 
@@ -1081,6 +1130,12 @@ def _(mo):
     ### Activation dynamics
 
     Activation dynamics represents the fact that a muscle cannot instantly activate or deactivate because of the electrical and chemical processes involved and it is usually integrated with a Hill-type model. In its simplest form, the activation dynamics is generally represented as a first-order ODE.
+
+    Activation is a state variable, not an algebraic copy of excitation. In Yamaguchi's Chapter 2 framing, the control input is a mathematical signal between 0 and 1, while activation describes the delayed muscle state that results from that signal.
+
+    **Before running the activation plots**, predict how activation should differ from excitation when the excitation pulse turns on and when it turns off.
+
+    **Chapter 2 bridge problem.** Implement the He-Zajac-Levine bilinear activation model in a separate scratch cell or notebook. Test three cases: a rise from rest, a decay from an active state, and an intermediate control value such as \(c(t)=0.6\). Compare the result with the Thelen and McLean activation curves below without replacing them.
 
     Thelen2003Muscle employed the following first-order [ordinary differential equation (ODE)](http://en.wikipedia.org/wiki/Ordinary_differential_equation):
 
@@ -1353,6 +1408,8 @@ def _(act1_M03, act1_T03, act2_M03, act2_T03, act3_M03, act4_M03, plt):
 def _(mo):
     mo.md(r"""
     Similar results when the same parameters are used (first row), but different bahavior when the typical values of each study are compared (second row).
+
+    **Integrator checkpoint.** The biological model and the numerical method are separate choices. What changed here because of the activation model parameters, and what would change if the integration tolerances or time step were too coarse?
     """)
     return
 
@@ -1492,6 +1549,8 @@ def _(act5_M03, act5_T03, act6_M03, act6_T03, act7_M03, act8_M03, plt):
 def _(mo):
     mo.md(r"""
     Similar results when the same parameters are used (first row), but different bahavior when the typical values of each study are compared (second row). For this example, the results are similar for Runge-Kutta Method and Euler Method considering the integration parameters used.
+
+    **Numerical-method problem.** Repeat the Euler simulation with larger time steps. Find a time step where the plot still looks acceptable and a time step where the activation curve is visibly distorted. Explain why a stable-looking curve is not automatically an accurate curve.
     """)
     return
 
@@ -1502,6 +1561,8 @@ def _(mo):
     ### Muscle modeling parameters
 
     We have seen two types of parameters in the muscle modeling: parameters related to the mathematical functions used to model the muscle and tendon behavior and parameters related to the properties of specific muscles and tendons (e.g., maximum isometric force, optimal fiber length, pennation angle, and tendon slack). In general the first type of parameters are independent of the muscle-tendon unit being modeled (but dependent of the model!) while the second type of parameters is changed for each muscle-tendon unit (for instance, see http://isbweb.org/data/delp/ for some of these parameters).
+
+    **Parameter prompt.** Separate the parameters into two lists before changing the code: model-shape parameters and muscle-specific anatomical parameters. Which list should change when you switch from one muscle to another, and which list should change when you switch from one published model to another?
     """)
     return
 
@@ -1512,6 +1573,15 @@ def _(mo):
     ### Limitations of Hill-type muscle models
 
     As with any modeling, Hill-type muscle models are a simplification of the reality. For instance, a typical Hill-type muscle model (as implemented here) does not capture time-dependent muscle behavior, such as force depression after quick muscle shortening, force enhancement after quick muscle lengthening, viscoelastic  properties (creep and relaxation), and muscle fatigue (Zatsiorsky and Prilutsky, 2012). There are enhanced models that capture these properties but it seems their complexity are not worthy for the most common applications of human movement simulation.
+
+    **Checkpoint questions.**
+
+    1. Why is activation a state variable rather than an algebraic copy of excitation?
+    2. Which part of the model explains force at zero activation?
+    3. Why does shortening velocity reduce active force?
+    4. Why can lengthening velocity increase active force?
+    5. In a fixed-length muscle-tendon unit, why can muscle fiber length still change after activation changes?
+    6. Which assumptions in this notebook would you remove first for a more realistic simulation?
     """)
     return
 
@@ -1525,15 +1595,25 @@ def _(mo):
        a. Change some of the parameters and reproduce the plots shown here and discuss these results (e.g., use the parameters for different muscles from OpenSim or the data from [http://isbweb.org/data/delp/](http://isbweb.org/data/delp/)).
        b. Select another reference (e.g., Anderson, 2007) about muscle modeling that uses different mathematical functions and repeat the previous item.
 
-    2. Yamaguchi challenge: implement the He-Zajac-Levine bilinear activation model from Chapter 2 as a new function in a separate scratch cell or notebook. Use a step control input and compare activation rise, deactivation, and the intermediate-control case \(c(t)=0.6\). Do not replace the Thelen or McLean activation plots above.
+    2. Activation rise and decay. Implement the He-Zajac-Levine bilinear activation model from Chapter 2 as a new function in a separate scratch cell or notebook. Simulate \(c(t)=1\), \(c(t)=0.6\), and \(c(t)=0\). Explain why activation and deactivation do not use the same time constant. Do not replace the Thelen or McLean activation plots above.
 
-    3. Yamaguchi challenge: implement an active force-length function that follows the qualitative assumptions in Chapter 2: zero or near-zero active force near \(0.5l_0^M\) and \(1.5l_0^M\), maximal active force at \(l_0^M\), and linear scaling by activation. Compare its shape with the Thelen and McLean curves shown above.
+    3. Activation function tests. Write unit-style checks for your activation function: \(a(t)\) should stay between 0 and 1, \(c=1\) should rise quickly from rest, and \(c=0\) should decay from an active state.
 
-    4. Yamaguchi challenge: implement Hill's force-velocity equation for shortening muscle and find the shortening velocity at which muscle power is maximal. Then propose, but do not yet code, an eccentric branch with a finite lengthening-force limit.
+    4. Active force-length implementation. Implement a normalized active force-length function that is zero or near zero near \(0.5l_0^M\) and \(1.5l_0^M\), maximal at \(l_0^M\), and scaled by activation. Compare a parabolic, cosine, or piecewise-linear version with the Thelen and McLean curves shown above.
 
-    5. Yamaguchi challenge: implement a tendon force-strain curve with a toe region followed by a linear region. Use it to formulate, but not solve in this notebook, the fixed-length muscle-tendon equilibrium problem from Chapter 2.
+    5. Passive force-length implementation. Implement an exponential passive force-length function. Choose parameters so passive force at a stretched fiber length is 25%, 50%, and 100% of \(F_0^M\). How does this change total force?
 
-    6. Yamaguchi challenge: design a new exercise where a student must combine activation, active force-length, force-velocity, passive muscle force, and tendon elasticity into one muscle-tendon actuator. Specify inputs, outputs, and checks that would reveal whether the implementation is physically plausible.
+    6. Hill force-velocity implementation. Implement the shortening branch of Hill's equation and plot force versus normalized shortening velocity. Then compute the velocity at which positive shortening power is maximal.
+
+    7. Lengthening branch design. Add an eccentric branch that approaches a finite force limit. Explain why a force limit is more realistic than a line that grows forever.
+
+    8. Full muscle force. Combine activation, active length dependence, passive length dependence, and velocity dependence into one force function. Plot force as a surface over length and velocity for \(a=0.25\), \(0.5\), and \(1.0\).
+
+    9. Tendon equilibrium. For a fixed musculotendon length, solve for the fiber length where muscle force and tendon force are equal. Compare a stiff tendon with a compliant tendon.
+
+    10. Energy storage. Use tendon force and tendon velocity to estimate tendon power. When is tendon storing energy, and when is it returning energy?
+
+    11. Model critique. List three behaviors that this simple Hill-type model does not capture, such as fatigue, history-dependent force enhancement/depression, or detailed recruitment and fiber-type effects.
     """)
     return
 
