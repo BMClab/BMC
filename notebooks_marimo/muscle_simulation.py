@@ -130,10 +130,14 @@ def _(mo):
     Although the equation for the muscle force doesn't have numerical singularities, the differential equation for muscle velocity has four ([OpenSim Millard 2012 Muscle Models](http://simtk-confluence.stanford.edu:8080/display/OpenSim/Millard+2012+Muscle+Models)):
     When $a \rightarrow 0$; when $f_l(L_M) \rightarrow 0$; when $\alpha \rightarrow \pi/2$; and when $\partial f_v/\partial v \rightarrow 0$.
     The following solutions can be employed to avoid the numerical singularities ([OpenSim Millard 2012 Muscle Models](http://simtk-confluence.stanford.edu:8080/display/OpenSim/Millard+2012+Muscle+Models)):
-      A minimum value for $a$; e.g., $a_{min}=0.01$;
-      A minimum value for $f_l(L_M)$; e.g., $f_l(0.1)$;
-      A maximum value for pennation angle; e.g., constrain $\alpha$ to $\cos\alpha > 0.1; (\alpha < 84.26^o)$;
-      Make the slope of $f_V$at and beyond maximum velocity different than zero (for both concentric and eccentric activations).
+
+    - A minimum value for $a$; e.g., $a_{min}=0.01$;
+
+    - A minimum value for $f_l(L_M)$; e.g., $f_l(0.1)$;
+
+    - A maximum value for pennation angle; e.g., constrain $\alpha$ to $\cos\alpha > 0.1; (\alpha < 84.26^o)$;
+
+    - Make the slope of $f_V$ at and beyond maximum velocity different than zero (for both concentric and eccentric activations).
 
     We will adopt these solutions to avoid singularities in the simulation of muscle mechanics. A problem of imposing values to variables as described above is that we can make the ordinary differential equation numerically stiff, which will increase the computational cost of the numerical integration. A better solution would be to modify the model to not have these singularities (see [OpenSim Millard 2012 Muscle Models](http://simtk-confluence.stanford.edu:8080/display/OpenSim/Millard+2012+Muscle+Models)).
 
