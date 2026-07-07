@@ -29,10 +29,11 @@ def _(mo):
 def _(mo):
     mo.md(r"""
     Let's simulate the 3-component Hill-type muscle model we described in [Muscle modeling](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/MuscleModeling.ipynb) and illustrated below:
-    <p></p>
-    <figure><center><img src="https://raw.githubusercontent.com/BMClab/BMC/master/images/muscle_hill.png" width=400 alt="Hill-type muscle model."/></center><figcaption><center><i>Figure. A Hill-type muscle model with three components: two for the muscle, an active contractile element, $\mathsf{CE}$, and a passive elastic element in parallel, $\mathsf{PE}$, with the $\mathsf{CE}$, and one component for the tendon, an elastic element in series, $\mathsf{SE}$, with the muscle. $\mathsf{L_{MT}}$: muscle–tendon length, $\mathsf{L_T}$: tendon length, $\mathsf{L_M}$: muscle fiber length, $\mathsf{F_T}$: tendon force, $\mathsf{F_M}$: muscle force, and $α$: pennation angle.</i></center></figcaption>
-    </figure>
-    <p></p>
+
+    <img src="https://raw.githubusercontent.com/BMClab/BMC/master/images/muscle_hill.png" width="400" alt="Hill-type muscle model." />
+
+    *Figure. A Hill-type muscle model with three components: two for the muscle, an active contractile element, $\mathsf{CE}$, and a passive elastic element in parallel, $\mathsf{PE}$, with the $\mathsf{CE}$, and one component for the tendon, an elastic element in series, $\mathsf{SE}$, with the muscle. $\mathsf{L_{MT}}$: muscle–tendon length, $\mathsf{L_T}$: tendon length, $\mathsf{L_M}$: muscle fiber length, $\mathsf{F_T}$: tendon force, $\mathsf{F_M}$: muscle force, and $\alpha$: pennation angle.*
+
     The following relationships are true for the model:
 
     $\begin{array}{l}
