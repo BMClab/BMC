@@ -62,7 +62,9 @@ def _(mo):
     F_{M} = F_{CE} + F_{PE}
     \end{array}$
 
-    If we assume that the muscle–tendon system is at equilibrium, that is, muscle,$F_{M}$, and tendon,$F_{T}$, forces are in equilibrium at all times, the following equation holds (and that a muscle can only pull):$F_{T} = F_{SE} = F_{M}\cos\alpha$
+    If we assume that the muscle–tendon system is at equilibrium, that is, muscle,$F_{M}$, and tendon,$F_{T}$, forces are in equilibrium at all times, the following equation holds (and that a muscle can only pull):
+
+    $F_{T} = F_{SE} = F_{M}\cos\alpha$
 
     **Guiding questions 1.**
 
@@ -78,7 +80,7 @@ def _(mo):
     mo.md(r"""
     ## Pennation angle
 
-    The pennation angle will vary during muscle activation; for instance, Kawakami et al. (1998) showed that the pennation angle of the medial gastrocnemius muscle can vary from 22$^o$to 67$^o$during activation. The most used approach is to assume that the muscle width (defined as the length of the perpendicular line between the lines of the muscle origin and insertion) remains constant (Scott & Winter, 1991):
+    The pennation angle will vary during muscle activation; for instance, Kawakami et al. (1998) showed that the pennation angle of the medial gastrocnemius muscle can vary from 22$^o$ to 67$^o$ during activation. The most used approach is to assume that the muscle width (defined as the length of the perpendicular line between the lines of the muscle origin and insertion) remains constant (Scott & Winter, 1991):
 
     $w = L_{M,0} \sin\alpha_0$
 
@@ -113,13 +115,13 @@ def _(mo):
 
     $F_{CE}(a, L_{CE}, \dot{L}_{CE}) = a \: f_l(L_{CE}) \: f_v(\dot{L}_{CE}) \: F_{M0}$
 
-    where $f_l(L_M)$ and $f_v(\dot{L}_M)$ are mathematical functions describing the force-length and force-velocity relationships of the contractile element (typically these functions are normalized by $F_{M0}$, the maximum isometric (at zero velocity) muscle force, so we have to multiply the right side of the equation by$F_{M0}$).
+    where $f_l(L_M)$ and $f_v(\dot{L}_M)$ are mathematical functions describing the force-length and force-velocity relationships of the contractile element (typically these functions are normalized by $F_{M0}$, the maximum isometric (at zero velocity) muscle force, so we have to multiply the right side of the equation by $F_{M0}$).
 
     And for the muscle force:
 
     $F_{M}(a, L_M, \dot{L}_M) = \left[a \: f_l(L_M)f_v(\dot{L}_M) + F_{PE}(L_M)\right]F_{M0}$
 
-    This equation for the muscle force, with $a$, $L_{M}$, and $\dot{L}_{M}$ as state variables, can be used to simulate the dynamics of a muscle given an excitation and determine the muscle force and length. We can rearrange the equation, invert the expression for$f_v$, and integrate the resulting first-order ordinary differential equation (ODE) to obatin
+    This equation for the muscle force, with $a$, $L_{M}$, and $\dot{L}_{M}$ as state variables, can be used to simulate the dynamics of a muscle given an excitation and determine the muscle force and length. We can rearrange the equation, invert the expression for $f_v$, and integrate the resulting first-order ordinary differential equation (ODE) to obatin
 
     $L_M$:$\dot{L}_M = f_v^{-1}\left(\dfrac{F_{SE}(L_{MT}-L_M\cos\alpha)/\cos\alpha - F_{PE}(L_M)}{a f_l(L_M)}\right)$
 
@@ -128,10 +130,10 @@ def _(mo):
     Although the equation for the muscle force doesn't have numerical singularities, the differential equation for muscle velocity has four ([OpenSim Millard 2012 Muscle Models](http://simtk-confluence.stanford.edu:8080/display/OpenSim/Millard+2012+Muscle+Models)):
     When $a \rightarrow 0$; when $f_l(L_M) \rightarrow 0$; when $\alpha \rightarrow \pi/2$; and when $\partial f_v/\partial v \rightarrow 0$.
     The following solutions can be employed to avoid the numerical singularities ([OpenSim Millard 2012 Muscle Models](http://simtk-confluence.stanford.edu:8080/display/OpenSim/Millard+2012+Muscle+Models)):
-     - A minimum value for$a$; e.g.,$a_{min}=0.01$;
-     - A minimum value for$f_l(L_M)$; e.g.,$f_l(0.1)$;
-     - A maximum value for pennation angle; e.g., constrain$\alpha$to$\cos\alpha > 0.1; (\alpha < 84.26^o)$;
-     - Make the slope of$f_V$at and beyond maximum velocity different than zero (for both concentric and eccentric activations).
+      A minimum value for $a$; e.g., $a_{min}=0.01$;
+      A minimum value for $f_l(L_M)$; e.g., $f_l(0.1)$;
+      A maximum value for pennation angle; e.g., constrain $\alpha$ to $\cos\alpha > 0.1; (\alpha < 84.26^o)$;
+      Make the slope of $f_V$at and beyond maximum velocity different than zero (for both concentric and eccentric activations).
 
     We will adopt these solutions to avoid singularities in the simulation of muscle mechanics. A problem of imposing values to variables as described above is that we can make the ordinary differential equation numerically stiff, which will increase the computational cost of the numerical integration. A better solution would be to modify the model to not have these singularities (see [OpenSim Millard 2012 Muscle Models](http://simtk-confluence.stanford.edu:8080/display/OpenSim/Millard+2012+Muscle+Models)).
 
