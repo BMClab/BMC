@@ -187,7 +187,7 @@ def _():
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    The `muscles.py` module contains the class `Thelen2003()` which has the functions we want to use. For such, we need to create an instance of this class:
+    The `muscles.py` module contains the class `Thelen2003()` which has the functions we want to use. To run a simulation, this class needs a set of muscle parameters and initial states.
     """)
     return
 
@@ -195,16 +195,51 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    Now, we need to enter the parameters and states for the simulation: we can load files with these values or enter as input parameters when calling the function (method) '`set_parameters()`' and '`set_states()`'. If nothing if inputed, these methods assume that the parameters and states are stored in the files '`muscle_parameter.txt`' and '`muscle_state.txt`' inside the directory '`./../data/`'. Let's use some of the parameters and states from an exercise of the chapter 4 of Nigg and Herzog (2006).
+    Instead of reading them from external files, we define the parameters and states directly in the notebook as Python dictionaries, so the notebook is self-contained and runs anywhere, including in the browser at [marimo.app](https://marimo.app/). Let's use the parameters and states from an exercise of the chapter 4 of Nigg and Herzog (2006):
     """)
     return
 
 
 @app.cell
-def _(Thelen2003):
-    ms = Thelen2003()
-    ms.set_parameters()
-    ms.set_states()
+def _():
+    parameters = {
+        "id": "",
+        "name": "",
+        "u_max": 1.0,  # maximum value for muscle excitation
+        "u_min": 0.01,  # minimum value for muscle excitation
+        "t_act": 0.015,  # activation time constant [s]
+        "t_deact": 0.050,  # deactivation time constant [s]
+        "lmopt": 0.093,  # optimal CE length
+        "alpha0": 0.0,  # pennation angle at rest
+        "fm0": 7400.0,  # maximum isometric muscle force
+        "gammal": 0.45,  # CE force-length shape factor
+        "kpe": 5.0,  # PE exponential shape factor
+        "epsm0": 0.6,  # PE passive muscle strain due to maximum isometric force
+        "vmmax": 10.0,  # CE force-velocity maximum velocity (concentric)
+        "fmlen": 1.4,  # CE force-velocity maximum force (lengthening)
+        "af": 0.25,  # CE force-velocity shape factor
+        "ltslack": 0.223,  # tendon slack length
+        "epst0": 0.04,  # tendon strain at the maximal isometric muscle force
+        "kttoe": 3.0,  # tendon linear scale factor
+    }
+    return (parameters,)
+
+
+@app.cell
+def _(np):
+    states = {
+        "id": "",
+        "name": "",
+        "lmt0": 0.313,  # initial muscle-tendon length
+        "lm0": 0.09,  # initial muscle length
+        "lt0": np.nan,  # initial tendon length (computed from the others if NaN)
+    }
+    return (states,)
+
+
+@app.cell
+def _(Thelen2003, parameters, states):
+    ms = Thelen2003(parameters.copy(), states.copy())
     return (ms,)
 
 
