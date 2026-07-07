@@ -30,7 +30,7 @@ def _(mo):
 
     This notebook is a guided study session about Hill-type muscle modeling. Read a short explanation, predict the shape of the response, run the code, and then use the result to answer the challenge questions.
 
-    The executable sections keep the same computational models, parameter values, and plots from the classic notebook `notebooks/MuscleModeling.ipynb`. They use the Thelen (2003) and McLean, Su, and van den Bogert (2003) formulations already used in that notebook.
+    The executable sections keep the same computational models, parameter values, and plots from the classic notebook [`notebooks/MuscleModeling.ipynb`](https://marimo.app/?src=https%3A%2F%2Fgithub.com%2FBMClab%2FBMC%2Fblob%2Fmaster%2Fnotebooks_marimo%2Fmuscle_modeling.py). They use the Thelen (2003) and McLean, Su, and van den Bogert (2003) formulations already used in that notebook.
 
     Chapter 2 of Yamaguchi's *Dynamic Modeling of Musculoskeletal Motion: A Vectorized Approach* is used only for prompts and problems. Those Yamaguchi-inspired tasks ask you to implement activation, force-length, force-velocity, passive muscle, and tendon functions later; this notebook does not solve those tasks or use those equations to generate the plots below.
 
