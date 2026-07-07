@@ -192,12 +192,6 @@ def _(mo):
     return
 
 
-@app.cell
-def _(Thelen2003):
-    ms = Thelen2003()
-    return (ms,)
-
-
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
@@ -207,10 +201,11 @@ def _(mo):
 
 
 @app.cell
-def _(ms):
+def _(Thelen2003):
+    ms = Thelen2003()
     ms.set_parameters()
     ms.set_states()
-    return
+    return (ms,)
 
 
 @app.cell(hide_code=True)
@@ -559,11 +554,9 @@ def _(np):
             """ """
             parser = configparser.ConfigParser()
             parser.optionxform = str  # make option names case sensitive
-            parser.read(filename)
-            if not parser:
-                raise ValueError(f"File {var} not found!")
-            # if not 'Muscle' in parser.sections()[0]:
-            #    raise ValueError(f'Wrong {var} file!')
+            read_files = parser.read(filename)
+            if not read_files or not parser.sections():
+                raise ValueError(f"Could not read {var} from '{filename}'.")
             var = {}
             for key, value in parser.items(parser.sections()[0]):
                 if key.lower() in ["name", "id"]:
