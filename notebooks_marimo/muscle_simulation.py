@@ -19,6 +19,22 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
+    ## How to use this tutorial
+
+    This notebook is a guided study session. It puts the Hill-type muscle model from the companion notebook [Muscle modeling](https://marimo.app/?src=https%3A%2F%2Fgithub.com%2FBMClab%2FBMC%2Fblob%2Fmaster%2Fnotebooks_marimo%2Fmuscle_modeling.py) into motion: given an excitation signal and a muscle–tendon length, we integrate the muscle dynamics and watch the forces and lengths evolve in time.
+
+    Read a short explanation, predict what the muscle should do, run the cell, and then use the plot to answer the challenge questions. Keep a scratchpad nearby and write your prediction *before* you reveal each plot.
+
+    You do not need to finish every challenge on the first pass. Run the cells in order first; then come back and change one parameter at a time. The goal is not to make the code run — it already runs. The goal is to connect three things: the equations of the model, the step-by-step numerical integration, and the muscle behavior you see in the plots.
+
+    **Challenge 0.** Before you begin, picture an *isometric* contraction: the whole muscle–tendon unit is held at a fixed length while the muscle activates. Predict what happens to the muscle fiber length $L_M$ and to the tendon length $L_T$ as activation rises. Can either one change even though their sum $L_{MT}$ is fixed? Write your answer down; you will test it in the first simulation.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
     <h1>Contents<span class="tocSkip"></span></h1>
     <div class="toc"><ul class="toc-item"><li><span><a href="#Pennation-angle" data-toc-modified-id="Pennation-angle-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Pennation angle</a></span></li><li><span><a href="#Muscle-force" data-toc-modified-id="Muscle-force-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Muscle force</a></span></li><li><span><a href="#Simulation" data-toc-modified-id="Simulation-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Simulation</a></span></li><li><span><a href="#References" data-toc-modified-id="References-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>References</a></span></li><li><span><a href="#Module-muscles.py" data-toc-modified-id="Module-muscles.py-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>Module muscles.py</a></span></li></ul></div>
     """)
@@ -28,7 +44,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    Let's simulate the 3-component Hill-type muscle model we described in [Muscle modeling](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/MuscleModeling.ipynb) and illustrated below:
+    Let's simulate the 3-component Hill-type muscle model we described in [Muscle modeling](https://marimo.app/?src=https%3A%2F%2Fgithub.com%2FBMClab%2FBMC%2Fblob%2Fmaster%2Fnotebooks_marimo%2Fmuscle_modeling.py) and illustrated below:
 
     <img src="https://raw.githubusercontent.com/BMClab/BMC/master/images/muscle_hill.png" width="400" alt="Hill-type muscle model." />
 
@@ -47,6 +63,12 @@ def _(mo):
     \end{array}$
 
     If we assume that the muscle–tendon system is at equilibrium, that is, muscle,$F_{M}$, and tendon,$F_{T}$, forces are in equilibrium at all times, the following equation holds (and that a muscle can only pull):$F_{T} = F_{SE} = F_{M}\cos\alpha$
+
+    **Guiding questions 1.**
+
+    1. In the relationship $L_{MT} = L_T + L_M\cos\alpha$, which lengths change over the course of a simulation, and which one do *we* prescribe as an input?
+    2. The equilibrium assumption sets $F_T = F_M\cos\alpha$ at every instant. What property of the tendon makes treating it as always in equilibrium with the muscle a reasonable simplification?
+    3. If the tendon stretches while $L_{MT}$ is held fixed, what must happen to the fiber length $L_M$?
     """)
     return
 
@@ -71,6 +93,13 @@ def _(mo):
     or (if $L_M$ is not known):
 
     $\cos \alpha = \dfrac{L_{MT}-L_T}{L_M} = \dfrac{1}{\sqrt{1 + \left(\dfrac{w}{L_{MT}-L_T}\right)^2}}$
+
+    **Guiding questions 2.**
+
+    1. The tendon feels the force $F_T = F_M\cos\alpha$. As the pennation angle $\alpha$ grows during a contraction, does the tendon receive a larger or smaller fraction of the muscle fiber force?
+    2. The constant-width assumption ($w = L_{M,0}\sin\alpha_0$) forces $\alpha$ to change as the fiber shortens. Using $\alpha = \sin^{-1}(w/L_M)$, explain whether the angle grows or shrinks when $L_M$ decreases.
+
+    **Challenge 1.** A fusiform muscle has $\alpha_0 = 0$. Show from $w = L_{M,0}\sin\alpha_0$ that its width $w$ is zero, so $\alpha = 0$ and $\cos\alpha = 1$ for any fiber length. We will use $\alpha_0 = 0$ for most simulations and revisit a pennated ($30^o$) case later.
     """)
     return
 
@@ -105,6 +134,13 @@ def _(mo):
      - Make the slope of$f_V$at and beyond maximum velocity different than zero (for both concentric and eccentric activations).
 
     We will adopt these solutions to avoid singularities in the simulation of muscle mechanics. A problem of imposing values to variables as described above is that we can make the ordinary differential equation numerically stiff, which will increase the computational cost of the numerical integration. A better solution would be to modify the model to not have these singularities (see [OpenSim Millard 2012 Muscle Models](http://simtk-confluence.stanford.edu:8080/display/OpenSim/Millard+2012+Muscle+Models)).
+
+    **Guiding questions 3.**
+
+    1. The muscle force $F_{M} = \left[a \: f_l(L_M)f_v(\dot{L}_M) + F_{PE}(L_M)\right]F_{M0}$ has three factors that scale the *active* force. Which factor carries the neural command, which the length dependence, and which the velocity dependence?
+    2. The velocity equation is obtained by inverting $f_v$, which divides by $a\,f_l(L_M)$. Why does this create a numerical singularity when the muscle is nearly inactive ($a\to 0$) or far from its optimal length ($f_l\to 0$)?
+
+    **Challenge 2.** For each of the four singularities listed above ($a\to 0$, $f_l\to 0$, $\alpha\to\pi/2$, $\partial f_v/\partial v\to 0$), find the matching clamp in the code when you reach the module at the end of the notebook. (Hint: look for `0.1 * lmopt` in `vm_eq` and the pennation-angle cap in `penn_ang`.)
     """)
     return
 
@@ -114,7 +150,7 @@ def _(mo):
     mo.md(r"""
     ## Simulation
 
-    Let's simulate muscle dynamics using the Thelen2003Muscle model we defined in [Muscle modeling](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/MuscleModeling.ipynb). For the simulation of the Thelen2003Muscle, we simply have to integrate the equation:
+    Let's simulate muscle dynamics using the Thelen2003Muscle model we defined in [Muscle modeling](https://marimo.app/?src=https%3A%2F%2Fgithub.com%2FBMClab%2FBMC%2Fblob%2Fmaster%2Fnotebooks_marimo%2Fmuscle_modeling.py). For the simulation of the Thelen2003Muscle, we simply have to integrate the equation:
 
     $V_M = (0.25+0.75a)\,V_{Mmax}\frac{\bar{F}_M-a\bar{f}_{l,CE}}{b}$
 
@@ -127,7 +163,7 @@ def _(mo):
         \dfrac{(2+2/A_f)(a\bar{f}_{l,CE}\bar{f}_{CEmax} - \bar{F}_M)}{\bar{f}_{CEmax}-1} \quad & \text{if} \quad \bar{F}_M > a\bar{f}_{l,CE} & \text{(lengthening)}
     \end{array} \right.$
 
-    The equation above already contains the terms for actvation,$a$, and force-length dependence, $\bar{f}_{l,CE}$. The equation is too complicated for solving analytically, we will solve it by numerical integration with a simple fixed-step forward [Euler method](https://en.wikipedia.org/wiki/Euler_method). We could run a simulation using [OpenSim](https://simtk.org/home/opensim); it would be faster, but for fun, let's program in Python. All the necessary functions for the Thelen2003Muscle model described in [Muscle modeling](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/MuscleModeling.ipynb) were grouped in one file (module), `muscles.py`. Besides these functions, the module `muscles.py` contains a function for the muscle velocity, `vm_eq`, which is evaluated at each integration step by the solver `lm_sol`:
+    The equation above already contains the terms for actvation,$a$, and force-length dependence, $\bar{f}_{l,CE}$. The equation is too complicated for solving analytically, we will solve it by numerical integration with a simple fixed-step forward [Euler method](https://en.wikipedia.org/wiki/Euler_method). We could run a simulation using [OpenSim](https://simtk.org/home/opensim); it would be faster, but for fun, let's program in Python. All the necessary functions for the Thelen2003Muscle model described in [Muscle modeling](https://marimo.app/?src=https%3A%2F%2Fgithub.com%2FBMClab%2FBMC%2Fblob%2Fmaster%2Fnotebooks_marimo%2Fmuscle_modeling.py) were grouped in one file (module), `muscles.py`. Besides these functions, the module `muscles.py` contains a function for the muscle velocity, `vm_eq`, which is evaluated at each integration step by the solver `lm_sol`:
 
     ```python
     def vm_eq(self, t, lm, lm0, lmt0, lmopt, ltslack, alpha0, vmmax, fm0):
@@ -164,6 +200,8 @@ def _(mo):
             self.lm_plot(data, axs)
         return data
     ```
+
+    **Challenge 3.** Read the `lm_sol` loop above. It is the same forward Euler update you met for a first-order ODE: `lm = lm + dt*vm`. Identify the three ingredients of one Euler step here — the current state, the rate of change, and the time step. Why does the solver take many small steps of size `dt` instead of one big jump?
 
     `muscles.py` also contains some auxiliary functions for entering data and for plotting the results. Let's import the necessary Python libraries and customize the environment in order to run some simulations using `muscles.py`:
     """)
@@ -261,7 +299,7 @@ def _(ms):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    We can plot the muscle-tendon forces considering these parameters and initial states:
+    We can plot the muscle-tendon forces considering these parameters and initial states. **Before you run the next cell**, predict the shape of each curve: where along the fiber length is the active force–length curve maximal, and does the passive (PE) force appear before or after the optimal length? Where does the tendon (SE) force become non-zero?
     """)
     return
 
@@ -275,7 +313,9 @@ def _(ms):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    Let's simulate an isometric activation (and since we didn't enter an activation level,$a=1$will be used):
+    Let's simulate an isometric activation. Since we have not run the activation dynamics yet, the solver uses $a=1$ (full activation) throughout.
+
+    **Before you run the next cell**, return to your answer for **Challenge 0**. The muscle–tendon length is held fixed, but the muscle is fully active. Predict whether the fiber length $L_M$ stays constant or changes, and what the tendon does. Then read the $L_M$ and $L_T$ panels of the plot to check.
     """)
     return
 
@@ -302,7 +342,9 @@ def _(ms):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    We can input a prescribed muscle-tendon length for the simulation:
+    **Challenge 4.** In the isometric run above, the muscle–tendon length never changed, yet the fiber shortened a little while the tendon stretched. Explain this using tendon elasticity and the equilibrium condition $F_T = F_M\cos\alpha$. (This is the effect you predicted in Challenge 0.)
+
+    Now let's prescribe a *changing* muscle–tendon length. The next cell redefines the length function `ms.lmt_eq`: it holds the length constant, ramps it down by 4 cm between $t=1$ and $t=2$ s (a shortening), then holds it again. **Before you run it**, predict what the muscle fiber velocity $V_{CE}$ will do during the ramp.
     """)
     return
 
@@ -331,7 +373,9 @@ def _(ms):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    Let's simulate a pennated muscle with an angle of$30^o$. We don't need to enter all parameters again, we can change only the parameter `alpha0`:
+    Let's simulate a pennated muscle with an angle of$30^o$. We don't need to enter all parameters again, we can change only the parameter `alpha0`.
+
+    **Before you run**, recall Guiding questions 2: with $\alpha_0 = 30^o$, only $\cos(30^o)\approx 0.87$ of the fiber force reaches the tendon. Predict whether the tendon force will be higher or lower than in the fusiform ($\alpha_0=0$) case.
     """)
     return
 
@@ -368,6 +412,8 @@ def _(ms):
 def _(mo):
     mo.md(r"""
     Here is a plot of the simulated pennation angle:
+
+    **Challenge 5.** The pennation angle is *not* constant during the contraction. From the constant-width assumption, does the angle grow or shrink as the fiber shortens? Confirm the direction of change against the plot.
     """)
     return
 
@@ -400,7 +446,9 @@ def _(ms):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    We can change the initial states to show the role of the passive parallel element:
+    We can change the initial states to show the role of the passive parallel element. The next cell sets a *longer* initial fiber length ($L_M = 0.10$ m, above the optimal $0.093$ m) so the passive element is engaged.
+
+    **Before you run** the plot, predict: at a fiber length beyond the optimum, does the total muscle force come only from the active element, only from the passive (PE) element, or from both?
     """)
     return
 
@@ -420,7 +468,9 @@ def _(ms):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    Let's also change the excitation signal:
+    So far the activation was fixed at $a=1$. Now let's drive the muscle with a time-varying *excitation* and let the activation dynamics respond. The next cell defines a "hat" excitation: $u=1$ between $t=1$ and $t=2$ s, and $u=0.01$ otherwise.
+
+    **Before you run** the activation plot, predict: will the activation $a(t)$ follow the excitation instantly, or will it lag on the way up and on the way down? Which should be slower — activation or deactivation — given $t_{act}=0.015$ s and $t_{deact}=0.05$ s?
     """)
     return
 
@@ -471,7 +521,11 @@ def _(ms):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    Let's use as excitation a train of pulses:
+    Let's use as excitation a train of short pulses (a crude model of repetitive motor-unit firing).
+
+    **Before you run** the activation and force plots, predict what happens between pulses: does activation drop all the way back to rest, or does it stay partly elevated so that successive pulses *summate* into a smoother, sustained force?
+
+    **Challenge 6.** Compare the muscle force from this pulse train with the single "hat" excitation before it. If you wanted a smoother force, would you increase the pulse *rate* or the pulse *amplitude*? Change the `0.1` spacing in `np.arange(1, 2.0, 0.1)` and re-run to test your answer.
     """)
     return
 
@@ -507,6 +561,54 @@ def _(ms):
 @app.cell
 def _(ms):
     data_4 = ms.lm_sol()
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## Checkpoint questions
+
+    Pause here and answer these before moving on. They tie together the pieces you have simulated.
+
+    1. In a fixed-length (isometric) muscle–tendon unit, why can the muscle fiber length still change after activation changes?
+    2. Which two force–length curves add together to give the total muscle force, and which one dominates at long fiber lengths?
+    3. Why does the tendon force equal $F_M\cos\alpha$ rather than $F_M$?
+    4. Activation lags behind excitation. Which state variable stores this "memory", and which two parameters set how fast it rises and falls?
+    5. The solver clamps the fiber length at $0.1\,L_{M,opt}$ and the pennation angle below $\sim 84^o$. What numerical problem is each clamp preventing?
+    6. When would a coarse forward-Euler solution be good enough for teaching, and when would you switch to an adaptive solver such as `solve_ivp`?
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## Exercises
+
+    Work through these in order if you are studying independently. For each one, predict the outcome first, then modify the code and compare.
+
+    1. **Activation level.** Run the activation dynamics with a constant excitation of $u=1$, $u=0.5$, and $u=0.1$. How does the steady-state muscle force scale with activation? Is it linear?
+    2. **Tendon compliance.** Change the tendon slack length `ltslack` and/or `epst0` to make the tendon stiffer, then softer. In the isometric contraction, how does tendon compliance change how much the muscle fiber shortens?
+    3. **Optimal length.** Set the initial fiber length `lm0` below, at, and above the optimal length `lmopt`. Predict from the force–length curve where the active force is largest, then confirm with `muscle_plot`.
+    4. **Pennation sweep.** Sweep `alpha0` over $0^o$, $15^o$, $30^o$, and $45^o$ (remember to adjust `lmt0` as done above). Report the tendon force at each and explain the trend using $F_T = F_M\cos\alpha$.
+    5. **Step size.** Re-run a simulation with `ms.lm_sol(dt=0.01)` and `ms.lm_sol(dt=0.0001)`. Where do the two solutions differ, and where do they agree? What does this tell you about choosing a step size?
+    6. **Force–velocity.** During the prescribed shortening ramp, read the muscle force while the fiber is shortening and compare it with the isometric force at the same length. Does shortening raise or lower the active force, and why?
+    7. **Your own contraction.** Design an excitation signal for a movement you care about (a quick tap, a sustained hold, a ramp). Predict the force, then simulate it by replacing `ms.excitation`.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## Go deeper
+
+    - [Muscle modeling](https://marimo.app/?src=https%3A%2F%2Fgithub.com%2FBMClab%2FBMC%2Fblob%2Fmaster%2Fnotebooks_marimo%2Fmuscle_modeling.py) — the companion notebook that derives the force–length, force–velocity, and activation functions used here.
+    - [Introduction to numerical solution of Ordinary Differential Equations](https://marimo.app/?src=https%3A%2F%2Fgithub.com%2FBMClab%2FBMC%2Fblob%2Fmaster%2Fnotebooks_marimo%2FOrdinaryDifferentialEquation.py) — the forward Euler method and alternatives such as `solve_ivp`.
+    - [OpenSim Millard 2012 Muscle Models](http://simtk-confluence.stanford.edu:8080/display/OpenSim/Millard+2012+Muscle+Models) — how modern implementations remove the numerical singularities discussed above.
+    - [Thelen (2003)](http://homepages.cae.wisc.edu/~thelen/pubs/jbme03.pdf) — the muscle model formulation simulated in this notebook.
+    """)
     return
 
 
