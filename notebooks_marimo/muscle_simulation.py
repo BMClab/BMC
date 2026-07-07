@@ -154,7 +154,7 @@ def _(mo):
         data = []
         for i in range(nsteps):
             t = t0 + i*dt
-            lm = np.max([lm, 0.1*lmopt])
+            lm = max(lm, 0.1*lmopt)
             data.append(self.calc_data(t, lm, lm0, lmt0, ltslack, lmopt, alpha0, fm0))
             vm = fun(t, lm, lm0, lmt0, lmopt, ltslack, alpha0, vmmax, fm0)
             lm = lm + dt*vm
@@ -732,10 +732,10 @@ def _(np):
                 if fm < a * fl * fmlen * asyE_thresh:
                     b = (2 + 2 / af) * (a * fl * fmlen - fm) / (fmlen - 1)
                 else:
-                    fm0 = a * fl * fmlen * asyE_thresh
-                    b = (2 + 2 / af) * (a * fl * fmlen - fm0) / (fmlen - 1)
+                    fm_thresh = a * fl * fmlen * asyE_thresh
+                    b = (2 + 2 / af) * (a * fl * fmlen - fm_thresh) / (fmlen - 1)
 
-            vm = (0.25 + 0.75 * a) * 1 * (fm - a * fl) / b
+            vm = (0.25 + 0.75 * a) * (fm - a * fl) / b
             vm = vm * vmmax * lmopt
 
             return vm
@@ -865,7 +865,7 @@ def _(np):
             data = []
             for i in range(nsteps):
                 t = t0 + i * dt
-                lm = np.max([lm, 0.1 * lmopt])
+                lm = max(lm, 0.1 * lmopt)
                 data.append(
                     self.calc_data(t, lm, lm0, lmt0, ltslack, lmopt, alpha0, fm0)
                 )
@@ -951,8 +951,6 @@ def _(np):
 
             lm = lm * lmopt
             lt = lt * ltslack
-            fl = fl
-            fpe = fpe
             fse = fse * fm0
             fvm = fvm * fm0
 
@@ -1015,7 +1013,7 @@ def _(np):
             return axs
 
         def lm_plot(self, x, axs=None):
-            """Plot results of actdyn_ode45 function.
+            """Plot the muscle-tendon simulation results.
             data = [t, lmt, lm, lt, vm, fm*fm0, fse*fm0, fl*fm0, fpe*fm0, alpha]
             """
 
@@ -1242,13 +1240,13 @@ def _(np):
             data = []
             for i in range(nsteps):
                 t = t0 + i * dt
-                data.append([t, self.excitation(t), np.max([a, u_min])])
+                data.append([t, self.excitation(t), max(a, u_min)])
                 adot = fun(t, a, t_act, t_deact)
                 a = a + dt * adot
 
             data = np.array(data)
             if show:
-                self.actvation_plot(data, axs)
+                self.activation_plot(data, axs)
 
             self.act_data = data
 
@@ -1270,8 +1268,8 @@ def _(np):
 
             return a
 
-        def actvation_plot(self, data, axs=None):
-            """Plot results of actdyn_ode45 function."""
+        def activation_plot(self, data, axs=None):
+            """Plot the activation dynamics results."""
 
             try:
                 import matplotlib.pyplot as plt
