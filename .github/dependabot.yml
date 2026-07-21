@@ -1,0 +1,22 @@
+version: 2
+
+updates:
+  # Python dependencies are pinned in uv.lock (see AGENTS.md, which treats
+  # pyproject.toml and uv.lock as the source of truth for the environment).
+  # Dependabot only raised alerts before this file existed, so the lockfile
+  # drifted until 23 advisories had accumulated in transitive packages.
+  - package-ecosystem: "uv"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    groups:
+      # Roll routine updates into a single weekly pull request. Major
+      # updates are deliberately excluded so that a potentially breaking
+      # bump arrives on its own and stays easy to review or revert.
+      python-minor-and-patch:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
