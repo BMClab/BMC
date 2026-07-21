@@ -8,6 +8,7 @@ dependencies = [
     "ipywidgets>=8.1.8",
     "jupyter>=1.1.1",
     "jupyter-contrib-nbextensions>=0.7.0",
+    "jupyterlab>=4.6.1",
     "marimo>=0.23.9",
     "matplotlib>=3.10.9",
     "numpy>=2.4.6",
