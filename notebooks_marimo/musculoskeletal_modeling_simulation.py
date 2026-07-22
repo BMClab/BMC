@@ -263,7 +263,7 @@ def _():
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    Next, the moment arm of the quadriceps. We start with the simplest possible assumption — that it does not change with the knee angle — and we will question that assumption later in the notebook:
+    Next, the moment arm of the quadriceps:
     """)
     return
 
