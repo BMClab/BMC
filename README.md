@@ -10,7 +10,7 @@ These notes (notebooks) are written using [Jupyter Notebook](http://org/), part 
 
 ## Introduction
 
-* [Biomechanics](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/Biomechanics.ipynb)  [![Open in molab](https://molab.marimo.io/molab-shield.png)](https://molab.marimo.io/notebooks/nb_hQt3XiQeU8LGVduaEnbcqz)
+* [Biomechanics](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/Biomechanics.ipynb)  [![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks_marimo/Biomechanics.py)
 * [The Biomechanics and Motor Control Laboratory @ UFABC](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/BMClab.ipynb)  
 
 ## Scientific programming
@@ -78,7 +78,7 @@ These notes (notebooks) are written using [Jupyter Notebook](http://org/), part 
 ### Kinetics
 
 * [Fundamental concepts](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/KineticsFundamentalConcepts.ipynb)  
-* [Center of Mass and Moment of Inertia](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/CenterOfMassAndMomentOfInertia.ipynb) 
+* [Center of Mass and Moment of Inertia](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/CenterOfMassAndMomentOfInertia.ipynb)
 * [Newton Laws for particles](https://nbviewer.org/github/BMClab/bmc/blob/master/notebooks/newtonLawForParticles.ipynb)
 * [Newton-Euler Laws](https://nbviewer.org/github/BMClab/bmc/blob/master/notebooks/newton_euler_equations.ipynb)
 * [Free body diagram](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/FreeBodyDiagram.ipynb)
@@ -115,7 +115,7 @@ These notes (notebooks) are written using [Jupyter Notebook](http://org/), part 
 
 Here is a suggestion to cite this GitHub repository:
 
-> Marcos Duarte and Renato Naville Watanabe. (2021). Notes on Scientific Computing for Biomechanics and Motor Control (Version v0.0.2). Zenodo. http://doi.org/10.5281/zenodo.4599319
+> Marcos Duarte and Renato Naville Watanabe. (2021). Notes on Scientific Computing for Biomechanics and Motor Control (Version v0.0.2). Zenodo. <http://doi.org/10.5281/zenodo.4599319>
 
 And a BibTeX entry:
 
