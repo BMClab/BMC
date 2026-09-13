@@ -1,16 +1,14 @@
 import marimo
 
-__generated_with = "0.13.15"
+__generated_with = "0.24.2"
 app = marimo.App()
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        # Basic passive models
-        """
-    )
+    mo.md(r"""
+    # Basic passive models
+    """)
     return
 
 
@@ -18,42 +16,39 @@ def _(mo):
 def _():
     import numpy as np
     import matplotlib.pyplot as plt
+
     return np, plt
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Maxwell Model
-        """
-    )
+    mo.md(r"""
+    ## Maxwell Model
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""$F = F_k=F_b$$x = x_k+x_b$$\dot x = \dot x_k + \dot x_b$$F_k = kx_k \rightarrow \dot x_k = \frac{\dot F_k}{k} = \frac{\dot F}{k}$$F_b = b\dot x_b \rightarrow \dot x_b = \frac{F_b}{b} = \frac{F}{b}$$\dot x = \frac{\dot F}{k} + \frac{F}{b}$$\dot F =   - \frac{kF}{b} + k\dot x$"""
-    )
+    mo.md(r"""
+    $F = F_k=F_b$$x = x_k+x_b$$\dot x = \dot x_k + \dot x_b$$F_k = kx_k \rightarrow \dot x_k = \frac{\dot F_k}{k} = \frac{\dot F}{k}$$F_b = b\dot x_b \rightarrow \dot x_b = \frac{F_b}{b} = \frac{F}{b}$$\dot x = \frac{\dot F}{k} + \frac{F}{b}$$\dot F =   - \frac{kF}{b} + k\dot x$
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### Length step
-        """
-    )
+    mo.md(r"""
+    ### Length step
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""$\dot{x_1} = -\frac{kx_1}{b} + x$$F = -\frac{k^2x_1}{b} + kx$"""
-    )
+    mo.md(r"""
+    $\dot{x_1} = -\frac{kx_1}{b} + x$$F = -\frac{k^2x_1}{b} + kx$
+    """)
     return
 
 
@@ -83,11 +78,9 @@ def _(np, plt):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### Sinusoidal length
-        """
-    )
+    mo.md(r"""
+    ### Sinusoidal length
+    """)
     return
 
 
@@ -115,39 +108,33 @@ def _(np, plt):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Voight Model
-        """
-    )
+    mo.md(r"""
+    ## Voight Model
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""$F = F_k+F_b$$x = x_k=x_b$$F_k = kx_k \rightarrow F_k = kx$$F_b = b\dot x_b \rightarrow F_b = b\dot x$$F = kx+b\dot x$$\dot x =   - \frac{kx}{b} + \frac{F}{b}$"""
-    )
+    mo.md(r"""
+    $F = F_k+F_b$$x = x_k=x_b$$F_k = kx_k \rightarrow F_k = kx$$F_b = b\dot x_b \rightarrow F_b = b\dot x$$F = kx+b\dot x$$\dot x =   - \frac{kx}{b} + \frac{F}{b}$
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""$\dot x_1 = -\frac{kx_1}{b} + \frac{F}{b}$$x = x_1$"""
-    )
+    mo.md(r"""
+    $\dot x_1 = -\frac{kx_1}{b} + \frac{F}{b}$$x = x_1$
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### Constant force
-
-
-        """
-    )
+    mo.md(r"""
+    ### Constant force
+    """)
     return
 
 
@@ -178,11 +165,9 @@ def _(np, plt):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### Sinusoidal force
-        """
-    )
+    mo.md(r"""
+    ### Sinusoidal force
+    """)
     return
 
 
@@ -208,28 +193,25 @@ def _(np, plt):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Kelvin Model
-        """
-    )
+    mo.md(r"""
+    ## Kelvin Model
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""$F = F_1+F_2$$F_1 = F_{k_s} = F_b$$F_2 = F_{k_p}$$x = x_s + x_b$$\dot x = \dot x_s + \dot x_b$$F_{k_s} = k_sx_s \rightarrow \dot F_{k_s} = k_s\dot x_s \rightarrow \dot x_s = \frac{\dot F_{k_s}}{k_s}$$F_{b} = b\dot x_b \rightarrow \dot x_b = \frac{F_{b}}{b}$$F_{k_p} =$$\dot x = \frac{\dot F_{1}}{k_s} + \frac{F_{1}}{b}$$\dot F_{1} = - \frac{k_sF_{1}}{b} + k_s\dot x$"""
-    )
+    mo.md(r"""
+    $F = F_1+F_2$$F_1 = F_{k_s} = F_b$$F_2 = F_{k_p}$$x = x_s + x_b$$\dot x = \dot x_s + \dot x_b$$F_{k_s} = k_sx_s \rightarrow \dot F_{k_s} = k_s\dot x_s \rightarrow \dot x_s = \frac{\dot F_{k_s}}{k_s}$$F_{b} = b\dot x_b \rightarrow \dot x_b = \frac{F_{b}}{b}$$F_{k_p} =$$\dot x = \frac{\dot F_{1}}{k_s} + \frac{F_{1}}{b}$$\dot F_{1} = - \frac{k_sF_{1}}{b} + k_s\dot x$
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### Length step$\dot x_1 =  - \frac{k_sx_{1}}{b} + x$$F_1 =  - \frac{k_s^2x_{1}}{b} + k_sx$$F = F_1+k_px$"""
-    )
+    mo.md(r"""
+    ### Length step$\dot x_1 =  - \frac{k_sx_{1}}{b} + x$$F_1 =  - \frac{k_s^2x_{1}}{b} + k_sx$$F = F_1+k_px$
+    """)
     return
 
 
@@ -261,10 +243,9 @@ def _(np, plt):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### Force step$\dot x = \frac{\dot F - k_p\dot x}{k_s} + \frac{F - k_px}{b}$$\dot x\left(\frac{k_s+k_p}{k_s} \right) = \frac{\dot F}{k_s} + \frac{F - k_px}{b}$$\dot x = \frac{\dot F}{k_s+k_p} + \frac{k_sF}{b(k_s+k_p)} - \frac{k_sk_px}{b(k_s+k_p)}$$\dot x_1 = F - \frac{k_sk_px}{b(k_s+k_p)}$$x = \frac{\dot x_1}{k_s+k_p} + \frac{k_sx_1}{b(k_s+k_p)}$"""
-    )
+    mo.md(r"""
+    ### Force step$\dot x = \frac{\dot F - k_p\dot x}{k_s} + \frac{F - k_px}{b}$$\dot x\left(\frac{k_s+k_p}{k_s} \right) = \frac{\dot F}{k_s} + \frac{F - k_px}{b}$$\dot x = \frac{\dot F}{k_s+k_p} + \frac{k_sF}{b(k_s+k_p)} - \frac{k_sk_px}{b(k_s+k_p)}$$\dot x_1 = F - \frac{k_sk_px}{b(k_s+k_p)}$$x = \frac{\dot x_1}{k_s+k_p} + \frac{k_sx_1}{b(k_s+k_p)}$
+    """)
     return
 
 
@@ -295,28 +276,25 @@ def _(np, plt):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## References
-        """
-    )
+    mo.md(r"""
+    ## References
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        - Yamaguchi, GT, DYNAMIC MODELING OF MUSCULOSKELETAL MOTION A Vectorized Approach
-        for Biomechanical Analysis in Three Dimensions, 2001
-        """
-    )
+    mo.md(r"""
+    - Yamaguchi, GT, DYNAMIC MODELING OF MUSCULOSKELETAL MOTION A Vectorized Approach
+    for Biomechanical Analysis in Three Dimensions, 2001
+    """)
     return
 
 
 @app.cell
 def _():
     import marimo as mo
+
     return (mo,)
 
 

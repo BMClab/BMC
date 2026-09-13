@@ -1,31 +1,27 @@
 import marimo
 
-__generated_with = "0.13.15"
+__generated_with = "0.24.2"
 app = marimo.App()
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        # Read c3D file using EZC3D library
+    mo.md(r"""
+    # Read c3D file using EZC3D library
 
-        > Marcos Duarte  
-        > [Laboratory of Biomechanics and Motor Control](http://demotu.org/)  
-        > Federal University of ABC, Brazil
-        """
-    )
+    > Marcos Duarte<br>
+    > [Laboratory of Biomechanics and Motor Control](http://demotu.org/)<br>
+    > Federal University of ABC, Brazil
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        > EZC3D is an easy to use reader, modifier and writer for C3D format files.  
-        > https://github.com/pyomeca/ezc3d
-        """
-    )
+    mo.md(r"""
+    > EZC3D is an easy to use reader, modifier and writer for C3D format files.<br>
+    > https://github.com/pyomeca/ezc3d
+    """)
     return
 
 
@@ -43,6 +39,7 @@ def _():
     sys.path.insert(1, r'./../functions')
     from dfmlevel import dfmlevel
     from read_c3d import read_c3d
+
     return os, read_c3d
 
 
@@ -75,6 +72,7 @@ def _(pt):
 @app.cell
 def _():
     import marimo as mo
+
     return (mo,)
 
 

@@ -1,20 +1,18 @@
 import marimo
 
-__generated_with = "0.13.15"
+__generated_with = "0.24.2"
 app = marimo.App()
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        # pandas Data
+    mo.md(r"""
+    # pandas Data
 
-        > Marcos Duarte  
-        > Laboratory of Biomechanics and Motor Control ([http://demotu.org/](http://demotu.org/))  
-        > Federal University of ABC, Brazil
-        """
-    )
+    > Marcos Duarte<br>
+    > Laboratory of Biomechanics and Motor Control ([http://demotu.org/](http://demotu.org/))<br>
+    > Federal University of ABC, Brazil
+    """)
     return
 
 
@@ -41,11 +39,9 @@ def _(os):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## pandas with one index
-        """
-    )
+    mo.md(r"""
+    ## pandas with one index
+    """)
     return
 
 
@@ -87,6 +83,7 @@ def _(display, plt):
             for c in col_w.value:
                 df.plot(y=c, ax=_ax)
         col_w.observe(plot, names='value')
+
     return (plot_widget,)
 
 
@@ -98,13 +95,11 @@ def _(df, plot_widget):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## pandas multiindex
+    mo.md(r"""
+    ## pandas multiindex
 
-        Data with hierarchical column index ([multiindex](http://pandas.pydata.org/pandas-docs/stable/advanced.html#creating-a-multiindex-hierarchical-index-object)) where columns have multiple levels.
-        """
-    )
+    Data with hierarchical column index ([multiindex](http://pandas.pydata.org/pandas-docs/stable/advanced.html#creating-a-multiindex-hierarchical-index-object)) where columns have multiple levels.
+    """)
     return
 
 
@@ -201,6 +196,7 @@ def _(x):
 @app.cell
 def _():
     import marimo as mo
+
     return (mo,)
 
 

@@ -1,6 +1,6 @@
 import marimo
 
-__generated_with = "0.13.15"
+__generated_with = "0.24.2"
 app = marimo.App()
 
 
@@ -8,6 +8,7 @@ app = marimo.App()
 def _():
     import sympy as sym
     import numpy as np
+
     return np, sym
 
 
@@ -30,6 +31,7 @@ def _(np):
 
     def rotationLocalZ(gamma):
         return np.array([[np.cos(_gamma), np.sin(_gamma), 0], [-np.sin(_gamma), np.cos(_gamma), 0], [0, 0, 1]])
+
     return (
         rotationGlobalX,
         rotationGlobalY,

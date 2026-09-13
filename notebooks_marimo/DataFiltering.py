@@ -1,51 +1,43 @@
 import marimo
 
-__generated_with = "0.13.15"
+__generated_with = "0.24.2"
 app = marimo.App()
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        <a href="https://colab.research.google.com/github/BMClab/BMC/blob/master/notebooks/DataFiltering.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
-        """
-    )
+    mo.md(r"""
+    <a href="https://colab.research.google.com/github/BMClab/BMC/blob/master/notebooks/DataFiltering.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        # Data filtering in signal processing
+    mo.md(r"""
+    # Data filtering in signal processing
 
-        > Marcos Duarte, Renato Naville Watanabe  
-        > [Laboratory of Biomechanics and Motor Control](https://bmclab.pesquisa.ufabc.edu.br)  
-        > Federal University of ABC, Brazil
-        """
-    )
+    > Marcos Duarte, Renato Naville Watanabe<br>
+    > [Laboratory of Biomechanics and Motor Control](https://bmclab.pesquisa.ufabc.edu.br)<br>
+    > Federal University of ABC, Brazil
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Here will see an introduction to data filtering and the most basic filters typically used in signal processing of biomechanical data.  
-        You should be familiar with the [basic properties of signals](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/SignalBasicProperties.ipynb) before proceeding.
-        """
-    )
+    mo.md(r"""
+    Here will see an introduction to data filtering and the most basic filters typically used in signal processing of biomechanical data.<br>
+    You should be familiar with the [basic properties of signals](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/SignalBasicProperties.ipynb) before proceeding.
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Setup
-        """
-    )
+    mo.md(r"""
+    ## Setup
+    """)
     return
 
 
@@ -64,46 +56,40 @@ def _():
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Filter and smoothing
+    mo.md(r"""
+    ## Filter and smoothing
 
-        In data acquisition with an instrument, it's common that the noise has higher frequencies and lower amplitudes than the desired signal. To remove this noise from the signal, a procedure known as filtering or smoothing is employed in the signal processing.  
-        <a href="http://en.wikipedia.org/wiki/Filter_(signal_processing)">Filtering</a> is a process to attenuate from a signal some unwanted component or feature. A filter usually removes certain frequency components from the data according to its frequency response.  
-        [Frequency response](http://en.wikipedia.org/wiki/Frequency_response) is the quantitative measure of the output spectrum of a system or device in response to a stimulus, and is used to characterize the dynamics of the system.  
-        [Smoothing](http://en.wikipedia.org/wiki/Smoothing) is the process of removal of local (at short scale) fluctuations in the data while preserving a more global pattern in the data (such local variations could be noise or just a short scale phenomenon that is not interesting). A filter with a low-pass frequency response performs smoothing.  
-        With respect to the filter implementation, it can be classified as [analog filter](http://en.wikipedia.org/wiki/Passive_analogue_filter_development) or [digital filter](http://en.wikipedia.org/wiki/Digital_filter).  
-        An analog filter is an electronic circuit that performs filtering of the input electrical signal (analog data) and outputs a filtered electrical signal (analog data). A simple analog filter can be implemented with a electronic circuit with a resistor and a capacitor. A digital filter, is  a system that implement the filtering of a digital data (time-discrete data).
-        """
-    )
+    In data acquisition with an instrument, it's common that the noise has higher frequencies and lower amplitudes than the desired signal. To remove this noise from the signal, a procedure known as filtering or smoothing is employed in the signal processing.<br>
+    <a href="http://en.wikipedia.org/wiki/Filter_(signal_processing)">Filtering</a> is a process to attenuate from a signal some unwanted component or feature. A filter usually removes certain frequency components from the data according to its frequency response.<br>
+    [Frequency response](http://en.wikipedia.org/wiki/Frequency_response) is the quantitative measure of the output spectrum of a system or device in response to a stimulus, and is used to characterize the dynamics of the system.<br>
+    [Smoothing](http://en.wikipedia.org/wiki/Smoothing) is the process of removal of local (at short scale) fluctuations in the data while preserving a more global pattern in the data (such local variations could be noise or just a short scale phenomenon that is not interesting). A filter with a low-pass frequency response performs smoothing.<br>
+    With respect to the filter implementation, it can be classified as [analog filter](http://en.wikipedia.org/wiki/Passive_analogue_filter_development) or [digital filter](http://en.wikipedia.org/wiki/Digital_filter).<br>
+    An analog filter is an electronic circuit that performs filtering of the input electrical signal (analog data) and outputs a filtered electrical signal (analog data). A simple analog filter can be implemented with a electronic circuit with a resistor and a capacitor. A digital filter, is  a system that implement the filtering of a digital data (time-discrete data).
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### Example: the moving-average filter
+    mo.md(r"""
+    ### Example: the moving-average filter
 
-        An example of a low-pass (smoothing) filter is the moving average, which is performed taking the arithmetic mean of subsequences of$m$terms of the data. For instance, the moving averages with window sizes (m) equal to 2 and 3 are:$\begin{array}{}
-        &y_{MA(2)} = \frac{1}{2}[x_1+x_2,\; x_2+x_3,\; \cdots,\; x_{n-1}+x_n] \\
-        &y_{MA(3)} = \frac{1}{3}[x_1+x_2+x_3,\; x_2+x_3+x_4,\; \cdots,\; x_{n-2}+x_{n-1}+x_n]
-        \end{array}$Which has the general formula:$y[i] = \sum_{j=0}^{m-1} x[i+j] \quad for \quad i=1, \; \dots, \; n-m+1$Where$n$is the number (length) of data.
+    An example of a low-pass (smoothing) filter is the moving average, which is performed taking the arithmetic mean of subsequences of$m$terms of the data. For instance, the moving averages with window sizes (m) equal to 2 and 3 are:$\begin{array}{}
+    &y_{MA(2)} = \frac{1}{2}[x_1+x_2,\; x_2+x_3,\; \cdots,\; x_{n-1}+x_n] \\
+    &y_{MA(3)} = \frac{1}{3}[x_1+x_2+x_3,\; x_2+x_3+x_4,\; \cdots,\; x_{n-2}+x_{n-1}+x_n]
+    \end{array}$Which has the general formula:$y[i] = \sum_{j=0}^{m-1} x[i+j] \quad for \quad i=1, \; \dots, \; n-m+1$Where$n$is the number (length) of data.
 
-        Let's implement a simple version of the moving average filter.  
-        First, let's import the necessary Python libraries and configure the environment:
-        """
-    )
+    Let's implement a simple version of the moving average filter.<br>
+    First, let's import the necessary Python libraries and configure the environment:
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        A naive moving-average function definition:
-        """
-    )
+    mo.md(r"""
+    A naive moving-average function definition:
+    """)
     return
 
 
@@ -115,16 +101,15 @@ def _(np):
         for i in range(len(y)):
             y[i] = np.sum(x[i:i+window])/window
         return y
+
     return (moving_average,)
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Let's generate some data to test this function:
-        """
-    )
+    mo.md(r"""
+    Let's generate some data to test this function:
+    """)
     return
 
 
@@ -148,142 +133,124 @@ def _(moving_average, np, plt):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Later we will look on better ways to calculate the moving average.
-        """
-    )
+    mo.md(r"""
+    Later we will look on better ways to calculate the moving average.
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Digital filters
+    mo.md(r"""
+    ## Digital filters
 
-        In signal processing, a digital filter is a system that performs mathematical operations on a signal to modify certain aspects of that signal. A digital filter (in fact, a causal, linear time-invariant (LTI) digital filter) can be seen as the implementation of the following difference equation in the time domain:$\begin{array}{}
-        y_n &= \quad b_0x_n + \; b_1x_{n-1} + \cdots + b_Mx_{n-M} - \; a_1y_{n-1} - \cdots - a_Ny_{n-N} \\
-        & = \quad \sum_{k=0}^M b_kx_{n-k} - \sum_{k=1}^N a_ky_{n-k}
-        \end{array}$Where the output$y$is the filtered version of the input$x$,$a_k$and$b_k$are the filter coefficients (real values), and the order of the filter is the larger of N or M.
+    In signal processing, a digital filter is a system that performs mathematical operations on a signal to modify certain aspects of that signal. A digital filter (in fact, a causal, linear time-invariant (LTI) digital filter) can be seen as the implementation of the following difference equation in the time domain:$\begin{array}{}
+    y_n &= \quad b_0x_n + \; b_1x_{n-1} + \cdots + b_Mx_{n-M} - \; a_1y_{n-1} - \cdots - a_Ny_{n-N} \\
+    & = \quad \sum_{k=0}^M b_kx_{n-k} - \sum_{k=1}^N a_ky_{n-k}
+    \end{array}$Where the output$y$is the filtered version of the input$x$,$a_k$and$b_k$are the filter coefficients (real values), and the order of the filter is the larger of N or M.
 
-        This general equation is for a recursive filter where the filtered signal y is calculated based on current and previous values of$x$and on previous values of$y$(the own output values, because of this it is said to be a system with feedback). A filter that does not re-use its outputs as an input (and it is said to be a system with only feedforward) is called nonrecursive filter (the$a$coefficients of the equation are zero). Recursive and nonrecursive filters are also known as infinite impulse response (IIR) and finite impulse response (FIR) filters, respectively.  
+    This general equation is for a recursive filter where the filtered signal y is calculated based on current and previous values of$x$and on previous values of$y$(the own output values, because of this it is said to be a system with feedback). A filter that does not re-use its outputs as an input (and it is said to be a system with only feedforward) is called nonrecursive filter (the$a$coefficients of the equation are zero). Recursive and nonrecursive filters are also known as infinite impulse response (IIR) and finite impulse response (FIR) filters, respectively.
 
-        A filter with only the terms based on the previous values of$y$is also known as an autoregressive (AR) filter. A filter with only the terms based on the current and previous values of$x$is also known as an moving-average (MA) filter. The filter with all terms is also known as an autoregressive moving-average (ARMA) filter. The moving-average filter can be implemented by making$n$$b$coefficients each equals to$1/n$and the$a$coefficients equal to zero in the difference equation.  
-        """
-    )
+    A filter with only the terms based on the previous values of$y$is also known as an autoregressive (AR) filter. A filter with only the terms based on the current and previous values of$x$is also known as an moving-average (MA) filter. The filter with all terms is also known as an autoregressive moving-average (ARMA) filter. The moving-average filter can be implemented by making$n$$b$coefficients each equals to$1/n$and the$a$coefficients equal to zero in the difference equation.
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### Transfer function
+    mo.md(r"""
+    ### Transfer function
 
-        Another form to characterize a digital filter is by its [transfer function](http://en.wikipedia.org/wiki/Transfer_function). In simple terms, a transfer function is the ratio in the frequency domain between the input and output signals of a filter.  
-        For continuous-time input signal$x(t)$and output$y(t)$, the transfer function$H(s)$is given by the ratio between the [Laplace transforms](http://en.wikipedia.org/wiki/Laplace_transform) of input$x(t)$and output$y(t)$:$H(s) = \frac{Y(s)}{X(s)}$Where$s = \sigma + j\omega$;$j$is the imaginary unit and$\omega$is the angular frequency,$2\pi f$.  
+    Another form to characterize a digital filter is by its [transfer function](http://en.wikipedia.org/wiki/Transfer_function). In simple terms, a transfer function is the ratio in the frequency domain between the input and output signals of a filter.<br>
+    For continuous-time input signal$x(t)$and output$y(t)$, the transfer function$H(s)$is given by the ratio between the [Laplace transforms](http://en.wikipedia.org/wiki/Laplace_transform) of input$x(t)$and output$y(t)$:$H(s) = \frac{Y(s)}{X(s)}$Where$s = \sigma + j\omega$;$j$is the imaginary unit and$\omega$is the angular frequency,$2\pi f$.
 
-        In the steady-state response case, we can consider$\sigma=0$and the Laplace transforms with complex arguments reduce to the [Fourier transforms](http://en.wikipedia.org/wiki/Fourier_transform) with real argument$\omega$.
-        """
-    )
+    In the steady-state response case, we can consider$\sigma=0$and the Laplace transforms with complex arguments reduce to the [Fourier transforms](http://en.wikipedia.org/wiki/Fourier_transform) with real argument$\omega$.
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        For discrete-time input signal$x(t)$and output$y(t)$, the transfer function$H(z)$will be given by the ratio between the [z-transforms](http://en.wikipedia.org/wiki/Z-transform) of input$x(t)$and output$y(t)$, and the formalism is similar.
+    mo.md(r"""
+    For discrete-time input signal$x(t)$and output$y(t)$, the transfer function$H(z)$will be given by the ratio between the [z-transforms](http://en.wikipedia.org/wiki/Z-transform) of input$x(t)$and output$y(t)$, and the formalism is similar.
 
-        The transfer function of a digital filter (in fact for a linear, time-invariant, and causal filter), obtained by taking the z-transform of the difference equation shown earlier, is given by:$H(z) = \frac{Y(z)}{X(z)} = \frac{b_0 + b_1 z^{-1} + b_2 z^{-2} + \cdots + b_N z^{-N}}{1 + a_1 z^{-1} + a_2 z^{-2} + \cdots + a_M z^{-M}}$$H(z) = \frac{\sum_{k=0}^M b_kz^{-k}}{1 + \sum_{k=1}^N a_kz^{-k}}$And the order of the filter is the larger of N or M.  
+    The transfer function of a digital filter (in fact for a linear, time-invariant, and causal filter), obtained by taking the z-transform of the difference equation shown earlier, is given by:$H(z) = \frac{Y(z)}{X(z)} = \frac{b_0 + b_1 z^{-1} + b_2 z^{-2} + \cdots + b_N z^{-N}}{1 + a_1 z^{-1} + a_2 z^{-2} + \cdots + a_M z^{-M}}$$H(z) = \frac{\sum_{k=0}^M b_kz^{-k}}{1 + \sum_{k=1}^N a_kz^{-k}}$And the order of the filter is the larger of N or M.
 
-        Similar to the difference equation, this transfer function is for a recursive (IIR) filter. If the$a$coefficients are zero, the denominator is equal to one, and the filter becomes nonrecursive (FIR).
-        """
-    )
+    Similar to the difference equation, this transfer function is for a recursive (IIR) filter. If the$a$coefficients are zero, the denominator is equal to one, and the filter becomes nonrecursive (FIR).
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### The Fourier transform
+    mo.md(r"""
+    ### The Fourier transform
 
-        The [Fourier transform](http://en.wikipedia.org/wiki/Fourier_transform) is a mathematical operation to transform a signal which is function of time,$g(t)$, into a signal which is function of frequency,$G(f)$, and it is defined by:  
-        <br />$\mathcal{F}[g(t)] = G(f) = \int_{-\infty}^{\infty} g(t) e^{-j 2\pi f t} dt$Its inverse operation is:  
-        <br />$\mathcal{F}^{-1}[G(f)] = g(t) = \int_{-\infty}^{\infty} G(f) e^{j 2\pi f t} df$The function$G(f)$is the representation in the frequency domain of the time-domain signal,$g(t)$, and vice-versa. The functions$g(t)$and$G(f)$are referred to as a Fourier integral pair, or Fourier transform pair, or simply the Fourier pair. [See this text for an introduction to Fourier transform](http://www.thefouriertransform.com/transform/fourier.php).
-        """
-    )
+    The [Fourier transform](http://en.wikipedia.org/wiki/Fourier_transform) is a mathematical operation to transform a signal which is function of time,$g(t)$, into a signal which is function of frequency,$G(f)$, and it is defined by:<br>
+    <br />$\mathcal{F}[g(t)] = G(f) = \int_{-\infty}^{\infty} g(t) e^{-j 2\pi f t} dt$Its inverse operation is:<br>
+    <br />$\mathcal{F}^{-1}[G(f)] = g(t) = \int_{-\infty}^{\infty} G(f) e^{j 2\pi f t} df$The function$G(f)$is the representation in the frequency domain of the time-domain signal,$g(t)$, and vice-versa. The functions$g(t)$and$G(f)$are referred to as a Fourier integral pair, or Fourier transform pair, or simply the Fourier pair. [See this text for an introduction to Fourier transform](http://www.thefouriertransform.com/transform/fourier.php).
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Types of filters
+    mo.md(r"""
+    ## Types of filters
 
-        In relation to the frequencies that are not removed from the data (and a boundary is specified by the critical or cutoff frequency), a filter can be a low-pass, high-pass, band-pass, and band-stop. The frequency response of such filters is illustrated in the next figure.
+    In relation to the frequencies that are not removed from the data (and a boundary is specified by the critical or cutoff frequency), a filter can be a low-pass, high-pass, band-pass, and band-stop. The frequency response of such filters is illustrated in the next figure.
 
-        <div class='center-align'><figure><img src="http://upload.wikimedia.org/wikipedia/en/thumb/e/ec/Bandform_template.svg/640px-Bandform_template.svg.png" alt="Filters" /><figcaption><i>Frequency response of filters (<a href="http://en.wikipedia.org/wiki/Filter_(signal_processing)" target="_blank">from Wikipedia</a>).</i></figcaption></figure></div>
-        """
-    )
+    <div class='center-align'><figure><img src="http://upload.wikimedia.org/wikipedia/en/thumb/e/ec/Bandform_template.svg/640px-Bandform_template.svg.png" alt="Filters" /><figcaption><i>Frequency response of filters (<a href="http://en.wikipedia.org/wiki/Filter_(signal_processing)" target="_blank">from Wikipedia</a>).</i></figcaption></figure></div>
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        The critical or cutoff frequency for a filter is defined as the frequency where the power (the amplitude squared) of the filtered signal is half of the power of the input signal (or the output amplitude is 0.707 of the input amplitude).  
-        For instance, if a low-pass filter has a cutoff frequency of 10 Hz, it means that at 10 Hz the power of the filtered signal is 50% of the power of the original signal (and the output amplitude will be about 71% of the input amplitude).
+    mo.md(r"""
+    The critical or cutoff frequency for a filter is defined as the frequency where the power (the amplitude squared) of the filtered signal is half of the power of the input signal (or the output amplitude is 0.707 of the input amplitude).<br>
+    For instance, if a low-pass filter has a cutoff frequency of 10 Hz, it means that at 10 Hz the power of the filtered signal is 50% of the power of the original signal (and the output amplitude will be about 71% of the input amplitude).
 
-        The gain of a filter (the ratio between the output and input powers) is usually expressed in the decibel (dB) unit.
-        """
-    )
+    The gain of a filter (the ratio between the output and input powers) is usually expressed in the decibel (dB) unit.
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### Decibel (dB)
+    mo.md(r"""
+    ### Decibel (dB)
 
-        The <a href="http://en.wikipedia.org/wiki/Decibel" target="_blank">decibel (dB)</a> is a logarithmic unit used to express the ratio between two values.    
-        In the case of the filter gain measured in the decibel unit:$Gain=10\,log\left(\frac{A_{out}^2}{A_{in}^2}\right)=20\,log\left(\frac{A_{out}}{A_{in}}\right)$Where$A_{out}$and$A_{in}$are respectively the amplitudes of the output (filtered) and input (raw) signals.
+    The <a href="http://en.wikipedia.org/wiki/Decibel" target="_blank">decibel (dB)</a> is a logarithmic unit used to express the ratio between two values.<br>
+    In the case of the filter gain measured in the decibel unit:$Gain=10\,log\left(\frac{A_{out}^2}{A_{in}^2}\right)=20\,log\left(\frac{A_{out}}{A_{in}}\right)$Where$A_{out}$and$A_{in}$are respectively the amplitudes of the output (filtered) and input (raw) signals.
 
-        For instance, the critical or cutoff frequency for a filter, the frequency where the power (the amplitude squared) of the filtered signal is half of the power of the input signal, is given in decibel as:$10\,log\left(0.5\right) \approx -3 dB$If the power of the filtered signal is twice the power of the input signal, because of the logarithm, the gain in decibel is$10\,log\left(2\right) \approx 3 dB$.  
-        If the output power is attenuated by ten times, the gain is$10\,log\left(0.1\right) \approx -10 dB$, but if the output amplitude is attenuated by ten times, the gain is$20\,log\left(0.1\right) \approx -20 dB$, and if the output amplitude is amplified by ten times, the gain is$20 dB$.  
-        For each 10-fold variation in the amplitude ratio, there is an increase (or decrease) of$20 dB$.
+    For instance, the critical or cutoff frequency for a filter, the frequency where the power (the amplitude squared) of the filtered signal is half of the power of the input signal, is given in decibel as:$10\,log\left(0.5\right) \approx -3 dB$If the power of the filtered signal is twice the power of the input signal, because of the logarithm, the gain in decibel is$10\,log\left(2\right) \approx 3 dB$.<br>
+    If the output power is attenuated by ten times, the gain is$10\,log\left(0.1\right) \approx -10 dB$, but if the output amplitude is attenuated by ten times, the gain is$20\,log\left(0.1\right) \approx -20 dB$, and if the output amplitude is amplified by ten times, the gain is$20 dB$.<br>
+    For each 10-fold variation in the amplitude ratio, there is an increase (or decrease) of$20 dB$.
 
-        The decibel unit is useful to represent large variations in a measurement, for example,$-120 dB$represents an attenuation of 1,000,000 times.  
-        A decibel is one tenth of a bel, a unit named in honor of <a href="http://en.wikipedia.org/wiki/Alexander_Graham_Bell" target="_blank">Alexander Graham Bell</a>.
-        """
-    )
+    The decibel unit is useful to represent large variations in a measurement, for example,$-120 dB$represents an attenuation of 1,000,000 times.<br>
+    A decibel is one tenth of a bel, a unit named in honor of <a href="http://en.wikipedia.org/wiki/Alexander_Graham_Bell" target="_blank">Alexander Graham Bell</a>.
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### Butterworth filter
+    mo.md(r"""
+    ### Butterworth filter
 
-        A common filter employed in biomechanics and motor control fields is the [Butterworth filter](http://en.wikipedia.org/wiki/Butterworth_filter). This filter is used because its simple design,  it has a more flat frequency response and linear phase response in the pass and stop bands, and it is simple to use.    
-        The Butterworth filter is a recursive filter (IIR) and both$a$and$b$filter coefficients are used in its implementation.   
-        Let's implement the Butterworth filter. We will use the function `butter` to calculate the filter coefficients:  
-        ```python
-        butter(N, Wn, btype='low', analog=False, output='ba')
-        ```
-        Where `N` is the order of the filter, `Wn` is the cutoff frequency specified as a fraction of the [Nyquist frequency](http://en.wikipedia.org/wiki/Nyquist_frequency) (half of the sampling frequency), and `btype` is the type of filter (it can be any of {'lowpass', 'highpass', 'bandpass', 'bandstop'}, the default is 'lowpass'). See the help of `butter` for more details. The filtering itself is performed with the function `lfilter`:   
-        ```python
-        lfilter(b, a, x, axis=-1, zi=None)
-        ```
-        Where `b` and `a` are the Butterworth coefficients calculated with the function `butter` and `x` is the variable with the data to be filtered.
-        """
-    )
+    A common filter employed in biomechanics and motor control fields is the [Butterworth filter](http://en.wikipedia.org/wiki/Butterworth_filter). This filter is used because its simple design,  it has a more flat frequency response and linear phase response in the pass and stop bands, and it is simple to use.<br>
+    The Butterworth filter is a recursive filter (IIR) and both$a$and$b$filter coefficients are used in its implementation.<br>
+    Let's implement the Butterworth filter. We will use the function `butter` to calculate the filter coefficients:<br>
+    ```python
+    butter(N, Wn, btype='low', analog=False, output='ba')
+    ```
+    Where `N` is the order of the filter, `Wn` is the cutoff frequency specified as a fraction of the [Nyquist frequency](http://en.wikipedia.org/wiki/Nyquist_frequency) (half of the sampling frequency), and `btype` is the type of filter (it can be any of {'lowpass', 'highpass', 'bandpass', 'bandstop'}, the default is 'lowpass'). See the help of `butter` for more details. The filtering itself is performed with the function `lfilter`:<br>
+    ```python
+    lfilter(b, a, x, axis=-1, zi=None)
+    ```
+    Where `b` and `a` are the Butterworth coefficients calculated with the function `butter` and `x` is the variable with the data to be filtered.
+    """)
     return
 
 
@@ -308,13 +275,11 @@ def _(np, plt, signal_1):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        The plot above shows that the Butterworth filter introduces a phase (a delay or lag in time) between the raw and the filtered signals. We will see how to account for that later.  
+    mo.md(r"""
+    The plot above shows that the Butterworth filter introduces a phase (a delay or lag in time) between the raw and the filtered signals. We will see how to account for that later.
 
-        Let's look at the values of the `b` and `a` Butterworth filter coefficients for different orders and see a characteristic of them; from the general difference equation shown earlier, it follows that the sum of the `b` coefficients minus the sum of the `a` coefficients (excluding the first coefficient of `a`) is one:
-        """
-    )
+    Let's look at the values of the `b` and `a` Butterworth filter coefficients for different orders and see a characteristic of them; from the general difference equation shown earlier, it follows that the sum of the `b` coefficients minus the sum of the `a` coefficients (excluding the first coefficient of `a`) is one:
+    """)
     return
 
 
@@ -330,13 +295,11 @@ def _(np, signal_1):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### Bode plot
+    mo.md(r"""
+    ### Bode plot
 
-        How much the amplitude of the filtered signal is attenuated in relation to the amplitude of the raw signal (gain or magnitude) as a function of frequency is given in the frequency response plot. The plots of the frequency and phase responses (the [bode plot](http://en.wikipedia.org/wiki/Bode_plot)) of this filter implementation (Butterworth, lowpass at 5 Hz, second-order) is shown below:
-        """
-    )
+    How much the amplitude of the filtered signal is attenuated in relation to the amplitude of the raw signal (gain or magnitude) as a function of frequency is given in the frequency response plot. The plots of the frequency and phase responses (the [bode plot](http://en.wikipedia.org/wiki/Bode_plot)) of this filter implementation (Butterworth, lowpass at 5 Hz, second-order) is shown below:
+    """)
     return
 
 
@@ -369,26 +332,22 @@ def _(freq, np, plt, signal_1):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        The inset plot in the former figure shows that at the cutoff frequency (5 Hz), the power of the filtered signal is indeed attenuated by 3 dB.  
+    mo.md(r"""
+    The inset plot in the former figure shows that at the cutoff frequency (5 Hz), the power of the filtered signal is indeed attenuated by 3 dB.
 
-        The phase-response plot shows that at the cutoff frequency, the Butterworth filter presents about 90 degrees of phase between the raw and filtered signals. A 5 Hz signal has a period of 0.2 s and 90 degrees of phase corresponds to 0.05 s of lag. Looking at the plot with the raw and filtered signals employing or not the phase correction, we can see that the delay is indeed about 0.05 s.
-        """
-    )
+    The phase-response plot shows that at the cutoff frequency, the Butterworth filter presents about 90 degrees of phase between the raw and filtered signals. A 5 Hz signal has a period of 0.2 s and 90 degrees of phase corresponds to 0.05 s of lag. Looking at the plot with the raw and filtered signals employing or not the phase correction, we can see that the delay is indeed about 0.05 s.
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### Order of a filter
+    mo.md(r"""
+    ### Order of a filter
 
-        The order of a filter is related to the inclination of the 'wall' in the frequency response plot that attenuates or not the input signal at the vicinity of the cutoff frequency. A vertical wall exactly at the cutoff frequency would be ideal but this is impossible to implement.   
-        A Butterworth filter of first order attenuates 6 dB of the power of the signal each doubling of the frequency (per octave) or, which is the same, attenuates 20 dB each time the frequency varies by an order of 10 (per decade). In more technical terms, one simply says that a first-order filter rolls off -6 dB per octave or that rolls off -20 dB per decade. A second-order filter rolls off -12 dB per octave (-40 dB per decade), and so on, as shown in the next figure.  
-        """
-    )
+    The order of a filter is related to the inclination of the 'wall' in the frequency response plot that attenuates or not the input signal at the vicinity of the cutoff frequency. A vertical wall exactly at the cutoff frequency would be ideal but this is impossible to implement.<br>
+    A Butterworth filter of first order attenuates 6 dB of the power of the signal each doubling of the frequency (per octave) or, which is the same, attenuates 20 dB each time the frequency varies by an order of 10 (per decade). In more technical terms, one simply says that a first-order filter rolls off -6 dB per octave or that rolls off -20 dB per decade. A second-order filter rolls off -12 dB per octave (-40 dB per decade), and so on, as shown in the next figure.
+    """)
     return
 
 
@@ -448,6 +407,7 @@ def _(np, plt, signal_1):
         axi.set_ylim([-7, 1])
         axi.set_xlim([0.5, 1.5])
         axi.grid(which='both', axis='both')
+
     return (butterworth_plot,)
 
 
@@ -459,18 +419,16 @@ def _(butterworth_plot):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### Butterworth filter with zero-phase shift
+    mo.md(r"""
+    ### Butterworth filter with zero-phase shift
 
-        The phase introduced by the Butterworth filter can be corrected in the digital implementation by cleverly filtering the data twice, once forward and once backwards. So, the lag introduced in the first filtering is zeroed by the same lag in the opposite direction at the second pass. The result is a zero-phase shift (or zero-phase lag) filtering.  
-        However, because after each pass the output power at the cutoff frequency is attenuated by two, by passing twice the second order Butterworth filter, the final output power will be attenuated by four. We have to correct the actual cutoff frequency value so that when employing the two passes, the filter will attenuate only by two.  
-        The following formula gives the desired cutoff frequency for a second-order Butterworth filter according to the number of passes,$n$, (see Winter, 2009):$C = \sqrt[4]{2^{\frac{1}{n}} - 1}$For instance, for two passes,$n=2$,$C=\sqrt[4]{2^{\frac{1}{2}} - 1} \approx 0.802$.  
-        The actual filter cutoff frequency will be:$fc_{actual} = \frac{fc_{desired}}{C}$For instance, for a second-order Butterworth filter with zero-phase shift and a desired 10 Hz cutoff frequency, the actual cutoff frequency should be 12.47 Hz.
+    The phase introduced by the Butterworth filter can be corrected in the digital implementation by cleverly filtering the data twice, once forward and once backwards. So, the lag introduced in the first filtering is zeroed by the same lag in the opposite direction at the second pass. The result is a zero-phase shift (or zero-phase lag) filtering.<br>
+    However, because after each pass the output power at the cutoff frequency is attenuated by two, by passing twice the second order Butterworth filter, the final output power will be attenuated by four. We have to correct the actual cutoff frequency value so that when employing the two passes, the filter will attenuate only by two.<br>
+    The following formula gives the desired cutoff frequency for a second-order Butterworth filter according to the number of passes,$n$, (see Winter, 2009):$C = \sqrt[4]{2^{\frac{1}{n}} - 1}$For instance, for two passes,$n=2$,$C=\sqrt[4]{2^{\frac{1}{2}} - 1} \approx 0.802$.<br>
+    The actual filter cutoff frequency will be:$fc_{actual} = \frac{fc_{desired}}{C}$For instance, for a second-order Butterworth filter with zero-phase shift and a desired 10 Hz cutoff frequency, the actual cutoff frequency should be 12.47 Hz.
 
-        Let's implement this forward and backward filtering using the function `filtfilt` and compare with the single-pass filtering we just did it.
-        """
-    )
+    Let's implement this forward and backward filtering using the function `filtfilt` and compare with the single-pass filtering we just did it.
+    """)
     return
 
 
@@ -499,20 +457,18 @@ def _(np, plt):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### Critically damped digital filter
+    mo.md(r"""
+    ### Critically damped digital filter
 
-        A problem with a lowpass Butterworth filter is that it tends to overshoot or undershoot data with rapid changes (see for example, Winter (2009), Robertson et at. (2013), and Robertson & Dowling (2003)).  
-        The Butterworth filter behaves as an underdamped second-order system and a critically damped filter doesn't have this overshoot/undershoot characteristic.   
-        The function `crit_damp.py` calculates the coefficients (the b's and a's) for an IIR critically damped digital filter and corrects the cutoff frequency for the number of passes of the filter. The calculation of these coefficients is very similar to the calculation for the Butterworth filter, see the `critic_damp.py` code. This function can also calculate the Butterworth coefficients if this option is chosen.  
-        The signature of `critic_damp.py` function is:  
-        ```python
-        critic_damp(fcut, freq, npass=2, fcorr=True, filt='critic')
-        ```
-        And here is an example of `critic_damp.py`:
-        """
-    )
+    A problem with a lowpass Butterworth filter is that it tends to overshoot or undershoot data with rapid changes (see for example, Winter (2009), Robertson et at. (2013), and Robertson & Dowling (2003)).<br>
+    The Butterworth filter behaves as an underdamped second-order system and a critically damped filter doesn't have this overshoot/undershoot characteristic.<br>
+    The function `crit_damp.py` calculates the coefficients (the b's and a's) for an IIR critically damped digital filter and corrects the cutoff frequency for the number of passes of the filter. The calculation of these coefficients is very similar to the calculation for the Butterworth filter, see the `critic_damp.py` code. This function can also calculate the Butterworth coefficients if this option is chosen.<br>
+    The signature of `critic_damp.py` function is:<br>
+    ```python
+    critic_damp(fcut, freq, npass=2, fcorr=True, filt='critic')
+    ```
+    And here is an example of `critic_damp.py`:
+    """)
     return
 
 
@@ -635,6 +591,7 @@ def _(np, warnings):
         b = np.array([a0, a1, a2])
         a = np.array([1, -b1, -b2])
         return (b, a, fc)
+
     return (critic_damp,)
 
 
@@ -670,11 +627,9 @@ app._unparsable_cell(
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### Comparison of FIR filter with a critically damped filter
-        """
-    )
+    mo.md(r"""
+    ### Comparison of FIR filter with a critically damped filter
+    """)
     return
 
 
@@ -707,13 +662,11 @@ def _(plt, t_1, y_2, y_cd, y_fir):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### Moving-average filter
+    mo.md(r"""
+    ### Moving-average filter
 
-        Here are four different versions of a function to implement the moving-average filter:
-        """
-    )
+    Here are four different versions of a function to implement the moving-average filter:
+    """)
     return
 
 
@@ -740,6 +693,7 @@ def _(lfilter_1, np):
     def moving_averageV4(x, window):
         """Moving average of 'x' with window size 'window'."""
         return lfilter_1(np.ones(window) / window, 1, x)
+
     return (
         moving_averageV1,
         moving_averageV2,
@@ -750,11 +704,9 @@ def _(lfilter_1, np):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Let's test these versions:
-        """
-    )
+    mo.md(r"""
+    Let's test these versions:
+    """)
     return
 
 
@@ -789,11 +741,9 @@ def _(
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        A test of the performance of the four versions (using the magick IPython function `timeit`):
-        """
-    )
+    mo.md(r"""
+    A test of the performance of the four versions (using the magick IPython function `timeit`):
+    """)
     return
 
 
@@ -812,25 +762,21 @@ def _():
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        The version with the cumsum function produces identical results to the first version of the moving average function but it is much faster (the fastest of the four versions).  
-        Only the version with the convolution function produces a result without a phase or lag between the input and output data, although we could improve the other versions to account for that (for example, calculating the moving average of `x[i-window/2:i+window/2]` and using `filtfilt` instead of `lfilter`).  
-        And avoid as much as possible the use of loops in Python! The version with the for loop is about one hundred times slower than the other versions.
-        """
-    )
+    mo.md(r"""
+    The version with the cumsum function produces identical results to the first version of the moving average function but it is much faster (the fastest of the four versions).<br>
+    Only the version with the convolution function produces a result without a phase or lag between the input and output data, although we could improve the other versions to account for that (for example, calculating the moving average of `x[i-window/2:i+window/2]` and using `filtfilt` instead of `lfilter`).<br>
+    And avoid as much as possible the use of loops in Python! The version with the for loop is about one hundred times slower than the other versions.
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### Moving-RMS filter
+    mo.md(r"""
+    ### Moving-RMS filter
 
-        The root-mean square (RMS) is a measure of the absolute amplitude of the data and it is useful when the data have positive and negative values. The RMS is defined as:$RMS = \sqrt{\frac{1}{N}\sum_{i=1}^{N} x_i^2}$Similar to the moving-average measure, the moving RMS is defined as:$y[i] = \sqrt{\sum_{j=0}^{m-1} (x[i+j])^2} \;\;\;\; for \;\;\; i=1, \; \dots, \; n-m+1$Here are two implementations for a moving-RMS filter (very similar to the moving-average filter):
-        """
-    )
+    The root-mean square (RMS) is a measure of the absolute amplitude of the data and it is useful when the data have positive and negative values. The RMS is defined as:$RMS = \sqrt{\frac{1}{N}\sum_{i=1}^{N} x_i^2}$Similar to the moving-average measure, the moving RMS is defined as:$y[i] = \sqrt{\sum_{j=0}^{m-1} (x[i+j])^2} \;\;\;\; for \;\;\; i=1, \; \dots, \; n-m+1$Here are two implementations for a moving-RMS filter (very similar to the moving-average filter):
+    """)
     return
 
 
@@ -846,16 +792,15 @@ def _(filtfilt_1, np):
     def moving_rmsV2(x, window):
         """Moving RMS of 'x' with window size 'window'."""
         return np.sqrt(filtfilt_1(np.ones(window) / window, [1], x * x))
+
     return moving_rmsV1, moving_rmsV2
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Let's filter electromyographic data:
-        """
-    )
+    mo.md(r"""
+    Let's filter electromyographic data:
+    """)
     return
 
 
@@ -893,13 +838,11 @@ def _(data, plt, time, y1_1, y2_3):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Similar, but not the same, results.
-        An advantage of the filter employing the convolution method is that it behaves better to abrupt changes in the data, such as when filtering data that change from a baseline at zero to large positive values. The filter with the `filter` or `filtfilt` function would introduce negative values in this case.  
-        Another advantage for the convolution method is that it is much faster:
-        """
-    )
+    mo.md(r"""
+    Similar, but not the same, results.
+    An advantage of the filter employing the convolution method is that it behaves better to abrupt changes in the data, such as when filtering data that change from a baseline at zero to large positive values. The filter with the `filter` or `filtfilt` function would introduce negative values in this case.<br>
+    Another advantage for the convolution method is that it is much faster:
+    """)
     return
 
 
@@ -916,13 +859,11 @@ def _():
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### Moving-median filter
+    mo.md(r"""
+    ### Moving-median filter
 
-        The moving-median filter is similar in concept than the other moving filters but uses the median instead. This filter has a sharper response to abrupt changes in the data than the moving-average filter:
-        """
-    )
+    The moving-median filter is similar in concept than the other moving filters but uses the median instead. This filter has a sharper response to abrupt changes in the data than the moving-average filter:
+    """)
     return
 
 
@@ -947,27 +888,23 @@ def _(np, plt):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### More moving filters
+    mo.md(r"""
+    ### More moving filters
 
-        The library [pandas](https://pandas.pydata.org/) has several types of [moving-filter functions](https://pandas.pydata.org/pandas-docs/version/0.15/computation.html#moving-rolling-statistics-moments).
-        """
-    )
+    The library [pandas](https://pandas.pydata.org/) has several types of [moving-filter functions](https://pandas.pydata.org/pandas-docs/version/0.15/computation.html#moving-rolling-statistics-moments).
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Numerical differentiation of data with noise
+    mo.md(r"""
+    ## Numerical differentiation of data with noise
 
-        How to remove noise from a signal is rarely a trivial task and this problem gets worse with numerical differentiation of the data because the amplitudes of the noise with higher frequencies than the signal are amplified with differentiation (for each differentiation step, the SNR decreases).  
-        To demonstrate this problem, consider the following function representing some experimental data:$f = sin(\omega t) + 0.1sin(10\omega t)$The first component, with large amplitude (1) and small frequency (1 Hz), represents the signal and the second component, with small amplitude (0.1) and large frequency (10 Hz), represents the noise. The signal-to-noise ratio (SNR) for these data is equal to (1/0.1)$^2$= 100. Let's see what happens with the SNR for the first and second derivatives of$f$:$f\:'\:= \omega cos(\omega t) + \omega cos(10\omega t)$$f\:''= -\omega^2 sin(\omega t) - 10\omega^2 sin(10\omega t)$For the first derivative, SNR = 1, and for the second derivative, SNR = 0.01!   
-        The following plots illustrate this problem:
-        """
-    )
+    How to remove noise from a signal is rarely a trivial task and this problem gets worse with numerical differentiation of the data because the amplitudes of the noise with higher frequencies than the signal are amplified with differentiation (for each differentiation step, the SNR decreases).<br>
+    To demonstrate this problem, consider the following function representing some experimental data:$f = sin(\omega t) + 0.1sin(10\omega t)$The first component, with large amplitude (1) and small frequency (1 Hz), represents the signal and the second component, with small amplitude (0.1) and large frequency (10 Hz), represents the noise. The signal-to-noise ratio (SNR) for these data is equal to (1/0.1)$^2$= 100. Let's see what happens with the SNR for the first and second derivatives of$f$:$f\:'\:= \omega cos(\omega t) + \omega cos(10\omega t)$$f\:''= -\omega^2 sin(\omega t) - 10\omega^2 sin(10\omega t)$For the first derivative, SNR = 1, and for the second derivative, SNR = 0.01!<br>
+    The following plots illustrate this problem:
+    """)
     return
 
 
@@ -1007,12 +944,10 @@ def _(np, plt):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Let's see how the use of a low-pass Butterworth filter can attenuate the high-frequency noise and how the derivative is affected.    
-        We will also calculate the [Fourier transform](https://en.wikipedia.org/wiki/Fourier_transform) of these data to look at their frequencies content.
-        """
-    )
+    mo.md(r"""
+    Let's see how the use of a low-pass Butterworth filter can attenuate the high-frequency noise and how the derivative is affected.<br>
+    We will also calculate the [Fourier transform](https://en.wikipedia.org/wiki/Fourier_transform) of these data to look at their frequencies content.
+    """)
     return
 
 
@@ -1039,11 +974,9 @@ def _(np, signal_2):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        And the plots:
-        """
-    )
+    mo.md(r"""
+    And the plots:
+    """)
     return
 
 
@@ -1073,13 +1006,11 @@ def _(freqs, plt, t_3, y2_5, y2dd, y2ddfft, y2fft, y_4, ydd, yddfft, yfft):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Pezzack's benchmark data
+    mo.md(r"""
+    ## Pezzack's benchmark data
 
-        In 1977, Pezzack, Norman and Winter published a paper where they investigated the effects of differentiation and filtering processes on experimental data (the angle of a bar manipulated in space). Since then, these data have became a benchmark to test new algorithms. Let's work with these data (available at [https://isbweb.org/data/pezzack/index.html](https://isbweb.org/data/pezzack/index.html)). The data have the angular displacement measured by video and the angular acceleration  directly measured by an accelerometer, which we will consider as the true acceleration.
-        """
-    )
+    In 1977, Pezzack, Norman and Winter published a paper where they investigated the effects of differentiation and filtering processes on experimental data (the angle of a bar manipulated in space). Since then, these data have became a benchmark to test new algorithms. Let's work with these data (available at [https://isbweb.org/data/pezzack/index.html](https://isbweb.org/data/pezzack/index.html)). The data have the angular displacement measured by video and the angular acceleration  directly measured by an accelerometer, which we will consider as the true acceleration.
+    """)
     return
 
 
@@ -1107,12 +1038,10 @@ def _(aacc, disp, np, plt, time_1):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        The challenge is how to obtain the acceleration using the disclacement data dealing with the noise.   
-        A simple double differentiation of these data will amplify the noise:
-        """
-    )
+    mo.md(r"""
+    The challenge is how to obtain the acceleration using the disclacement data dealing with the noise.<br>
+    A simple double differentiation of these data will amplify the noise:
+    """)
     return
 
 
@@ -1131,25 +1060,23 @@ def _(aacc, disp, dt, np, plt, time_1):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        The source of noise in these data is due to random small errors in the digitization process which occur at each frame, because that the frequency content of the noise is up to half of the sampling frequency, higher the frequency content of the movement being analyzed.   
-        Let's try different filters ([Butterworth](https://en.wikipedia.org/wiki/Butterworth_filter), [Savitzky-Golay](https://en.wikipedia.org/wiki/Savitzky%E2%80%93Golay_smoothing_filter), and [spline](https://en.wikipedia.org/wiki/Spline_function)) to attenuate this noise.  
+    mo.md(r"""
+    The source of noise in these data is due to random small errors in the digitization process which occur at each frame, because that the frequency content of the noise is up to half of the sampling frequency, higher the frequency content of the movement being analyzed.<br>
+    Let's try different filters ([Butterworth](https://en.wikipedia.org/wiki/Butterworth_filter), [Savitzky-Golay](https://en.wikipedia.org/wiki/Savitzky%E2%80%93Golay_smoothing_filter), and [spline](https://en.wikipedia.org/wiki/Spline_function)) to attenuate this noise.
 
-        Both Savitzky-Golay and the spline functions are based on fitting polynomials to the data and they allow to differentiate the polynomials in order to get the derivatives of the data (instead of direct numerical differentiation of the data).  
-        The Savitzky-Golay and the spline functions have the following signatures:  
-        ```python
-        savgol_filter(x, window_length, polyorder, deriv=0, delta=1.0, axis=-1, mode='interp', cval=0.0)    
-        splrep(x, y, w=None, xb=None, xe=None, k=3, task=0, s=None, t=None, full_output=0, per=0, quiet=1)
-        ```
-        And to evaluate the spline derivatives:  
-        ```python
-        splev(x, tck, der=0, ext=0)
-        ```
+    Both Savitzky-Golay and the spline functions are based on fitting polynomials to the data and they allow to differentiate the polynomials in order to get the derivatives of the data (instead of direct numerical differentiation of the data).<br>
+    The Savitzky-Golay and the spline functions have the following signatures:<br>
+    ```python
+    savgol_filter(x, window_length, polyorder, deriv=0, delta=1.0, axis=-1, mode='interp', cval=0.0)
+    splrep(x, y, w=None, xb=None, xe=None, k=3, task=0, s=None, t=None, full_output=0, per=0, quiet=1)
+    ```
+    And to evaluate the spline derivatives:<br>
+    ```python
+    splev(x, tck, der=0, ext=0)
+    ```
 
-        And let's employ the [root-mean-square error (RMSE)](https://en.wikipedia.org/wiki/RMSE) metric to compare their performance:
-        """
-    )
+    And let's employ the [root-mean-square error (RMSE)](https://en.wikipedia.org/wiki/RMSE) metric to compare their performance:
+    """)
     return
 
 
@@ -1173,11 +1100,9 @@ def _(aacc, disp, dt, np, signal_3, time_1):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        And the plots:
-        """
-    )
+    mo.md(r"""
+    And the plots:
+    """)
     return
 
 
@@ -1197,24 +1122,20 @@ def _(aacc, aaccBW, aaccSG, aaccSP, plt, rmseBW, rmseSG, rmseSP, time_1):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        At this case, the Butterworth, Savitzky-Golay, and spline filters produced similar results with good fits to the original curve. However, with all of them, particularly with the spline smoothing, it is necessary some degree of tuning for choosing the right parameters. The Butterworth filter is the easiest one because the cutoff frequency choice sound more familiar for human movement analysis.
-        """
-    )
+    mo.md(r"""
+    At this case, the Butterworth, Savitzky-Golay, and spline filters produced similar results with good fits to the original curve. However, with all of them, particularly with the spline smoothing, it is necessary some degree of tuning for choosing the right parameters. The Butterworth filter is the easiest one because the cutoff frequency choice sound more familiar for human movement analysis.
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Kinematics of a ball toss
+    mo.md(r"""
+    ## Kinematics of a ball toss
 
-        Let's now analyse the kinematic data of a ball tossed to the space. These data were obtained using [Tracker](https://physlets.org/tracker/), which is a free video analysis and modeling tool built on the [Open Source Physics](https://www.compadre.org/osp/) (OSP) Java framework.   
-        The data are from the analysis of the video *balltossout.mov* from the mechanics video collection which can be obtained in the Tracker website.
-        """
-    )
+    Let's now analyse the kinematic data of a ball tossed to the space. These data were obtained using [Tracker](https://physlets.org/tracker/), which is a free video analysis and modeling tool built on the [Open Source Physics](https://www.compadre.org/osp/) (OSP) Java framework.<br>
+    The data are from the analysis of the video *balltossout.mov* from the mechanics video collection which can be obtained in the Tracker website.
+    """)
     return
 
 
@@ -1251,11 +1172,9 @@ def _(plt, t_4, x_3, y_5):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Calculate the velocity and acceleration numerically:
-        """
-    )
+    mo.md(r"""
+    Calculate the velocity and acceleration numerically:
+    """)
     return
 
 
@@ -1296,12 +1215,10 @@ def _(ax2_5, ax_5, ay, ay2, plt, t_4, vx, vx2, vy, vy2, x_3, y_5):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        We can observe the noise, particularly in the derivatives of the data. For example, the vertical acceleration of the ball should be constant, approximately g=9.8 m/s$^2$.   
-        To estimate the acceleration, we can get rid off the noise by filtering the data or, because we know the physics of the phenomenon, we can fit a model to the data. Let's try the latter option.
-        """
-    )
+    mo.md(r"""
+    We can observe the noise, particularly in the derivatives of the data. For example, the vertical acceleration of the ball should be constant, approximately g=9.8 m/s$^2$.<br>
+    To estimate the acceleration, we can get rid off the noise by filtering the data or, because we know the physics of the phenomenon, we can fit a model to the data. Let's try the latter option.
+    """)
     return
 
 
@@ -1314,49 +1231,44 @@ def _(np, t_4, y_5):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        A good estimation but is seems there is a problem with the video because the acceleration at the end seems to increase (see figure above); maybe there is a distortion in the video at its extremity.
+    mo.md(r"""
+    A good estimation but is seems there is a problem with the video because the acceleration at the end seems to increase (see figure above); maybe there is a distortion in the video at its extremity.
 
-        To read more about fitting a model to data (in this case a mathematical equation), read the text [curve fitting](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/CurveFitting.ipynb).
-        """
-    )
+    To read more about fitting a model to data (in this case a mathematical equation), read the text [curve fitting](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/CurveFitting.ipynb).
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## The optimal cutoff frequency
+    mo.md(r"""
+    ## The optimal cutoff frequency
 
-        Probably after reading this tutorial you are wondering how to automatically determine the optimal cutoff frequency that should be employed in a low-pass filter to attenuate as much as possible the noise without compromising the signal content in the data.   
-        This is an important topic in signal processing, particularly in movement science, and we discuss one method for that in the text [Residual analysis to determine the optimal cutoff frequency](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/ResidualAnalysis.ipynb).
-        """
-    )
+    Probably after reading this tutorial you are wondering how to automatically determine the optimal cutoff frequency that should be employed in a low-pass filter to attenuate as much as possible the noise without compromising the signal content in the data.<br>
+    This is an important topic in signal processing, particularly in movement science, and we discuss one method for that in the text [Residual analysis to determine the optimal cutoff frequency](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/ResidualAnalysis.ipynb).
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## References
+    mo.md(r"""
+    ## References
 
-        - David A. Winter (2009) [Biomechanics and motor control of human movement](http://books.google.com.br/books?id=_bFHL08IWfwC). 4th edition. Hoboken: Wiley.
-        - [dspGuru - Digital Signal Processing Central](http://www.dspguru.com/).
-        - Gordon Robertson, Graham Caldwell, Joseph Hamill, Gary Kamen (2013) [Research Methods in Biomechanics](http://books.google.com.br/books?id=gRn8AAAAQBAJ). 2nd Edition. Human Kinetics.  
-        - Pezzack JC, Norman RW, & Winter DA (1977). [An assessment of derivative determining techniques used for motion analysis](http://www.health.uottawa.ca/biomech/courses/apa7305/JB-Pezzack-Norman-Winter-1977.pdf). Journal of Biomechanics, 10, 377-382. [PubMed](http://www.ncbi.nlm.nih.gov/pubmed/893476).
-        - Richard G. Lyons (2010) [Understanding Digital Signal Processing](http://books.google.com.br/books?id=UBU7Y2tpwWUC&hl). 3rd edition. Prentice Hall.  
-        - Robertson DG, Dowling JJ (2003) [Design and responses of Butterworth and critically damped digital filters](https://www.ncbi.nlm.nih.gov/pubmed/14573371). J Electromyogr Kinesiol. 13(6), 569-573.
-        """
-    )
+    - David A. Winter (2009) [Biomechanics and motor control of human movement](http://books.google.com.br/books?id=_bFHL08IWfwC). 4th edition. Hoboken: Wiley.
+    - [dspGuru - Digital Signal Processing Central](http://www.dspguru.com/).
+    - Gordon Robertson, Graham Caldwell, Joseph Hamill, Gary Kamen (2013) [Research Methods in Biomechanics](http://books.google.com.br/books?id=gRn8AAAAQBAJ). 2nd Edition. Human Kinetics.
+    - Pezzack JC, Norman RW, & Winter DA (1977). [An assessment of derivative determining techniques used for motion analysis](http://www.health.uottawa.ca/biomech/courses/apa7305/JB-Pezzack-Norman-Winter-1977.pdf). Journal of Biomechanics, 10, 377-382. [PubMed](http://www.ncbi.nlm.nih.gov/pubmed/893476).
+    - Richard G. Lyons (2010) [Understanding Digital Signal Processing](http://books.google.com.br/books?id=UBU7Y2tpwWUC&hl). 3rd edition. Prentice Hall.
+    - Robertson DG, Dowling JJ (2003) [Design and responses of Butterworth and critically damped digital filters](https://www.ncbi.nlm.nih.gov/pubmed/14573371). J Electromyogr Kinesiol. 13(6), 569-573.
+    """)
     return
 
 
 @app.cell
 def _():
     import marimo as mo
+
     return (mo,)
 
 

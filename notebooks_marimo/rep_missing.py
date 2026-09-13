@@ -1,20 +1,18 @@
 import marimo
 
-__generated_with = "0.13.15"
+__generated_with = "0.24.2"
 app = marimo.App()
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        # Replace missing data in different ways
+    mo.md(r"""
+    # Replace missing data in different ways
 
-        > Marcos Duarte  
-        > Laboratory of Biomechanics and Motor Control ([http://demotu.org/](http://demotu.org/))  
-        > Federal University of ABC, Brazil
-        """
-    )
+    > Marcos Duarte<br>
+    > Laboratory of Biomechanics and Motor Control ([http://demotu.org/](http://demotu.org/))<br>
+    > Federal University of ABC, Brazil
+    """)
     return
 
 
@@ -28,21 +26,20 @@ def _():
     # '%autoreload 2' command supported automatically in marimo
     sys.path.insert(1, r'./../functions')
     from rep_missing import rep_missing
+
     return np, rep_missing
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        The function `rep_missing.py` replaces missing data in different ways.  
+    mo.md(r"""
+    The function `rep_missing.py` replaces missing data in different ways.
 
-        The signature of `rep_missing.py` is:
-        ```python
-        y = rep_missing(x, value=np.nan, new_value='interp', max_alert=100)
-        ```
-        """
-    )
+    The signature of `rep_missing.py` is:
+    ```python
+    y = rep_missing(x, value=np.nan, new_value='interp', max_alert=100)
+    ```
+    """)
     return
 
 
@@ -114,11 +111,9 @@ def _(detect_seq, x):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Function `rep_missing.py`
-        """
-    )
+    mo.md(r"""
+    ## Function `rep_missing.py`
+    """)
     return
 
 
@@ -153,13 +148,13 @@ def _(np):
             Minimal number of sequential data for a message to be printed with
             information about the continuous missing data.
             Set to 0 to not print any message.
-        
+    
         Returns
         -------
         y : 1D numpy array_like
             1D array similar to x but with missing data replaced according
             to value or method in new_value.
-            
+        
         References
         ----------
         .. [1] http://nbviewer.jupyter.org/github/demotu/BMC/blob/master/notebooks/rep_missing.ipynb
@@ -184,12 +179,14 @@ def _(np):
                 y[idx] = np.nan
                 (y, t, indie) = tnorm(y, step=0, k=1, smooth=0, nan_at_ext='replace')
         return y
+
     return (detect_seq,)
 
 
 @app.cell
 def _():
     import marimo as mo
+
     return (mo,)
 
 

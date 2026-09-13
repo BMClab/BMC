@@ -1,41 +1,35 @@
 import marimo
 
-__generated_with = "0.13.15"
+__generated_with = "0.24.2"
 app = marimo.App()
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        # Postural Sway: Rambling and Trembling decomposition of the COP
+    mo.md(r"""
+    # Postural Sway: Rambling and Trembling decomposition of the COP
 
-        > Marcos Duarte  
-        > [Laboratory of Biomechanics and Motor Control](http://pesquisa.ufabc.edu.br/bmclab/)  
-        > Federal University of ABC, Brazil
-        """
-    )
+    > Marcos Duarte<br>
+    > [Laboratory of Biomechanics and Motor Control](http://pesquisa.ufabc.edu.br/bmclab/)<br>
+    > Federal University of ABC, Brazil
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        <h1>Contents<span class="tocSkip"></span></h1>
-        <div class="toc"><ul class="toc-item"><li><span><a href="#Import-necessary-Python-libraries-and-configure-the-environment" data-toc-modified-id="Import-necessary-Python-libraries-and-configure-the-environment-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Import necessary Python libraries and configure the environment</a></span></li><li><span><a href="#Hypothesis-about-the-human-postural-control-(Zatsiorsky)" data-toc-modified-id="Hypothesis-about-the-human-postural-control-(Zatsiorsky)-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Hypothesis about the human postural control (Zatsiorsky)</a></span><ul class="toc-item"><li><span><a href="#Findings-supporting-a-two-subsystems-control" data-toc-modified-id="Findings-supporting-a-two-subsystems-control-2.1"><span class="toc-item-num">2.1&nbsp;&nbsp;</span>Findings supporting a two-subsystems control</a></span></li><li><span><a href="#Force-fields-during-quiet-standing" data-toc-modified-id="Force-fields-during-quiet-standing-2.2"><span class="toc-item-num">2.2&nbsp;&nbsp;</span>Force fields during quiet standing</a></span></li><li><span><a href="#Prolonged-Standing" data-toc-modified-id="Prolonged-Standing-2.3"><span class="toc-item-num">2.3&nbsp;&nbsp;</span>Prolonged Standing</a></span></li><li><span><a href="#Postural-sway:-a-fractal-process" data-toc-modified-id="Postural-sway:-a-fractal-process-2.4"><span class="toc-item-num">2.4&nbsp;&nbsp;</span>Postural sway: a fractal process</a></span></li></ul></li><li><span><a href="#Rambling-and-Trembling-decomposition-of-the-COP" data-toc-modified-id="Rambling-and-Trembling-decomposition-of-the-COP-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Rambling and Trembling decomposition of the COP</a></span><ul class="toc-item"><li><span><a href="#Rambling-and-Trembling-during-quiet-standing" data-toc-modified-id="Rambling-and-Trembling-during-quiet-standing-3.1"><span class="toc-item-num">3.1&nbsp;&nbsp;</span>Rambling and Trembling during quiet standing</a></span></li><li><span><a href="#Balance-maintenance-according-to-the-Rambling-and-Trembling-hypothesis" data-toc-modified-id="Balance-maintenance-according-to-the-Rambling-and-Trembling-hypothesis-3.2"><span class="toc-item-num">3.2&nbsp;&nbsp;</span>Balance maintenance according to the Rambling and Trembling hypothesis</a></span></li><li><span><a href="#Decomposition-based-on-the-instant-equilibrium-point-hypothesis" data-toc-modified-id="Decomposition-based-on-the-instant-equilibrium-point-hypothesis-3.3"><span class="toc-item-num">3.3&nbsp;&nbsp;</span>Decomposition based on the instant-equilibrium-point hypothesis</a></span></li><li><span><a href="#Python-functions" data-toc-modified-id="Python-functions-3.4"><span class="toc-item-num">3.4&nbsp;&nbsp;</span>Python functions</a></span></li><li><span><a href="#Load-some-postural-sway-data" data-toc-modified-id="Load-some-postural-sway-data-3.5"><span class="toc-item-num">3.5&nbsp;&nbsp;</span>Load some postural sway data</a></span></li><li><span><a href="#Running-the-rambling-trembling-decomposition" data-toc-modified-id="Running-the-rambling-trembling-decomposition-3.6"><span class="toc-item-num">3.6&nbsp;&nbsp;</span>Running the rambling-trembling decomposition</a></span></li><li><span><a href="#Run-the-rambling-trembling-decomposition-for-a-sample-of-subjects" data-toc-modified-id="Run-the-rambling-trembling-decomposition-for-a-sample-of-subjects-3.7"><span class="toc-item-num">3.7&nbsp;&nbsp;</span>Run the rambling-trembling decomposition for a sample of subjects</a></span><ul class="toc-item"><li><span><a href="#The-results-were-saved-locally,-we-can-load-it-after-the-first-run" data-toc-modified-id="The-results-were-saved-locally,-we-can-load-it-after-the-first-run-3.7.1"><span class="toc-item-num">3.7.1&nbsp;&nbsp;</span>The results were saved locally, we can load it after the first run</a></span></li></ul></li><li><span><a href="#Data-description" data-toc-modified-id="Data-description-3.8"><span class="toc-item-num">3.8&nbsp;&nbsp;</span>Data description</a></span></li><li><span><a href="#Data-visualization" data-toc-modified-id="Data-visualization-3.9"><span class="toc-item-num">3.9&nbsp;&nbsp;</span>Data visualization</a></span></li></ul></li><li><span><a href="#The-COP-COGv-decomposition" data-toc-modified-id="The-COP-COGv-decomposition-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>The COP-COGv decomposition</a></span><ul class="toc-item"><li><span><a href="#Run-the-COP-COGv-decomposition-for-the-same-subjects" data-toc-modified-id="Run-the-COP-COGv-decomposition-for-the-same-subjects-4.1"><span class="toc-item-num">4.1&nbsp;&nbsp;</span>Run the COP-COGv decomposition for the same subjects</a></span></li></ul></li><li><span><a href="#References" data-toc-modified-id="References-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>References</a></span></li><li><span><a href="#Careful-using-RMS-as-measurement-of-the-components-amplitude" data-toc-modified-id="Careful-using-RMS-as-measurement-of-the-components-amplitude-6"><span class="toc-item-num">6&nbsp;&nbsp;</span>Careful using RMS as measurement of the components amplitude</a></span></li></ul></div>
-        """
-    )
+    mo.md(r"""
+    <h1>Contents<span class="tocSkip"></span></h1>
+    <div class="toc"><ul class="toc-item"><li><span><a href="#Import-necessary-Python-libraries-and-configure-the-environment" data-toc-modified-id="Import-necessary-Python-libraries-and-configure-the-environment-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Import necessary Python libraries and configure the environment</a></span></li><li><span><a href="#Hypothesis-about-the-human-postural-control-(Zatsiorsky)" data-toc-modified-id="Hypothesis-about-the-human-postural-control-(Zatsiorsky)-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Hypothesis about the human postural control (Zatsiorsky)</a></span><ul class="toc-item"><li><span><a href="#Findings-supporting-a-two-subsystems-control" data-toc-modified-id="Findings-supporting-a-two-subsystems-control-2.1"><span class="toc-item-num">2.1&nbsp;&nbsp;</span>Findings supporting a two-subsystems control</a></span></li><li><span><a href="#Force-fields-during-quiet-standing" data-toc-modified-id="Force-fields-during-quiet-standing-2.2"><span class="toc-item-num">2.2&nbsp;&nbsp;</span>Force fields during quiet standing</a></span></li><li><span><a href="#Prolonged-Standing" data-toc-modified-id="Prolonged-Standing-2.3"><span class="toc-item-num">2.3&nbsp;&nbsp;</span>Prolonged Standing</a></span></li><li><span><a href="#Postural-sway:-a-fractal-process" data-toc-modified-id="Postural-sway:-a-fractal-process-2.4"><span class="toc-item-num">2.4&nbsp;&nbsp;</span>Postural sway: a fractal process</a></span></li></ul></li><li><span><a href="#Rambling-and-Trembling-decomposition-of-the-COP" data-toc-modified-id="Rambling-and-Trembling-decomposition-of-the-COP-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Rambling and Trembling decomposition of the COP</a></span><ul class="toc-item"><li><span><a href="#Rambling-and-Trembling-during-quiet-standing" data-toc-modified-id="Rambling-and-Trembling-during-quiet-standing-3.1"><span class="toc-item-num">3.1&nbsp;&nbsp;</span>Rambling and Trembling during quiet standing</a></span></li><li><span><a href="#Balance-maintenance-according-to-the-Rambling-and-Trembling-hypothesis" data-toc-modified-id="Balance-maintenance-according-to-the-Rambling-and-Trembling-hypothesis-3.2"><span class="toc-item-num">3.2&nbsp;&nbsp;</span>Balance maintenance according to the Rambling and Trembling hypothesis</a></span></li><li><span><a href="#Decomposition-based-on-the-instant-equilibrium-point-hypothesis" data-toc-modified-id="Decomposition-based-on-the-instant-equilibrium-point-hypothesis-3.3"><span class="toc-item-num">3.3&nbsp;&nbsp;</span>Decomposition based on the instant-equilibrium-point hypothesis</a></span></li><li><span><a href="#Python-functions" data-toc-modified-id="Python-functions-3.4"><span class="toc-item-num">3.4&nbsp;&nbsp;</span>Python functions</a></span></li><li><span><a href="#Load-some-postural-sway-data" data-toc-modified-id="Load-some-postural-sway-data-3.5"><span class="toc-item-num">3.5&nbsp;&nbsp;</span>Load some postural sway data</a></span></li><li><span><a href="#Running-the-rambling-trembling-decomposition" data-toc-modified-id="Running-the-rambling-trembling-decomposition-3.6"><span class="toc-item-num">3.6&nbsp;&nbsp;</span>Running the rambling-trembling decomposition</a></span></li><li><span><a href="#Run-the-rambling-trembling-decomposition-for-a-sample-of-subjects" data-toc-modified-id="Run-the-rambling-trembling-decomposition-for-a-sample-of-subjects-3.7"><span class="toc-item-num">3.7&nbsp;&nbsp;</span>Run the rambling-trembling decomposition for a sample of subjects</a></span><ul class="toc-item"><li><span><a href="#The-results-were-saved-locally,-we-can-load-it-after-the-first-run" data-toc-modified-id="The-results-were-saved-locally,-we-can-load-it-after-the-first-run-3.7.1"><span class="toc-item-num">3.7.1&nbsp;&nbsp;</span>The results were saved locally, we can load it after the first run</a></span></li></ul></li><li><span><a href="#Data-description" data-toc-modified-id="Data-description-3.8"><span class="toc-item-num">3.8&nbsp;&nbsp;</span>Data description</a></span></li><li><span><a href="#Data-visualization" data-toc-modified-id="Data-visualization-3.9"><span class="toc-item-num">3.9&nbsp;&nbsp;</span>Data visualization</a></span></li></ul></li><li><span><a href="#The-COP-COGv-decomposition" data-toc-modified-id="The-COP-COGv-decomposition-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>The COP-COGv decomposition</a></span><ul class="toc-item"><li><span><a href="#Run-the-COP-COGv-decomposition-for-the-same-subjects" data-toc-modified-id="Run-the-COP-COGv-decomposition-for-the-same-subjects-4.1"><span class="toc-item-num">4.1&nbsp;&nbsp;</span>Run the COP-COGv decomposition for the same subjects</a></span></li></ul></li><li><span><a href="#References" data-toc-modified-id="References-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>References</a></span></li><li><span><a href="#Careful-using-RMS-as-measurement-of-the-components-amplitude" data-toc-modified-id="Careful-using-RMS-as-measurement-of-the-components-amplitude-6"><span class="toc-item-num">6&nbsp;&nbsp;</span>Careful using RMS as measurement of the components amplitude</a></span></li></ul></div>
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Import necessary Python libraries and configure the environment
-        """
-    )
+    mo.md(r"""
+    ## Import necessary Python libraries and configure the environment
+    """)
     return
 
 
@@ -60,126 +54,98 @@ def _():
     from IPython.display import display, Image, IFrame
     import ipywidgets
     from ipywidgets import FloatProgress, interactive
-    return (
-        FloatProgress,
-        IFrame,
-        Image,
-        display,
-        gridspec,
-        np,
-        os,
-        pd,
-        plt,
-        sns,
-    )
+
+    return FloatProgress, IFrame, display, gridspec, np, os, pd, plt, sns
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Hypothesis about the human postural control (Zatsiorsky)
+    mo.md(r"""
+    ## Hypothesis about the human postural control (Zatsiorsky)
 
-        The control system for equilibrium of the human body includes two subsystems:  
-         1. the first one determining a reference position with respect to which the body equilibrium is maintained.  
-         2. the second one maintaining equilibrium about the pre-selected reference point.
-        """
-    )
+    The control system for equilibrium of the human body includes two subsystems:
+     1. the first one determining a reference position with respect to which the body equilibrium is maintained.
+     2. the second one maintaining equilibrium about the pre-selected reference point.
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### Findings supporting a two-subsystems control
+    mo.md(r"""
+    ### Findings supporting a two-subsystems control
 
-        > Gurfinkel et al. (1995) Kinesthetic reference for human orthograde posture. Neuroscience, 68, 229.  
+    > Gurfinkel et al. (1995) Kinesthetic reference for human orthograde posture. Neuroscience, 68, 229.
 
-        The supporting surface where the subjects stood was tilted slowly (0.04$^o/s$).  
-        During the tilting, **small high frequency oscillations** of the body were superimposed on a **large slow body movements**.  
-        The usual process of stabilization of the body continued, but the **instant equilibrium** was maintained relative to a **slowly changing position**, rather than around a fixed set point.
+    The supporting surface where the subjects stood was tilted slowly (0.04$^o/s$).<br>
+    During the tilting, **small high frequency oscillations** of the body were superimposed on a **large slow body movements**.<br>
+    The usual process of stabilization of the body continued, but the **instant equilibrium** was maintained relative to a **slowly changing position**, rather than around a fixed set point.
 
-        > See Zatsiorsky & Duarte (2000), for a review about findings supporting a two-subsystems control.
-        """
-    )
+    > See Zatsiorsky & Duarte (2000), for a review about findings supporting a two-subsystems control.
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### Force fields during quiet standing
-        """
-    )
+    mo.md(r"""
+    ### Force fields during quiet standing
+    """)
     return
 
 
 @app.cell
 def _(mo):
-    mo.md(
-        r"""
-        <figure><img src="https://github.com/BMClab/BMC/blob/master/images/forcevectors.png?raw=1" width="500" alt="Force vectors"/></figure>
-        """
-    )
+    mo.md(r"""
+    <figure><img src="https://github.com/BMClab/BMC/blob/master/images/forcevectors.png?raw=1" width="500" alt="Force vectors"/></figure>
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### Prolonged Standing
-        """
-    )
+    mo.md(r"""
+    ### Prolonged Standing
+    """)
     return
 
 
 @app.cell
 def _(mo):
-    mo.md(
-        r"""
-        <figure><img src="https://github.com/BMClab/BMC/blob/master/images/prolongedstanding.png?raw=1" width="600" alt="Prolonged standing"/></figure>
-        """
-    )
+    mo.md(r"""
+    <figure><img src="https://github.com/BMClab/BMC/blob/master/images/prolongedstanding.png?raw=1" width="600" alt="Prolonged standing"/></figure>
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### Postural sway: a fractal process
-        """
-    )
+    mo.md(r"""
+    ### Postural sway: a fractal process
+    """)
     return
 
 
 @app.cell
 def _(mo):
-    mo.md(
-        r"""
-        <figure><img src="https://github.com/BMClab/BMC/blob/master/images/fractal.png?raw=1" width="500" alt="Fractal"/></figure>
+    mo.md(r"""
+    <figure><img src="https://github.com/BMClab/BMC/blob/master/images/fractal.png?raw=1" width="500" alt="Fractal"/></figure>
 
-        Duarte & Zatsiorsky (2000)
-        """
-    )
+    Duarte & Zatsiorsky (2000)
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Rambling and Trembling decomposition of the COP
+    mo.md(r"""
+    ## Rambling and Trembling decomposition of the COP
 
-        The reference point migration is called **rambling** and the COP migration around the reference was coined **trembling**.
+    The reference point migration is called **rambling** and the COP migration around the reference was coined **trembling**.
 
-        - Zatsiorsky VM, Duarte M (1999) Instant equilibrium point and its migration in standing tasks: Rambling and trembling components of the stabilogram. Motor Control, 3, 28. [PDF](http://demotu.org/pubs/mc99.pdf).  
-        - Zatsiorsky VM, Duarte M (2000) Rambling and trembling in quiet standing. Motor Control, 2, 185. [PDF](http://demotu.org/pubs/e00.pdf).  
-        """
-    )
+    - Zatsiorsky VM, Duarte M (1999) Instant equilibrium point and its migration in standing tasks: Rambling and trembling components of the stabilogram. Motor Control, 3, 28. [PDF](http://demotu.org/pubs/mc99.pdf).
+    - Zatsiorsky VM, Duarte M (2000) Rambling and trembling in quiet standing. Motor Control, 2, 185. [PDF](http://demotu.org/pubs/e00.pdf).
+    """)
     return
 
 
@@ -197,62 +163,52 @@ def _(IFrame):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### Rambling and Trembling during quiet standing
-        """
-    )
+    mo.md(r"""
+    ### Rambling and Trembling during quiet standing
+    """)
     return
 
 
 @app.cell
 def _(mo):
-    mo.md(
-        r"""
-        <figure><img src="https://github.com/BMClab/BMC/blob/master/images/rambtremb.png?raw=1" width="600" alt="Rambling and Trembling"/></figure>
-        """
-    )
+    mo.md(r"""
+    <figure><img src="https://github.com/BMClab/BMC/blob/master/images/rambtremb.png?raw=1" width="600" alt="Rambling and Trembling"/></figure>
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-         ### Balance maintenance according to the Rambling and Trembling hypothesis
- 
-         1. The CNS specifies an intended position of the body. The intended position is specified by a reference point on the supporting surface with respect to which body equilibrium is instantly maintained.  
-         2. The reference point migrates and can be considered a moving attracting point.  
-         3. The body sways because of two reasons: the migration of the reference point and the deviation away from the reference point.  
-         4. When the deflection is not too large, the restoring force is due to the ‘apparent intrinsic stiffness’ of the muscles. 
-        """
-    )
+    mo.md(r"""
+    ### Balance maintenance according to the Rambling and Trembling hypothesis
+
+    1. The CNS specifies an intended position of the body. The intended position is specified by a reference point on the supporting surface with respect to which body equilibrium is instantly maintained.
+    2. The reference point migrates and can be considered a moving attracting point.
+    3. The body sways because of two reasons: the migration of the reference point and the deviation away from the reference point.
+    4. When the deflection is not too large, the restoring force is due to the ‘apparent intrinsic stiffness’ of the muscles.
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### Decomposition based on the instant-equilibrium-point hypothesis
+    mo.md(r"""
+    ### Decomposition based on the instant-equilibrium-point hypothesis
 
-        The rambling and trembling components of the COP trajectory were computed in the following way:  
-         1. The instants when$F_{hor}$changes its sign from positive (negative) to negative (positive) are determined.  
-         2. The COP positions at these instants (the instant equilibrium points, IEP, or zero-force points) are determined.  
-         3. To obtain an estimate of the rambling trajectory, the IEP discrete positions are interpolated by cubic spline functions.  
-         4. To obtain the trembling trajectory, the deviation of the COP from the rambling trajectory is determined.
-        """
-    )
+    The rambling and trembling components of the COP trajectory were computed in the following way:
+     1. The instants when$F_{hor}$changes its sign from positive (negative) to negative (positive) are determined.
+     2. The COP positions at these instants (the instant equilibrium points, IEP, or zero-force points) are determined.
+     3. To obtain an estimate of the rambling trajectory, the IEP discrete positions are interpolated by cubic spline functions.
+     4. To obtain the trembling trajectory, the deviation of the COP from the rambling trajectory is determined.
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### Python functions
-        """
-    )
+    mo.md(r"""
+    ### Python functions
+    """)
     return
 
 
@@ -263,17 +219,18 @@ def _(np):
         Zero-crossing detection, index before a zero cross.
         """
 
-    
+
         y = np.asarray(y)
-    
+
         if method == 'no_zero':
             # doesn't detect if a value is exactly zero:
             inds0 = np.where(y[:-1] * y[1:] < 0)[0]
         else:
             # detects if a value is exactly zero:
             inds0 = np.where(np.diff(np.signbit(y)))[0]  
-        
+    
         return inds0
+
     return (detect_zerocross,)
 
 
@@ -283,36 +240,35 @@ def _(detect_zerocross, np):
         """
         Center of pressure decomposition based on the IEP hypothesis.
         """
-    
+
         from scipy.interpolate import UnivariateSpline
-    
+
         force = force - np.mean(force)
-    
+
         # detect zeros
         inds0 = detect_zerocross(force)
-    
+
         # select data between first and last zeros
         time = time[inds0[0]:inds0[-1]+1]
         force = force[inds0[0]:inds0[-1]+1]
         cop = cop[inds0[0]:inds0[-1]+1]
-    
+
         # IEP0 & IEP:
         iep0 = inds0 - inds0[0]
         spl = UnivariateSpline(time[iep0], cop[iep0], k=3, s=0)
         rambling = spl(time)
         trembling = cop - rambling
-    
+
         return rambling, trembling, iep0, inds0
+
     return (iep_decomp,)
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### Load some postural sway data
-        """
-    )
+    mo.md(r"""
+    ### Load some postural sway data
+    """)
     return
 
 
@@ -360,6 +316,7 @@ def _(gridspec, plt):
         ax5.locator_params(axis='both', nbins=5)
         plt.suptitle('Ground reaction force data during quiet standing', fontsize=20, y=1)
         plt.show()
+
     return (plot_grf,)
 
 
@@ -371,11 +328,9 @@ def _(grf, plot_grf):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### Running the rambling-trembling decomposition
-        """
-    )
+    mo.md(r"""
+    ### Running the rambling-trembling decomposition
+    """)
     return
 
 
@@ -399,7 +354,7 @@ def _(gridspec, plt):
         ax2 = plt.subplot(gs1[1])
         ax3 = plt.subplot(gs1[2])
         ax4 = plt.subplot(gs1[3])
-    
+
         ax1.set_ylabel('F (%s)' %Funits)
         ax1.set_xticklabels([]), ax1.locator_params(axis='y', nbins=4)
         ax1.yaxis.set_label_coords(-.05, 0.5)
@@ -419,10 +374,11 @@ def _(gridspec, plt):
         ax3.plot(t, rambling, linewidth=3)
         ax3.plot(t, COPx, 'k', linewidth=.5)
         ax4.plot(t, trembling, linewidth=3)
-    
+
         plt.suptitle('Rambling & Trembling decomposition during quiet standing', fontsize=18, y=1)
 
         plt.show()
+
     return (plot_rambtremb,)
 
 
@@ -434,17 +390,15 @@ def _(COPx2, Fx2, iep0, inds0, plot_rambtremb, rambling, t2, trembling):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### Run the rambling-trembling decomposition for a sample of subjects
+    mo.md(r"""
+    ### Run the rambling-trembling decomposition for a sample of subjects
 
-        > Santos DA, Duarte M. (2016) A public data set of human balance evaluations. PeerJ4:e2648 https://doi.org/10.7717/peerj.2648.
+    > Santos DA, Duarte M. (2016) A public data set of human balance evaluations. PeerJ4:e2648 https://doi.org/10.7717/peerj.2648.
 
-        The data set comprises signals from the force platform (raw data for the force, moments of forces, and centers of pressure) of 163 subjects plus one file with information about the subjects and balance conditions and the results of the other evaluations.   
+    The data set comprises signals from the force platform (raw data for the force, moments of forces, and centers of pressure) of 163 subjects plus one file with information about the subjects and balance conditions and the results of the other evaluations.
 
-        Subject’s balance was evaluated by posturography during standing still for 60 s in four different conditions where vision and the standing surface were manipulated.
-        """
-    )
+    Subject’s balance was evaluated by posturography during standing still for 60 s in four different conditions where vision and the standing surface were manipulated.
+    """)
     return
 
 
@@ -483,11 +437,9 @@ def _(BDSinfo, FloatProgress, display, iep_decomp, np, os, path2_1, pd):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        #### The results were saved locally, we can load it after the first run
-        """
-    )
+    mo.md(r"""
+    #### The results were saved locally, we can load it after the first run
+    """)
     return
 
 
@@ -501,11 +453,9 @@ def _(os, path2_1, pd):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Because we have 3 trials per condition for each subject, let's take the median across trials for each subject as representative of the subject:
-        """
-    )
+    mo.md(r"""
+    Because we have 3 trials per condition for each subject, let's take the median across trials for each subject as representative of the subject:
+    """)
     return
 
 
@@ -518,11 +468,9 @@ def _(BDSinfo_1, pd):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        We may choose to not consider the subjects with disabilities because their numbers are unbalanced in the age groups:
-        """
-    )
+    mo.md(r"""
+    We may choose to not consider the subjects with disabilities because their numbers are unbalanced in the age groups:
+    """)
     return
 
 
@@ -536,11 +484,9 @@ def _(BDSinfo_2, display, pd):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### Data description
-        """
-    )
+    mo.md(r"""
+    ### Data description
+    """)
     return
 
 
@@ -553,11 +499,9 @@ def _(BDSinfo_2, np, pd):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### Data visualization
-        """
-    )
+    mo.md(r"""
+    ### Data visualization
+    """)
     return
 
 
@@ -578,6 +522,7 @@ def _(np, plt, sns):
                          kind='point', dodge=True, sharey=False, height=3, aspect=1.6)
         g2.set_axis_labels('Vision', 'Trembling (cm)'), g2.set_titles('','')
         plt.show()
+
     return (plot_summary,)
 
 
@@ -589,17 +534,15 @@ def _(BDSinfo_2, plot_summary):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## The COP-COGv decomposition
+    mo.md(r"""
+    ## The COP-COGv decomposition
 
-        It's possible to estimate the COG vertical projection (COGv or GL) from the COP displacement based on the inverted-pendulum model of the body on quiet standing.  
+    It's possible to estimate the COG vertical projection (COGv or GL) from the COP displacement based on the inverted-pendulum model of the body on quiet standing.
 
-        See the notebook [The inverted pendulum model of the human standing posture](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/IP_Model.ipynb)
+    See the notebook [The inverted pendulum model of the human standing posture](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/IP_Model.ipynb)
 
-        Let's do some analysis with that.
-        """
-    )
+    Let's do some analysis with that.
+    """)
     return
 
 
@@ -614,11 +557,9 @@ def _(COPx2_1, Fz_1, np, plt):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### Run the COP-COGv decomposition for the same subjects
-        """
-    )
+    mo.md(r"""
+    ### Run the COP-COGv decomposition for the same subjects
+    """)
     return
 
 
@@ -685,6 +626,7 @@ def _(np, plt, sns):
                          kind='point', dodge=True, sharey=False, height=3, aspect=1.6)
         g2.set_axis_labels('Vision', 'COP-COGv (cm)'), g2.set_titles('','')
         plt.show()
+
     return (plot_summary2,)
 
 
@@ -696,36 +638,30 @@ def _(BDSinfo_3, plot_summary2):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## References
+    mo.md(r"""
+    ## References
 
-        - Gurfinkel et al. (1995) Kinesthetic reference for human orthograde posture. Neuroscience, 68, 229.  
-        - Santos DA, Duarte M. (2016) A public data set of human balance evaluations. PeerJ4:e2648 https://doi.org/10.7717/peerj.2648.  
-        - Zatsiorsky VM, Duarte M (1999) Instant equilibrium point and its migration in standing tasks: Rambling and trembling components of the stabilogram. Motor Control, 3, 28. [PDF](http://demotu.org/pubs/mc99.pdf).  
-        - Zatsiorsky VM, Duarte M (2000) Rambling and trembling in quiet standing. Motor Control, 2, 185. [PDF](http://demotu.org/pubs/e00.pdf).  
-        """
-    )
+    - Gurfinkel et al. (1995) Kinesthetic reference for human orthograde posture. Neuroscience, 68, 229.
+    - Santos DA, Duarte M. (2016) A public data set of human balance evaluations. PeerJ4:e2648 https://doi.org/10.7717/peerj.2648.
+    - Zatsiorsky VM, Duarte M (1999) Instant equilibrium point and its migration in standing tasks: Rambling and trembling components of the stabilogram. Motor Control, 3, 28. [PDF](http://demotu.org/pubs/mc99.pdf).
+    - Zatsiorsky VM, Duarte M (2000) Rambling and trembling in quiet standing. Motor Control, 2, 185. [PDF](http://demotu.org/pubs/e00.pdf).
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        # Obrigado
-        """
-    )
+    mo.md(r"""
+    # Obrigado
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Careful using RMS as measurement of the components amplitude
-        """
-    )
+    mo.md(r"""
+    ## Careful using RMS as measurement of the components amplitude
+    """)
     return
 
 
@@ -757,6 +693,7 @@ def _(np, plt):
 @app.cell
 def _():
     import marimo as mo
+
     return (mo,)
 
 

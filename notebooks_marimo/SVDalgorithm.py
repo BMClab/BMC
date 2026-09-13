@@ -1,39 +1,35 @@
 import marimo
 
-__generated_with = "0.13.15"
+__generated_with = "0.24.2"
 app = marimo.App()
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        # Determining rigid body transformation using the SVD algorithm
+    mo.md(r"""
+    # Determining rigid body transformation using the SVD algorithm
 
-        > Marcos Duarte  
-        > Laboratory of Biomechanics and Motor Control ([http://demotu.org/](http://demotu.org/))  
-        > Federal University of ABC, Brazil
-        """
-    )
+    > Marcos Duarte<br>
+    > Laboratory of Biomechanics and Motor Control ([http://demotu.org/](http://demotu.org/))<br>
+    > Federal University of ABC, Brazil
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Ideally, three non-collinear markers placed on a moving rigid body is everything we need to describe its movement (translation and rotation) in relation to a fixed coordinate system. However, in practical situations of human motion analysis, markers are placed on the soft tissue of a deformable body and this generates artifacts caused by muscle contraction, skin deformation, marker wobbling, etc. In this situation, the use of only three markers can produce unreliable results. It has been shown that four or more markers on the segment followed by a mathematical procedure to calculate the 'best' rigid-body transformation taking into account all these markers produces more robust results (Söderkvist & Wedin 1993; Challis 1995; Cappozzo et al. 1997).  
+    mo.md(r"""
+    Ideally, three non-collinear markers placed on a moving rigid body is everything we need to describe its movement (translation and rotation) in relation to a fixed coordinate system. However, in practical situations of human motion analysis, markers are placed on the soft tissue of a deformable body and this generates artifacts caused by muscle contraction, skin deformation, marker wobbling, etc. In this situation, the use of only three markers can produce unreliable results. It has been shown that four or more markers on the segment followed by a mathematical procedure to calculate the 'best' rigid-body transformation taking into account all these markers produces more robust results (Söderkvist & Wedin 1993; Challis 1995; Cappozzo et al. 1997).
 
-        One mathematical procedure to calculate the transformation with three or more marker positions envolves the use of the [singular value decomposition](http://en.wikipedia.org/wiki/Singular_value_decomposition) (SVD) algorithm from linear algebra. The SVD algorithm decomposes a matrix$\mathbf{M}$(which represents a general transformation between two coordinate systems) into three simple transformations: a rotation$\mathbf{V^T}$, a scaling factor$\mathbf{S}$along the rotated axes and a second rotation$\mathbf{U}$:$\mathbf{M}= \mathbf{U\;S\;V^T}$And the rotation matrix is given by:$\mathbf{R}= \mathbf{U\:V^T}$The matrices$\mathbf{U}$and$\mathbf{V}$are both orthonormal (det =$\pm$1).
+    One mathematical procedure to calculate the transformation with three or more marker positions envolves the use of the [singular value decomposition](http://en.wikipedia.org/wiki/Singular_value_decomposition) (SVD) algorithm from linear algebra. The SVD algorithm decomposes a matrix$\mathbf{M}$(which represents a general transformation between two coordinate systems) into three simple transformations: a rotation$\mathbf{V^T}$, a scaling factor$\mathbf{S}$along the rotated axes and a second rotation$\mathbf{U}$:$\mathbf{M}= \mathbf{U\;S\;V^T}$And the rotation matrix is given by:$\mathbf{R}= \mathbf{U\:V^T}$The matrices$\mathbf{U}$and$\mathbf{V}$are both orthonormal (det =$\pm$1).
 
-        For example, if we have registered the position of four markers placed on a moving segment in 100 different instants and the position of these same markers during, what is known in Biomechanics, a static calibration trial, we would use the SVD algorithm to calculate the 100 rotation matrices (between the static trials and the 100 instants) in order to find the Cardan angles for each instant.   
+    For example, if we have registered the position of four markers placed on a moving segment in 100 different instants and the position of these same markers during, what is known in Biomechanics, a static calibration trial, we would use the SVD algorithm to calculate the 100 rotation matrices (between the static trials and the 100 instants) in order to find the Cardan angles for each instant.
 
-        The function `svdt.py` (its code is shown at the end of this text) determines the rotation matrix ($R$) and the translation vector ($L$) for a rigid body after the following transformation:$B = R*A + L + err$. Where$A$and$B$represent the rigid body in different instants and err is an aleatory noise.$A$and$B$are matrices with the marker coordinates at different instants (at least three non-collinear markers are necessary to determine the 3D transformation).   
-        The matrix$A$can be thought to represent a local coordinate system (but$A$it's not a basis) and matrix$B$the global coordinate system. The operation$P_g = R*P_l + L$calculates the coordinates of the point$P_l$(expressed in the local coordinate system) in the global coordinate system ($P_g$).
-    
-        Let's test the `svdt` function:
-        """
-    )
+    The function `svdt.py` (its code is shown at the end of this text) determines the rotation matrix ($R$) and the translation vector ($L$) for a rigid body after the following transformation:$B = R*A + L + err$. Where$A$and$B$represent the rigid body in different instants and err is an aleatory noise.$A$and$B$are matrices with the marker coordinates at different instants (at least three non-collinear markers are necessary to determine the 3D transformation).<br>
+    The matrix$A$can be thought to represent a local coordinate system (but$A$it's not a basis) and matrix$B$the global coordinate system. The operation$P_g = R*P_l + L$calculates the coordinates of the point$P_l$(expressed in the local coordinate system) in the global coordinate system ($P_g$).
+
+    Let's test the `svdt` function:
+    """)
     return
 
 
@@ -66,17 +62,15 @@ def _(np):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        For the matrix of a pure rotation around the z axis, the element in the first row and second column is$-sin\gamma$, which means the rotation was$90^o$, as expected.
+    mo.md(r"""
+    For the matrix of a pure rotation around the z axis, the element in the first row and second column is$-sin\gamma$, which means the rotation was$90^o$, as expected.
 
-        A typical use of the `svdt` function is to calculate the transformation between$A$and$B$($B = R*A + L$), where$A$is the matrix with the markers data in one instant (the calibration or static trial) and$B$is the matrix with the markers data of more than one instant (the dynamic trial).   
-        Input$A$as a 1D array `[x1, y1, z1, ..., xn, yn, zn]` where `n` is the number of markers and$B$a 2D array with the different instants as rows (like in$A$).   
-        The output$R$has the shape `(3, 3, tn)`, where `tn` is the number of instants,$L$the shape `(tn, 3)`, and$RMSE$the shape `(tn)`. If `tn` is equal to one, the outputs have the same shape as in `svdt` (the last dimension of the outputs above is dropped).   
+    A typical use of the `svdt` function is to calculate the transformation between$A$and$B$($B = R*A + L$), where$A$is the matrix with the markers data in one instant (the calibration or static trial) and$B$is the matrix with the markers data of more than one instant (the dynamic trial).<br>
+    Input$A$as a 1D array `[x1, y1, z1, ..., xn, yn, zn]` where `n` is the number of markers and$B$a 2D array with the different instants as rows (like in$A$).<br>
+    The output$R$has the shape `(3, 3, tn)`, where `tn` is the number of instants,$L$the shape `(tn, 3)`, and$RMSE$the shape `(tn)`. If `tn` is equal to one, the outputs have the same shape as in `svdt` (the last dimension of the outputs above is dropped).
 
-        Let's show this case:
-        """
-    )
+    Let's show this case:
+    """)
     return
 
 
@@ -94,25 +88,21 @@ def _(np, svdt):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## References
+    mo.md(r"""
+    ## References
 
-        - Cappozzo A, Cappello A, Della Croce U, Pensalfini F (1997) [Surface-marker cluster design criteria for 3-D bone movement reconstruction](http://www.ncbi.nlm.nih.gov/pubmed/9401217). IEEE Trans Biomed Eng., 44:1165-1174.
-        - Challis JH (1995). [A procedure for determining rigid body transformation parameters](http://www.ncbi.nlm.nih.gov/pubmed/7601872). Journal of Biomechanics, 28, 733-737.     
-        - Söderkvist I, Wedin PA (1993) [Determining the movements of the skeleton using well-configured markers](http://www.ncbi.nlm.nih.gov/pubmed/8308052). Journal of Biomechanics, 26, 1473-1477.
-        """
-    )
+    - Cappozzo A, Cappello A, Della Croce U, Pensalfini F (1997) [Surface-marker cluster design criteria for 3-D bone movement reconstruction](http://www.ncbi.nlm.nih.gov/pubmed/9401217). IEEE Trans Biomed Eng., 44:1165-1174.
+    - Challis JH (1995). [A procedure for determining rigid body transformation parameters](http://www.ncbi.nlm.nih.gov/pubmed/7601872). Journal of Biomechanics, 28, 733-737.
+    - Söderkvist I, Wedin PA (1993) [Determining the movements of the skeleton using well-configured markers](http://www.ncbi.nlm.nih.gov/pubmed/8308052). Journal of Biomechanics, 26, 1473-1477.
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### Function `svdt.py`
-        """
-    )
+    mo.md(r"""
+    ### Function `svdt.py`
+    """)
     return
 
 
@@ -278,12 +268,14 @@ def _(np):
             err = err + np.sum((Bp - _B[i, :]) ** 2)
         _RMSE = np.sqrt(err / _A.shape[0] / 3)
         return (_R, _L, _RMSE)
+
     return
 
 
 @app.cell
 def _():
     import marimo as mo
+
     return (mo,)
 
 

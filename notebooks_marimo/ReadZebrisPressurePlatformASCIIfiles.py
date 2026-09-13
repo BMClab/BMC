@@ -1,55 +1,49 @@
 import marimo
 
-__generated_with = "0.13.15"
+__generated_with = "0.24.2"
 app = marimo.App()
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        # Read Zebris pressure platform ASCII files
+    mo.md(r"""
+    # Read Zebris pressure platform ASCII files
 
-        Marcos Duarte
-        """
-    )
+    Marcos Duarte
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        The Zebris Medical GmbH (https://www.zebris.de/en/) builds devices for measuring pressure on the foot/platform interface.  
-        The BMClab (http://demotu.org/) has two zebris FDM 1.5 platforms for measuring pressure and each one has the following specs:  
-         - Measuring principle: capacitive force measurement  
-         - Dimensions: 158 x 60.5 x 2.1 cm (L x W x H)  
-         - Sensor area: 149 x 54.2 cm (L x W)  
-         - Number of sensors: 11264  
-         - Physical resolution: 1.4 sensors /cm2  (0.714 cm2)
-         - Sampling frequency: 100 Hz  
-         - Measuring Range: 1 - 120 N/cm2  
-         - Accuracy of the calibrated measuring range: (1 – 80 N/cm2), ±5% (FS)  
-         - Hysteresis: < 3 % (FS)  
- 
-        The two pressure platforms can be synchronized and used as a single 3-m platform.  
+    mo.md(r"""
+    The Zebris Medical GmbH (https://www.zebris.de/en/) builds devices for measuring pressure on the foot/platform interface.<br>
+    The BMClab (http://demotu.org/) has two zebris FDM 1.5 platforms for measuring pressure and each one has the following specs:
+     - Measuring principle: capacitive force measurement
+     - Dimensions: 158 x 60.5 x 2.1 cm (L x W x H)
+     - Sensor area: 149 x 54.2 cm (L x W)
+     - Number of sensors: 11264
+     - Physical resolution: 1.4 sensors /cm2  (0.714 cm2)
+     - Sampling frequency: 100 Hz
+     - Measuring Range: 1 - 120 N/cm2
+     - Accuracy of the calibrated measuring range: (1 – 80 N/cm2), ±5% (FS)
+     - Hysteresis: < 3 % (FS)
 
-        The proprietary software to operate the pressure device saves files in ASCII and binary formats with the pressure data. Here are functions for reading most of the files saved in ASCII format. These files have headers with metadata about the patient and acquisition conditions and the data of pressure, force, or center of pressure  depending on the type of acquisition and chosen option to export the data.
-        """
-    )
+    The two pressure platforms can be synchronized and used as a single 3-m platform.
+
+    The proprietary software to operate the pressure device saves files in ASCII and binary formats with the pressure data. Here are functions for reading most of the files saved in ASCII format. These files have headers with metadata about the patient and acquisition conditions and the data of pressure, force, or center of pressure  depending on the type of acquisition and chosen option to export the data.
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## APD file
+    mo.md(r"""
+    ## APD file
 
-        The .apd file in ASCII contains the metadata and the maximum values of pressure during the trial only at the regions where there were pressure greater than the threshold (1 N/cm2). This file can be used for making insoles.  
-        Here is a typical .apd file:
-        """
-    )
+    The .apd file in ASCII contains the metadata and the maximum values of pressure during the trial only at the regions where there were pressure greater than the threshold (1 N/cm2). This file can be used for making insoles.<br>
+    Here is a typical .apd file:
+    """)
     return
 
 
@@ -74,11 +68,9 @@ def _():
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Here is a function for reading an .apd file from Zebris pressure platform:
-        """
-    )
+    mo.md(r"""
+    Here is a function for reading an .apd file from Zebris pressure platform:
+    """)
     return
 
 
@@ -107,6 +99,7 @@ def _(np):
             print('File %s successfully open.' % filename)
             print('Data has %d rows and %d columns.' % data.shape)
         return (info, data)
+
     return (read_zebris_apd,)
 
 
@@ -118,11 +111,9 @@ def _(filename, read_zebris_apd):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### Simple 2D plot of the raw data
-        """
-    )
+    mo.md(r"""
+    ### Simple 2D plot of the raw data
+    """)
     return
 
 
@@ -149,14 +140,12 @@ def _(data, info, np, plt):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        #### 2D plot with filtering
+    mo.md(r"""
+    #### 2D plot with filtering
 
-        Let's use the matplotlib function [`imshow`](https://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.imshow) for plotting raw and filtered data.  
-        For the difference between `imshow` and `pcolormesh`, see https://stackoverflow.com/questions/21166679/when-to-use-imshow-over-pcolormesh.
-        """
-    )
+    Let's use the matplotlib function [`imshow`](https://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.imshow) for plotting raw and filtered data.<br>
+    For the difference between `imshow` and `pcolormesh`, see https://stackoverflow.com/questions/21166679/when-to-use-imshow-over-pcolormesh.
+    """)
     return
 
 
@@ -177,11 +166,9 @@ def _(cm, data, plt):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        #### 3D plots
-        """
-    )
+    mo.md(r"""
+    #### 3D plots
+    """)
     return
 
 
@@ -201,11 +188,9 @@ def _(X, Y, cm, data, plt):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        #### 3D plot with data filtering
-        """
-    )
+    mo.md(r"""
+    #### 3D plot with data filtering
+    """)
     return
 
 
@@ -239,11 +224,9 @@ def _(X2, Y2, cm, data2, plt):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### Loading several steps of a trial
-        """
-    )
+    mo.md(r"""
+    ### Loading several steps of a trial
+    """)
     return
 
 
@@ -259,6 +242,7 @@ def _(cm, dx, dy):
         _ax.set_title(title)
         _ax.set_xlabel('Y (cm)')
         return _img
+
     return (plot_apd,)
 
 
@@ -278,27 +262,23 @@ def _(path2, plot_apd, plt, read_zebris_apd):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        It seems the Zebris software when exporting the pressure data to .apd files of a trial with a sequence of steps, saves first the data of the right foot and then of the left foot.  
+    mo.md(r"""
+    It seems the Zebris software when exporting the pressure data to .apd files of a trial with a sequence of steps, saves first the data of the right foot and then of the left foot.
 
-        The origin of the pressure platform was at the far right corner in relation to the walking direction of the subject in this trial (see the values at the x and y axes). So, the order of the subject's foot steps were: MDwalk2_4, MDwalk2_1, MDwalk2_3, MDwalk2, and MDwalk2_2.
+    The origin of the pressure platform was at the far right corner in relation to the walking direction of the subject in this trial (see the values at the x and y axes). So, the order of the subject's foot steps were: MDwalk2_4, MDwalk2_1, MDwalk2_3, MDwalk2, and MDwalk2_2.
 
-        The size of the pressure data across steps is not constant, the width varies from 12 to 15 columns and the length varies from 30 to 32 rows of data. Multiply these numbers by 0.846591 cm to have the size of the pressure data in centimeters. Possible reasons for this variation are: 1. foot rotation, 2. differences at how the foot is supported at the ground at each step, and 3. perhaps measurement noise. So, one can't directly compare the images (the pressures), for example, we can't average the data in order to get the mean foot pressure (or other statistics related to the positions of the steps); we will have first to align the data (each step) and account for the different sizes. In image processing, this procedure is part of what is known as [image registration](https://en.wikipedia.org/wiki/Image_registration). For the application of image registration to foot plantar pressure, see Pataky et al. (2008), Oliveira et al. (2010).
+    The size of the pressure data across steps is not constant, the width varies from 12 to 15 columns and the length varies from 30 to 32 rows of data. Multiply these numbers by 0.846591 cm to have the size of the pressure data in centimeters. Possible reasons for this variation are: 1. foot rotation, 2. differences at how the foot is supported at the ground at each step, and 3. perhaps measurement noise. So, one can't directly compare the images (the pressures), for example, we can't average the data in order to get the mean foot pressure (or other statistics related to the positions of the steps); we will have first to align the data (each step) and account for the different sizes. In image processing, this procedure is part of what is known as [image registration](https://en.wikipedia.org/wiki/Image_registration). For the application of image registration to foot plantar pressure, see Pataky et al. (2008), Oliveira et al. (2010).
 
-        For now, given that there are only few steps and they seemed to be similar, we will only transform the images to have the same size.
-        """
-    )
+    For now, given that there are only few steps and they seemed to be similar, we will only transform the images to have the same size.
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### Image resize
-        """
-    )
+    mo.md(r"""
+    ### Image resize
+    """)
     return
 
 
@@ -322,11 +302,9 @@ def _(datas, infos, plot_apd, plt, steps):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        We can now calculate for instance the left and right steps with the maxium pressure of all corresponding steps:
-        """
-    )
+    mo.md(r"""
+    We can now calculate for instance the left and right steps with the maxium pressure of all corresponding steps:
+    """)
     return
 
 
@@ -348,31 +326,28 @@ def _(cm, datas2, np, plt, steps):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        It doesn't work!  
-        We need to perform image registration...
-        """
-    )
+    mo.md(r"""
+    It doesn't work!<br>
+    We need to perform image registration...
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## References
+    mo.md(r"""
+    ## References
 
-        - [Pataky TC1, Goulermas JY, Crompton RH. (2008) A comparison of seven methods of within-subjects rigid-body pedobarographic image registration. J Biomech., 20;41(14):3085-9. doi: 10.1016/j.jbiomech.2008.08.001](https://www.ncbi.nlm.nih.gov/pubmed/18790481).  
-        - [Oliveira FP1, Pataky TC, Tavares JM (2010) Registration of pedobarographic image data in the frequency domain. Comput Methods Biomech Biomed Engin., 13(6):731-40. doi: 10.1080/10255840903573020](https://www.ncbi.nlm.nih.gov/pubmed/20526916). [PDF](http://paginas.fe.up.pt/~tavares/downloads/publications/artigos/CMBBE_13_6_2010.pdf)
-        """
-    )
+    - [Pataky TC1, Goulermas JY, Crompton RH. (2008) A comparison of seven methods of within-subjects rigid-body pedobarographic image registration. J Biomech., 20;41(14):3085-9. doi: 10.1016/j.jbiomech.2008.08.001](https://www.ncbi.nlm.nih.gov/pubmed/18790481).
+    - [Oliveira FP1, Pataky TC, Tavares JM (2010) Registration of pedobarographic image data in the frequency domain. Comput Methods Biomech Biomed Engin., 13(6):731-40. doi: 10.1080/10255840903573020](https://www.ncbi.nlm.nih.gov/pubmed/20526916). [PDF](http://paginas.fe.up.pt/~tavares/downloads/publications/artigos/CMBBE_13_6_2010.pdf)
+    """)
     return
 
 
 @app.cell
 def _():
     import marimo as mo
+
     return (mo,)
 
 

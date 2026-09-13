@@ -1,39 +1,34 @@
 import marimo
 
-__generated_with = "0.13.15"
+__generated_with = "0.24.2"
 app = marimo.App()
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        # Read and write Cortex Motion Analysis Corporation ASCII files
+    mo.md(r"""
+    # Read and write Cortex Motion Analysis Corporation ASCII files
 
-        > Marcos Duarte  
-        > Laboratory of Biomechanics and Motor Control ([http://demotu.org/](http://demotu.org/))  
-        > Federal University of ABC, Brazil
-        """
-    )
+    > Marcos Duarte<br>
+    > Laboratory of Biomechanics and Motor Control ([http://demotu.org/](http://demotu.org/))<br>
+    > Federal University of ABC, Brazil
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Motion Analysis Corporation (MAC, http://www.motionanalysis.com/) builds motion capture systems and their software (e.g., Cortex) generates files in ASCII and binary formats for the different signals (kinematics, analog data, force plate data, etc.). Here are functions for reading most of the files saved in ASCII format. These files have headers with few lines with meta data and the signals are stored in columns and the rows for the different frames (instants of time).
+    mo.md(r"""
+    Motion Analysis Corporation (MAC, http://www.motionanalysis.com/) builds motion capture systems and their software (e.g., Cortex) generates files in ASCII and binary formats for the different signals (kinematics, analog data, force plate data, etc.). Here are functions for reading most of the files saved in ASCII format. These files have headers with few lines with meta data and the signals are stored in columns and the rows for the different frames (instants of time).
 
-        The ".trc" (Track Row Column) file in ASCII contains X-Y-Z position data for the reflective markers from a motion capture trial. The position data for each marker is organized into 3 columns per marker (X, Y and Z position) with each row being a new frame. The position data is relative to the global coordinate system of the capture volume and the position values are in the units used for calibration.
+    The ".trc" (Track Row Column) file in ASCII contains X-Y-Z position data for the reflective markers from a motion capture trial. The position data for each marker is organized into 3 columns per marker (X, Y and Z position) with each row being a new frame. The position data is relative to the global coordinate system of the capture volume and the position values are in the units used for calibration.
 
-        The ".anc" (Analog ASCII Row Column) file contains ASCII analog data in row-column format. The data is derived from ".anb" analog binary files. These binary ".anb" files are generated simultaneously with video ".vc" files if an optional analog input board is used in conjunction with video data capture.
+    The ".anc" (Analog ASCII Row Column) file contains ASCII analog data in row-column format. The data is derived from ".anb" analog binary files. These binary ".anb" files are generated simultaneously with video ".vc" files if an optional analog input board is used in conjunction with video data capture.
 
-        The ".cal" file contains force plate calibration parameters. 
+    The ".cal" file contains force plate calibration parameters.
 
-        The ".forces" file contains force plate data. The data is saved based on the "forcepla.cal" file of the trial and converts the raw force plate data into calibrated forces. The units used are Newtons and Newton-meters and each line in the file equates to one analog sample.
-
-        """
-    )
+    The ".forces" file contains force plate data. The data is saved based on the "forcepla.cal" file of the trial and converts the raw force plate data into calibrated forces. The units used are Newtons and Newton-meters and each line in the file equates to one analog sample.
+    """)
     return
 
 
@@ -42,6 +37,7 @@ def _():
     import sys
     _sys.path.insert(1, './../functions')
     import io_cortexmac as io
+
     return (io,)
 
 
@@ -402,12 +398,14 @@ def _():
         Mz = Mz - Fx * O[1] + Fy * O[0]
         grf = np.hstack((Fx, Fy, Fz, Mx, My, Mz))
         return grf
+
     return
 
 
 @app.cell
 def _():
     import marimo as mo
+
     return (mo,)
 
 

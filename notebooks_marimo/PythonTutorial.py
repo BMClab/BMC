@@ -10,8 +10,8 @@ def _(mo):
         r"""
         # Tutorial on Python for scientific computing
 
-        > Marcos Duarte, Renato Naville Watanabe  
-        > [Laboratory of Biomechanics and Motor Control](https://bmclab.pesquisa.ufabc.edu.br/pt/)  
+        > Marcos Duarte, Renato Naville Watanabe<br>
+        > [Laboratory of Biomechanics and Motor Control](https://bmclab.pesquisa.ufabc.edu.br/pt/)<br>
         > Federal University of ABC, Brazil
 
         <p style="text-align: right;">A <a href="https://jupyter.org/">Jupyter Notebook</a></p>
@@ -37,10 +37,10 @@ def _(mo):
         r"""
         ## Scope of this tutorial
 
-        This will be a very brief tutorial on Python.  
+        This will be a very brief tutorial on Python.<br>
         For a more complete tutorial about Python see [A Whirlwind Tour of Python](https://github.com/jakevdp/WhirlwindTourOfPython) and [Python Data Science Handbook](https://jakevdp.github.io/PythonDataScienceHandbook/) for a specific tutorial about Python for scientific computing.
 
-        To use Python for scientific computing we need the Python program itself with its main modules and specific packages for scientific computing. [See this notebook on how to install Python for scientific computing](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/PythonInstallation.ipynb).  
+        To use Python for scientific computing we need the Python program itself with its main modules and specific packages for scientific computing. [See this notebook on how to install Python for scientific computing](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/PythonInstallation.ipynb).<br>
         Once you get Python and the necessary packages for scientific computing ready to work, there are different ways to run Python, the main ones are:
 
         - open a terminal window in your computer and type `python` or `ipython` that the Python interpreter will start
@@ -152,9 +152,9 @@ def _(mo):
         r"""
         ## The import function
 
-        We used the command '`import`' to be able to call certain functions. In Python functions are organized in modules and packages and they have to be imported in order to be used.   
+        We used the command '`import`' to be able to call certain functions. In Python functions are organized in modules and packages and they have to be imported in order to be used.
 
-        A module is a file containing Python definitions (e.g., functions) and statements. Packages are a way of structuring Python’s module namespace by using “dotted module names”. For example, the module name A.B designates a submodule named B in a package named A. To be used, modules and packages have to be imported in Python with the import function.   
+        A module is a file containing Python definitions (e.g., functions) and statements. Packages are a way of structuring Python’s module namespace by using “dotted module names”. For example, the module name A.B designates a submodule named B in a package named A. To be used, modules and packages have to be imported in Python with the import function.
 
         Namespace is a container for a set of identifiers (names), and allows the disambiguation of homonym identifiers residing in different namespaces. For example, with the command import math, we will have all the functions and statements defined in this module in the namespace '`math.`', for example, '`math.pi`' is the π constant and '`math.cos()`', the cosine function.
         """
@@ -370,7 +370,7 @@ def _(mo):
         r"""
         A docstring like above is useless and its output as a standalone statement looks uggly in IPython Notebook, but you will see its real importance when reading and writting codes.
 
-        Commenting a programming code is an important step to make the code more readable, which Python cares a lot.   
+        Commenting a programming code is an important step to make the code more readable, which Python cares a lot.<br>
         There is a style guide for writting Python code ([PEP 8](https://www.python.org/dev/peps/pep-0008/)) with a session about [how to write comments](https://www.python.org/dev/peps/pep-0008/#comments).
         """
     )
@@ -383,9 +383,9 @@ def _(mo):
         r"""
         ### Magic functions
 
-        IPython has a set of predefined ‘magic functions’ that you can call with a command line style syntax.   
-        There are two kinds of magics, line-oriented and cell-oriented.   
-        Line magics are prefixed with the % character and work much like OS command-line calls: they get as an argument the rest of the line, where arguments are passed without parentheses or quotes.   
+        IPython has a set of predefined ‘magic functions’ that you can call with a command line style syntax.<br>
+        There are two kinds of magics, line-oriented and cell-oriented.<br>
+        Line magics are prefixed with the % character and work much like OS command-line calls: they get as an argument the rest of the line, where arguments are passed without parentheses or quotes.<br>
         Cell magics are prefixed with a double %%, and they are functions that get as an argument not only the rest of the line, but also the lines below it in a separate argument.
         """
     )
@@ -456,7 +456,7 @@ def _():
 def _(mo):
     mo.md(
         r"""
-        In mathematics '=' is the symbol for identity, but in computer programming '=' is used for assignment, it means that the right part of the expresssion is assigned to its left part.   
+        In mathematics '=' is the symbol for identity, but in computer programming '=' is used for assignment, it means that the right part of the expresssion is assigned to its left part.<br>
         For example, 'x=x+1' does not make sense in mathematics but it does in computer programming:
         """
     )
@@ -575,7 +575,7 @@ def _(mo):
         r"""
         ### Numbers: int, float, complex
 
-        Numbers can an integer (int), float, and complex (with imaginary part).   
+        Numbers can an integer (int), float, and complex (with imaginary part).<br>
         Let's use the function `type` to show the type of number (and later for any other object):
         """
     )
@@ -614,7 +614,7 @@ def _(math):
 def _(mo):
     mo.md(
         r"""
-        Python (IPython) is showing `math.pi` with only 15 decimal cases, but internally a float is represented with higher precision.   
+        Python (IPython) is showing `math.pi` with only 15 decimal cases, but internally a float is represented with higher precision.<br>
         Floating point numbers in Python are implemented using a double (eight bytes) word; the precison and internal representation of floating point numbers are machine specific and are available in:
         """
     )
@@ -838,7 +838,7 @@ def _():
 def _(mo):
     mo.md(
         r"""
-        The function len() helps to understand how the backward indexing works in Python.    
+        The function len() helps to understand how the backward indexing works in Python.<br>
         The index s[-i] should be understood as s[len(s) - i] rather than accessing directly the i-th element from back to front. This is why the last element of a string is s[-1]:
         """
     )
@@ -1199,7 +1199,7 @@ def _(mo):
         r"""
         ## Indentation and whitespace
 
-        In Python, statement grouping is done by indentation (this is mandatory), which are done by inserting whitespaces, not tabs. Indentation is also recommended for alignment of function calling that span more than one line for better clarity.   
+        In Python, statement grouping is done by indentation (this is mandatory), which are done by inserting whitespaces, not tabs. Indentation is also recommended for alignment of function calling that span more than one line for better clarity.<br>
         We will see examples of indentation in the next session.
         """
     )
@@ -1223,8 +1223,8 @@ def _(mo):
         else:
            statement
         ```
-        `elif` (one or more) and `else` are optionals.   
-        The indentation is obligatory.   
+        `elif` (one or more) and `else` are optionals.<br>
+        The indentation is obligatory.<br>
         For example:
         """
     )
@@ -1242,7 +1242,7 @@ def _():
 def _(mo):
     mo.md(
         r"""
-        Which does nothing useful.   
+        Which does nothing useful.
 
         Let's use the `if`...`elif`...`else` statements to categorize the [body mass index](http://en.wikipedia.org/wiki/Body_mass_index) of a person:
         """
@@ -1682,10 +1682,10 @@ def _(np, y_4):
 def _(mo):
     mo.md(
         r"""
-        The key is the Numpy `interp` function, from its help:   
+        The key is the Numpy `interp` function, from its help:
 
-            interp(x, xp, fp, left=None, right=None)       
-            One-dimensional linear interpolation.   
+            interp(x, xp, fp, left=None, right=None)
+            One-dimensional linear interpolation.
             Returns the one-dimensional piecewise linear interpolant to a function with given values at discrete data-points.
 
         A plot of the data will show what we have done:
@@ -1722,7 +1722,7 @@ def _(mo):
         ## Read and save files
 
         There are two kinds of computer files: text files and binary files:
-        > Text file: computer file where the content is structured as a sequence of lines of electronic text. Text files can contain plain text (letters, numbers, and symbols) but they are not limited to such. The type of content in the text file is defined by the Unicode encoding (a computing industry standard for the consistent encoding, representation and handling of text expressed in most of the world's writing systems).   
+        > Text file: computer file where the content is structured as a sequence of lines of electronic text. Text files can contain plain text (letters, numbers, and symbols) but they are not limited to such. The type of content in the text file is defined by the Unicode encoding (a computing industry standard for the consistent encoding, representation and handling of text expressed in most of the world's writing systems).
         >
         > Binary file: computer file where the content is encoded in binary form, a sequence of integers representing byte values.
 
@@ -2330,11 +2330,11 @@ def _(mo):
         r"""
         ## More about Python
 
-        There is a lot of good material in the internet about Python for scientific computing, here is a small list of interesting stuff:  
+        There is a lot of good material in the internet about Python for scientific computing, here is a small list of interesting stuff:
 
          - [How To Think Like A Computer Scientist](http://www.openbookproject.net/thinkcs/python/english2e/) or [the interactive edition](http://interactivepython.org/courselib/static/thinkcspy/index.html) (book)
-         - [Python Scientific Lecture Notes](http://scipy-lectures.github.io/) (lecture notes)  
-         - [Python Data Science Handbook](https://jakevdp.github.io/PythonDataScienceHandbook/) (tutorial/book)    
+         - [Python Scientific Lecture Notes](http://scipy-lectures.github.io/) (lecture notes)
+         - [Python Data Science Handbook](https://jakevdp.github.io/PythonDataScienceHandbook/) (tutorial/book)
          - [A gallery of interesting Jupyter Notebooks](https://github.com/jupyter/jupyter/wiki)
         """
     )

@@ -10,8 +10,8 @@ def _(mo):
         r"""
         # Inverse dynamics (2D) for gait analysis 
 
-        > Marcos Duarte, Renato Naville Watanabe  
-        > [Laboratory of Biomechanics and Motor Control](http://pesquisa.ufabc.edu.br/bmclab/)  
+        > Marcos Duarte, Renato Naville Watanabe<br>
+        > [Laboratory of Biomechanics and Motor Control](http://pesquisa.ufabc.edu.br/bmclab/)<br>
         > Federal University of ABC, Brazil
         """
     )
@@ -63,7 +63,7 @@ def _(mo):
 
         <figure><img src="./../images/dynamics.png" alt="Forward and inverse dynamics." width=220/><figcaption><i><center>Figure. The equation of motion and the forward and inverse dynamics approaches.</center></i></figcaption></figure>
 
-        In Biomechanics, in a typical movement analysis of the human body using inverse dynamics, we would measure the positions of the segments and measure the external forces, calculate the segments' linear and angular acceleration, and find the internal net force and moment of force at the joint using the equations of motion. In addition, we could estimate the muscle forces (if we solve the redundancy problem of having more muscles than joints).  
+        In Biomechanics, in a typical movement analysis of the human body using inverse dynamics, we would measure the positions of the segments and measure the external forces, calculate the segments' linear and angular acceleration, and find the internal net force and moment of force at the joint using the equations of motion. In addition, we could estimate the muscle forces (if we solve the redundancy problem of having more muscles than joints).<br>
         Using forward dynamics, the muscle forces would be the inputs and the trajectories of the segments would be the outputs. The figure below compares the forward and inverse dynamics approaches.
 
         <figure><img src="./../images/InvDirDyn.png" alt="Direct and inverse dynamics."/><figcaption><i><center>Figure. Inverse dynamics and Forward (or Direct) dynamics approaches for movement analysis (adapted from Zajac and Gordon, 1989).</center></i></figcaption></figure>
@@ -78,8 +78,8 @@ def _(mo):
         r"""
         ## Estimation of joint force and moments of force by inverse dynamics
 
-        Let's estimate the joint force and moments of force at the lower limb during locomotion using the inverse dynamics approach.   
-        We will model the lower limbs at the right side as composed by three rigid bodies (foot, leg, and thigh) articulated by three hinge joints (ankle, knee, and hip) and perform a two-dimensional analysis.  
+        Let's estimate the joint force and moments of force at the lower limb during locomotion using the inverse dynamics approach.<br>
+        We will model the lower limbs at the right side as composed by three rigid bodies (foot, leg, and thigh) articulated by three hinge joints (ankle, knee, and hip) and perform a two-dimensional analysis.
         """
     )
     return
@@ -91,7 +91,7 @@ def _(mo):
         r"""
         ### Free body diagrams
 
-        The [free body diagrams](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/FreeBodyDiagram.ipynb) of the lower limbs are:  
+        The [free body diagrams](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/FreeBodyDiagram.ipynb) of the lower limbs are:<br>
         <br>
         <figure><img src="./../images/fbdgaitb.png" width=640 alt="FBD lowerlimb"/><figcaption><center><i>Figure. Free body diagrams of the lower limbs for a gait analysis. <b>GRF</b> is the resultant ground reaction force applied on the foot at the center of pressure, <b>COP</b>, position.</i></center></figcaption></figure>    
   
@@ -107,7 +107,7 @@ def _(mo):
   
         ### Equations of motion
     
-        The equilibrium equations for the forces and moments of force around the center of mass are:   
+        The equilibrium equations for the forces and moments of force around the center of mass are:
 
         For body 1 (foot):$\begin{array}{l l}
         \mathbf{F}_1 + m_1\mathbf{g} + \mathbf{GRF} = m_1\mathbf{a}_1 \\
@@ -123,11 +123,11 @@ def _(mo):
         
         \end{array}$Where$p$and$d$stands for proximal and distal joints (with respect to the fixed extremity),$\mathbf{r}_{cmji}$is the position vector from the center of mass of body$i$to the joint$j$,$COP$is the center of pressure, the position of application of the resultant ground reaction force (GRF),$\mathbf{\alpha}$is the angular acceleration, and$g$is the acceleration of gravity
 
-        Note that the pattern of the equations is the same for the three segments: distal and proximal forces and moments of force and the weight force are present in all segments.   
-        The only exception is with the foot in contact with the ground. As the ground only pushes the foot, it can not generate a moment of force over the foot. Because of that we model the interaction foot-ground as a resultant ground reaction force (GRF) applied on the foot at the COP position.   
+        Note that the pattern of the equations is the same for the three segments: distal and proximal forces and moments of force and the weight force are present in all segments.<br>
+        The only exception is with the foot in contact with the ground. As the ground only pushes the foot, it can not generate a moment of force over the foot. Because of that we model the interaction foot-ground as a resultant ground reaction force (GRF) applied on the foot at the COP position.
 
-        Both GRF and COP quantities are measured with a force platform and are assumed as known quantities.    
-        Because of that the system of equations above is only solvable if we start by the body 1, from bottom to top.   
+        Both GRF and COP quantities are measured with a force platform and are assumed as known quantities.<br>
+        Because of that the system of equations above is only solvable if we start by the body 1, from bottom to top.
         """
     )
     return
@@ -137,8 +137,8 @@ def _(mo):
 def _(mo):
     mo.md(
         r"""
-        The system of equations above is simple and straightforward to solve, it is just a matter of being systematic.   
-        We start by segment 1, find$\mathbf{F}_1$and$\mathbf{M}_1$, substitute these values on the equations for segment 2, find$\mathbf{F}_2$and$\mathbf{M}_2$, substitute them in the equations for segment 3 and find$\mathbf{F}_3$and$\mathbf{M}_3\:$:  
+        The system of equations above is simple and straightforward to solve, it is just a matter of being systematic.<br>
+        We start by segment 1, find$\mathbf{F}_1$and$\mathbf{M}_1$, substitute these values on the equations for segment 2, find$\mathbf{F}_2$and$\mathbf{M}_2$, substitute them in the equations for segment 3 and find$\mathbf{F}_3$and$\mathbf{M}_3\:$:
 
         For body 1 (foot):$\begin{array}{l l}
         \mathbf{F}_1 &=& m_1\mathbf{a}_1 - m_1\mathbf{g} - \mathbf{GRF} \\
@@ -171,9 +171,9 @@ def _(mo):
         r"""
         ### The recursive approach for inverse dynamics of multi-body systems
 
-        The calculation above is tedious, error prone, useless, and probably it's wrong.  
+        The calculation above is tedious, error prone, useless, and probably it's wrong.
 
-        To make some use of it, we can clearly see that forces act on far segments, which are not directly in contact with these forces. In fact, this is true for all stuff happening on a segment: note that$\mathbf{F}_1$and$\mathbf{M}_1$are present in the expression for$\mathbf{F}_3$and$\mathbf{M}_3$and that the acceleration of segment 1 matters for the calculations of segment 3.   
+        To make some use of it, we can clearly see that forces act on far segments, which are not directly in contact with these forces. In fact, this is true for all stuff happening on a segment: note that$\mathbf{F}_1$and$\mathbf{M}_1$are present in the expression for$\mathbf{F}_3$and$\mathbf{M}_3$and that the acceleration of segment 1 matters for the calculations of segment 3.
 
         Instead, we can use the power of computer programming (like this one right now!) and solve these equations recursively hence they have the same pattern. Let's do that.
 
@@ -200,13 +200,13 @@ def _(mo):
         r"""
         ### Python function `invdyn2d.py`
 
-        We could write a function that it would have as inputs the body-segment parameters, the kinematic data, and the distal joint force and moment of force and output the proximal joint force and moment of force.   
-        Then, we would call this function for each segment, starting with the segment that has a free extremity or that has the force and moment of force measured by some instrument (i,e, use a force plate for the foot-ground interface).  
-        This function would be called in the following manner:   
+        We could write a function that it would have as inputs the body-segment parameters, the kinematic data, and the distal joint force and moment of force and output the proximal joint force and moment of force.<br>
+        Then, we would call this function for each segment, starting with the segment that has a free extremity or that has the force and moment of force measured by some instrument (i,e, use a force plate for the foot-ground interface).<br>
+        This function would be called in the following manner:
 
         ```python
             Fp, Mp = invdyn2d(rcm, rd, rp, acm, alfa, mass, Icm, Fd, Md)
-        ```   
+        ```
 
         So, here is such function:
         """
@@ -239,7 +239,7 @@ def _(cross):
         alpha : array_like [x,y]
                 segment angular acceleration
         mass  : number
-                mass of the segment   
+                mass of the segment<br>
         Icm   : number
                 rotational inertia around the center of mass of the segment
         Fd    : array_like [x,y]
@@ -286,7 +286,7 @@ def _(mo):
         r"""
         The inverse dynamics calculations are implemented in only two lines of code at the end, the first part of the code is the help on how to use the function. The help is long because it's supposed to be helpful :), see the [style guide for NumPy/SciPy documentation](https://numpydoc.readthedocs.io/en/latest/format.html#docstring-standard). 
 
-        The real problem is to measure or estimate the experimental variables: the body-segment parameters, the ground reaction forces, and the kinematics of each segment. For such, it is necessary some expensive equipments, but they are typical in a biomechanics laboratory, such the the [BMClab](http://pesquisa.ufabc.edu.br/bmclab).   
+        The real problem is to measure or estimate the experimental variables: the body-segment parameters, the ground reaction forces, and the kinematics of each segment. For such, it is necessary some expensive equipments, but they are typical in a biomechanics laboratory, such the the [BMClab](http://pesquisa.ufabc.edu.br/bmclab).
         """
     )
     return
@@ -298,8 +298,8 @@ def _(mo):
         r"""
         ### Experimental data
 
-        Let's work with some data of kinematic position of the segments and ground reaction forces in order to compute the joint forces and moments of force.   
-        The data we will work are in fact from a computer simulation of running created by Ton van den Bogert. The nice thing about these data is that as a simulation, the true joint forces and moments of force are known and we will be able to compare our estimation with these true values.   
+        Let's work with some data of kinematic position of the segments and ground reaction forces in order to compute the joint forces and moments of force.<br>
+        The data we will work are in fact from a computer simulation of running created by Ton van den Bogert. The nice thing about these data is that as a simulation, the true joint forces and moments of force are known and we will be able to compare our estimation with these true values.<br>
         All the data can be downloaded from a page at the [ISB website](http://isbweb.org/data/invdyn/index.html):
         """
     )
@@ -634,8 +634,8 @@ def _(mo):
         r"""
         ### Neglecting the acceleration and mass (weight) of the segments
 
-        Consider the case where besides the acceleration, the body-segment parameters are also neglected.   
-        This means that the joint loads are due only to the ground reaction forces (which implicitly include contributions due to the acceleration and the body-segment weights).  
+        Consider the case where besides the acceleration, the body-segment parameters are also neglected.<br>
+        This means that the joint loads are due only to the ground reaction forces (which implicitly include contributions due to the acceleration and the body-segment weights).
         """
     )
     return
@@ -701,8 +701,8 @@ def _(mo):
         r"""
         ### WARNING: the calculated resultant joint force is not the actual joint reaction force!
 
-        In the Newton-Euler equations based on the free body diagrams we represented the consequences of all possible muscle forces on a joint as a net muscle torque and all forces acting on a joint as a resultant joint reaction force. That is, all forces between segments were represented as a resultant force that doesn't generate torque and a moment of force that only generates torque.  
-        This is an important principle in mechanics of rigid bodies as we saw before.  
+        In the Newton-Euler equations based on the free body diagrams we represented the consequences of all possible muscle forces on a joint as a net muscle torque and all forces acting on a joint as a resultant joint reaction force. That is, all forces between segments were represented as a resultant force that doesn't generate torque and a moment of force that only generates torque.<br>
+        This is an important principle in mechanics of rigid bodies as we saw before.<br>
         However, this principle creates the unrealistic notion that the sum of forces is applied directly on the joint (which has no further implication for a rigid body), but it is inaccurate for the understanding of the local effects on the joint. So, if we are trying to understand the stress on the joint or mechanisms of joint injury, the forces acting on the joint and on the rest of the segment must be considered individually.
         """
     )
@@ -715,11 +715,11 @@ def _(mo):
         r"""
         ## Conclusion
 
-        For these data set of 'running' (remember this is simulated data), in the estimation of the forces and moments of force at the hip, knee, and ankle joints in a two-dimensional analysis, to not consider the segment acceleration and/or the mass of the segments had no effect on the ankle variables, a small effect on the knee, and a large effect on the hip.    
-        This is not surprising; during the support phase, ankle and knee have small movements and the mass of the segments only start to have a significant contribution for more proximal and heavy segments such as the thigh.   
+        For these data set of 'running' (remember this is simulated data), in the estimation of the forces and moments of force at the hip, knee, and ankle joints in a two-dimensional analysis, to not consider the segment acceleration and/or the mass of the segments had no effect on the ankle variables, a small effect on the knee, and a large effect on the hip.<br>
+        This is not surprising; during the support phase, ankle and knee have small movements and the mass of the segments only start to have a significant contribution for more proximal and heavy segments such as the thigh.
 
-        Don't get disappointed thinking that all this work for drawing the complete FBDs and their correspondent equations was a waste of time.    
-        Nowadays, the state of the art and the demand for higher accuracy in biomechanics is such that such simplifications are usually not accepted.   
+        Don't get disappointed thinking that all this work for drawing the complete FBDs and their correspondent equations was a waste of time.<br>
+        Nowadays, the state of the art and the demand for higher accuracy in biomechanics is such that such simplifications are usually not accepted.
         """
     )
     return
@@ -731,10 +731,10 @@ def _(mo):
         r"""
         ## Further reading
 
-        - [Gait Analysis on Wikipedia](https://en.wikipedia.org/wiki/Gait_analysis)  
-        - [Gait analysis: clinical facts](https://www.ncbi.nlm.nih.gov/pubmed/27618499)  
-        - [Gait Analysis Methods: An Overview of Wearable and Non-Wearable Systems, Highlighting Clinical Applications](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3958266/)  
-        - [Avaliação Biomecânica da Corrida no BMClab (in Portuguese)](http://pesquisa.ufabc.edu.br/bmclab/servicos/rba-2/)  
+        - [Gait Analysis on Wikipedia](https://en.wikipedia.org/wiki/Gait_analysis)
+        - [Gait analysis: clinical facts](https://www.ncbi.nlm.nih.gov/pubmed/27618499)
+        - [Gait Analysis Methods: An Overview of Wearable and Non-Wearable Systems, Highlighting Clinical Applications](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3958266/)
+        - [Avaliação Biomecânica da Corrida no BMClab (in Portuguese)](http://pesquisa.ufabc.edu.br/bmclab/servicos/rba-2/)
         """
     )
     return
@@ -746,7 +746,7 @@ def _(mo):
         r"""
         ## Video lectures on the Internet
 
-        - Understanding & Analyzing Gait For The Clinician - series: [Introduction](https://youtu.be/x1JoaGgyKX0), [Patient Assessment](https://youtu.be/Z0QNkLshQUk), [Intro To Computer-Based 3-D Analysis](https://youtu.be/g0OcCLTQM_Y), [Basic Musculoskeletal Biomechanics](https://youtu.be/KsdrmyxOyxM), [The Gait Cycle](https://youtu.be/96nLX6sm9Yw)  
+        - Understanding & Analyzing Gait For The Clinician - series: [Introduction](https://youtu.be/x1JoaGgyKX0), [Patient Assessment](https://youtu.be/Z0QNkLshQUk), [Intro To Computer-Based 3-D Analysis](https://youtu.be/g0OcCLTQM_Y), [Basic Musculoskeletal Biomechanics](https://youtu.be/KsdrmyxOyxM), [The Gait Cycle](https://youtu.be/96nLX6sm9Yw)
         - [How to benefit from a Gait Analysis | Runners Need](https://youtu.be/rxkX7qGtIEI)
         """
     )
@@ -759,8 +759,8 @@ def _(mo):
         r"""
         ## Problems
 
-        1. Search the Internet for actual experimental data from a gait analysis of a runner and compare with the simulated data used in this notebook.  
-        2. Collect or search for some experimental data from a movement analysis and perform inverse dynamics to determine joint forces and torques.  
+        1. Search the Internet for actual experimental data from a gait analysis of a runner and compare with the simulated data used in this notebook.
+        2. Collect or search for some experimental data from a movement analysis and perform inverse dynamics to determine joint forces and torques.
         3. Imagine that you have to perform a similar analysis but of the upper limb during throwing a ball. What would have to change in the approach described in this notebook?
         """
     )
@@ -773,9 +773,9 @@ def _(mo):
         r"""
         ## References
 
-        - Ruina A, Rudra P (2019) [Introduction to Statics and Dynamics](http://ruina.tam.cornell.edu/Book/index.html). Oxford University Press.    
+        - Ruina A, Rudra P (2019) [Introduction to Statics and Dynamics](http://ruina.tam.cornell.edu/Book/index.html). Oxford University Press.
         - Winter DA (2009) [Biomechanics and motor control of human movement](http://books.google.com.br/books?id=_bFHL08IWfwC). 4 ed. Hoboken, EUA: Wiley. 
-        - Zajac FE, Gordon ME (1989) [Determining muscle's force and action in multi-articular movement](https://github.com/BMClab/BMC/blob/master/refs/zajac89.pdf). Exercise and Sport Sciences Reviews, 17, 187-230.  
+        - Zajac FE, Gordon ME (1989) [Determining muscle's force and action in multi-articular movement](https://github.com/BMClab/BMC/blob/master/refs/zajac89.pdf). Exercise and Sport Sciences Reviews, 17, 187-230.
         - Zatsiorsky VM (2202) [Kinetics of human motion](http://books.google.com.br/books?id=wp3zt7oF8a0C&lpg=PA571&ots=Kjc17DAl19&dq=ZATSIORSKY%2C%20Vladimir%20M.%20Kinetics%20of%20human%20motion&hl=pt-BR&pg=PP1#v=onepage&q&f=false). Champaign, IL: Human Kinetics.
         """
     )

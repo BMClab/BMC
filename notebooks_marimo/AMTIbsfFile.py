@@ -1,45 +1,41 @@
 import marimo
 
-__generated_with = "0.13.15"
+__generated_with = "0.24.2"
 app = marimo.App()
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        # Open AMTI .bsf file
+    mo.md(r"""
+    # Open AMTI .bsf file
 
-        Marcos Duarte
-        """
-    )
+    Marcos Duarte
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        When using the [NetForce](http://www.amti.biz/NetForce.aspx) software to acquire data from [AMTI](http://www.amti.biz/) force platforms, the data is saved in a proprietary binary format with the extension .bsf, but the NetForce software has an option to export data to ASCII format. The open source software [b-tk Biomechanical ToolKit](https://code.google.com/p/b-tk/) can open a .bsf file, but it works only for the old file style of NetForce (verison 100) and the current style is version 105. In the new version, 105, the acquired data is saved as 8-byte doubles and already converted to engineering units, at least when the new AMTI amplifier is used and the full conditioned mode is selected in the AMTI configuration software. In version 100, the raw data from the analog-to-digital converter was saved as 2-byte integers. In the NetForce manual, AMTI provides the necessary information for anyone to write a code and extract all the data from .bsf files (although the manual still refers to .bsf file version 100).
+    mo.md(r"""
+    When using the [NetForce](http://www.amti.biz/NetForce.aspx) software to acquire data from [AMTI](http://www.amti.biz/) force platforms, the data is saved in a proprietary binary format with the extension .bsf, but the NetForce software has an option to export data to ASCII format. The open source software [b-tk Biomechanical ToolKit](https://code.google.com/p/b-tk/) can open a .bsf file, but it works only for the old file style of NetForce (verison 100) and the current style is version 105. In the new version, 105, the acquired data is saved as 8-byte doubles and already converted to engineering units, at least when the new AMTI amplifier is used and the full conditioned mode is selected in the AMTI configuration software. In version 100, the raw data from the analog-to-digital converter was saved as 2-byte integers. In the NetForce manual, AMTI provides the necessary information for anyone to write a code and extract all the data from .bsf files (although the manual still refers to .bsf file version 100).
 
-        `AMTIbsf.py` (code at the end of this notebook) is a Python function to open .bsf files in the new style and extract the file metadata and data from force platforms. The function signature for its typical use is:
-        ```Python  
-        from AMTIbsf import loadbsf
-        data, mh, ih = loadbsf(filename, plot=1, axs=None)
-        ```
-        Where:  
-        - filename, plot, axs are: string with path and name of the file to be opened; option to plot the data; and option with the plot axes handle.  
-        - data, mh, ih are: numpy array with all the data; object Main header; and object with all Instrument headers (iH[0], iH[1], ...).
+    `AMTIbsf.py` (code at the end of this notebook) is a Python function to open .bsf files in the new style and extract the file metadata and data from force platforms. The function signature for its typical use is:
+    ```Python
+    from AMTIbsf import loadbsf
+    data, mh, ih = loadbsf(filename, plot=1, axs=None)
+    ```
+    Where:
+    - filename, plot, axs are: string with path and name of the file to be opened; option to plot the data; and option with the plot axes handle.
+    - data, mh, ih are: numpy array with all the data; object Main header; and object with all Instrument headers (iH[0], iH[1], ...).
 
-        Or from command line:
-        ```
-        python AMTIbsf.py filename
-        ```
-        This code can also open the 'shfile' memory-mapped file by NetForce, just use `shfile` as the filename. 
+    Or from command line:
+    ```
+    python AMTIbsf.py filename
+    ```
+    This code can also open the 'shfile' memory-mapped file by NetForce, just use `shfile` as the filename.
 
-        Let's see this function in action, first the customary imports and customization for the Python environment:
-        """
-    )
+    Let's see this function in action, first the customary imports and customization for the Python environment:
+    """)
     return
 
 
@@ -56,11 +52,9 @@ def _():
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        In my setup, functions are in a specific diretory, which I have to add it to Python's path:
-        """
-    )
+    mo.md(r"""
+    In my setup, functions are in a specific diretory, which I have to add it to Python's path:
+    """)
     return
 
 
@@ -73,11 +67,9 @@ def _():
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Openning a .bsf file with acquired data of one force platform and with the option to plot the data:
-        """
-    )
+    mo.md(r"""
+    Openning a .bsf file with acquired data of one force platform and with the option to plot the data:
+    """)
     return
 
 
@@ -89,11 +81,9 @@ def _(loadbsf):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        The headers (metadata from the .bsf file) are objects of the class AMTIbsf. You can visualize all the information from the headers typing for instance `mh` or ih[0]. Each information can be accessed as a propertiy of the header typing for instance `mh.rate`. The headers can also be acessed as dictionaries typing for instance `mh.__dict__`.
-        """
-    )
+    mo.md(r"""
+    The headers (metadata from the .bsf file) are objects of the class AMTIbsf. You can visualize all the information from the headers typing for instance `mh` or ih[0]. Each information can be accessed as a propertiy of the header typing for instance `mh.rate`. The headers can also be acessed as dictionaries typing for instance `mh.__dict__`.
+    """)
     return
 
 
@@ -117,11 +107,9 @@ def _(ih):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Function `AMTIbsf.py`
-        """
-    )
+    mo.md(r"""
+    ## Function `AMTIbsf.py`
+    """)
     return
 
 
@@ -133,21 +121,21 @@ app._unparsable_cell(
         This module reads .bsf file (version 105) from AMTI NetForce software and
         extracts the file metadata and data from force platforms.
         The typical use of this module is, for example:
-    
+
             data, mh, ih = loadbsf(filename, plot=1, axs=None)
-    
+
         Or from command line, for example:
-    
+
             python AMTIbsf.py filename
-    
+
         Where:
         filename, plot, axs are: string with path and name of the file to be 
         opened; option to plot the data; and option with the plot axes handle.
         data, mh, ih are: numpy array with all the data; object Main header; 
         and object with all Instrument headers (iH[0], iH[1], ...).
-    
+
         This code can also open the 'shfile' memory-mapped file by NetForce.
-    
+
         All the data is converted to SI units.
     \"\"\"
 
@@ -206,7 +194,7 @@ app._unparsable_cell(
         ----------
         .. [1] http://www.amti.biz/NetForce.aspx
         .. [2] https://github.com/demotu/BMC/blob/master/notebooks/AMTIbsfFile.ipynb
-    
+
         Examples
         --------
         >>> from AMTIbsf import loadbsf
@@ -243,7 +231,7 @@ app._unparsable_cell(
 
         # read Main header
         mh = ReadMainHeader(f)
-    
+
         if filename == 'shfile':
             try:
                 # try to open for all bytes in file:
@@ -266,7 +254,7 @@ app._unparsable_cell(
         for i in range(mh.instHeadCount):
             ih.append(ReadInstHeader(f, MNC, mh.TNC))
             # go to the next instrument header
-            f.seek(4 + mh.size_header + ih[i].size_header - f.tell(), 1)     
+            f.seek(4 + mh.size_header + ih[i].size_header - f.tell(), 1)
 
         # check the file size and adjust for the shfile:
         current = f.tell()
@@ -362,7 +350,7 @@ app._unparsable_cell(
 
     class ReadMainHeader:
         \"\"\"Reader of the Main header of a .bsf file (version 105) from AMTI NetForce software.
-    
+
         A class is used for the convenience of introspection of the header metadata.
         \"\"\"
         def __init__(self, f):
@@ -407,7 +395,7 @@ app._unparsable_cell(
             self.instHeadCount = self.num_of_plats + self.num_of_instrs  # Instrument header count
             self.numDatasets = self.trl_lth * self.rate                  # Number of data sets in the file
             # Total number of channels:
-            TNC = 0                                  
+            TNC = 0
             for i in range(self.instHeadCount):
                 instsize_header = unpack('<l', f.read(4))[0]
                 f.seek(28, 1)
@@ -425,14 +413,14 @@ app._unparsable_cell(
 
     class ReadInstHeader:
         \"\"\"Reader of the Instrument header of a .bsf file (version 105) from AMTI NetForce software.
-    
+
            In version 105, length is always in inch, do the conversion to meter.
            WARNING: AMTI NetForce version 3.5.3 uses 39.4 instead of 39.37 to convert inch to meter.
 
            A class is used for the convenience of introspection of the header metadata.
         \"\"\"
         def __init__(self, f, MNC, TNC):
-            
+
             self.MNC = MNC                                                        # Maximum number of channels
 
             self.size_header = unpack('<i', f.read(4))[0]                         # Size of the structure in bytes
@@ -451,7 +439,7 @@ app._unparsable_cell(
             self.chans = np.array(unpack('<'+MNC*'i', f.read(MNC*4))[:TNC])       # Channel numbers (possible 32 channels)
             self.coord = np.array(unpack('<'+16*'f', f.read(16*4)))               # Coordinate transformation
             self.interdist = np.array(unpack('<fff', f.read(3*4))) / 39.4         # x,y,z distances from the previous platform
-            self.ampgain = np.array(unpack('<'+MNC*'f', f.read(MNC*4))[:TNC])     # Amplifier Gains (possible 32 channels)   
+            self.ampgain = np.array(unpack('<'+MNC*'f', f.read(MNC*4))[:TNC])     # Amplifier Gains (possible 32 channels)
             self.extvoltage = np.array(unpack('<'+MNC*'f', f.read(MNC*4))[:TNC])  # Excitation voltage
             self.acqrange = np.array(unpack('<'+MNC*'f', f.read(MNC*4))[:TNC])    # Acquisition card range (bits/volt)
             self.zero_period = unpack('<f', f.read(4))[0]                         # Tz
@@ -460,7 +448,7 @@ app._unparsable_cell(
             self.end_time = unpack('<f', f.read(4))[0]                            # Tend
             self.post_trig_time = unpack('<f', f.read(4))[0]                      # Tpost
             self.zero = np.array(unpack('<'+MNC*'i', f.read(MNC*4))[:TNC])        # Zero values
-            self.rate = unpack('<i', f.read(4))[0]                                # Data set interval   
+            self.rate = unpack('<i', f.read(4))[0]                                # Data set interval
             self.trig_val = unpack('<f', f.read(4))[0]                            # Trigger value
             self.end_val = unpack('<f', f.read(4))[0]                             # End value
 
@@ -479,6 +467,7 @@ app._unparsable_cell(
 @app.cell
 def _():
     import marimo as mo
+
     return (mo,)
 
 

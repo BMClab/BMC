@@ -1,19 +1,17 @@
 import marimo
 
-__generated_with = "0.13.15"
+__generated_with = "0.24.2"
 app = marimo.App()
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        # Resample data
-        > Marcos Duarte  
-        > [Laboratory of Biomechanics and Motor Control](http://demotu.org/)  
-        > Federal University of ABC, Brazil
-        """
-    )
+    mo.md(r"""
+    # Resample data
+    > Marcos Duarte<br>
+    > [Laboratory of Biomechanics and Motor Control](http://demotu.org/)<br>
+    > Federal University of ABC, Brazil
+    """)
     return
 
 
@@ -30,6 +28,7 @@ def _():
     sys.path.insert(1, r'./../functions')
 
     from resample import resample
+
     return np, pd, resample
 
 
@@ -54,6 +53,7 @@ def _(resample, y):
 @app.cell
 def _():
     import marimo as mo
+
     return (mo,)
 
 

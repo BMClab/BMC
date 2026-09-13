@@ -1,66 +1,58 @@
 import marimo
 
-__generated_with = "0.13.15"
+__generated_with = "0.24.2"
 app = marimo.App()
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        <a href="https://colab.research.google.com/github/BMClab/BMC/blob/master/notebooks/ResidualAnalysis.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
-        """
-    )
+    mo.md(r"""
+    <a href="https://colab.research.google.com/github/BMClab/BMC/blob/master/notebooks/ResidualAnalysis.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        # Residual analysis to determine the optimal cutoff frequency
+    mo.md(r"""
+    # Residual analysis to determine the optimal cutoff frequency
 
-        > Marcos Duarte, Renato Naville Watanabe  
-        > [Laboratory of Biomechanics and Motor Control](https://bmclab.pesquisa.ufabc.edu.br)  
-        > Federal University of ABC, Brazil
-        """
-    )
+    > Marcos Duarte, Renato Naville Watanabe<br>
+    > [Laboratory of Biomechanics and Motor Control](https://bmclab.pesquisa.ufabc.edu.br)<br>
+    > Federal University of ABC, Brazil
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        A common problem in signal processing is to automatically determine the optimal cutoff frequency that should be employed in a low-pass filter to attenuate as much as possible the noise without compromising the signal content of the data.   
+    mo.md(r"""
+    A common problem in signal processing is to automatically determine the optimal cutoff frequency that should be employed in a low-pass filter to attenuate as much as possible the noise without compromising the signal content of the data.
 
-        Before we continue, see [this Jupyter notebook](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/DataFiltering.ipynb) for an overview about data filtering if needed.
+    Before we continue, see [this Jupyter notebook](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/DataFiltering.ipynb) for an overview about data filtering if needed.
 
-        Unfortunately, there is no definite solution for this problem, but there are some techniques, with different degrees of success, to try to determine the optimal cutoff frequency.  
+    Unfortunately, there is no definite solution for this problem, but there are some techniques, with different degrees of success, to try to determine the optimal cutoff frequency.
 
-        David Winter, in his classic book *Biomechanics and motor control of human movement*, proposed a method to find the optimal cutoff frequency based on residual analysis of the difference between filtered and unfiltered signals over a range of cutoff frequencies. The optimal cutoff frequency is the one where the residual starts to change very little because it is considered that from this point, it's being filtered mostly noise and minimally signal, ideally. This concept is straightforward to implement.  
+    David Winter, in his classic book *Biomechanics and motor control of human movement*, proposed a method to find the optimal cutoff frequency based on residual analysis of the difference between filtered and unfiltered signals over a range of cutoff frequencies. The optimal cutoff frequency is the one where the residual starts to change very little because it is considered that from this point, it's being filtered mostly noise and minimally signal, ideally. This concept is straightforward to implement.
 
-        The function `optcutfreq.py` from Python module `optcutfreq` is an implementation of this method and it is divided in three parts (after the help section): first, the residuals over a range of cutoff frequencies are calculated; second, an algorithm tries to find the noisy region (with a supposed linear behavior in the frequency domain) of the residuals versus cutoff frequencies plot and finds the optimal cutoff frequency; and third, the results are plotted. The code is lengthy relatively to the simplicity of the idea because of the long help section, the implementation of the automatic search and a rich plot. Here is the function signature:
+    The function `optcutfreq.py` from Python module `optcutfreq` is an implementation of this method and it is divided in three parts (after the help section): first, the residuals over a range of cutoff frequencies are calculated; second, an algorithm tries to find the noisy region (with a supposed linear behavior in the frequency domain) of the residuals versus cutoff frequencies plot and finds the optimal cutoff frequency; and third, the results are plotted. The code is lengthy relatively to the simplicity of the idea because of the long help section, the implementation of the automatic search and a rich plot. Here is the function signature:
 
-        ```python
-        fc_opt = optcutfreq(y, freq=1, fclim=[], show=False, ax=None):
-        ```
+    ```python
+    fc_opt = optcutfreq(y, freq=1, fclim=[], show=False, ax=None):
+    ```
 
-        Let's test this function with benchmark data.   
+    Let's test this function with benchmark data.
 
-        In 1977, Pezzack, Norman and Winter published a paper where they investigated the effects of differentiation and filtering processes on experimental data (the angle of a bar manipulated in space). Since then, these data have became a benchmark to test new algorithms. Let's work with these data (available at [https://isbweb.org/data/pezzack/index.html](http://isbweb.org/data/pezzack/index.html)). The data have the angular displacement measured by video and the angular acceleration  directly measured by an accelerometer, which we will consider as the true acceleration.
-        """
-    )
+    In 1977, Pezzack, Norman and Winter published a paper where they investigated the effects of differentiation and filtering processes on experimental data (the angle of a bar manipulated in space). Since then, these data have became a benchmark to test new algorithms. Let's work with these data (available at [https://isbweb.org/data/pezzack/index.html](http://isbweb.org/data/pezzack/index.html)). The data have the angular displacement measured by video and the angular acceleration  directly measured by an accelerometer, which we will consider as the true acceleration.
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Setup
-        """
-    )
+    mo.md(r"""
+    ## Setup
+    """)
     return
 
 
@@ -70,26 +62,25 @@ def _():
     import numpy as np
     import pandas as pd
     import matplotlib.pyplot as plt
+
     return np, pd, plt
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Installation
+    mo.md(r"""
+    ## Installation
 
-        ```bash
-        # DEPRECATED: pip install optcutfreq
-        ```
+    ```bash
+    # DEPRECATED: pip install optcutfreq
+    ```
 
-        Or
+    Or
 
-        ```bash
-        # DEPRECATED: conda install -c duartexyz optcutfreq
-        ```
-        """
-    )
+    ```bash
+    # DEPRECATED: conda install -c duartexyz optcutfreq
+    ```
+    """)
     return
 
 
@@ -324,11 +315,9 @@ def _(np, pd, plt):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        And using the residual analsysis code:
-        """
-    )
+    mo.md(r"""
+    And using the residual analsysis code:
+    """)
     return
 
 
@@ -341,12 +330,10 @@ def _(disp, np, optcutfreq, time):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        The optimal cutoff frequency found is 5.6 Hz. Note that the filtering process is relevant only for the derivative of the data; we cannot distinguish the unfiltered and unfiltered displacements (see that the RMSE residual is very small).   
-        Let's employ this filter, differentiate the data twice and compare with the true acceleration as we did before:
-        """
-    )
+    mo.md(r"""
+    The optimal cutoff frequency found is 5.6 Hz. Note that the filtering process is relevant only for the derivative of the data; we cannot distinguish the unfiltered and unfiltered displacements (see that the RMSE residual is very small).<br>
+    Let's employ this filter, differentiate the data twice and compare with the true acceleration as we did before:
+    """)
     return
 
 
@@ -369,45 +356,40 @@ def _(aacc, butter, disp, fc_opt, filtfilt, freq, np, plt, time):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        The performance seems satisfactory (see [this Jupyter notebook](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/DataFiltering.ipynb) for a comparison using other filters), but it is known that this residual analysis algorithm results in oversmoothing the kinematic data (see  [https://www.clinicalgaitanalysis.com/faq/cutoff.html](http://www.clinicalgaitanalysis.com/faq/cutoff.html)).
-        """
-    )
+    mo.md(r"""
+    The performance seems satisfactory (see [this Jupyter notebook](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/DataFiltering.ipynb) for a comparison using other filters), but it is known that this residual analysis algorithm results in oversmoothing the kinematic data (see  [https://www.clinicalgaitanalysis.com/faq/cutoff.html](http://www.clinicalgaitanalysis.com/faq/cutoff.html)).
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        To read more about the determination of the optimal cutoff frequency, see the following papers:  
+    mo.md(r"""
+    To read more about the determination of the optimal cutoff frequency, see the following papers:
 
-        - Pezzack, Norman, & Winter (1977). An assessment of derivative determining techniques used for motion analysis. Journal of Biomechanics, 10, 377-382.
-        - Giakas & Baltizopoulos (1997) A comparison of automatic filtering techniques applied to biomechanical walking data. J. Biomech. 30, 847-850.
-        - Alonso, Salgado, Cuadrado & Pintado (2009) [Automatic smoothing of raw kinematic signals using SSA and cluster analysis](https://lim.ii.udc.es/docs/proceedings/2009_09_EUROMECH_Automatic.pdf). 7th EUROMECH Solid Mechanics Conference.
-        - Kristianslund, Krosshaug & Bogert (2012) Effect of low pass filtering on joint moments from inverse dynamics: Implications for injury prevention. J. Biomech. 45, 666-671.
-        """
-    )
+    - Pezzack, Norman, & Winter (1977). An assessment of derivative determining techniques used for motion analysis. Journal of Biomechanics, 10, 377-382.
+    - Giakas & Baltizopoulos (1997) A comparison of automatic filtering techniques applied to biomechanical walking data. J. Biomech. 30, 847-850.
+    - Alonso, Salgado, Cuadrado & Pintado (2009) [Automatic smoothing of raw kinematic signals using SSA and cluster analysis](https://lim.ii.udc.es/docs/proceedings/2009_09_EUROMECH_Automatic.pdf). 7th EUROMECH Solid Mechanics Conference.
+    - Kristianslund, Krosshaug & Bogert (2012) Effect of low pass filtering on joint moments from inverse dynamics: Implications for injury prevention. J. Biomech. 45, 666-671.
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## References
+    mo.md(r"""
+    ## References
 
-        - Pezzack JC, Norman RW, & Winter DA (1977). An assessment of derivative determining techniques used for motion analysis. Journal of Biomechanics, 10, 377-382. [PubMed](https://www.ncbi.nlm.nih.gov/pubmed/893476).
-        - Winter DA (2009) [Biomechanics and motor control of human movement](https://books.google.com.br/books?id=_bFHL08IWfwC&printsec=frontcover&source=gbs_ge_summary_r&cad=0#v=onepage&q&f=false). 4 ed. Hoboken, EUA: Wiley.
-        """
-    )
+    - Pezzack JC, Norman RW, & Winter DA (1977). An assessment of derivative determining techniques used for motion analysis. Journal of Biomechanics, 10, 377-382. [PubMed](https://www.ncbi.nlm.nih.gov/pubmed/893476).
+    - Winter DA (2009) [Biomechanics and motor control of human movement](https://books.google.com.br/books?id=_bFHL08IWfwC&printsec=frontcover&source=gbs_ge_summary_r&cad=0#v=onepage&q&f=false). 4 ed. Hoboken, EUA: Wiley.
+    """)
     return
 
 
 @app.cell
 def _():
     import marimo as mo
+
     return (mo,)
 
 

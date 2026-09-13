@@ -1,33 +1,29 @@
 import marimo
 
-__generated_with = "0.13.15"
+__generated_with = "0.24.2"
 app = marimo.App()
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        # Descriptive statistics of data
+    mo.md(r"""
+    # Descriptive statistics of data
 
-        Marcos Duarte
-        """
-    )
+    Marcos Duarte
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Here is a function for the calculation of descriptive statistics which might be useful for the initial characterization and visualization of numerical data.  
-        The function signature is:
-        ```python
-        stats = statdesc(data, missing='NaN', labels=[], alpha=.05, show=2)
-        ```
-        And the function help:
-        """
-    )
+    mo.md(r"""
+    Here is a function for the calculation of descriptive statistics which might be useful for the initial characterization and visualization of numerical data.<br>
+    The function signature is:
+    ```python
+    stats = statdesc(data, missing='NaN', labels=[], alpha=.05, show=2)
+    ```
+    And the function help:
+    """)
     return
 
 
@@ -43,11 +39,9 @@ def _():
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Let's test `statdesc.py`:
-        """
-    )
+    mo.md(r"""
+    Let's test `statdesc.py`:
+    """)
     return
 
 
@@ -73,11 +67,9 @@ def _(np, statdesc):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Function cogve.py
-        """
-    )
+    mo.md(r"""
+    ## Function cogve.py
+    """)
     return
 
 
@@ -400,6 +392,7 @@ def _(np):
 @app.cell
 def _():
     import marimo as mo
+
     return (mo,)
 
 

@@ -1,20 +1,18 @@
 import marimo
 
-__generated_with = "0.13.15"
+__generated_with = "0.24.2"
 app = marimo.App()
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        # Read Delsys file from Cortex
+    mo.md(r"""
+    # Read Delsys file from Cortex
 
-        > Marcos Duarte  
-        > [Laboratory of Biomechanics and Motor Control](http://demotu.org/)  
-        > Federal University of ABC, Brazil
-        """
-    )
+    > Marcos Duarte<br>
+    > [Laboratory of Biomechanics and Motor Control](http://demotu.org/)<br>
+    > Federal University of ABC, Brazil
+    """)
     return
 
 
@@ -35,6 +33,7 @@ def _():
     # '%autoreload 2' command supported automatically in marimo
 
     from io_cortexmac import read_delsys
+
     return np, os, read_delsys
 
 
@@ -77,6 +76,7 @@ def _(df_emg, df_imu, np):
 @app.cell
 def _():
     import marimo as mo
+
     return (mo,)
 
 

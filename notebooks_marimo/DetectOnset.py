@@ -1,60 +1,54 @@
 import marimo
 
-__generated_with = "0.13.15"
+__generated_with = "0.24.2"
 app = marimo.App()
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        # Detection of onset in data
+    mo.md(r"""
+    # Detection of onset in data
 
-        > Marcos Duarte  
-        > [Laboratory of Biomechanics and Motor Control](http://demotu.org/](http://demotu.org/)  
-        > Federal University of ABC, Brazil
-        """
-    )
+    > Marcos Duarte<br>
+    > [Laboratory of Biomechanics and Motor Control](http://demotu.org/](http://demotu.org/)<br>
+    > Federal University of ABC, Brazil
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        One of the simplest methods to automatically detect or identify the change or occurrence of a particular event in the data, for example, its beginning and ending, or simply the data onset, is based on amplitude threshold, where the signal is considered to be 'on' when it is above a certain threshold. This threshold can be proportional to the amplitude of the baseline (the part of the data that we know there is no real signal, only noise).  
+    mo.md(r"""
+    One of the simplest methods to automatically detect or identify the change or occurrence of a particular event in the data, for example, its beginning and ending, or simply the data onset, is based on amplitude threshold, where the signal is considered to be 'on' when it is above a certain threshold. This threshold can be proportional to the amplitude of the baseline (the part of the data that we know there is no real signal, only noise).
 
-        For instance, a threshold equals to two or three times the standard deviation of the baseline is a common procedure employed in the analysis of electromyographic data. Other way to set the threshold would be as a percentage value of the maximum or peak of the data. For instance, in movement analysis it's common to define the onset period as the signal above 5% of the peak velocity of the investigated movement. 
+    For instance, a threshold equals to two or three times the standard deviation of the baseline is a common procedure employed in the analysis of electromyographic data. Other way to set the threshold would be as a percentage value of the maximum or peak of the data. For instance, in movement analysis it's common to define the onset period as the signal above 5% of the peak velocity of the investigated movement.
 
-        The function `detect_onset.py` from Python module `detecta` implements such onset detection based on the amplitude-threshold method with a parameter to specify a minimum number of samples above threshold to detect as onset, other parameter to specify the minimum number of samples (continuous or not) below threshold that will be ignored in the detection of data greater or equal to threshold (to avoid the detection of spikes or transients in the data), and a second threshold parameter to specify the minimum amplitude that a minimum number of samples should have (to avoid the detection of baseline fluctuations that are above the first threshold but are not actual signals).  
+    The function `detect_onset.py` from Python module `detecta` implements such onset detection based on the amplitude-threshold method with a parameter to specify a minimum number of samples above threshold to detect as onset, other parameter to specify the minimum number of samples (continuous or not) below threshold that will be ignored in the detection of data greater or equal to threshold (to avoid the detection of spikes or transients in the data), and a second threshold parameter to specify the minimum amplitude that a minimum number of samples should have (to avoid the detection of baseline fluctuations that are above the first threshold but are not actual signals).
 
-        `detect_onset.py` signature is:
-        ```python
-        inds = detect_onset(x, threshold=0, n_above=1, n_below=0, threshold2=None, n_above2=1, show=False, ax=None)
-        ```
-        Let's see how `detect_onset.py` works; first let's import the necessary Python libraries and configure the environment:  
-        """
-    )
+    `detect_onset.py` signature is:
+    ```python
+    inds = detect_onset(x, threshold=0, n_above=1, n_below=0, threshold2=None, n_above2=1, show=False, ax=None)
+    ```
+    Let's see how `detect_onset.py` works; first let's import the necessary Python libraries and configure the environment:
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Installation
+    mo.md(r"""
+    ## Installation
 
-        ```bash
-        pip install detecta
-        ```
+    ```bash
+    pip install detecta
+    ```
 
-        Or
+    Or
 
-        ```bash
-        conda install -c duartexyz detecta
-        ```
-        """
-    )
+    ```bash
+    conda install -c duartexyz detecta
+    ```
+    """)
     return
 
 
@@ -65,16 +59,15 @@ def _():
     # '%matplotlib inline' command supported automatically in marimo
 
     from detecta import detect_onset
+
     return (np,)
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Let's run the function examples:
-        """
-    )
+    mo.md(r"""
+    Let's run the function examples:
+    """)
     return
 
 
@@ -90,11 +83,9 @@ app._unparsable_cell(
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Add some noise:
-        """
-    )
+    mo.md(r"""
+    Add some noise:
+    """)
     return
 
 
@@ -111,11 +102,9 @@ app._unparsable_cell(
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        We will use the `n_below` parameter to not detect the noise from former example as onsets:
-        """
-    )
+    mo.md(r"""
+    We will use the `n_below` parameter to not detect the noise from former example as onsets:
+    """)
     return
 
 
@@ -132,11 +121,9 @@ app._unparsable_cell(
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        `detect_onset` works with missing values (NaNs):
-        """
-    )
+    mo.md(r"""
+    `detect_onset` works with missing values (NaNs):
+    """)
     return
 
 
@@ -151,11 +138,9 @@ app._unparsable_cell(
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Consider the case where there is a false onset because some data in the baseline are greater than the `threshold`:
-        """
-    )
+    mo.md(r"""
+    Consider the case where there is a false onset because some data in the baseline are greater than the `threshold`:
+    """)
     return
 
 
@@ -173,11 +158,9 @@ app._unparsable_cell(
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        We can't increase the value of the `threshold` because this would delay the detection of the actual onset:
-        """
-    )
+    mo.md(r"""
+    We can't increase the value of the `threshold` because this would delay the detection of the actual onset:
+    """)
     return
 
 
@@ -195,11 +178,9 @@ app._unparsable_cell(
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        For this situation we can use the second threshold parameter, `threshold2` with corresponding `n_above2` parameter:
-        """
-    )
+    mo.md(r"""
+    For this situation we can use the second threshold parameter, `threshold2` with corresponding `n_above2` parameter:
+    """)
     return
 
 
@@ -218,22 +199,18 @@ app._unparsable_cell(
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        #### Performance
-        """
-    )
+    mo.md(r"""
+    #### Performance
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        The performance of the `detect_onset` function varies with the data and parameters.  
-        Here is a simple test of the `detect_onset.py` performance:
-        """
-    )
+    mo.md(r"""
+    The performance of the `detect_onset` function varies with the data and parameters.<br>
+    Here is a simple test of the `detect_onset.py` performance:
+    """)
     return
 
 
@@ -249,6 +226,7 @@ def _(np):
 @app.cell
 def _():
     import marimo as mo
+
     return (mo,)
 
 

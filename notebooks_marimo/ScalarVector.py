@@ -10,8 +10,8 @@ def _(mo):
         r"""
         # Scalar and vector
 
-        > Marcos Duarte, Renato Naville Watanabe  
-        > [Laboratory of Biomechanics and Motor Control](http://pesquisa.ufabc.edu.br/bmclab)  
+        > Marcos Duarte, Renato Naville Watanabe<br>
+        > [Laboratory of Biomechanics and Motor Control](http://pesquisa.ufabc.edu.br/bmclab)<br>
         > Federal University of ABC, Brazil
         """
     )
@@ -33,7 +33,7 @@ def _(mo):
 def _(mo):
     mo.md(
         r"""
-        Python handles very well all mathematical operations with numeric scalars and vectors and you can use [Sympy](http://sympy.org) for similar stuff but with abstract symbols. Let's briefly review scalars and vectors and show how to use Python for numerical calculation.  
+        Python handles very well all mathematical operations with numeric scalars and vectors and you can use [Sympy](http://sympy.org) for similar stuff but with abstract symbols. Let's briefly review scalars and vectors and show how to use Python for numerical calculation.
 
         For a review about scalars and vectors, see chapter 2 of [Ruina and Rudra's book](http://ruina.tam.cornell.edu/Book/index.html).
         """
@@ -65,7 +65,7 @@ def _(mo):
         r"""
         ## Scalar
 
-        >A **scalar** is a one-dimensional physical quantity, which can be described by a single real number.  
+        >A **scalar** is a one-dimensional physical quantity, which can be described by a single real number.<br>
         For example, time, mass, and energy are examples of scalars.
 
         ### Scalar operations in Python
@@ -119,7 +119,7 @@ def _(np):
 def _(mo):
     mo.md(
         r"""
-        Numpy performs the arithmetic operations of the single number in `a` with all the numbers of the array `b`. This is called broadcasting in computer science.   
+        Numpy performs the arithmetic operations of the single number in `a` with all the numbers of the array `b`. This is called broadcasting in computer science.<br>
         Even if you have two arrays (but they must have the same size), Numpy handles for you:
         """
     )
@@ -145,15 +145,15 @@ def _(mo):
         r"""
         ## Vector
 
-        >A **vector** is a quantity with magnitude (or length) and direction expressed numerically as an ordered list of values according to a coordinate reference system.  
+        >A **vector** is a quantity with magnitude (or length) and direction expressed numerically as an ordered list of values according to a coordinate reference system.<br>
         For example, position, force, and torque are physical quantities defined by vectors.
 
-        For instance, consider the position of a point in space represented by a vector:  
+        For instance, consider the position of a point in space represented by a vector:<br>
         <br>
-        <figure><img src="./../images/vector3D.png" width=300/><figcaption><center><i>Figure. Position of a point represented by a vector in a Cartesian coordinate system.</i></center></figcaption></figure>  
+        <figure><img src="./../images/vector3D.png" width=300/><figcaption><center><i>Figure. Position of a point represented by a vector in a Cartesian coordinate system.</i></center></figcaption></figure>
 
 
-        The position of the point (the vector) above can be represented as a tuple of values:$(x,\: y,\: z) \; \Rightarrow \; (1, 3, 2)$or in matrix form:$\begin{bmatrix} x \\y \\z \end{bmatrix} \;\; \Rightarrow  \;\; \begin{bmatrix} 1 \\3 \\2 \end{bmatrix}$We can use the Numpy array to represent the components of vectors.   
+        The position of the point (the vector) above can be represented as a tuple of values:$(x,\: y,\: z) \; \Rightarrow \; (1, 3, 2)$or in matrix form:$\begin{bmatrix} x \\y \\z \end{bmatrix} \;\; \Rightarrow  \;\; \begin{bmatrix} 1 \\3 \\2 \end{bmatrix}$We can use the Numpy array to represent the components of vectors.<br>
         For instance, for the vector above is expressed in Python as:
         """
     )
@@ -171,7 +171,7 @@ def _(np):
 def _(mo):
     mo.md(
         r"""
-        Exactly like the arrays in the last example for scalars, so all operations we performed will result in the same values, of course.   
+        Exactly like the arrays in the last example for scalars, so all operations we performed will result in the same values, of course.<br>
         However, as we are now dealing with vectors, now some of the  operations don't make sense. For example, for vectors there are no multiplication, division, power, and square root in the way we calculated.
 
         A vector can also be represented as:
@@ -182,7 +182,7 @@ def _(mo):
 
         Where <span class="notranslate">$\hat{\mathbf{i}},\, \hat{\mathbf{j}},\, \hat{\mathbf{k}}\,$</span> are unit vectors, each representing a direction and <span class="notranslate">$a_x\hat{\mathbf{i}},\: a_y\hat{\mathbf{j}},\: a_z\hat{\mathbf{k}}$</span> are the vector components of the vector <span class="notranslate">$\overrightarrow{\mathbf{a}}$</span>.
 
-        A unit vector (or versor) is a vector whose length (or norm) is 1.   
+        A unit vector (or versor) is a vector whose length (or norm) is 1.<br>
         The unit vector of a non-zero vector <span class="notranslate">$\overrightarrow{\mathbf{a}}$</span> is the unit vector codirectional with <span class="notranslate">$\overrightarrow{\mathbf{a}}$</span>:
 
         <span class="notranslate">$\mathbf{\hat{u}} = \frac{\overrightarrow{\mathbf{a}}}{||\overrightarrow{\mathbf{a}}||} = \frac{a_x\,\hat{\mathbf{i}} + a_y\,\hat{\mathbf{j}} + a_z\, \hat{\mathbf{k}}}{\sqrt{a_x^2+a_y^2+a_z^2}}$</span>
@@ -268,7 +268,7 @@ def _(mo):
     mo.md(
         r"""
         But the representation of a vector as a tuple of values is only valid for a vector with its origin coinciding with the origin$(0, 0, 0)$of the coordinate system we adopted.
-        For instance, consider the following vector:  
+        For instance, consider the following vector:<br>
         <br>
         <figure><img src="./../images/vector2.png" width=260/><figcaption><center><i>Figure. A vector in space.</i></center></figcaption></figure>
 
@@ -337,7 +337,7 @@ def _(mo):
 def _(mo):
     mo.md(
         r"""
-        Consider two 2D arrays (rows and columns) representing the position of two objects moving in space. The columns represent the vector components and the rows the values of the position vector in different instants.   
+        Consider two 2D arrays (rows and columns) representing the position of two objects moving in space. The columns represent the vector components and the rows the values of the position vector in different instants.<br>
         Once again, it's easy to perform addition and subtraction with these vectors:
         """
     )
@@ -360,7 +360,7 @@ def _(mo):
         r"""
         Numpy can handle a N-dimensional array with the size limited by the available memory in your computer.
 
-        And we can perform operations on each vector, for example, calculate the norm of each one.   
+        And we can perform operations on each vector, for example, calculate the norm of each one.<br>
         First let's check the shape of the variable `a` using the method `shape` or the function `numpy.shape`:
         """
     )
@@ -378,7 +378,7 @@ def _(a_6, np):
 def _(mo):
     mo.md(
         r"""
-        This means the variable `a` has 2 rows and 3 columns.   
+        This means the variable `a` has 2 rows and 3 columns.<br>
         We have to tell the function `numpy.norm` to calculate the norm for each vector, i.e., to operate through the columns of the variable `a` using the paraneter `axis`:
         """
     )
@@ -397,7 +397,7 @@ def _(mo):
         r"""
         ## Dot product
 
-        Dot product (or scalar product or inner product) between two vectors is a mathematical operation algebraically defined as the sum of the products of the corresponding components (maginitudes in each direction) of the two vectors. The result of the dot product is a single number (a scalar).  
+        Dot product (or scalar product or inner product) between two vectors is a mathematical operation algebraically defined as the sum of the products of the corresponding components (maginitudes in each direction) of the two vectors. The result of the dot product is a single number (a scalar).<br>
         The dot product between vectors <span class="notranslate">$\overrightarrow{\mathbf{a}}$</span> and$\overrightarrow{\mathbf{b}}$is:
 
         <span class="notranslate">$\overrightarrow{\mathbf{a}} \cdot \overrightarrow{\mathbf{b}} = (a_x\,\hat{\mathbf{i}}+a_y\,\hat{\mathbf{j}}+a_z\,\hat{\mathbf{k}}) \cdot (b_x\,\hat{\mathbf{i}}+b_y\,\hat{\mathbf{j}}+b_z\,\hat{\mathbf{k}}) = a_x b_x + a_y b_y + a_z b_z$</span>
@@ -493,7 +493,7 @@ def _(mo):
         r"""
         ## Vector product
 
-        Cross product or vector product between two vectors is a mathematical operation in three-dimensional space which results in a vector perpendicular to both of the vectors being multiplied and a length (norm) equal to the product of the perpendicular components of the vectors being multiplied (which is equal to the area of the parallelogram that the vectors span).   
+        Cross product or vector product between two vectors is a mathematical operation in three-dimensional space which results in a vector perpendicular to both of the vectors being multiplied and a length (norm) equal to the product of the perpendicular components of the vectors being multiplied (which is equal to the area of the parallelogram that the vectors span).<br>
         The cross product between vectors <span class="notranslate">$\overrightarrow{\mathbf{a}}$</span> and <span class="notranslate">$\overrightarrow{\mathbf{b}}$</span> is:
 
         <span class="notranslate">$\overrightarrow{\mathbf{a}} \times \overrightarrow{\mathbf{b}} = (a_x\,\hat{\mathbf{i}} + a_y\,\hat{\mathbf{j}} + a_z\,\hat{\mathbf{k}}) \times (b_x\,\hat{\mathbf{i}}+b_y\,\hat{\mathbf{j}}+b_z\,\hat{\mathbf{k}}) = (a_yb_z-a_zb_y)\hat{\mathbf{i}} + (a_zb_x-a_xb_z)\hat{\mathbf{j}}+(a_xb_y-a_yb_x)\hat{\mathbf{k}}$</span>
@@ -532,7 +532,7 @@ def _(mo):
 
         Which is also equivalent to state that the cross product between two vectors <span class="notranslate">$\overrightarrow{\mathbf{a}}$</span> and <span class="notranslate">$\overrightarrow{\mathbf{b}}$</span> is the magnitude of <span class="notranslate">$\overrightarrow{\mathbf{a}}$</span> times the magnitude of the component of <span class="notranslate">$\overrightarrow{\mathbf{b}}$</span> perpendicular to <span class="notranslate">$\overrightarrow{\mathbf{a}}$</span> (or the magnitude of <span class="notranslate">$\overrightarrow{\mathbf{b}}$</span> times the magnitude of the component of <span class="notranslate">$\overrightarrow{\mathbf{a}}$</span> perpendicular to <span class="notranslate">$\overrightarrow{\mathbf{b}}$</span>).
 
-        The definition above, also implies that the magnitude of the cross product is the area of the parallelogram spanned by the two vectors:  
+        The definition above, also implies that the magnitude of the cross product is the area of the parallelogram spanned by the two vectors:<br>
         <br>
         <figure><img src="http://upload.wikimedia.org/wikipedia/commons/4/4e/Cross_product_parallelogram.svg" width=160 alt="Vector subtraction"/><figcaption><center><i>Figure. Area of a parallelogram as the magnitude of the cross product (image from Wikipedia).</i></center></figcaption></figure> 
         """
@@ -618,14 +618,14 @@ def _(mo):
         r"""
         ### Gram–Schmidt process
 
-        The [Gram–Schmidt process](http://en.wikipedia.org/wiki/Gram%E2%80%93Schmidt_process) is a method for orthonormalizing (orthogonal unit versors) a set of vectors using the scalar product. The Gram–Schmidt process works for any number of vectors.   
+        The [Gram–Schmidt process](http://en.wikipedia.org/wiki/Gram%E2%80%93Schmidt_process) is a method for orthonormalizing (orthogonal unit versors) a set of vectors using the scalar product. The Gram–Schmidt process works for any number of vectors.<br>
         For example, given three vectors, <span class="notranslate">$\overrightarrow{\mathbf{a}}, \overrightarrow{\mathbf{b}}, \overrightarrow{\mathbf{c}}$</span>, in the 3D space, a basis <span class="notranslate">$\{\hat{e}_a, \hat{e}_b, \hat{e}_c\}$</span> can be found using the Gram–Schmidt process by: 
 
-        The first versor is in the <span class="notranslate">$\overrightarrow{\mathbf{a}}$</span> direction (or in the direction of any of the other vectors):  
+        The first versor is in the <span class="notranslate">$\overrightarrow{\mathbf{a}}$</span> direction (or in the direction of any of the other vectors):
 
         <span class="notranslate">$\hat{e}_a = \frac{\overrightarrow{\mathbf{a}}}{||\overrightarrow{\mathbf{a}}||}$</span>
 
-        The second versor, orthogonal to <span class="notranslate">$\hat{e}_a$</span>, can be found considering we can express vector <span class="notranslate">$\overrightarrow{\mathbf{b}}$</span> in terms of the <span class="notranslate">$\hat{e}_a$</span> direction as:  
+        The second versor, orthogonal to <span class="notranslate">$\hat{e}_a$</span>, can be found considering we can express vector <span class="notranslate">$\overrightarrow{\mathbf{b}}$</span> in terms of the <span class="notranslate">$\hat{e}_a$</span> direction as:
 
         <span class="notranslate">$\overrightarrow{\mathbf{b}} = \overrightarrow{\mathbf{b}}^\| + \overrightarrow{\mathbf{b}}^\bot$</span>
 
@@ -799,7 +799,7 @@ def _(mo):
         r"""
         ## Further reading
 
-         - Read pages 44-92 of the first chapter of the [Ruina and Rudra's book](http://ruina.tam.cornell.edu/Book/index.html) about scalars and vectors in Mechanics.  
+         - Read pages 44-92 of the first chapter of the [Ruina and Rudra's book](http://ruina.tam.cornell.edu/Book/index.html) about scalars and vectors in Mechanics.
         """
     )
     return
@@ -811,8 +811,8 @@ def _(mo):
         r"""
         ## Video lectures on the Internet
 
-         - Khan Academy: [Vectors](https://www.khanacademy.org/math/algebra-home/alg-vectors)  
-         - [Vectors, what even are they?](https://youtu.be/fNk_zzaMoSs)  
+         - Khan Academy: [Vectors](https://www.khanacademy.org/math/algebra-home/alg-vectors)
+         - [Vectors, what even are they?](https://youtu.be/fNk_zzaMoSs)
         """
     )
     return
@@ -824,11 +824,11 @@ def _(mo):
         r"""
         ## Problems
 
-        1. Given the vectors, <span class="notranslate">$\overrightarrow{\mathbf{a}}=[1, 0, 0]$</span> and <span class="notranslate">$\overrightarrow{\mathbf{b}}=[1, 1, 1]$</span>, calculate the dot and cross products between them.  
+        1. Given the vectors, <span class="notranslate">$\overrightarrow{\mathbf{a}}=[1, 0, 0]$</span> and <span class="notranslate">$\overrightarrow{\mathbf{b}}=[1, 1, 1]$</span>, calculate the dot and cross products between them.
 
-        2. Calculate the unit vectors for$[2, −2, 3]$and$[3, −3, 2]$and determine an orthogonal vector to these two vectors.  
+        2. Calculate the unit vectors for$[2, −2, 3]$and$[3, −3, 2]$and determine an orthogonal vector to these two vectors.
 
-        3. Given the vectors <span class="notranslate">$\overrightarrow{\mathbf{a}}$=[1, 0, 0]</span> and <span class="notranslate">$\overrightarrow{\mathbf{b}}$=[1, 1, 1], calculate$\overrightarrow{\mathbf{a}} \times \overrightarrow{\mathbf{b}}$</span> and verify that this vector is orthogonal to vectors <span class="notranslate">$\overrightarrow{\mathbf{a}}$</span> and <span class="notranslate">$\overrightarrow{\mathbf{b}}$</span>. Also, calculate <span class="notranslate">$\overrightarrow{\mathbf{b}} \times \overrightarrow{\mathbf{a}}$</span> and compare it with <span class="notranslate">$\overrightarrow{\mathbf{a}} \times \overrightarrow{\mathbf{b}}$</span>.  
+        3. Given the vectors <span class="notranslate">$\overrightarrow{\mathbf{a}}$=[1, 0, 0]</span> and <span class="notranslate">$\overrightarrow{\mathbf{b}}$=[1, 1, 1], calculate$\overrightarrow{\mathbf{a}} \times \overrightarrow{\mathbf{b}}$</span> and verify that this vector is orthogonal to vectors <span class="notranslate">$\overrightarrow{\mathbf{a}}$</span> and <span class="notranslate">$\overrightarrow{\mathbf{b}}$</span>. Also, calculate <span class="notranslate">$\overrightarrow{\mathbf{b}} \times \overrightarrow{\mathbf{a}}$</span> and compare it with <span class="notranslate">$\overrightarrow{\mathbf{a}} \times \overrightarrow{\mathbf{b}}$</span>.
 
         4. Given the vectors$[1, 1, 0]; [1, 0, 1]; [0, 1, 1]$, calculate a basis using the Gram–Schmidt process.
 
@@ -850,7 +850,7 @@ def _(mo):
         r"""
         ## References
 
-        - Ruina A, Rudra P (2019) [Introduction to Statics and Dynamics](http://ruina.tam.cornell.edu/Book/index.html). Oxford University Press.  
+        - Ruina A, Rudra P (2019) [Introduction to Statics and Dynamics](http://ruina.tam.cornell.edu/Book/index.html). Oxford University Press.
         """
     )
     return

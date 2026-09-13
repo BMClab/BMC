@@ -1,62 +1,56 @@
 import marimo
 
-__generated_with = "0.13.15"
+__generated_with = "0.24.2"
 app = marimo.App()
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        # Direct Linear Transformation (DLT)
+    mo.md(r"""
+    # Direct Linear Transformation (DLT)
 
-        > Marcos Duarte   
-        > [Laboratory of Biomechanics and Motor Control](https://bmclab.pesquisa.ufabc.edu.br)  
-        > Federal University of ABC, Brazil
-        """
-    )
+    > Marcos Duarte<br>
+    > [Laboratory of Biomechanics and Motor Control](https://bmclab.pesquisa.ufabc.edu.br)<br>
+    > Federal University of ABC, Brazil
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Camera calibration and point reconstruction based on DLT
+    mo.md(r"""
+    ## Camera calibration and point reconstruction based on DLT
 
-        The fundamental problem here is to find a mathematical relationship between the coordinates of a 3D point and its projection onto the image plane. The DLT (a linear approximation to this problem) is derived from modeling the object and its projection on the image plane as a pinhole camera situation.   
-        In simplistic terms, using a pinhole camera model, it can be found by similar triangles the following relation between the image coordinates (u,v) and the 3D point (X,Y,Z):$\begin{bmatrix} u \\\ v\\\ l \end{bmatrix} = 
-        \begin{bmatrix} L1 &  L2 & L3 & L4 \\\ L5 & L6 & L7 & L8 \\\ L9 & L10 & L11 & L12 \end{bmatrix}  
-        \begin{bmatrix} X \\\ Y \\\ Z \\\ 1 \end{bmatrix}$The matrix L is kwnown as the camera matrix or camera projection matrix. For a 2D point (X,Y), this matrix is 3x3. In fact, the L12 term (or L9 for 2D DLT) is not independent from the other parameters and then there are only 11 (or 8 for 2D DLT) independent parameters in the DLT to be determined through the calibration procedure.   
+    The fundamental problem here is to find a mathematical relationship between the coordinates of a 3D point and its projection onto the image plane. The DLT (a linear approximation to this problem) is derived from modeling the object and its projection on the image plane as a pinhole camera situation.<br>
+    In simplistic terms, using a pinhole camera model, it can be found by similar triangles the following relation between the image coordinates (u,v) and the 3D point (X,Y,Z):$\begin{bmatrix} u \\\ v\\\ l \end{bmatrix} =
+    \begin{bmatrix} L1 &  L2 & L3 & L4 \\\ L5 & L6 & L7 & L8 \\\ L9 & L10 & L11 & L12 \end{bmatrix}
+    \begin{bmatrix} X \\\ Y \\\ Z \\\ 1 \end{bmatrix}$The matrix L is kwnown as the camera matrix or camera projection matrix. For a 2D point (X,Y), this matrix is 3x3. In fact, the L12 term (or L9 for 2D DLT) is not independent from the other parameters and then there are only 11 (or 8 for 2D DLT) independent parameters in the DLT to be determined through the calibration procedure.
 
-        There are more accurate (but more complex) algorithms for camera calibration that also consider lens distortion. For example, OpenCV and Tsai softwares have been ported to Python. However, DLT is classic, simple, and effective (fast) for most applications.   
+    There are more accurate (but more complex) algorithms for camera calibration that also consider lens distortion. For example, OpenCV and Tsai softwares have been ported to Python. However, DLT is classic, simple, and effective (fast) for most applications.
 
-        DLT is typically used in two steps: 1. Camera calibration. 2. Object (point) reconstruction.
+    DLT is typically used in two steps: 1. Camera calibration. 2. Object (point) reconstruction.
 
-        The camera calibration step consists in digitizing points with known coordinates in the real space and find the camera parameters.   
-        At least 4 points are necessary for the calibration of a plane (2D DLT) and at least 6 points for the calibration of a volume (3D DLT). For the 2D DLT, at least one view of the object (points) must be entered. For the 3D DLT, at least 2 different views of the object (points) must be entered.   
+    The camera calibration step consists in digitizing points with known coordinates in the real space and find the camera parameters.<br>
+    At least 4 points are necessary for the calibration of a plane (2D DLT) and at least 6 points for the calibration of a volume (3D DLT). For the 2D DLT, at least one view of the object (points) must be entered. For the 3D DLT, at least 2 different views of the object (points) must be entered.
 
-        These coordinates (from the object and image(s)) are inputed to a DLT algorithm which estimates the camera parameters (8 for 2D DLT and 11 for 3D DLT).   
+    These coordinates (from the object and image(s)) are inputed to a DLT algorithm which estimates the camera parameters (8 for 2D DLT and 11 for 3D DLT).
 
-        Usually it is used more points than the minimum necessary and the overdetermined linear system is solved by a least squares minimization algorithm or using singular value decomposition (SVD).
+    Usually it is used more points than the minimum necessary and the overdetermined linear system is solved by a least squares minimization algorithm or using singular value decomposition (SVD).
 
-        With these camera parameters and with the camera(s) at the same position of the calibration step, we now can reconstruct the real position of any point inside the calibrated space (area for 2D DLT and volume for the 3D DLT) from the point position(s) viewed by the same fixed camera(s).    
+    With these camera parameters and with the camera(s) at the same position of the calibration step, we now can reconstruct the real position of any point inside the calibrated space (area for 2D DLT and volume for the 3D DLT) from the point position(s) viewed by the same fixed camera(s).
 
-        See more about DLT at [https://docs.opencv.org/3.4/d9/dab/tutorial_homography.html](https://docs.opencv.org/3.4/d9/dab/tutorial_homography.html).
-        """
-    )
+    See more about DLT at [https://docs.opencv.org/3.4/d9/dab/tutorial_homography.html](https://docs.opencv.org/3.4/d9/dab/tutorial_homography.html).
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Python code for camera calibration and point reconstruction based on DLT
+    mo.md(r"""
+    ## Python code for camera calibration and point reconstruction based on DLT
 
-        > [dltx](https://pypi.org/project/dltx/): This package implements camera calibration and point reconstruction by direct linear transformation (DLT).
-        """
-    )
+    > [dltx](https://pypi.org/project/dltx/): This package implements camera calibration and point reconstruction by direct linear transformation (DLT).
+    """)
     return
 
 
@@ -70,11 +64,9 @@ app._unparsable_cell(
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### Example from [dltx](https://github.com/joonaojapalo/dltx)
-        """
-    )
+    mo.md(r"""
+    ### Example from [dltx](https://github.com/joonaojapalo/dltx)
+    """)
     return
 
 
@@ -260,12 +252,14 @@ def _():
         x = np.dot(Tr, np.concatenate((x.T, np.ones((1, x.shape[0])))))
         x = x[0:n_dims, :].T
         return (Tr, x)
+
     return
 
 
 @app.cell
 def _():
     import marimo as mo
+
     return (mo,)
 
 

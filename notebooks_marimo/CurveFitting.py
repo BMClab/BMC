@@ -10,8 +10,8 @@ def _(mo):
         r"""
         # Curve fitting
 
-        > Marcos Duarte  
-        > [Laboratory of Biomechanics and Motor Control](https://bmclab.pesquisa.ufabc.edu.br/)  
+        > Marcos Duarte<br>
+        > [Laboratory of Biomechanics and Motor Control](https://bmclab.pesquisa.ufabc.edu.br/)<br>
         > Federal University of ABC, Brazil
         """
     )
@@ -22,11 +22,11 @@ def _(mo):
 def _(mo):
     mo.md(
         r"""
-        Curve fitting is the process of fitting a model, expressed in terms of a mathematical function, that depends on adjustable parameters to a series of data points and once adjusted, that curve has the best fit to the data points.   
+        Curve fitting is the process of fitting a model, expressed in terms of a mathematical function, that depends on adjustable parameters to a series of data points and once adjusted, that curve has the best fit to the data points.
 
         The model can be an arbitrary class of functions such as polynomials and the fit would determine the polynomial coefficients to simplily summarize the data or the model parameters can represent a underlying theory that the data are supposed to satisfy such as fitting an exponential function to data of a decay process to determine its decay rate or a parabola to the position data of an object falling to determine the gravity acceleration.
 
-        The general approach to the fitting procedure involves the definition of a merit function that measures the agreement between data and model. The model parameters are then adjusted to yield the best-fit parameters as a problem of minimization. A fitting procedure should provide (i) parameters, (ii) error estimates on the parameters, and (iii) a statistical measure of goodness-of-fit. When the third item suggests that the model is an unlikely match to the data, then items (i) and (ii) are probably worthless.   
+        The general approach to the fitting procedure involves the definition of a merit function that measures the agreement between data and model. The model parameters are then adjusted to yield the best-fit parameters as a problem of minimization. A fitting procedure should provide (i) parameters, (ii) error estimates on the parameters, and (iii) a statistical measure of goodness-of-fit. When the third item suggests that the model is an unlikely match to the data, then items (i) and (ii) are probably worthless.<br>
         (Numerical Recipes 2007, Bevington and Robinson 2002)
         """
     )
@@ -39,12 +39,12 @@ def _(mo):
         r"""
         ## Least squares
 
-        Consider$n$data points$(x_i, y_i),\: i=1, \dots , n$, where$x_i$is the independent variable (or predictor) and$y_i$is the dependent variable (or response) to be fitted by a model function$y$with$m$adjustable parameters$\beta_i,\: i=1, \dots , m$. The problem is to find the parameter values for the model which best fits the data. A classical solution is to find the best fit by minimizing the sum of the squared differences between data points and the model function (the sum of squared residuals as the merit function), which is known as the least-squares fit:$\sum_{i=1}^{n} \left[ y_i - y(x | \beta_1 \dots \beta_{m}) \right]^2 \;\;\;\;\;\; \mathrm{minimize\; over:} \;\;\; \beta_1 \dots \beta_{m}$**Chi-Square**   
+        Consider$n$data points$(x_i, y_i),\: i=1, \dots , n$, where$x_i$is the independent variable (or predictor) and$y_i$is the dependent variable (or response) to be fitted by a model function$y$with$m$adjustable parameters$\beta_i,\: i=1, \dots , m$. The problem is to find the parameter values for the model which best fits the data. A classical solution is to find the best fit by minimizing the sum of the squared differences between data points and the model function (the sum of squared residuals as the merit function), which is known as the least-squares fit:$\sum_{i=1}^{n} \left[ y_i - y(x | \beta_1 \dots \beta_{m}) \right]^2 \;\;\;\;\;\; \mathrm{minimize\; over:} \;\;\; \beta_1 \dots \beta_{m}$**Chi-Square**<br>
         If we consider that each response$y_i$has a measurement error or uncertainty described by a standard deviation,$\sigma_i$, the problem now is to minimize the following function:$\sum_{i=1}^{n} \left[ \frac{ y_i - y(x | \beta_1 \dots \beta_{m}) }{\sigma_i} \right]^2 = \chi^2$Considering that the residuals are normally distributed, the sum of squared residuals divided by their variance,$\sigma_i^2$, by definition will have a [chi-squared distribution](http://en.wikipedia.org/wiki/Chi-squared_distribution),$\chi^2$. Once the best-fit parameters are found, the terms in the sum above are not all statistically independent and the probability distribution of$\chi^2$will be the chi-squared distribution for$n-m$degrees of freedom.
 
-        The uncertainty$\sigma_i$can be seen as the inverse of the weights in a weighted sum (because less certainty we have about this measure). Larger$\sigma_i$, smaller the weight of$y_i$in the sum. If$y_i$has no uncertainty,$\sigma_i$should be equal to one.   
+        The uncertainty$\sigma_i$can be seen as the inverse of the weights in a weighted sum (because less certainty we have about this measure). Larger$\sigma_i$, smaller the weight of$y_i$in the sum. If$y_i$has no uncertainty,$\sigma_i$should be equal to one.
 
-        A rough estimate of the goodness of fit is the reduced chi-square statistic,$\chi^2_{red}$: the$\chi^2$value divided by the number of degrees of freedom ($n-m$).   
+        A rough estimate of the goodness of fit is the reduced chi-square statistic,$\chi^2_{red}$: the$\chi^2$value divided by the number of degrees of freedom ($n-m$).<br>
         A good fitting should have$\chi^2_{red}$equals to one.
         """
     )
@@ -57,7 +57,7 @@ def _(mo):
         r"""
         ## Linear fit
 
-        Let's derive the analytical expression for the least-square fit when the model function is a straight line (a.k.a. linear regression) and the dependent variable$y_i$has uncertainty:$y(x) = y(x | a,b) = a + bx$We want to find$a, b$such that minimizes the$\chi^2$function defined above (a.k.a.$\chi^2$fitting):$\chi^2(a,b) = \sum_{i=1}^{n} \left[ \frac{ y_i - (a + bx_i) }{\sigma_i} \right]^2$Using the property that at the minimum of$\chi^2$its derivative is zero:$\frac{\partial \chi^2}{\partial a} = -2 \sum_{i=1}^{n} \frac{ y_i - a - bx_i }{\sigma_i^2} = 0$$\frac{\partial \chi^2}{\partial b} = -2 \sum_{i=1}^{n} \frac{ x_i(y_i - a - bx_i) }{\sigma_i^2} = 0$To solve these two equations, let's define the sums as:$S = \sum_{i=1}^{n} \frac{1}{\sigma_i^2} \;\;\; S_x = \sum_{i=1}^{n} \frac{x_i}{\sigma_i^2} \;\;\; S_y = \sum_{i=1}^{n} \frac{y_i}{\sigma_i^2} \;\;\; S_{xx} = \sum_{i=1}^{n} \frac{x_i^2}{\sigma_i^2} \;\;\; S_{xy} = \sum_{i=1}^{n} \frac{x_i y_i}{\sigma_i^2}$Using these definitions, the former two equations become:$S_y \:\: = aS + bS_x$$S_{xy} = aS_x + bS_{xx}$And solving these two equations for the two unknowns:$a = \frac{S_{xx}S_y - S_x S_{xy}}{\Delta}$$b = \frac{S S_{xy} - S_x S_y}{\Delta}$Where:$\Delta = S S_{xx} - S_x^2$With the parameters above, the straight line will be the best fit in the sense that the sum of the squared residuals are minimum.   
+        Let's derive the analytical expression for the least-square fit when the model function is a straight line (a.k.a. linear regression) and the dependent variable$y_i$has uncertainty:$y(x) = y(x | a,b) = a + bx$We want to find$a, b$such that minimizes the$\chi^2$function defined above (a.k.a.$\chi^2$fitting):$\chi^2(a,b) = \sum_{i=1}^{n} \left[ \frac{ y_i - (a + bx_i) }{\sigma_i} \right]^2$Using the property that at the minimum of$\chi^2$its derivative is zero:$\frac{\partial \chi^2}{\partial a} = -2 \sum_{i=1}^{n} \frac{ y_i - a - bx_i }{\sigma_i^2} = 0$$\frac{\partial \chi^2}{\partial b} = -2 \sum_{i=1}^{n} \frac{ x_i(y_i - a - bx_i) }{\sigma_i^2} = 0$To solve these two equations, let's define the sums as:$S = \sum_{i=1}^{n} \frac{1}{\sigma_i^2} \;\;\; S_x = \sum_{i=1}^{n} \frac{x_i}{\sigma_i^2} \;\;\; S_y = \sum_{i=1}^{n} \frac{y_i}{\sigma_i^2} \;\;\; S_{xx} = \sum_{i=1}^{n} \frac{x_i^2}{\sigma_i^2} \;\;\; S_{xy} = \sum_{i=1}^{n} \frac{x_i y_i}{\sigma_i^2}$Using these definitions, the former two equations become:$S_y \:\: = aS + bS_x$$S_{xy} = aS_x + bS_{xx}$And solving these two equations for the two unknowns:$a = \frac{S_{xx}S_y - S_x S_{xy}}{\Delta}$$b = \frac{S S_{xy} - S_x S_y}{\Delta}$Where:$\Delta = S S_{xx} - S_x^2$With the parameters above, the straight line will be the best fit in the sense that the sum of the squared residuals are minimum.
 
         **Estimating the uncertainty of the parameters**
 
@@ -72,7 +72,7 @@ def _(mo):
         r"""
         ## Correlation coefficient
 
-        The Pearson product-moment correlation coefficient, or simply the correlation coefficient, is a measure of the linear correlation between two variables$x$and$y$, with values varying from +1 to −1, where 1 is total positive correlation, 0 is no correlation, and −1 is total negative correlation.   
+        The Pearson product-moment correlation coefficient, or simply the correlation coefficient, is a measure of the linear correlation between two variables$x$and$y$, with values varying from +1 to −1, where 1 is total positive correlation, 0 is no correlation, and −1 is total negative correlation.<br>
         The correlation coefficient between populations of two random variables is the covariance of the two variables divided by the product of their standard deviations:$\rho_{x, y} = \frac{cov(x, y)}{\sigma_x\sigma_y} = \frac{E[(x-\mu_x)(y-\mu_y)]}{\sqrt{E[(x-\mu_x)^2]}\sqrt{E[(y-\mu_y)^2]}}$Where$E[\cdot]$is the <a href="http://en.wikipedia.org/wiki/Moment_(mathematics)">expectation operator</a>.
 
         For samples of two random variables, the covariance and standard deviation are given by:$cov(x, y) = \frac{1}{n-1}\sum_{i=1}^{n}(x_i-\bar{x})(y_i-\bar{y})$$\sigma_x = \sqrt{\frac{1}{n-1}\sum_{i=1}^{n}(x_i-\bar{x})^2}$So, the correlation coefficient for the samples is:$r_{x, y} = \frac{\sum_{i=1}^{n}(x_i-\bar{x})(y_i-\bar{y})}{\sqrt{\sum_{i=1}^{n}(x_i-\bar{x})^2}\sqrt{\sum_{i=1}^{n}(y_i-\bar{y})^2}}$The square of the sample correlation coefficient, denoted$r^2$or$R^2$, is called the coefficient of determination and it can be shown it is related to the linear fit formalism by:$R^2(y, \widehat{y}) = \frac{\sum_{i=1}^{n}(\widehat{y}_i-\bar{y})^2}{\sum_{i=1}^{n}(y_i-\bar{y})^2}$Where$\widehat{y}_i$are the fitted values from the linear fit.
@@ -91,14 +91,14 @@ def _(mo):
 
         Python and its ecosystem for scientific computing have plenty of functions ready available for curve fitting. Instead of writting our own code to implement the formula above, let's use the functions available which will cover many more cases (general polynomials, nonlinear functions, etc.).
 
-        First, if we only want to fit polynomials, we can use the Numpy polyfit function:   
+        First, if we only want to fit polynomials, we can use the Numpy polyfit function:
 
             polyfit(x, y, deg, rcond=None, full=False, w=None, cov=False)   
-                Least squares polynomial fit.   
+                Least squares polynomial fit.
         
                 Fit a polynomial ``p(x) = p[0] * x**deg + ... + p[deg]`` of degree `deg`   
                 to points `(x, y)`. Returns a vector of coefficients `p` that minimises   
-                the squared error.  
+                the squared error.
         
         Let's demonstrate how polyfit works:
         """
@@ -308,7 +308,7 @@ def _(linearfit, plt, x_1, y_1, yerr_1):
 def _(mo):
     mo.md(
         r"""
-        From figure above, if the errors (weights) are all equal, the fitting is the same as if we don't input any error (first line).   
+        From figure above, if the errors (weights) are all equal, the fitting is the same as if we don't input any error (first line).<br>
         When the errors are different across data, the uncertainty has a strong impact on the curve fitting (second line).
         """
     )
@@ -403,8 +403,8 @@ def _(plt, resid_3, stats):
 def _(mo):
     mo.md(
         r"""
-        Even the residuals don't look bad!  
-        Exactly the same model fits very different data.   
+        Even the residuals don't look bad!<br>
+        Exactly the same model fits very different data.<br>
         We should be very carefull in interpreting the result of a curve fitting as a description of a phenomenon.
         """
     )
@@ -417,11 +417,11 @@ def _(mo):
         r"""
         ## Confidence and prediction intervals for the linear fit
 
-        Analog to the case for a random variable (see [Confidence and prediction intervals](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/ConfidencePredictionIntervals.ipynb)), we can estimate confidence and prediction intervals for the linear fit (for the deduction of these intervals see for example Montgomery (2013)).   
+        Analog to the case for a random variable (see [Confidence and prediction intervals](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/ConfidencePredictionIntervals.ipynb)), we can estimate confidence and prediction intervals for the linear fit (for the deduction of these intervals see for example Montgomery (2013)).
 
-        **Confidence interval**   
+        **Confidence interval**
 
-        A 95% confidence interval for the linear fit gives the 95% probability that this interval around the linear fit,$\hat{\mu}_{y|x0}$, contains the mean response of new values,$\mu_{y|x0}$, at a specified value,$x_0$, and it is given by:$\left| \: \hat{\mu}_{y|x0} - \mu_{y|x0} \: \right| \; \leq \; T_{n-2}^{.975} \; \hat{\sigma} \; \sqrt{\frac{1}{n}+\frac{(x_0-\bar{x})^2}{\sum_{i=1}^n{(x_i-\bar{x})^2}}}$Where:$\hat{\mu}_{y|x0} = a + bx_0$is computed from the lineat fit.$T_{n-2}^{.975}$is the$97.5^{th}$percentile of the Student's t-distribution with n−2 degrees of freedom.$\hat{\sigma}$is the standard deviation of the error term in the linear fit (residuals) given by:$\hat{\sigma} = \sqrt{\sum_{i=1}^n{\frac{(y_i-\hat{y})^2}{n-2}}}$**Prediction interval**   
+        A 95% confidence interval for the linear fit gives the 95% probability that this interval around the linear fit,$\hat{\mu}_{y|x0}$, contains the mean response of new values,$\mu_{y|x0}$, at a specified value,$x_0$, and it is given by:$\left| \: \hat{\mu}_{y|x0} - \mu_{y|x0} \: \right| \; \leq \; T_{n-2}^{.975} \; \hat{\sigma} \; \sqrt{\frac{1}{n}+\frac{(x_0-\bar{x})^2}{\sum_{i=1}^n{(x_i-\bar{x})^2}}}$Where:$\hat{\mu}_{y|x0} = a + bx_0$is computed from the lineat fit.$T_{n-2}^{.975}$is the$97.5^{th}$percentile of the Student's t-distribution with n−2 degrees of freedom.$\hat{\sigma}$is the standard deviation of the error term in the linear fit (residuals) given by:$\hat{\sigma} = \sqrt{\sum_{i=1}^n{\frac{(y_i-\hat{y})^2}{n-2}}}$**Prediction interval**
 
         A 95% prediction interval for the linear fit gives the 95% probability that this interval around the linear fit,$\hat{y}_0$, contains a new observation,$y_0$, at a specified value,$x_0$, and it is given by:$\left| \: \hat{y}_0 - y_0 \: \right| \; \leq \; T_{n-2}^{.975} \; \hat{\sigma} \; \sqrt{1 + \frac{1}{n}+\frac{(x_0-\bar{x})^2}{\sum_{i=1}^n{(x_i-\bar{x})^2}}}$Where$\hat{y}_0 = a + bx_0$is computed from the lineat fit.
 
@@ -656,7 +656,7 @@ def _(mo):
         ## References
 
         - [Bevington and Robinson (2002) Data Reduction and Error Analysis for the Physical Science. McGraw-Hill Science/Engineering/Math; 3rd edition](https://www.mcgraw-hill.co.uk/html/0071199268.html).
-        - [Press et al. (2007) Numerical Recipes 3rd Edition: The Art of Scientific Computing. Cambridge University Press](http://www.nr.com/).  
+        - [Press et al. (2007) Numerical Recipes 3rd Edition: The Art of Scientific Computing. Cambridge University Press](http://www.nr.com/).
         - [Montgomery (2013) Applied Statistics and Probability for Engineers. John Wiley & Sons](http://books.google.com.br/books?id=_f4KrEcNAfEC).
         - [NIST/SEMATECH e-Handbook of Statistical Methods](http://www.itl.nist.gov/div898/handbook/pri/section2/pri24.htm)
         """

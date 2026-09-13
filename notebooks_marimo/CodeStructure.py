@@ -1,32 +1,28 @@
 import marimo
 
-__generated_with = "0.13.15"
+__generated_with = "0.24.2"
 app = marimo.App()
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        # Code structure for data analysis
+    mo.md(r"""
+    # Code structure for data analysis
 
-        > Marcos Duarte  
-        > Laboratory of Biomechanics and Motor Control ([http://demotu.org/](http://demotu.org/))  
-        > Federal University of ABC, Brazil
-        """
-    )
+    > Marcos Duarte<br>
+    > Laboratory of Biomechanics and Motor Control ([http://demotu.org/](http://demotu.org/))<br>
+    > Federal University of ABC, Brazil
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Sometimes data from experiments are stored in different files where each file contains data for different subjects, trials, conditions, etc. This text presents a common and simple solution to write a code to analyze such data.  
-        The basic idea is that the name of the file is created in a structured way and you can use that to run a sequence of procedures inside one or more nested loops.   
-        For instance, consider that the two first letters of the filename encode the initials of the subject's name, the next two letters the different conditions, and the last two characters the trial number. 
-        """
-    )
+    mo.md(r"""
+    Sometimes data from experiments are stored in different files where each file contains data for different subjects, trials, conditions, etc. This text presents a common and simple solution to write a code to analyze such data.<br>
+    The basic idea is that the name of the file is created in a structured way and you can use that to run a sequence of procedures inside one or more nested loops.<br>
+    For instance, consider that the two first letters of the filename encode the initials of the subject's name, the next two letters the different conditions, and the last two characters the trial number.
+    """)
     return
 
 
@@ -40,11 +36,9 @@ def _():
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        We could open and process these files with:
-        """
-    )
+    mo.md(r"""
+    We could open and process these files with:
+    """)
     return
 
 
@@ -60,26 +54,22 @@ def _(conditions, subjects, trials):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        The problem with this code is that if one one more files are missing or corrupted (which is typical), it will break. A solution is to read the file inside a `try` function. The `try...except` handles exceptions such as a failure in reading a file and then we can use a `continue` statement to skip each failed iteration in the inner loop.  
-        Let's create some files and implement this idea.
-        """
-    )
+    mo.md(r"""
+    The problem with this code is that if one one more files are missing or corrupted (which is typical), it will break. A solution is to read the file inside a `try` function. The `try...except` handles exceptions such as a failure in reading a file and then we can use a `continue` statement to skip each failed iteration in the inner loop.<br>
+    Let's create some files and implement this idea.
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Read and save files
+    mo.md(r"""
+    ## Read and save files
 
-        If the data is in text ([ASCII](http://en.wikipedia.org/wiki/ASCII)) format, it's easier to read the file with the [`Numpy`](http://www.numpy.org/) function [`loadtxt`](http://docs.scipy.org/doc/numpy/reference/generated/numpy.loadtxt.html) or with the [`pandas`](http://pandas.pydata.org/) function [`read_csv`](http://pandas.pydata.org/pandas-docs/stable/generated/pandas.io.parsers.read_csv.html). Both functions behave similarly; they can skip a certain number of first rows, can read files with different column separators, read numbers and letters, etc. `read_csv` tends to be faster but it returns a `pandas` [`DataFrame`](http://pandas.pydata.org/pandas-docs/dev/generated/pandas.DataFrame.html) object, which might not be useful if you are not into `pandas` (but you should be).
+    If the data is in text ([ASCII](http://en.wikipedia.org/wiki/ASCII)) format, it's easier to read the file with the [`Numpy`](http://www.numpy.org/) function [`loadtxt`](http://docs.scipy.org/doc/numpy/reference/generated/numpy.loadtxt.html) or with the [`pandas`](http://pandas.pydata.org/) function [`read_csv`](http://pandas.pydata.org/pandas-docs/stable/generated/pandas.io.parsers.read_csv.html). Both functions behave similarly; they can skip a certain number of first rows, can read files with different column separators, read numbers and letters, etc. `read_csv` tends to be faster but it returns a `pandas` [`DataFrame`](http://pandas.pydata.org/pandas-docs/dev/generated/pandas.DataFrame.html) object, which might not be useful if you are not into `pandas` (but you should be).
 
-        To save data to a file, we can use the counterpart functions `savetxt` and `to_csv`:
-        """
-    )
+    To save data to a file, we can use the counterpart functions `savetxt` and `to_csv`:
+    """)
     return
 
 
@@ -101,12 +91,10 @@ def _(conditions, subjects, trials):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        In my case I used the './../' command to move up one directory relatively to my current directory (see the <a href="http://en.wikipedia.org/wiki/Cd_(command)">cd (command)</a>).  
-        Let's remove one of the files:
-        """
-    )
+    mo.md(r"""
+    In my case I used the './../' command to move up one directory relatively to my current directory (see the <a href="http://en.wikipedia.org/wiki/Cd_(command)">cd (command)</a>).<br>
+    Let's remove one of the files:
+    """)
     return
 
 
@@ -119,11 +107,9 @@ def _():
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Now let's read the data in these files and handle a possible missing or corrupted file:
-        """
-    )
+    mo.md(r"""
+    Now let's read the data in these files and handle a possible missing or corrupted file:
+    """)
     return
 
 
@@ -145,15 +131,13 @@ def _(conditions, extension, np, path, subjects, trials):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Store results
+    mo.md(r"""
+    ## Store results
 
-        The results of the analysis for each file can be stored in a variable in different ways.  
-        We can store the results in a multidimensional variable where each dimension corresponds to the different indices in the loops. With the data above this would produce `results(s, c, t)`, a 2x2x3 array. Or we can store everything in a two-dimensional array where for example each row corresponds to each combination of subject, condition, and trial.   
-        Let's try both ways:
-        """
-    )
+    The results of the analysis for each file can be stored in a variable in different ways.<br>
+    We can store the results in a multidimensional variable where each dimension corresponds to the different indices in the loops. With the data above this would produce `results(s, c, t)`, a 2x2x3 array. Or we can store everything in a two-dimensional array where for example each row corresponds to each combination of subject, condition, and trial.<br>
+    Let's try both ways:
+    """)
     return
 
 
@@ -178,12 +162,10 @@ def _(conditions, extension, np, path, subjects, trials):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        One problem with this approach is that for many dimensions the data gets convoluted and it might be difficult to read it.  
-        The results for the first subject, condition, and trial are:
-        """
-    )
+    mo.md(r"""
+    One problem with this approach is that for many dimensions the data gets convoluted and it might be difficult to read it.<br>
+    The results for the first subject, condition, and trial are:
+    """)
     return
 
 
@@ -195,11 +177,9 @@ def _(results):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        We can use the second approach and store the results in a two-dimensional array:
-        """
-    )
+    mo.md(r"""
+    We can use the second approach and store the results in a two-dimensional array:
+    """)
     return
 
 
@@ -230,11 +210,9 @@ def _(conditions, extension, np, path, subjects, trials):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        We can create columns identifying the subject, condition, and trial, which might be useful for running statistical analysis:
-        """
-    )
+    mo.md(r"""
+    We can create columns identifying the subject, condition, and trial, which might be useful for running statistical analysis:
+    """)
     return
 
 
@@ -264,13 +242,11 @@ def _(conditions, extension, np, path, subjects, trials):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        These are just some possible generic approaches to analyze data in multiple files.
+    mo.md(r"""
+    These are just some possible generic approaches to analyze data in multiple files.
 
-        And we can save the results in a file:
-        """
-    )
+    And we can save the results in a file:
+    """)
     return
 
 
@@ -286,6 +262,7 @@ def _(np, path, results_2):
 @app.cell
 def _():
     import marimo as mo
+
     return (mo,)
 
 

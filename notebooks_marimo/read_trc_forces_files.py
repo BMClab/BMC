@@ -1,19 +1,17 @@
 import marimo
 
-__generated_with = "0.13.15"
+__generated_with = "0.24.2"
 app = marimo.App()
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        # Read Cortex Motion Analysis Corporation .trc and .forces files (example)
+    mo.md(r"""
+    # Read Cortex Motion Analysis Corporation .trc and .forces files (example)
 
-        > [Laboratory of Biomechanics and Motor Control](http://pesquisa.ufabc.edu.br/bmclab)  
-        > Federal University of ABC, Brazil
-        """
-    )
+    > [Laboratory of Biomechanics and Motor Control](http://pesquisa.ufabc.edu.br/bmclab)<br>
+    > Federal University of ABC, Brazil
+    """)
     return
 
 
@@ -32,6 +30,7 @@ def _():
     import pyversions  # https://pypi.org/project/pyversions/
     sys.path.insert(1, r'./../functions')
     import io_cortexmac as io  # from https://github.com/BMClab/BMC/tree/master/functions
+
     return io, np, os, pd, plt, pyversions, signal
 
 
@@ -43,11 +42,9 @@ def _(pyversions):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Use function `io_cortexmac.py` from BMClab's repo
-        """
-    )
+    mo.md(r"""
+    ## Use function `io_cortexmac.py` from BMClab's repo
+    """)
     return
 
 
@@ -87,11 +84,9 @@ def _(grf):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### trc and forces data have different sampling rates
-        """
-    )
+    mo.md(r"""
+    ### trc and forces data have different sampling rates
+    """)
     return
 
 
@@ -111,11 +106,9 @@ def _(grf, np):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        #### Resample trc to the force sampling rate (150 Hz to 450 Hz)
-        """
-    )
+    mo.md(r"""
+    #### Resample trc to the force sampling rate (150 Hz to 450 Hz)
+    """)
     return
 
 
@@ -140,11 +133,9 @@ def _(trc_1):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Plot of some data
-        """
-    )
+    mo.md(r"""
+    ## Plot of some data
+    """)
     return
 
 
@@ -173,21 +164,17 @@ def _(grf, plt, trc_1):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        This means that the subject stepped on force plate **#6** with her/his **left** foot and then stepped on force plate **#5** with her/his **right** foot.
-        """
-    )
+    mo.md(r"""
+    This means that the subject stepped on force plate **#6** with her/his **left** foot and then stepped on force plate **#5** with her/his **right** foot.
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## For data noturno
-        """
-    )
+    mo.md(r"""
+    ## For data noturno
+    """)
     return
 
 
@@ -220,17 +207,16 @@ def _(io, np, os, path2, pd, plt, signal):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        This means that the subject stepped on force plate **#6** with her/his **right** foot and then stepped on force plate **#5** with her/his **left** foot.
-        """
-    )
+    mo.md(r"""
+    This means that the subject stepped on force plate **#6** with her/his **right** foot and then stepped on force plate **#5** with her/his **left** foot.
+    """)
     return
 
 
 @app.cell
 def _():
     import marimo as mo
+
     return (mo,)
 
 

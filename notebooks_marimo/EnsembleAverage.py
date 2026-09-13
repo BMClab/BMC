@@ -1,32 +1,28 @@
 import marimo
 
-__generated_with = "0.13.15"
+__generated_with = "0.24.2"
 app = marimo.App()
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        # Ensemble average
+    mo.md(r"""
+    # Ensemble average
 
-        > Marcos Duarte  
-        > [Laboratory of Biomechanics and Motor Control](https://bmclab.pesquisa.ufabc.edu.br/)  
-        > Federal University of ABC, Brazil
-        """
-    )
+    > Marcos Duarte<br>
+    > [Laboratory of Biomechanics and Motor Control](https://bmclab.pesquisa.ufabc.edu.br/)<br>
+    > Federal University of ABC, Brazil
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        A usual procedure employed to present the average pattern of a variable as a function of time or movement cycle across trials or across subjects is to show the ensemble average curve, which is a fancy name for (typically) the mean$\pm$1 standard-deviation curve.
+    mo.md(r"""
+    A usual procedure employed to present the average pattern of a variable as a function of time or movement cycle across trials or across subjects is to show the ensemble average curve, which is a fancy name for (typically) the mean$\pm$1 standard-deviation curve.
 
-        Let's simulate some data and explore different aesthetic variations to present the ensemble average.
-        """
-    )
+    Let's simulate some data and explore different aesthetic variations to present the ensemble average.
+    """)
     return
 
 
@@ -36,6 +32,7 @@ def _():
     import matplotlib.pyplot as plt
     import sys
     from tnorma import tnorma
+
     return np, plt, tnorma
 
 
@@ -62,12 +59,10 @@ def _(np, plt):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        To calculate the mean and standard deviation across these trials the different trials must have the same number of points.   
-        We can do this with the [time normalization of data](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/TimeNormalization.ipynb), where we will normalize each trial to the same percent cycle (from 0 to 100%):
-        """
-    )
+    mo.md(r"""
+    To calculate the mean and standard deviation across these trials the different trials must have the same number of points.<br>
+    We can do this with the [time normalization of data](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/TimeNormalization.ipynb), where we will normalize each trial to the same percent cycle (from 0 to 100%):
+    """)
     return
 
 
@@ -87,11 +82,9 @@ def _(plt, tnorma, y):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        So, the trials have the same number of points, now we can calculate the mean and standard deviation curves and plot the ensemble average
-        """
-    )
+    mo.md(r"""
+    So, the trials have the same number of points, now we can calculate the mean and standard deviation curves and plot the ensemble average
+    """)
     return
 
 
@@ -109,11 +102,9 @@ def _(np, plt, tn, yn):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        And here are some aesthetic variations to show the ensemble average:
-        """
-    )
+    mo.md(r"""
+    And here are some aesthetic variations to show the ensemble average:
+    """)
     return
 
 
@@ -164,11 +155,9 @@ def _(np, plt, tn, ym, ysd):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Instead of mean and standard deviation we can use median and the first and third quartiles:
-        """
-    )
+    mo.md(r"""
+    Instead of mean and standard deviation we can use median and the first and third quartiles:
+    """)
     return
 
 
@@ -187,6 +176,7 @@ def _(np, plt, tn, yn):
 @app.cell
 def _():
     import marimo as mo
+
     return (mo,)
 
 

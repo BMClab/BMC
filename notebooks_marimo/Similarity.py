@@ -1,20 +1,18 @@
 import marimo
 
-__generated_with = "0.13.15"
+__generated_with = "0.24.2"
 app = marimo.App()
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        > # Select data vectors by similarity using a metric score
+    mo.md(r"""
+    > # Select data vectors by similarity using a metric score
 
-        > Marcos Duarte  
-        > [Laboratory of Biomechanics and Motor Control](https://bmclab.pesquisa.ufabc.edu.br/)  
-        > Federal University of ABC, Brazil
-        """
-    )
+    > Marcos Duarte<br>
+    > [Laboratory of Biomechanics and Motor Control](https://bmclab.pesquisa.ufabc.edu.br/)<br>
+    > Federal University of ABC, Brazil
+    """)
     return
 
 
@@ -55,11 +53,9 @@ def _(mse):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### Example
-        """
-    )
+    mo.md(r"""
+    ### Example
+    """)
     return
 
 
@@ -144,11 +140,9 @@ def _(mse, np, similarity, y):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Function profiling
-        """
-    )
+    mo.md(r"""
+    ## Function profiling
+    """)
     return
 
 
@@ -166,11 +160,9 @@ def _(similarity, y):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        The computation of the metric score (in the example above, `mse`) takes 86% of the funtion time. Let's look on that.
-        """
-    )
+    mo.md(r"""
+    The computation of the metric score (in the example above, `mse`) takes 86% of the funtion time. Let's look on that.
+    """)
     return
 
 
@@ -190,11 +182,9 @@ def _(mse, np, y):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Using `median` to calculate statistics slows down the code by about 4 times compared to using `mean`.
-        """
-    )
+    mo.md(r"""
+    Using `median` to calculate statistics slows down the code by about 4 times compared to using `mean`.
+    """)
     return
 
 
@@ -207,11 +197,9 @@ def _():
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Function `similarity`
-        """
-    )
+    mo.md(r"""
+    ## Function `similarity`
+    """)
     return
 
 
@@ -462,12 +450,14 @@ def _(np):
             if msg:
                 print(f'Vectors discarded (dimension {axis2}, n={len(inotkept)}): {inotkept}')
         return (y, ikept, inotkept, scores)
+
     return
 
 
 @app.cell
 def _():
     import marimo as mo
+
     return (mo,)
 
 

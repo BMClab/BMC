@@ -1,52 +1,44 @@
 import marimo
 
-__generated_with = "0.13.15"
+__generated_with = "0.24.2"
 app = marimo.App()
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        # The minimum jerk hypothesis
+    mo.md(r"""
+    # The minimum jerk hypothesis
 
-        > Marcos Duarte  
-        > [Laboratory of Biomechanics and Motor Control](https://bmclab.pesquisa.ufabc.edu.br)  
-        > Federal University of ABC, Brazil
-        """
-    )
+    > Marcos Duarte<br>
+    > [Laboratory of Biomechanics and Motor Control](https://bmclab.pesquisa.ufabc.edu.br)<br>
+    > Federal University of ABC, Brazil
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        <center><div style="background-color:#f2f2f2;border:1px solid black;width:72%;padding:5px 10px 5px 10px;text-align:left;">
-        <i>"Whatever its physiological underpinnings, the real strength of the minimum-jerk criterion function, or indeed any other criterion function, is its use as an organizing principle. The use of variational principles is common in physics and engineering. They are not presented as the cause of the behavior they describe but rather as a distillation of its essence."</i> &nbsp; <b>Hogan</b> (1984)</div></center>
-        """
-    )
+    mo.md(r"""
+    <center><div style="background-color:#f2f2f2;border:1px solid black;width:72%;padding:5px 10px 5px 10px;text-align:left;">
+    <i>"Whatever its physiological underpinnings, the real strength of the minimum-jerk criterion function, or indeed any other criterion function, is its use as an organizing principle. The use of variational principles is common in physics and engineering. They are not presented as the cause of the behavior they describe but rather as a distillation of its essence."</i> &nbsp; <b>Hogan</b> (1984)</div></center>
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        <h1>Contents<span class="tocSkip"></span></h1>
-        <div class="toc"><ul class="toc-item"><li><span><a href="#Python-setup" data-toc-modified-id="Python-setup-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Python setup</a></span></li><li><span><a href="#Development" data-toc-modified-id="Development-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Development</a></span></li><li><span><a href="#Finding-the-minimum-jerk-trajectory" data-toc-modified-id="Finding-the-minimum-jerk-trajectory-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Finding the minimum jerk trajectory</a></span></li><li><span><a href="#The-angular-trajectory-of-a-minimum-jerk-trajectory" data-toc-modified-id="The-angular-trajectory-of-a-minimum-jerk-trajectory-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>The angular trajectory of a minimum jerk trajectory</a></span></li><li><span><a href="#Problems" data-toc-modified-id="Problems-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>Problems</a></span></li><li><span><a href="#References" data-toc-modified-id="References-6"><span class="toc-item-num">6&nbsp;&nbsp;</span>References</a></span></li></ul></div>
-        """
-    )
+    mo.md(r"""
+    <h1>Contents<span class="tocSkip"></span></h1>
+    <div class="toc"><ul class="toc-item"><li><span><a href="#Python-setup" data-toc-modified-id="Python-setup-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Python setup</a></span></li><li><span><a href="#Development" data-toc-modified-id="Development-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Development</a></span></li><li><span><a href="#Finding-the-minimum-jerk-trajectory" data-toc-modified-id="Finding-the-minimum-jerk-trajectory-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Finding the minimum jerk trajectory</a></span></li><li><span><a href="#The-angular-trajectory-of-a-minimum-jerk-trajectory" data-toc-modified-id="The-angular-trajectory-of-a-minimum-jerk-trajectory-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>The angular trajectory of a minimum jerk trajectory</a></span></li><li><span><a href="#Problems" data-toc-modified-id="Problems-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>Problems</a></span></li><li><span><a href="#References" data-toc-modified-id="References-6"><span class="toc-item-num">6&nbsp;&nbsp;</span>References</a></span></li></ul></div>
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Python setup
-        """
-    )
+    mo.md(r"""
+    ## Python setup
+    """)
     return
 
 
@@ -80,35 +72,31 @@ def _():
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Development
+    mo.md(r"""
+    ## Development
 
-        Hogan and Flash (1984, 1985), based on observations of voluntary movements in primates, suggested that movements are performed (organized) with the smoothest trajectory possible. In this organizing principle, the endpoint trajectory is such that the mean squared-jerk across time of this movement is minimum.   
+    Hogan and Flash (1984, 1985), based on observations of voluntary movements in primates, suggested that movements are performed (organized) with the smoothest trajectory possible. In this organizing principle, the endpoint trajectory is such that the mean squared-jerk across time of this movement is minimum.
 
-        Jerk is the derivative of acceleration and the observation of the minimum-jerk trajectory is for the endpoint in the extracorporal coordinates (not for joint angles) and according to Flash and Hogan (1985), the minimum-jerk trajectory of a planar movement is such that minimizes the following objective function:$\begin{array}{rcl}
-        C = \frac{1}{2} \displaystyle\int\limits_{t_{i}}^{t_{f}}\;\left[\left(\dfrac{d^{3}x}{dt^{3}}\right)^2+\left(\dfrac{d^{3}y}{dt^{3}}\right)^2\right]\;\mathrm{d}t
-        
-        \end{array}$Hogan (1984) found that the solution for this objective function is a fifth-order polynomial trajectory (see Shadmehr and Wise (2004) for a simpler proof):$\begin{array}{l l}
-        x(t) = a_0+a_1t+a_2t^2+a_3t^3+a_4t^4+a_5t^5 \\
-        y(t) = b_0+b_1t+b_2t^2+b_3t^3+b_4t^4+b_5t^5
-        
-        \end{array}$With the following boundary conditions for$x(t)$and$y(t)$: initial and final positions are$(x_i,y_i)$and$(x_f,y_f)$and initial and final velocities and accelerations are zero.
-        """
-    )
+    Jerk is the derivative of acceleration and the observation of the minimum-jerk trajectory is for the endpoint in the extracorporal coordinates (not for joint angles) and according to Flash and Hogan (1985), the minimum-jerk trajectory of a planar movement is such that minimizes the following objective function:$\begin{array}{rcl}
+    C = \frac{1}{2} \displaystyle\int\limits_{t_{i}}^{t_{f}}\;\left[\left(\dfrac{d^{3}x}{dt^{3}}\right)^2+\left(\dfrac{d^{3}y}{dt^{3}}\right)^2\right]\;\mathrm{d}t
+
+    \end{array}$Hogan (1984) found that the solution for this objective function is a fifth-order polynomial trajectory (see Shadmehr and Wise (2004) for a simpler proof):$\begin{array}{l l}
+    x(t) = a_0+a_1t+a_2t^2+a_3t^3+a_4t^4+a_5t^5 \\
+    y(t) = b_0+b_1t+b_2t^2+b_3t^3+b_4t^4+b_5t^5
+
+    \end{array}$With the following boundary conditions for$x(t)$and$y(t)$: initial and final positions are$(x_i,y_i)$and$(x_f,y_f)$and initial and final velocities and accelerations are zero.
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Finding the minimum jerk trajectory
+    mo.md(r"""
+    ## Finding the minimum jerk trajectory
 
-        Let's employ [Sympy](http://sympy.org/en/index.html) to find the solution for the minimum jerk trajectory using symbolic algebra.  
-        The equation for minimum jerk trajectory for x is:
-        """
-    )
+    Let's employ [Sympy](http://sympy.org/en/index.html) to find the solution for the minimum jerk trajectory using symbolic algebra.<br>
+    The equation for minimum jerk trajectory for x is:
+    """)
     return
 
 
@@ -124,12 +112,10 @@ def _(Eq, S, display, symbols):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Without loss of generality, consider$t_i=0$and let's use$d$for movement duration ($d=t_f$).  
-        The system of equations with the boundary conditions for$x$is:
-        """
-    )
+    mo.md(r"""
+    Without loss of generality, consider$t_i=0$and let's use$d$for movement duration ($d=t_f$).<br>
+    The system of equations with the boundary conditions for$x$is:
+    """)
     return
 
 
@@ -148,11 +134,9 @@ def _(Eq, d, diff, display, t, x, xf, xi):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Which gives the following solution:
-        """
-    )
+    mo.md(r"""
+    Which gives the following solution:
+    """)
     return
 
 
@@ -166,11 +150,9 @@ def _(a0, a1, a2, a3, a4, a5, display, s, solve):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Substituting this solution in the fifth order polynomial trajectory equation, we have the actual displacement trajectories:
-        """
-    )
+    mo.md(r"""
+    Substituting this solution in the fifth order polynomial trajectory equation, we have the actual displacement trajectories:
+    """)
     return
 
 
@@ -187,11 +169,9 @@ def _(Eq, S, collect, display, simplify, sol, x, xf, xi, yf, yi):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        And for the velocity, acceleration, and jerk trajectories in x:
-        """
-    )
+    mo.md(r"""
+    And for the velocity, acceleration, and jerk trajectories in x:
+    """)
     return
 
 
@@ -209,11 +189,9 @@ def _(Eq, S, display, t, x2):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Let's plot the minimum jerk trajectory for x and its velocity, acceleration, and jerk considering$x_i=0,x_f=1,d=1$:
-        """
-    )
+    mo.md(r"""
+    Let's plot the minimum jerk trajectory for x and its velocity, acceleration, and jerk considering$x_i=0,x_f=1,d=1$:
+    """)
     return
 
 
@@ -245,27 +223,23 @@ def _(d, diff, lambdify, np, plt, t, x2, xf, xi):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Note that for the minimum jerk trajectory, initial and final values of both velocity and acceleration are zero, but not for the jerk.  
+    mo.md(r"""
+    Note that for the minimum jerk trajectory, initial and final values of both velocity and acceleration are zero, but not for the jerk.
 
-        Read more about the minimum jerk trajectory hypothesis in the [Shadmehr and Wise's book companion site](https://storage.googleapis.com/wzukusers/user-31382847/documents/5a7253343814f4Iv6Hnt/minimumjerk.pdf) and in [Paul Gribble's website](https://gribblelab.org/teaching/compneuro2012/4_Computational_Motor_Control_Kinematics.html#orgheadline12).
-        """
-    )
+    Read more about the minimum jerk trajectory hypothesis in the [Shadmehr and Wise's book companion site](https://storage.googleapis.com/wzukusers/user-31382847/documents/5a7253343814f4Iv6Hnt/minimumjerk.pdf) and in [Paul Gribble's website](https://gribblelab.org/teaching/compneuro2012/4_Computational_Motor_Control_Kinematics.html#orgheadline12).
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## The angular trajectory of a minimum jerk trajectory 
+    mo.md(r"""
+    ## The angular trajectory of a minimum jerk trajectory
 
-        Let's calculate the resulting angular trajectory given a minimum jerk linear trajectory, supposing it is from a circular motion of an elbow flexion. The length of the forearm is 0.5 m, the movement duration is 1 s, the elbow starts flexed at 90$^o$and the flexes to 180$^o$.
+    Let's calculate the resulting angular trajectory given a minimum jerk linear trajectory, supposing it is from a circular motion of an elbow flexion. The length of the forearm is 0.5 m, the movement duration is 1 s, the elbow starts flexed at 90$^o$and the flexes to 180$^o$.
 
-        First, the linear trajectories for this circular motion:
-        """
-    )
+    First, the linear trajectories for this circular motion:
+    """)
     return
 
 
@@ -313,11 +287,9 @@ def _(afux, afuy, jfux, jfuy, np, plt, vfux, vfuy, xfux, xfuy):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Now, the angular trajectories for this circular motion:
-        """
-    )
+    mo.md(r"""
+    Now, the angular trajectories for this circular motion:
+    """)
     return
 
 
@@ -356,37 +328,34 @@ def _(aang, jang, np, plt, vang, xang):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Problems
+    mo.md(r"""
+    ## Problems
 
-        1. What is your opinion on the the minimum jerk hypothesis? Do you think humans control movement based on this principle? (Think about what biomechanical and neurophysiological properties are not considered on this hypothesis.)
-        2. Calculate and plot the position, velocity, acceleration, and jerk trajectories for different movement speeds (for example, consider always a displacement of 1 m and movement durations of 0.5, 1, and 2 s).  
-        3. For the data in the previous item, calculate the ratio peak speed to average speed. Shadmehr and  Wise (2004) argue that psychophysical experiments show that reaching movements with the hand have this ratio equals to 1.75. Compare with the calculated values.  
-        4. Can you propose alternative hypotheses for the control of movement?  
-        """
-    )
+    1. What is your opinion on the the minimum jerk hypothesis? Do you think humans control movement based on this principle? (Think about what biomechanical and neurophysiological properties are not considered on this hypothesis.)
+    2. Calculate and plot the position, velocity, acceleration, and jerk trajectories for different movement speeds (for example, consider always a displacement of 1 m and movement durations of 0.5, 1, and 2 s).
+    3. For the data in the previous item, calculate the ratio peak speed to average speed. Shadmehr and  Wise (2004) argue that psychophysical experiments show that reaching movements with the hand have this ratio equals to 1.75. Compare with the calculated values.
+    4. Can you propose alternative hypotheses for the control of movement?
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## References
+    mo.md(r"""
+    ## References
 
-        - Flash T, Hogan N (1985) [The coordination of arm movements: an experimentally confirmed mathematical model](http://www.jneurosci.org/cgi/reprint/5/7/1688.pdf). Journal of Neuroscience, 5, 1688-1703.   
-        - Hogan N (1984) [An organizing principle for a class of voluntary movements](http://www.jneurosci.org/content/4/11/2745.full.pdf). Journal of Neuroscience, 4, 2745-2754.
-        - Shadmehr R, Wise S (2004) [The Computational Neurobiology of Reaching and Pointing: A Foundation for Motor Learning](https://books.google.com.br/books?id=fKeImql1s_sC&pg=PP1&ots=WuEHfPo6G4&dq=shadmehr&sig=UjsmHL92SidKEKzgvpe5Qu_9pIs&redir_esc=y#v=onepage&q=shadmehr&f=false). A Bradford Book. [Supplementary documents](https://www.shadmehrlab.org/publications).
-        - Zatsiorsky VM (1998) [Kinematics of Human Motion](http://books.google.com.br/books/about/Kinematics_of_Human_Motion.html?id=Pql_xXdbrMcC&redir_esc=y). Champaign, Human Kinetics.
-        """
-    )
+    - Flash T, Hogan N (1985) [The coordination of arm movements: an experimentally confirmed mathematical model](http://www.jneurosci.org/cgi/reprint/5/7/1688.pdf). Journal of Neuroscience, 5, 1688-1703.
+    - Hogan N (1984) [An organizing principle for a class of voluntary movements](http://www.jneurosci.org/content/4/11/2745.full.pdf). Journal of Neuroscience, 4, 2745-2754.
+    - Shadmehr R, Wise S (2004) [The Computational Neurobiology of Reaching and Pointing: A Foundation for Motor Learning](https://books.google.com.br/books?id=fKeImql1s_sC&pg=PP1&ots=WuEHfPo6G4&dq=shadmehr&sig=UjsmHL92SidKEKzgvpe5Qu_9pIs&redir_esc=y#v=onepage&q=shadmehr&f=false). A Bradford Book. [Supplementary documents](https://www.shadmehrlab.org/publications).
+    - Zatsiorsky VM (1998) [Kinematics of Human Motion](http://books.google.com.br/books/about/Kinematics_of_Human_Motion.html?id=Pql_xXdbrMcC&redir_esc=y). Champaign, Human Kinetics.
+    """)
     return
 
 
 @app.cell
 def _():
     import marimo as mo
+
     return (mo,)
 
 

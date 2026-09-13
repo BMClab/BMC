@@ -1,46 +1,40 @@
 import marimo
 
-__generated_with = "0.13.15"
+__generated_with = "0.24.2"
 app = marimo.App()
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        # Kistler force plate calculation
+    mo.md(r"""
+    # Kistler force plate calculation
 
-        Marcos Duarte
-        """
-    )
+    Marcos Duarte
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        In order to get proper signals of a Kistler force plate, we have to calibrate the acquired data according to the factory calibration (i.e., transform the readed values in volts of the 8 channels to values in newtons for fx12, fx34, fy14, fy23, fz1, fz2, fz3, fz4) and then calculate the resultant forces (Fx, Fy, Fz), resultant moments of force (Mx, My, Mz), and center of pressure (COPx, COPy) quantities (see figure below for the convention used). 
+    mo.md(r"""
+    In order to get proper signals of a Kistler force plate, we have to calibrate the acquired data according to the factory calibration (i.e., transform the readed values in volts of the 8 channels to values in newtons for fx12, fx34, fy14, fy23, fz1, fz2, fz3, fz4) and then calculate the resultant forces (Fx, Fy, Fz), resultant moments of force (Mx, My, Mz), and center of pressure (COPx, COPy) quantities (see figure below for the convention used).
 
-        <div class='center-align'><figure><img src="./../images/KistlerForcePlate.png"alt="Kistler force plate and its coordinate system convention"/><figcaption><center><i>Figure. Kistler force plate and its coordinate system convention (from [Kistler Force Plate Formulae](http://isbweb.org/software/movanal/vaughan/kistler.pdf)).</i></center></figcaption></figure></div>
+    <div class='center-align'><figure><img src="./../images/KistlerForcePlate.png"alt="Kistler force plate and its coordinate system convention"/><figcaption><center><i>Figure. Kistler force plate and its coordinate system convention (from [Kistler Force Plate Formulae](http://isbweb.org/software/movanal/vaughan/kistler.pdf)).</i></center></figcaption></figure></div>
 
-        The function `kistler_fp_cal.py` performs such calculations for the Kistler force plates of the BMClab, but it will work with other Kistler force plates. The function signature is:   
-        ```python
-        grf, cop = kistler_fp_cal(data, S_matrix=None, fxfy_range=0, fz_range=0, origin=None,
-                                  fp_type=3, show=False, axs=None):
-        ```
-        """
-    )
+    The function `kistler_fp_cal.py` performs such calculations for the Kistler force plates of the BMClab, but it will work with other Kistler force plates. The function signature is:<br>
+    ```python
+    grf, cop = kistler_fp_cal(data, S_matrix=None, fxfy_range=0, fz_range=0, origin=None,
+                              fp_type=3, show=False, axs=None):
+    ```
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Example
-        """
-    )
+    mo.md(r"""
+    ## Example
+    """)
     return
 
 
@@ -66,6 +60,7 @@ def _(np):
 @app.cell
 def _():
     from kistler_fp_cal import kistler_fp_cal
+
     return (kistler_fp_cal,)
 
 
@@ -77,23 +72,19 @@ def _(data, kistler_fp_cal):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## References
+    mo.md(r"""
+    ## References
 
-        - [Kistler Force Plate Formulae](http://isbweb.org/software/movanal/vaughan/kistler.pdf)
-        """
-    )
+    - [Kistler Force Plate Formulae](http://isbweb.org/software/movanal/vaughan/kistler.pdf)
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Function kistler_fp_cal.py
-        """
-    )
+    mo.md(r"""
+    ## Function kistler_fp_cal.py
+    """)
     return
 
 
@@ -102,7 +93,7 @@ app._unparsable_cell(
     # %load ./../functions/kistler_fp_cal.py
     \"\"\"Kistler force plate calibration.\"\"\"
 
-    
+
     __author__ = 'Marcos Duarte, https://github.com/demotu/BMC'
     __version__ = 'kistler_fp_cal.py v.1 2014/12/12'
 
@@ -146,7 +137,7 @@ app._unparsable_cell(
         show  : bool, optional (default = False)
             if True (1), plot data in matplotlib figure.
         axs  : a matplotlib.axes.Axes instance, optional (default = None).
-    
+
         Returns
         -------
         grf    : numpy array [Fx, Fy, Fz, Mx, My, Mz]
@@ -278,6 +269,7 @@ app._unparsable_cell(
 @app.cell
 def _():
     import marimo as mo
+
     return (mo,)
 
 

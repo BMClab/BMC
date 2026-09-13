@@ -1,20 +1,18 @@
 import marimo
 
-__generated_with = "0.13.15"
+__generated_with = "0.24.2"
 app = marimo.App()
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        # Polynomial fitting with confidence/prediction intervals
+    mo.md(r"""
+    # Polynomial fitting with confidence/prediction intervals
 
-        > Marcos Duarte  
-        > [Laboratory of Biomechanics and Motor Control](https://bmclab.pesquisa.ufabc.edu.br/)  
-        > Federal University of ABC, Brazil
-        """
-    )
+    > Marcos Duarte<br>
+    > [Laboratory of Biomechanics and Motor Control](https://bmclab.pesquisa.ufabc.edu.br/)<br>
+    > Federal University of ABC, Brazil
+    """)
     return
 
 
@@ -29,18 +27,17 @@ def _():
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Let's implement the polynomial fit by least squares and calculate the confidence and prediction intervals assuming normal distribution of the residuals.  
-        The code of the `polyfit.py` function is at the end of this notebook (or download the function from the GitHub repo).
-        """
-    )
+    mo.md(r"""
+    Let's implement the polynomial fit by least squares and calculate the confidence and prediction intervals assuming normal distribution of the residuals.<br>
+    The code of the `polyfit.py` function is at the end of this notebook (or download the function from the GitHub repo).
+    """)
     return
 
 
 @app.cell
 def _():
     from polyfit import polyfit
+
     return (polyfit,)
 
 
@@ -52,11 +49,9 @@ def _(polyfit):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Some data to play:
-        """
-    )
+    mo.md(r"""
+    Some data to play:
+    """)
     return
 
 
@@ -88,12 +83,10 @@ def _(MSE):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        The$\chi^2_{red}$value is much higher than one, suggesting a poor fitting (although the$R^2$value is good). We can see that the data variability not accounted by the model is very high. One way of considering this variability is to treat it as error (uncertainty) in the measurement of the y variable. The square root of the$\chi^2_{red}$value is a good average estimate of this error in y (see for example page 79 of [https://www.astro.rug.nl/software/kapteyn/_downloads/statmain.pdf](https://www.astro.rug.nl/software/kapteyn/_downloads/statmain.pdf)).  
-        Let's generate an array for the error in y:
-        """
-    )
+    mo.md(r"""
+    The$\chi^2_{red}$value is much higher than one, suggesting a poor fitting (although the$R^2$value is good). We can see that the data variability not accounted by the model is very high. One way of considering this variability is to treat it as error (uncertainty) in the measurement of the y variable. The square root of the$\chi^2_{red}$value is a good average estimate of this error in y (see for example page 79 of [https://www.astro.rug.nl/software/kapteyn/_downloads/statmain.pdf](https://www.astro.rug.nl/software/kapteyn/_downloads/statmain.pdf)).<br>
+    Let's generate an array for the error in y:
+    """)
     return
 
 
@@ -106,11 +99,9 @@ def _(N, chi2red, np):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        And let's run the fitting again:
-        """
-    )
+    mo.md(r"""
+    And let's run the fitting again:
+    """)
     return
 
 
@@ -122,11 +113,9 @@ def _(polyfit, x, y, yerr):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Let's see the results of linear and quadratic fits:
-        """
-    )
+    mo.md(r"""
+    Let's see the results of linear and quadratic fits:
+    """)
     return
 
 
@@ -141,13 +130,11 @@ def _(plt, polyfit, x, y):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## P.S.: Calculation of moving standard-deviation
+    mo.md(r"""
+    ## P.S.: Calculation of moving standard-deviation
 
-        Let's calculate the moving standard-deviation just to compare with the 68% (1 SD) prediction interval for the fitted polynomial given in the plot above.
-        """
-    )
+    Let's calculate the moving standard-deviation just to compare with the 68% (1 SD) prediction interval for the fitted polynomial given in the plot above.
+    """)
     return
 
 
@@ -174,11 +161,9 @@ def _(plt, x, y, yfit_2, ys_std):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Function `polyfit.py`
-        """
-    )
+    mo.md(r"""
+    ## Function `polyfit.py`
+    """)
     return
 
 
@@ -330,12 +315,14 @@ def _(np, plt):
             if fig:
                 plt.show()
         return (p, _perr, _R2, chi2red, yfit, _ci, _pi, MSE)
+
     return
 
 
 @app.cell
 def _():
     import marimo as mo
+
     return (mo,)
 
 

@@ -1,6 +1,6 @@
 import marimo
 
-__generated_with = "0.23.13"
+__generated_with = "0.24.2"
 app = marimo.App(width="medium")
 
 
@@ -170,7 +170,7 @@ def _():
     matplotlib.rcParams["lines.markersize"] = 4
     matplotlib.rc("axes", grid=True, labelsize=12, titlesize=13, ymargin=0.01)
     matplotlib.rc("legend", numpoints=1, fontsize=10)
-    return interpolate, np, odeint, plt
+    return np, odeint, plt
 
 
 @app.cell(hide_code=True)
@@ -268,14 +268,11 @@ def _(mo):
     return
 
 
-@app.cell
-def _():
-    def rm_const(theta):
-        """Vastus intermedius moment arm, assumed constant [m]."""
+@app.function
+def rm_const(theta):
+    """Vastus intermedius moment arm, assumed constant [m]."""
 
-        return 0.033
-
-    return (rm_const,)
+    return 0.033
 
 
 @app.cell(hide_code=True)
@@ -381,11 +378,11 @@ def _(mo):
 
 
 @app.cell
-def _(np, odeint, onelink_eq, rm_const):
+def _(np, odeint, onelink_eq):
     state0 = [0.087, np.pi / 2, 0]  # [lm (m), theta (rad), omega (rad/s)]
     time = np.arange(0, 0.12, 0.001)
     data = odeint(onelink_eq, state0, time, args=(rm_const,))
-    return data, state0, time
+    return data, time
 
 
 @app.cell(hide_code=True)
@@ -442,7 +439,7 @@ def _(LMT0, np, plt):
 
 
 @app.cell
-def _(data, ms, rm_const, sim_plot, time):
+def _(data, ms, sim_plot, time):
     data2 = sim_plot(time, data, ms, rm_const)
     return (data2,)
 
@@ -1301,6 +1298,7 @@ def _(np):
             lim = [np.nanmin(x) - rang * margin, np.nanmax(x) + rang * margin]
 
             return lim
+
     return (Thelen2003,)
 
 

@@ -1,61 +1,54 @@
 import marimo
 
-__generated_with = "0.13.15"
+__generated_with = "0.24.2"
 app = marimo.App()
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        # Fourier transform
+    mo.md(r"""
+    # Fourier transform
 
-        > Marcos Duarte  
-        > Laboratory of Biomechanics and Motor Control ([http://demotu.org/](http://demotu.org/))  
-        > Federal University of ABC, Brazil
-        """
-    )
+    > Marcos Duarte<br>
+    > Laboratory of Biomechanics and Motor Control ([http://demotu.org/](http://demotu.org/))<br>
+    > Federal University of ABC, Brazil
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        In continuation to the notebook about [Fourier series](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/FourierSeries.ipynb), the [Fourier transform](http://en.wikipedia.org/wiki/Fourier_transform) is a mathematical transformation to transform functions between time (or spatial) domain and frequency domain. The process of transforming from time to frequency domain is called Fourier analysis, the inverse is the Fourier synthesis.
+    mo.md(r"""
+    In continuation to the notebook about [Fourier series](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/FourierSeries.ipynb), the [Fourier transform](http://en.wikipedia.org/wiki/Fourier_transform) is a mathematical transformation to transform functions between time (or spatial) domain and frequency domain. The process of transforming from time to frequency domain is called Fourier analysis, the inverse is the Fourier synthesis.
 
-        The Fourier transform of a continuous function$x(t)$is by definition:$X(f) = \int_{-\infty}^{\infty} x(t)\:\mathrm{e}^{-i2\pi ft} \:\mathrm{d}t$And the inverse Fourier transform is:$x(t) = \int_{-\infty}^{\infty} X(f)\:\mathrm{e}^{\:i2\pi tf} \:\mathrm{d}f$"""
-    )
+    The Fourier transform of a continuous function$x(t)$is by definition:$X(f) = \int_{-\infty}^{\infty} x(t)\:\mathrm{e}^{-i2\pi ft} \:\mathrm{d}t$And the inverse Fourier transform is:$x(t) = \int_{-\infty}^{\infty} X(f)\:\mathrm{e}^{\:i2\pi tf} \:\mathrm{d}f$
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Discrete Fourier transform
+    mo.md(r"""
+    ## Discrete Fourier transform
 
-        For discrete data,$x$with length$N$, its Discrete Fourier Transform (DFT) is another data$X$, also with length$N$and elements:$X[k] = \sum_{n=0}^{N-1}  x[n] \mathrm{e}^{-i2\pi kn/N} \;,\quad 0 \leq k \leq N-1$The Inverse Discrete Fourier Transform (IDFT) inverts this operation and gives back the original data$x$:$x[n] = \frac{1}{N} \sum_{k=0}^{N-1}  X[k] \mathrm{e}^{i2\pi kn/N} \;,\quad 0 \leq n \leq N-1$The relationship between the DFT and the Fourier coefficients$a$and$b$in$x[n] = a_0 + \sum_{k=1}^{N-1} a[k]\cos\left(\frac{2\pi kt[n]}{Ndt}\right)+b[k]\sin\left(\frac{2\pi kt[n]}{Ndt}\right) \;,\quad 0 \leq n \leq N-1$is:$\begin{array}{l}
-        a_0 = X[0]/N \\\
-        \\\
-        a[k] = \;\; \text{Real}(X[k+1])/N \\\
-        \\\
-        b[k] = -\text{Imag}(X[k+1])/N
-        \end{array}$Where$x$is a length$N$discrete signal sampled at times$t$with spacing$dt$.
-        """
-    )
+    For discrete data,$x$with length$N$, its Discrete Fourier Transform (DFT) is another data$X$, also with length$N$and elements:$X[k] = \sum_{n=0}^{N-1}  x[n] \mathrm{e}^{-i2\pi kn/N} \;,\quad 0 \leq k \leq N-1$The Inverse Discrete Fourier Transform (IDFT) inverts this operation and gives back the original data$x$:$x[n] = \frac{1}{N} \sum_{k=0}^{N-1}  X[k] \mathrm{e}^{i2\pi kn/N} \;,\quad 0 \leq n \leq N-1$The relationship between the DFT and the Fourier coefficients$a$and$b$in$x[n] = a_0 + \sum_{k=1}^{N-1} a[k]\cos\left(\frac{2\pi kt[n]}{Ndt}\right)+b[k]\sin\left(\frac{2\pi kt[n]}{Ndt}\right) \;,\quad 0 \leq n \leq N-1$is:$\begin{array}{l}
+    a_0 = X[0]/N \\\
+    \\\
+    a[k] = \;\; \text{Real}(X[k+1])/N \\\
+    \\\
+    b[k] = -\text{Imag}(X[k+1])/N
+    \end{array}$Where$x$is a length$N$discrete signal sampled at times$t$with spacing$dt$.
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Fast Fourier Transform (FFT)
+    mo.md(r"""
+    ## Fast Fourier Transform (FFT)
 
-        The [FFT](http://en.wikipedia.org/wiki/Fast_Fourier_transform) is a fast algorithm to compute the DFT. Let's see how to use the FFT algorithm from `scipy.fftpack`.
-        """
-    )
+    The [FFT](http://en.wikipedia.org/wiki/Fast_Fourier_transform) is a fast algorithm to compute the DFT. Let's see how to use the FFT algorithm from `scipy.fftpack`.
+    """)
     return
 
 
@@ -71,11 +64,9 @@ def _():
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        A sine wave with amplitude of 2, frequency of 5 Hz, and phase of 45$^o$sampled at 100 Hz:
-        """
-    )
+    mo.md(r"""
+    A sine wave with amplitude of 2, frequency of 5 Hz, and phase of 45$^o$sampled at 100 Hz:
+    """)
     return
 
 
@@ -102,11 +93,9 @@ def _(np, plt):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Its FFT is simply:
-        """
-    )
+    mo.md(r"""
+    Its FFT is simply:
+    """)
     return
 
 
@@ -136,11 +125,9 @@ def _(amp, freqs, phase_1, plt):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        For real signals, the FFT values are the same for negative and positive frequencies and the phase is negated if the signal is odd and the same if the signal is even. Because that, we usually don't care about the negative frequencies and plot only the FFT for the positive frequencies:
-        """
-    )
+    mo.md(r"""
+    For real signals, the FFT values are the same for negative and positive frequencies and the phase is negated if the signal is odd and the same if the signal is even. Because that, we usually don't care about the negative frequencies and plot only the FFT for the positive frequencies:
+    """)
     return
 
 
@@ -165,11 +152,9 @@ def _(N, amp, freqs, np, phase_1, plt):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        We can get back the$x$data with the FFT synthesis:
-        """
-    )
+    mo.md(r"""
+    We can get back the$x$data with the FFT synthesis:
+    """)
     return
 
 
@@ -204,11 +189,9 @@ def _(plt, t, time, x, xfft):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        But employing the function `scipy.fftpack.fft` is simpler:
-        """
-    )
+    mo.md(r"""
+    But employing the function `scipy.fftpack.fft` is simpler:
+    """)
     return
 
 
@@ -228,11 +211,9 @@ def _(X_1, np, plt, t, time, x):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Another example:
-        """
-    )
+    mo.md(r"""
+    Another example:
+    """)
     return
 
 
@@ -276,27 +257,23 @@ def _(freqs_1, plt, yfft):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### FFTW - the Fastest Fourier Transform in the West
+    mo.md(r"""
+    ### FFTW - the Fastest Fourier Transform in the West
 
-        [FFTW](http://www.fftw.org/) is a free collection of fast C routines for computing the DFT. Indeed, FFTW is probably the fastest FFT library in the market and you should use it in case speed is a major concern. To use it in Python, you will need to install FFTW and the Python wrapper around FFTW, [pyfftw](https://pypi.python.org/pypi/pyFFTW).
-        """
-    )
+    [FFTW](http://www.fftw.org/) is a free collection of fast C routines for computing the DFT. Indeed, FFTW is probably the fastest FFT library in the market and you should use it in case speed is a major concern. To use it in Python, you will need to install FFTW and the Python wrapper around FFTW, [pyfftw](https://pypi.python.org/pypi/pyFFTW).
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Power spectral density 
+    mo.md(r"""
+    ## Power spectral density
 
-        The function `psd.py` (code at the end of this text) estimates power spectral density characteristics using Welch's method. This function is just a wrap of the scipy.signal.welch function with estimation of some frequency characteristics and a plot. The `psd.py` returns power spectral density data, frequency percentiles of the power spectral density (for example, Fpcntile[50] gives the median power frequency in Hz); mean power frequency; maximum power frequency; total power, and plots power spectral density data.
+    The function `psd.py` (code at the end of this text) estimates power spectral density characteristics using Welch's method. This function is just a wrap of the scipy.signal.welch function with estimation of some frequency characteristics and a plot. The `psd.py` returns power spectral density data, frequency percentiles of the power spectral density (for example, Fpcntile[50] gives the median power frequency in Hz); mean power frequency; maximum power frequency; total power, and plots power spectral density data.
 
-        Let's exemplify the use of `psd.py`.
-        """
-    )
+    Let's exemplify the use of `psd.py`.
+    """)
     return
 
 
@@ -332,11 +309,9 @@ def _(freq_2, psd, x_1):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### Periodogram
-        """
-    )
+    mo.md(r"""
+    ### Periodogram
+    """)
     return
 
 
@@ -391,9 +366,9 @@ def _(N_3, freq_3, integrate, np, signal, y_2):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""$F_{mean} = \frac{ \sum_{i=1}^{N} F_i*P_i }{ \sum_{i=1}^{N} P_i }$"""
-    )
+    mo.md(r"""
+    $F_{mean} = \frac{ \sum_{i=1}^{N} F_i*P_i }{ \sum_{i=1}^{N} P_i }$
+    """)
     return
 
 
@@ -405,11 +380,9 @@ def _(freq_3, psd, y_2):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        #### Short FFT
-        """
-    )
+    mo.md(r"""
+    #### Short FFT
+    """)
     return
 
 
@@ -438,11 +411,9 @@ def _(np, plt, scipy_1):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Function psd.py
-        """
-    )
+    mo.md(r"""
+    ## Function psd.py
+    """)
     return
 
 
@@ -629,6 +600,7 @@ app._unparsable_cell(
 @app.cell
 def _():
     import marimo as mo
+
     return (mo,)
 
 

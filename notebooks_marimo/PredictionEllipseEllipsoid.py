@@ -1,63 +1,57 @@
 import marimo
 
-__generated_with = "0.13.15"
+__generated_with = "0.24.2"
 app = marimo.App()
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        # Prediction ellipse and prediction ellipsoid
+    mo.md(r"""
+    # Prediction ellipse and prediction ellipsoid
 
-        Marcos Duarte
-        """
-    )
+    Marcos Duarte
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        To describe the dispersion of data or to make a prediction for a sample, we can calculate a [prediction interval](http://en.wikipedia.org/wiki/Prediction_interval) or [tolerance interval](http://en.wikipedia.org/wiki/Tolerance_interval). For the specific case of a univariate random variable, see [Confidence and prediction intervals](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/ConfidencePredictionIntervals.ipynb). For a multivariate random variable, we need to calculate a prediction hyperellipsoid ([Chew, 1966](http://www.jstor.org/stable/2282774)):
+    mo.md(r"""
+    To describe the dispersion of data or to make a prediction for a sample, we can calculate a [prediction interval](http://en.wikipedia.org/wiki/Prediction_interval) or [tolerance interval](http://en.wikipedia.org/wiki/Tolerance_interval). For the specific case of a univariate random variable, see [Confidence and prediction intervals](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/ConfidencePredictionIntervals.ipynb). For a multivariate random variable, we need to calculate a prediction hyperellipsoid ([Chew, 1966](http://www.jstor.org/stable/2282774)):
 
-        > The 95% prediction hyperellipsoid is a prediction interval for a sample of a multivariate random variable such that there is 95% of probability that a new observation will lie inside the hyperellipsoid.
+    > The 95% prediction hyperellipsoid is a prediction interval for a sample of a multivariate random variable such that there is 95% of probability that a new observation will lie inside the hyperellipsoid.
 
-        The 95% prediction interval (a p-dimensional hyperellipsoid) for a sample of a multivariate random variable with$p$dimensions and size$n$from a population with normal distribution is given by the following probabilistic bounds which holds 95% of the time (Chew, 1966):$(x_{n+1}-\bar{x})'\: S^{-1} (x_{n+1}-\bar{x}) \leq \frac{F_{(0.95,\: p,\: n-p)}(n-1)\:p\:(n+1)}{n\:(n-p)}$Where$x_{n+i}$(with dimension$p$) is the new observation for which we want to calculate the prediction interval;$F$is the [F-distribution](http://en.wikipedia.org/wiki/F-distribution);$\bar{x}$is the sample mean (with dimension$p$), and$S$is the [sample covariance matrix](http://en.wikipedia.org/wiki/Sample_mean_and_sample_covariance) defined as:$S_{j,k} = \frac{1}{n-1}\sum_{i=1}^{n}(x_{ij}-\bar{x}_j)(x_{ik}-\bar{x}_k)$This is the formula for the prediction of the next single observation where the population mean and variance are unknown (we only have estimates of these parameters from the sample). This formula is also equivalent to the formula for calculation of a tolerance region (called Type 2 tolerance region by [Chew (1966)](http://www.jstor.org/stable/2282774)):
+    The 95% prediction interval (a p-dimensional hyperellipsoid) for a sample of a multivariate random variable with$p$dimensions and size$n$from a population with normal distribution is given by the following probabilistic bounds which holds 95% of the time (Chew, 1966):$(x_{n+1}-\bar{x})'\: S^{-1} (x_{n+1}-\bar{x}) \leq \frac{F_{(0.95,\: p,\: n-p)}(n-1)\:p\:(n+1)}{n\:(n-p)}$Where$x_{n+i}$(with dimension$p$) is the new observation for which we want to calculate the prediction interval;$F$is the [F-distribution](http://en.wikipedia.org/wiki/F-distribution);$\bar{x}$is the sample mean (with dimension$p$), and$S$is the [sample covariance matrix](http://en.wikipedia.org/wiki/Sample_mean_and_sample_covariance) defined as:$S_{j,k} = \frac{1}{n-1}\sum_{i=1}^{n}(x_{ij}-\bar{x}_j)(x_{ik}-\bar{x}_k)$This is the formula for the prediction of the next single observation where the population mean and variance are unknown (we only have estimates of these parameters from the sample). This formula is also equivalent to the formula for calculation of a tolerance region (called Type 2 tolerance region by [Chew (1966)](http://www.jstor.org/stable/2282774)):
 
-        > The 95% tolerance hyperellipsoid is a tolerance region for a sample of a multivariate random variable such that the average or expected value of the proportion of the population contained in the hyperellipsoid is 95%.
+    > The 95% tolerance hyperellipsoid is a tolerance region for a sample of a multivariate random variable such that the average or expected value of the proportion of the population contained in the hyperellipsoid is 95%.
 
-        In this context, we can refer to the calculated hyperellipsoid as a prediction or tolerance hyperellipsoid (but prediction and tolerance intervals are in general different concepts in statistics).
+    In this context, we can refer to the calculated hyperellipsoid as a prediction or tolerance hyperellipsoid (but prediction and tolerance intervals are in general different concepts in statistics).
 
-        The function `hyperellipsoid.py` (code at the end of this text) calculates the prediction or tolerance hyperellipsoid, some related parameters, and plots the results for a given multivariate random variable. The function signature is:
-        ```python
-        hypervol, saxes, angles, p0, R = hyperellipsoid(P, y=None, z=None, pvalue=.95,
-                                                        units=None, show=True, ax=None):
-        ```
-        Before showing how to use this code, let's look a bit more at the statistical principles behind the estimation of a prediction or tolerance interval.
+    The function `hyperellipsoid.py` (code at the end of this text) calculates the prediction or tolerance hyperellipsoid, some related parameters, and plots the results for a given multivariate random variable. The function signature is:
+    ```python
+    hypervol, saxes, angles, p0, R = hyperellipsoid(P, y=None, z=None, pvalue=.95,
+                                                    units=None, show=True, ax=None):
+    ```
+    Before showing how to use this code, let's look a bit more at the statistical principles behind the estimation of a prediction or tolerance interval.
 
-        <!-- TEASER_END -->
-        """
-    )
+    <!-- TEASER_END -->
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Univariate variable
+    mo.md(r"""
+    ## Univariate variable
 
-        For$p$= 1 (univariate case) the 95% prediction interval formula above reduces to:$\left|\frac{x_{n+1}-\bar{x}}{s}\right| \leq \sqrt{F_{(0.95,\: 1,\: n-1)}(1+1/n)}$Where$s$is the square root of the sample covariance, the sample standard deviation.
+    For$p$= 1 (univariate case) the 95% prediction interval formula above reduces to:$\left|\frac{x_{n+1}-\bar{x}}{s}\right| \leq \sqrt{F_{(0.95,\: 1,\: n-1)}(1+1/n)}$Where$s$is the square root of the sample covariance, the sample standard deviation.
 
-        And considering that$F_{(0.95,\: 1,\: n-1)}$is equal to$T^2_{(0.975,\: n-1)}$, the square of the <a href="http://en.wikipedia.org/wiki/Student's_t-distribution">Student's t-distribution</a>, finally we have:$\left|x_{n+1}-\bar{x}\right| \leq s\:T_{(0.975,\: n-1)}\sqrt{1+1/n}$Indeed, this results in the 95% prediction interval used for a sample of a univariate variable, see [Confidence and prediction intervals](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/ConfidencePredictionIntervals.ipynb).
+    And considering that$F_{(0.95,\: 1,\: n-1)}$is equal to$T^2_{(0.975,\: n-1)}$, the square of the <a href="http://en.wikipedia.org/wiki/Student's_t-distribution">Student's t-distribution</a>, finally we have:$\left|x_{n+1}-\bar{x}\right| \leq s\:T_{(0.975,\: n-1)}\sqrt{1+1/n}$Indeed, this results in the 95% prediction interval used for a sample of a univariate variable, see [Confidence and prediction intervals](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/ConfidencePredictionIntervals.ipynb).
 
-        For large$n$, according to the [central limit theorem](http://en.wikipedia.org/wiki/Central_limit_theorem), we can use the fact that$T(\infty)=N$, where$N$is the [normal distribution](http://en.wikipedia.org/wiki/Normal_distribution), and the above statement can be simplified to:$\left|x_{n+1}-\bar{x}\right| \leq s\:N_{0.975}$$N_{0.975}$is equal to 1.96, a commonly used value for calculating 95%-probability intervals.   
-        Let's calculate the error of this approximation for different sample sizes.  
-        First let's import the necessary Python libraries:
-        """
-    )
+    For large$n$, according to the [central limit theorem](http://en.wikipedia.org/wiki/Central_limit_theorem), we can use the fact that$T(\infty)=N$, where$N$is the [normal distribution](http://en.wikipedia.org/wiki/Normal_distribution), and the above statement can be simplified to:$\left|x_{n+1}-\bar{x}\right| \leq s\:N_{0.975}$$N_{0.975}$is equal to 1.96, a commonly used value for calculating 95%-probability intervals.<br>
+    Let's calculate the error of this approximation for different sample sizes.<br>
+    First let's import the necessary Python libraries:
+    """)
     return
 
 
@@ -66,6 +60,7 @@ def _():
     # import the necessary libraries
     import numpy as np
     from scipy import stats
+
     return np, stats
 
 
@@ -81,25 +76,21 @@ def _(np, stats):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        For n=1000, the approximation is probably good enough, for n=10 it is bad, and it always underestimates.
-        """
-    )
+    mo.md(r"""
+    For n=1000, the approximation is probably good enough, for n=10 it is bad, and it always underestimates.
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Bivariate variable
+    mo.md(r"""
+    ## Bivariate variable
 
-        For$p$= 2 (bivariate case) the 95% prediction interval formula above reduces to (again, these probabilistic bounds hold 95% of the time ([Chew, 1966](http://www.jstor.org/stable/2282774)):$(x_{n+1}-\bar{x})'\: S^{-1} (x_{n+1}-\bar{x}) \leq \frac{2(n-1)(n+1)}{n\:(n-2)}F_{(0.95,\: 2,\: n-2)}$This formula is also equivalent to the formula for calculation of a tolerance region such that the average or expected value of the proportion of the population contained in this region is exactly 95% (called Type 2 tolerance region by [Chew (1966)](http://www.jstor.org/stable/2282774)). 
+    For$p$= 2 (bivariate case) the 95% prediction interval formula above reduces to (again, these probabilistic bounds hold 95% of the time ([Chew, 1966](http://www.jstor.org/stable/2282774)):$(x_{n+1}-\bar{x})'\: S^{-1} (x_{n+1}-\bar{x}) \leq \frac{2(n-1)(n+1)}{n\:(n-2)}F_{(0.95,\: 2,\: n-2)}$This formula is also equivalent to the formula for calculation of a tolerance region such that the average or expected value of the proportion of the population contained in this region is exactly 95% (called Type 2 tolerance region by [Chew (1966)](http://www.jstor.org/stable/2282774)).
 
-        For large$n$, according to the [central limit theorem](http://en.wikipedia.org/wiki/Central_limit_theorem), we can use the fact that$2F(2,\infty)=\chi^2(2)$, where$\chi^2$is the [chi-square distribution](http://en.wikipedia.org/wiki/Chi-squared_distribution), and the formula above for the 95% prediction interval for the bivariate case can be simplified to:$(x_{n+1}-\bar{x})'\: S^{-1} (x_{n+1}-\bar{x}) \leq \chi^2_{0.95,\: 2}$Or, equivalently, we can use the fact that$\sqrt{2F(2,\infty)}=R$, where$R$is the [Rayleigh distribution](http://en.wikipedia.org/wiki/Rayleigh_distribution), and:$(x_{n+1}-\bar{x})'\: S^{-1} (x_{n+1}-\bar{x}) \leq (R_{0.95})^2$Let's calulate the error of this approximation for different sample sizes: 
-        """
-    )
+    For large$n$, according to the [central limit theorem](http://en.wikipedia.org/wiki/Central_limit_theorem), we can use the fact that$2F(2,\infty)=\chi^2(2)$, where$\chi^2$is the [chi-square distribution](http://en.wikipedia.org/wiki/Chi-squared_distribution), and the formula above for the 95% prediction interval for the bivariate case can be simplified to:$(x_{n+1}-\bar{x})'\: S^{-1} (x_{n+1}-\bar{x}) \leq \chi^2_{0.95,\: 2}$Or, equivalently, we can use the fact that$\sqrt{2F(2,\infty)}=R$, where$R$is the [Rayleigh distribution](http://en.wikipedia.org/wiki/Rayleigh_distribution), and:$(x_{n+1}-\bar{x})'\: S^{-1} (x_{n+1}-\bar{x}) \leq (R_{0.95})^2$Let's calulate the error of this approximation for different sample sizes:
+    """)
     return
 
 
@@ -116,64 +107,58 @@ def _(F, np, stats):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        For n=1000, the approximation is probably good enough, for n=10 it is bad, and it always underestimates.   
-        To read more about multivariate prediction and confidence intervals, see [Chew (1966)](http://www.jstor.org/stable/2282774), and about the use of prediction ellipse in the field of posturography, see [Schubert and Kirchner (2014)](http://www.sciencedirect.com/science/article/pii/S0966636213005961).
-        """
-    )
+    mo.md(r"""
+    For n=1000, the approximation is probably good enough, for n=10 it is bad, and it always underestimates.<br>
+    To read more about multivariate prediction and confidence intervals, see [Chew (1966)](http://www.jstor.org/stable/2282774), and about the use of prediction ellipse in the field of posturography, see [Schubert and Kirchner (2014)](http://www.sciencedirect.com/science/article/pii/S0966636213005961).
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## A Python code to compute the hyperellipsoid
+    mo.md(r"""
+    ## A Python code to compute the hyperellipsoid
 
-        We can write a code to calculate the ellipse, ellipsoid, and in a more general case, the hyperellipsoid using the formula for the prediction hyperellipsoid (this code is published in Duarte (2015)). The directions and lengths of the hyperellipsoid semi-axes are found, respectively, as the eigenvectors and eigenvalues of the covariance matrix of the data using the concept of [principal components analysis (PCA)](http://en.wikipedia.org/wiki/Principal_component_analysis) or [singular value decomposition (SVD)](http://en.wikipedia.org/wiki/Singular_value_decomposition) and the length of the semi-axes are adjusted to account for the necessary prediction probability. The volume of the hyperellipsoid is calculated with the same equation for the [volume of a n-dimensional ball](http://en.wikipedia.org/wiki/Volume_of_an_n-ball) with the radius replaced by the semi-axes of the hyperellipsoid.   
-        In Python, such code to compute the hypervolume of the 95% prediction hyperellipsoid is:
-        ```Python
-        import numpy as np                            # import Numpy package
-        from scipy.stats import f as F                # import F distribution
-        from scipy.special import gamma               # import Gamma function
-        n, p = np.asarray(data).shape                 # 2-D array dimensions
-        cov = np.cov(data, rowvar=0)                  # covariance matrix of data
-        U, s, Vt = np.linalg.svd(cov)                 # singular value decomposition
-        f95 = F.ppf(.95,p,n-p)*(n-1)*p*(n+1)/n/(n-p)  # F 95 percent point function
-        saxes = np.sqrt(s*f95)                        # semi-axes lengths
-        hypervolume = np.pi**(p/2)/gamma(p/2+1)*np.prod(saxes)
-        hypervolume
-        ```
+    We can write a code to calculate the ellipse, ellipsoid, and in a more general case, the hyperellipsoid using the formula for the prediction hyperellipsoid (this code is published in Duarte (2015)). The directions and lengths of the hyperellipsoid semi-axes are found, respectively, as the eigenvectors and eigenvalues of the covariance matrix of the data using the concept of [principal components analysis (PCA)](http://en.wikipedia.org/wiki/Principal_component_analysis) or [singular value decomposition (SVD)](http://en.wikipedia.org/wiki/Singular_value_decomposition) and the length of the semi-axes are adjusted to account for the necessary prediction probability. The volume of the hyperellipsoid is calculated with the same equation for the [volume of a n-dimensional ball](http://en.wikipedia.org/wiki/Volume_of_an_n-ball) with the radius replaced by the semi-axes of the hyperellipsoid.<br>
+    In Python, such code to compute the hypervolume of the 95% prediction hyperellipsoid is:
+    ```Python
+    import numpy as np                            # import Numpy package
+    from scipy.stats import f as F                # import F distribution
+    from scipy.special import gamma               # import Gamma function
+    n, p = np.asarray(data).shape                 # 2-D array dimensions
+    cov = np.cov(data, rowvar=0)                  # covariance matrix of data
+    U, s, Vt = np.linalg.svd(cov)                 # singular value decomposition
+    f95 = F.ppf(.95,p,n-p)*(n-1)*p*(n+1)/n/(n-p)  # F 95 percent point function
+    saxes = np.sqrt(s*f95)                        # semi-axes lengths
+    hypervolume = np.pi**(p/2)/gamma(p/2+1)*np.prod(saxes)
+    hypervolume
+    ```
 
-        For instance, if `data` has two columns, `hyperellipsoid` will contain the area of the 95% prediction ellipse.
+    For instance, if `data` has two columns, `hyperellipsoid` will contain the area of the 95% prediction ellipse.
 
-        ### Equivalent code for a Matlab-like environment
+    ### Equivalent code for a Matlab-like environment
 
-        The equivalent code for a Matlab-like environment to compute the hypervolume of the 95% prediction hyperellipsoid is:
-        ```Matlab
-        [n, p] = size(data);                          % 2-D array dimensions
-        covar = cov(data);                            % covariance matrix of data
-        [U, S, V] = svd(covar);                       % singular value decomposition
-        f95 = finv(.95,p,n-p)*(n-1)*p*(n+1)/n/(n-p);  % F 95 percent point function
-        saxes = sqrt(diag(S)*f95);                    % semi-axes lengths
-        hypervolume = pi^(p/2)/gamma(p/2+1)*prod(saxes);
-        hypervolume
-        ```
-        """
-    )
+    The equivalent code for a Matlab-like environment to compute the hypervolume of the 95% prediction hyperellipsoid is:
+    ```Matlab
+    [n, p] = size(data);                          % 2-D array dimensions
+    covar = cov(data);                            % covariance matrix of data
+    [U, S, V] = svd(covar);                       % singular value decomposition
+    f95 = finv(.95,p,n-p)*(n-1)*p*(n+1)/n/(n-p);  % F 95 percent point function
+    saxes = sqrt(diag(S)*f95);                    % semi-axes lengths
+    hypervolume = pi^(p/2)/gamma(p/2+1)*prod(saxes);
+    hypervolume
+    ```
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### Python function hyperellipsoid.py
+    mo.md(r"""
+    ### Python function hyperellipsoid.py
 
-        Let's see now a more complete function, `hyperellipsoid.py` (code at the end of this text), to compute the prediction hyperellipsoid and related variables:
-        """
-    )
+    Let's see now a more complete function, `hyperellipsoid.py` (code at the end of this text), to compute the prediction hyperellipsoid and related variables:
+    """)
     return
 
 
@@ -184,18 +169,17 @@ def _():
     import sys
     sys.path.insert(1, r'./../functions')  # add to pythonpath 
     from hyperellipsoid import hyperellipsoid
+
     return hyperellipsoid, plt
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        #### Prediction ellipse
+    mo.md(r"""
+    #### Prediction ellipse
 
-        For a bivariate random data with normal distribution with mean 0 and variance 1, the prediction ellipse should be a circle:
-        """
-    )
+    For a bivariate random data with normal distribution with mean 0 and variance 1, the prediction ellipse should be a circle:
+    """)
     return
 
 
@@ -213,11 +197,9 @@ def _(hyperellipsoid, np):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        For other data:
-        """
-    )
+    mo.md(r"""
+    For other data:
+    """)
     return
 
 
@@ -236,15 +218,13 @@ def _(hyperellipsoid, np):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### Find points outside the ellipse
+    mo.md(r"""
+    ### Find points outside the ellipse
 
-        The **outside_hyperellipsoid** function can be used to determine whether specific points lie outside the ellipse as demonstrated below.
+    The **outside_hyperellipsoid** function can be used to determine whether specific points lie outside the ellipse as demonstrated below.
 
-        Note that the proportion of points outside a 95% ellipse is expected to tend toward 0.05 as n increases.
-        """
-    )
+    Note that the proportion of points outside a 95% ellipse is expected to tend toward 0.05 as n increases.
+    """)
     return
 
 
@@ -267,13 +247,11 @@ def _(hyperellipsoid, np, plt):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        #### Prediction ellipsoid
+    mo.md(r"""
+    #### Prediction ellipsoid
 
-        For a trivariate random data with normal distribution with mean 0 and variance 1, the prediction ellipsoid should be a sphere:
-        """
-    )
+    For a trivariate random data with normal distribution with mean 0 and variance 1, the prediction ellipsoid should be a sphere:
+    """)
     return
 
 
@@ -291,11 +269,9 @@ def _(hyperellipsoid, np):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        For other data:
-        """
-    )
+    mo.md(r"""
+    For other data:
+    """)
     return
 
 
@@ -315,15 +291,13 @@ def _(hyperellipsoid, np):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### Find points outside the (hyper)ellipsoid
+    mo.md(r"""
+    ### Find points outside the (hyper)ellipsoid
 
-        The **outside_hyperellipsoid** function can be used to determine whether specific points lie outside the ellipsoid as demonstrated below.
+    The **outside_hyperellipsoid** function can be used to determine whether specific points lie outside the ellipsoid as demonstrated below.
 
-        Note that the proportion of points outside a 95% ellipsoid is expected to tend toward 0.05 as n increases.
-        """
-    )
+    Note that the proportion of points outside a 95% ellipsoid is expected to tend toward 0.05 as n increases.
+    """)
     return
 
 
@@ -348,11 +322,9 @@ def _(hyperellipsoid, np, outside_hyperellipsoid_1, plt):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        To be able to rotate and zoom the figure, for now you will have to plot it in a separate window:
-        """
-    )
+    mo.md(r"""
+    To be able to rotate and zoom the figure, for now you will have to plot it in a separate window:
+    """)
     return
 
 
@@ -371,11 +343,9 @@ def _(P_4, hyperellipsoid):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Let's generate an animation where the ellipsoid is rotated to better visualize it in this notebook:
-        """
-    )
+    mo.md(r"""
+    Let's generate an animation where the ellipsoid is rotated to better visualize it in this notebook:
+    """)
     return
 
 
@@ -399,15 +369,13 @@ def _(P_4, animation, hyperellipsoid, plt):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        This is the animation you see in a separate window when you run the code above:
+    mo.md(r"""
+    This is the animation you see in a separate window when you run the code above:
 
-        <div class='center-align'><figure><img src='https://github.com/BMClab/BMC/blob/master/images/ellipsoid.gif?raw=1' width=450 alt='ellipsoid'/></figure></div><br>
+    <div class='center-align'><figure><img src='https://github.com/BMClab/BMC/blob/master/images/ellipsoid.gif?raw=1' width=450 alt='ellipsoid'/></figure></div><br>
 
-        To save the animation generated above as a video file (you need to have [FFmpeg](http://www.ffmpeg.org/) or [ImageMagick](http://www.imagemagick.org/script/index.php) installed):
-        """
-    )
+    To save the animation generated above as a video file (you need to have [FFmpeg](http://www.ffmpeg.org/) or [ImageMagick](http://www.imagemagick.org/script/index.php) installed):
+    """)
     return
 
 
@@ -428,25 +396,21 @@ def _():
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## References
+    mo.md(r"""
+    ## References
 
-        - Chew V (1966) [Confidence, Prediction, and Tolerance Regions for the Multivariate Normal Distribution](http://www.jstor.org/stable/2282774). Journal of the American Statistical Association, 61, 315, pp. 605-617.   
-        - Duarte M (2015) [Comments on “Ellipse area calculations and their applicability in posturography” (Schubert and Kirchner, vol.39, pages 518-522, 2014)](http://demotu.org/pubs/GP15.pdf). Gait & Posture, 41, 44-45. <a href="http://www.ncbi.nlm.nih.gov/pubmed/25194690" target="_blank">PubMed</a>.  
-        - Schubert P, Kirchner M (2014) [Ellipse area calculations and their applicability in posturography](http://www.sciencedirect.com/science/article/pii/S0966636213005961). Gait & Posture, 39, 518–522.
-        """
-    )
+    - Chew V (1966) [Confidence, Prediction, and Tolerance Regions for the Multivariate Normal Distribution](http://www.jstor.org/stable/2282774). Journal of the American Statistical Association, 61, 315, pp. 605-617.
+    - Duarte M (2015) [Comments on “Ellipse area calculations and their applicability in posturography” (Schubert and Kirchner, vol.39, pages 518-522, 2014)](http://demotu.org/pubs/GP15.pdf). Gait & Posture, 41, 44-45. <a href="http://www.ncbi.nlm.nih.gov/pubmed/25194690" target="_blank">PubMed</a>.
+    - Schubert P, Kirchner M (2014) [Ellipse area calculations and their applicability in posturography](http://www.sciencedirect.com/science/article/pii/S0966636213005961). Gait & Posture, 39, 518–522.
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Function ellipseoid.py
-        """
-    )
+    mo.md(r"""
+    ## Function ellipseoid.py
+    """)
     return
 
 
@@ -709,6 +673,7 @@ app._unparsable_cell(
 @app.cell
 def _():
     import marimo as mo
+
     return (mo,)
 
 
