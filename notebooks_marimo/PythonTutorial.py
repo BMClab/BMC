@@ -1,70 +1,62 @@
 import marimo
 
-__generated_with = "0.13.15"
+__generated_with = "0.24.2"
 app = marimo.App()
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        # Tutorial on Python for scientific computing
+    mo.md(r"""
+    # Tutorial on Python for scientific computing
 
-        > Marcos Duarte, Renato Naville Watanabe<br>
-        > [Laboratory of Biomechanics and Motor Control](https://bmclab.pesquisa.ufabc.edu.br/pt/)<br>
-        > Federal University of ABC, Brazil
+    > Marcos Duarte, Renato Naville Watanabe<br>
+    > [Laboratory of Biomechanics and Motor Control](https://bmclab.pesquisa.ufabc.edu.br/pt/)<br>
+    > Federal University of ABC, Brazil
 
-        <p style="text-align: right;">A <a href="https://jupyter.org/">Jupyter Notebook</a></p>
-        """
-    )
+    <p style="text-align: right;">A <a href="https://jupyter.org/">Jupyter Notebook</a></p>
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        <h1>Contents<span class="tocSkip"></span></h1>
-        <div class="toc"><ul class="toc-item"><li><span><a href="#Scope-of-this-tutorial" data-toc-modified-id="Scope-of-this-tutorial-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Scope of this tutorial</a></span></li><li><span><a href="#Python-as-a-calculator" data-toc-modified-id="Python-as-a-calculator-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Python as a calculator</a></span></li><li><span><a href="#The-import-function" data-toc-modified-id="The-import-function-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>The import function</a></span></li><li><span><a href="#Object-oriented-programming" data-toc-modified-id="Object-oriented-programming-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Object-oriented programming</a></span></li><li><span><a href="#Python-and-IPython-help" data-toc-modified-id="Python-and-IPython-help-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>Python and IPython help</a></span><ul class="toc-item"><li><span><a href="#Tab-completion-in-IPython" data-toc-modified-id="Tab-completion-in-IPython-5.1"><span class="toc-item-num">5.1&nbsp;&nbsp;</span>Tab completion in IPython</a></span></li><li><span><a href="#The-four-most-helpful-commands-in-IPython" data-toc-modified-id="The-four-most-helpful-commands-in-IPython-5.2"><span class="toc-item-num">5.2&nbsp;&nbsp;</span>The four most helpful commands in IPython</a></span></li><li><span><a href="#Comments" data-toc-modified-id="Comments-5.3"><span class="toc-item-num">5.3&nbsp;&nbsp;</span>Comments</a></span></li><li><span><a href="#Magic-functions" data-toc-modified-id="Magic-functions-5.4"><span class="toc-item-num">5.4&nbsp;&nbsp;</span>Magic functions</a></span></li></ul></li><li><span><a href="#Assignment-and-expressions" data-toc-modified-id="Assignment-and-expressions-6"><span class="toc-item-num">6&nbsp;&nbsp;</span>Assignment and expressions</a></span></li><li><span><a href="#Variables-and-types" data-toc-modified-id="Variables-and-types-7"><span class="toc-item-num">7&nbsp;&nbsp;</span>Variables and types</a></span><ul class="toc-item"><li><span><a href="#Numbers:-int,-float,-complex" data-toc-modified-id="Numbers:-int,-float,-complex-7.1"><span class="toc-item-num">7.1&nbsp;&nbsp;</span>Numbers: int, float, complex</a></span></li><li><span><a href="#Strings" data-toc-modified-id="Strings-7.2"><span class="toc-item-num">7.2&nbsp;&nbsp;</span>Strings</a></span></li><li><span><a href="#len()" data-toc-modified-id="len()-7.3"><span class="toc-item-num">7.3&nbsp;&nbsp;</span>len()</a></span></li><li><span><a href="#Lists" data-toc-modified-id="Lists-7.4"><span class="toc-item-num">7.4&nbsp;&nbsp;</span>Lists</a></span></li><li><span><a href="#Tuples" data-toc-modified-id="Tuples-7.5"><span class="toc-item-num">7.5&nbsp;&nbsp;</span>Tuples</a></span></li><li><span><a href="#Sets" data-toc-modified-id="Sets-7.6"><span class="toc-item-num">7.6&nbsp;&nbsp;</span>Sets</a></span></li><li><span><a href="#Dictionaries" data-toc-modified-id="Dictionaries-7.7"><span class="toc-item-num">7.7&nbsp;&nbsp;</span>Dictionaries</a></span></li></ul></li><li><span><a href="#Built-in-Constants" data-toc-modified-id="Built-in-Constants-8"><span class="toc-item-num">8&nbsp;&nbsp;</span>Built-in Constants</a></span></li><li><span><a href="#Logical-(Boolean)-operators" data-toc-modified-id="Logical-(Boolean)-operators-9"><span class="toc-item-num">9&nbsp;&nbsp;</span>Logical (Boolean) operators</a></span><ul class="toc-item"><li><span><a href="#and,-or,-not" data-toc-modified-id="and,-or,-not-9.1"><span class="toc-item-num">9.1&nbsp;&nbsp;</span>and, or, not</a></span></li><li><span><a href="#Comparisons" data-toc-modified-id="Comparisons-9.2"><span class="toc-item-num">9.2&nbsp;&nbsp;</span>Comparisons</a></span></li></ul></li><li><span><a href="#Indentation-and-whitespace" data-toc-modified-id="Indentation-and-whitespace-10"><span class="toc-item-num">10&nbsp;&nbsp;</span>Indentation and whitespace</a></span></li><li><span><a href="#Control-of-flow" data-toc-modified-id="Control-of-flow-11"><span class="toc-item-num">11&nbsp;&nbsp;</span>Control of flow</a></span><ul class="toc-item"><li><span><a href="#if...elif...else" data-toc-modified-id="if...elif...else-11.1"><span class="toc-item-num">11.1&nbsp;&nbsp;</span><code>if</code>...<code>elif</code>...<code>else</code></a></span></li><li><span><a href="#for" data-toc-modified-id="for-11.2"><span class="toc-item-num">11.2&nbsp;&nbsp;</span>for</a></span><ul class="toc-item"><li><span><a href="#The-range()-function" data-toc-modified-id="The-range()-function-11.2.1"><span class="toc-item-num">11.2.1&nbsp;&nbsp;</span>The <code>range()</code> function</a></span></li></ul></li><li><span><a href="#while" data-toc-modified-id="while-11.3"><span class="toc-item-num">11.3&nbsp;&nbsp;</span>while</a></span></li></ul></li><li><span><a href="#Function-definition" data-toc-modified-id="Function-definition-12"><span class="toc-item-num">12&nbsp;&nbsp;</span>Function definition</a></span></li><li><span><a href="#Numeric-data-manipulation-with-Numpy" data-toc-modified-id="Numeric-data-manipulation-with-Numpy-13"><span class="toc-item-num">13&nbsp;&nbsp;</span>Numeric data manipulation with Numpy</a></span><ul class="toc-item"><li><span><a href="#Interpolation" data-toc-modified-id="Interpolation-13.1"><span class="toc-item-num">13.1&nbsp;&nbsp;</span>Interpolation</a></span></li></ul></li><li><span><a href="#Read-and-save-files" data-toc-modified-id="Read-and-save-files-14"><span class="toc-item-num">14&nbsp;&nbsp;</span>Read and save files</a></span></li><li><span><a href="#Ploting-with-matplotlib" data-toc-modified-id="Ploting-with-matplotlib-15"><span class="toc-item-num">15&nbsp;&nbsp;</span>Ploting with matplotlib</a></span></li><li><span><a href="#Signal-processing-with-Scipy" data-toc-modified-id="Signal-processing-with-Scipy-16"><span class="toc-item-num">16&nbsp;&nbsp;</span>Signal processing with Scipy</a></span></li><li><span><a href="#Symbolic-mathematics-with-Sympy" data-toc-modified-id="Symbolic-mathematics-with-Sympy-17"><span class="toc-item-num">17&nbsp;&nbsp;</span>Symbolic mathematics with Sympy</a></span></li><li><span><a href="#Data-analysis-with-pandas" data-toc-modified-id="Data-analysis-with-pandas-18"><span class="toc-item-num">18&nbsp;&nbsp;</span>Data analysis with pandas</a></span></li><li><span><a href="#More-about-Python" data-toc-modified-id="More-about-Python-19"><span class="toc-item-num">19&nbsp;&nbsp;</span>More about Python</a></span></li></ul></div>
-        """
-    )
+    mo.md(r"""
+    <h1>Contents<span class="tocSkip"></span></h1>
+    <div class="toc"><ul class="toc-item"><li><span><a href="#Scope-of-this-tutorial" data-toc-modified-id="Scope-of-this-tutorial-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Scope of this tutorial</a></span></li><li><span><a href="#Python-as-a-calculator" data-toc-modified-id="Python-as-a-calculator-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Python as a calculator</a></span></li><li><span><a href="#The-import-function" data-toc-modified-id="The-import-function-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>The import function</a></span></li><li><span><a href="#Object-oriented-programming" data-toc-modified-id="Object-oriented-programming-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Object-oriented programming</a></span></li><li><span><a href="#Python-and-IPython-help" data-toc-modified-id="Python-and-IPython-help-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>Python and IPython help</a></span><ul class="toc-item"><li><span><a href="#Tab-completion-in-IPython" data-toc-modified-id="Tab-completion-in-IPython-5.1"><span class="toc-item-num">5.1&nbsp;&nbsp;</span>Tab completion in IPython</a></span></li><li><span><a href="#The-four-most-helpful-commands-in-IPython" data-toc-modified-id="The-four-most-helpful-commands-in-IPython-5.2"><span class="toc-item-num">5.2&nbsp;&nbsp;</span>The four most helpful commands in IPython</a></span></li><li><span><a href="#Comments" data-toc-modified-id="Comments-5.3"><span class="toc-item-num">5.3&nbsp;&nbsp;</span>Comments</a></span></li><li><span><a href="#Magic-functions" data-toc-modified-id="Magic-functions-5.4"><span class="toc-item-num">5.4&nbsp;&nbsp;</span>Magic functions</a></span></li></ul></li><li><span><a href="#Assignment-and-expressions" data-toc-modified-id="Assignment-and-expressions-6"><span class="toc-item-num">6&nbsp;&nbsp;</span>Assignment and expressions</a></span></li><li><span><a href="#Variables-and-types" data-toc-modified-id="Variables-and-types-7"><span class="toc-item-num">7&nbsp;&nbsp;</span>Variables and types</a></span><ul class="toc-item"><li><span><a href="#Numbers:-int,-float,-complex" data-toc-modified-id="Numbers:-int,-float,-complex-7.1"><span class="toc-item-num">7.1&nbsp;&nbsp;</span>Numbers: int, float, complex</a></span></li><li><span><a href="#Strings" data-toc-modified-id="Strings-7.2"><span class="toc-item-num">7.2&nbsp;&nbsp;</span>Strings</a></span></li><li><span><a href="#len()" data-toc-modified-id="len()-7.3"><span class="toc-item-num">7.3&nbsp;&nbsp;</span>len()</a></span></li><li><span><a href="#Lists" data-toc-modified-id="Lists-7.4"><span class="toc-item-num">7.4&nbsp;&nbsp;</span>Lists</a></span></li><li><span><a href="#Tuples" data-toc-modified-id="Tuples-7.5"><span class="toc-item-num">7.5&nbsp;&nbsp;</span>Tuples</a></span></li><li><span><a href="#Sets" data-toc-modified-id="Sets-7.6"><span class="toc-item-num">7.6&nbsp;&nbsp;</span>Sets</a></span></li><li><span><a href="#Dictionaries" data-toc-modified-id="Dictionaries-7.7"><span class="toc-item-num">7.7&nbsp;&nbsp;</span>Dictionaries</a></span></li></ul></li><li><span><a href="#Built-in-Constants" data-toc-modified-id="Built-in-Constants-8"><span class="toc-item-num">8&nbsp;&nbsp;</span>Built-in Constants</a></span></li><li><span><a href="#Logical-(Boolean)-operators" data-toc-modified-id="Logical-(Boolean)-operators-9"><span class="toc-item-num">9&nbsp;&nbsp;</span>Logical (Boolean) operators</a></span><ul class="toc-item"><li><span><a href="#and,-or,-not" data-toc-modified-id="and,-or,-not-9.1"><span class="toc-item-num">9.1&nbsp;&nbsp;</span>and, or, not</a></span></li><li><span><a href="#Comparisons" data-toc-modified-id="Comparisons-9.2"><span class="toc-item-num">9.2&nbsp;&nbsp;</span>Comparisons</a></span></li></ul></li><li><span><a href="#Indentation-and-whitespace" data-toc-modified-id="Indentation-and-whitespace-10"><span class="toc-item-num">10&nbsp;&nbsp;</span>Indentation and whitespace</a></span></li><li><span><a href="#Control-of-flow" data-toc-modified-id="Control-of-flow-11"><span class="toc-item-num">11&nbsp;&nbsp;</span>Control of flow</a></span><ul class="toc-item"><li><span><a href="#if...elif...else" data-toc-modified-id="if...elif...else-11.1"><span class="toc-item-num">11.1&nbsp;&nbsp;</span><code>if</code>...<code>elif</code>...<code>else</code></a></span></li><li><span><a href="#for" data-toc-modified-id="for-11.2"><span class="toc-item-num">11.2&nbsp;&nbsp;</span>for</a></span><ul class="toc-item"><li><span><a href="#The-range()-function" data-toc-modified-id="The-range()-function-11.2.1"><span class="toc-item-num">11.2.1&nbsp;&nbsp;</span>The <code>range()</code> function</a></span></li></ul></li><li><span><a href="#while" data-toc-modified-id="while-11.3"><span class="toc-item-num">11.3&nbsp;&nbsp;</span>while</a></span></li></ul></li><li><span><a href="#Function-definition" data-toc-modified-id="Function-definition-12"><span class="toc-item-num">12&nbsp;&nbsp;</span>Function definition</a></span></li><li><span><a href="#Numeric-data-manipulation-with-Numpy" data-toc-modified-id="Numeric-data-manipulation-with-Numpy-13"><span class="toc-item-num">13&nbsp;&nbsp;</span>Numeric data manipulation with Numpy</a></span><ul class="toc-item"><li><span><a href="#Interpolation" data-toc-modified-id="Interpolation-13.1"><span class="toc-item-num">13.1&nbsp;&nbsp;</span>Interpolation</a></span></li></ul></li><li><span><a href="#Read-and-save-files" data-toc-modified-id="Read-and-save-files-14"><span class="toc-item-num">14&nbsp;&nbsp;</span>Read and save files</a></span></li><li><span><a href="#Ploting-with-matplotlib" data-toc-modified-id="Ploting-with-matplotlib-15"><span class="toc-item-num">15&nbsp;&nbsp;</span>Ploting with matplotlib</a></span></li><li><span><a href="#Signal-processing-with-Scipy" data-toc-modified-id="Signal-processing-with-Scipy-16"><span class="toc-item-num">16&nbsp;&nbsp;</span>Signal processing with Scipy</a></span></li><li><span><a href="#Symbolic-mathematics-with-Sympy" data-toc-modified-id="Symbolic-mathematics-with-Sympy-17"><span class="toc-item-num">17&nbsp;&nbsp;</span>Symbolic mathematics with Sympy</a></span></li><li><span><a href="#Data-analysis-with-pandas" data-toc-modified-id="Data-analysis-with-pandas-18"><span class="toc-item-num">18&nbsp;&nbsp;</span>Data analysis with pandas</a></span></li><li><span><a href="#More-about-Python" data-toc-modified-id="More-about-Python-19"><span class="toc-item-num">19&nbsp;&nbsp;</span>More about Python</a></span></li></ul></div>
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Scope of this tutorial
+    mo.md(r"""
+    ## Scope of this tutorial
 
-        This will be a very brief tutorial on Python.<br>
-        For a more complete tutorial about Python see [A Whirlwind Tour of Python](https://github.com/jakevdp/WhirlwindTourOfPython) and [Python Data Science Handbook](https://jakevdp.github.io/PythonDataScienceHandbook/) for a specific tutorial about Python for scientific computing.
+    This will be a very brief tutorial on Python.<br>
+    For a more complete tutorial about Python see [A Whirlwind Tour of Python](https://github.com/jakevdp/WhirlwindTourOfPython) and [Python Data Science Handbook](https://jakevdp.github.io/PythonDataScienceHandbook/) for a specific tutorial about Python for scientific computing.
 
-        To use Python for scientific computing we need the Python program itself with its main modules and specific packages for scientific computing. [See this notebook on how to install Python for scientific computing](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/PythonInstallation.ipynb).<br>
-        Once you get Python and the necessary packages for scientific computing ready to work, there are different ways to run Python, the main ones are:
+    To use Python for scientific computing we need the Python program itself with its main modules and specific packages for scientific computing. [See this notebook on how to install Python for scientific computing](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/PythonInstallation.ipynb).<br>
+    Once you get Python and the necessary packages for scientific computing ready to work, there are different ways to run Python, the main ones are:
 
-        - open a terminal window in your computer and type `python` or `ipython` that the Python interpreter will start
-        - run the `Jupyter notebook` and start working with Python in a browser
-        - run `Spyder`, an interactive development environment (IDE)
-        - run the `Jupyter qtconsole`, a more featured terminal
-        - run Python online in a website such as [https://www.pythonanywhere.com/](https://www.pythonanywhere.com/) or [Colaboratory](https://colab.research.google.com/notebooks/welcome.ipynb)
-        - run Python using any other Python editor or IDE
+    - open a terminal window in your computer and type `python` or `ipython` that the Python interpreter will start
+    - run the `Jupyter notebook` and start working with Python in a browser
+    - run `Spyder`, an interactive development environment (IDE)
+    - run the `Jupyter qtconsole`, a more featured terminal
+    - run Python online in a website such as [https://www.pythonanywhere.com/](https://www.pythonanywhere.com/) or [Colaboratory](https://colab.research.google.com/notebooks/welcome.ipynb)
+    - run Python using any other Python editor or IDE
 
-        We will use the Jupyter Notebook for this tutorial but you can run almost all the things we will see here using the other forms listed above.
-        """
-    )
+    We will use the Jupyter Notebook for this tutorial but you can run almost all the things we will see here using the other forms listed above.
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Python as a calculator
+    mo.md(r"""
+    ## Python as a calculator
 
-        Once in the Jupyter notebook, if you type a simple mathematical expression and press `Shift+Enter` it will give the result of the expression:
-        """
-    )
+    Once in the Jupyter notebook, if you type a simple mathematical expression and press `Shift+Enter` it will give the result of the expression:
+    """)
     return
 
 
@@ -82,11 +74,9 @@ def _():
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Using the `print` function, let's explore the mathematical operations available in Python:
-        """
-    )
+    mo.md(r"""
+    Using the `print` function, let's explore the mathematical operations available in Python:
+    """)
     return
 
 
@@ -98,11 +88,9 @@ def _():
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        And if we want the square-root of a number:
-        """
-    )
+    mo.md(r"""
+    And if we want the square-root of a number:
+    """)
     return
 
 
@@ -114,17 +102,16 @@ def _(sqrt):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        We get an error message saying that the `sqrt` function if not defined. This is because `sqrt` and other mathematical functions are available with the `math` module:
-        """
-    )
+    mo.md(r"""
+    We get an error message saying that the `sqrt` function if not defined. This is because `sqrt` and other mathematical functions are available with the `math` module:
+    """)
     return
 
 
 @app.cell
 def _():
     import math
+
     return (math,)
 
 
@@ -137,6 +124,7 @@ def _(math):
 @app.cell
 def _():
     from math import sqrt
+
     return (sqrt,)
 
 
@@ -148,27 +136,23 @@ def _(sqrt):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## The import function
+    mo.md(r"""
+    ## The import function
 
-        We used the command '`import`' to be able to call certain functions. In Python functions are organized in modules and packages and they have to be imported in order to be used.
+    We used the command '`import`' to be able to call certain functions. In Python functions are organized in modules and packages and they have to be imported in order to be used.
 
-        A module is a file containing Python definitions (e.g., functions) and statements. Packages are a way of structuring Python’s module namespace by using “dotted module names”. For example, the module name A.B designates a submodule named B in a package named A. To be used, modules and packages have to be imported in Python with the import function.
+    A module is a file containing Python definitions (e.g., functions) and statements. Packages are a way of structuring Python’s module namespace by using “dotted module names”. For example, the module name A.B designates a submodule named B in a package named A. To be used, modules and packages have to be imported in Python with the import function.
 
-        Namespace is a container for a set of identifiers (names), and allows the disambiguation of homonym identifiers residing in different namespaces. For example, with the command import math, we will have all the functions and statements defined in this module in the namespace '`math.`', for example, '`math.pi`' is the π constant and '`math.cos()`', the cosine function.
-        """
-    )
+    Namespace is a container for a set of identifiers (names), and allows the disambiguation of homonym identifiers residing in different namespaces. For example, with the command import math, we will have all the functions and statements defined in this module in the namespace '`math.`', for example, '`math.pi`' is the π constant and '`math.cos()`', the cosine function.
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        By the way, to know which Python version you are running, we can use one of the following modules:
-        """
-    )
+    mo.md(r"""
+    By the way, to know which Python version you are running, we can use one of the following modules:
+    """)
     return
 
 
@@ -181,11 +165,9 @@ def _():
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        And if you are in an IPython session:
-        """
-    )
+    mo.md(r"""
+    And if you are in an IPython session:
+    """)
     return
 
 
@@ -198,39 +180,33 @@ def _():
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        The first option gives information about the Python version; the latter also includes the IPython version, operating system, etc.
-        """
-    )
+    mo.md(r"""
+    The first option gives information about the Python version; the latter also includes the IPython version, operating system, etc.
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Object-oriented programming
+    mo.md(r"""
+    ## Object-oriented programming
 
-        Python is designed as an object-oriented programming (OOP) language. OOP is a paradigm that represents concepts as "objects" that have data fields (attributes that describe the object) and associated procedures known as methods.
+    Python is designed as an object-oriented programming (OOP) language. OOP is a paradigm that represents concepts as "objects" that have data fields (attributes that describe the object) and associated procedures known as methods.
 
-        This means that all elements in Python are objects and they have attributes which can be acessed with the dot (.) operator after the name of the object. We already experimented with that when we imported the module `sys`, it became an object, and we acessed one of its attribute: `sys.version`.
+    This means that all elements in Python are objects and they have attributes which can be acessed with the dot (.) operator after the name of the object. We already experimented with that when we imported the module `sys`, it became an object, and we acessed one of its attribute: `sys.version`.
 
-        OOP as a paradigm is much more than defining objects, attributes, and methods, but for now this is enough to get going with Python.
-        """
-    )
+    OOP as a paradigm is much more than defining objects, attributes, and methods, but for now this is enough to get going with Python.
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Python and IPython help
+    mo.md(r"""
+    ## Python and IPython help
 
-        To get help about any Python command, use `help()`:
-        """
-    )
+    To get help about any Python command, use `help()`:
+    """)
     return
 
 
@@ -242,11 +218,9 @@ def _(math):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Or if you are in the IPython environment, simply add '?' to the function that a window will open at the bottom of your browser with the same help content:
-        """
-    )
+    mo.md(r"""
+    Or if you are in the IPython environment, simply add '?' to the function that a window will open at the bottom of your browser with the same help content:
+    """)
     return
 
 
@@ -260,13 +234,11 @@ app._unparsable_cell(
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        And if you add a second '?' to the statement you get access to the original script file of the function (an advantage of an open source language), unless that function is a built-in function that does not have a script file, which is the case of the standard modules in Python (but you can access the Python source code if you want; it just does not come with the standard program for installation).
+    mo.md(r"""
+    And if you add a second '?' to the statement you get access to the original script file of the function (an advantage of an open source language), unless that function is a built-in function that does not have a script file, which is the case of the standard modules in Python (but you can access the Python source code if you want; it just does not come with the standard program for installation).
 
-        So, let's see this feature with another function:
-        """
-    )
+    So, let's see this feature with another function:
+    """)
     return
 
 
@@ -281,11 +253,9 @@ app._unparsable_cell(
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        To know all the attributes of an object, for example all the functions available in `math`, we can use the function `dir`:
-        """
-    )
+    mo.md(r"""
+    To know all the attributes of an object, for example all the functions available in `math`, we can use the function `dir`:
+    """)
     return
 
 
@@ -297,42 +267,36 @@ def _(math):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### Tab completion in IPython
+    mo.md(r"""
+    ### Tab completion in IPython
 
-        IPython has tab completion: start typing the name of the command (object) and press `tab` to see the names of objects available with these initials letters. When the name of the object is typed followed by a dot (`math.`), pressing `tab` will show all available attribites, scroll down to the desired attribute and press `Enter` to select it.
-        """
-    )
+    IPython has tab completion: start typing the name of the command (object) and press `tab` to see the names of objects available with these initials letters. When the name of the object is typed followed by a dot (`math.`), pressing `tab` will show all available attribites, scroll down to the desired attribute and press `Enter` to select it.
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### The four most helpful commands in IPython
+    mo.md(r"""
+    ### The four most helpful commands in IPython
 
-        These are the most helpful commands in IPython (from [IPython tutorial](http://ipython.org/ipython-doc/dev/interactive/tutorial.html)):
+    These are the most helpful commands in IPython (from [IPython tutorial](http://ipython.org/ipython-doc/dev/interactive/tutorial.html)):
 
-         - `?` : Introduction and overview of IPython’s features.
-         - `%quickref` : Quick reference.
-         - `help` : Python’s own help system.
-         - `object?` : Details about ‘object’, use ‘object??’ for extra details.
-        """
-    )
+     - `?` : Introduction and overview of IPython’s features.
+     - `%quickref` : Quick reference.
+     - `help` : Python’s own help system.
+     - `object?` : Details about ‘object’, use ‘object??’ for extra details.
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### Comments
+    mo.md(r"""
+    ### Comments
 
-        Comments in Python start with the hash character, #, and extend to the end of the physical line:
-        """
-    )
+    Comments in Python start with the hash character, #, and extend to the end of the physical line:
+    """)
     return
 
 
@@ -345,11 +309,9 @@ def _(math):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        To insert comments spanning more than one line, use a multi-line string with a pair of matching triple-quotes: `\"\"\"` or `'''` (we will see the string data type later). A typical use of a multi-line comment is as documentation strings and are meant for anyone reading the code:
-        """
-    )
+    mo.md(r"""
+    To insert comments spanning more than one line, use a multi-line string with a pair of matching triple-quotes: `\"\"\"` or `'''` (we will see the string data type later). A typical use of a multi-line comment is as documentation strings and are meant for anyone reading the code:
+    """)
     return
 
 
@@ -366,41 +328,35 @@ def _():
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        A docstring like above is useless and its output as a standalone statement looks uggly in IPython Notebook, but you will see its real importance when reading and writting codes.
+    mo.md(r"""
+    A docstring like above is useless and its output as a standalone statement looks uggly in IPython Notebook, but you will see its real importance when reading and writting codes.
 
-        Commenting a programming code is an important step to make the code more readable, which Python cares a lot.<br>
-        There is a style guide for writting Python code ([PEP 8](https://www.python.org/dev/peps/pep-0008/)) with a session about [how to write comments](https://www.python.org/dev/peps/pep-0008/#comments).
-        """
-    )
+    Commenting a programming code is an important step to make the code more readable, which Python cares a lot.<br>
+    There is a style guide for writting Python code ([PEP 8](https://www.python.org/dev/peps/pep-0008/)) with a session about [how to write comments](https://www.python.org/dev/peps/pep-0008/#comments).
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### Magic functions
+    mo.md(r"""
+    ### Magic functions
 
-        IPython has a set of predefined ‘magic functions’ that you can call with a command line style syntax.<br>
-        There are two kinds of magics, line-oriented and cell-oriented.<br>
-        Line magics are prefixed with the % character and work much like OS command-line calls: they get as an argument the rest of the line, where arguments are passed without parentheses or quotes.<br>
-        Cell magics are prefixed with a double %%, and they are functions that get as an argument not only the rest of the line, but also the lines below it in a separate argument.
-        """
-    )
+    IPython has a set of predefined ‘magic functions’ that you can call with a command line style syntax.<br>
+    There are two kinds of magics, line-oriented and cell-oriented.<br>
+    Line magics are prefixed with the % character and work much like OS command-line calls: they get as an argument the rest of the line, where arguments are passed without parentheses or quotes.<br>
+    Cell magics are prefixed with a double %%, and they are functions that get as an argument not only the rest of the line, but also the lines below it in a separate argument.
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Assignment and expressions
+    mo.md(r"""
+    ## Assignment and expressions
 
-        The equal sign ('=') is used to assign a value to a variable. Afterwards, no result is displayed before the next interactive prompt:
-        """
-    )
+    The equal sign ('=') is used to assign a value to a variable. Afterwards, no result is displayed before the next interactive prompt:
+    """)
     return
 
 
@@ -412,13 +368,11 @@ def _():
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Spaces between the statements are optional but it helps for readability.
+    mo.md(r"""
+    Spaces between the statements are optional but it helps for readability.
 
-        To see the value of the variable, call it again or use the print function:
-        """
-    )
+    To see the value of the variable, call it again or use the print function:
+    """)
     return
 
 
@@ -436,11 +390,9 @@ def _(x):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Of course, the last assignment is that holds:
-        """
-    )
+    mo.md(r"""
+    Of course, the last assignment is that holds:
+    """)
     return
 
 
@@ -454,12 +406,10 @@ def _():
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        In mathematics '=' is the symbol for identity, but in computer programming '=' is used for assignment, it means that the right part of the expresssion is assigned to its left part.<br>
-        For example, 'x=x+1' does not make sense in mathematics but it does in computer programming:
-        """
-    )
+    mo.md(r"""
+    In mathematics '=' is the symbol for identity, but in computer programming '=' is used for assignment, it means that the right part of the expresssion is assigned to its left part.<br>
+    For example, 'x=x+1' does not make sense in mathematics but it does in computer programming:
+    """)
     return
 
 
@@ -472,11 +422,9 @@ def _(x_1):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        A value can be assigned to several variables simultaneously:
-        """
-    )
+    mo.md(r"""
+    A value can be assigned to several variables simultaneously:
+    """)
     return
 
 
@@ -490,11 +438,9 @@ def _():
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Several values can be assigned to several variables at once:
-        """
-    )
+    mo.md(r"""
+    Several values can be assigned to several variables at once:
+    """)
     return
 
 
@@ -508,11 +454,9 @@ def _():
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        And with that, you can do (!):
-        """
-    )
+    mo.md(r"""
+    And with that, you can do (!):
+    """)
     return
 
 
@@ -526,11 +470,9 @@ def _(x_4, y_1):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Variables must be “defined” (assigned a value) before they can be used, or an error will occur:
-        """
-    )
+    mo.md(r"""
+    Variables must be “defined” (assigned a value) before they can be used, or an error will occur:
+    """)
     return
 
 
@@ -542,13 +484,11 @@ def _(z):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Variables and types
+    mo.md(r"""
+    ## Variables and types
 
-        There are different types of built-in objects in Python (and remember that everything in Python is an object):
-        """
-    )
+    There are different types of built-in objects in Python (and remember that everything in Python is an object):
+    """)
     return
 
 
@@ -561,24 +501,20 @@ def _():
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Let's see some of them now.
-        """
-    )
+    mo.md(r"""
+    Let's see some of them now.
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### Numbers: int, float, complex
+    mo.md(r"""
+    ### Numbers: int, float, complex
 
-        Numbers can an integer (int), float, and complex (with imaginary part).<br>
-        Let's use the function `type` to show the type of number (and later for any other object):
-        """
-    )
+    Numbers can an integer (int), float, and complex (with imaginary part).<br>
+    Let's use the function `type` to show the type of number (and later for any other object):
+    """)
     return
 
 
@@ -590,11 +526,9 @@ def _():
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        A float is a non-integer number:
-        """
-    )
+    mo.md(r"""
+    A float is a non-integer number:
+    """)
     return
 
 
@@ -612,12 +546,10 @@ def _(math):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Python (IPython) is showing `math.pi` with only 15 decimal cases, but internally a float is represented with higher precision.<br>
-        Floating point numbers in Python are implemented using a double (eight bytes) word; the precison and internal representation of floating point numbers are machine specific and are available in:
-        """
-    )
+    mo.md(r"""
+    Python (IPython) is showing `math.pi` with only 15 decimal cases, but internally a float is represented with higher precision.<br>
+    Floating point numbers in Python are implemented using a double (eight bytes) word; the precison and internal representation of floating point numbers are machine specific and are available in:
+    """)
     return
 
 
@@ -629,11 +561,9 @@ def _(sys):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Be aware that floating-point numbers can be trick in computers:
-        """
-    )
+    mo.md(r"""
+    Be aware that floating-point numbers can be trick in computers:
+    """)
     return
 
 
@@ -651,21 +581,17 @@ def _():
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        These results are not correct (and the problem is not due to Python). The error arises from the fact that floating-point numbers are represented in computer hardware as base 2 (binary) fractions and most decimal fractions cannot be represented exactly as binary fractions. As consequence, decimal floating-point numbers are only approximated by the binary floating-point numbers actually stored in the machine. [See here for more on this issue](http://docs.python.org/2/tutorial/floatingpoint.html).
-        """
-    )
+    mo.md(r"""
+    These results are not correct (and the problem is not due to Python). The error arises from the fact that floating-point numbers are represented in computer hardware as base 2 (binary) fractions and most decimal fractions cannot be represented exactly as binary fractions. As consequence, decimal floating-point numbers are only approximated by the binary floating-point numbers actually stored in the machine. [See here for more on this issue](http://docs.python.org/2/tutorial/floatingpoint.html).
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        A complex number has real and imaginary parts:
-        """
-    )
+    mo.md(r"""
+    A complex number has real and imaginary parts:
+    """)
     return
 
 
@@ -683,11 +609,9 @@ def _():
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Each part of a complex number is represented as a floating-point number. We can see them using the attributes `.real` and `.imag`:
-        """
-    )
+    mo.md(r"""
+    Each part of a complex number is represented as a floating-point number. We can see them using the attributes `.real` and `.imag`:
+    """)
     return
 
 
@@ -700,13 +624,11 @@ def _():
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### Strings
+    mo.md(r"""
+    ### Strings
 
-        Strings can be enclosed in single quotes or double quotes:
-        """
-    )
+    Strings can be enclosed in single quotes or double quotes:
+    """)
     return
 
 
@@ -725,11 +647,9 @@ def _(s):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        String enclosed with single and double quotes are equal, but it may be easier to use one instead of the other:
-        """
-    )
+    mo.md(r"""
+    String enclosed with single and double quotes are equal, but it may be easier to use one instead of the other:
+    """)
     return
 
 
@@ -749,11 +669,9 @@ def _():
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        But you could have done that using the Python escape character '\':
-        """
-    )
+    mo.md(r"""
+    But you could have done that using the Python escape character '\':
+    """)
     return
 
 
@@ -765,11 +683,9 @@ def _():
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Strings can be concatenated (glued together) with the + operator, and repeated with *:
-        """
-    )
+    mo.md(r"""
+    Strings can be concatenated (glued together) with the + operator, and repeated with *:
+    """)
     return
 
 
@@ -783,11 +699,9 @@ def _():
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Strings can be subscripted (indexed); like in C, the first character of a string has subscript (index) 0:
-        """
-    )
+    mo.md(r"""
+    Strings can be subscripted (indexed); like in C, the first character of a string has subscript (index) 0:
+    """)
     return
 
 
@@ -811,13 +725,11 @@ def _(s_1):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### len()
+    mo.md(r"""
+    ### len()
 
-        Python has a built-in functon to get the number of itens of a sequence:
-        """
-    )
+    Python has a built-in functon to get the number of itens of a sequence:
+    """)
     return
 
 
@@ -836,12 +748,10 @@ def _():
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        The function len() helps to understand how the backward indexing works in Python.<br>
-        The index s[-i] should be understood as s[len(s) - i] rather than accessing directly the i-th element from back to front. This is why the last element of a string is s[-1]:
-        """
-    )
+    mo.md(r"""
+    The function len() helps to understand how the backward indexing works in Python.<br>
+    The index s[-i] should be understood as s[len(s) - i] rather than accessing directly the i-th element from back to front. This is why the last element of a string is s[-1]:
+    """)
     return
 
 
@@ -857,11 +767,9 @@ def _(s_2):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Or, strings can be surrounded in a pair of matching triple-quotes: \"\"\" or '''. End of lines do not need to be escaped when using triple-quotes, but they will be included in the string. This is how we created a multi-line comment earlier:
-        """
-    )
+    mo.md(r"""
+    Or, strings can be surrounded in a pair of matching triple-quotes: \"\"\" or '''. End of lines do not need to be escaped when using triple-quotes, but they will be included in the string. This is how we created a multi-line comment earlier:
+    """)
     return
 
 
@@ -878,13 +786,11 @@ def _():
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### Lists
+    mo.md(r"""
+    ### Lists
 
-        Values can be grouped together using different types, one of them is list, which can be written as a list of comma-separated values between square brackets. List items need not all have the same type:
-        """
-    )
+    Values can be grouped together using different types, one of them is list, which can be written as a list of comma-separated values between square brackets. List items need not all have the same type:
+    """)
     return
 
 
@@ -897,11 +803,9 @@ def _():
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Lists can be indexed and the same indexing rules we saw for strings are applied:
-        """
-    )
+    mo.md(r"""
+    Lists can be indexed and the same indexing rules we saw for strings are applied:
+    """)
     return
 
 
@@ -913,11 +817,9 @@ def _(x_7):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        The function len() works for lists:
-        """
-    )
+    mo.md(r"""
+    The function len() works for lists:
+    """)
     return
 
 
@@ -929,13 +831,11 @@ def _(x_7):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### Tuples
+    mo.md(r"""
+    ### Tuples
 
-        A tuple consists of a number of values separated by commas, for instance:
-        """
-    )
+    A tuple consists of a number of values separated by commas, for instance:
+    """)
     return
 
 
@@ -948,11 +848,9 @@ def _():
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        The type tuple is why multiple assignments in a single line works; elements separated by commas (with or without surrounding parentheses) are a tuple and in an expression with an '=', the right-side tuple is attributed to the left-side tuple:
-        """
-    )
+    mo.md(r"""
+    The type tuple is why multiple assignments in a single line works; elements separated by commas (with or without surrounding parentheses) are a tuple and in an expression with an '=', the right-side tuple is attributed to the left-side tuple:
+    """)
     return
 
 
@@ -965,11 +863,9 @@ def _():
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Is the same as:
-        """
-    )
+    mo.md(r"""
+    Is the same as:
+    """)
     return
 
 
@@ -982,13 +878,11 @@ def _():
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### Sets
+    mo.md(r"""
+    ### Sets
 
-        Python also includes a data type for sets. A set is an unordered collection with no duplicate elements.
-        """
-    )
+    Python also includes a data type for sets. A set is an unordered collection with no duplicate elements.
+    """)
     return
 
 
@@ -1002,11 +896,9 @@ def _():
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        As set is an unordered collection, it can not be indexed as lists and tuples.
-        """
-    )
+    mo.md(r"""
+    As set is an unordered collection, it can not be indexed as lists and tuples.
+    """)
     return
 
 
@@ -1019,13 +911,11 @@ def _(fruit):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### Dictionaries
+    mo.md(r"""
+    ### Dictionaries
 
-        Dictionary is a collection of elements organized keys and values. Unlike lists and tuples, which are indexed by a range of numbers, dictionaries are indexed by their keys:
-        """
-    )
+    Dictionary is a collection of elements organized keys and values. Unlike lists and tuples, which are indexed by a range of numbers, dictionaries are indexed by their keys:
+    """)
     return
 
 
@@ -1071,11 +961,9 @@ def _(tel):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        The dict() constructor builds dictionaries directly from sequences of key-value pairs:
-        """
-    )
+    mo.md(r"""
+    The dict() constructor builds dictionaries directly from sequences of key-value pairs:
+    """)
     return
 
 
@@ -1088,78 +976,66 @@ def _():
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Built-in Constants
+    mo.md(r"""
+    ## Built-in Constants
 
-        - **False** : false value of the bool type
-        - **True** : true value of the bool type
-        - **None** : sole value of types.NoneType. None is frequently used to represent the absence of a value.
-        """
-    )
+    - **False** : false value of the bool type
+    - **True** : true value of the bool type
+    - **None** : sole value of types.NoneType. None is frequently used to represent the absence of a value.
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        In computer science, the Boolean or logical data type is composed by two values, true and false, intended to represent the values of logic and Boolean algebra. In Python, 1 and 0 can also be used in most situations as equivalent to the Boolean values.
-        """
-    )
+    mo.md(r"""
+    In computer science, the Boolean or logical data type is composed by two values, true and false, intended to represent the values of logic and Boolean algebra. In Python, 1 and 0 can also be used in most situations as equivalent to the Boolean values.
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Logical (Boolean) operators
-        """
-    )
+    mo.md(r"""
+    ## Logical (Boolean) operators
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### and, or, not
-        """
-    )
+    mo.md(r"""
+    ### and, or, not
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        - **and** : logical AND operator. If both the operands are true then condition becomes true.	 (a and b) is true.
-        - **or** : logical OR Operator. If any of the two operands are non zero then condition becomes true.	 (a or b) is true.
-        - **not** : logical NOT Operator. Reverses the logical state of its operand. If a condition is true then logical NOT operator will make false.
-        """
-    )
+    mo.md(r"""
+    - **and** : logical AND operator. If both the operands are true then condition becomes true.	 (a and b) is true.
+    - **or** : logical OR Operator. If any of the two operands are non zero then condition becomes true.	 (a or b) is true.
+    - **not** : logical NOT Operator. Reverses the logical state of its operand. If a condition is true then logical NOT operator will make false.
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### Comparisons
+    mo.md(r"""
+    ### Comparisons
 
-        The following comparison operations are supported by objects in Python:
+    The following comparison operations are supported by objects in Python:
 
-        - **==** : equal
-        - **!=** : not equal
-        - **<**	: strictly less than
-        - **<=** : less than or equal
-        - **\>** : strictly greater than
-        - **\>=** : greater than or equal
-        - **is** : object identity
-        - **is not** : negated object identity
-        """
-    )
+    - **==** : equal
+    - **!=** : not equal
+    - **<**	: strictly less than
+    - **<=** : less than or equal
+    - **\>** : strictly greater than
+    - **\>=** : greater than or equal
+    - **is** : object identity
+    - **is not** : negated object identity
+    """)
     return
 
 
@@ -1195,39 +1071,35 @@ def _():
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Indentation and whitespace
+    mo.md(r"""
+    ## Indentation and whitespace
 
-        In Python, statement grouping is done by indentation (this is mandatory), which are done by inserting whitespaces, not tabs. Indentation is also recommended for alignment of function calling that span more than one line for better clarity.<br>
-        We will see examples of indentation in the next session.
-        """
-    )
+    In Python, statement grouping is done by indentation (this is mandatory), which are done by inserting whitespaces, not tabs. Indentation is also recommended for alignment of function calling that span more than one line for better clarity.<br>
+    We will see examples of indentation in the next session.
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Control of flow
+    mo.md(r"""
+    ## Control of flow
 
-        ### `if`...`elif`...`else`
+    ### `if`...`elif`...`else`
 
-        Conditional statements (to peform something if another thing is True or False) can be implemmented using the `if` statement:
-        ```
-        if expression:
-           statement
-        elif:
-           statement     
-        else:
-           statement
-        ```
-        `elif` (one or more) and `else` are optionals.<br>
-        The indentation is obligatory.<br>
-        For example:
-        """
-    )
+    Conditional statements (to peform something if another thing is True or False) can be implemmented using the `if` statement:
+    ```
+    if expression:
+       statement
+    elif:
+       statement
+    else:
+       statement
+    ```
+    `elif` (one or more) and `else` are optionals.<br>
+    The indentation is obligatory.<br>
+    For example:
+    """)
     return
 
 
@@ -1240,13 +1112,11 @@ def _():
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Which does nothing useful.
+    mo.md(r"""
+    Which does nothing useful.
 
-        Let's use the `if`...`elif`...`else` statements to categorize the [body mass index](http://en.wikipedia.org/wiki/Body_mass_index) of a person:
-        """
-    )
+    Let's use the `if`...`elif`...`else` statements to categorize the [body mass index](http://en.wikipedia.org/wiki/Body_mass_index) of a person:
+    """)
     return
 
 
@@ -1286,17 +1156,15 @@ def _(bmi, height, weight):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### for
+    mo.md(r"""
+    ### for
 
-        The `for` statement iterates over a sequence to perform operations (a loop event).
-        ```
-        for iterating_var in sequence:
-            statements
-        ```
-        """
-    )
+    The `for` statement iterates over a sequence to perform operations (a loop event).
+    ```
+    for iterating_var in sequence:
+        statements
+    ```
+    """)
     return
 
 
@@ -1316,13 +1184,11 @@ def _():
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        #### The `range()` function
+    mo.md(r"""
+    #### The `range()` function
 
-        The built-in function range() is useful if we need to create a sequence of numbers, for example, to iterate over this list. It generates lists containing arithmetic progressions:
-        """
-    )
+    The built-in function range() is useful if we need to create a sequence of numbers, for example, to iterate over this list. It generates lists containing arithmetic progressions:
+    """)
     return
 
 
@@ -1354,18 +1220,16 @@ def _():
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### while
+    mo.md(r"""
+    ### while
 
-        The `while` statement is used for repeating sections of code in a loop until a condition is met (this different than the `for` statement which executes n times):
-        ```
-        while expression:
-            statement
-        ```
-        Let's generate the Fibonacci series using a `while` loop:
-        """
-    )
+    The `while` statement is used for repeating sections of code in a loop until a condition is met (this different than the `for` statement which executes n times):
+    ```
+    while expression:
+        statement
+    ```
+    Let's generate the Fibonacci series using a `while` loop:
+    """)
     return
 
 
@@ -1380,15 +1244,13 @@ def _():
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Function definition
+    mo.md(r"""
+    ## Function definition
 
-        A function in a programming language is a piece of code that performs a specific task. Functions are used to reduce duplication of code making easier to reuse it and to decompose complex problems into simpler parts. The use of functions contribute to the clarity of the code.
+    A function in a programming language is a piece of code that performs a specific task. Functions are used to reduce duplication of code making easier to reuse it and to decompose complex problems into simpler parts. The use of functions contribute to the clarity of the code.
 
-        A function is created with the `def` keyword and the statements in the block of the function must be indented:
-        """
-    )
+    A function is created with the `def` keyword and the statements in the block of the function must be indented:
+    """)
     return
 
 
@@ -1399,11 +1261,9 @@ def function():
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        As per construction, this function does nothing when called:
-        """
-    )
+    mo.md(r"""
+    As per construction, this function does nothing when called:
+    """)
     return
 
 
@@ -1415,24 +1275,22 @@ def _():
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        The general syntax of a function definition is:
-        ```
-        def function_name( parameters ):
-           \"\"\"Function docstring.
+    mo.md(r"""
+    The general syntax of a function definition is:
+    ```
+    def function_name( parameters ):
+       \"\"\"Function docstring.
 
-           The help for the function
+       The help for the function
 
-           \"\"\"
+       \"\"\"
 
-           function body
+       function body
 
-           return variables
-        ```
-        A more useful function:
-        """
-    )
+       return variables
+    ```
+    A more useful function:
+    """)
     return
 
 
@@ -1468,11 +1326,9 @@ def _():
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Let's implemment the body mass index calculus and categorization as a function:
-        """
-    )
+    mo.md(r"""
+    Let's implemment the body mass index calculus and categorization as a function:
+    """)
     return
 
 
@@ -1513,19 +1369,18 @@ def _():
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Numeric data manipulation with Numpy
+    mo.md(r"""
+    ## Numeric data manipulation with Numpy
 
-        Numpy is the fundamental package for scientific computing in Python and has a N-dimensional array package convenient to work with numerical data. With Numpy it's much easier and faster to work with numbers grouped as 1-D arrays (a vector), 2-D arrays (like a table or matrix), or higher dimensions. Let's create 1-D and 2-D arrays in Numpy:
-        """
-    )
+    Numpy is the fundamental package for scientific computing in Python and has a N-dimensional array package convenient to work with numerical data. With Numpy it's much easier and faster to work with numbers grouped as 1-D arrays (a vector), 2-D arrays (like a table or matrix), or higher dimensions. Let's create 1-D and 2-D arrays in Numpy:
+    """)
     return
 
 
 @app.cell
 def _():
     import numpy as np
+
     return (np,)
 
 
@@ -1546,11 +1401,9 @@ def _(np):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        len() and the Numpy functions size() and shape() give information aboout the number of elements and the structure of the Numpy array:
-        """
-    )
+    mo.md(r"""
+    len() and the Numpy functions size() and shape() give information aboout the number of elements and the structure of the Numpy array:
+    """)
     return
 
 
@@ -1573,11 +1426,9 @@ def _(np, x1d, x2d):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Create random data
-        """
-    )
+    mo.md(r"""
+    Create random data
+    """)
     return
 
 
@@ -1590,11 +1441,9 @@ def _(np):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Joining (stacking together) arrays
-        """
-    )
+    mo.md(r"""
+    Joining (stacking together) arrays
+    """)
     return
 
 
@@ -1621,11 +1470,9 @@ def _(np, x_9, y_3):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Create equally spaced data
-        """
-    )
+    mo.md(r"""
+    Create equally spaced data
+    """)
     return
 
 
@@ -1643,13 +1490,11 @@ def _(np):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### Interpolation
+    mo.md(r"""
+    ### Interpolation
 
-        Consider the following data:
-        """
-    )
+    Consider the following data:
+    """)
     return
 
 
@@ -1661,11 +1506,9 @@ def _():
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Suppose we want to create data in between the given data points (interpolation); for instance, let's try to double the resolution of the data by generating twice as many data:
-        """
-    )
+    mo.md(r"""
+    Suppose we want to create data in between the given data points (interpolation); for instance, let's try to double the resolution of the data by generating twice as many data:
+    """)
     return
 
 
@@ -1680,17 +1523,15 @@ def _(np, y_4):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        The key is the Numpy `interp` function, from its help:
+    mo.md(r"""
+    The key is the Numpy `interp` function, from its help:
 
-            interp(x, xp, fp, left=None, right=None)
-            One-dimensional linear interpolation.
-            Returns the one-dimensional piecewise linear interpolant to a function with given values at discrete data-points.
+        interp(x, xp, fp, left=None, right=None)
+        One-dimensional linear interpolation.
+        Returns the one-dimensional piecewise linear interpolant to a function with given values at discrete data-points.
 
-        A plot of the data will show what we have done:
-        """
-    )
+    A plot of the data will show what we have done:
+    """)
     return
 
 
@@ -1707,30 +1548,26 @@ def _(t_1, tn, y_4, yn):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        For more about Numpy, see [http://www.numpy.org/](http://www.numpy.org/).
-        """
-    )
+    mo.md(r"""
+    For more about Numpy, see [http://www.numpy.org/](http://www.numpy.org/).
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Read and save files
+    mo.md(r"""
+    ## Read and save files
 
-        There are two kinds of computer files: text files and binary files:
-        > Text file: computer file where the content is structured as a sequence of lines of electronic text. Text files can contain plain text (letters, numbers, and symbols) but they are not limited to such. The type of content in the text file is defined by the Unicode encoding (a computing industry standard for the consistent encoding, representation and handling of text expressed in most of the world's writing systems).
-        >
-        > Binary file: computer file where the content is encoded in binary form, a sequence of integers representing byte values.
+    There are two kinds of computer files: text files and binary files:
+    > Text file: computer file where the content is structured as a sequence of lines of electronic text. Text files can contain plain text (letters, numbers, and symbols) but they are not limited to such. The type of content in the text file is defined by the Unicode encoding (a computing industry standard for the consistent encoding, representation and handling of text expressed in most of the world's writing systems).
+    >
+    > Binary file: computer file where the content is encoded in binary form, a sequence of integers representing byte values.
 
-        Let's see how to save and read numeric data stored in a text file:
+    Let's see how to save and read numeric data stored in a text file:
 
-        **Using plain Python**
-        """
-    )
+    **Using plain Python**
+    """)
     return
 
 
@@ -1754,11 +1591,9 @@ def _():
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        **Using Numpy**
-        """
-    )
+    mo.md(r"""
+    **Using Numpy**
+    """)
     return
 
 
@@ -1773,11 +1608,9 @@ def _(np):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### Mount the Google Drive
-        """
-    )
+    mo.md(r"""
+    ### Mount the Google Drive
+    """)
     return
 
 
@@ -1790,11 +1623,9 @@ def _():
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        For example, using pandas to read a csv file in the Google Drive:
-        """
-    )
+    mo.md(r"""
+    For example, using pandas to read a csv file in the Google Drive:
+    """)
     return
 
 
@@ -1808,13 +1639,11 @@ def _():
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Ploting with matplotlib
+    mo.md(r"""
+    ## Ploting with matplotlib
 
-        Matplotlib is the most-widely used packge for plotting data in Python. Let's see some examples of it.
-        """
-    )
+    Matplotlib is the most-widely used packge for plotting data in Python. Let's see some examples of it.
+    """)
     return
 
 
@@ -1837,11 +1666,9 @@ def _(np, plt):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Use the IPython magic `%matplotlib qt` to plot a figure in a separate window (from where you will be able to change some of the figure proprerties), **but it doesn't work in Google Colab**:
-        """
-    )
+    mo.md(r"""
+    Use the IPython magic `%matplotlib qt` to plot a figure in a separate window (from where you will be able to change some of the figure proprerties), **but it doesn't work in Google Colab**:
+    """)
     return
 
 
@@ -1872,31 +1699,25 @@ def _(np, plt):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        And a window with the following figure should appear (**it doesn't work in Google Colab**):
-        """
-    )
+    mo.md(r"""
+    And a window with the following figure should appear (**it doesn't work in Google Colab**):
+    """)
     return
 
 
 @app.cell
 def _(mo):
-    mo.md(
-        r"""
-        <figure><img src="https://github.com/BMClab/BMC/blob/master/images/plot.png?raw=1" alt="Plot"/></figure>
-        """
-    )
+    mo.md(r"""
+    <figure><img src="https://github.com/BMClab/BMC/blob/master/images/plot.png?raw=1" alt="Plot"/></figure>
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        You can switch back and forth between inline and separate figure using the `%matplotlib` magic commands used above. There are plenty more examples with the source code in the [matplotlib gallery](http://matplotlib.org/gallery.html).
-        """
-    )
+    mo.md(r"""
+    You can switch back and forth between inline and separate figure using the `%matplotlib` magic commands used above. There are plenty more examples with the source code in the [matplotlib gallery](http://matplotlib.org/gallery.html).
+    """)
     return
 
 
@@ -1909,13 +1730,11 @@ def _():
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Signal processing with Scipy
+    mo.md(r"""
+    ## Signal processing with Scipy
 
-        The Scipy package has a lot of functions for signal processing, among them: Integration (scipy.integrate), Optimization (scipy.optimize), Interpolation (scipy.interpolate), Fourier Transforms (scipy.fftpack), Signal Processing (scipy.signal), Linear Algebra (scipy.linalg), and Statistics (scipy.stats). As an example, let's see how to use a low-pass Butterworth filter to attenuate high-frequency noise and how the differentiation process of a signal affects the signal-to-noise content. We will also calculate the Fourier transform of these data to look at their frequencies content.
-        """
-    )
+    The Scipy package has a lot of functions for signal processing, among them: Integration (scipy.integrate), Optimization (scipy.optimize), Interpolation (scipy.interpolate), Fourier Transforms (scipy.fftpack), Signal Processing (scipy.signal), Linear Algebra (scipy.linalg), and Statistics (scipy.stats). As an example, let's see how to use a low-pass Butterworth filter to attenuate high-frequency noise and how the differentiation process of a signal affects the signal-to-noise content. We will also calculate the Fourier transform of these data to look at their frequencies content.
+    """)
     return
 
 
@@ -1941,11 +1760,9 @@ def _(np, scipy):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        And the plots:
-        """
-    )
+    mo.md(r"""
+    And the plots:
+    """)
     return
 
 
@@ -1976,23 +1793,19 @@ def _(freqs, plt, t_3, y2, y2dd, y2ddfft, y2fft, y_5, ydd, yddfft, yfft):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        For more about Scipy, see [https://docs.scipy.org/doc/scipy/reference/tutorial/](https://docs.scipy.org/doc/scipy/reference/tutorial/).
-        """
-    )
+    mo.md(r"""
+    For more about Scipy, see [https://docs.scipy.org/doc/scipy/reference/tutorial/](https://docs.scipy.org/doc/scipy/reference/tutorial/).
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Symbolic mathematics with Sympy
+    mo.md(r"""
+    ## Symbolic mathematics with Sympy
 
-        Sympy is a package to perform symbolic mathematics in Python. Let's see some of its features:
-        """
-    )
+    Sympy is a package to perform symbolic mathematics in Python. Let's see some of its features:
+    """)
     return
 
 
@@ -2007,11 +1820,9 @@ def _():
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Define some symbols and the create a second-order polynomial function (a.k.a., parabola):
-        """
-    )
+    mo.md(r"""
+    Define some symbols and the create a second-order polynomial function (a.k.a., parabola):
+    """)
     return
 
 
@@ -2025,11 +1836,9 @@ def _(sym):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Plot the parabola at some given range:
-        """
-    )
+    mo.md(r"""
+    Plot the parabola at some given range:
+    """)
     return
 
 
@@ -2042,11 +1851,9 @@ def _(x_12, y_6):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        And the roots of the parabola are given by:
-        """
-    )
+    mo.md(r"""
+    And the roots of the parabola are given by:
+    """)
     return
 
 
@@ -2058,11 +1865,9 @@ def _(sym, x_12, y_6):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        We can also do symbolic differentiation and integration:
-        """
-    )
+    mo.md(r"""
+    We can also do symbolic differentiation and integration:
+    """)
     return
 
 
@@ -2081,31 +1886,25 @@ def _(dy, sym, x_12):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        For example, let's use Sympy to represent three-dimensional rotations. Consider the problem of a coordinate system xyz rotated in relation to other coordinate system XYZ. The single rotations around each axis are illustrated by:
-        """
-    )
+    mo.md(r"""
+    For example, let's use Sympy to represent three-dimensional rotations. Consider the problem of a coordinate system xyz rotated in relation to other coordinate system XYZ. The single rotations around each axis are illustrated by:
+    """)
     return
 
 
 @app.cell
 def _(mo):
-    mo.md(
-        r"""
-        <figure><img src="https://github.com/BMClab/BMC/blob/master/images/rotations.png?raw=1" alt="Rotations"/></figure>
-        """
-    )
+    mo.md(r"""
+    <figure><img src="https://github.com/BMClab/BMC/blob/master/images/rotations.png?raw=1" alt="Rotations"/></figure>
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        The single 3D rotation matrices around Z, Y, and X axes can be expressed in Sympy:
-        """
-    )
+    mo.md(r"""
+    The single 3D rotation matrices around Z, Y, and X axes can be expressed in Sympy:
+    """)
     return
 
 
@@ -2125,11 +1924,9 @@ def _(display):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        And using Sympy, a sequence of elementary rotations around X, Y, Z axes is given by:
-        """
-    )
+    mo.md(r"""
+    And using Sympy, a sequence of elementary rotations around X, Y, Z axes is given by:
+    """)
     return
 
 
@@ -2142,11 +1939,9 @@ def _(Math, RX, RY, RZ, display, latex):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        Suppose there is a rotation only around X ($\alpha$) by$\pi/2$; we can get the numerical value of the rotation matrix by substituing the angle values:
-        """
-    )
+    mo.md(r"""
+    Suppose there is a rotation only around X ($\alpha$) by$\pi/2$; we can get the numerical value of the rotation matrix by substituing the angle values:
+    """)
     return
 
 
@@ -2159,11 +1954,9 @@ def _(RXYZ, a_4, b_4, g, np):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        And we can prettify this result:
-        """
-    )
+    mo.md(r"""
+    And we can prettify this result:
+    """)
     return
 
 
@@ -2175,25 +1968,21 @@ def _(Math, display, latex, r):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        For more about Sympy, see [http://docs.sympy.org/latest/tutorial/](http://docs.sympy.org/latest/tutorial/).
-        """
-    )
+    mo.md(r"""
+    For more about Sympy, see [http://docs.sympy.org/latest/tutorial/](http://docs.sympy.org/latest/tutorial/).
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Data analysis with pandas
+    mo.md(r"""
+    ## Data analysis with pandas
 
-        > "[pandas](http://pandas.pydata.org/) is a Python package providing fast, flexible, and expressive data structures designed to make working with “relational” or “labeled” data both easy and intuitive. It aims to be the fundamental high-level building block for doing practical, real world data analysis in Python."
+    > "[pandas](http://pandas.pydata.org/) is a Python package providing fast, flexible, and expressive data structures designed to make working with “relational” or “labeled” data both easy and intuitive. It aims to be the fundamental high-level building block for doing practical, real world data analysis in Python."
 
-        To work with labellled data, pandas has a type called DataFrame (basically, a matrix where columns and rows have may names and may be of different types) and it is also the main type of the software [R](http://www.r-project.org/). Fo ezample:
-        """
-    )
+    To work with labellled data, pandas has a type called DataFrame (basically, a matrix where columns and rows have may names and may be of different types) and it is also the main type of the software [R](http://www.r-project.org/). Fo ezample:
+    """)
     return
 
 
@@ -2222,11 +2011,9 @@ def _(np, pd):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        pandas is aware the data is structured and give you basic statistics considerint that and nicely formatted:
-        """
-    )
+    mo.md(r"""
+    pandas is aware the data is structured and give you basic statistics considerint that and nicely formatted:
+    """)
     return
 
 
@@ -2238,21 +2025,17 @@ def _(df_1):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        For more on pandas, see this tutorial: [http://pandas.pydata.org/pandas-docs/stable/10min.html](http://pandas.pydata.org/pandas-docs/stable/10min.html).
-        """
-    )
+    mo.md(r"""
+    For more on pandas, see this tutorial: [http://pandas.pydata.org/pandas-docs/stable/10min.html](http://pandas.pydata.org/pandas-docs/stable/10min.html).
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Plot with some interactive features of matplotlib
-        """
-    )
+    mo.md(r"""
+    ## Plot with some interactive features of matplotlib
+    """)
     return
 
 
@@ -2286,11 +2069,9 @@ def _(np, plt):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## Interactive browser controls for notebooks
-        """
-    )
+    mo.md(r"""
+    ## Interactive browser controls for notebooks
+    """)
     return
 
 
@@ -2321,29 +2102,29 @@ def _(ipywidgets, np, plt):
         """Remove old lines from plot and plot new one"""
         [l.remove() for l in ax.lines]
         ax.plot(t_5, func(t_5, A, tau), color='r', lw=3)
+
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## More about Python
+    mo.md(r"""
+    ## More about Python
 
-        There is a lot of good material in the internet about Python for scientific computing, here is a small list of interesting stuff:
+    There is a lot of good material in the internet about Python for scientific computing, here is a small list of interesting stuff:
 
-         - [How To Think Like A Computer Scientist](http://www.openbookproject.net/thinkcs/python/english2e/) or [the interactive edition](http://interactivepython.org/courselib/static/thinkcspy/index.html) (book)
-         - [Python Scientific Lecture Notes](http://scipy-lectures.github.io/) (lecture notes)
-         - [Python Data Science Handbook](https://jakevdp.github.io/PythonDataScienceHandbook/) (tutorial/book)
-         - [A gallery of interesting Jupyter Notebooks](https://github.com/jupyter/jupyter/wiki)
-        """
-    )
+     - [How To Think Like A Computer Scientist](http://www.openbookproject.net/thinkcs/python/english2e/) or [the interactive edition](http://interactivepython.org/courselib/static/thinkcspy/index.html) (book)
+     - [Python Scientific Lecture Notes](http://scipy-lectures.github.io/) (lecture notes)
+     - [Python Data Science Handbook](https://jakevdp.github.io/PythonDataScienceHandbook/) (tutorial/book)
+     - [A gallery of interesting Jupyter Notebooks](https://github.com/jupyter/jupyter/wiki)
+    """)
     return
 
 
 @app.cell
 def _():
     import marimo as mo
+
     return (mo,)
 
 
