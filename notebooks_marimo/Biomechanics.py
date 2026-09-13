@@ -125,7 +125,7 @@ def _(mo):
 
     The good news is that only a subset of mechanics is relevant. The bodies studied in biomechanics move at moderate speeds $(\ll 3 \times 10^{8}\,\mathrm{m/s})$ and are not very small $(\gg 3 \times 10^{-9}\,\mathrm{m})$, which places them squarely in classical mechanics, as shown in the diagram below. You will not need relativity or quantum mechanics to analyze a gait cycle.
 
-    <figure><center><img src="http://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Physicsdomains.svg/500px-Physicsdomains.svg.png" width=500 alt="Domains of mechanics"/></center><figcaption><center><i>Figure. Domains of mechanics (image from <a href="http://en.wikipedia.org/wiki/Classical_mechanics">http://en.wikipedia.org/wiki/Classical_mechanics</a>).</i></center></figcaption></figure>
+    <figure><center><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Physicsdomains.svg/500px-Physicsdomains.svg.png" width=500 alt="Domains of mechanics"/></center><figcaption><center><i>Figure. Domains of mechanics (image from <a href="http://en.wikipedia.org/wiki/Classical_mechanics">http://en.wikipedia.org/wiki/Classical_mechanics</a>).</i></center></figcaption></figure>
     """)
     return
 
@@ -139,7 +139,7 @@ def _(mo):
 
     Within that, classical mechanics is typically partitioned first into **statics** and **dynamics**, and dynamics is then divided into **kinematics** and **kinetics**. The logic is clean: statics studies forces in the absence of changes in motion, dynamics studies bodies whose motion changes, kinematics describes motion without asking what caused it, and kinetics studies the causes.
 
-    <figure><center><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Mechanics_Overview_Table.jpg/640px-Mechanics_Overview_Table.jpg" width=800 alt="Branches of mechanics"/></center><figcaption><center><i>Figure. Branches of mechanics (image from <a href="https://en.wikibooks.org/wiki/Engineering_Statics/Introduction">https://en.wikibooks.org/wiki/Engineering_Statics/Introduction</a>).</i></center></figcaption></figure>
+    <figure><center><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Mechanics_Overview_Table.jpg/1280px-Mechanics_Overview_Table.jpg" width=800 alt="Branches of mechanics"/></center><figcaption><center><i>Figure. Branches of mechanics (image from <a href="https://en.wikibooks.org/wiki/Engineering_Statics/Introduction">https://en.wikibooks.org/wiki/Engineering_Statics/Introduction</a>).</i></center></figcaption></figure>
     """)
     return
 
@@ -294,7 +294,7 @@ def _(mo):
     1. A surgeon moves a tendon insertion from $0.04\,\mathrm{m}$ to $0.05\,\mathrm{m}$ from the joint. By what percentage does the required muscle force drop? What does the patient lose in exchange?
     2. Keep the load at 5 kg but hold it close to your body, at $0.15\,\mathrm{m}$ from the elbow instead of $0.30\,\mathrm{m}$. Explain the result to someone lifting a heavy box.
     3. The joint reaction force grows almost as fast as the muscle force. Why would that matter to someone studying cartilage wear, or designing an elbow prosthesis?
-    4. This model ignored the fact that several muscles cross the elbow. If three flexors share the job, can you determine how much force each one produces from statics alone? (This question has a name — muscle redundancy — and it is why [optimization](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/Optimization.ipynb) appears later in this collection.)
+    4. This model ignored the fact that several muscles cross the elbow. If three flexors share the job, can you determine how much force each one produces from statics alone? (This question has a name — muscle redundancy — and it is why [optimization](https://github.com/BMClab/BMC/blob/master/notebooks/Optimization.ipynb) appears later in this collection.)
     """)
     return
 
@@ -342,7 +342,7 @@ def _(mo):
     mo.md(r"""
     ### Leonardo da Vinci (1452-1519)
 
-    <div><figure><img src='https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Da_Vinci_Vitruve_Luc_Viatour.jpg/353px-Da_Vinci_Vitruve_Luc_Viatour.jpg' width="240" alt="Vitruvian Man" style="float:right;margin: 0 0 0 20px;"/></figure></div>
+    <div><figure><img src='https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Da_Vinci_Vitruve_Luc_Viatour.jpg/250px-Da_Vinci_Vitruve_Luc_Viatour.jpg' width="240" alt="Vitruvian Man" style="float:right;margin: 0 0 0 20px;"/></figure></div>
 
     Leonardo contributed to biomechanics by looking, carefully and repeatedly:
 
@@ -401,7 +401,7 @@ def _(mo):
     mo.md(r"""
     ### More on the history of biomechanics
 
-    - [A Genealogy of Biomechanics](https://courses.washington.edu/bioen520/notes/History_of_Biomechanics_(Martin_1999).pdf)
+    - [A Genealogy of Biomechanics](https://courses.washington.edu/bioen520/notes/History_of_Biomechanics_%28Martin_1999%29.pdf)
     - [History of Biomechanics and Kinesiology](https://biomechanics.vtheatre.net/doc/history.html)
     - Chapter 1 of Nigg and Herzog (2006) [Biomechanics of the Musculo-skeletal System](https://books.google.com.br/books?id=hOIeAQAAIAAJ&dq=editions:ISBN0470017678)
     """)
@@ -451,63 +451,63 @@ def _(mo):
 
     You cannot analyze movement you cannot load, plot, or share. This track is not about biomechanics; it is about not being blocked by your own tooling. Take it first if you are new to scientific Python, and skim it otherwise.
 
-    - [Python for scientific computing](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/PythonForScientificComputing.ipynb)
-    - [Python tutorial](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/PythonTutorial.ipynb)
-    - [Code structure for data analysis](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/CodeStructure.ipynb)
-    - [Version control with Git and GitHub](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/VersionControlGitGitHub.ipynb)
+    - [Python for scientific computing](https://github.com/BMClab/BMC/blob/master/notebooks/PythonForScientificComputing.ipynb)
+    - [Python tutorial](https://github.com/BMClab/BMC/blob/master/notebooks/PythonTutorial.ipynb)
+    - [Code structure for data analysis](https://github.com/BMClab/BMC/blob/master/notebooks/CodeStructure.ipynb)
+    - [Version control with Git and GitHub](https://github.com/BMClab/BMC/blob/master/notebooks/VersionControlGitGitHub.ipynb)
 
     ### Track 2 — From a raw recording to a usable signal
 
     Every measurement in biomechanics arrives contaminated: sensor noise, missing markers, trials of different durations, subjects of different sizes. Almost every mistake in an analysis is made here, before any mechanics is applied. This track teaches you to get from a file to a signal you can trust.
 
-    - [Basic properties of signals](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/SignalBasicProperties.ipynb)
-    - [Data filtering](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/DataFiltering.ipynb)
-    - [Residual analysis for the optimal cutoff frequency](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/ResidualAnalysis.ipynb)
-    - [Time normalization of data](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/TimeNormalization.ipynb)
-    - [Ensemble average](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/EnsembleAverage.ipynb)
-    - [Open files in C3D format](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/OpenC3Dfile.ipynb)
+    - [Basic properties of signals](https://github.com/BMClab/BMC/blob/master/notebooks/SignalBasicProperties.ipynb)
+    - [Data filtering](https://github.com/BMClab/BMC/blob/master/notebooks/DataFiltering.ipynb)
+    - [Residual analysis for the optimal cutoff frequency](https://github.com/BMClab/BMC/blob/master/notebooks/ResidualAnalysis.ipynb)
+    - [Time normalization of data](https://github.com/BMClab/BMC/blob/master/notebooks/TimeNormalization.ipynb)
+    - [Ensemble average](https://github.com/BMClab/BMC/blob/master/notebooks/EnsembleAverage.ipynb)
+    - [Open files in C3D format](https://github.com/BMClab/BMC/blob/master/notebooks/OpenC3Dfile.ipynb)
 
     ### Track 3 — Kinematics: describing motion
 
     This is the easier half of the biomechanics partition, and the right place to start doing actual mechanics. Everything here answers *how did it move*, without yet asking why. Note how much of the work is really about choosing a frame of reference and sticking to it.
 
-    - [Frame of reference](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/ReferenceFrame.ipynb)
-    - [Kinematics of a particle: one-dimensional motion](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/KinematicsParticle.ipynb)
-    - [Projectile motion](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/ProjectileMotion.ipynb)
-    - [Angular kinematics (2D)](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/KinematicsAngular2D.ipynb)
-    - [Rigid-body transformations (2D)](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/Transformation2D.ipynb) and [(3D)](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/Transformation3D.ipynb)
-    - [Kinematic chain](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/KinematicChain.ipynb)
+    - [Frame of reference](https://github.com/BMClab/BMC/blob/master/notebooks/ReferenceFrame.ipynb)
+    - [Kinematics of a particle: one-dimensional motion](https://github.com/BMClab/BMC/blob/master/notebooks/KinematicsParticle.ipynb)
+    - [Projectile motion](https://github.com/BMClab/BMC/blob/master/notebooks/ProjectileMotion.ipynb)
+    - [Angular kinematics (2D)](https://github.com/BMClab/BMC/blob/master/notebooks/KinematicsAngular2D.ipynb)
+    - [Rigid-body transformations (2D)](https://github.com/BMClab/BMC/blob/master/notebooks/Transformation2D.ipynb) and [(3D)](https://github.com/BMClab/BMC/blob/master/notebooks/Transformation3D.ipynb)
+    - [Kinematic chain](https://github.com/BMClab/BMC/blob/master/notebooks/KinematicChain.ipynb)
 
     ### Track 4 — Kinetics: the forces behind the motion
 
     This track generalizes the elbow calculation you did above: from one joint in static equilibrium to whole limbs in motion. The free-body diagram is the single most useful habit in the entire field — if you learn nothing else from this repository, learn to draw one properly.
 
-    - [Fundamental concepts of kinetics](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/KineticsFundamentalConcepts.ipynb)
-    - [Center of mass and moment of inertia](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/CenterOfMassAndMomentOfInertia.ipynb)
-    - [Newton's laws for particles](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/newtonLawForParticles.ipynb)
-    - [Free body diagram](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/FreeBodyDiagram.ipynb)
-    - [Lagrangian mechanics](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/lagrangian_mechanics.ipynb)
+    - [Fundamental concepts of kinetics](https://github.com/BMClab/BMC/blob/master/notebooks/KineticsFundamentalConcepts.ipynb)
+    - [Center of mass and moment of inertia](https://github.com/BMClab/BMC/blob/master/notebooks/CenterOfMassAndMomentOfInertia.ipynb)
+    - [Newton's laws for particles](https://github.com/BMClab/BMC/blob/master/notebooks/newtonLawForParticles.ipynb)
+    - [Free body diagram](https://github.com/BMClab/BMC/blob/master/notebooks/FreeBodyDiagram.ipynb)
+    - [Lagrangian mechanics](https://github.com/BMClab/BMC/blob/master/notebooks/lagrangian_mechanics.ipynb)
 
     ### Track 5 — Modeling and simulating the musculoskeletal system
 
     Measurement alone cannot tell you what an individual muscle did; there are more muscles than equations. Modeling and simulation are how biomechanics gets at quantities no instrument can record directly. This is also where Hatze's argument becomes concrete, since no off-the-shelf mechanical model covers a contracting muscle.
 
-    - [Ordinary differential equations](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/OrdinaryDifferentialEquation.ipynb)
-    - [Body segment parameters](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/BodySegmentParameters.ipynb)
-    - [Muscle modeling](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/MuscleModeling.ipynb) and [muscle simulation](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/MuscleSimulation.ipynb)
-    - [Musculoskeletal modeling and simulation](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/MusculoskeletaModelingSimulation.ipynb)
-    - [Multibody dynamics of simple biomechanical models](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/MultibodyDynamics.ipynb)
-    - [Optimization](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/Optimization.ipynb)
+    - [Ordinary differential equations](https://github.com/BMClab/BMC/blob/master/notebooks/OrdinaryDifferentialEquation.ipynb)
+    - [Body segment parameters](https://github.com/BMClab/BMC/blob/master/notebooks/BodySegmentParameters.ipynb)
+    - [Muscle modeling](https://github.com/BMClab/BMC/blob/master/notebooks/MuscleModeling.ipynb) and [muscle simulation](https://github.com/BMClab/BMC/blob/master/notebooks/MuscleSimulation.ipynb)
+    - [Musculoskeletal modeling and simulation](https://github.com/BMClab/BMC/blob/master/notebooks/MusculoskeletaModelingSimulation.ipynb)
+    - [Multibody dynamics of simple biomechanical models](https://github.com/BMClab/BMC/blob/master/notebooks/MultibodyDynamics.ipynb)
+    - [Optimization](https://github.com/BMClab/BMC/blob/master/notebooks/Optimization.ipynb)
 
     ### Track 6 — Whole tasks, end to end
 
     Finally, complete analyses of real movements, each combining every track above. Read one of these early anyway, even before you can follow all the steps: it shows you what the destination looks like.
 
-    - [The inverted pendulum model of human standing posture](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/IP_Model.ipynb)
-    - [Measurements in stabilography](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/Stabilography.ipynb)
-    - [Biomechanical analysis of vertical jumps](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/VerticalJump.ipynb)
-    - [Gait analysis (2D)](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/GaitAnalysis2D.ipynb)
-    - [Introduction to data analysis in electromyography](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/Electromyography.ipynb)
+    - [The inverted pendulum model of human standing posture](https://github.com/BMClab/BMC/blob/master/notebooks/IP_Model.ipynb)
+    - [Measurements in stabilography](https://github.com/BMClab/BMC/blob/master/notebooks/Stabilography.ipynb)
+    - [Biomechanical analysis of vertical jumps](https://github.com/BMClab/BMC/blob/master/notebooks/VerticalJump.ipynb)
+    - [Gait analysis (2D)](https://github.com/BMClab/BMC/blob/master/notebooks/GaitAnalysis2D.ipynb)
+    - [Introduction to data analysis in electromyography](https://github.com/BMClab/BMC/blob/master/notebooks/Electromyography.ipynb)
 
     **Challenge 4.** Go back to the movement you chose in Challenge 0. Which single notebook from the list above would help you most right now? Open it next.
     """)
@@ -537,7 +537,6 @@ def _(mo):
     - [BME 366-0-01: Biomechanics of Movement](https://www.mccormick.northwestern.edu/biomedical/academics/courses/descriptions/366.html) (Northwestern)
     - [Biomechanics at MIT](https://ocw.mit.edu/search/?q=biomechanics)
     - [Biomechanics curriculum](https://www.me.washington.edu/students/grad/curriculum/biomechanics) (Washington)
-    - [Online Biomechanics Courses](https://edutestlabs.com/online-biomechanics-courses/)
     """)
     return
 
@@ -587,7 +586,7 @@ def _(mo):
     - [International Society of Biomechanics](http://isbweb.org/)
     - [Biomch-L, the biomechanics' e-mail list](http://biomch-l.isbweb.org/)
     - [Journal of Biomechanics' aims and scope](https://www.sciencedirect.com/journal/journal-of-biomechanics/about/aims-and-scope)
-    - <a href="http://courses.washington.edu/bioen520/notes/History_of_Biomechanics_(Martin_1999).pdf">A Genealogy of Biomechanics</a>
+    - <a href="https://courses.washington.edu/bioen520/notes/History_of_Biomechanics_%28Martin_1999%29.pdf">A Genealogy of Biomechanics</a>
     - Fung Y-C (1993) [Biomechanics: mechanical properties of living tissues](https://books.google.com.br/books?id=yx3aBwAAQBAJ). 2nd ed. Springer.
     - Hatze H (1974) [The meaning of the term biomechanics](https://github.com/demotu/BMC/blob/master/courses/refs/HatzeJB74biomechanics.pdf). Journal of Biomechanics, 7, 189-190.
     - Hibbeler RC (2012) [Engineering Mechanics: Statics](http://books.google.com.br/books?id=PSEvAAAAQBAJ). 13th edition. Prentice Hall.
