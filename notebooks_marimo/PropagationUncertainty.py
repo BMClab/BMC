@@ -19,15 +19,6 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    <h1>Contents<span class="tocSkip"></span></h1>
-    <div class="toc"><ul class="toc-item"><li><span><a href="#Evaluation-of-measurement-data" data-toc-modified-id="Evaluation-of-measurement-data-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Evaluation of measurement data</a></span></li><li><span><a href="#Propagation-of-uncertainty-by-linear-approximation" data-toc-modified-id="Propagation-of-uncertainty-by-linear-approximation-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Propagation of uncertainty by linear approximation</a></span></li><li><span><a href="#Using-the-uncertainties-package-to-calculate-uncertainty" data-toc-modified-id="Using-the-uncertainties-package-to-calculate-uncertainty-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Using the <code>uncertainties</code> package to calculate uncertainty</a></span><ul class="toc-item"><li><span><a href="#Displaying-the-output-in-different-formats" data-toc-modified-id="Displaying-the-output-in-different-formats-3.1"><span class="toc-item-num">3.1&nbsp;&nbsp;</span>Displaying the output in different formats</a></span></li><li><span><a href="#Automatic-deduction-of-the-symbolic-formula-for-error-propagation" data-toc-modified-id="Automatic-deduction-of-the-symbolic-formula-for-error-propagation-3.2"><span class="toc-item-num">3.2&nbsp;&nbsp;</span>Automatic deduction of the symbolic formula for error propagation</a></span></li><li><span><a href="#Another-example" data-toc-modified-id="Another-example-3.3"><span class="toc-item-num">3.3&nbsp;&nbsp;</span>Another example</a></span></li></ul></li><li><span><a href="#Other-Python-packages-for-uncertainty-analysis" data-toc-modified-id="Other-Python-packages-for-uncertainty-analysis-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Other Python packages for uncertainty analysis</a></span></li><li><span><a href="#In-conclusion" data-toc-modified-id="In-conclusion-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>In conclusion</a></span></li><li><span><a href="#References" data-toc-modified-id="References-6"><span class="toc-item-num">6&nbsp;&nbsp;</span>References</a></span></li></ul></div>
-    """)
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
     ## Evaluation of measurement data
 
     > The result of a measurement is only an approximation or estimate of the value of the measurand and thus is complete only when accompanied by a statement of the uncertainty of that estimate.

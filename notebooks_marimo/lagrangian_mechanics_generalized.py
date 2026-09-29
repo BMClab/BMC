@@ -28,15 +28,6 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    <h1>Contents<span class="tocSkip"></span></h1>
-    <div class="toc"><ul class="toc-item"><li><span><a href="#Review-on-Newton's-laws-of-motion" data-toc-modified-id="Review-on-Newton's-laws-of-motion-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Review on Newton's laws of motion</a></span><ul class="toc-item"><li><span><a href="#Mechanical-energy" data-toc-modified-id="Mechanical-energy-1.1"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>Mechanical energy</a></span></li></ul></li><li><span><a href="#Lagrange's-equation-in-Cartesian-Coordinates" data-toc-modified-id="Lagrange's-equation-in-Cartesian-Coordinates-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Lagrange's equation in Cartesian Coordinates</a></span></li><li><span><a href="#Generalized-coordinates" data-toc-modified-id="Generalized-coordinates-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Generalized coordinates</a></span></li><li><span><a href="#Lagrange's-equation" data-toc-modified-id="Lagrange's-equation-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Lagrange's equation</a></span><ul class="toc-item"><li><span><a href="#Constraints" data-toc-modified-id="Constraints-4.1"><span class="toc-item-num">4.1&nbsp;&nbsp;</span>Constraints</a></span></li></ul></li><li><span><a href="#Further-reading" data-toc-modified-id="Further-reading-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>Further reading</a></span></li><li><span><a href="#Video-lectures-on-the-internet" data-toc-modified-id="Video-lectures-on-the-internet-6"><span class="toc-item-num">6&nbsp;&nbsp;</span>Video lectures on the internet</a></span></li><li><span><a href="#References" data-toc-modified-id="References-7"><span class="toc-item-num">7&nbsp;&nbsp;</span>References</a></span></li></ul></div>
-    """)
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
     ## Review on Newton's laws of motion
 
     The [Newton's laws of motion](https://en.wikipedia.org/wiki/Newton's_laws_of_motion) laid the foundation for classical mechanics. They describe the relationship between the motion of a body and the possible forces acting upon it.

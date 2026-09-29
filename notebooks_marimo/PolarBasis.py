@@ -27,16 +27,6 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    <h1>Contents<span class="tocSkip"></span></h1>
-    <br>
-    <div class="toc"><ul class="toc-item"><li><span><a href="#Python-setup" data-toc-modified-id="Python-setup-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Python setup</a></span></li><li><span><a href="#Time-derivati-of-the-versors-${\bf\hat{e_R}}$-and-${\bf\hat{e_\theta}}$" data-toc-modified-id="Time-derivati-of-the-versors-${\bf\hat{e_R}}$-and-${\bf\hat{e_\theta}}$-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Time-derivative of the versors${\bf\hat{e_R}}$and${\bf\hat{e_\theta}}$</a></span></li><li><span><a href="#Angular-position-velocity-and-acceleration" data-toc-modified-id="Angular-position-velocity-and-acceleration-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Angular position, velocity and acceleration</a></span><ul class="toc-item"><li><span><a href="#Position" data-toc-modified-id="Position-3.1"><span class="toc-item-num">3.1&nbsp;&nbsp;</span>Position</a></span></li><li><span><a href="#Velocity" data-toc-modified-id="Velocity-3.2"><span class="toc-item-num">3.2&nbsp;&nbsp;</span>Velocity</a></span></li><li><span><a href="#Acceleration" data-toc-modified-id="Acceleration-3.3"><span class="toc-item-num">3.3&nbsp;&nbsp;</span>Acceleration</a></span></li></ul></li><li><span><a href="#Important-to-note" data-toc-modified-id="Important-to-note-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Important to note</a></span></li><li><span><a href="#Example" data-toc-modified-id="Example-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>Example</a></span><ul class="toc-item"><li><span><a href="#Solving-numerically" data-toc-modified-id="Solving-numerically-5.1"><span class="toc-item-num">5.1&nbsp;&nbsp;</span>Solving numerically</a></span></li><li><span><a href="#Solved-symbolically" data-toc-modified-id="Solved-symbolically-5.2"><span class="toc-item-num">5.2&nbsp;&nbsp;</span>Solved symbolically</a></span></li></ul></li><li><span><a href="#Further-reading" data-toc-modified-id="Further-reading-6"><span class="toc-item-num">6&nbsp;&nbsp;</span>Further reading</a></span></li><li><span><a href="#Video-lectures-on-the-Internet" data-toc-modified-id="Video-lectures-on-the-Internet-7"><span class="toc-item-num">7&nbsp;&nbsp;</span>Video lectures on the Internet</a></span></li><li><span><a href="#Problems" data-toc-modified-id="Problems-8"><span class="toc-item-num">8&nbsp;&nbsp;</span>Problems</a></span></li><li><span><a href="#References" data-toc-modified-id="References-9"><span class="toc-item-num">9&nbsp;&nbsp;</span>References</a></span></li></ul></div>
-    """)
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
     ## Python setup
     """)
     return

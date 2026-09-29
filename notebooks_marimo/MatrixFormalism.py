@@ -19,15 +19,6 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    <h1>Table of Contents<span class="tocSkip"></span></h1>
-    <div class="toc"><ul class="toc-item"><li><span><a href="#Forward-Dynamics" data-toc-modified-id="Forward-Dynamics-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Forward Dynamics</a></span></li><li><span><a href="#Problems" data-toc-modified-id="Problems-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Problems</a></span></li><li><span><a href="#References" data-toc-modified-id="References-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>References</a></span></li></ul></div>
-    """)
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
     In this notebook will be shown two examples of how to use a matrix formalism to perform forward dynamics. It does not consist a comprehensive treatise about the subject. It is rather an introduction based on examples. Nevertheless, the reader of this notebook will have sufficient knowledge to read recent texts on biomechanics and other multibody dynamic analysis.
     """)
     return

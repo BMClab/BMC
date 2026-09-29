@@ -19,15 +19,6 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    <h1>Contents<span class="tocSkip"></span></h1>
-    <div class="toc"><ul class="toc-item"><li><span><a href="#Common-measurements-of-spatial-and-temporal-characteristics" data-toc-modified-id="Common-measurements-of-spatial-and-temporal-characteristics-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Common measurements of spatial and temporal characteristics</a></span></li><li><span><a href="#Examples-of-use-of-spatial-and-temporal-characteristics" data-toc-modified-id="Examples-of-use-of-spatial-and-temporal-characteristics-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Examples of use of spatial and temporal characteristics</a></span><ul class="toc-item"><li><span><a href="#Example-of-a-clinical-gait-analysis" data-toc-modified-id="Example-of-a-clinical-gait-analysis-2.1"><span class="toc-item-num">2.1&nbsp;&nbsp;</span>Example of a clinical gait analysis</a></span><ul class="toc-item"><li><span><a href="#Sample-gait-analysis-report" data-toc-modified-id="Sample-gait-analysis-report-2.1.1"><span class="toc-item-num">2.1.1&nbsp;&nbsp;</span><a href="https://bmclab.pesquisa.ufabc.edu.br/wp-content/uploads/2016/08/SampleReportWalking.pdf" rel="nofollow" target="_blank">Sample gait analysis report</a></a></span></li></ul></li></ul></li><li><span><a href="#Problems" data-toc-modified-id="Problems-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Problems</a></span></li><li><span><a href="#References" data-toc-modified-id="References-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>References</a></span></li></ul></div>
-    """)
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
     The measurement of spatial and temporal characteristics of a movement pattern is an important resource for the characterization of an observed movement. Such variables are typically the first description performed in gait analysis (Whittle, 2007) and also used in the study of other movements and biological systems. The determination of such variables is also an excellent and valuable example of the application of relatively simple concepts of kinematics.
 
     Gait is the pattern of movement with the limbs by animals during terrestrial locomotion and for humans, gait consists of walking or running. Gait is typically a repetitive task where the overall pattern of movement repeats after a certain period or cycle. In the context of human gait, the movement of interest, walking or running, can be defined by steps or strides performed with the limbs. A step is the movement of one foot in front of the other and a stride is two consecutive steps with alternation of the limbs, as illustrated next.<br>

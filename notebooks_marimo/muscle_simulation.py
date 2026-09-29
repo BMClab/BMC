@@ -35,15 +35,6 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    <h1>Contents<span class="tocSkip"></span></h1>
-    <div class="toc"><ul class="toc-item"><li><span><a href="#Pennation-angle" data-toc-modified-id="Pennation-angle-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Pennation angle</a></span></li><li><span><a href="#Muscle-force" data-toc-modified-id="Muscle-force-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Muscle force</a></span></li><li><span><a href="#Simulation" data-toc-modified-id="Simulation-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Simulation</a></span></li><li><span><a href="#References" data-toc-modified-id="References-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>References</a></span></li><li><span><a href="#Module-muscles.py" data-toc-modified-id="Module-muscles.py-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>Module muscles.py</a></span></li></ul></div>
-    """)
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
     Let's simulate the 3-component Hill-type muscle model we described in [Muscle modeling](https://marimo.app/?src=https%3A%2F%2Fgithub.com%2FBMClab%2FBMC%2Fblob%2Fmaster%2Fnotebooks_marimo%2Fmuscle_modeling.py) and illustrated below:
 
     <img src="https://raw.githubusercontent.com/BMClab/BMC/master/images/muscle_hill.png" width="400" alt="Hill-type muscle model." />

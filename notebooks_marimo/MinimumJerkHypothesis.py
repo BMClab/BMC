@@ -28,15 +28,6 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    <h1>Contents<span class="tocSkip"></span></h1>
-    <div class="toc"><ul class="toc-item"><li><span><a href="#Python-setup" data-toc-modified-id="Python-setup-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Python setup</a></span></li><li><span><a href="#Development" data-toc-modified-id="Development-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Development</a></span></li><li><span><a href="#Finding-the-minimum-jerk-trajectory" data-toc-modified-id="Finding-the-minimum-jerk-trajectory-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Finding the minimum jerk trajectory</a></span></li><li><span><a href="#The-angular-trajectory-of-a-minimum-jerk-trajectory" data-toc-modified-id="The-angular-trajectory-of-a-minimum-jerk-trajectory-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>The angular trajectory of a minimum jerk trajectory</a></span></li><li><span><a href="#Problems" data-toc-modified-id="Problems-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>Problems</a></span></li><li><span><a href="#References" data-toc-modified-id="References-6"><span class="toc-item-num">6&nbsp;&nbsp;</span>References</a></span></li></ul></div>
-    """)
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
     ## Python setup
     """)
     return

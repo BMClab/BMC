@@ -19,15 +19,6 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    <h1>Table of Contents<span class="tocSkip"></span></h1>
-    <div class="toc"><ul class="toc-item"><li><span><a href="#Definition" data-toc-modified-id="Definition-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Definition</a></span></li><li><span><a href="#Bayes'-theorem" data-toc-modified-id="Bayes'-theorem-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Bayes' theorem</a></span><ul class="toc-item"><li><span><a href="#Example:-Probability-of-having-a-disease-after-a-positive-result" data-toc-modified-id="Example:-Probability-of-having-a-disease-after-a-positive-result-2.1"><span class="toc-item-num">2.1&nbsp;&nbsp;</span>Example: Probability of having a disease after a positive result</a></span></li><li><span><a href="#Bayesian-Clinical-Diagnostic-Model" data-toc-modified-id="Bayesian-Clinical-Diagnostic-Model-2.2"><span class="toc-item-num">2.2&nbsp;&nbsp;</span>Bayesian Clinical Diagnostic Model</a></span></li></ul></li><li><span><a href="#References" data-toc-modified-id="References-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>References</a></span></li></ul></div>
-    """)
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
     ## Definition
     """)
     return

@@ -45,15 +45,6 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    <h1>Contents<span class="tocSkip"></span></h1>
-    <div class="toc"><ul class="toc-item"><li><span><a href="#Forward-and-inverse-dynamics" data-toc-modified-id="Forward-and-inverse-dynamics-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Forward and inverse dynamics</a></span></li><li><span><a href="#One-link-system-with-one-DoF-and-one-muscle" data-toc-modified-id="One-link-system-with-one-DoF-and-one-muscle-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>One-link system with one DoF and one muscle</a></span><ul class="toc-item"><li><span><a href="#Moment-arm-is-not-constant" data-toc-modified-id="Moment-arm-is-not-constant-2.1"><span class="toc-item-num">2.1&nbsp;&nbsp;</span>Moment arm is not constant</a></span></li></ul></li><li><span><a href="#Checkpoint-questions" data-toc-modified-id="Checkpoint-questions-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Checkpoint questions</a></span></li><li><span><a href="#Exercises" data-toc-modified-id="Exercises-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Exercises</a></span></li><li><span><a href="#Go-deeper" data-toc-modified-id="Go-deeper-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>Go deeper</a></span></li><li><span><a href="#References" data-toc-modified-id="References-6"><span class="toc-item-num">6&nbsp;&nbsp;</span>References</a></span></li><li><span><a href="#Module-muscles.py" data-toc-modified-id="Module-muscles.py-7"><span class="toc-item-num">7&nbsp;&nbsp;</span>Module muscles.py</a></span></li></ul></div>
-    """)
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
     We will now simulate the dynamics of the musculoskeletal system with muscle dynamics. You should have read [Muscle modeling](https://marimo.app/?src=https%3A%2F%2Fgithub.com%2FBMClab%2FBMC%2Fblob%2Fmaster%2Fnotebooks_marimo%2Fmuscle_modeling.py) and [Muscle simulation](https://marimo.app/?src=https%3A%2F%2Fgithub.com%2FBMClab%2FBMC%2Fblob%2Fmaster%2Fnotebooks_marimo%2Fmuscle_simulation.py) first. In addition, chapter 4 of Nigg and Herzog (2006) is a good introduction to this topic.
     """)
     return

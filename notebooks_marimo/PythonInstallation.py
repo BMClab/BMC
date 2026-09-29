@@ -19,15 +19,6 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    <h1>Contents<span class="tocSkip"></span></h1>
-    <div class="toc"><ul class="toc-item"><li><span><a href="#Python-installation" data-toc-modified-id="Python-installation-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Python installation</a></span><ul class="toc-item"><li><span><a href="#The-short-version" data-toc-modified-id="The-short-version-1.1"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>The short version</a></span></li><li><span><a href="#The-long-version" data-toc-modified-id="The-long-version-1.2"><span class="toc-item-num">1.2&nbsp;&nbsp;</span>The long version</a></span></li></ul></li><li><span><a href="#Python-2-or-Python-3?" data-toc-modified-id="Python-2-or-Python-3?-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Python 2 or Python 3?</a></span></li><li><span><a href="#Installing-the-Python-ecosystem" data-toc-modified-id="Installing-the-Python-ecosystem-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Installing the Python ecosystem</a></span></li><li><span><a href="#Launching-Python" data-toc-modified-id="Launching-Python-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Launching Python</a></span></li></ul></div>
-    """)
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
     ## Python installation
 
     To install Python, the source or binary file with the most-widely used implementation of the language (CPython) is quite small, about 25 MB depending on your operating system (see http://python.org/download/). By the way, you should use Python 3. A problem might be to install all other Python packages we need for scientific computing that don't ship with the standard Python distribution. There are different ways of achieving that and we will see here what I think it's the most simple.

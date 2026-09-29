@@ -19,15 +19,6 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    <h1>Contents<span class="tocSkip"></span></h1>
-    <div class="toc"><ul class="toc-item"><li><span><a href="#Python-setup" data-toc-modified-id="Python-setup-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Python setup</a></span></li><li><span><a href="#Frame-of-reference-attached-to-a-body" data-toc-modified-id="Frame-of-reference-attached-to-a-body-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Frame of reference attached to a body</a></span></li><li><span><a href="#Position-of-a-point-on-a-rigid-body" data-toc-modified-id="Position-of-a-point-on-a-rigid-body-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Position of a point on a rigid body</a></span></li><li><span><a href="#Translation-of-a-rigid-body" data-toc-modified-id="Translation-of-a-rigid-body-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Translation of a rigid body</a></span></li><li><span><a href="#Angular-velocity-of-a-body" data-toc-modified-id="Angular-velocity-of-a-body-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>Angular velocity of a body</a></span></li><li><span><a href="#Velocity-of-a-point-with-no-translation" data-toc-modified-id="Velocity-of-a-point-with-no-translation-6"><span class="toc-item-num">6&nbsp;&nbsp;</span>Velocity of a point with no translation</a></span></li><li><span><a href="#Relative-velocity-of-a-point-on-a-rigid-body-to-another-point" data-toc-modified-id="Relative-velocity-of-a-point-on-a-rigid-body-to-another-point-7"><span class="toc-item-num">7&nbsp;&nbsp;</span>Relative velocity of a point on a rigid body to another point</a></span></li><li><span><a href="#Velocity-of-a-point-on-rigid-body-translating" data-toc-modified-id="Velocity-of-a-point-on-rigid-body-translating-8"><span class="toc-item-num">8&nbsp;&nbsp;</span>Velocity of a point on rigid body translating</a></span></li><li><span><a href="#Acceleration-of-a-point-on-a-rigid-body" data-toc-modified-id="Acceleration-of-a-point-on-a-rigid-body-9"><span class="toc-item-num">9&nbsp;&nbsp;</span>Acceleration of a point on a rigid body</a></span></li><li><span><a href="#Further-reading" data-toc-modified-id="Further-reading-10"><span class="toc-item-num">10&nbsp;&nbsp;</span>Further reading</a></span></li><li><span><a href="#Video-lectures-on-the-Internet" data-toc-modified-id="Video-lectures-on-the-Internet-11"><span class="toc-item-num">11&nbsp;&nbsp;</span>Video lectures on the Internet</a></span></li><li><span><a href="#Problems" data-toc-modified-id="Problems-12"><span class="toc-item-num">12&nbsp;&nbsp;</span>Problems</a></span></li><li><span><a href="#References" data-toc-modified-id="References-13"><span class="toc-item-num">13&nbsp;&nbsp;</span>References</a></span></li></ul></div>
-    """)
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
     This notebook shows the expressions of  the velocity and acceleration of a point on rigid body, given the angular velocity of the body.
     """)
     return
