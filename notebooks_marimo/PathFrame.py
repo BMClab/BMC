@@ -520,17 +520,23 @@ def _(mo):
     ## A function for any path
 
     The steps above work for any planar or spatial trajectory sampled at a constant rate, so let's collect them in a function we can reuse:
+
+    There is one numerical trap in Challenge 1's straight path: rounding errors can leave a tiny nonzero curvature. Normalizing that tiny vector invents a normal where none exists. The function treats curvature at or below `curvature_tol` (by default $10^{-10}\;\mathrm{m^{-1}}$) as zero and returns `NaN` for the undefined normal versor. The normal acceleration is still zero. When reconstructing acceleration there, omit the normal term rather than multiplying zero by `NaN`. This tolerance is adjustable for the scale of the trajectory; it is not a substitute for filtering noisy measurements. As in the derivation, the computation assumes nonzero speed.
     """)
     return
 
 
 @app.function
-def path_frame(r, dt):
+def path_frame(r, dt, curvature_tol=1e-10):
     """Path-frame description of a trajectory sampled at a constant rate.
 
     `r` holds the positions [m] in rows, one row every `dt` [s]. Returns the
     speed [m/s], the tangential and normal versors, the curvature [1/m], and
     the tangential and normal components of the acceleration [m/s2].
+
+    Assumes nonzero speed. Curvatures at or below `curvature_tol` [1/m]
+    are treated as zero, with a NaN normal versor and zero normal
+    acceleration. Omit that undefined normal term when rebuilding acceleration.
     """
     import numpy as np
 
@@ -540,7 +546,13 @@ def path_frame(r, dt):
 
     C = np.gradient(e_t, dt, axis=0, edge_order=2) / speed[:, np.newaxis]
     kappa = np.linalg.norm(C, axis=1)
-    e_n = C / kappa[:, np.newaxis]
+    kappa = np.where(kappa <= curvature_tol, 0.0, kappa)
+    e_n = np.divide(
+        C,
+        kappa[:, np.newaxis],
+        out=np.full_like(C, np.nan),
+        where=kappa[:, np.newaxis] > 0,
+    )
 
     a_t = np.gradient(speed, dt, edge_order=2)
     a_n = kappa * speed**2
