@@ -12,7 +12,7 @@ __version__ = 'tnorm.py v.1 2013/09/16'
 warnings.warn('A newest version is available at https://pypi.org/project/psd2/')
 
 
-def psd(x, fs=1.0, window='hanning', nperseg=None, noverlap=None, nfft=None,
+def psd(x, fs=1.0, window='hann', nperseg=None, noverlap=None, nfft=None,
         detrend='constant', show=True, ax=None, scales='linear', xlim=None,
         units='V'):
     """Estimate power spectral density characteristcs using Welch's method.
@@ -36,7 +36,7 @@ def psd(x, fs=1.0, window='hanning', nperseg=None, noverlap=None, nfft=None,
         Desired window to use. See `get_window` for a list of windows and
         required parameters. If `window` is array_like it will be used
         directly as the window and its length will be used for nperseg.
-        Defaults to 'hanning'.
+        Defaults to 'hann' (the legacy name 'hanning' is also accepted).
     nperseg : int, optional
         Length of each segment.  Defaults to half of `x` length.
     noverlap: int, optional
@@ -50,7 +50,7 @@ def psd(x, fs=1.0, window='hanning', nperseg=None, noverlap=None, nfft=None,
         it is passed as the ``type`` argument to `detrend`. If it is a
         function, it takes a segment and returns a detrended segment.
         Defaults to 'constant'.
-    show : bool, optional (default = False)
+    show : bool, optional (default = True)
         True (1) plots data in a matplotlib figure.
         False (0) to not plot.
     ax : a matplotlib.axes.Axes instance (default = None)
@@ -62,7 +62,7 @@ def psd(x, fs=1.0, window='hanning', nperseg=None, noverlap=None, nfft=None,
         log scaling on both the x and y axis.
     xlim : float, optional
         Specifies the limit for the `x` axis; use as [xmin, xmax].
-        The defaukt is `None` which sets xlim to [0, Fniquist].
+        The default is `None` which sets xlim to [0, Fnyquist].
     units : str, optional
         Specifies the units of `x`; default is 'V'.
 
@@ -89,7 +89,7 @@ def psd(x, fs=1.0, window='hanning', nperseg=None, noverlap=None, nfft=None,
     Notes
     -----
     An appropriate amount of overlap will depend on the choice of window
-    and on your requirements.  For the default 'hanning' window an
+    and on your requirements.  For the default 'hann' window an
     overlap of 50% is a reasonable trade off between accurately estimating
     the signal power, while not over counting any of the data.  Narrower
     windows may require a larger overlap.
@@ -110,28 +110,30 @@ def psd(x, fs=1.0, window='hanning', nperseg=None, noverlap=None, nfft=None,
     # 0.001 V**2/Hz of white noise sampled at 10 kHz and calculate the PSD:
     >>> from psd import psd
     >>> fs = 10e3
-    >>> N = 1e5
+    >>> N = 100000
     >>> amp = 2*np.sqrt(2)
     >>> freq = 1234.0
     >>> noise_power = 0.001 * fs / 2
     >>> time = np.arange(N) / fs
     >>> x = amp*np.sin(2*np.pi*freq*time)
     >>> x += np.random.normal(scale=np.sqrt(noise_power), size=time.shape)
-    >>> psd(x, fs=freq);
+    >>> psd(x, fs=fs);
     """
 
     from scipy import signal, integrate
 
+    if isinstance(window, str) and window.lower() == 'hanning':
+        window = 'hann'  # 'hanning' was removed from scipy.signal
     if not nperseg:
-        nperseg = np.ceil(len(x) / 2)
+        nperseg = int(np.ceil(len(x) / 2))
     f, P = signal.welch(x, fs, window, nperseg, noverlap, nfft, detrend)
-    Area = integrate.cumtrapz(P, f, initial=0)
+    Area = integrate.cumulative_trapezoid(P, f, initial=0)
     Ptotal = Area[-1]
-    mpf = integrate.trapz(f * P, f) / Ptotal  # mean power frequency
+    mpf = integrate.trapezoid(f * P, f) / Ptotal  # mean power frequency
     fmax = f[np.argmax(P)]
     # frequency percentiles
     inds = [0]
-    Area = 100 * Area / Ptotal  # + 10 * np.finfo(np.float).eps
+    Area = 100 * Area / Ptotal
     for i in range(1, 101):
         inds.append(np.argmax(Area[inds[-1]:] >= i) + inds[-1])
     fpcntile = f[inds]
@@ -143,7 +145,7 @@ def psd(x, fs=1.0, window='hanning', nperseg=None, noverlap=None, nfft=None,
 
 
 def _plot(x, fs, f, P, mpf, fmax, fpcntile, scales, xlim, units, ax):
-    """Plot results of the ellipse function, see its help."""
+    """Plot results of the psd function, see its help."""
     try:
         import matplotlib.pyplot as plt
     except ImportError:
