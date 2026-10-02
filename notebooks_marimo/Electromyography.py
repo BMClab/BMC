@@ -41,8 +41,11 @@ def _():
 
 @app.cell
 def _(np):
+    import pandas as pd
+
     # load data file
-    time, data = np.loadtxt('./../data/emg.csv', delimiter=',', unpack=True)
+    time, data = pd.read_csv('https://raw.githubusercontent.com/BMClab/BMC/master/data/emg.csv',
+                             header=None).to_numpy().T
     freq = 1/np.mean(np.diff(time))
     return data, freq, time
 
@@ -66,6 +69,7 @@ def _(data, plt, time):
     plt.locator_params(axis='both', nbins=4)
     plt.grid()
     plt.tight_layout()
+    plt.show()
     return
 
 
@@ -76,16 +80,16 @@ def _(mo):
 
     Any bioelectrical signal is contaminated by noise, be it from other electrical sources in the human body, from external sources, or by the own process of measurement.
     To get rid of part of this noise, we can apply a band-pass filter to only pass signals with frequencies in the desired range.
-    A common choice for filtering EMG data it's the Butterworth filter with zero lag. For more about data filtering [click here](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/DataFiltering.ipynb).<br>
+    A common choice for filtering EMG data it's the Butterworth filter with zero lag. For more about data filtering [click here](https://github.com/BMClab/BMC/blob/master/notebooks/DataFiltering.ipynb).<br>
     Let's employ a Butterworth filter with band pass at 10-400 Hz, second order, and zero lag:
     """)
     return
 
 
 @app.cell
-def _(data, freq):
+def _(data, freq, np):
     from scipy.signal import butter, filtfilt
-    (_b, _a) = butter(2, [10, 400] / (freq / 2), btype='bandpass')
+    (_b, _a) = butter(2, np.array([10, 400]) / (freq / 2), btype='bandpass')
     dataf = filtfilt(_b, _a, data)
     return butter, dataf, filtfilt
 
@@ -112,6 +116,7 @@ def _(data, dataf, plt, time):
     plt.locator_params(axis='both', nbins=4)
     _ax2.grid()
     plt.tight_layout()
+    plt.show()
     return
 
 
@@ -177,6 +182,7 @@ def _(data, dataf, datafr, datafrle, plt, time):
     plt.locator_params(axis='both', nbins=4)
     ax4.grid()
     plt.tight_layout(h_pad=0.1)
+    plt.show()
     return
 
 
@@ -191,15 +197,16 @@ def _(data, datafrle, plt, time):
     _ax.set_xlim(time[0], time[-1])
     plt.locator_params(axis='both', nbins=4)
     plt.grid()
+    plt.show()
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    Note that to calculate the linear envelope of the EMG signal, we (1) removed all frequencies below 10 Hz and above 400 Hz; (2) rectified the signal; and (3) removed all frequencies above 5 Hz.
+    Note that to calculate the linear envelope of the EMG signal, we (1) removed all frequencies below 10 Hz and above 400 Hz; (2) rectified the signal; and (3) removed all frequencies above 8 Hz.
 
-    How it is possible to have any signal with frequencies below 5 Hz after the third step if we removed all frequencies below 10 Hz in the first step? The trick is that the rectification operation creates new frequencies in the signal.
+    How it is possible to have any signal with frequencies below 8 Hz after the third step if we removed all frequencies below 10 Hz in the first step? The trick is that the rectification operation creates new frequencies in the signal.
 
     The band-pass filtering in the first step is not part of the linear envelope processing. One can calculate the linear envelope directly for the raw signal. However if we do that for an raw EMG signal with an offset, its linear envelope will always have values much greater than zero suggesting a muscle activation where there was not.
 
@@ -241,7 +248,7 @@ def _(butter, filtfilt, np):
 
         """
         if np.size(fc_bp) == 2:
-            (_b, _a) = butter(2, fc_bp / (freq / 2.0), btype='bandpass')
+            (_b, _a) = butter(2, np.asarray(fc_bp) / (freq / 2.0), btype='bandpass')
             x = filtfilt(_b, _a, x)
         if np.size(fc_lp) == 1:
             x = abs(x)
@@ -271,16 +278,15 @@ def _(mo):
 
     The raw EMG signal can not be analyzed for the onset detection based on amplitude threshold because its amplitude varies from positive to negative very fast. The linear envelope of the EMG signal is usually analyzed or the amplitude detection is performed in terms of the standard deviation or RMS of the signal.
 
-    The text [
-    Detection of onset in data](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/DetectOnset.ipynb) presents a Python code to perform onset detection. Let's use that code:
+    The text [Detection of onset in data](https://github.com/BMClab/BMC/blob/master/notebooks/DetectOnset.ipynb) presents a Python code to perform onset detection. Let's use that code:
     """)
     return
 
 
 @app.cell
-def _():
+def _(mo):
     import sys
-    sys.path.insert(1, r'./../functions')  # add to pythonpath
+    sys.path.insert(0, str(mo.notebook_dir() / '..' / 'functions'))  # add to pythonpath
     from detect_onset import detect_onset
 
     return (detect_onset,)
@@ -302,7 +308,13 @@ def _(mo):
     ### The Teager–Kaiser Energy operator to improve onset detection
 
     The Teager–Kaiser Energy (TKE) operator has been proposed to increase the accuracy of the onset detection by improving the SNR of the EMG signal (Li et al., 2007).<br>
-    The TKE operator processes the data in the following way:$y[n]=x^2[n]-x[n-1]\cdot x[n+1]$Where$x[n]$is the sample$n$of the signal$x$.
+    The TKE operator processes the data in the following way:
+
+    $$
+    y[n]=x^2[n]-x[n-1]\cdot x[n+1]
+    $$
+
+    where $x[n]$ is the sample $n$ of the signal $x$.
 
     Let's write a function that implements the TKE operator:
     """)
@@ -378,7 +390,13 @@ def _(mo):
     * Maximum, minimum
     * Etc.
 
-    From the above, RMS is probably the less usual and it defined as:$RMS(x) = \sqrt{\frac{1}{N}\sum_{i=1}^{N}\; x_i^2 }$And in Python/Numpy:
+    From the above, RMS is probably the less usual and it defined as:
+
+    $$
+    RMS(x) = \sqrt{\frac{1}{N}\sum_{i=1}^{N}\; x_i^2 }
+    $$
+
+    And in Python/Numpy:
     """)
     return
 
@@ -404,20 +422,39 @@ def _(mo):
     ## Integration (area)
 
     The area of the signal-versus-time curve (integral) is another measure used in EMG processing.<br>
-    The definition of the integral for a continuous function is:$\text{Area}= \int_{t_i}^{t_f}x(t)dt$For discrete data, as the EMG signal, the integral can be calculated by numerical integration using the rectangle rule:$\text{Area} \;\approx\; \Delta t \sum_{i=1}^{N}\:x(t_i)$Or more accurately, using the trapezoidal rule:$\text{Area} \;\approx\; \Delta t \sum_{i=1}^{N-1}\frac{x(t_i)+x(t_{i+1})}{2}$And in Python/Numpy:
+    The definition of the integral for a continuous function is:
+
+    $$
+    \text{Area}= \int_{t_i}^{t_f}x(t)dt
+    $$
+
+    For discrete data, as the EMG signal, the integral can be calculated by numerical integration using the rectangle rule:
+
+    $$
+    \text{Area} \;\approx\; \Delta t \sum_{i=1}^{N}\:x(t_i)
+    $$
+
+    Or more accurately, using the trapezoidal rule:
+
+    $$
+    \text{Area} \;\approx\; \Delta t \sum_{i=1}^{N-1}\frac{x(t_i)+x(t_{i+1})}{2}
+    $$
+
+    And in Python/Numpy (SciPy calls these functions `trapezoid` and `cumulative_trapezoid`; the old names `trapz` and `cumtrapz` were removed):
     """)
     return
 
 
 @app.cell
 def _(dataf, freq):
+    from scipy.integrate import cumulative_trapezoid, trapezoid
+
     x = dataf
-    Dt = 1 / freq
+    Dt = 1 / freq  # time increment between samples
     _Arect = Dt * sum(x)
-    from scipy.integrate import trapz
-    _Atrap = Dt * trapz(x)
-    _Atrap
-    return Dt, x
+    _Atrap = Dt * trapezoid(x)
+    print('Rectangle rule: %g Vs, trapezoidal rule: %g Vs' % (_Arect, _Atrap))
+    return Dt, cumulative_trapezoid, trapezoid, x
 
 
 @app.cell(hide_code=True)
@@ -430,16 +467,9 @@ def _(mo):
 
 
 @app.cell
-def _():
-    from scipy.integrate import trapz, cumtrapz
-
-    return (cumtrapz,)
-
-
-@app.cell
-def _(Dt, cumtrapz, np, x):
+def _(Dt, cumulative_trapezoid, np, x):
     _Arect = Dt * np.cumsum(x)
-    _Atrap = Dt * cumtrapz(x)
+    _Atrap = Dt * cumulative_trapezoid(x)
     return
 
 
@@ -453,10 +483,10 @@ def _(mo):
 
 
 @app.cell
-def _(datafrle, freq, trapz_1):
+def _(datafrle, freq, trapezoid):
     _Arect = sum(datafrle) / freq
     print('Total area by the rectangle rule: %f Vs' % _Arect)
-    _Atrap = trapz_1(datafrle) / freq
+    _Atrap = trapezoid(datafrle) / freq
     print('Total area by the trapezoid rule: %f Vs' % _Atrap)
     return
 
@@ -471,9 +501,9 @@ def _(mo):
 
 
 @app.cell
-def _(cumtrapz, datafrle, freq, np):
+def _(cumulative_trapezoid, datafrle, freq, np):
     Arect2 = np.cumsum(datafrle)/freq
-    Atrap2 = cumtrapz(datafrle, initial=0)/freq
+    Atrap2 = cumulative_trapezoid(datafrle, initial=0)/freq
     return Arect2, Atrap2
 
 
@@ -492,6 +522,7 @@ def _(Arect2, Atrap2, datafrle, plt, time):
     _ax2.legend(loc='upper left', frameon=False)
     plt.locator_params(axis='both', nbins=4)
     plt.tight_layout()
+    plt.show()
     return
 
 
@@ -501,34 +532,34 @@ def _(mo):
     Note that the value of the total area is equal to the last value of the cumulative integration from the graph above.
 
     The trapezoidal rule is more accurate than the rectangle rule to calculate the integration of a function.<br>
-    So, why they resulted in the same values?<br>
-    The trick is that using the rectangle rule, the area is superestimated in the ascending part and subestimated in the descending part of the curve. Since the EMG signal has zero mean, i.e., equal amounts of ascending and descending parts, the errors are cancelled out.
+    So, why did they result in practically the same values?<br>
+    Writing out the two sums, the trapezoidal rule counts every sample once, except the first and the last, which it counts by half. The two totals differ only by $\Delta t\,(x_1 + x_N)/2$, and the linear envelope is close to zero at the beginning and at the end of this recording. Along the way, the rectangle rule overestimates the area where the curve rises and underestimates it where the curve falls, and these errors cancel out in the total.
     See that the rectangle and trapezoidal rules are indeed different:
     """)
     return
 
 
 @app.cell
-def _(cumtrapz, np):
+def _(cumulative_trapezoid, np):
     x_1 = [0, 2, 4, 6, 8]
     print('Integral by the rectangle rule:', np.cumsum(x_1) * 1.0)
-    print('Integral by the trapezoid rule:', cumtrapz(x_1, initial=0))
+    print('Integral by the trapezoid rule:', cumulative_trapezoid(x_1, initial=0))
     return (x_1,)
 
 
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    But if x has zero mean, the total values of the integral using the cumsum and cumtrapz methods will be the same:
+    But if the first and last values of x cancel out, as here when the mean is removed, the total values of the integral using the cumsum and cumulative_trapezoid methods will be the same:
     """)
     return
 
 
 @app.cell
-def _(cumtrapz, np, x_1):
+def _(cumulative_trapezoid, np, x_1):
     x_2 = x_1 - np.mean(x_1)
     print('Integral by the rectangle rule:', np.cumsum(x_2) * 1.0)
-    print('Integral by the trapezoid rule:', cumtrapz(x_2, initial=0))
+    print('Integral by the trapezoid rule:', cumulative_trapezoid(x_2, initial=0))
     return
 
 
@@ -543,11 +574,11 @@ def _(mo):
 
 
 @app.cell
-def _(cumtrapz, datafrle, freq, np):
+def _(cumulative_trapezoid, datafrle, freq, np):
     nreset = 400 # reset after this amount of samples
     area = []
     for i in range(int(np.ceil(np.size(datafrle)/nreset))):
-        area = np.hstack((area, cumtrapz(datafrle[i*nreset:(i+1)*nreset], initial=0)/freq))
+        area = np.hstack((area, cumulative_trapezoid(datafrle[i*nreset:(i+1)*nreset], initial=0)/freq))
     return area, nreset
 
 
@@ -560,18 +591,19 @@ def _(mo):
 
 
 @app.cell
-def _(area, data, nreset, plt, time):
+def _(area, datafrle, freq, nreset, plt, time):
     (_fig, (_ax1, _ax2)) = plt.subplots(2, 1, sharex=True, figsize=(8, 5))
-    _ax1.plot(time, data, 'r')
+    _ax1.plot(time, datafrle, 'r')
     _ax1.set_title('EMG signal (linear envelope)')
     _ax1.set_ylabel('EMG amplitude [V]')
     _ax1.set_xlim(time[0], time[-1])
     _ax2.plot(time, area, 'y', label='Trapezoid')
     _ax2.set_xlabel('Time [s]')
-    _ax2.set_title('Integral of the EMG signal with time reset (t = %s ms)' % nreset)
+    _ax2.set_title('Integral of the EMG signal with time reset (t = %g ms)' % (1000 * nreset / freq))
     _ax2.set_ylabel('EMG integral [Vs]')
     plt.locator_params(axis='both', nbins=4)
     plt.tight_layout()
+    plt.show()
     return
 
 
@@ -586,7 +618,9 @@ def _(mo):
 
 
 @app.cell
-def _(dataf, freq):
+def _(dataf, freq, mo):
+    import sys as _sys
+    _sys.path.insert(0, str(mo.notebook_dir() / '..' / 'functions'))  # add to pythonpath
     from psd import psd
     fpcntile, mpf, fmax, Ptotal, f, P = psd(dataf, fs=freq)
     return
@@ -609,15 +643,15 @@ def _(dataf, freq, plt):
     _ax1.set_ylabel('Frequency [Hz]')
     _ax1.set_xlim(t[0], t[-1])
     plt.tight_layout()
+    plt.show()
     return P_1, freqs, t
 
 
 @app.cell
 def _(P_1, freqs, np, plt, t):
-    from mpl_toolkits.mplot3d import Axes3D
     (t2, freqs2) = np.meshgrid(t, freqs)
     _fig = plt.figure(figsize=(10, 6))
-    _ax = _fig.gca(projection='3d')
+    _ax = _fig.add_subplot(projection='3d')
     surf = _ax.plot_surface(t2, freqs2, P_1, rstride=1, cstride=1, cmap=plt.cm.jet, linewidth=0, antialiased=False)
     _ax.set_xlim(t[0], t[-1])
     _ax.set_ylim(0, 500)
