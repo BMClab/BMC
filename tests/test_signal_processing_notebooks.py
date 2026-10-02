@@ -97,5 +97,23 @@ class ResidualAnalysisTests(unittest.TestCase):
         self.assertIsNone(self.notebook.optcutfreq(y, freq=100))
 
 
+class FourierTransformTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.notebook = load_notebook("FourierTransform")
+
+    def test_psd_of_a_sine_finds_its_frequency_and_power(self):
+        fs = 1000
+        t = np.arange(10 * fs) / fs
+        x = 2 * np.sin(2 * np.pi * 50 * t)  # power = 2**2 / 2
+        fpcntile, mpf, fmax, ptotal, f, _ = self.notebook.psd(x, fs=fs, show=False)
+        self.assertAlmostEqual(fmax, 50, delta=f[1])
+        # the median is the first bin reaching 50% of the power: up to one bin above
+        self.assertAlmostEqual(fpcntile[50], 50, delta=1.5 * f[1])
+        self.assertAlmostEqual(mpf, 50, delta=1)
+        self.assertAlmostEqual(ptotal, 2, delta=0.02)
+        self.assertEqual(len(fpcntile), 101)
+
+
 if __name__ == "__main__":
     unittest.main()
