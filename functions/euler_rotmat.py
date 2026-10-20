@@ -2,16 +2,21 @@
 
 """Euler rotation matrix given sequence, frame, and angles."""
 
-from __future__ import division, print_function
-
-__author__ = 'Marcos Duarte, https://github.com/demotu/BMC'
-__version__ = 'euler_rotmat.py v.1 2014/03/10'
+__author__ = "Marcos Duarte, https://github.com/demotu/BMC"
+__version__ = "euler_rotmat.py v.1 2014/03/10"
 
 
-def euler_rotmat(order='xyz', frame='local', angles=None, unit='deg',
-                 str_symbols=None, showA=True, showN=True):
+def euler_rotmat(
+    order="xyz",
+    frame="local",
+    angles=None,
+    unit="deg",
+    str_symbols=None,
+    showA=True,
+    showN=True,
+):
     """Euler rotation matrix given sequence, frame, and angles.
-    
+
     This function calculates the algebraic rotation matrix (3x3) for a given
     sequence ('order' argument) of up to three elemental rotations of a given
     coordinate system ('frame' argument) around another coordinate system, the
@@ -25,7 +30,7 @@ def euler_rotmat(order='xyz', frame='local', angles=None, unit='deg',
     second, and third rotations, respectively.
     The matrix product is calulated from right to left and in the specified
     sequence for the Euler angles. The first letter will be the first rotation.
-    
+
     The function will print and return the algebraic rotation matrix and the
     numerical rotation matrix if angles were inputed.
 
@@ -46,10 +51,10 @@ def euler_rotmat(order='xyz', frame='local', angles=None, unit='deg',
 
     unit   : str, optional (default = 'deg')
              Unit of the input angles.
-    
+
     str_symbols : list of strings, optional (default = None)
              New symbols for the angles, for instance, ['theta', 'phi', 'psi']
-             
+
     showA  : bool, optional (default = True)
              True (1) displays the Algebraic rotation matrix in rich format.
              False (0) to not display.
@@ -57,7 +62,7 @@ def euler_rotmat(order='xyz', frame='local', angles=None, unit='deg',
     showN  : bool, optional (default = True)
              True (1) displays the Numeric rotation matrix in rich format.
              False (0) to not display.
-             
+
     Returns
     -------
     R     :  Matrix Sympy object
@@ -112,61 +117,71 @@ def euler_rotmat(order='xyz', frame='local', angles=None, unit='deg',
 
     import numpy as np
     import sympy as sym
+
     try:
-        from IPython.core.display import Math, display
+        from IPython.display import Math, display
+
         ipython = True
-    except:
+    except ImportError:
         ipython = False
 
     angles = np.asarray(np.atleast_1d(angles), dtype=np.float64)
-    if ~np.isnan(angles).all():        
+    if ~np.isnan(angles).all():
         if len(order) != angles.size:
-            raise ValueError("Parameters 'order' and 'angles' (when " + 
-                             "different from None) must have the same size.")
+            raise ValueError(
+                "Parameters 'order' and 'angles' (when "
+                + "different from None) must have the same size."
+            )
 
-    x, y, z = sym.symbols('x, y, z')
+    x, y, z = sym.symbols("x, y, z")
     sig = [1, 1, 1]
     if str_symbols is None:
-        a, b, g = sym.symbols('alpha, beta, gamma')
+        a, b, g = sym.symbols("alpha, beta, gamma")
     else:
         s = str_symbols
-        if s[0][0] == '-': s[0] = s[0][1:]; sig[0] = -1
-        if s[1][0] == '-': s[1] = s[1][1:]; sig[1] = -1
-        if s[2][0] == '-': s[2] = s[2][1:]; sig[2] = -1        
+        if s[0][0] == "-":
+            s[0] = s[0][1:]
+            sig[0] = -1
+        if s[1][0] == "-":
+            s[1] = s[1][1:]
+            sig[1] = -1
+        if s[2][0] == "-":
+            s[2] = s[2][1:]
+            sig[2] = -1
         a, b, g = sym.symbols(s)
 
-    var = {'x': x, 'y': y, 'z': z, 0: a, 1: b, 2: g}
+    var = {"x": x, "y": y, "z": z, 0: a, 1: b, 2: g}
     # Elemental rotation matrices for xyz (local)
     cos, sin = sym.cos, sym.sin
     Rx = sym.Matrix([[1, 0, 0], [0, cos(x), sin(x)], [0, -sin(x), cos(x)]])
     Ry = sym.Matrix([[cos(y), 0, -sin(y)], [0, 1, 0], [sin(y), 0, cos(y)]])
     Rz = sym.Matrix([[cos(z), sin(z), 0], [-sin(z), cos(z), 0], [0, 0, 1]])
 
-    if frame.lower() == 'global':
-        Rs = {'x': Rx.T, 'y': Ry.T, 'z': Rz.T}
+    if frame.lower() == "global":
+        Rs = {"x": Rx.T, "y": Ry.T, "z": Rz.T}
         order = order.upper()
     else:
-        Rs = {'x': Rx, 'y': Ry, 'z': Rz}
+        Rs = {"x": Rx, "y": Ry, "z": Rz}
         order = order.lower()
 
     R = Rn = sym.Matrix(sym.Identity(3))
-    str1 = r'\mathbf{R}_{%s}( ' %frame  # last space needed for order=''
-    #str2 = [r'\%s'%var[0], r'\%s'%var[1], r'\%s'%var[2]]
-    str2 = [1, 1, 1]        
+    str1 = r"\mathbf{R}_{%s}( " % frame  # last space needed for order=''
+    # str2 = [r'\%s'%var[0], r'\%s'%var[1], r'\%s'%var[2]]
+    str2 = [1, 1, 1]
     for i in range(len(order)):
-        Ri = Rs[order[i].lower()].subs(var[order[i].lower()], sig[i] * var[i]) 
+        Ri = Rs[order[i].lower()].subs(var[order[i].lower()], sig[i] * var[i])
         R = Ri * R
         if sig[i] > 0:
-            str2[i] = '%s:%s' %(order[i], sym.latex(var[i]))
+            str2[i] = "%s:%s" % (order[i], sym.latex(var[i]))
         else:
-            str2[i] = '%s:-%s' %(order[i], sym.latex(var[i]))
-        str1 = str1 + str2[i] + ','
+            str2[i] = "%s:-%s" % (order[i], sym.latex(var[i]))
+        str1 = str1 + str2[i] + ","
         if ~np.isnan(angles).all() and ~np.isnan(angles[i]):
-            if unit[:3].lower() == 'deg':
+            if unit[:3].lower() == "deg":
                 angles[i] = np.deg2rad(angles[i])
             Rn = Ri.subs(var[i], angles[i]) * Rn
-            #Rn = sym.lambdify(var[i], Ri, 'numpy')(angles[i]) * Rn
-            str2[i] = str2[i] + '=%.0f^o' %np.around(np.rad2deg(angles[i]), 0)
+            # Rn = sym.lambdify(var[i], Ri, 'numpy')(angles[i]) * Rn
+            str2[i] = str2[i] + "=%.0f^o" % np.around(np.rad2deg(angles[i]), 0)
         else:
             Rn = Ri * Rn
 
@@ -174,18 +189,18 @@ def euler_rotmat(order='xyz', frame='local', angles=None, unit='deg',
 
     try:
         # nsimplify only works if there are symbols
-        Rn2 = sym.latex(sym.nsimplify(Rn, tolerance=1e-8).n(chop=True, prec=4))
+        Rn2 = sym.latex(sym.nsimplify(Rn, tolerance=1e-8).n(4, chop=True))
     except:
-        Rn2 = sym.latex(Rn.n(chop=True, prec=4))
+        Rn2 = sym.latex(Rn.n(4, chop=True))
         # there are no symbols, pass it as Numpy array
         Rn = np.asarray(Rn)
-    
+
     if showA and ipython:
-        display(Math(str1[:-1] + ') =' + sym.latex(R, mat_str='matrix')))
+        display(Math(str1[:-1] + ") =" + sym.latex(R, mat_str="matrix")))
 
     if showN and ~np.isnan(angles).all() and ipython:
-            str2 = ',\;'.join(str2[:angles.size])
-            display(Math(r'\mathbf{R}_{%s}(%s)=%s' %(frame, str2, Rn2)))
+        str2 = r",\;".join(str2[: angles.size])
+        display(Math(r"\mathbf{R}_{%s}(%s)=%s" % (frame, str2, Rn2)))
 
     if np.isnan(angles).all():
         return R
