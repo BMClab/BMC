@@ -27,6 +27,8 @@ def _(mo):
 
     Read it in order and run each cell as you reach it. Where you find a **Challenge** or a set of **Guiding questions**, stop and answer on a scratchpad before moving on. Several of them ask you to predict a result *before* the code prints it. Make the prediction; a wrong guess that the code then corrects teaches more than a right one.
 
+    The **Exercises** come with worked solutions, folded away under a *Solution* heading. Try each one on paper or in a new cell first, and open the solution only to check your answer.
+
     You will need the vector operations from [Scalar and vector](https://github.com/BMClab/BMC/blob/master/notebooks/ScalarVector.ipynb), the idea of a basis from [Frame of reference](https://github.com/BMClab/BMC/blob/master/notebooks/ReferenceFrame.ipynb), and matrix multiplication from [Matrix](https://github.com/BMClab/BMC/blob/master/notebooks/Matrix.ipynb).
 
     **Challenge 0.** Put a coin on a sheet of paper and draw a pair of x–y axes on the paper, and another pair on the table. Write down the coin's coordinates in both. Now turn the paper by about 45° on the table, carrying the coin with it, and write down both sets of coordinates again. Which set changed? Keep your notes nearby; the checkpoint questions ask you to come back to them.
@@ -334,6 +336,26 @@ def rotation_2d(alpha):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
+    **Exercise 1.** A local coordinate system is rotated by $90^\circ$ counterclockwise in relation to the Global one. Without a calculator, write $\mathbf{R_{Gl}}$ and find the Global coordinates of the local points $[2, 0]$ and $[0, 3]$. Check your answers with a sketch.
+
+    /// details | Solution to Exercise 1
+    With $\cos 90^\circ = 0$ and $\sin 90^\circ = 1$,
+
+    $$
+    \mathbf{R_{Gl}} = \begin{bmatrix} 0 & -1 \\ 1 & \hphantom{-}0 \end{bmatrix}
+    $$
+
+    so $[2, 0]$ goes to $[0 \cdot 2 - 1 \cdot 0,\; 1 \cdot 2 + 0 \cdot 0] = [0, 2]$, and $[0, 3]$ goes to $[-3, 0]$.
+
+    In the sketch, the local $x$ axis lies along the Global $Y$ axis and the local $y$ axis along the Global $-X$ axis. A point 2 along local $x$ is therefore 2 up, and a point 3 along local $y$ is 3 to the left. `rotation_2d(np.pi / 2) @ [2, 0]` confirms it.
+    ///
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
     ### Using direction cosines
 
     Another way to determine the rotation matrix uses the concept of direction cosine.
@@ -628,6 +650,66 @@ def _(mo):
     - In movement analysis there is a fixed Global (laboratory) coordinate system and a local (moving, for example anatomical) coordinate system attached to each body segment. The movement of the segment is measured in the Global coordinate system, by cameras for example, and to reconstruct the coordinates of the markers in the anatomical coordinate system we need the transformation from Global to local.
     - Of course, if you have one of the matrices, the other is just its transpose; you only have to be careful to use the right one.
     """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    **Exercise 2.** Which of these matrices are rotation matrices? For each one that is, find the angle of rotation.
+
+    $$
+    \mathbf{M} = \begin{bmatrix} 0.6 & -0.8 \\ 0.8 & \hphantom{-}0.6 \end{bmatrix}, \qquad
+    \mathbf{N} = \begin{bmatrix} 0.6 & \hphantom{-}0.8 \\ 0.8 & -0.6 \end{bmatrix}, \qquad
+    \mathbf{K} = \begin{bmatrix} 0.8 & -0.6 \\ 0.5 & \hphantom{-}0.8 \end{bmatrix}
+    $$
+
+    Use the properties listed above. The solution checks them with NumPy.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo, np):
+    _matrices = {
+        "M": np.array([[0.6, -0.8], [0.8, 0.6]]),
+        "N": np.array([[0.6, 0.8], [0.8, -0.6]]),
+        "K": np.array([[0.8, -0.6], [0.5, 0.8]]),
+    }
+    _rows, _angles = [], {}
+    for _name, _M in _matrices.items():
+        _norms = np.linalg.norm(_M, axis=0)
+        _det = np.linalg.det(_M)
+        _orthonormal = np.allclose(_M.T @ _M, np.eye(2))
+        _angles[_name] = np.degrees(np.arctan2(_M[1, 0], _M[0, 0]))
+        if _orthonormal and np.isclose(_det, 1):
+            _verdict = f"rotation by {_angles[_name]:.2f}°"
+        elif _orthonormal:
+            _verdict = "orthonormal, but a reflection"
+        else:
+            _verdict = "not orthonormal"
+        _rows.append(
+            f"| {_name} | {_norms[0]:.3f}, {_norms[1]:.3f} | {round(_M[:, 0] @ _M[:, 1], 2) + 0.0:.2f} | {_det:.2f} | {_verdict} |"
+        )
+
+    mo.accordion(
+        {
+            "Solution to Exercise 2": mo.md(
+                "| matrix | norms of the columns | dot product of the columns | determinant | verdict |\n"
+                "|---|---|---|---|---|\n"
+                + "\n".join(_rows)
+                + "\n\n"
+                + f"Only $\\mathbf{{M}}$ passes every test: it is a rotation by {_angles['M']:.2f}°, "
+                "the angle whose cosine is 0.6 and whose sine is 0.8. "
+                + r"$\mathbf{N}$ has orthonormal columns, but its determinant is $-1$: it reflects the plane "
+                "about a line, which no rigid body can do. "
+                + f"$\\mathbf{{K}}$ fails at once, because its first column is not a versor. Yet `arctan2` "
+                f"returns {_angles['K']:.2f}° for $\\mathbf{{K}}$ and {_angles['N']:.2f}° for $\\mathbf{{N}}$ "
+                "without complaint. A formula for the angle always gives a number, so check that the matrix "
+                "is a rotation before you trust it."
+            )
+        }
+    )
     return
 
 
@@ -992,6 +1074,121 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
+    ### Example: a knee angle that jumps by 360°
+
+    The angles above were computed for a single instant. In a real analysis they are computed for every frame, so let's write the recipe as a function that works on whole arrays of frames: the local $x$ axis points from one joint (or marker) to the next, and the local $y$ axis is $x$ turned $90^\circ$ counterclockwise, as in the example above.
+    """)
+    return
+
+
+@app.function
+def segment_rotation_2d(origin, axis_point):
+    """Rotation matrix R_Gl of a planar segment from two of its markers.
+
+    The local x axis points from `origin` to `axis_point`, and the local y axis
+    is x turned by 90 degrees counterclockwise. The versors are the columns of
+    R_Gl. Works for one frame or for arrays of frames (one position per row).
+    """
+    import numpy as np
+
+    d = np.asarray(axis_point, dtype=float) - np.asarray(origin, dtype=float)
+    ex = d / np.linalg.norm(d, axis=-1, keepdims=True)
+    ey = np.stack((-ex[..., 1], ex[..., 0]), axis=-1)
+    return np.stack((ex, ey), axis=-1)
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    Here is a movement in which the difference between the two methods stops being academic. A kick, seen from the side, simulated at 100 Hz for one second: the knee flexes by up to $130^\circ$ while the hip flexes by up to $15^\circ$. With $X$ pointing forward, the thigh starts straight down, at $-90^\circ$, and the flexing knee carries the shank backward, so the shank's angle *decreases*, down to $-75^\circ - 130^\circ = -205^\circ$ at the peak.
+
+    **Before you run the next cell**, think about that number. What angle will `arctan2`, whose answers lie between $-180^\circ$ and $180^\circ$, report for a shank pointing at $-205^\circ$? And what will the subtraction of the two segment angles give for the knee?
+    """)
+    return
+
+
+@app.cell
+def _(np, plt):
+    _t = np.linspace(0, 1, 101)  # s, 100 Hz
+    _thigh = np.radians(-90 + 15 * np.sin(np.pi * _t))  # the hip flexes up to 15 degrees
+    _flexion = np.radians(130 * np.sin(np.pi * _t))  # the knee flexes up to 130 degrees
+    _hip = np.column_stack((np.zeros_like(_t), np.full_like(_t, 0.9)))
+    _knee = _hip + 0.42 * np.column_stack((np.cos(_thigh), np.sin(_thigh)))
+    _ankle = _knee + 0.40 * np.column_stack((np.cos(_thigh - _flexion), np.sin(_thigh - _flexion)))
+
+    def _segment_angle(R):
+        return np.degrees(np.arctan2(R[..., 1, 0], R[..., 0, 0]))
+
+    _R_thigh = segment_rotation_2d(_hip, _knee)  # one 2x2 matrix per frame
+    _R_shank = segment_rotation_2d(_knee, _ankle)
+    _by_subtraction = _segment_angle(_R_shank) - _segment_angle(_R_thigh)
+    _by_matrices = _segment_angle(np.swapaxes(_R_thigh, -1, -2) @ _R_shank)  # R_l1G R_Gl2 in every frame
+
+    _i = 50  # t = 0.5 s, the peak of the flexion
+    print(
+        f"At t = {_t[_i]:.1f} s, arctan2 gives the shank {_segment_angle(_R_shank)[_i]:.1f} degrees"
+        f" and the thigh {_segment_angle(_R_thigh)[_i]:.1f} degrees"
+    )
+    print(f"Knee angle by subtraction: {_by_subtraction[_i]:.1f} degrees; with rotation matrices: {_by_matrices[_i]:.1f} degrees")
+    print(f"Frames in which the two methods disagree: {np.sum(~np.isclose(_by_subtraction, _by_matrices))} of {_t.size}")
+
+    _, _ax = plt.subplots(figsize=(8, 4))
+    _ax.plot(_t, _by_subtraction, color="tab:red", linewidth=2, linestyle="--", label="subtraction of segment angles")
+    _ax.plot(_t, _by_matrices, color="tab:blue", linewidth=2, label=r"rotation matrices, $R_{l_1G}R_{Gl_2}$")
+    _ax.axhline(0, color="0.7", linewidth=1)
+    _ax.set_xlabel("Time [s]")
+    _ax.set_ylabel("Knee angle [degrees]")
+    _ax.set_title("Knee angle during a simulated kick")
+    _ax.legend(loc="center right")
+    plt.tight_layout()
+    plt.show()
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    `arctan2` reports the shank at $+155^\circ$, the same direction as $-205^\circ$ but on the other side of the $\pm 180^\circ$ cut. The subtraction then gives a knee bent by $230^\circ$ the wrong way, and it jumps by almost $360^\circ$ each time the shank passes straight backward. It is wrong in 43 of the 101 frames. The rotation matrix of the joint never looks at the two segment angles separately, only at the rotation between the segments, and it gives a smooth curve with a minimum of $-130^\circ$: the flexion we simulated, negative because flexing the knee turns the shank clockwise in this view.
+
+    Note `np.swapaxes(R, -1, -2)` in the code. With one matrix per frame, `R.T` would transpose the whole array; swapping the last two axes transposes each matrix. The subtraction can also be repaired after the fact with `np.unwrap`, provided the frames are close enough together. The matrix method needs no repair as long as the joint itself turns by less than $180^\circ$.
+
+    **Exercise 3.** In one frame of a walking trial, the hip, knee and ankle joint centres are at $(0, 1.00)$, $(0.25, 0.60)$ and $(0.05, 0.22)$ m, with $X$ forward and $Y$ up. Build the thigh's coordinate system from the hip to the knee and the shank's from the knee to the ankle with `segment_rotation_2d`, and calculate the angle of each segment and of the knee. Is the knee flexed, and by how much?
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo, np):
+    _hip, _knee, _ankle = np.array([0, 1.00]), np.array([0.25, 0.60]), np.array([0.05, 0.22])
+    _R_thigh = segment_rotation_2d(_hip, _knee)
+    _R_shank = segment_rotation_2d(_knee, _ankle)
+    _R_knee = _R_thigh.T @ _R_shank  # rotation of the shank relative to the thigh
+    _thigh, _shank, _joint = (np.degrees(np.arctan2(_R[1, 0], _R[0, 0])) for _R in (_R_thigh, _R_shank, _R_knee))
+
+    mo.accordion(
+        {
+            "Solution to Exercise 3": mo.md(
+                "```python\n"
+                "R_thigh = segment_rotation_2d(hip, knee)\n"
+                "R_shank = segment_rotation_2d(knee, ankle)\n"
+                "R_knee = R_thigh.T @ R_shank\n"
+                "angle = np.degrees(np.arctan2(R[1, 0], R[0, 0]))  # for each R\n"
+                "```\n\n"
+                f"The thigh is at {_thigh:.1f}° and the shank at {_shank:.1f}°, and the rotation of the shank "
+                f"relative to the thigh is {_joint:.1f}°. "
+                "The sign is negative because the shank is turned clockwise from the thigh, which in this view, "
+                f"with $X$ forward, is flexion: the knee is flexed by {abs(_joint):.1f}°. "
+                f"Here the subtraction of the segment angles gives the same {_shank - _thigh:.1f}°, because "
+                "neither segment points near the $\\pm 180°$ cut."
+            )
+        }
+    )
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
     ### Kinematic chain in a plane (2D)
 
     The fact that we simply multiplied rotation matrices to obtain the rotation of one segment relative to another is powerful, and it generalizes to any number of segments. Consider a serial kinematic chain with links $1, 2, \dots, n$, and call the base, or the laboratory, link $0$. With the notation of this notebook, where $\mathbf{R}_{ab}$ takes coordinates in $b$ to coordinates in $a$, the rotation matrix of the last link with respect to the base is
@@ -1151,6 +1348,78 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
+    ### Example: where under the foot is the centre of pressure?
+
+    A force plate reports the centre of pressure (COP), the point where the resultant ground reaction force acts, in the laboratory's coordinate system. On its own that says little about the foot: the same laboratory coordinates can be under the heel in one step and under the toes in the next. What we want is the COP *relative to the foot*, and that is a Global-to-local transformation.
+
+    Look at the floor from above, with $X$ pointing in the direction of walking and $Y$ to the left. Markers on the heel and on the head of the second metatarsal of a right foot are at $(0.500, 0.100)$ and $(0.740, 0.140)$ m. The foot's coordinate system has its origin at the heel marker, its $x$ axis along the foot, towards the toe marker, and its $y$ axis turned $90^\circ$ counterclockwise from $x$, which for a right foot points medially. The force plate reports the COP at three instants of the stance phase:
+
+    | instant | COP in the laboratory [m] |
+    |---|---|
+    | heel strike | (0.515, 0.098) |
+    | midstance | (0.615, 0.112) |
+    | push-off | (0.730, 0.146) |
+
+    **Before you run the next cell**, look only at the laboratory coordinates. At midstance, is the COP on the medial or on the lateral side of the line from the heel marker to the toe marker?
+    """)
+    return
+
+
+@app.cell
+def _(np):
+    _heel = np.array([0.500, 0.100])  # heel marker [m], seen from above
+    _toe = np.array([0.740, 0.140])  # marker on the head of the second metatarsal [m]
+    _R_foot = segment_rotation_2d(_heel, _toe)
+    _length = np.linalg.norm(_toe - _heel)
+
+    print(f"The foot is turned {np.degrees(np.arctan2(_R_foot[1, 0], _R_foot[0, 0])):.1f} degrees from the direction of walking")
+    for _instant, _cop in [("heel strike", [0.515, 0.098]), ("midstance", [0.615, 0.112]), ("push-off", [0.730, 0.146])]:
+        _x, _y = _R_foot.T @ (np.array(_cop) - _heel)  # Global to local
+        print(
+            f"{_instant:12s} COP at {100 * _x / _length:4.1f}% of the heel-toe distance,"
+            f" {100 * abs(_y):.1f} cm {'medial' if _y > 0 else 'lateral'} to the foot's axis"
+        )
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    In the laboratory, the midstance COP, at $Y = 0.112$ m, is to the left of the heel marker, which for a right foot is the medial side. In the foot's coordinate system it is 0.7 cm *lateral*. The foot is turned out by $9.5^\circ$, so its axis also runs to the left, and faster than the COP does. Over the stance phase, the COP moves from just lateral of the axis at the heel to just medial of it under the forefoot, the typical roll of the foot in walking, and that pattern only appears in the foot's coordinate system.
+
+    **Exercise 4.** The same force plate measures the ground reaction force on a runner's foot, now in the sagittal plane: $\mathbf{F_G} = [120, 680]$ N, with $X$ forward and $Y$ up. The shank's coordinate system has its origin at the ankle, 9 cm above the floor, its $x$ axis along the shank from the ankle to the knee, inclined $20^\circ$ forward from the vertical (that is, at $70^\circ$ from $X$), and its $y$ axis turned $90^\circ$ counterclockwise from $x$. Find the components of the force along and across the shank. Does the position of the ankle enter the calculation?
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo, np):
+    _F_G = np.array([120.0, 680.0])  # ground reaction force [N]
+    _R_shank = rotation_2d(np.radians(70))
+    _F_l = _R_shank.T @ _F_G  # Global to local: rotation only
+
+    mo.accordion(
+        {
+            "Solution to Exercise 4": mo.md(
+                r"A force is a vector, not a position: it has a magnitude and a direction, but no origin to subtract. "
+                r"Only the rotation enters, $\mathbf{F_l} = \mathbf{R_{Gl}^T}\mathbf{F_G}$, and the 9 cm of the "
+                "ankle play no role. (The translation cancels for any vector that is a difference of two positions, "
+                "and velocities and accelerations are such differences divided by time.)\n\n"
+                f"The force is {_F_l[0]:.1f} N along the shank, compressing it, and {_F_l[1]:.1f} N across it, "
+                "towards the posterior side of the shank (the local $y$ axis points backward and up). "
+                f"Its magnitude, {np.linalg.norm(_F_l):.1f} N, is the same in both coordinate systems, as it must be "
+                "for a rotation. Almost all of the force runs along the shank because the force, at "
+                f"{np.degrees(np.arctan2(_F_G[1], _F_G[0])):.1f}° from $X$, points within "
+                f"{np.degrees(np.arctan2(_F_G[1], _F_G[0])) - 70:.0f}° of the shank's axis."
+            )
+        }
+    )
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
     ### Transformation matrix
 
     The translation and the rotation can be combined in a single matrix, the transformation matrix (also called the homogeneous transformation matrix), by adding a third coordinate equal to 1 to every point:
@@ -1255,6 +1524,96 @@ def _(LGl, R_basis, np):
 def _(mo):
     mo.md(r"""
     The formula agrees with the general matrix inverse, and takes the point back to $[1, 1]$. The transpose, which worked for the rotation matrix alone, sends it to $[2, 0]$ and spoils the extra coordinate, which should stay equal to 1.
+
+    **Exercise 5.** A local coordinate system is rotated by $90^\circ$ counterclockwise and has its origin at $[2, 1]$ in the Global coordinate system. Write $\mathbf{T_{Gl}}$, find $\mathbf{T_{Gl}^{-1}}$ with the block formula above (no general matrix inversion), and use it to find the local coordinates of the Global point $[2, 3]$. Check your answer by transforming it back.
+
+    /// details | Solution to Exercise 5
+    With $\cos 90^\circ = 0$ and $\sin 90^\circ = 1$,
+
+    $$
+    \mathbf{T_{Gl}} = \begin{bmatrix} 0 & -1 & 2 \\ 1 & \hphantom{-}0 & 1 \\ 0 & \hphantom{-}0 & 1 \end{bmatrix}
+    $$
+
+    For the inverse, the rotation block is transposed, and the translation becomes
+
+    $$
+    -\mathbf{R_{Gl}^T}\mathbf{L_G} = -\begin{bmatrix} \hphantom{-}0 & 1 \\ -1 & 0 \end{bmatrix} \begin{bmatrix} 2 \\ 1 \end{bmatrix} = -\begin{bmatrix} \hphantom{-}1 \\ -2 \end{bmatrix} = \begin{bmatrix} -1 \\ \hphantom{-}2 \end{bmatrix}
+    \quad \Longrightarrow \quad
+    \mathbf{T_{Gl}^{-1}} = \begin{bmatrix} \hphantom{-}0 & 1 & -1 \\ -1 & 0 & \hphantom{-}2 \\ \hphantom{-}0 & 0 & \hphantom{-}1 \end{bmatrix}
+    $$
+
+    The Global point $[2, 3, 1]$ goes to $[0 \cdot 2 + 1 \cdot 3 - 1,\; -1 \cdot 2 + 0 \cdot 3 + 2,\; 1] = [2, 0, 1]$: the local point $[2, 0]$, 2 along the local $x$ axis. Back again, $\mathbf{T_{Gl}}\,[2, 0, 1] = [0 - 0 + 2,\; 2 + 0 + 1,\; 1] = [2, 3, 1]$. In the sketch, the local $x$ axis points along the Global $Y$ axis from $[2, 1]$, and 2 along it is $[2, 3]$.
+    ///
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ### Example: where is the hand?
+
+    Transformation matrices can be chained like rotation matrices, and this is where they earn their keep. Consider a planar model of the arm, seen from the side. The upper arm, 30 cm long, is turned about the shoulder by $\theta_1 = 30^\circ$ from the forward horizontal; the forearm, 25 cm long, is turned about the elbow by $\theta_2 = 60^\circ$ relative to the upper arm. Attach a coordinate system to each segment, with its origin at the proximal joint and its $x$ axis along the segment. Then:
+
+    - the upper arm's coordinate system (1) is the shoulder's (0) rotated by $\theta_1$, with the same origin, so $\mathbf{T_{01}}$ has the rotation $\theta_1$ and the translation $[0, 0]$;
+    - the forearm's coordinate system (2) is the upper arm's rotated by $\theta_2$, with its origin at the elbow, which is at $[0.30, 0]$ *in the upper arm's coordinates*, so $\mathbf{T_{12}}$ has the rotation $\theta_2$ and the translation $[0.30, 0]$;
+    - the hand is at $[0.25, 0]$ in the forearm's coordinates.
+
+    The hand, in the shoulder's coordinate system, is then
+
+    $$
+    \mathbf{P_0} = \mathbf{T_{01}}\,\mathbf{T_{12}}\,\mathbf{P_2}
+    $$
+
+    Each matrix needs only what is simple in its own coordinate system: the angle between neighbouring segments and the length of a segment.
+
+    **Before you run the next cell**, predict where the hand is. (Hint: at what angle from the horizontal does the forearm point?)
+    """)
+    return
+
+
+@app.cell
+def _(np, plt):
+    _T01 = transformation_2d(rotation_2d(np.radians(30)), [0, 0])  # upper arm in the shoulder's system
+    _T12 = transformation_2d(rotation_2d(np.radians(60)), [0.30, 0])  # forearm in the upper arm's system
+    _hand_2 = np.array([0.25, 0, 1])  # hand in the forearm's system, with the extra coordinate 1
+
+    _T02 = _T01 @ _T12
+    _elbow = _T01 @ [0.30, 0, 1]
+    _hand = _T02 @ _hand_2
+    _hand_wrong = _T12 @ _T01 @ _hand_2
+    print("Elbow:", _elbow[:2].round(3), "m;  hand:", _hand[:2].round(3), "m")
+    print("Check with trigonometry:", np.round([0.30 * np.cos(np.radians(30)) + 0.25 * np.cos(np.radians(90)),
+                                               0.30 * np.sin(np.radians(30)) + 0.25 * np.sin(np.radians(90))], 3))
+    print("Hand with the product in the wrong order, T12 T01:", _hand_wrong[:2].round(3), "m")
+    print("Same rotation part in both orders?", np.allclose(_T02[:2, :2], (_T12 @ _T01)[:2, :2]))
+
+    _, _ax = plt.subplots(figsize=(5, 5))
+    _ax.plot([0, _elbow[0], _hand[0]], [0, _elbow[1], _hand[1]], "o-", color="0.5", linewidth=6, markersize=10, alpha=0.6)
+    for _T in (np.eye(3), _T01, _T02):
+        _origin = _T[:2, 2]
+        _ax.quiver(*_origin, *(0.08 * _T[:2, 0]), angles="xy", scale_units="xy", scale=1, color="tab:red", width=0.008)
+        _ax.quiver(*_origin, *(0.08 * _T[:2, 1]), angles="xy", scale_units="xy", scale=1, color="tab:green", width=0.008)
+    _ax.plot(*_hand_wrong[:2], "x", color="tab:purple", markersize=12, mew=3, label="hand with the wrong order")
+    _ax.plot([], [], color="tab:red", linewidth=3, label="local x axes")
+    _ax.plot([], [], color="tab:green", linewidth=3, label="local y axes")
+    _ax.set_aspect("equal")
+    _ax.margins(0.2)
+    _ax.set_xlabel("X [m]")
+    _ax.set_ylabel("Y [m]")
+    _ax.set_title("Shoulder, elbow and hand")
+    _ax.legend(loc="upper left", fontsize=10)
+    plt.tight_layout()
+    plt.show()
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    The forearm points straight up, at $30^\circ + 60^\circ = 90^\circ$ from the horizontal, so the hand is 25 cm directly above the elbow, at $(0.260, 0.400)$ m, which trigonometry confirms. The figure shows the three coordinate systems we used: two at the shoulder (the laboratory's and the upper arm's) and one at the elbow (the forearm's).
+
+    Now the product in the wrong order. Its rotation part is the same, a rotation by $90^\circ$, because in a plane rotations commute. But the hand lands at $(0.300, 0.250)$ m, 39 cm from the shoulder instead of 48 cm. *Transformation* matrices do not commute, even in a plane, because each translation is written in the coordinate system of the segment before it: $[0.30, 0]$ means "30 cm along the upper arm" only when it is applied after $\mathbf{T_{01}}$ has turned the axes. [Kinematic chain](https://github.com/BMClab/BMC/blob/master/notebooks/KinematicChain.ipynb) builds on exactly this product.
     """)
     return
 
@@ -1269,25 +1628,9 @@ def _(mo):
     1. **Calibration (Global to local).** In the standing trial, build the thigh's coordinate system from its two markers, and express the knee joint centre in it: $\mathbf{P_l} = \mathbf{R_{Gl}^T}(\mathbf{P_G} - \mathbf{L_G})$. Because the thigh is rigid, these local coordinates never change.
     2. **Reconstruction (local to Global).** In every frame of the movement, build the thigh's coordinate system again from the same two markers, and bring the knee back to the laboratory: $\mathbf{P_G} = \mathbf{L_G} + \mathbf{R_{Gl}}\mathbf{P_l}$.
 
-    The thigh's coordinate system has its origin at the trochanter marker, its $x$ axis pointing from there to the thigh marker, and its $y$ axis turned $90^\circ$ counterclockwise from $x$, as in the joint angle example. Here is that recipe as a function. It works for one frame, or for many frames at once with one marker position per row:
+    The thigh's coordinate system has its origin at the trochanter marker, its $x$ axis pointing from there to the thigh marker, and its $y$ axis turned $90^\circ$ counterclockwise from $x$: exactly the recipe of `segment_rotation_2d`, written for the kick example above.
     """)
     return
-
-
-@app.function
-def segment_rotation_2d(origin, axis_point):
-    """Rotation matrix R_Gl of a planar segment from two of its markers.
-
-    The local x axis points from `origin` to `axis_point`, and the local y axis
-    is x turned by 90 degrees counterclockwise. The versors are the columns of
-    R_Gl. Works for one frame or for arrays of frames (one position per row).
-    """
-    import numpy as np
-
-    d = np.asarray(axis_point, dtype=float) - np.asarray(origin, dtype=float)
-    ex = d / np.linalg.norm(d, axis=-1, keepdims=True)
-    ey = np.stack((-ex[..., 1], ex[..., 0]), axis=-1)
-    return np.stack((ex, ey), axis=-1)
 
 
 @app.cell
@@ -1387,7 +1730,41 @@ def _(mo):
     1. The thigh's coordinate system had its origin at the trochanter marker. If the origin were at the midpoint between the two markers, which numbers would change: the local coordinates of the knee, the reconstructed knee, or both?
     2. The recipe used only two markers. Why is that enough in a plane? What would a third marker add?
     3. The rotation of the thigh came out as $59.9^\circ$, not $60^\circ$. Where did the missing $0.1^\circ$ go?
+
+    **Exercise 6.** In another frame of the same movement, the trochanter marker is at $(0.40, 0.85)$ m and the thigh marker at $(0.55, 0.72)$ m. Where is the knee, and how much has the thigh rotated since the calibration? Measure the distance between the two markers and compare it with the standing trial. What could the difference mean, and does it change the reconstructed knee?
     """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(R_cal, knee_local, m1_cal, m2_cal, mo, np):
+    _m1, _m2 = np.array([0.40, 0.85]), np.array([0.55, 0.72])
+    _R = segment_rotation_2d(_m1, _m2)
+    _knee = _m1 + _R @ knee_local  # local to Global
+    _R_rel = R_cal.T @ _R  # rotation of the thigh since the calibration
+    _rotation = np.degrees(np.arctan2(_R_rel[1, 0], _R_rel[0, 0]))
+    _d_now = np.linalg.norm(_m2 - _m1)
+    _d_cal = np.linalg.norm(m2_cal - m1_cal)
+
+    mo.accordion(
+        {
+            "Solution to Exercise 6": mo.md(
+                "Build the thigh's rotation matrix from the two markers of this frame and bring the knee's local "
+                r"coordinates, found in the calibration, back to the laboratory: "
+                r"$\mathbf{P_G} = \mathbf{L_G} + \mathbf{R_{Gl}}\mathbf{P_l}$, with `knee_local` as $\mathbf{P_l}$. "
+                f"The knee is at ({_knee[0]:.3f}, {_knee[1]:.3f}) m, and the thigh has turned by {_rotation:.1f}° "
+                "since the calibration.\n\n"
+                f"The markers are {100 * _d_now:.2f} cm apart, against {100 * _d_cal:.2f} cm standing: "
+                f"{1000 * (_d_cal - _d_now):.1f} mm shorter. A rigid thigh cannot shorten, so the markers have moved "
+                "on the skin, or the measurement is off. `segment_rotation_2d` uses only the *direction* from one "
+                "marker to the other, so the change of length goes unnoticed, and the knee is still "
+                f"{100 * np.linalg.norm(_knee - _m1):.1f} cm from the trochanter marker. But a marker that slides "
+                "along the thigh may also slide across it, and that would tilt the axes and move the knee, as the "
+                "simulation below shows. A change in the distance between markers is a warning sign worth checking "
+                "in every frame."
+            )
+        }
+    )
     return
 
 
@@ -1484,6 +1861,20 @@ def _(mo):
     8. In the knee example, define the thigh's coordinate system with its origin at the midpoint between the two markers, keeping the same axes. Calculate the local coordinates of the knee in the calibration and the reconstructed knee in the movement. Which numbers change, and which do not?
 
     9. Show that, if the axes of a segment's coordinate system are tilted by a small angle $\delta\theta$ (in radians), a point reconstructed at a distance $d$ from the origin moves by about $d\,\delta\theta$. Use this to estimate, without simulation, how the error of the reconstructed knee changes when the distance between the two thigh markers is halved, and compare with the simulation in this notebook.
+
+    10. In the centre-of-pressure example, the same person walks again with the foot turned out further: the heel marker is at (0.500, 0.100) m and the toe marker at (0.729, 0.183) m. The COP at the same three instants is (0.512, 0.098), (0.605, 0.130) and (0.718, 0.190) m.<br>
+        a. Calculate the angle of the foot and the COP in the foot's coordinate system.<br>
+        b. Compare with the example. Which description, in the laboratory or in the foot, would you use to compare the two trials, and why?
+
+    11. A planar model of the leg, seen from the side, has a thigh of 0.42 m, a shank of 0.40 m and a foot of 0.20 m from the ankle to the toes. At one instant, the thigh is at $-70^\circ$ from the forward horizontal, the shank is turned by $-40^\circ$ relative to the thigh, and the foot by $+100^\circ$ relative to the shank.<br>
+        a. With one transformation matrix per segment, as in the example of the arm, find the positions of the knee, the ankle and the toes relative to the hip, and check them with trigonometry.<br>
+        b. Use the inverse of the product of the matrices to find the position of the hip in the foot's coordinate system.
+
+    12. Gait data of the two sides are often plotted together by mirroring one side, flipping the sign of $X$. Mirror the thigh markers of the knee example, calculate the thigh's angle with `segment_rotation_2d`, and compare it with the original $-84.3^\circ$.<br>
+        a. Show that mirroring turns a segment angle $\theta$ into $180^\circ - \theta$, and that it changes the sign of the angle between two segments.<br>
+        b. Propose how to report joint angles so that the mirrored and the original side can be compared directly.
+
+    13. Repeat the simulation of the kick example, and reconstruct in every frame the position of a point of the foot, treated as rigidly attached to the shank, at the local coordinates $[0.45, 0.10]$ m in the shank's coordinate system (origin at the knee). Plot its path in the laboratory and find the frame in which it is highest. Use arrays of matrices, without a loop over the frames.
     """)
     return
 
