@@ -32,10 +32,34 @@ def _(mo):
     return
 
 
+@app.function
+def repo_file(path):
+    """Local path of a file of the BMC repository, e.g. "data/walk.trc".
+
+    Where only the notebook is available (e.g., on molab), the file is
+    downloaded from GitHub to a temporary folder.
+    """
+    import tempfile
+    import urllib.request
+    from pathlib import Path
+
+    import marimo as mo
+
+    local = mo.notebook_dir() / ".." / path
+    if local.exists():
+        return local
+    cached = Path(tempfile.gettempdir()) / "BMC" / path
+    if not cached.exists():
+        cached.parent.mkdir(parents=True, exist_ok=True)
+        urllib.request.urlretrieve(f"https://raw.githubusercontent.com/BMClab/BMC/master/{path}", cached)
+    return cached
+
+
 @app.cell
-def _(mo):
+def _():
     import sys as _sys
-    _sys.path.insert(0, str(mo.notebook_dir() / '..' / 'functions'))  # add to pythonpath
+    _functions = [repo_file(f'functions/{_m}.py') for _m in ('io_cortexmac', 'critic_damp', 'linear_envelope', 'tnorm')]
+    _sys.path.insert(0, str(_functions[0].parent))  # add to pythonpath
     import io_cortexmac as io
 
     return (io,)
@@ -48,8 +72,8 @@ def _(io):
 
 
 @app.cell
-def _(mo):
-    fname = str(mo.notebook_dir() / '..' / 'data' / 'walk.trc')
+def _():
+    fname = str(repo_file('data/walk.trc'))
     return (fname,)
 
 

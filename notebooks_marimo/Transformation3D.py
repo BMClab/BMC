@@ -652,11 +652,35 @@ def _(mo):
     return
 
 
+@app.function
+def repo_file(path):
+    """Local path of a file of the BMC repository, e.g. "data/walk.trc".
+
+    Where only the notebook is available (e.g., on molab), the file is
+    downloaded from GitHub to a temporary folder.
+    """
+    import tempfile
+    import urllib.request
+    from pathlib import Path
+
+    import marimo as mo
+
+    local = mo.notebook_dir() / ".." / path
+    if local.exists():
+        return local
+    cached = Path(tempfile.gettempdir()) / "BMC" / path
+    if not cached.exists():
+        cached.parent.mkdir(parents=True, exist_ok=True)
+        urllib.request.urlretrieve(f"https://raw.githubusercontent.com/BMClab/BMC/master/{path}", cached)
+    return cached
+
+
 @app.cell
-def _(mo):
+def _():
     import sys
 
-    sys.path.insert(0, str(mo.notebook_dir() / ".." / "functions"))  # add to pythonpath
+    _functions = [repo_file(f"functions/{_m}.py") for _m in ("CCS", "read_trc")]
+    sys.path.insert(0, str(_functions[0].parent))  # add to pythonpath
     from CCS import CCS
     from read_trc import read_trc
 
@@ -1903,10 +1927,10 @@ def _(mo):
 
 
 @app.cell
-def _(mo):
+def _():
     import pandas as pd
 
-    _data = pd.read_csv(mo.notebook_dir() / ".." / "data" / "walk.trc", sep="\t", header=None, skiprows=6)
+    _data = pd.read_csv(repo_file("data/walk.trc"), sep="\t", header=None, skiprows=6)
     _data.iloc[:5, :8]
     return
 
@@ -1920,8 +1944,8 @@ def _(mo):
 
 
 @app.cell
-def _(mo, read_trc):
-    _h, walk = read_trc(str(mo.notebook_dir() / ".." / "data" / "walk.trc"), fname2="", dropna=False, na=0.0, fmt="uni")
+def _(read_trc):
+    _h, walk = read_trc(str(repo_file("data/walk.trc")), fname2="", dropna=False, na=0.0, fmt="uni")
     walk.iloc[:5, :8]
     return (walk,)
 
