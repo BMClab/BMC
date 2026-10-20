@@ -291,7 +291,7 @@ def _(mo):
 
 @app.cell
 def _(np, plt):
-    def euler_method(T=10, y0=[0, 0], h=0.01, method=2):
+    def euler_method(T=10, y0=[0, 0], h=0.01, method=2, dvdt=None):
         """
         First-order numerical approximation for solving two coupled first-order ODEs.
 
@@ -306,6 +306,7 @@ def _(np, plt):
                 1: 'forward' (standard)
                 2: 'semi-implicit' (a.k.a., symplectic, Euler–Cromer)
                 3: 'semi-implicit variation' (same results as 'semi-implicit')
+            dvdt: function dvdt(t, y) for the acceleration (default: simple pendulum)
         Two coupled first-order ODEs:
             dydt = v
             dvdt = a  # calculate the expression for acceleration at each step
@@ -314,20 +315,22 @@ def _(np, plt):
             v[i+1] = v[i] + h*dvdt[i]
         Returns arrays time, [position, velocity]
         """
-        N = int(np.ceil(T / _h))
+        if dvdt is None:
+            dvdt = _dvdt
+        N = int(np.ceil(T / h))
         y = np.zeros((2, N))
-        y[:, 0] = _y0
+        y[:, 0] = y0
         t = np.linspace(0, T, N, endpoint=False)
         for i in range(N - 1):
             if method == 1:
-                y[0, i + 1] = y[0, i] + _h * y[1, i]
-                y[1, i + 1] = y[1, i] + _h * _dvdt(t[i], y[:, i])
+                y[0, i + 1] = y[0, i] + h * y[1, i]
+                y[1, i + 1] = y[1, i] + h * dvdt(t[i], y[:, i])
             elif method == 2:
-                y[1, i + 1] = y[1, i] + _h * _dvdt(t[i], y[:, i])
-                y[0, i + 1] = y[0, i] + _h * y[1, i + 1]
+                y[1, i + 1] = y[1, i] + h * dvdt(t[i], y[:, i])
+                y[0, i + 1] = y[0, i] + h * y[1, i + 1]
             elif method == 3:
-                y[0, i + 1] = y[0, i] + _h * y[1, i]
-                y[1, i + 1] = y[1, i] + _h * _dvdt(t[i], [y[0, i + 1], y[1, i]])
+                y[0, i + 1] = y[0, i] + h * y[1, i]
+                y[1, i + 1] = y[1, i] + h * dvdt(t[i], [y[0, i + 1], y[1, i]])
             else:
                 raise ValueError('Valid options for method are 1, 2, 3.')
         return (t, y)
@@ -345,14 +348,14 @@ def _(np, plt):
         Plot data given in t, y, v with labels [title, ylabel@left, ylabel@right]
         """
         (fig, ax1) = plt.subplots(1, 1, figsize=(10, 4))
-        ax1.set_title(_labels[0])
+        ax1.set_title(labels[0])
         ax1.plot(t, y[0, :], 'b', label=' ')
         ax1.set_xlabel('Time (s)')
-        ax1.set_ylabel(u'— ' + _labels[1], color='b')
+        ax1.set_ylabel(u'— ' + labels[1], color='b')
         ax1.tick_params('y', colors='b')
         ax2 = ax1.twinx()
         ax2.plot(t, y[1, :], 'r-.', label=' ')
-        ax2.set_ylabel(u'— ‧ ' + _labels[2], color='r')
+        ax2.set_ylabel(u'— ‧ ' + labels[2], color='r')
         ax2.tick_params('y', colors='r')
         plt.tight_layout()
         plt.show()
@@ -363,10 +366,10 @@ def _(np, plt):
 @app.cell
 def _(euler_method, np, plot):
     (T, _y0, _h) = (10, [45 * np.pi / 180, 0], 0.01)
-    (t, theta) = euler_method(T, _y0, _h, method=2)
+    (_t, theta) = euler_method(T, _y0, _h, method=2)
     _labels = ['Trajectory of simple pendulum under gravity', 'Angular position ($^o$)', 'Angular velocity ($^o/s$)']
-    plot(t, np.rad2deg(theta), _labels)
-    return (t,)
+    plot(_t, np.rad2deg(theta), _labels)
+    return
 
 
 @app.cell(hide_code=True)
@@ -381,7 +384,8 @@ def _(mo):
 
 
 @app.cell
-def _(Eq, Math, display, latex, mlatex, nonlinsolve, simplify, t):
+def _(Eq, Math, Symbol, display, latex, mlatex, nonlinsolve, simplify):
+    t = Symbol('t')
     # helping function
     def printeq(lhs, rhs=None):
         """Rich display of Sympy expression as lhs = rhs."""
@@ -1485,7 +1489,7 @@ def _(euler_method, np, plot):
         F = F0 * np.cos(2 * np.pi * f * t)
         return (F - b * y[1] - k * (y[0] - l0) - m * g) / m
     (T_9, _y0, _h) = (10, [1.1, 0], 0.01)
-    (t_6, y_3) = euler_method(T_9, _y0, _h, method=2)
+    (t_6, y_3) = euler_method(T_9, _y0, _h, method=2, dvdt=_dvdt)
     _labels = ['Trajectory of mass-spring-damper system (Euler method)', 'Position (m)', 'Velocity (m/s)']
     plot(t_6, y_3, _labels)
     return

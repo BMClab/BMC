@@ -15,22 +15,22 @@ def _():
 @app.cell
 def _(np):
     def rotationGlobalX(alpha):
-        return np.array([[1, 0, 0], [0, np.cos(_alpha), -np.sin(_alpha)], [0, np.sin(_alpha), np.cos(_alpha)]])
+        return np.array([[1, 0, 0], [0, np.cos(alpha), -np.sin(alpha)], [0, np.sin(alpha), np.cos(alpha)]])
 
     def rotationGlobalY(beta):
-        return np.array([[np.cos(_beta), 0, np.sin(_beta)], [0, 1, 0], [-np.sin(_beta), 0, np.cos(_beta)]])
+        return np.array([[np.cos(beta), 0, np.sin(beta)], [0, 1, 0], [-np.sin(beta), 0, np.cos(beta)]])
 
     def rotationGlobalZ(gamma):
-        return np.array([[np.cos(_gamma), -np.sin(_gamma), 0], [np.sin(_gamma), np.cos(_gamma), 0], [0, 0, 1]])
+        return np.array([[np.cos(gamma), -np.sin(gamma), 0], [np.sin(gamma), np.cos(gamma), 0], [0, 0, 1]])
 
     def rotationLocalX(alpha):
-        return np.array([[1, 0, 0], [0, np.cos(_alpha), np.sin(_alpha)], [0, -np.sin(_alpha), np.cos(_alpha)]])
+        return np.array([[1, 0, 0], [0, np.cos(alpha), np.sin(alpha)], [0, -np.sin(alpha), np.cos(alpha)]])
 
     def rotationLocalY(beta):
-        return np.array([[np.cos(_beta), 0, -np.sin(_beta)], [0, 1, 0], [np.sin(_beta), 0, np.cos(_beta)]])
+        return np.array([[np.cos(beta), 0, -np.sin(beta)], [0, 1, 0], [np.sin(beta), 0, np.cos(beta)]])
 
     def rotationLocalZ(gamma):
-        return np.array([[np.cos(_gamma), np.sin(_gamma), 0], [-np.sin(_gamma), np.cos(_gamma), 0], [0, 0, 1]])
+        return np.array([[np.cos(gamma), np.sin(gamma), 0], [-np.sin(gamma), np.cos(gamma), 0], [0, 0, 1]])
 
     return (
         rotationGlobalX,

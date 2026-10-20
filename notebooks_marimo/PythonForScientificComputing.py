@@ -19,9 +19,8 @@ def _(mo):
 
 
 @app.cell
-def _():
-    from IPython.display import Image
-    Image(data='http://imgs.xkcd.com/comics/python.png')
+def _(mo):
+    mo.image(src='https://imgs.xkcd.com/comics/python.png')
     return
 
 
@@ -144,9 +143,8 @@ def _(mo):
 
 
 @app.cell
-def _():
-    from IPython.display import YouTubeVideo
-    YouTubeVideo('eCLp7zodUiI', width=480, height=360, rel=0)
+def _(mo):
+    mo.Html('<iframe width="480" height="360" src="https://www.youtube.com/embed/eCLp7zodUiI?rel=0" frameborder="0" allowfullscreen></iframe>')
     return
 
 
@@ -176,10 +174,9 @@ def _(mo):
 
 
 @app.cell
-def _():
-    from IPython.display import IFrame
-    IFrame('https://cacm.acm.org/blogs/blog-cacm/176450-python-is-now-the-most-popular-introductory-teaching-language-at-top-us-universities/fulltext',
-           width=800, height=600)
+def _(mo):
+    mo.Html('<iframe src="https://cacm.acm.org/blogs/blog-cacm/176450-python-is-now-the-most-popular-introductory-teaching-language-at-top-us-universities/fulltext" '
+            'width="800" height="600"></iframe>')
     return
 
 
@@ -291,23 +288,12 @@ def _(mo):
     return
 
 
-app._unparsable_cell(
-    r"""
-    try:
-        from watermark import watermark
-    except ImportError:
-        %pip install -q watermark
-    # magic command not supported in marimo; please file an issue to add support
-    # %load_ext watermark
-    """,
-    name="_"
-)
-
-
 @app.cell
 def _():
-    # magic command not supported in marimo; please file an issue to add support
+    from watermark import watermark
     # %watermark -u -t -d -m -v --iversions
+    print(watermark(updated=True, current_time=True, current_date=True, machine=True,
+                    python=True, iversions=True, globals_=globals()))
     return
 
 

@@ -30,8 +30,12 @@ def _(mo):
 
 
 @app.cell
-def _():
+def _(np):
     from detecta import detect_peaks
+
+    # detecta 0.0.5 still calls np.in1d, which NumPy 2.4 removed; np.isin is its replacement
+    if not hasattr(np, "in1d"):
+        np.in1d = np.isin
 
     return (detect_peaks,)
 
@@ -41,7 +45,7 @@ def _():
     import numpy as np
     import matplotlib.pyplot as plt
     # '%matplotlib inline' command supported automatically in marimo
-    return (np,)
+    return np, plt
 
 
 @app.cell(hide_code=True)
@@ -52,42 +56,64 @@ def _(mo):
     return
 
 
-app._unparsable_cell(
-    r"""
-    >>> from detecta import detect_peaks
-        >>> x = np.random.randn(100)
-        >>> x[60:81] = np.nan
-        >>> # detect all peaks and plot data
-        >>> ind = detect_peaks(x, show=True)
-        >>> print(ind)
+@app.cell
+def _(detect_peaks, np):
+    _x = np.random.randn(100)
+    _x[60:81] = np.nan
+    # detect all peaks and plot data
+    _ind = detect_peaks(_x, show=True)
+    print(_ind)
+    return
 
-        >>> x = np.sin(2*np.pi*5*np.linspace(0, 1, 200)) + np.random.randn(200)/5
-        >>> # set minimum peak height = 0 and minimum peak distance = 20
-        >>> detect_peaks(x, mph=0, mpd=20, show=True)
 
-        >>> x = [0, 1, 0, 2, 0, 3, 0, 2, 0, 1, 0]
-        >>> # set minimum peak distance = 2
-        >>> detect_peaks(x, mpd=2, show=True)
+@app.cell
+def _(detect_peaks, np):
+    _x = np.sin(2*np.pi*5*np.linspace(0, 1, 200)) + np.random.randn(200)/5
+    # set minimum peak height = 0 and minimum peak distance = 20
+    detect_peaks(_x, mph=0, mpd=20, show=True)
+    return
 
-        >>> x = np.sin(2*np.pi*5*np.linspace(0, 1, 200)) + np.random.randn(200)/5
-        >>> # detection of valleys instead of peaks
-        >>> detect_peaks(x, mph=-1.2, mpd=20, valley=True, show=True)
 
-        >>> x = [0, 1, 1, 0, 1, 1, 0]
-        >>> # detect both edges
-        >>> detect_peaks(x, edge='both', show=True)
+@app.cell
+def _(detect_peaks):
+    _x = [0, 1, 0, 2, 0, 3, 0, 2, 0, 1, 0]
+    # set minimum peak distance = 2
+    detect_peaks(_x, mpd=2, show=True)
+    return
 
-        >>> x = [-2, 1, -2, 2, 1, 1, 3, 0]
-        >>> # set threshold = 2
-        >>> detect_peaks(x, threshold = 2, show=True)
- 
-        >>> x = [-2, 1, -2, 2, 1, 1, 3, 0]
-        >>> fig, axs = plt.subplots(ncols=2, nrows=1, figsize=(10, 4))
-        >>> detect_peaks(x, show=True, ax=axs[0], threshold=0.5, title=False)
-        >>> detect_peaks(x, show=True, ax=axs[1], threshold=1.5, title=False)
-    """,
-    name="_"
-)
+
+@app.cell
+def _(detect_peaks, np):
+    _x = np.sin(2*np.pi*5*np.linspace(0, 1, 200)) + np.random.randn(200)/5
+    # detection of valleys instead of peaks
+    detect_peaks(_x, mph=-1.2, mpd=20, valley=True, show=True)
+    return
+
+
+@app.cell
+def _(detect_peaks):
+    _x = [0, 1, 1, 0, 1, 1, 0]
+    # detect both edges
+    detect_peaks(_x, edge='both', show=True)
+    return
+
+
+@app.cell
+def _(detect_peaks):
+    _x = [-2, 1, -2, 2, 1, 1, 3, 0]
+    # set threshold = 2
+    detect_peaks(_x, threshold = 2, show=True)
+    return
+
+
+@app.cell
+def _(detect_peaks, plt):
+    _x = [-2, 1, -2, 2, 1, 1, 3, 0]
+    _fig, _axs = plt.subplots(ncols=2, nrows=1, figsize=(10, 4))
+    detect_peaks(_x, show=True, ax=_axs[0], threshold=0.5, title=False)
+    detect_peaks(_x, show=True, ax=_axs[1], threshold=1.5, title=False)
+    _fig
+    return
 
 
 @app.cell(hide_code=True)

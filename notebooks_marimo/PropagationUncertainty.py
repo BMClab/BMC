@@ -87,10 +87,14 @@ def _(mo):
 @app.cell
 def _():
     # Import the necessary libraries
-    from IPython.display import display, Math  # IPython formatting
-    from uncertainties import ufloat           # to define variables with uncertainty
+    try:
+        from uncertainties import ufloat           # to define variables with uncertainty
+    except ImportError:
+        ufloat = None
+        print('The uncertainties package is not installed (pip install uncertainties);\n'
+              'the cells below that need it will be skipped.')
 
-    return Math, display, ufloat
+    return (ufloat,)
 
 
 @app.cell(hide_code=True)
@@ -103,10 +107,14 @@ def _(mo):
 
 @app.cell
 def _(ufloat):
-    _m = ufloat(nominal_value=4.0, std_dev=0.5)
-    _V = ufloat(2.0, 0.2)
-    d = _m / _V
-    print(d)
+    if ufloat is None:
+        print('Skipped: the uncertainties package is not installed.')
+        d = None
+    else:
+        _m = ufloat(nominal_value=4.0, std_dev=0.5)
+        _V = ufloat(2.0, 0.2)
+        d = _m / _V
+        print(d)
     return (d,)
 
 
@@ -127,10 +135,11 @@ def _(mo):
 
 
 @app.cell
-def _(Math, d, display):
-    display(Math(f'd = {d:.3L} g/cm^3'))
-    display(Math(f'd = {d:.2eL} g/cm^3'))
-    display(Math(f'd = {d:.2uS} g/cm^3'))
+def _(d, mo):
+    if d is not None:
+        mo.output.append(mo.md(f'$$d = {d:.3L} g/cm^3$$'))
+        mo.output.append(mo.md(f'$$d = {d:.2eL} g/cm^3$$'))
+        mo.output.append(mo.md(f'$$d = {d:.2uS} g/cm^3$$'))
     return
 
 
@@ -144,7 +153,8 @@ def _(mo):
 
 @app.cell
 def _(ufloat):
-    print(ufloat(4.0, 0.5) / ufloat(2.0, 0.2))
+    if ufloat is not None:
+        print(ufloat(4.0, 0.5) / ufloat(2.0, 0.2))
     return
 
 
@@ -158,7 +168,7 @@ def _(mo):
 
 @app.cell
 def _(d):
-    d.error_components().items()
+    d.error_components().items() if d is not None else 'Skipped: uncertainties is not installed.'
     return
 
 
@@ -174,7 +184,7 @@ def _(mo):
 
 @app.cell
 def _(d):
-    d.derivatives
+    d.derivatives if d is not None else 'Skipped: uncertainties is not installed.'
     return
 
 
@@ -189,7 +199,7 @@ def _(mo):
 
 
 @app.cell
-def _(Math, display):
+def _(mo):
     from sympy import symbols, Symbol, sqrt, Add, Mul, Pow, init_printing, latex
     init_printing()
 
@@ -198,12 +208,12 @@ def _(Math, display):
         Calculate the symbolic formula for error propagation using partial derivatives.
         """
         from functools import reduce
-        formula2 = sqrt(reduce(Add, (Mul(Pow(_formula.diff(var), 2, evaluate=False), Symbol(f'\\sigma_{var.name}', commutative=False) ** 2, evaluate=False) for var in _formula.atoms(Symbol) if var.name in errors), 0.0))
-        formula3 = sqrt(reduce(Add, (Mul(Pow(_formula.diff(var) / _formula, 2, evaluate=False), Symbol(f'\\sigma_{var.name}', commutative=False) ** 2, evaluate=False) for var in _formula.atoms(Symbol) if var.name in errors), 0.0))
+        formula2 = sqrt(reduce(Add, (Mul(Pow(formula.diff(var), 2, evaluate=False), Symbol(f'\\sigma_{var.name}', commutative=False) ** 2, evaluate=False) for var in formula.atoms(Symbol) if var.name in errors), 0.0))
+        formula3 = sqrt(reduce(Add, (Mul(Pow(formula.diff(var) / formula, 2, evaluate=False), Symbol(f'\\sigma_{var.name}', commutative=False) ** 2, evaluate=False) for var in formula.atoms(Symbol) if var.name in errors), 0.0))
         print('Uncertainty:')
-        display(Math(f'\\sigma_{formula_symb} = {latex(formula2)}'))
+        mo.output.append(mo.md(f'$$\\sigma_{formula_symb} = {latex(formula2)}$$'))
         print('Relative Uncertainty:')
-        display(Math(f'\\frac{{\\sigma_{formula_symb}}}{formula_symb} = {latex(formula3)}'))
+        mo.output.append(mo.md(f'$$\\frac{{\\sigma_{formula_symb}}}{formula_symb} = {latex(formula3)}$$'))
         return (formula2, formula3)
 
     return stdform, symbols
@@ -238,7 +248,7 @@ def _(mo):
 
 @app.cell
 def _(stdform, symbols):
-    from sympy import pi
+    from sympy import pi as _pi
     (d_2, _h) = symbols('d, h')
     _V = _h * _pi * (d_2 / 2) ** 2
     _formula = stdform(_V, 'V', 'd', 'h')
@@ -246,12 +256,15 @@ def _(stdform, symbols):
 
 
 @app.cell
-def _(Math, display, ufloat):
-    from math import pi
-    _h = ufloat(nominal_value=10.0, std_dev=0.5)
-    d_3 = ufloat(nominal_value=2.0, std_dev=0.1)
-    _V = _h * _pi * (d_3 / 2) ** 2
-    display(Math(f'V = {_V:.3L} cm^3'))
+def _(mo, ufloat):
+    from math import pi as _pi
+    if ufloat is None:
+        print('Skipped: the uncertainties package is not installed.')
+    else:
+        _h = ufloat(nominal_value=10.0, std_dev=0.5)
+        d_3 = ufloat(nominal_value=2.0, std_dev=0.1)
+        _V = _h * _pi * (d_3 / 2) ** 2
+        mo.output.append(mo.md(f'$$V = {_V:.3L} cm^3$$'))
     return
 
 

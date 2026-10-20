@@ -124,101 +124,89 @@ def _(mo):
 
 
 @app.cell
-def _():
+def _(np):
     from tnorma import tnorma
 
+    # tnorma 0.0.3 still uses np.NaN, which NumPy 2 removed; np.nan is the same value
+    if not hasattr(np, "NaN"):
+        np.NaN = np.nan
+
+    return (tnorma,)
+
+
+@app.cell
+def _(tnorma):
+    # Default options: cubic spline interpolation passing through
+    # each datum, 101 points, and no plot
+    _y = [5,  4, 10,  8,  1, 10,  2,  7,  1,  3]
+    tnorma(_y)
     return
 
 
-app._unparsable_cell(
-    r"""
-    >>> # Default options: cubic spline interpolation passing through
-        >>> # each datum, 101 points, and no plot
-        >>> y = [5,  4, 10,  8,  1, 10,  2,  7,  1,  3]
-        >>> tnorma(y)
-    """,
-    name="_"
-)
+@app.cell
+def _(tnorma, y):
+    # Linear interpolation passing through each datum
+    _yn, _tn, _indie = tnorma(y, k=1, smooth=0, mask=None, show=True)
+    return
 
 
-app._unparsable_cell(
-    r"""
-    >>> # Linear interpolation passing through each datum
-        >>> yn, tn, indie = tnorma(y, k=1, smooth=0, mask=None, show=True)
-    """,
-    name="_"
-)
+@app.cell
+def _(tnorma, y):
+    # Cubic spline interpolation with smoothing
+    _yn, _tn, _indie = tnorma(y, k=3, smooth=1, mask=None, show=True)
+    return
 
 
-app._unparsable_cell(
-    r"""
-    >>> # Cubic spline interpolation with smoothing
-        >>> yn, tn, indie = tnorma(y, k=3, smooth=1, mask=None, show=True)
-    """,
-    name="_"
-)
+@app.cell
+def _(np, tnorma):
+    # Cubic spline interpolation with smoothing and 50 points
+    _x = np.linspace(-3, 3, 60)
+    _y = np.exp(-_x**2) + np.random.randn(60)/10
+    _yn, _tn, _indie = tnorma(_y, step=-50, k=3, smooth=1, show=True)
+    return
 
 
-app._unparsable_cell(
-    r"""
-    >>> # Cubic spline interpolation with smoothing and 50 points
-        >>> x = np.linspace(-3, 3, 60)
-        >>> y = np.exp(-x**2) + np.random.randn(60)/10
-        >>> yn, tn, indie = tnorma(y, step=-50, k=3, smooth=1, show=True)
-    """,
-    name="_"
-)
+@app.cell
+def _(np, tnorma):
+    # Deal with missing data (use NaN as mask)
+    _x = np.linspace(-3, 3, 100)
+    _y = np.exp(-_x**2) + np.random.randn(100)/10
+    _y[:10] = np.nan # first ten points are missing
+    _y[30: 41] = np.nan # make other 10 missing points
+    _yn, _tn, _indie = tnorma(_y, step=-50, k=3, smooth=1, show=True)
+    return
 
 
-app._unparsable_cell(
-    r"""
-    >>> # Deal with missing data (use NaN as mask)
-        >>> x = np.linspace(-3, 3, 100)
-        >>> y = np.exp(-x**2) + np.random.randn(100)/10
-        >>> y[:10] = np.NaN # first ten points are missing
-        >>> y[30: 41] = np.NaN # make other 10 missing points
-        >>> yn, tn, indie = tnorma(y, step=-50, k=3, smooth=1, show=True)
-    """,
-    name="_"
-)
+@app.cell
+def _(np, tnorma):
+    # Deal with missing data at the extremities replacing by first/last not-NaN
+    _x = np.linspace(-3, 3, 100)
+    _y = np.exp(-_x**2) + np.random.randn(100)/10
+    _y[0:10] = np.nan # first ten points are missing
+    _y[-10:] = np.nan # last ten points are missing
+    _yn, _tn, _indie = tnorma(_y, step=-50, k=3, smooth=1, nan_at_ext='replace', show=True)
+    return
 
 
-app._unparsable_cell(
-    r"""
-    >>> # Deal with missing data at the extremities replacing by first/last not-NaN
-        >>> x = np.linspace(-3, 3, 100)
-        >>> y = np.exp(-x**2) + np.random.randn(100)/10
-        >>> y[0:10] = np.NaN # first ten points are missing
-        >>> y[-10:] = np.NaN # last ten points are missing
-        >>> yn, tn, indie = tnorma(y, step=-50, k=3, smooth=1, nan_at_ext='replace', show=True)
-    """,
-    name="_"
-)
+@app.cell
+def _(np, tnorma):
+    # Deal with missing data at the extremities replacing by first/last not-NaN
+    _x = np.linspace(-3, 3, 100)
+    _y = np.exp(-_x**2) + np.random.randn(100)/10
+    _y[0:10] = np.nan # first ten points are missing
+    _y[-10:] = np.nan # last ten points are missing
+    _yn, _tn, _indie = tnorma(_y, step=-50, k=1, smooth=0, nan_at_ext='replace', show=True)
+    return
 
 
-app._unparsable_cell(
-    r"""
-    >>> # Deal with missing data at the extremities replacing by first/last not-NaN
-        >>> x = np.linspace(-3, 3, 100)
-        >>> y = np.exp(-x**2) + np.random.randn(100)/10
-        >>> y[0:10] = np.NaN # first ten points are missing
-        >>> y[-10:] = np.NaN # last ten points are missing
-        >>> yn, tn, indie = tnorma(y, step=-50, k=1, smooth=0, nan_at_ext='replace', show=True)
-    """,
-    name="_"
-)
-
-
-app._unparsable_cell(
-    r"""
-    >>> # Deal with 2-D array
-        >>> x = np.linspace(-3, 3, 100)
-        >>> y = np.exp(-x**2) + np.random.randn(100)/10
-        >>> y = np.vstack((y-1, y[::-1])).T
-        >>> yn, tn, indie = tnorma(y, step=-50, k=3, smooth=1, show=True)
-    """,
-    name="_"
-)
+@app.cell
+def _(np, tnorma):
+    # Deal with 2-D array
+    _x = np.linspace(-3, 3, 100)
+    _y = np.exp(-_x**2) + np.random.randn(100)/10
+    _y = np.vstack((_y-1, _y[::-1])).T
+    _yn, _tn, _indie = tnorma(_y, step=-50, k=3, smooth=1, show=True)
+    return
 
 
 @app.cell

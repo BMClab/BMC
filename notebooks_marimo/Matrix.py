@@ -87,14 +87,14 @@ def _(A):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    We used the array function in Numpy to represent a matrix. A [Numpy array is in fact different than a matrix](http://www.scipy.org/NumPy_for_Matlab_Users), if we want to use explicit matrices in Numpy, we have to use the function `mat`:
+    We used the array function in Numpy to represent a matrix. A [Numpy array is in fact different than a matrix](http://www.scipy.org/NumPy_for_Matlab_Users), if we want to use explicit matrices in Numpy, we have to use the function `asmatrix` (called `mat` before NumPy 2):
     """)
     return
 
 
 @app.cell
 def _(np):
-    B = np.mat([[1, 2, 3], [4, 5, 6]])
+    B = np.asmatrix([[1, 2, 3], [4, 5, 6]])
     B
     return
 
@@ -192,8 +192,8 @@ def _(mo):
 
 @app.cell
 def _(A_2, B_2, np):
-    A_3 = np.mat(A_2)
-    B_3 = np.mat(B_2)
+    A_3 = np.asmatrix(A_2)
+    B_3 = np.asmatrix(B_2)
     print('A:\n', A_3)
     print('B:\n', B_3)
     print('A x B:\n', A_3 * B_3)
@@ -361,7 +361,7 @@ def _(mo):
     from numpy.linalg import inv
     Ainv = A.T @ inv(A @ A.T)
     ```
-    But both Numpy and Scipy have functions to calculate the pseudoinverse, which might give greater numerical stability (but read [Inverses and pseudoinverses. Numerical issues, speed, symmetry](http://vene.ro/blog/inverses-pseudoinverses-numerical-issues-speed-symmetry.html)). Of note, [numpy.linalg.pinv](http://docs.scipy.org/doc/numpy/reference/generated/numpy.linalg.pinv.html) calculates the pseudoinverse of a matrix using its singular-value decomposition (SVD) and including all large singular values (using the [LAPACK (Linear Algebra Package)](https://en.wikipedia.org/wiki/LAPACK) routine gesdd), whereas [scipy.linalg.pinv](http://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.pinv.html#scipy.linalg.pinv) calculates a pseudoinverse of a matrix using a least-squares solver (using the LAPACK method gelsd) and [scipy.linalg.pinv2](http://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.pinv2.html) also uses SVD to find the pseudoinverse (also using the LAPACK routine gesdd).
+    But both Numpy and Scipy have functions to calculate the pseudoinverse, which might give greater numerical stability (but read [Inverses and pseudoinverses. Numerical issues, speed, symmetry](http://vene.ro/blog/inverses-pseudoinverses-numerical-issues-speed-symmetry.html)). Of note, [numpy.linalg.pinv](https://numpy.org/doc/stable/reference/generated/numpy.linalg.pinv.html) calculates the pseudoinverse of a matrix using its singular-value decomposition (SVD) and including all large singular values (using the [LAPACK (Linear Algebra Package)](https://en.wikipedia.org/wiki/LAPACK) routine gesdd), and [scipy.linalg.pinv](https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.pinv.html) also uses the SVD (it used a least-squares solver until SciPy 1.7, when the SVD-based `scipy.linalg.pinv2` was folded into it; `pinv2` was removed in SciPy 1.9).
 
     For example:
     """)
@@ -370,9 +370,9 @@ def _(mo):
 
 @app.cell
 def _(np):
-    from scipy.linalg import pinv2
+    from scipy.linalg import pinv
     A_9 = np.array([[1, 0, 0], [0, 1, 0]])
-    Apinv = pinv2(A_9)
+    Apinv = pinv(A_9)
     print('Matrix A:\n', A_9)
     print('Pseudo-inverse of A:\n', Apinv)
     print('A x Apinv:\n', A_9 @ Apinv)

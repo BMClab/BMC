@@ -91,7 +91,7 @@ def findpeaks(x, mph=None, mpd=1, threshold=None, edge='rising', kpsh=False,
     ind = np.unique(np.hstack((ine, ire, ife)))
     # deal with NaN's
     if indnan.size:
-        ind = ind[np.in1d(ind, indnan, invert=True)]
+        ind = ind[np.isin(ind, indnan, invert=True)]
     # first and last values of x cannot be peaks
     if ind.size and ind[0] == 0:
         ind = ind[1:]

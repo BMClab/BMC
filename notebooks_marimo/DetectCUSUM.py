@@ -86,7 +86,7 @@ def _():
 
     from detecta import detect_cusum
 
-    return (np,)
+    return detect_cusum, np
 
 
 @app.cell(hide_code=True)
@@ -97,21 +97,27 @@ def _(mo):
     return
 
 
-app._unparsable_cell(
-    r"""
-    >>> x = np.random.randn(300)/5
-        >>> x[100:200] += np.arange(0, 4, 4/100)
-        >>> ta, tai, taf, amp = detect_cusum(x, 2, .02, True, True)
+@app.cell
+def _(detect_cusum, np):
+    _x = np.random.randn(300)/5
+    _x[100:200] += np.arange(0, 4, 4/100)
+    _ta, _tai, _taf, _amp = detect_cusum(_x, 2, .02, True, True)
+    return
 
-        >>> x = np.random.randn(300)
-        >>> x[100:200] += 6
-        >>> detect_cusum(x, 4, 1.5, True, True)
 
-        >>> x = 2*np.sin(2*np.pi*np.arange(0, 3, .01))
-        >>> ta, tai, taf, amp = detect_cusum(x, 1, .05, True, True)
-    """,
-    name="_"
-)
+@app.cell
+def _(detect_cusum, np):
+    _x = np.random.randn(300)
+    _x[100:200] += 6
+    detect_cusum(_x, 4, 1.5, True, True)
+    return
+
+
+@app.cell
+def _(detect_cusum, np):
+    _x = 2*np.sin(2*np.pi*np.arange(0, 3, .01))
+    _ta, _tai, _taf, _amp = detect_cusum(_x, 1, .05, True, True)
+    return
 
 
 @app.cell(hide_code=True)

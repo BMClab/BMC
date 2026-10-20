@@ -127,13 +127,13 @@ def _(np, plt):
     hax.set_ylabel('Force [N]')
     hax.set_xlabel('Time [s]')
     plt.fill(t, f, 'b', alpha=0.3)
-    # area (impulse) with the trapz numerical integration method:
-    from scipy.integrate import trapz
-    imp = trapz(f, t)
+    # area (impulse) with the trapezoidal numerical integration method:
+    from scipy.integrate import trapezoid
+    imp = trapezoid(f, t)
     # plot a rectangle for the mean impulse value:
     plt.fill(np.array([t[0], t[0], t[-1], t[-1]]),
              np.array([0, imp, imp, 0]/(t[-1]-t[0])), 'r', alpha=0.3)
-    s = '$i=F\Delta t = %.1f Ns$'%imp 
+    s = r'$i=F\Delta t = %.1f Ns$'%imp 
     plt.text(.4, 40, s, fontsize=18,
              bbox=dict(facecolor='white', edgecolor='white'));
     return

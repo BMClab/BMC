@@ -203,17 +203,16 @@ def _(mo):
     Linv = L.T @ inv(L @ L.T)
     ```
     But both Numpy and Scipy have functions to calculate the pseudoinverse, which might give greater numerical stability (but read [Inverses and pseudoinverses. Numerical issues, speed, symmetry](http://vene.ro/blog/inverses-pseudoinverses-numerical-issues-speed-symmetry.html)).<br>
-    Of note, [numpy.linalg.pinv](http://docs.scipy.org/doc/numpy/reference/generated/numpy.linalg.pinv.html) calculates the pseudoinverse of a matrix using its singular-value decomposition (SVD) and including all large singular values (using the [LAPACK (Linear Algebra Package)](https://en.wikipedia.org/wiki/LAPACK) routine gesdd), whereas [scipy.linalg.pinv](http://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.pinv.html#scipy.linalg.pinv) calculates a pseudoinverse of a matrix using a least-squares solver (using the LAPACK method gelsd) and [scipy.linalg.pinv2](http://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.pinv2.html) also uses SVD to find the pseudoinverse (also using the LAPACK routine gesdd).
-    Let's use [scipy.linalg.pinv2](http://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.pinv2.html):
+    Of note, [numpy.linalg.pinv](http://docs.scipy.org/doc/numpy/reference/generated/numpy.linalg.pinv.html) calculates the pseudoinverse of a matrix using its singular-value decomposition (SVD) and including all large singular values (using the [LAPACK (Linear Algebra Package)](https://en.wikipedia.org/wiki/LAPACK) routine gesdd), whereas [scipy.linalg.pinv](http://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.pinv.html#scipy.linalg.pinv) also uses the SVD (it used a least-squares solver until SciPy 1.7, when the SVD-based `scipy.linalg.pinv2` was folded into it; `pinv2` was removed in SciPy 1.9).
+    Let's use [scipy.linalg.pinv](https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.pinv.html):
     """)
     return
 
 
 @app.cell
 def _(L):
-    # scipy.linalg.pinv2 was removed in SciPy 1.9; scipy.linalg.pinv now also uses the SVD
-    from scipy.linalg import pinv as _pinv2
-    Lpinv = _pinv2(L)
+    from scipy.linalg import pinv as _pinv
+    Lpinv = _pinv(L)
     return (Lpinv,)
 
 
@@ -353,9 +352,9 @@ def _(fpcalibra, inv, np):
 
     _C2, _ang2 = fpcalibra(_Lfp, _Flc, _COP)
 
-    _e = np.sqrt(np.sum(_C2-_C)**2)
+    _e = np.sqrt(np.sum((_C2-_C)**2))
     print('Residual between simulated and optimal re-calibration matrices:', _e)
-    _e = np.sqrt(np.sum(_ang2-_ang)**2)
+    _e = np.sqrt(np.sum((_ang2-_ang)**2))
     print('Residual between simulated and optimal rotation angles:', _e)
     return
 
@@ -599,9 +598,9 @@ def _(np):
         >>> 
         >>> C2, ang2 = fpcalibra(Lfp, Flc, COP)
         >>> 
-        >>> e = np.sqrt(np.sum(C2-C)**2)
+        >>> e = np.sqrt(np.sum((C2-C)**2))
         >>> print('Residual between simulated and optimal re-calibration matrices:', e)
-        >>> e = np.sqrt(np.sum(ang2-ang)**2)
+        >>> e = np.sqrt(np.sum((ang2-ang)**2))
         >>> print('Residual between simulated and optimal rotation angles:', e)
         """
         nk = COP.shape[1]

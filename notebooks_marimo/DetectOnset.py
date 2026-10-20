@@ -10,7 +10,7 @@ def _(mo):
     # Detection of onset in data
 
     > Marcos Duarte<br>
-    > [Laboratory of Biomechanics and Motor Control](http://demotu.org/](http://demotu.org/)<br>
+    > [Laboratory of Biomechanics and Motor Control](http://demotu.org/)<br>
     > Federal University of ABC, Brazil
     """)
     return
@@ -60,7 +60,7 @@ def _():
 
     from detecta import detect_onset
 
-    return (np,)
+    return detect_onset, np
 
 
 @app.cell(hide_code=True)
@@ -71,14 +71,12 @@ def _(mo):
     return
 
 
-app._unparsable_cell(
-    r"""
-    >>> x = np.random.randn(200)/10
-        >>> x[51:151] += np.hstack((np.linspace(0,1,50), np.linspace(1,0,50)))
-        >>> detect_onset(x, np.std(x[:50]), n_above=10, n_below=0, show=True)
-    """,
-    name="_"
-)
+@app.cell
+def _(detect_onset, np):
+    _x = np.random.randn(200)/10
+    _x[51:151] += np.hstack((np.linspace(0,1,50), np.linspace(1,0,50)))
+    detect_onset(_x, np.std(_x[:50]), n_above=10, n_below=0, show=True)
+    return
 
 
 @app.cell(hide_code=True)
@@ -89,15 +87,13 @@ def _(mo):
     return
 
 
-app._unparsable_cell(
-    r"""
-    >>> x = np.random.randn(200)/10
-        >>> x[51:151] += np.hstack((np.linspace(0,1,50), np.linspace(1,0,50)))
-        >>> x[80:140:20] = 0
-        >>> detect_onset(x, np.std(x[:50]), n_above=10, n_below=0, show=True)
-    """,
-    name="_"
-)
+@app.cell
+def _(detect_onset, np):
+    _x = np.random.randn(200)/10
+    _x[51:151] += np.hstack((np.linspace(0,1,50), np.linspace(1,0,50)))
+    _x[80:140:20] = 0
+    detect_onset(_x, np.std(_x[:50]), n_above=10, n_below=0, show=True)
+    return
 
 
 @app.cell(hide_code=True)
@@ -108,15 +104,13 @@ def _(mo):
     return
 
 
-app._unparsable_cell(
-    r"""
-    >>> x = np.random.randn(200)/10
-        >>> x[51:151] += np.hstack((np.linspace(0,1,50), np.linspace(1,0,50)))
-        >>> x[80:140:20] = 0
-        >>> detect_onset(x, np.std(x[:50]), n_above=10, n_below=2, show=True)
-    """,
-    name="_"
-)
+@app.cell
+def _(detect_onset, np):
+    _x = np.random.randn(200)/10
+    _x[51:151] += np.hstack((np.linspace(0,1,50), np.linspace(1,0,50)))
+    _x[80:140:20] = 0
+    detect_onset(_x, np.std(_x[:50]), n_above=10, n_below=2, show=True)
+    return
 
 
 @app.cell(hide_code=True)
@@ -127,13 +121,11 @@ def _(mo):
     return
 
 
-app._unparsable_cell(
-    r"""
-    >>> x = [0, 0, 2, 0, np.nan, 0, 2, 3, 3, 0, 1, 1, 0]
-        >>> detect_onset(x, threshold=1, n_above=1, n_below=0, show=True)
-    """,
-    name="_"
-)
+@app.cell
+def _(detect_onset, np):
+    _x = [0, 0, 2, 0, np.nan, 0, 2, 3, 3, 0, 1, 1, 0]
+    detect_onset(_x, threshold=1, n_above=1, n_below=0, show=True)
+    return
 
 
 @app.cell(hide_code=True)
@@ -144,16 +136,14 @@ def _(mo):
     return
 
 
-app._unparsable_cell(
-    r"""
-    >>> x = np.random.randn(200)/10
-        >>> x[11:41] = np.ones(30)*.3
-        >>> x[51:151] += np.hstack((np.linspace(0,1,50), np.linspace(1,0,50)))
-        >>> x[80:140:20] = 0
-        >>> detect_onset(x, .1, n_above=10, n_below=1, show=True)
-    """,
-    name="_"
-)
+@app.cell
+def _(detect_onset, np):
+    _x = np.random.randn(200)/10
+    _x[11:41] = np.ones(30)*.3
+    _x[51:151] += np.hstack((np.linspace(0,1,50), np.linspace(1,0,50)))
+    _x[80:140:20] = 0
+    detect_onset(_x, .1, n_above=10, n_below=1, show=True)
+    return
 
 
 @app.cell(hide_code=True)
@@ -164,16 +154,14 @@ def _(mo):
     return
 
 
-app._unparsable_cell(
-    r"""
-    >>> x = np.random.randn(200)/10
-        >>> x[11:41] = np.ones(30)*.3
-        >>> x[51:151] += np.hstack((np.linspace(0,1,50), np.linspace(1,0,50)))
-        >>> x[80:140:20] = 0
-        >>> detect_onset(x, .4, n_above=10, n_below=1, show=True)
-    """,
-    name="_"
-)
+@app.cell
+def _(detect_onset, np):
+    _x = np.random.randn(200)/10
+    _x[11:41] = np.ones(30)*.3
+    _x[51:151] += np.hstack((np.linspace(0,1,50), np.linspace(1,0,50)))
+    _x[80:140:20] = 0
+    detect_onset(_x, .4, n_above=10, n_below=1, show=True)
+    return
 
 
 @app.cell(hide_code=True)
@@ -184,17 +172,15 @@ def _(mo):
     return
 
 
-app._unparsable_cell(
-    r"""
-    >>> x = np.random.randn(200)/10
-        >>> x[11:41] = np.ones(30)*.3
-        >>> x[51:151] += np.hstack((np.linspace(0,1,50), np.linspace(1,0,50)))
-        >>> x[80:140:20] = 0
-        >>> detect_onset(x, .1, n_above=10, n_below=1,
-                         threshold2=.4, n_above2=5, show=True)
-    """,
-    name="_"
-)
+@app.cell
+def _(detect_onset, np):
+    _x = np.random.randn(200)/10
+    _x[11:41] = np.ones(30)*.3
+    _x[51:151] += np.hstack((np.linspace(0,1,50), np.linspace(1,0,50)))
+    _x[80:140:20] = 0
+    detect_onset(_x, .1, n_above=10, n_below=1,
+                 threshold2=.4, n_above2=5, show=True)
+    return
 
 
 @app.cell(hide_code=True)

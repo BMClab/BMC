@@ -32,6 +32,8 @@ def _():
     import matplotlib.pyplot as plt
     import sys
     from tnorma import tnorma
+    if not hasattr(np, 'NaN'):  # tnorma 0.0.3 still uses np.NaN, removed in NumPy 2
+        np.NaN = np.nan
 
     return np, plt, tnorma
 
@@ -43,7 +45,7 @@ def _(np, plt):
     # Butterworth filter
     b, a = butter(1, (5/(100/2)), btype = 'low')
     N = 10
-    y = np.empty([120, N]) * np.NaN
+    y = np.empty([120, N]) * np.nan
     for i in range(N):
         t = np.arange(0, 100 + np.random.randint(-20, high=20)) / 100
         y[0: t.size, i] = 2*np.sin(2 * np.pi * t) + np.random.randn(t.size) / 2 + t.size / 20

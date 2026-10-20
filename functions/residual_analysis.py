@@ -120,7 +120,7 @@ def residual_analysis(y, freq=1, fclim=[], show=False, ax=None):
         # log of exponential turns the problem to first order polynomial fit
         # make the data always greater than zero before taking the logarithm
         reslog = np.log(np.abs(res[fc1:fc2 + 1] - res[fc2]) +
-                        1000 * np.finfo(np.float).eps)
+                        1000 * np.finfo(float).eps)
         Blog, Alog = np.polyfit(freqs[fc1:fc2 + 1], reslog, 1)
         fcini = np.nonzero(freqs >= -3 / Blog)  # 3 lifetimes
         fclim = [fcini[0][0], fc2] if np.size(fcini) else []

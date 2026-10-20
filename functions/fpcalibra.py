@@ -105,9 +105,9 @@ def fpcalibra(Lfp, Flc, COP, threshold=1e-10, method='SVD'):
     >>> 
     >>> C2, ang2 = fpcalibra(Lfp, Flc, COP)
     >>> 
-    >>> e = np.sqrt(np.sum(C2-C)**2)
+    >>> e = np.sqrt(np.sum((C2-C)**2))
     >>> print('Residual between simulated and optimal re-calibration matrices:', e)
-    >>> e = np.sqrt(np.sum(ang2-ang)**2)
+    >>> e = np.sqrt(np.sum((ang2-ang)**2))
     >>> print('Residual between simulated and optimal rotation angles:', e)
     """
 

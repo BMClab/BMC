@@ -220,7 +220,7 @@ def _(np):
         m_sd = (np.mean(x), np.std(x, ddof=1))
         ci = np.zeros((1, 2)) * np.nan
         if x.shape[0] > 1:
-            ci = stats.t._pdf(0.975, x.size - 1) * m_sd[1] / np.sqrt(x.size) * np.array([-1, 1]) + m_sd[0]
+            ci = stats.t.ppf(0.975, x.size - 1) * m_sd[1] / np.sqrt(x.size) * np.array([-1, 1]) + m_sd[0]
         min_max = (x.min(), x.max())
         quartiles = (np.median(x), np.percentile(x, 25), np.percentile(x, 75))
         normality = np.zeros((1, 2)) * np.nan

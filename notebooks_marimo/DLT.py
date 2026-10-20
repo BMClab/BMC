@@ -54,12 +54,14 @@ def _(mo):
     return
 
 
-app._unparsable_cell(
-    r"""
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ```bash
     pip install dltx
-    """,
-    name="_"
-)
+    ```
+    """)
+    return
 
 
 @app.cell(hide_code=True)
@@ -71,8 +73,13 @@ def _(mo):
 
 
 @app.cell
-def _():
-    from dltx import dlt_calibrate, dlt_reconstruct
+def _(dlt_calibrate_1, dlt_reconstruct_1):
+    try:
+        from dltx import dlt_calibrate, dlt_reconstruct
+    except ImportError:
+        # dltx is not installed: use the copy of its code in the cell below
+        print('dltx is not installed; using the copy of its code in this notebook.')
+        dlt_calibrate, dlt_reconstruct = dlt_calibrate_1, dlt_reconstruct_1
 
     # Define locations of 6 or more points in real world.
     world_positions = [
@@ -253,7 +260,7 @@ def _():
         x = x[0:n_dims, :].T
         return (Tr, x)
 
-    return
+    return dlt_calibrate_1, dlt_reconstruct_1
 
 
 @app.cell

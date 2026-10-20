@@ -111,12 +111,14 @@ def _(mo):
     return
 
 
-app._unparsable_cell(
-    r"""
-    !git --version
-    """,
-    name="_"
-)
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ```bash
+    git --version
+    ```
+    """)
+    return
 
 
 @app.cell(hide_code=True)
@@ -127,12 +129,14 @@ def _(mo):
     return
 
 
-app._unparsable_cell(
-    r"""
-    !git
-    """,
-    name="_"
-)
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ```bash
+    git
+    ```
+    """)
+    return
 
 
 @app.cell(hide_code=True)
@@ -146,13 +150,15 @@ def _(mo):
     return
 
 
-app._unparsable_cell(
-    r"""
-    !git config --global user.name \"your name here\"
-    !git config --global user.email \"your_email@example.com\"
-    """,
-    name="_"
-)
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ```bash
+    git config --global user.name "your name here"
+    git config --global user.email "your_email@example.com"
+    ```
+    """)
+    return
 
 
 @app.cell(hide_code=True)
@@ -173,12 +179,14 @@ def _(mo):
     return
 
 
-app._unparsable_cell(
-    r"""
-    !git init
-    """,
-    name="_"
-)
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ```bash
+    git init
+    ```
+    """)
+    return
 
 
 @app.cell(hide_code=True)
@@ -202,12 +210,14 @@ def _(mo):
     return
 
 
-app._unparsable_cell(
-    r"""
-    !git https://github.com/BMClab/BMC.git
-    """,
-    name="_"
-)
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ```bash
+    git clone https://github.com/BMClab/BMC.git
+    ```
+    """)
+    return
 
 
 @app.cell(hide_code=True)
@@ -218,12 +228,14 @@ def _(mo):
     return
 
 
-app._unparsable_cell(
-    r"""
-    !git clone git@github.com:BMClab/BMC.git
-    """,
-    name="_"
-)
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ```bash
+    git clone git@github.com:BMClab/BMC.git
+    ```
+    """)
+    return
 
 
 @app.cell(hide_code=True)
@@ -248,21 +260,33 @@ def _(mo):
     return
 
 
-@app.cell
-def _(DATA, GitHub, cd, mnt):
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ```bash
     cd /mnt/DATA/GitHub
+    ```
+    """)
     return
 
 
-@app.cell
-def _(pwd):
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ```bash
     pwd
+    ```
+    """)
     return
 
 
-@app.cell
-def _(ls):
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ```bash
     ls
+    ```
+    """)
     return
 
 
@@ -277,12 +301,14 @@ def _(mo):
     return
 
 
-app._unparsable_cell(
-    r"""
-    !git add README.md
-    """,
-    name="_"
-)
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ```bash
+    git add README.md
+    ```
+    """)
+    return
 
 
 @app.cell(hide_code=True)
@@ -296,12 +322,14 @@ def _(mo):
     return
 
 
-app._unparsable_cell(
-    r"""
-    !git commit -m \"Commit message\"
-    """,
-    name="_"
-)
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ```bash
+    git commit -m "Commit message"
+    ```
+    """)
+    return
 
 
 @app.cell(hide_code=True)
@@ -314,12 +342,14 @@ def _(mo):
     return
 
 
-app._unparsable_cell(
-    r"""
-    !git commit –a –m \"Commit message\"
-    """,
-    name="_"
-)
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ```bash
+    git commit -a -m "Commit message"
+    ```
+    """)
+    return
 
 
 @app.cell(hide_code=True)
@@ -342,12 +372,14 @@ def _(mo):
     return
 
 
-app._unparsable_cell(
-    r"""
-    !git push origin master
-    """,
-    name="_"
-)
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ```bash
+    git push origin master
+    ```
+    """)
+    return
 
 
 @app.cell(hide_code=True)
@@ -373,12 +405,14 @@ def _(mo):
     return
 
 
-app._unparsable_cell(
-    r"""
-    !git pull
-    """,
-    name="_"
-)
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ```bash
+    git pull
+    ```
+    """)
+    return
 
 
 @app.cell(hide_code=True)
@@ -405,20 +439,24 @@ def _(mo):
     return
 
 
-app._unparsable_cell(
-    r"""
-    !git rm -help
-    """,
-    name="_"
-)
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ```bash
+    git rm --help
+    ```
+    """)
+    return
 
 
-app._unparsable_cell(
-    r"""
-    !git rm <filename>
-    """,
-    name="_"
-)
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ```bash
+    git rm <filename>
+    ```
+    """)
+    return
 
 
 @app.cell(hide_code=True)
@@ -477,8 +515,8 @@ def _(mo):
     - `git add`: multipurpose command; track files, stage files, and mark merge conflicted files as resolved
     - `git diff`: compare working directory to staging area
     - `git diff --cached`: compare staged changes to last commit
-    - `git commit –m "message"`: commit everything in your staging area, uses inline commit message
-    - `git commit –a –m "message"`: automatically stage every currently tracked file and commits them (to skip “git add” command)
+    - `git commit -m "message"`: commit everything in your staging area, uses inline commit message
+    - `git commit -a -m "message"`: automatically stage every currently tracked file and commits them (to skip “git add” command)
     - `git rm [filename]`: untrack the file and remove it from your working directory
     - `git rm --cached [filename]`: untrack the file, but keeps it in your working directory - useful if you forgot to include certain files in your .gitignore
     - `git mv [orig_name] [new_name]`: change the file's name
@@ -535,48 +573,62 @@ def _(mo):
     return
 
 
-@app.cell
-def _():
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
     ## My workflow
+    """)
     return
 
 
-@app.cell
-def _(BMC, DATA, GitHub, cd, mnt):
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ```bash
     cd /mnt/DATA/GitHub/BMC
+    ```
+    """)
     return
 
 
-app._unparsable_cell(
-    r"""
-    !git pull
-    """,
-    name="_"
-)
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ```bash
+    git pull
+    ```
+    """)
+    return
 
 
-app._unparsable_cell(
-    r"""
-    !git add .
-    """,
-    name="_"
-)
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ```bash
+    git add .
+    ```
+    """)
+    return
 
 
-app._unparsable_cell(
-    r"""
-    !git commit -a -m \"comments\"
-    """,
-    name="_"
-)
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ```bash
+    git commit -a -m "comments"
+    ```
+    """)
+    return
 
 
-app._unparsable_cell(
-    r"""
-    !git push -u origin master
-    """,
-    name="_"
-)
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ```bash
+    git push -u origin master
+    ```
+    """)
+    return
 
 
 @app.cell(hide_code=True)

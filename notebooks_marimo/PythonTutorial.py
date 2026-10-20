@@ -85,9 +85,16 @@ def _(mo):
     return
 
 
-@app.cell
-def _(sqrt):
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ```python
     sqrt(9)
+    ```
+    ```
+    NameError: name 'sqrt' is not defined
+    ```
+    """)
     return
 
 
@@ -164,8 +171,11 @@ def _(mo):
 
 @app.cell
 def _():
-    from IPython import sys_info
-    print(sys_info())
+    try:
+        from IPython import sys_info
+        print(sys_info())
+    except ImportError:
+        print('IPython is not installed.')
     return
 
 
@@ -215,12 +225,14 @@ def _(mo):
     return
 
 
-app._unparsable_cell(
-    r"""
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ```python
     math.degrees?
-    """,
-    name="_"
-)
+    ```
+    """)
+    return
 
 
 @app.cell(hide_code=True)
@@ -233,13 +245,13 @@ def _(mo):
     return
 
 
-app._unparsable_cell(
-    r"""
+@app.cell
+def _():
     import scipy.fftpack
-    scipy.fftpack.fft??
-    """,
-    name="_"
-)
+    # scipy.fftpack.fft??  (IPython only); in plain Python, use inspect.getsource:
+    import inspect
+    print(inspect.getsource(scipy.fftpack.fft))
+    return (scipy,)
 
 
 @app.cell(hide_code=True)
@@ -468,8 +480,11 @@ def _(mo):
 
 
 @app.cell
-def _(z):
-    x_6 = z
+def _():
+    try:
+        x_6 = z
+    except NameError as _err:
+        print('NameError:', _err)
     return
 
 
@@ -644,12 +659,17 @@ def _(mo):
     return
 
 
-app._unparsable_cell(
-    r"""
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ```python
     'string (str) is a Python's built-in type'
-    """,
-    name="_"
-)
+    ```
+    ```
+    SyntaxError: unterminated string literal (detected at line 1)
+    ```
+    """)
+    return
 
 
 @app.cell
@@ -1564,14 +1584,18 @@ def _(mo):
 
 @app.cell
 def _():
-    f = open("newfile.txt", "w")           # open file for writing
+    import os
+    import tempfile
+    tmpdir = tempfile.mkdtemp()            # temporary folder for the example files
+    fname = os.path.join(tmpdir, "newfile.txt")
+    f = open(fname, "w")                   # open file for writing
     f.write("This is a test\n")            # save to file
     f.write("And here is another line\n")  # save to file
     f.close()
-    f = open('newfile.txt', 'r')           # open file for reading
+    f = open(fname, 'r')                   # open file for reading
     f = f.read()                           # read from file
     print(f)
-    return
+    return os, tmpdir
 
 
 @app.cell
@@ -1589,10 +1613,11 @@ def _(mo):
 
 
 @app.cell
-def _(np):
+def _(np, os, tmpdir):
     data = np.random.randn(3,3)
-    np.savetxt('myfile.txt', data, fmt="%12.6G")    # save to file
-    data = np.genfromtxt('myfile.txt', unpack=True) # read from file
+    _fname = os.path.join(tmpdir, 'myfile.txt')
+    np.savetxt(_fname, data, fmt="%12.6G")    # save to file
+    data = np.genfromtxt(_fname, unpack=True) # read from file
     data
     return
 
@@ -1605,10 +1630,15 @@ def _(mo):
     return
 
 
-@app.cell
-def _():
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ```python
+    # only on Google Colab
     from google.colab import drive
     drive.mount('/content/drive')
+    ```
+    """)
     return
 
 
@@ -1620,10 +1650,34 @@ def _(mo):
     return
 
 
+@app.function
+def repo_file(path):
+    """Local path of a file of the BMC repository, e.g. "data/walk.trc".
+
+    Where only the notebook is available (e.g., on molab), the file is
+    downloaded from GitHub to a temporary folder.
+    """
+    import tempfile
+    import urllib.request
+    from pathlib import Path
+
+    import marimo as mo
+
+    local = mo.notebook_dir() / ".." / path
+    if local.exists():
+        return local
+    cached = Path(tempfile.gettempdir()) / "BMC" / path
+    if not cached.exists():
+        cached.parent.mkdir(parents=True, exist_ok=True)
+        urllib.request.urlretrieve(f"https://raw.githubusercontent.com/BMClab/BMC/master/{path}", cached)
+    return cached
+
+
 @app.cell
 def _():
     import pandas as pd
-    tabela = pd.read_csv('/content/sample_data/california_housing_test.csv')
+    # on Google Colab: pd.read_csv('/content/sample_data/california_housing_test.csv')
+    tabela = pd.read_csv(repo_file('data/data.csv'), sep='\t')
     tabela
     return (pd,)
 
@@ -1802,11 +1856,10 @@ def _(mo):
 
 @app.cell
 def _():
-    from IPython.display import display
     import sympy as sym
     from sympy.interactive import printing
     printing.init_printing()
-    return display, sym
+    return (sym,)
 
 
 @app.cell(hide_code=True)
@@ -1900,17 +1953,16 @@ def _(mo):
 
 
 @app.cell
-def _(display):
-    from IPython.core.display import Math
+def _(mo):
     from sympy import symbols, cos, sin, Matrix, latex
     (a_4, b_4, g) = symbols('alpha beta gamma')
     RX = Matrix([[1, 0, 0], [0, cos(a_4), -sin(a_4)], [0, sin(a_4), cos(a_4)]])
-    display(Math('\\mathbf{R_{X}}=' + latex(RX, mat_str='matrix')))
+    mo.output.append(mo.md('$$\\mathbf{R_{X}}=' + latex(RX, mat_str='matrix') + '$$'))
     RY = Matrix([[cos(b_4), 0, sin(b_4)], [0, 1, 0], [-sin(b_4), 0, cos(b_4)]])
-    display(Math('\\mathbf{R_{Y}}=' + latex(RY, mat_str='matrix')))
+    mo.output.append(mo.md('$$\\mathbf{R_{Y}}=' + latex(RY, mat_str='matrix') + '$$'))
     RZ = Matrix([[cos(g), -sin(g), 0], [sin(g), cos(g), 0], [0, 0, 1]])
-    display(Math('\\mathbf{R_{Z}}=' + latex(RZ, mat_str='matrix')))
-    return Math, RX, RY, RZ, a_4, b_4, g, latex
+    mo.output.append(mo.md('$$\\mathbf{R_{Z}}=' + latex(RZ, mat_str='matrix') + '$$'))
+    return RX, RY, RZ, a_4, b_4, g, latex
 
 
 @app.cell(hide_code=True)
@@ -1922,9 +1974,9 @@ def _(mo):
 
 
 @app.cell
-def _(Math, RX, RY, RZ, display, latex):
+def _(RX, RY, RZ, latex, mo):
     RXYZ = RZ*RY*RX
-    display(Math(r'\mathbf{R_{XYZ}}=' + latex(RXYZ, mat_str = 'matrix')))
+    mo.output.append(mo.md(r'$$\mathbf{R_{XYZ}}=' + latex(RXYZ, mat_str = 'matrix') + '$$'))
     return (RXYZ,)
 
 
@@ -1952,8 +2004,8 @@ def _(mo):
 
 
 @app.cell
-def _(Math, display, latex, r):
-    display(Math(r'\mathbf{R_{(\alpha=\pi/2)}}=' + latex(r.n(3, chop=True), mat_str = 'matrix')))
+def _(latex, mo, r):
+    mo.output.append(mo.md(r'$$\mathbf{R_{(\alpha=\pi/2)}}=' + latex(r.n(3, chop=True), mat_str = 'matrix') + '$$'))
     return
 
 
@@ -2030,15 +2082,18 @@ def _(mo):
     return
 
 
-app._unparsable_cell(
-    r"""
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ```python
+    # only on Google Colab
     !pip install -q ipympl
     from google.colab import output
     output.enable_custom_widget_manager()
-    # '%matplotlib widget' command supported automatically in marimo
-    """,
-    name="_"
-)
+    %matplotlib widget
+    ```
+    """)
+    return
 
 
 @app.cell
@@ -2066,17 +2121,17 @@ def _(mo):
     return
 
 
-app._unparsable_cell(
-    r"""
-    !pip install -q ipywidgets
-    import ipywidgets
-    """,
-    name="_"
-)
+@app.cell
+def _(mo):
+    # ipywidgets.interact does not work in marimo; marimo UI elements do the same
+    A_slider = mo.ui.slider(0, 10, 0.5, value=5, label='A')
+    tau_slider = mo.ui.slider(1, 100, 1, value=50, label='tau')
+    mo.hstack([A_slider, tau_slider], justify='start')
+    return A_slider, tau_slider
 
 
 @app.cell
-def _(ipywidgets, np, plt):
+def _(A_slider, np, plt, tau_slider):
     def func(t, A, tau):
         """Saturating Exponential"""
         return A * (1 - np.exp(-t / tau))
@@ -2088,12 +2143,13 @@ def _(ipywidgets, np, plt):
     t_5 = np.linspace(0, 300, 101)
     V = func(t_5, 5, 50)
 
-    @ipywidgets.interact(A=(0, 10, 0.5), tau=(1, 100, 1))
     def update(A=5, tau=50):
         """Remove old lines from plot and plot new one"""
         [l.remove() for l in ax.lines]
         ax.plot(t_5, func(t_5, A, tau), color='r', lw=3)
 
+    update(A=A_slider.value, tau=tau_slider.value)
+    plt.show()
     return
 
 

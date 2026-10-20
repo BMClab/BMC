@@ -122,22 +122,22 @@ def tnorm(y, axis=0, step=1, k=3, smooth=0, mask=None, nan_at_ext='delete',
     >>> # Deal with missing data (use NaN as mask)
     >>> x = np.linspace(-3, 3, 100)
     >>> y = np.exp(-x**2) + np.random.randn(100)/10
-    >>> y[:10] = np.NaN # first ten points are missing
-    >>> y[30: 41] = np.NaN # make other 10 missing points
+    >>> y[:10] = np.nan # first ten points are missing
+    >>> y[30: 41] = np.nan # make other 10 missing points
     >>> yn, tn, indie = tnorm(y, step=-50, k=3, smooth=1, show=True)
 
     >>> # Deal with missing data at the extremities replacing by first/last not-NaN
     >>> x = np.linspace(-3, 3, 100)
     >>> y = np.exp(-x**2) + np.random.randn(100)/10
-    >>> y[0:10] = np.NaN # first ten points are missing
-    >>> y[-10:] = np.NaN # last ten points are missing
+    >>> y[0:10] = np.nan # first ten points are missing
+    >>> y[-10:] = np.nan # last ten points are missing
     >>> yn, tn, indie = tnorm(y, step=-50, k=3, smooth=1, nan_at_ext='replace', show=True)
 
     >>> # Deal with missing data at the extremities replacing by first/last not-NaN
     >>> x = np.linspace(-3, 3, 100)
     >>> y = np.exp(-x**2) + np.random.randn(100)/10
-    >>> y[0:10] = np.NaN # first ten points are missing
-    >>> y[-10:] = np.NaN # last ten points are missing
+    >>> y[0:10] = np.nan # first ten points are missing
+    >>> y[-10:] = np.nan # last ten points are missing
     >>> yn, tn, indie = tnorm(y, step=-50, k=1, smooth=0, nan_at_ext='replace', show=True)
 
     >>> # Deal with 2-D array
@@ -163,7 +163,7 @@ def tnorm(y, axis=0, step=1, k=3, smooth=0, mask=None, nan_at_ext='delete',
         y = np.reshape(y, (-1, 1))
     # turn mask into NaN
     if mask is not None:
-        y[y == mask] = np.NaN
+        y[y == mask] = np.nan
 
     iini = 0
     iend = y.shape[0]-1
@@ -209,7 +209,7 @@ def tnorm(y, axis=0, step=1, k=3, smooth=0, mask=None, nan_at_ext='delete',
         tn = np.linspace(0, 100, int(np.round(100 / step + 1)))
     else:
         tn = np.linspace(0, 100, -step)
-    yn = np.empty([tn.size, y.shape[1]]) * np.NaN
+    yn = np.empty([tn.size, y.shape[1]]) * np.nan
     for col in np.arange(y.shape[1]):
         # ignore NaNs inside data for the interpolation
         ind = np.isfinite(y[:, col])

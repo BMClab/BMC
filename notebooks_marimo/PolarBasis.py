@@ -240,7 +240,7 @@ def _(np):
 @app.cell
 def _(np, r):
     e_r = r/np.linalg.norm(r, axis=1, keepdims=True) # defines e_r vector
-    e_theta = np.cross([0,0,1],e_r)[:,0:-1] # defines e_theta vector
+    e_theta = np.cross([0,0,1], np.pad(e_r, ((0, 0), (0, 1))))[:,0:-1] # defines e_theta vector (e_r padded with z=0)
     return e_r, e_theta
 
 

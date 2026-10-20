@@ -241,7 +241,7 @@ def read_anc(fname, show_msg=True):
             "ch_ranges": header[10],
         }
         h["ch_names"] = h["ch_names"][1:-1]
-        h["ch_ranges"] = np.asarray(h["ch_ranges"][1:-1], dtype=np.float)
+        h["ch_ranges"] = np.asarray(h["ch_ranges"][1:-1], dtype=float)
         # analog data
         data = pd.read_csv(
             f,
@@ -308,20 +308,20 @@ def read_cal(fname, show_msg=True):
             # number of rows for Kistler or AMTI/Bertec force plate
             n = 8 if row[0][-1] == "K" else 6
             # scale (inverse of the gain)
-            scale_size = np.array(next(reader)).astype(np.float)
+            scale_size = np.array(next(reader)).astype(float)
             scale.append(scale_size[0])
             # force plate length (cm) and width (cm)
             size.append(scale_size[1:])
             # calibration matrix (the inverse sensitivity matrix)
             matrix = [next(reader) for x in range(n)]
-            cal_matrix.append(np.array(matrix).astype(np.float))
+            cal_matrix.append(np.array(matrix).astype(float))
             # true origin in relation to the geometric center (cm)
-            origin.append(np.array(next(reader)).astype(np.float))
+            origin.append(np.array(next(reader)).astype(float))
             # geometric center in relation to LCS origin (cm)
-            center.append(np.array(next(reader)).astype(np.float))
+            center.append(np.array(next(reader)).astype(float))
             # 3 x 3 orientation matrix
             orienta = [next(reader) for x in range(3)]
-            orientation.append(np.array(orienta).astype(np.float))
+            orientation.append(np.array(orienta).astype(float))
 
         forcepla = {
             "fp": fp,

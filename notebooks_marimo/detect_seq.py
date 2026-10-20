@@ -10,7 +10,7 @@ def _(mo):
     # Detect indices of sequential data identical to a value
 
     > Marcos Duarte<br>
-    > [Laboratory of Biomechanics and Motor Control](http://demotu.org/](http://demotu.org/)<br>
+    > [Laboratory of Biomechanics and Motor Control](http://demotu.org/)<br>
     > Federal University of ABC, Brazil
     """)
     return
