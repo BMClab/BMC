@@ -229,12 +229,12 @@ def _(plt, r, rcm, rcm_foot, rcm_leg, rcm_thigh):
           overhang=.5, fc="b", ec="b", lw=2, length_includes_head=True)
     plt.arrow(0, 0, rcm_thigh[0], rcm_thigh[1], head_width=0.02, overhang=.5, fc="g", ec="g",
               lw=2, length_includes_head=True)
-    plt.text(0.30, .5, '$\mathbf{r}_{thigh,p}$', rotation=38, fontsize=16)
-    plt.text(0.77, .85, '$bsp_{thigh,cmp}*(\mathbf{r}_{i,d}-\mathbf{r}_{i,p})$',
+    plt.text(0.30, .5, r'$\mathbf{r}_{thigh,p}$', rotation=38, fontsize=16)
+    plt.text(0.77, .85, r'$bsp_{thigh,cmp}*(\mathbf{r}_{i,d}-\mathbf{r}_{i,p})$',
              fontsize=16, color='b')
     plt.text(0.15, .05,
-             '$\mathbf{r}_{thigh,cm}=\mathbf{r}_{i,p}+bsp_{i,cmp}*' +
-             '(\mathbf{r}_{i,d}-\mathbf{r}_{i,p})$',
+             r'$\mathbf{r}_{thigh,cm}=\mathbf{r}_{i,p}+bsp_{i,cmp}*' +
+             r'(\mathbf{r}_{i,d}-\mathbf{r}_{i,p})$',
              rotation=25, fontsize=16, color='g')
     hax.set_xlim(0,1.1)
     hax.set_ylim(0,1.05)
