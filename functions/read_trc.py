@@ -1,9 +1,9 @@
 """Read and write Cortex Motion Analysis Corporation ASCII related files.
 
-    Read .trc file:
-      read_trc(fname, fname2, units, dropna, na, fmt, show_msg)
-    Write .trc file
-      write_trc(fname, header, df, show_msg)
+Read .trc file:
+  read_trc(fname, fname2, units, dropna, na, fmt, show_msg)
+Write .trc file
+  write_trc(fname, header, df, show_msg)
 
 """
 
@@ -11,14 +11,16 @@ __author__ = "Marcos Duarte, https://github.com/demotu/"
 __version__ = "0.0.2"
 __license__ = "MIT"
 
-import os
 import csv
+import os
+
 import numpy as np
 import pandas as pd
 
 
-def read_trc(fname, fname2='', units='', dropna=False, na=0.0, fmt='multi',
-             show_msg=True):
+def read_trc(
+    fname, fname2="", units="", dropna=False, na=0.0, fmt="multi", show_msg=True
+):
     """Read .trc file format from Cortex MAC.
 
     This function: 1. Read trc file; 2. Can delete or replace markers (columns)
@@ -92,72 +94,83 @@ def read_trc(fname, fname2='', units='', dropna=False, na=0.0, fmt='multi',
 
     """
 
-    with open(file=fname, mode='rt', encoding='utf-8', newline='') as f:
+    with open(file=fname, mode="rt", encoding="utf-8", newline="") as f:
         if show_msg:
-            print('Opening file "{}" ... '.format(fname), end='')
+            print(f'Opening file "{fname}" ... ', end="")
         # get header information
-        read = csv.reader(f, delimiter='\t')
+        read = csv.reader(f, delimiter="\t")
         header = [next(read) for x in range(5)]
         # actual number of markers
-        nmarkers = int((len(header[3])-2)/3)
+        nmarkers = int((len(header[3]) - 2) / 3)
         # column labels
-        markers = np.asarray(header[3])[np.arange(2, 2+3*nmarkers, 3)].tolist()
+        markers = np.asarray(header[3])[np.arange(2, 2 + 3 * nmarkers, 3)].tolist()
         # find marker duplicates if they exist and add suffix to the duplicate markers:
         if len(markers) != len(set(markers)):
             from collections import Counter
-            d = {a:[''] + list(range(2, b+1)) if b > 1 else '' for a, b in Counter(markers).items()}
+
+            d = {
+                a: [""] + list(range(2, b + 1)) if b > 1 else ""
+                for a, b in Counter(markers).items()
+            }
             markers = [i + str(d[i].pop(0)) if len(d[i]) else i for i in markers]
         markers3 = [m for m in markers for i in range(3)]
         # XYZ order
         XYZ = [i[0] for i in header[4][2:5]]
         xyz = [i[0].lower() for i in header[4][2:5]]
-        #XYZ = header[0][2].strip('()').split('/')
-        #xyz = header[0][2].strip('()').lower().split('/')
-        markersxyz = [a+b for a, b in zip(markers3, xyz*nmarkers)]
+        # XYZ = header[0][2].strip('()').split('/')
+        # xyz = header[0][2].strip('()').lower().split('/')
+        markersxyz = [a + b for a, b in zip(markers3, xyz * nmarkers)]
         # read data
         # 6th line of the file is usually blank; pd.read_csv handles that.
-        df = pd.read_csv(f, sep='\t', names=['Frame#', 'Time'] + markersxyz,
-                         index_col=False, encoding='utf-8', engine='c',
-                         skip_blank_lines=True)
+        df = pd.read_csv(
+            f,
+            sep="\t",
+            names=["Frame#", "Time"] + markersxyz,
+            index_col=False,
+            encoding="utf-8",
+            engine="c",
+            skip_blank_lines=True,
+        )
         # drop markers with no data (column has NaN only)
         if dropna:
-            df.dropna(axis=1, how='all', inplace=True)
+            df.dropna(axis=1, how="all", inplace=True)
         elif na is not None:
             for col in df:
                 if df.loc[:, col].isnull().sum() == df.shape[0]:
                     df.loc[:, col] = na
         # update header
-        nmarkers = int((df.shape[1]-2)/3)
+        nmarkers = int((df.shape[1] - 2) / 3)
         if header[2][3] != str(nmarkers):
             if show_msg:
-                print(' Number of markers changed from {} to {}.'
-                      .format(header[2][3], nmarkers))
+                print(f" Number of markers changed from {header[2][3]} to {nmarkers}.")
             header[2][3] = str(nmarkers)
-        header[3] = ['' if c[-1] in ['y', 'z'] else c[:-1] if c[-1] in ['x']
-                     else c for c in df.columns.values.tolist()] + ['']
-        markers = np.asarray(header[3])[np.arange(2, 2+3*nmarkers, 3)].tolist()
-        n3 = np.repeat(range(1, nmarkers+1), 3).tolist()
-        XYZs = [a+str(b) for a, b in zip(XYZ*nmarkers, n3)]
-        header[4] = ['', ''] + XYZs
-        if units == 'm':
-            if header[2][4] == 'mm':
-                df.iloc[:, 2:] = df.iloc[:, 2:]/1000
-                header[2][4] = 'm'
+        header[3] = [
+            "" if c[-1] in ["y", "z"] else c[:-1] if c[-1] in ["x"] else c
+            for c in df.columns.values.tolist()
+        ] + [""]
+        markers = np.asarray(header[3])[np.arange(2, 2 + 3 * nmarkers, 3)].tolist()
+        n3 = np.repeat(range(1, nmarkers + 1), 3).tolist()
+        XYZs = [a + str(b) for a, b in zip(XYZ * nmarkers, n3)]
+        header[4] = ["", ""] + XYZs
+        if units == "m":
+            if header[2][4] == "mm":
+                df.iloc[:, 2:] = df.iloc[:, 2:] / 1000
+                header[2][4] = "m"
                 if show_msg:
-                    print(' Units changed from {} to {}'.format('"mm"', '"m"'))
-        elif units == 'mm':
-            if header[2][4] == 'm':
-                df.iloc[:, 2:] = df.iloc[:, 2:]*1000
-                header[2][4] = 'mm'
+                    print(" Units changed from {} to {}".format('"mm"', '"m"'))
+        elif units == "mm":
+            if header[2][4] == "m":
+                df.iloc[:, 2:] = df.iloc[:, 2:] * 1000
+                header[2][4] = "mm"
                 if show_msg:
-                    print(' Units changed from {} to {}'.format('"m"', '"mm"'))
+                    print(" Units changed from {} to {}".format('"m"', '"mm"'))
 
         if show_msg:
-            print('done.')
+            print("done.")
 
     # save file
     if fname2:
-        if fname2 == '=':
+        if fname2 == "=":
             fname2 = fname
         elif len(fname2) <= 3:
             name, extension = os.path.splitext(fname)
@@ -166,45 +179,50 @@ def read_trc(fname, fname2='', units='', dropna=False, na=0.0, fmt='multi',
         write_trc(fname2, header, df, show_msg)
 
     # outputs
-    h = {'header': header,
-         'data_rate': float(header[2][0]),
-         'camera_rate': float(header[2][1]),
-         'nframes': int(header[2][2]),
-         'nmarkers': int(header[2][3]),
-         'markers': markers,
-         'xyz': XYZs,
-         'units': header[2][4],
-         'fname': fname,
-         'fname2': fname2}
-    if fmt.lower() == 'uni':  # dataframe with uni labels
+    h = {
+        "header": header,
+        "data_rate": float(header[2][0]),
+        "camera_rate": float(header[2][1]),
+        "nframes": int(header[2][2]),
+        "nmarkers": int(header[2][3]),
+        "markers": markers,
+        "xyz": XYZs,
+        "units": header[2][4],
+        "fname": fname,
+        "fname2": fname2,
+    }
+    if fmt.lower() == "uni":  # dataframe with uni labels
         return h, df
-    elif fmt.lower() == 'multi':  # dataframe with multiple labels
-        df.drop(labels='Frame#', axis=1, inplace=True)
-        df.set_index('Time', inplace=True)
-        df.index.name = 'Time'
-        cols = [s[:-1] for s in df.columns.str.replace(r'.', r'_', regex=True)]
-        df.columns = [cols, XYZ*int(df.shape[1]/3), XYZs]
-        df.columns.set_names(names=['Marker', 'Coordinate', 'XYZ'],
-                             level=[0, 1, 2], inplace=True)
+    elif fmt.lower() == "multi":  # dataframe with multiple labels
+        df.drop(labels="Frame#", axis=1, inplace=True)
+        df.set_index("Time", inplace=True)
+        df.index.name = "Time"
+        cols = [s[:-1] for s in df.columns.str.replace(".", "_", regex=False)]
+        df.columns = [cols, XYZ * int(df.shape[1] / 3), XYZs]
+        df.columns.set_names(
+            names=["Marker", "Coordinate", "XYZ"], level=[0, 1, 2], inplace=True
+        )
         return h, df
     else:
         import xarray as xr
 
-        name = 'Position data'
-        dims = ['time', 'marker', 'component']
+        name = "Position data"
+        dims = ["time", "marker", "component"]
         time = df.values[:, 1]
         component = XYZ
         coords = [time, markers, component]  # pages, rows, columns
-        #h.pop('header')
-        da = xr.DataArray(data=df.values[:, 2:].reshape(-1, nmarkers, 3, order='C'),
-                          dims=dims,
-                          coords=coords,
-                          name=name,
-                          attrs=h)
+        # h.pop('header')
+        da = xr.DataArray(
+            data=df.values[:, 2:].reshape(-1, nmarkers, 3, order="C"),
+            dims=dims,
+            coords=coords,
+            name=name,
+            attrs=h,
+        )
         # xarray uses the coordinate name along with metadata attrs.long_name,
         #  attrs.standard_name, DataArray.name, and attrs.units to label axes.
-        da['time'].attrs['units'] = 's'
-        da['component'].attrs['units'] = h['units']
+        da["time"].attrs["units"] = "s"
+        da["component"].attrs["units"] = h["units"]
         return da
 
 
@@ -226,14 +244,22 @@ def write_trc(fname, header, df, show_msg=True):
         (True) or not (False).
     """
 
-    with open(file=fname, mode='wt', encoding='utf-8', newline='') as f:
+    with open(file=fname, mode="wt", encoding="utf-8", newline="") as f:
         if show_msg:
-            print('Saving file "{}" ... '.format(fname), end='')
-        for line in header:
-            f.write('\t'.join(line) + '\n')
-        f.write('\n')  # blank line
+            print(f'Saving file "{fname}" ... ', end="")
+        f.writelines("\t".join(line) + "\n" for line in header)
+        f.write("\n")  # blank line
 
-        df.to_csv(f, header=None, index=None, sep='\t',
-                  line_terminator='\t\n', float_format='%.6f')
+        # Every data line ends with a tab. Recent versions of Python's csv
+        # module reject a line terminator that contains the delimiter ("\t\n"),
+        # so the tab is added after writing the (purely numeric) data.
+        data = df.to_csv(
+            header=None,
+            index=None,
+            sep="\t",
+            lineterminator="\n",
+            float_format="%.6f",
+        )
+        f.write(data.replace("\n", "\t\n"))
         if show_msg:
-            print('done.')
+            print("done.")
