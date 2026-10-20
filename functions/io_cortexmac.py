@@ -429,17 +429,18 @@ def read_forces(fname, time=True, forcepla=[], mm2m=True, show_msg=True):
 def read_mot(fname, show_msg=True):
     """Read .mot file format from OpenSim.
 
-    The .mot file in ASCII contains force plate data in the dataframe df.
+    Reads the OpenSim header written by `write_mot`, and also the older SIMM
+    header ("datacolumns 19", "datarows 1260", "range 0 2.797778").
 
-    Example of .mot file structure:
+    Example of .mot file structure (OpenSim format):
 
-    name /Users/data.mot
-    datacolumns 19
-    datarows 1260
-    range 0 2.797778e+00
+    walk_grf.mot
+    version=1
+    nRows=1260
+    nColumns=19
+    inDegrees=no
     endheader
-
-    time R_ground_force_vx R_ground_force_vy R_ground_force_vz R_ground_force_px ...
+    time	R_ground_force_vx	R_ground_force_vy	R_ground_force_vz ...
     ...
 
     Parameters
@@ -453,49 +454,44 @@ def read_mot(fname, show_msg=True):
     Returns
     -------
     h : Python dictionary
-        .mot header information
-        keys: name, datacolumns, datarows, range
+        .mot header information: the name (first line of the file) and the
+        header fields, e.g., version, nRows, nColumns (including the time
+        column) and inDegrees (bool) for the OpenSim format, or datacolumns,
+        datarows and range for the SIMM format.
     df : pandas dataframe
-        force plate data with shape (datarows, datacolumns)
+        data with the column labels of the file and time as index
 
     """
-    # column names of the .mot dataframe
-    cols = [
-        "time",
-        "R_ground_force_vx",
-        "R_ground_force_vy",
-        "R_ground_force_vz",
-        "R_ground_force_px",
-        "R_ground_force_py",
-        "R_ground_force_pz",
-        "L_ground_force_vx",
-        "L_ground_force_vy",
-        "L_ground_force_vz",
-        "L_ground_force_px",
-        "L_ground_force_py",
-        "L_ground_force_pz",
-        "R_ground_torque_x",
-        "R_ground_torque_y",
-        "R_ground_torque_z",
-        "L_ground_torque_x",
-        "L_ground_torque_y",
-        "L_ground_torque_z",
-    ]
+    int_keys = {"version", "nRows", "nColumns", "datacolumns", "datarows"}
 
     with open(file=fname, mode="rt", encoding="utf-8", newline="") as f:
         if show_msg:
             print(f'Opening file "{fname}" ... ', end="")
-        # get header information
-        read = csv.reader(f, delimiter="\t")
-        header = [next(read) for x in range(4)]
-        h = {
-            "name": header[0][0],
-            "datacolumns": int(header[1][0].split("=")[1]),
-            "datarows": int(header[2][0].split("=")[1]),
-            "range": float(header[3][0].split("=")[1]),
-        }
-        # force plate data
-        df = pd.read_csv(f, sep="\t", names=cols, index_col=0, engine="c")
+        # the first line is the name; the header ends with "endheader"
+        name = f.readline().strip()
+        h = {"name": name[5:].strip() if name.startswith("name ") else name}
+        for line in f:
+            line = line.strip()
+            if line == "endheader":
+                break
+            if not line:
+                continue
+            key, value = line.split("=", 1) if "=" in line else line.split(None, 1)
+            key, value = key.strip(), value.strip()
+            if key in int_keys:
+                value = int(value)
+            elif key == "inDegrees":
+                value = value.lower() == "yes"
+            elif key == "range":
+                value = [float(v) for v in value.split()]
+            h[key] = value
+        # data, with the column labels in the first line after the header
+        df = pd.read_csv(f, sep="\t", index_col=0, skipinitialspace=True, engine="c")
+        # trailing tabs create empty, unnamed columns
+        empty = [
+            c for c in df.columns if str(c).startswith("Unnamed") and df[c].isna().all()
+        ]
+        df = df.drop(columns=empty)
         if show_msg:
             print("done.")
 
@@ -870,36 +866,43 @@ def write_forces(fname, header, df, scale=1, show_msg=True):
             print("done.")
 
 
-def write_mot(fname, df, show_msg=True):
-    """Write .mot file format from Cortex MAC.
+def write_mot(fname, df, show_msg=True, in_degrees=False):
+    """Write .mot file in the OpenSim format.
 
-    See the read_trc.py function.
+    The header has the name of the file, the format version, the numbers of
+    rows and columns (including the time column), whether angles are in
+    degrees, and "endheader"; the column labels follow, starting with time.
+    See the read_mot function.
 
     Parameters
     ----------
     fname : string
-        Full file name of the .forces file to be saved.
-    header : list of lists
-        header for the .trc file
+        Full file name of the .mot file to be saved.
+    df : pandas dataframe
+        data for the .mot file, with time as index
     show_msg : bool (default = True)
         Whether to print messages about the execution of the intermediary steps
         (True) or not (False).
+    in_degrees : bool (default = False)
+        Whether angles in the data are in degrees (True) or radians (False);
+        written to the header as inDegrees=yes or no.
     """
     with open(file=fname, mode="wt", encoding="utf-8", newline="") as f:
         if show_msg:
             print(f'Saving file "{fname}" ... ', end="")
 
-        f.write(f"name {os.path.abspath(fname)}\n")
-        f.write(f"datacolumns {df.shape[1] + 1}\n")
-        f.write(f"datarows {df.shape[0]}\n")
-        f.write(f"range {df.index.values[0]} {df.index.values[-1]}\n")
+        f.write(f"{os.path.basename(fname)}\n")
+        f.write("version=1\n")
+        f.write(f"nRows={df.shape[0]}\n")
+        f.write(f"nColumns={df.shape[1] + 1}\n")
+        f.write(f"inDegrees={'yes' if in_degrees else 'no'}\n")
         f.write("endheader\n")
-        f.write("\n")
 
         df.to_csv(
             f,
             header=df.columns.values,
             index=True,
+            index_label="time",
             sep="\t",
             lineterminator="\n",
             float_format="%.6f",
