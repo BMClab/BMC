@@ -98,12 +98,12 @@
     },
     {
       "id": "SFPL",
-      "code_hash": "8d2f97fa2e04b612c8b2ef6298715a31",
+      "code_hash": "4ef1d32bc62c8eee57215625a687b308",
       "outputs": [
         {
           "type": "data",
           "data": {
-            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\">To solve this differential equation numerically, we must obtain the expression of the angular accelerations. We can perform this by multiplying both sides by the inverse of the matrix<marimo-tex class=\"arithmatex\">||(M||)</marimo-tex>.</span>\n<span class=\"paragraph\"><span class=\"notranslate\"><marimo-tex class=\"arithmatex\">||(\\left[\\begin{array}{c}\\frac{d^2\\theta_1}{dt^2}\\\\\\frac{d^2\\theta_2}{dt^2} \\end{array}\\right] = \\left[\\begin{array}{cc}\\frac{m_1l_1^2}{3} +m_2l_1^2&amp;\\frac{m_2l_1l_2}{2} \\cos(\\theta_1-\\theta_2)\\\\\\frac{m_2l_1l_2}{2}\\cos(\\theta_1-\\theta_2)&amp;\\frac{m_2l_2^2}{3}\\end{array}\\right]^{-1}\\cdot\\left(\\left[\\begin{array}{c}- \\frac{m_2l_1l_2}{2}\\left(\\frac{d\\theta_2}{dt}\\right)^2 \\sin(\\theta_1-\\theta_2)\\\\ \\frac{m_2l_1l_2}{2}\\left(\\frac{d\\theta_1}{dt}\\right)^2 \\sin(\\theta_1-\\theta_2)\\end{array}\\right] + \\left[\\begin{array}{c}-\\frac{m_1gl_1}{2}\\sin(\\theta_1)- m_2l_1g \\sin(\\theta_1)\\\\ -\\frac{m_2gl_2}{2}\\sin(\\theta_2) \\end{array}\\right] + \\left[\\begin{array}{c} M_1 - M_{12}\\\\M_{12} \\end{array}\\right]\\right)||)</marimo-tex></span></span></span>"
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\">To solve this differential equation numerically, we must obtain the expression of the angular accelerations. We can perform this by multiplying both sides by the inverse of the matrix <marimo-tex class=\"arithmatex\">||(M||)</marimo-tex>.</span>\n<marimo-tex class=\"arithmatex\">||[\n\\left[\\begin{array}{c}\\frac{d^2\\theta_1}{dt^2}\\\\\\frac{d^2\\theta_2}{dt^2} \\end{array}\\right] = \\left[\\begin{array}{cc}\\frac{m_1l_1^2}{3} +m_2l_1^2&amp;\\frac{m_2l_1l_2}{2} \\cos(\\theta_1-\\theta_2)\\\\\\frac{m_2l_1l_2}{2}\\cos(\\theta_1-\\theta_2)&amp;\\frac{m_2l_2^2}{3}\\end{array}\\right]^{-1}\\cdot\\left(\\left[\\begin{array}{c}- \\frac{m_2l_1l_2}{2}\\left(\\frac{d\\theta_2}{dt}\\right)^2 \\sin(\\theta_1-\\theta_2)\\\\ \\frac{m_2l_1l_2}{2}\\left(\\frac{d\\theta_1}{dt}\\right)^2 \\sin(\\theta_1-\\theta_2)\\end{array}\\right] + \\left[\\begin{array}{c}-\\frac{m_1gl_1}{2}\\sin(\\theta_1)- m_2l_1g \\sin(\\theta_1)\\\\ -\\frac{m_2gl_2}{2}\\sin(\\theta_2) \\end{array}\\right] + \\left[\\begin{array}{c} M_1 - M_{12}\\\\M_{12} \\end{array}\\right]\\right)\n||]</marimo-tex></span>"
           }
         }
       ],

@@ -61,17 +61,20 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    Naturally, we could describe all the kinematic variables in the fixed reference frame. But in circular motions, is convenient to define a basis with a vector in the direction of the position vector <span class="notranslate">$\bf\vec{r}$</span>. So, the vector <span class="notranslate">$\bf\hat{e_R}$</span> is defined as:
+    Naturally, we could describe all the kinematic variables in the fixed reference frame. But in circular motions, is convenient to define a basis with a vector in the direction of the position vector  $\bf\vec{r}$. So, the vector  $\bf\hat{e_R}$ is defined as:
 
-    <span class="notranslate">${\bf\hat{e_R}} =  \frac{\bf\vec{r}}{\Vert{\bf\vec{r} }\Vert}$</span>
+    $$
+    {\bf\hat{e_R}} =  \frac{\bf\vec{r}}{\Vert{\bf\vec{r} }\Vert}
+    $$
 
-    The second vector of the basis can be obtained by the cross multiplication between <span class="notranslate">$\bf\hat{k}$</span> and <span class="notranslate">$\bf\hat{e_R}$</span>:
+    The second vector of the basis can be obtained by the cross multiplication between $\bf\hat{k}$ and $\bf\hat{e_R}$:
     <br><br>
 
-    <span class="notranslate">${\bf\hat{e_\theta}} = {\bf\hat{k}} \times {\bf\hat{e_R}}$</span>
+    $$
+    {\bf\hat{e_\theta}} = {\bf\hat{k}} \times {\bf\hat{e_R}}
+    $$
 
-
-    The third vector of the basis is the conventional${\bf\hat{k}}$vector.
+    The third vector of the basis is the conventional ${\bf\hat{k}}$ vector.
 
     <figure><img src="https://github.com/BMClab/BMC/blob/master/images/polarCoorderetheta.png?raw=1" width=500/><figcaption><center><i>Figure. Position vector of a particle moving in a circular path and a time-varying basis></figure>
     """)
@@ -96,28 +99,36 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## Time-derivative of the versors${\bf\hat{e_R}}$and${\bf\hat{e_\theta}}$To obtain the expressions of the velocity and acceleration vectors, it is necessary to obtain the expressions of the time-derivative of the vectors <span class="notranslate">${\bf\hat{e_R}}$</span> and <span class="notranslate">${\bf\hat{e_\theta}}$</span>.
+    ## Time-derivative of the versors ${\bf\hat{e_R}}$ and ${\bf\hat{e_\theta}}$
+
+    To obtain the expressions of the velocity and acceleration vectors, it is necessary to obtain the expressions of the time-derivative of the vectors ${\bf\hat{e_R}}$ and ${\bf\hat{e_\theta}}$.
 
     This can be done by noting that:
     <br>
     <br>
-    <span class="notranslate">
-    \begin{align}
+
+    $$
+    \begin{aligned}
     {\bf\hat{e_R}} &= \cos(\theta){\bf\hat{i}} + \sin(\theta){\bf\hat{j}}\\
     {\bf\hat{e_\theta}} &= -\sin(\theta){\bf\hat{i}} + \cos(\theta){\bf\hat{j}}
-    \label{eq_5}
-    \end{align}
-    </span>
+    \end{aligned}
+    $$
 
-    Deriving <span class="notranslate">${\bf\hat{e_R}}$</span> we obtain:
+    Deriving ${\bf\hat{e_R}}$ we obtain:
     <br>
     <br>
-    <span class="notranslate">$\frac{d{\bf\hat{e_R}}}{dt} = -\sin(\theta)\dot\theta{\bf\hat{i}} + \cos(\theta)\dot\theta{\bf\hat{j}} = \dot{\theta}{\bf\hat{e_\theta}}$</span>
 
-    Similarly, we obtain the time-derivative of <span class="notranslate">${\bf\hat{e_\theta}}$</span>:
+    $$
+    \frac{d{\bf\hat{e_R}}}{dt} = -\sin(\theta)\dot\theta{\bf\hat{i}} + \cos(\theta)\dot\theta{\bf\hat{j}} = \dot{\theta}{\bf\hat{e_\theta}}
+    $$
+
+    Similarly, we obtain the time-derivative of ${\bf\hat{e_\theta}}$:
     <br>
     <br>
-    <span class="notranslate">$\frac{d{\bf\hat{e_\theta}}}{dt} = -\cos(\theta)\dot\theta{\bf\hat{i}} - \sin(\theta)\dot\theta{\bf\hat{j}} = -\dot{\theta}{\bf\hat{e_R}}$</span>
+
+    $$
+    \frac{d{\bf\hat{e_\theta}}}{dt} = -\cos(\theta)\dot\theta{\bf\hat{i}} - \sin(\theta)\dot\theta{\bf\hat{j}} = -\dot{\theta}{\bf\hat{e_R}}
+    $$
     """)
     return
 
@@ -163,29 +174,29 @@ def _(mo):
     mo.md(r"""
     ### Acceleration
 
-    The acceleration vector <span class="notranslate">$\bf\vec{a}$</span> is obtained by deriving the velocity vector:
+    The acceleration vector $\bf\vec{a}$ is obtained by deriving the velocity vector:
     <br>
     <br>
-    <span class="notranslate">
-    \begin{align}
+
+    $$
+    \begin{aligned}
     {\bf\vec{a}} =& \frac{d(\dot{R}{\bf\hat{e_R}}+R\dot{\theta}{\bf\hat{e_\theta}}+\dot{z}{\bf\hat{k}})}{dt}=\\\nonumber
         =&\ddot{R}{\bf\hat{e_R}}+\dot{R}\frac{d\bf\hat{e_R}}{dt} + \dot{R}\dot{\theta}{\bf\hat{e_\theta}} + R\ddot{\theta}{\bf\hat{e_\theta}} + R\dot{\theta}\frac{d{\bf\hat{e_\theta}}}{dt} + \ddot{z}{\bf\hat{k}}=\\\nonumber
         =&\ddot{R}{\bf\hat{e_R}}+\dot{R}\dot{\theta}{\bf\hat{e_\theta}} + \dot{R}\dot{\theta}{\bf\hat{e_\theta}} + R\ddot{\theta}{\bf\hat{e_\theta}} - R\dot{\theta}^2{\bf\hat{e_R}}+ \ddot{z}{\bf\hat{k}} =\\
         =&\ddot{R}{\bf\hat{e_R}}+2\dot{R}\dot{\theta}{\bf\hat{e_\theta}}+ R\ddot{\theta}{\bf\hat{e_\theta}} - {R}\dot{\theta}^2{\bf\hat{e_R}}+ \ddot{z}{\bf\hat{k}} =\\\nonumber
         =&(\ddot{R}-R\dot{\theta}^2){\bf\hat{e_R}}+(2\dot{R}\dot{\theta} + R\ddot{\theta}){\bf\hat{e_\theta}}+ \ddot{z}{\bf\hat{k}}\nonumber
-    \label{eq_10}
-    \end{align}
-    </span>
+    \end{aligned}
+    $$
 
-    + The term <span class="notranslate">$\ddot{R}$</span> is  an acceleration in the radial direction.
+    + The term $\ddot{R}$ is  an acceleration in the radial direction.
 
-    + The term <span class="notranslate">$R\ddot{\theta}$</span> is an angular acceleration.
+    + The term $R\ddot{\theta}$ is an angular acceleration.
 
-    + The term <span class="notranslate">$\ddot{z}$</span> is an acceleration in the$\bf\hat{k}$direction.
+    + The term $\ddot{z}$ is an acceleration in the $\bf\hat{k}$ direction.
 
-    + The term <span class="notranslate">$-R\dot{\theta}^2$</span> is the well known centripetal acceleration.
+    + The term $-R\dot{\theta}^2$ is the well known centripetal acceleration.
 
-    + The term <span class="notranslate">$2\dot{R}\dot{\theta}$</span> is known as Coriolis acceleration. This term may be difficult to understand intuitively. It appears when there is displacement in the radial and angular directions at the same time.
+    + The term $2\dot{R}\dot{\theta}$ is known as Coriolis acceleration. This term may be difficult to understand intuitively. It appears when there is displacement in the radial and angular directions at the same time.
     """)
     return
 
@@ -270,7 +281,7 @@ def _(R, Rddot, Rdot, e_r, e_theta, thetaDot, thetaddot):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    The versors <span class="notranslate">$\bf\hat{e_R}$,$\bf\hat{e_\theta}$</span> are plotted below at some points of the path.
+    The versors $\bf\hat{e_R}$, $\bf\hat{e_\theta}$ are plotted below at some points of the path.
     """)
     return
 
@@ -522,7 +533,9 @@ def _(mo):
     No livro do Ruina, quando tem um asterisco no problema, significa que uma solução (sem dedução) é apresentada no final do livro (neste caso, p. 1203).<br>
     Neste caso tem apenas a solução para o plot 2:
 
-     a)$\quad \vec{v} = \dfrac{\dot{\theta}}{b}\hat{e}_r+\dfrac{\theta\dot{\theta}}{b}\hat{e}_t$b)$\quad x=r\cos(br) \quad$e$\quad y=r\sin(br) \quad$ou$\quad x=\dfrac{\theta}{b}\cos(\theta) \quad$e$\quad y=\dfrac{\theta}{b}\sin(\theta)$
+     a) $\quad \vec{v} = \dfrac{\dot{\theta}}{b}\hat{e}_r+\dfrac{\theta\dot{\theta}}{b}\hat{e}_t$
+
+     b) $\quad x=r\cos(br) \quad$ e $\quad y=r\sin(br) \quad$ ou $\quad x=\dfrac{\theta}{b}\cos(\theta) \quad$ e $\quad y=\dfrac{\theta}{b}\sin(\theta)$
     """)
     return
 
@@ -532,17 +545,33 @@ def _(mo):
     mo.md(r"""
     Dedução para plot 2, que por curiosidade é conhecida como [espiral de Arquimedes](https://en.wikipedia.org/wiki/Archimedean_spiral):
 
-    Velocidade da partícula em termos de$b, \theta, \dot{\theta}$:
+    Velocidade da partícula em termos de $b, \theta, \dot{\theta}$:
 
-    Do enunciado sabe-se que$\theta=br$, que é uma expressão para a magnitude das grandezas, e pede-se a velocidade, que é uma grandeza vetorial.<br>
-    Então não podemos simplesmente calcular a derivada da expressão para$r$, temos que expressar a velocidade num referencial, que neste caso o mais simples é um referencial polar.
+    Do enunciado sabe-se que $\theta=br$, que é uma expressão para a magnitude das grandezas, e pede-se a velocidade, que é uma grandeza vetorial.<br>
+    Então não podemos simplesmente calcular a derivada da expressão para $r$, temos que expressar a velocidade num referencial, que neste caso o mais simples é um referencial polar.
 
-    Do notebook [Polar and Cylindrical Frame of Reference](https://nbviewer.org/github/BMClab/bmc/blob/master/notebooks/PolarBasis.ipynb), sabe-se que a expressão para velocidade em um referencial polar é:$\vec{v}=\dot{r}\hat{e}_r+r\dot{\theta}{\hat{e}_\theta}$Como$r=\frac{\theta}{b}$, é necessário calcular a derivada de$r$e colocá-la na expressão acima (no notebook, a base tangencial é referida pelo subscrito '$\theta$' e o livro do Ruina usa '$t$', mas é a mesma coisa:$\dot{r}=\frac{\dot{\theta}}{b}$, então:$\vec{v}=\dfrac{\dot{\theta}}{b}\hat{e}_r+\dfrac{\theta\dot{\theta}}{b}\hat{e}_t$*A maior dificuldade desta parte é lembrar a expressão para a velocidade em termos do referencial polar ou cilíndrico.*
+    Do notebook [Polar and Cylindrical Frame of Reference](https://nbviewer.org/github/BMClab/bmc/blob/master/notebooks/PolarBasis.ipynb), sabe-se que a expressão para velocidade em um referencial polar é:
 
-    Expressões para as coordenadas$x$e$y$:
+    $$
+    \vec{v}=\dot{r}\hat{e}_r+r\dot{\theta}{\hat{e}_\theta}
+    $$
 
-    No enunciado do problema é mostrado um sistema de coordenadas cartesiano,$x$na horizontal e$y$na vertical.<br>
-    Do enunciado sabe-se que$\theta=br$, então por simples trigonometria:$x = r\cos(br) \quad$e$\quad y = r\sin(br) \quad$ou$x=\dfrac{\theta}{b}\cos(\theta) \quad$e$\quad y=\dfrac{\theta}{b}\sin(\theta)$
+    Como $r=\frac{\theta}{b}$, é necessário calcular a derivada de $r$ e colocá-la na expressão acima (no notebook, a base tangencial é referida pelo subscrito '$\theta$' e o livro do Ruina usa '$t$', mas é a mesma coisa:
+
+    $\dot{r}=\frac{\dot{\theta}}{b}$, então:
+
+    $\vec{v}=\dfrac{\dot{\theta}}{b}\hat{e}_r+\dfrac{\theta\dot{\theta}}{b}\hat{e}_t$
+
+    *A maior dificuldade desta parte é lembrar a expressão para a velocidade em termos do referencial polar ou cilíndrico.*
+
+    Expressões para as coordenadas $x$ e $y$:
+
+    No enunciado do problema é mostrado um sistema de coordenadas cartesiano, $x$ na horizontal e $y$ na vertical.<br>
+    Do enunciado sabe-se que $\theta=br$, então por simples trigonometria:
+
+    $x = r\cos(br) \quad$ e $\quad y = r\sin(br) \quad$ ou
+
+    $x=\dfrac{\theta}{b}\cos(\theta) \quad$ e $\quad y=\dfrac{\theta}{b}\sin(\theta)$
     """)
     return
 
@@ -552,9 +581,15 @@ def _(mo):
     mo.md(r"""
     Dedução para plot 1, que por curiosidade é conhecida como [espiral de Lituus](https://en.wikipedia.org/wiki/Lituus_(mathematics)):
 
-    Agora$\quad r=\dfrac{b}{\sqrt{\theta}}$Repetindo-se os passos da dedução para o plot 2, chega-se na solução:
+    Agora $\quad r=\dfrac{b}{\sqrt{\theta}}$
 
-     a)$\quad \vec{v} = -\dfrac{b\dot{\theta}}{2\theta^{3/2}}\hat{e}_r+\dfrac{b\dot{\theta}}{\sqrt{\theta}}\hat{e}_t$b)$\quad x=r\cos(\dfrac{b^2}{r^2}) \quad$e$\quad y=r\sin(\dfrac{b^2}{r^2}) \quad$ou$\quad x=\dfrac{b}{\sqrt{\theta}}\cos(\theta) \quad$e$\quad y=\dfrac{b}{\sqrt{\theta}}\sin(\theta)$*Talvez agora a maior dificuldade é lembrar de como se calcula a derivada temporal de$r=\dfrac{b}{\sqrt{\theta}}$. Lembre que quem depende do tempo é$\theta$, então é necessário usar a regra da cadeia (como foi feito para o plot 2).*
+    Repetindo-se os passos da dedução para o plot 2, chega-se na solução:
+
+     a) $\quad \vec{v} = -\dfrac{b\dot{\theta}}{2\theta^{3/2}}\hat{e}_r+\dfrac{b\dot{\theta}}{\sqrt{\theta}}\hat{e}_t$
+
+     b) $\quad x=r\cos(\dfrac{b^2}{r^2}) \quad$ e $\quad y=r\sin(\dfrac{b^2}{r^2}) \quad$ ou $\quad x=\dfrac{b}{\sqrt{\theta}}\cos(\theta) \quad$ e $\quad y=\dfrac{b}{\sqrt{\theta}}\sin(\theta)$
+
+    *Talvez agora a maior dificuldade é lembrar de como se calcula a derivada temporal de $r=\dfrac{b}{\sqrt{\theta}}$. Lembre que quem depende do tempo é $\theta$, então é necessário usar a regra da cadeia (como foi feito para o plot 2).*
     """)
     return
 

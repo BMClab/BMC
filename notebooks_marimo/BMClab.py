@@ -108,10 +108,10 @@ def _(mo):
     mo.md(r"""
     ## [BMClab](https://bmclab.pesquisa.ufabc.edu.br/) infrastructure
 
-    180-m$^2$laboratory organized in spaces for:
-    - Data collection with motion capture system, force plates, etc.
-    - Data analysis with several computers
-    - Subject preparation and evaluation
+    180-m$^2$ laboratory organized in spaces for:<br>
+    - Data collection with motion capture system, force plates, etc.<br>
+    - Data analysis with several computers<br>
+    - Subject preparation and evaluation<br>
     - Machine and electronics assembly
     """)
     return

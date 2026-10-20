@@ -1983,7 +1983,7 @@ def _(RX, RY, RZ, latex, mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    Suppose there is a rotation only around X ($\alpha$) by$\pi/2$; we can get the numerical value of the rotation matrix by substituing the angle values:
+    Suppose there is a rotation only around X ($\alpha$) by $\pi/2$; we can get the numerical value of the rotation matrix by substituing the angle values:
     """)
     return
 

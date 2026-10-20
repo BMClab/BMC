@@ -160,7 +160,7 @@ def _(mo):
     mo.md(r"""
     #### Free-body diagram
 
-    The free-body diagram of the bar is depicted below. At the point where the bar is connected to the wall, there is a force$\vec{F_1}$constraining the translation movement of the point O and a moment$\vec{M}$constraining the rotation of the bar.
+    The free-body diagram of the bar is depicted below. At the point where the bar is connected to the wall, there is a force $\vec{F_1}$ constraining the translation movement of the point O and a moment $\vec{M}$ constraining the rotation of the bar.
 
     <figure><img src="https://github.com/BMClab/BMC/blob/master/images/bar1FBD.png?raw=1" width=250 /></figure>
     """)
@@ -215,8 +215,7 @@ def _(mo):
     mo.md(r"""
     ### Rotating ball with drag force
 
-
-    A **basketball** has a mass **$\bf{m = 0.63}$kg** and radius equal$\bf{R = 12}$**cm**. A basketball player shots the ball from the free-throw line (**4.6 m from the basket**) with a **speed of 9.5 m/s**, **angle of 51 degrees with the court**, **height of 2 m** and **angular velocity of 42 rad/s**. At the ball is acting a **drag force**$\bf{b_l = 0.5}$**N.s/m** proportional to the modulus of the ball velocity in the opposite direction of the velocity and a **drag moment**$\bf{b_r = 0.001}$**N.m.s**, proportional and in the opposite direction of the angular velocity of the ball. Consider the moment of inertia of the ball as$\bf{I_{zz}^{cm} = \frac{2mR^2}{3}}$.
+    A **basketball** has a mass **$\bf{m = 0.63}$ kg** and radius equal $\bf{R = 12}$ **cm**. A basketball player shots the ball from the free-throw line (**4.6 m from the basket**) with a **speed of 9.5 m/s**, **angle of 51 degrees with the court**, **height of 2 m** and **angular velocity of 42 rad/s**. At the ball is acting a **drag force** $\bf{b_l = 0.5}$ **N.s/m** proportional to the modulus of the ball velocity in the opposite direction of the velocity and a **drag moment** $\bf{b_r = 0.001}$ **N.m.s**, proportional and in the opposite direction of the angular velocity of the ball. Consider the moment of inertia of the ball as $\bf{I_{zz}^{cm} = \frac{2mR^2}{3}}$.
     """)
     return
 
@@ -286,7 +285,11 @@ def _(mo):
     mo.md(r"""
     #### Numerical solution of the equations
 
-    To solve these equations numerically, we can split each of these equations in first-order equations and the use a numerical method to integrate them. The first-order equations we be written in a matrix form, considering the moment of inertia of the ball as <span class="notranslate">$I_{zz}^{C}=\frac{2mR^2}{3}$:$\left[\begin{array}{c}\frac{d\omega}{dt}\\\frac{dv_x}{dt}\\\frac{dv_y}{dt}\\\frac{d\theta}{dt}\\\frac{dx}{dt}\\\frac{dy}{dt} \end{array}\right] = \left[\begin{array}{c}- \frac{3b_r}{2mR^2}\omega\\- \frac{b_l}{m}v_x\\-g - \frac{b_l}{m}v_y\\\omega\\v_x\\v_y\end{array}\right]$</span>
+    To solve these equations numerically, we can split each of these equations in first-order equations and the use a numerical method to integrate them. The first-order equations we be written in a matrix form, considering the moment of inertia of the ball as  $I_{zz}^{C}=\frac{2mR^2}{3}$:
+
+    $$
+    \left[\begin{array}{c}\frac{d\omega}{dt}\\\frac{dv_x}{dt}\\\frac{dv_y}{dt}\\\frac{d\theta}{dt}\\\frac{dx}{dt}\\\frac{dy}{dt} \end{array}\right] = \left[\begin{array}{c}- \frac{3b_r}{2mR^2}\omega\\- \frac{b_l}{m}v_x\\-g - \frac{b_l}{m}v_y\\\omega\\v_x\\v_y\end{array}\right]
+    $$
 
     Below, the equations were solved numerically by using the Euler method (for a revision on numerical methods to solve ordinary differential equations, [see this notebook](OrdinaryDifferentialEquation.ipynb)).
     """)
@@ -373,7 +376,7 @@ def _(mo):
     mo.md(r"""
     #### Free-body diagram
 
-    Below is the free-body diagram of the bar. On the center of mass of the bar is acting the gravitational force. On the point O, where there is a hinge, a force$\vec{\bf{F_1}}$restrains the point to translate. As the hinge does not constrains a rotational movement of the bar, there is no moment applied by the hinge.
+    Below is the free-body diagram of the bar. On the center of mass of the bar is acting the gravitational force. On the point O, where there is a hinge, a force $\vec{\bf{F_1}}$ restrains the point to translate. As the hinge does not constrains a rotational movement of the bar, there is no moment applied by the hinge.
 
     <figure><img src="https://github.com/BMClab/BMC/blob/master/images/pendulumFBD.png?raw=1" width=300 alt="Pendulum FBD"/></figure>
     """)
@@ -437,7 +440,11 @@ def _(mo):
     mo.md(r"""
     #### Sum of the moments
 
-    So, the moment around the point O:$\vec{M_O} = \vec{r_{cm/O}} \times (-mg\hat{\bf{j}}) = \left(\frac{l}{2}\sin{\theta}\hat{\bf{i}}-\frac{l}{2}\cos{\theta}\hat{\bf{j}}\right) \times (-mg\hat{\bf{j}}) = \frac{-mgl}{2}\sin{\theta}\hat{\bf{k}}$
+    So, the moment around the point O:
+
+    $$
+    \vec{M_O} = \vec{r_{cm/O}} \times (-mg\hat{\bf{j}}) = \left(\frac{l}{2}\sin{\theta}\hat{\bf{i}}-\frac{l}{2}\cos{\theta}\hat{\bf{j}}\right) \times (-mg\hat{\bf{j}}) = \frac{-mgl}{2}\sin{\theta}\hat{\bf{k}}
+    $$
     """)
     return
 
@@ -449,11 +456,13 @@ def _(mo):
 
     And the derivative of the angular momentum is:
 
-    <span class="notranslate">$\begin{array}{l l}
+    $$
+    \begin{array}{l l}
     \frac{d\vec{H_O}}{dt} &=& I_{zz}^{cm} \frac{d^2\theta}{dt^2}\hat{\bf{k}}  + m \frac{l}{2}(\sin{\theta}\hat{\bf{i}}-\cos{\theta}\hat{\bf{j}}) \times \left[ \frac{l}{2}(-\sin{\theta}\hat{\bf{i}}+\cos{\theta}\hat{\bf{j}})\left(\frac{d\theta}{dt}\right)^2 + \frac{l}{2}(\cos{\theta}\hat{\bf{i}}+\sin{\theta}\hat{\bf{j}})\frac{d^2\theta}{dt^2}    \right] \\
     &=& I_{zz}^{cm} \frac{d^2\theta}{dt^2}\hat{\bf{k}}  + m \frac{l^2}{4}\frac{d^2\theta}{dt^2} \hat{\bf{k}}  \\
     &=& \left(I_{zz}^{cm} + \frac{ml^2}{4}\right)\frac{d^2\theta}{dt^2} \hat{\bf{k}}
-    \end{array}$</span>
+    \end{array}
+    $$
     """)
     return
 
@@ -479,7 +488,7 @@ def _(mo):
     mo.md(r"""
     ### Inverted Pendulum
 
-    At this example we analyze the inverted pendulum. It consists of a bar with **length**$\bf{l}$with its lowest extremity linked to a hinge.
+    At this example we analyze the inverted pendulum. It consists of a bar with **length** $\bf{l}$ with its lowest extremity linked to a hinge.
 
     <figure><img src="https://github.com/BMClab/BMC/blob/master/images/invertedPendulum.png?raw=1" width=350 alt="Inverted Pendulum"/></figure>
     """)
@@ -568,14 +577,15 @@ def _(mo):
     mo.md(r"""
     #### Derivative of the angular momentum
 
-
     And the derivative of the angular momentum is:
 
-    <span class="notranslate">$\begin{array}{l l}
+    $$
+    \begin{array}{l l}
     \frac{d\vec{H_O}}{dt} &=& I_{zz}^{cm} \frac{d^2\theta}{dt^2} \hat{\bf{k}} + m \left(-\frac{l}{2}\sin{\theta}\hat{\bf{i}}+\frac{l}{2}\cos{\theta}\hat{\bf{j}}\right) \times \left[\frac{l}{2}(\sin{\theta}\hat{\bf{i}}-\cos{\theta}\hat{\bf{j}})\left(\frac{d\theta}{dt}\right)^2 - \frac{l}{2}(\cos{\theta}\hat{\bf{i}}+\sin{\theta}\hat{\bf{j}})\frac{d^2\theta}{dt^2}\right] \\
     &=& I_{zz}^{cm} \frac{d^2\theta}{dt^2} \hat{\bf{k}} + m \frac{l^2}{4}\frac{d^2\theta}{dt^2}\hat{\bf{k}} \\
     &=& \left(I_{zz}^{cm} + \frac{ml^2}{4}\right)\frac{d^2\theta}{dt^2}\hat{\bf{k}}
-    \end{array}$</span>
+    \end{array}
+    $$
     """)
     return
 
@@ -616,9 +626,9 @@ def _(mo):
     mo.md(r"""
     #### Free-body diagram
 
-    Below is depicted the free-body diagram of the foot and the rest of the body. At the ankle joint there is a constraint to the translation of the ankle joint. So, a force$\vec{\bf{F_1}}$is applied to the body at the ankle joint. By the third Newton law, a force$-\vec{\bf{F_1}}$is applied to the foot at the ankle joint. At the center of mass of the body and of the foot, gravitational forces are applied. Additionally, a ground reaction force is applied to the foot at the center of pressure of the forces applied at the foot.
+    Below is depicted the free-body diagram of the foot and the rest of the body. At the ankle joint there is a constraint to the translation of the ankle joint. So, a force $\vec{\bf{F_1}}$ is applied to the body at the ankle joint. By the third Newton law, a force  $-\vec{\bf{F_1}}$ is applied to the foot at the ankle joint. At the center of mass of the body and of the foot, gravitational forces are applied. Additionally, a ground reaction force is applied to the foot at the center of pressure of the forces applied at the foot.
 
-    Additionally, a moment <span class="notranslate">$\vec{T_A}$</span> is applied at the body and its reaction is applied to the foot. This moment <span class="notranslate">$\vec{T_A}$</span> comes from the muscles around the ankle joint. It is usual in Biomechanics to represent the net torque generated by all the muscles on a single joint as a single moment applied to the body.
+    Additionally, a moment $\vec{T_A}$ is applied at the body and its reaction is applied to the foot. This moment $\vec{T_A}$ comes from the muscles around the ankle joint. It is usual in Biomechanics to represent the net torque generated by all the muscles on a single joint as a single moment applied to the body.
 
     <figure><img src="https://github.com/BMClab/BMC/blob/master/images/quietStandingFBD.png?raw=1" width=300 /></figure>
     """)
@@ -684,11 +694,13 @@ def _(mo):
     mo.md(r"""
     ### Derivative of the angular momentum
 
-    <span class="notranslate">$\begin{array}{l l}
+    $$
+    \begin{array}{l l}
     \frac{d\vec{H_A}}{dt} &=& I_{zz}^{cm}\frac{d^2\theta_A}{dt^2} \hat{\bf{k}} + mh_G\hat{\bf{e_r}} \times \left(-h_G\left(\frac{d^2\theta_A}{dt^2}\right)^2\hat{\bf{e_r}} + h_G\frac{d^2\theta_A}{dt^2}\hat{\bf{e_\theta}}\right) \\
     &=& I_{zz}^{cm}\frac{d^2\theta_A}{dt^2}\hat{\bf{k}} + mh_G^2\frac{d^2\theta_A}{dt^2}\hat{\bf{k}} \\
     &=& \left(I_{zz}^{cm} + mh_G^2\right)\frac{d^2\theta_A}{dt^2}\hat{\bf{k}}
-    \end{array}$</span>
+    \end{array}
+    $$
     """)
     return
 
@@ -718,7 +730,7 @@ def _(mo):
     mo.md(r"""
     ### Force platform (position of the center of pressure)
 
-    From the same example above, now we will find the position of the center of pressure ($COP_x$) during the quiet standing. The$COP_x$is the point where the ground reaction force is being applied. The point O is linked to the ground in a way that it constraints the translation and rotation movement of the platform and is located at known distance$y_0$below the ground. Also, it is in the point O that sensors of force and moments are located.
+    From the same example above, now we will find the position of the center of pressure ($COP_x$) during the quiet standing. The $COP_x$ is the point where the ground reaction force is being applied. The point O is linked to the ground in a way that it constraints the translation and rotation movement of the platform and is located at known distance $y_0$ below the ground. Also, it is in the point O that sensors of force and moments are located.
 
     <br>
     <figure><img src="https://github.com/BMClab/BMC/blob/master/images/forcePlatform2DS.png?raw=1" width=250 /></figure>
@@ -763,8 +775,8 @@ def _(mo):
     mo.md(r"""
     ### Standing dummy (from Ruina and Pratap book)
 
-    A standing dummy is modeled as having massless rigid circular feet of radius$R$rigidly attached to their
-    uniform rigid body of length <span class="notranslate">$L$</span> and mass <span class="notranslate">$m$</span>. The feet do not slip on the floor.
+    A standing dummy is modeled as having massless rigid circular feet of radius $R$ rigidly attached to their
+    uniform rigid body of length $L$ and mass $m$. The feet do not slip on the floor.
 
     <figure><img src="https://github.com/BMClab/BMC/blob/master/images/rocker.png?raw=1" width=450 /></figure>
     """)
@@ -790,21 +802,33 @@ def _(mo):
 
     Using the versors:
 
-    <span class="notranslate">$\hat{\bf{e_r}} = -\sin(\theta_A)\hat{\bf{i}} + \cos(\theta_A)\hat{\bf{j}}$</span>
+    $$
+    \hat{\bf{e_r}} = -\sin(\theta_A)\hat{\bf{i}} + \cos(\theta_A)\hat{\bf{j}}
+    $$
 
-    <span class="notranslate">$\hat{\bf{e_\theta}} = -\cos(\theta_A)\hat{\bf{i}} - \sin(\theta_A)\hat{\bf{j}}$</span>
+    $$
+    \hat{\bf{e_\theta}} = -\cos(\theta_A)\hat{\bf{i}} - \sin(\theta_A)\hat{\bf{j}}
+    $$
 
     The vector from the point C to the center of mass is:
 
-    <span class="notranslate">$\vec{r_{cm/C}} = R\hat{\bf{j}} + \left(\frac{L}{2} - R \right)\hat{\bf{e_r}}$</span>
+    $$
+    \vec{r_{cm/C}} = R\hat{\bf{j}} + \left(\frac{L}{2} - R \right)\hat{\bf{e_r}}
+    $$
 
-    The position of the center of mass, relative to the origin is different from$\vec{r_{cm/C}}$. We can consider the origin of the system as the point of contact with the ground when the standing dummy is at the vertical position.
+    The position of the center of mass, relative to the origin is different from $\vec{r_{cm/C}}$. We can consider the origin of the system as the point of contact with the ground when the standing dummy is at the vertical position.
 
-    <span class="notranslate">$\vec{r_{cm}} = -R\theta\hat{\bf{i}} + R\hat{\bf{j}} + \left(\frac{L}{2} - R \right)\hat{\bf{e_r}}$</span>
+    $$
+    \vec{r_{cm}} = -R\theta\hat{\bf{i}} + R\hat{\bf{j}} + \left(\frac{L}{2} - R \right)\hat{\bf{e_r}}
+    $$
 
-    <span class="notranslate">$\vec{v_{cm}} = -R\dot{\theta}\hat{\bf{i}} + \left(\frac{L}{2} - R \right)\dot{\theta}\hat{\bf{e_\theta}}$</span>
+    $$
+    \vec{v_{cm}} = -R\dot{\theta}\hat{\bf{i}} + \left(\frac{L}{2} - R \right)\dot{\theta}\hat{\bf{e_\theta}}
+    $$
 
-    <span class="notranslate">$\vec{a_{cm}} = -R\ddot{\theta}\hat{\bf{i}} + \left(\frac{L}{2} - R \right)\ddot{\theta}\hat{\bf{e_\theta}} - \left(\frac{L}{2} - R \right)\dot{\theta}^2\hat{\bf{e_r}}$</span>
+    $$
+    \vec{a_{cm}} = -R\ddot{\theta}\hat{\bf{i}} + \left(\frac{L}{2} - R \right)\ddot{\theta}\hat{\bf{e_\theta}} - \left(\frac{L}{2} - R \right)\dot{\theta}^2\hat{\bf{e_r}}
+    $$
     """)
     return
 
@@ -829,20 +853,30 @@ def _(mo):
     mo.md(r"""
     #### Derivative of the angular momentum
 
-    <span class="notranslate">$\begin{array}{l l}
+    $$
+    \begin{array}{l l}
     \dfrac{d\vec{H_C}}{dt} &=& I_{zz}^{cm}\ddot{\theta} \hat{\bf{k}} + m\vec{\bf{r_{cm/C}}} \times \vec{\bf{a_{cm}}} \\
     &=& \left[mR\hat{\bf{j}} + m\left(\frac{L}{2} - R \right)\hat{\bf{e_r}}\right] \times \left[-R\ddot{\theta}\hat{\bf{i}} + \left(\frac{L}{2} - R \right)\ddot{\theta}\hat{\bf{e_\theta}} - \left(\frac{L}{2} - R \right)\dot{\theta}^2\hat{\bf{e_r}}\right]
-    \end{array}$</span>
+    \end{array}
+    $$
 
-    <span class="notranslate">$\frac{d\vec{H_C}}{dt} = \left(I_{zz}^{cm}\ddot{\theta} + mR^2\ddot{\theta} + mR\left(\frac{L}{2} - mR \right)\ddot{\theta}\cos{\theta} - mR\left(\frac{L}{2} - mR \right)\dot{\theta}^2\sin{\theta} + mR\ddot{\theta}\left(\frac{L}{2} - R \right)\cos{\theta}+m\left(\frac{L}{2} - R \right)^2\ddot{\theta}\right)\hat{\bf{k}} = \left(I_{zz}^{cm}\ddot{\theta}+mR^2\ddot{\theta} + 2mR\left(\frac{L}{2} - R \right)\ddot{\theta}\cos{\theta} - mR\left(\frac{L}{2} - R \right)\dot{\theta}^2\sin{\theta} + m\left(\frac{L}{2} - R \right)^2\ddot{\theta}\right)\hat{\bf{k}} = \left(I_{zz}^{cm}\ddot{\theta} + mR^2\ddot{\theta} + m\left(RL - 2R^2 \right)\ddot{\theta}\cos{\theta} - m\left(\frac{RL}{2} - R^2 \right)\dot{\theta}^2\sin{\theta} + m\left(\frac{L^2}{4} - LR + R^2 \right)\ddot{\theta}\right)\hat{\bf{k}}$</span>
+    $$
+    \frac{d\vec{H_C}}{dt} = \left(I_{zz}^{cm}\ddot{\theta} + mR^2\ddot{\theta} + mR\left(\frac{L}{2} - mR \right)\ddot{\theta}\cos{\theta} - mR\left(\frac{L}{2} - mR \right)\dot{\theta}^2\sin{\theta} + mR\ddot{\theta}\left(\frac{L}{2} - R \right)\cos{\theta}+m\left(\frac{L}{2} - R \right)^2\ddot{\theta}\right)\hat{\bf{k}} = \left(I_{zz}^{cm}\ddot{\theta}+mR^2\ddot{\theta} + 2mR\left(\frac{L}{2} - R \right)\ddot{\theta}\cos{\theta} - mR\left(\frac{L}{2} - R \right)\dot{\theta}^2\sin{\theta} + m\left(\frac{L}{2} - R \right)^2\ddot{\theta}\right)\hat{\bf{k}} = \left(I_{zz}^{cm}\ddot{\theta} + mR^2\ddot{\theta} + m\left(RL - 2R^2 \right)\ddot{\theta}\cos{\theta} - m\left(\frac{RL}{2} - R^2 \right)\dot{\theta}^2\sin{\theta} + m\left(\frac{L^2}{4} - LR + R^2 \right)\ddot{\theta}\right)\hat{\bf{k}}
+    $$
 
-    <span class="notranslate">$\frac{d\vec{H_C}}{dt} = \left(I_{zz}^{cm}+2mR^2 + mRL\cos{\theta} - 2mR^2\cos{\theta} + m\frac{L^2}{4}-mLR\right)\ddot{\theta} - m\left(\frac{RL}{2} - R^2 \right)\dot{\theta}^2\sin{\theta}$</span>
+    $$
+    \frac{d\vec{H_C}}{dt} = \left(I_{zz}^{cm}+2mR^2 + mRL\cos{\theta} - 2mR^2\cos{\theta} + m\frac{L^2}{4}-mLR\right)\ddot{\theta} - m\left(\frac{RL}{2} - R^2 \right)\dot{\theta}^2\sin{\theta}
+    $$
 
-    Considering the moment of inertia of the bar as <span class="notranslate">$I_{zz}^{cm} = \frac{mL^2}{12}$</span>:
+    Considering the moment of inertia of the bar as $I_{zz}^{cm} = \frac{mL^2}{12}$:
 
-    <span class="notranslate">$\frac{d\vec{H_C}}{dt} = \left(\frac{mL^2}{12}+2mR^2 + mRL\cos{\theta} - 2mR^2\cos{\theta} + \frac{mL^2}{4}-mLR\right)\ddot{\theta} - m\left(\frac{RL}{2} - R^2 \right)\dot{\theta}^2\sin{\theta}$</span>
+    $$
+    \frac{d\vec{H_C}}{dt} = \left(\frac{mL^2}{12}+2mR^2 + mRL\cos{\theta} - 2mR^2\cos{\theta} + \frac{mL^2}{4}-mLR\right)\ddot{\theta} - m\left(\frac{RL}{2} - R^2 \right)\dot{\theta}^2\sin{\theta}
+    $$
 
-    <span class="notranslate">$\frac{d\vec{H_C}}{dt} = \left(\frac{mL^2}{3}+(2mR^2- mRL)(1-\cos{\theta})\right)\ddot{\theta} - m\left(\frac{RL}{2} - R^2 \right)\dot{\theta}^2\sin{\theta}$</span>
+    $$
+    \frac{d\vec{H_C}}{dt} = \left(\frac{mL^2}{3}+(2mR^2- mRL)(1-\cos{\theta})\right)\ddot{\theta} - m\left(\frac{RL}{2} - R^2 \right)\dot{\theta}^2\sin{\theta}
+    $$
     """)
     return
 
@@ -892,15 +926,23 @@ def _(mo):
     mo.md(r"""
     #### Definition of versors
 
-    The versors <span class="notranslate">$\hat{\bf{e_{R_1}}}$,$\hat{\bf{e_{R_2}}}$,$\hat{\bf{e_{\theta_1}}}$</span> and <span class="notranslate">$\hat{\bf{e_{\theta_2}}}$</span> are defined as:
+    The versors $\hat{\bf{e_{R_1}}}$, $\hat{\bf{e_{R_2}}}$, $\hat{\bf{e_{\theta_1}}}$ and $\hat{\bf{e_{\theta_2}}}$ are defined as:
 
-    <span class="notranslate">$\hat{\bf{e_{R_1}}} = \sin(\theta_1) \hat{\bf{i}} - \cos(\theta_1) \hat{\bf{j}}$</span>
+    $$
+    \hat{\bf{e_{R_1}}} = \sin(\theta_1) \hat{\bf{i}} - \cos(\theta_1) \hat{\bf{j}}
+    $$
 
-    <span class="notranslate">$\hat{\bf{e_{\theta_1}}} = \cos(\theta_1) \hat{\bf{i}} + \sin(\theta_1) \hat{\bf{j}}$</span>
+    $$
+    \hat{\bf{e_{\theta_1}}} = \cos(\theta_1) \hat{\bf{i}} + \sin(\theta_1) \hat{\bf{j}}
+    $$
 
-    <span class="notranslate">$\hat{\bf{e_{R_2}}} = \sin(\theta_2) \hat{\bf{i}} - \cos(\theta_2) \hat{\bf{j}}$</span>
+    $$
+    \hat{\bf{e_{R_2}}} = \sin(\theta_2) \hat{\bf{i}} - \cos(\theta_2) \hat{\bf{j}}
+    $$
 
-    <span class="notranslate">$\hat{\bf{e_{\theta_2}}} = \cos(\theta_2) \hat{\bf{i}} + \sin(\theta_2) \hat{\bf{j}}$</span>
+    $$
+    \hat{\bf{e_{\theta_2}}} = \cos(\theta_2) \hat{\bf{i}} + \sin(\theta_2) \hat{\bf{j}}
+    $$
     """)
     return
 
@@ -948,26 +990,36 @@ def _(mo):
     mo.md(r"""
     #### Derivative of angular momentum of the lower bar around O2
 
-    <span class="notranslate">$\frac{d\vec{H_{O2}}}{dt} = I_{zz}^{C2} \frac{d^2\theta_2}{dt^2} + m_2 \vec{r_{C2/O2}} \times \vec{a_{C2}} = I_{zz}^{C2} \frac{d^2\theta_2}{dt^2} + m_2 \frac{l_2}{2}  \hat{\bf{e_{R_2}}} \times \left[-l_1\left(\frac{d\theta_1}{dt}\right)^2 \hat{\bf{e_{R_1}}} + l_1\frac{d^2\theta_1}{dt^2} \hat{\bf{e_{\theta_1}}} -\frac{l_2}{2}\left(\frac{d\theta_2}{dt}\right)^2 \hat{\bf{e_{R_2}}} + \frac{l_2}{2}\frac{d^2\theta_2}{dt^2} \hat{\bf{e_{\theta_2}}}\right]$</span>
+    $$
+    \frac{d\vec{H_{O2}}}{dt} = I_{zz}^{C2} \frac{d^2\theta_2}{dt^2} + m_2 \vec{r_{C2/O2}} \times \vec{a_{C2}} = I_{zz}^{C2} \frac{d^2\theta_2}{dt^2} + m_2 \frac{l_2}{2}  \hat{\bf{e_{R_2}}} \times \left[-l_1\left(\frac{d\theta_1}{dt}\right)^2 \hat{\bf{e_{R_1}}} + l_1\frac{d^2\theta_1}{dt^2} \hat{\bf{e_{\theta_1}}} -\frac{l_2}{2}\left(\frac{d\theta_2}{dt}\right)^2 \hat{\bf{e_{R_2}}} + \frac{l_2}{2}\frac{d^2\theta_2}{dt^2} \hat{\bf{e_{\theta_2}}}\right]
+    $$
 
-    To complete the computation of the derivative of the angular momentum we must find the products <span class="notranslate">$\hat{\bf{e_{R_2}}} \times \hat{\bf{e_{R_1}}}$,$\hat{\bf{e_{R_2}}} \times \hat{\bf{e_{\theta_1}}}$</span> and <span class="notranslate">$\hat{\bf{e_{R_1}}} \times \hat{\bf{e_{\theta_2}}}$</span>:
+    To complete the computation of the derivative of the angular momentum we must find the products
+    $\hat{\bf{e_{R_2}}} \times \hat{\bf{e_{R_1}}}$,  $\hat{\bf{e_{R_2}}} \times \hat{\bf{e_{\theta_1}}}$ and
+    $\hat{\bf{e_{R_1}}} \times \hat{\bf{e_{\theta_2}}}$:
 
-    <span class="notranslate">$\hat{\bf{e_{R_2}}} \times \hat{\bf{e_{\theta_1}}} = \left[\begin{array}{c}\sin(\theta_2)\\-\cos(\theta_2)\end{array}\right] \times \left[\begin{array}{c}\cos(\theta_1)\\\sin(\theta_1)\end{array}\right] = \sin(\theta_1)\sin(\theta_2)+\cos(\theta_1)\cos(\theta_2) = \cos(\theta_1-\theta_2)$</span>
+    $$
+    \hat{\bf{e_{R_2}}} \times \hat{\bf{e_{\theta_1}}} = \left[\begin{array}{c}\sin(\theta_2)\\-\cos(\theta_2)\end{array}\right] \times \left[\begin{array}{c}\cos(\theta_1)\\\sin(\theta_1)\end{array}\right] = \sin(\theta_1)\sin(\theta_2)+\cos(\theta_1)\cos(\theta_2) = \cos(\theta_1-\theta_2)
+    $$
 
-    <span class="notranslate">$\hat{\bf{e_{R_2}}} \times \hat{\bf{e_{R_1}}} = \left[\begin{array}{c}\sin(\theta_2)\\-\cos(\theta_2)\end{array}\right] \times \left[\begin{array}{c}\sin(\theta_1)\\-\cos(\theta_1)\end{array}\right] = -\sin(\theta_2)\cos(\theta_1)+\cos(\theta_2)\sin(\theta_1) = \sin(\theta_1-\theta_2)$</span>
+    $$
+    \hat{\bf{e_{R_2}}} \times \hat{\bf{e_{R_1}}} = \left[\begin{array}{c}\sin(\theta_2)\\-\cos(\theta_2)\end{array}\right] \times \left[\begin{array}{c}\sin(\theta_1)\\-\cos(\theta_1)\end{array}\right] = -\sin(\theta_2)\cos(\theta_1)+\cos(\theta_2)\sin(\theta_1) = \sin(\theta_1-\theta_2)
+    $$
 
-    <span class="notranslate">$\hat{\bf{e_{R_1}}} \times \hat{\bf{e_{\theta_2}}} =\left[\begin{array}{c}\sin(\theta_1)\\-\cos(\theta_1)\end{array}\right] \times \left[\begin{array}{c}\cos(\theta_2)\\\sin(\theta_2)\end{array}\right] = \sin(\theta_2)\sin(\theta_1)+\cos(\theta_2)\cos(\theta_1) = \cos(\theta_1-\theta_2)$</span>
+    $$
+    \hat{\bf{e_{R_1}}} \times \hat{\bf{e_{\theta_2}}} =\left[\begin{array}{c}\sin(\theta_1)\\-\cos(\theta_1)\end{array}\right] \times \left[\begin{array}{c}\cos(\theta_2)\\\sin(\theta_2)\end{array}\right] = \sin(\theta_2)\sin(\theta_1)+\cos(\theta_2)\cos(\theta_1) = \cos(\theta_1-\theta_2)
+    $$
 
     So, the derivative of the angular momentum is:
 
-    <span class="notranslate">
-    \begin{align}
+    $$
+    \begin{aligned}
     \begin{split}
         \frac{d\vec{H_{O2}}}{dt} &=  I_{zz}^{C2} \frac{d^2\theta_2}{dt^2} - \frac{m_2l_1l_2}{2}\left(\frac{d\theta_1}{dt}\right)^2 \sin(\theta_1-\theta_2) + \frac{m_2l_1l_2}{2}\frac{d^2\theta_1}{dt^2} \cos(\theta_1-\theta_2) + \frac{m_2l_2^2}{4}\frac{d^2\theta_2}{dt^2} \\
         &=  \frac{m_2l_1l_2}{2}\cos(\theta_1-\theta_2)\frac{d^2\theta_1}{dt^2} + \left(I_{zz}^{C2} + \frac{m_2l_2^2}{4} \right)\frac{d^2\theta_2}{dt^2}- \frac{m_2l_1l_2}{2}\left(\frac{d\theta_1}{dt}\right)^2 \sin(\theta_1-\theta_2)
         \end{split}
-    \end{align}
-    </span>
+    \end{aligned}
+    $$
     """)
     return
 
@@ -979,30 +1031,39 @@ def _(mo):
 
     Now we can analyze the sum of the moments and the derivative of the angular momentum at the upper bar. They will be computed relative to the point O1.
 
-    <span class="notranslate">$\begin{array}{l l}
+    $$
+    \begin{array}{l l}
     \vec{M_{O1}} &=& \vec{r_{C1/O1}} \times (-m_1g\hat{\bf{j}}) + \vec{r_{O2/O1}} \times (-\vec{F_{12}}) + \vec{M_{1}} - \vec{M_{12}} \\
     &=& \frac{l_1}{2}  \hat{\bf{e_{R_1}}}  \times (-m_1g\hat{\bf{j}}) + l_1\hat{\bf{e_{R_1}}} \times (-\vec{F_{12}}) + \vec{M_{1}} - \vec{M_{12}}
-    \end{array}$</span>
+    \end{array}
+    $$
 
-    <span class="notranslate">$\vec{M_{O1}}= \frac{-m_1gl_1}{2}\sin(\theta_1)\hat{\bf{k}} + l_1\hat{\bf{e_{R_1}}} \times (-\vec{F_{12}}) + \vec{M_{1}} - \vec{M_{12}}$</span>
+    $$
+    \vec{M_{O1}}= \frac{-m_1gl_1}{2}\sin(\theta_1)\hat{\bf{k}} + l_1\hat{\bf{e_{R_1}}} \times (-\vec{F_{12}}) + \vec{M_{1}} - \vec{M_{12}}
+    $$
 
-    It remains to find the force <span class="notranslate">$\vec{F_{12}}$</span> that is in the sum of moment of the upper bar. It can be found by finding the resultant force in the lower bar and use the First Newton-Euler law:
+    It remains to find the force
+    $\vec{F_{12}}$ that is in the sum of moment of the upper bar. It can be found by finding the resultant force in the lower bar and use the First Newton-Euler law:
 
-    <span class="notranslate">$\vec{F_{12}} - m_2g \hat{\bf{j}} = m\vec{a_{C2}}$</span>
+    $$
+    \vec{F_{12}} - m_2g \hat{\bf{j}} = m\vec{a_{C2}}
+    $$
 
-    <span class="notranslate">$\vec{F_{12}}  =  m_2g \hat{\bf{j}}  + m_2\left[-l_1\left(\frac{d\theta_1}{dt}\right)^2 \hat{\bf{e_{R_1}}} + l_1\frac{d^2\theta_1}{dt^2} \hat{\bf{e_{\theta_1}}} -\frac{l_2}{2}\left(\frac{d\theta_2}{dt}\right)^2 \hat{\bf{e_{R_2}}} + \frac{l_2}{2}\frac{d^2\theta_2}{dt^2} \hat{\bf{e_{\theta_2}}}\right]$</span>
+    $$
+    \vec{F_{12}}  =  m_2g \hat{\bf{j}}  + m_2\left[-l_1\left(\frac{d\theta_1}{dt}\right)^2 \hat{\bf{e_{R_1}}} + l_1\frac{d^2\theta_1}{dt^2} \hat{\bf{e_{\theta_1}}} -\frac{l_2}{2}\left(\frac{d\theta_2}{dt}\right)^2 \hat{\bf{e_{R_2}}} + \frac{l_2}{2}\frac{d^2\theta_2}{dt^2} \hat{\bf{e_{\theta_2}}}\right]
+    $$
 
-    Now, we can go back to the moment <span class="notranslate">$\vec{M_{O1}}$</span>:
+    Now, we can go back to the moment $\vec{M_{O1}}$:
 
-    <span class="notranslate">
-    \begin{align}
-        \begin{split}
+    $$
+    \begin{aligned}
+    \begin{split}
         \vec{M_{O1}} &= \frac{-m_1gl_1}{2}\sin(\theta_1)\hat{\bf{k}} + l_1\hat{\bf{e_{R_1}}} \times (-\vec{\bf{F_{12}}}) + \vec{M_{1}} - \vec{M_{12}} \\
         &= -\frac{m_1gl_1}{2}\sin(\theta_1)\hat{\bf{k}} - l_1\hat{\bf{e_{R_1}}} \times   m_2\left[g \hat{\bf{j}}-l_1\left(\frac{d\theta_1}{dt}\right)^2 \hat{\bf{e_{R_1}}} + l_1\frac{d^2\theta_1}{dt^2} \hat{\bf{e_{\theta_1}}} -\frac{l_2}{2}\left(\frac{d\theta_2}{dt}\right)^2 \hat{\bf{e_{R_2}}} + \frac{l_2}{2}\frac{d^2\theta_2}{dt^2} \hat{\bf{e_{\theta_2}}}\right]  + \vec{M_{1}} - \vec{M_{12}} \\
         &= -\frac{m_1gl_1}{2}\sin(\theta_1)\hat{\bf{k}} - m_2l_1g \sin(\theta_1)\hat{\bf{k}}  - m_2l_1^2\frac{d^2\theta_1}{dt^2}\hat{\bf{k}}  + \frac{m_2l_1l_2}{2}\left(\frac{d\theta_2}{dt}\right)^2 \sin(\theta_1-\theta_2)\hat{\bf{k}}  - \frac{m_2l_1l_2}{2}\frac{d^2\theta_2}{dt^2} \cos(\theta_1-\theta_2)\hat{\bf{k}}  + M_1\hat{\bf{k}}  - M_{12}\hat{\bf{k}}
         \end{split}
-    \end{align}
-    </span>
+    \end{aligned}
+    $$
     """)
     return
 
@@ -1012,12 +1073,16 @@ def _(mo):
     mo.md(r"""
     #### Derivative of angular momentum of the upper bar around O1
 
-    <span class="notranslate">$\begin{array}{l l}
+    $$
+    \begin{array}{l l}
     \frac{d\vec{H_{O1}}}{dt} &=& I_{zz}^{C1} \frac{d^2\theta_1}{dt^2} + m_1 \vec{r_{C1/O1}} \times \vec{a_{C1}} \\
     &=& I_{zz}^{C1} \frac{d^2\theta_1}{dt^2} + m_1 \frac{l_1}{2} \hat{\bf{e_{R_1}}} \times \left[-\frac{l_1}{2}\left(\frac{d\theta_1}{dt}\right)^2 \hat{\bf{e_{R_1}}} + \frac{l_1}{2}\frac{d^2\theta_1}{dt^2} \hat{\bf{e_{\theta_1}}}\right]
-    \end{array}$</span>
+    \end{array}
+    $$
 
-    <span class="notranslate">$\frac{d\vec{H_{O1}}}{dt} =\left( I_{zz}^{C1}  + m_1 \frac{l_1^2}{4}\right)\frac{d^2\theta_1}{dt^2}$</span>
+    $$
+    \frac{d\vec{H_{O1}}}{dt} =\left( I_{zz}^{C1}  + m_1 \frac{l_1^2}{4}\right)\frac{d^2\theta_1}{dt^2}
+    $$
     """)
     return
 
@@ -1029,21 +1094,29 @@ def _(mo):
 
     Finally, using the second Newton-Euler law for both bars, we can find the equation of motion of both angles:
 
-    <span class="notranslate">$\begin{array}{l l}
+    $$
+    \begin{array}{l l}
     \dfrac{d\vec{H_{O1}}}{dt} &=& \vec{M_{O1}} \rightarrow  \left( I_{zz}^{C1} + m_1 \frac{l_1^2}{4}\right)\frac{d^2\theta_1}{dt^2} \\
     &=& -\frac{m_1gl_1}{2}\sin(\theta_1)- m_2l_1g \sin(\theta_1) - m_2l_1^2\frac{d^2\theta_1}{dt^2}  + \frac{m_2l_1l_2}{2}\left(\frac{d\theta_2}{dt}\right)^2 \sin(\theta_1-\theta_2) - \frac{m_2l_1l_2}{2}\frac{d^2\theta_2}{dt^2} \cos{(\theta_1-\theta_2)} + M_1 - M_{12}
-    \end{array}$</span>
+    \end{array}
+    $$
 
-    <span class="notranslate">$\begin{array}{l l}
+    $$
+    \begin{array}{l l}
     \dfrac{d\vec{H_{O2}}}{dt} &=& \vec{M_{O2}} \rightarrow \frac{m_2l_1l_2}{2}\cos(\theta_1-\theta_2)\frac{d^2\theta_1}{dt^2} + \left(I_{zz}^{C2} + \frac{m_2l_2^2}{4} \right)\frac{d^2\theta_2}{dt^2}- \frac{m_2l_1l_2}{2}\left(\frac{d\theta_1}{dt}\right)^2 \sin(\theta_1-\theta_2) \\
     &=& -\frac{m_2gl_2}{2}\sin(\theta_2) + M_{12}
-    \end{array}$</span>
+    \end{array}
+    $$
 
-    Considering the moment of inertia of the bars as$I_{zz}^{C1}=\frac{m_1l_1^2}{12}$and$I_{zz}^{C2}=\frac{m_2l_2^2}{12}$the differential equations above are:
+    Considering the moment of inertia of the bars as $I_{zz}^{C1}=\frac{m_1l_1^2}{12}$ and $I_{zz}^{C2}=\frac{m_2l_2^2}{12}$ the differential equations above are:
 
-    <span class="notranslate">$\left(\dfrac{m_1l_1^2}{3} +m_2l_1^2\right)\frac{d^2\theta_1}{dt^2} + \frac{m_2l_1l_2}{2} \cos{(\theta_1-\theta_2)\frac{d^2\theta_2}{dt^2}}  =  -\frac{m_1gl_1}{2}\sin(\theta_1)- m_2l_1g \sin(\theta_1)   + \frac{m_2l_1l_2}{2}\left(\frac{d\theta_2}{dt}\right)^2 \sin(\theta_1-\theta_2)  + M_1 - M_{12}$</span>
+    $$
+    \left(\dfrac{m_1l_1^2}{3} +m_2l_1^2\right)\frac{d^2\theta_1}{dt^2} + \frac{m_2l_1l_2}{2} \cos{(\theta_1-\theta_2)\frac{d^2\theta_2}{dt^2}}  =  -\frac{m_1gl_1}{2}\sin(\theta_1)- m_2l_1g \sin(\theta_1)   + \frac{m_2l_1l_2}{2}\left(\frac{d\theta_2}{dt}\right)^2 \sin(\theta_1-\theta_2)  + M_1 - M_{12}
+    $$
 
-    <span class="notranslate">$\dfrac{m_2l_1l_2}{2}\cos(\theta_1-\theta_2)\frac{d^2\theta_1}{dt^2} + \frac{m_2l_2^2}{3}\frac{d^2\theta_2}{dt^2} = -\frac{m_2gl_2}{2}\sin(\theta_2) + \frac{m_2l_1l_2}{2}\left(\frac{d\theta_1}{dt}\right)^2 \sin(\theta_1-\theta_2)+ M_{12}$</span>
+    $$
+    \dfrac{m_2l_1l_2}{2}\cos(\theta_1-\theta_2)\frac{d^2\theta_1}{dt^2} + \frac{m_2l_2^2}{3}\frac{d^2\theta_2}{dt^2} = -\frac{m_2gl_2}{2}\sin(\theta_2) + \frac{m_2l_1l_2}{2}\left(\frac{d\theta_1}{dt}\right)^2 \sin(\theta_1-\theta_2)+ M_{12}
+    $$
 
     We could isolate the angular accelerations but this would lead to very long equations.
     """)

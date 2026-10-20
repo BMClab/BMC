@@ -96,25 +96,28 @@ def _(mo):
     mo.md(r"""
     ## Euler–Lagrange equations
 
-
     See [this notebook](http://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/lagrangian_mechanics_generalized.ipynb) for a deduction of the Lagrange's equation in generalized coordinates.
 
-    Consider a system whose configuration (positions) can be described by a set of$N$generalized coordinates$q_i\,(i=1,\dotsc,N)$.
+    Consider a system whose configuration (positions) can be described by a set of $N$ generalized coordinates $q_i\,(i=1,\dotsc,N)$.
 
-    Let's define the Lagrange or Lagrangian function$\mathcal{L}$as the difference between the total kinetic energy$T$and the total potential energy$V$of the system in terms of the generalized coordinates as:
-    <p>
-    <span class="notranslate">$\mathcal{L}(t,q,\dot{q}) = T(\dot{q}_1(t),\dotsc,\dot{q}_N(t)) - V(q_1(t),\dotsc,q_N(t))$</span>
+    Let's define the Lagrange or Lagrangian function $\mathcal{L}$ as the difference between the total kinetic energy $T$ and the total potential energy $V$ of the system in terms of the generalized coordinates as:
+
+    $$
+    \mathcal{L}(t,q,\dot{q}) = T(\dot{q}_1(t),\dotsc,\dot{q}_N(t)) - V(q_1(t),\dotsc,q_N(t))
+    $$
 
     where the total potential energy is only due to conservative forces, that is, forces in which the total work done to move the system between two points is independent of the path taken.
 
     The Euler–Lagrange equations (or Lagrange's equations of the second kind) of the system are (omitting the functions' dependencies for sake of clarity):
-    <p>
-    <span class="notranslate">$\frac{\mathrm d }{\mathrm d t}\left( {\frac{\partial \mathcal{L}}{\partial \dot{q}_i }}
-    \right)-\frac{\partial \mathcal{L}}{\partial q_i } = Q_{NCi} \quad i=1,\dotsc,N$</span>
 
-    where$Q_{NCi}$are the generalized forces due to non-conservative forces acting on the system, any forces that can't be expressed in terms of a potential.
+    $$
+    \frac{\mathrm d }{\mathrm d t}\left( {\frac{\partial \mathcal{L}}{\partial \dot{q}_i }}
+    \right)-\frac{\partial \mathcal{L}}{\partial q_i } = Q_{NCi} \quad i=1,\dotsc,N
+    $$
 
-    Once all derivatives of the Lagrangian function are calculated and substitute them in the equations above, the result is the equation of motion (EOM) for each generalized coordinate. There will be$N$equations for a system with$N$generalized coordinates.
+    where $Q_{NCi}$ are the generalized forces due to non-conservative forces acting on the system, any forces that can't be expressed in terms of a potential.
+
+    Once all derivatives of the Lagrangian function are calculated and substitute them in the equations above, the result is the equation of motion (EOM) for each generalized coordinate. There will be $N$ equations for a system with $N$ generalized coordinates.
     """)
     return
 
@@ -140,45 +143,55 @@ def _(mo):
     mo.md(r"""
     ### Example: Particle moving under the influence of a conservative force
 
-    Let's deduce the EOM of a particle with mass$m$moving in the three-dimensional space under the influence of a [conservative force](https://en.wikipedia.org/wiki/Conservative_force).
+    Let's deduce the EOM of a particle with mass $m$ moving in the three-dimensional space under the influence of a [conservative force](https://en.wikipedia.org/wiki/Conservative_force).
 
-    The model is the particle moving in 3D space and there is no generalized force (non-conservative force); the particle has three degrees of freedom and we need three generalized coordinates, which can be$(x, y, z)$, where$y$is vertical, in a Cartesian frame of reference.<br>
-    The Lagrangian$(\mathcal{L} = T - V)$of the particle is:
-    <p>
-    <span class="notranslate">$\mathcal{L} = \frac{1}{2}m(\dot x^2(t) + \dot y^2(t) + \dot z^2(t)) - V(x(t),y(t),z(t))$</span>
+    The model is the particle moving in 3D space and there is no generalized force (non-conservative force); the particle has three degrees of freedom and we need three generalized coordinates, which can be $(x, y, z)$, where $y$ is vertical, in a Cartesian frame of reference.<br>
+    The Lagrangian $(\mathcal{L} = T - V)$ of the particle is:
 
-    The equations of motion for the particle are found by applying the Euler–Lagrange equation for each coordinate.
-    For the$x$coordinate:
-    <p>
-    <span class="notranslate">$\frac{\mathrm d }{\mathrm d t}\left( {\frac{\partial \mathcal{L}}{\partial \dot{x}}}
-    \right) - \frac{\partial \mathcal{L}}{\partial x } = 0$</span>
+    $$
+    \mathcal{L} = \frac{1}{2}m(\dot x^2(t) + \dot y^2(t) + \dot z^2(t)) - V(x(t),y(t),z(t))
+    $$
+
+    The equations of motion for the particle are found by applying the Euler–Lagrange equation for each coordinate.<br>
+    For the $x$ coordinate:
+
+    $$
+    \frac{\mathrm d }{\mathrm d t}\left( {\frac{\partial \mathcal{L}}{\partial \dot{x}}}
+    \right) - \frac{\partial \mathcal{L}}{\partial x } = 0
+    $$
 
     And the derivatives are:
-    <p>
-    <span class="notranslate">$\begin{array}{rcl}
+
+    $$
+    \begin{array}{rcl}
     &\dfrac{\partial \mathcal{L}}{\partial x} &=& -\dfrac{\partial V}{\partial x} \\
     &\dfrac{\partial \mathcal{L}}{\partial \dot{x}} &=& m\dot{x} \\
     &\dfrac{\mathrm d }{\mathrm d t}\left( {\dfrac{\partial \mathcal{L}}{\partial \dot{x}}} \right) &=& m\ddot{x}
-    \end{array}$</span>
+    \end{array}
+    $$
 
     Finally, the EOM is:
-    <p>
-    <span class="notranslate">$\begin{array}{l}
+
+    $$
+    \begin{array}{l}
     m\ddot{x} + \dfrac{\partial V}{\partial x} = 0 \quad \rightarrow \\
     m\ddot{x} = -\dfrac{\partial V}{\partial x}
-    \end{array}$</span>
+    \end{array}
+    $$
 
-    and same procedure for the$y$and$z$coordinates.
+    and same procedure for the $y$ and $z$ coordinates.
 
     The equation above is the Newton's second law of motion.
 
-    For instance, if the conservative force is due to the gravitational field near Earth's surface$(V=[0, mgy, 0])$, the Euler–Lagrange equations (the EOM's) are:
-    <p>
-    <span class="notranslate">$\begin{array}{rcl}
+    For instance, if the conservative force is due to the gravitational field near Earth's surface $(V=[0, mgy, 0])$, the Euler–Lagrange equations (the EOM's) are:
+
+    $$
+    \begin{array}{rcl}
     m\ddot{x} &=& -\dfrac{\partial (0)}{\partial x} &=& 0 \\
     m\ddot{y} &=& -\dfrac{\partial (mgy)}{\partial y} &=& -mg \\
     m\ddot{z} &=& -\dfrac{\partial (0)}{\partial z} &=& 0
-    \end{array}$</span>
+    \end{array}
+    $$
     """)
     return
 
@@ -190,25 +203,31 @@ def _(mo):
 
     <figure><img src="https://github.com/BMClab/BMC/blob/master/images/massspring_lagrange.png?raw=1" width="220" alt="mass spring" style="float:right;margin: 0px 20px 10px 20px;"/></figure>
 
-    Consider a system with a mass$m$attached to an ideal spring (massless, length$\ell_0$, and spring constant$k$) at the horizontal direction$x$. A force is momentarily applied to the mass and then the system is left unperturbed.<br>
+    Consider a system with a mass $m$ attached to an ideal spring (massless, length $\ell_0$, and spring constant $k$) at the horizontal direction $x$. A force is momentarily applied to the mass and then the system is left unperturbed.<br>
     Let's deduce the EOM of this system.
 
-    The system can be modeled as a particle attached to a spring moving at the direction$x$, the only generalized coordinate needed (with origin of the Cartesian reference frame at the wall where the spring is attached), and there is no generalized force.<br>
-    The Lagrangian$(\mathcal{L} = T - V)$of the system is:
-    <p>
-    <span class="notranslate">$\mathcal{L} = \frac{1}{2}m\dot x^2 - \frac{1}{2}k(x-\ell_0)^2$</span>
+    The system can be modeled as a particle attached to a spring moving at the direction $x$, the only generalized coordinate needed (with origin of the Cartesian reference frame at the wall where the spring is attached), and there is no generalized force.<br>
+    The Lagrangian $(\mathcal{L} = T - V)$ of the system is:
+
+    $$
+    \mathcal{L} = \frac{1}{2}m\dot x^2 - \frac{1}{2}k(x-\ell_0)^2
+    $$
 
     And the derivatives are:
-    <p>
-    <span class="notranslate">$\begin{array}{rcl}
+
+    $$
+    \begin{array}{rcl}
     &\dfrac{\partial \mathcal{L}}{\partial x} &=& -k(x-\ell_0) \\
     &\dfrac{\partial \mathcal{L}}{\partial \dot{x}} &=& m\dot{x} \\
     &\dfrac{\mathrm d }{\mathrm d t}\left( {\dfrac{\partial \mathcal{L}}{\partial \dot{x}}} \right) &=& m\ddot{x}
-    \end{array}$</span>
+    \end{array}
+    $$
 
     Finally, the Euler–Lagrange equation (the EOM) is:
-    <p>
-    <span class="notranslate">$m\ddot{x} + k(x-\ell_0) = 0$</span>
+
+    $$
+    m\ddot{x} + k(x-\ell_0) = 0
+    $$
     """)
     return
 
@@ -220,50 +239,64 @@ def _(mo):
 
     <figure><img src="https://github.com/BMClab/BMC/blob/master/images/simplependulum_lagrange.png?raw=1" width="220" alt="simple pendulum" style="float:right;margin: 10px 50px 10px 50px;"/></figure>
 
-    Consider a pendulum with a massless rod of length$d$and a mass$m$at the extremity swinging in a plane forming the angle$\theta$with the vertical.<br>
+    Consider a pendulum with a massless rod of length $d$ and a mass $m$ at the extremity swinging in a plane forming the angle $\theta$ with the vertical.<br>
     Let's deduce the EOM of this system.
 
-    The model is a particle oscillating as a pendulum under a constant gravitational force$-mg$.<br>
-    Although the pendulum moves at the plane, it only has one degree of freedom, which can be described by the angle$\theta$, the generalized coordinate. Let's adopt the origin of the reference frame at the point of the pendulum suspension.
+    The model is a particle oscillating as a pendulum under a constant gravitational force $-mg$.<br>
+    Although the pendulum moves at the plane, it only has one degree of freedom, which can be described by the angle $\theta$, the generalized coordinate. Let's adopt the origin of the reference frame at the point of the pendulum suspension.
 
     The kinetic energy of the system is:
-    <p>
-    <span class="notranslate">$T = \frac{1}{2}mv^2 = \frac{1}{2}m(\dot{x}^2+\dot{y}^2)$</span>
 
-    where$\dot{x}$and$\dot{y}$are:
-    <p>
-    <span class="notranslate">$\begin{array}{l}
+    $$
+    T = \frac{1}{2}mv^2 = \frac{1}{2}m(\dot{x}^2+\dot{y}^2)
+    $$
+
+    where $\dot{x}$ and $\dot{y}$ are:
+
+    $$
+    \begin{array}{l}
     x = d\sin(\theta) \\
     y = -d\cos(\theta) \\
     \dot{x} = d\cos(\theta)\dot{\theta} \\
     \dot{y} = d\sin(\theta)\dot{\theta}
-    \end{array}$</span>
+    \end{array}
+    $$
 
     Consequently, the kinetic energy is:
-    <p>
-    <span class="notranslate">$T = \frac{1}{2}m\left((d\cos(\theta)\dot{\theta})^2 + (d\sin(\theta)\dot{\theta})^2\right) = \frac{1}{2}md^2\dot{\theta}^2$</span>
+
+    $$
+    T = \frac{1}{2}m\left((d\cos(\theta)\dot{\theta})^2 + (d\sin(\theta)\dot{\theta})^2\right) = \frac{1}{2}md^2\dot{\theta}^2
+    $$
 
     And the potential energy of the system is:
-    <p>
-    <span class="notranslate">$V = -mgy = -mgd\cos\theta$</span>
+
+    $$
+    V = -mgy = -mgd\cos\theta
+    $$
 
     The Lagrangian function is:
-    <p>
-    <span class="notranslate">$\mathcal{L} = \frac{1}{2}md^2\dot\theta^2 + mgd\cos\theta$</span>
+
+    $$
+    \mathcal{L} = \frac{1}{2}md^2\dot\theta^2 + mgd\cos\theta
+    $$
 
     And the derivatives are:
-    <p>
-    <span class="notranslate">$\begin{array}{rcl}
+
+    $$
+    \begin{array}{rcl}
     &\dfrac{\partial \mathcal{L}}{\partial \theta} &=& -mgd\sin\theta \\
     &\dfrac{\partial \mathcal{L}}{\partial \dot{\theta}} &=& md^2\dot{\theta} \\
     &\dfrac{\mathrm d }{\mathrm d t}\left( {\dfrac{\partial \mathcal{L}}{\partial \dot{\theta}}} \right) &=& md^2\ddot{\theta}
-    \end{array}$</span>
+    \end{array}
+    $$
 
     Finally, the Euler–Lagrange equation (the EOM) is:
-    <p>
-    <span class="notranslate">$md^2\ddot\theta + mgd\sin\theta = 0$</span>
 
-    Note that although the generalized coordinate of the system is$\theta$, we had to employ Cartesian coordinates at the beginning to derive expressions for the kinetic and potential energies. For kinetic energy, we could have used its equivalent definition for circular motion$(T=I\dot{\theta}^2/2=md^2\dot{\theta}^2/2)$, but for the potential energy there is no other way since the gravitational force acts in the vertical direction.
+    $$
+    md^2\ddot\theta + mgd\sin\theta = 0
+    $$
+
+    Note that although the generalized coordinate of the system is $\theta$, we had to employ Cartesian coordinates at the beginning to derive expressions for the kinetic and potential energies. For kinetic energy, we could have used its equivalent definition for circular motion $(T=I\dot{\theta}^2/2=md^2\dot{\theta}^2/2)$, but for the potential energy there is no other way since the gravitational force acts in the vertical direction.
     In cases like this, a fundamental aspect is to express the Cartesian coordinates in terms of the generalized coordinates.
     """)
     return
@@ -274,12 +307,12 @@ def _(mo):
     mo.md(r"""
     #### Numerical solution of the equation of motion for the simple pendulum
 
-    A classical approach to solve analytically the EOM for the simple pendulum is to consider the motion for small angles where$\sin\theta \approx \theta$and the differential equation is linearized to$d\ddot\theta + g\theta = 0$. This equation has an analytical solution of the type$\theta(t) = A \sin(\omega t + \phi)$, where$\omega = \sqrt{g/d}$and$A$and$\phi$are constants related to the initial position and velocity.<br>
+    A classical approach to solve analytically the EOM for the simple pendulum is to consider the motion for small angles where $\sin\theta \approx \theta$ and the differential equation is linearized to $d\ddot\theta + g\theta = 0$. This equation has an analytical solution of the type $\theta(t) = A \sin(\omega t + \phi)$, where $\omega = \sqrt{g/d}$ and $A$ and $\phi$ are constants related to the initial position and velocity.<br>
     For didactic purposes, let's solve numerically the differential equation for the pendulum using [Euler’s method](https://nbviewer.jupyter.org/github/demotu/BMC/blob/master/notebooks/OrdinaryDifferentialEquation.ipynb#Euler-method).
 
-    Remember that we have to:
-    1. Transform the second-order ODE into two coupled first-order ODEs,
-    2. Approximate the derivative of each variable by its discrete first order difference
+    Remember that we have to:<br>
+    1. Transform the second-order ODE into two coupled first-order ODEs,<br>
+    2. Approximate the derivative of each variable by its discrete first order difference<br>
     3. Write an equation to calculate the variable in a recursive way, updating its value with an equation based on the first order difference.
 
     We will also implement different variations of the Euler method: Forward (standard), Semi-implicit, and Semi-implicit variation (same results as Semi-implicit).
@@ -564,7 +597,7 @@ def _(mo):
 
     <figure><img src="https://github.com/BMClab/BMC/blob/master/images/doublependulum_lagrange.png?raw=1" width="200" alt="double pendulum" style="float:right;margin: 10px 50px 10px 50px;"/></figure>
 
-    Consider a double pendulum (one pendulum attached to another) with massless rods of length$d_1$and$d_2$and masses$m_1$and$m_2$at the extremities of each rod swinging in a plane forming the angles$\theta_1$and$\theta_2$with vertical.<br>
+    Consider a double pendulum (one pendulum attached to another) with massless rods of length $d_1$ and $d_2$ and masses $m_1$ and $m_2$ at the extremities of each rod swinging in a plane forming the angles $\theta_1$ and $\theta_2$ with vertical.<br>
     The system has two particles with two degrees of freedom; two adequate generalized coordinates to describe the system's configuration are the angles in relation to the vertical ($\theta_1, \theta_2$). Let's adopt the origin of the reference frame at the point of the upper pendulum suspension.
 
     Let's use Sympy to solve this problem.
@@ -583,7 +616,7 @@ def _(Symbol, dynamicsymbols, symbols):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    The positions and velocities of masses$m_1$and$m_2$are:
+    The positions and velocities of masses $m_1$ and $m_2$ are:
     """)
     return
 
@@ -670,7 +703,7 @@ def _(Lterms_1, lagrange_eq):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    The EOM's are a system with two coupled equations,$\theta_1$and$\theta_2$appear on both equations.
+    The EOM's are a system with two coupled equations, $\theta_1$ and $\theta_2$ appear on both equations.
 
     The motion of a double pendulum is very interesting; most of times it presents a chaotic behavior.
     """)
@@ -682,7 +715,7 @@ def _(mo):
     mo.md(r"""
     #### Numerical solution of the equation of motion for the double pendulum
 
-    The analytical solution in infeasible to deduce. For the numerical solution, first we have to rearrange the equations to find separate expressions for$\theta_1$and$\theta_2$(solve the system of equations algebraically).<br>
+    The analytical solution in infeasible to deduce. For the numerical solution, first we have to rearrange the equations to find separate expressions for $\theta_1$ and $\theta_2$ (solve the system of equations algebraically).<br>
     Using Sympy, here are the two expressions:
     """)
     return
@@ -726,18 +759,30 @@ def _(mo):
 
     <figure><img src="https://github.com/BMClab/BMC/blob/master/images/pendula_lagrange.png?raw=1" width="200" alt="double pendulum" style="float:right;margin: 10px 50px 10px 50px;"/></figure>
 
-    Consider the double compound pendulum (or physical pendulum) shown on the the right with length$d$and mass$m$of each rod swinging in a plane forming the angles$\theta_1$and$\theta_2$with vertical and$g=10 m/s^2$.<br>
+    Consider the double compound pendulum (or physical pendulum) shown on the the right with length $d$ and mass $m$ of each rod swinging in a plane forming the angles $\theta_1$ and $\theta_2$ with vertical and $g=10 m/s^2$.<br>
     The system has two degrees of freedom and we need two generalized coordinates ($\theta_1, \theta_2$) to describe the system's configuration.
 
     Let's use the Lagrangian mechanics to derive the equations of motion for each pendulum.
 
-    To calculate the potential and kinetic energy of the system, we will need to calculate the position and velocity of each pendulum. Now each pendulum is a rod with distributed mass and we will have to calculate the moment of rotational inertia of the rod. In this case, the kinetic energy of each pendulum will be given as the kinetic energy due to rotation of the pendulum plus the kinetic energy due to the speed of the center of mass of the pendulum, such that the total kinetic energy of the system is:$\begin{array}{rcl}
-    T = \overbrace{\underbrace{\,\frac{1}{2}I_{1,cm}\dot\theta_1^2\,}_{\text{rotation}} + \underbrace{\frac{1}{2}m(\dot x_{1,cm}^2 + \dot y_{1,cm}^2)}_{\text{translation}}}^{\text{pendulum 1}} + \overbrace{\underbrace{\,\frac{1}{2}I_{2,cm}\dot\theta_2^2\,}_{\text{rotation}} + \underbrace{\frac{1}{2}m(\dot x_{2,cm}^2 + \dot y_{2,cm}^2)}_{\text{translation}}}^{\text{pendulum 2}}
-    \end{array}$And the potential energy of the system is:$\begin{array}{rcl}
-    V = mg\big(y_{1,cm} + y_{2,cm}\big)
-    \end{array}$Let's use Sympy once again.
+    To calculate the potential and kinetic energy of the system, we will need to calculate the position and velocity of each pendulum. Now each pendulum is a rod with distributed mass and we will have to calculate the moment of rotational inertia of the rod. In this case, the kinetic energy of each pendulum will be given as the kinetic energy due to rotation of the pendulum plus the kinetic energy due to the speed of the center of mass of the pendulum, such that the total kinetic energy of the system is:
 
-    The position and velocity of the center of mass of the rods$1$and$2$are:
+    $$
+    \begin{array}{rcl}
+    T = \overbrace{\underbrace{\,\frac{1}{2}I_{1,cm}\dot\theta_1^2\,}_{\text{rotation}} + \underbrace{\frac{1}{2}m(\dot x_{1,cm}^2 + \dot y_{1,cm}^2)}_{\text{translation}}}^{\text{pendulum 1}} + \overbrace{\underbrace{\,\frac{1}{2}I_{2,cm}\dot\theta_2^2\,}_{\text{rotation}} + \underbrace{\frac{1}{2}m(\dot x_{2,cm}^2 + \dot y_{2,cm}^2)}_{\text{translation}}}^{\text{pendulum 2}}
+    \end{array}
+    $$
+
+    And the potential energy of the system is:
+
+    $$
+    \begin{array}{rcl}
+    V = mg\big(y_{1,cm} + y_{2,cm}\big)
+    \end{array}
+    $$
+
+    Let's use Sympy once again.
+
+    The position and velocity of the center of mass of the rods $1$ and $2$ are:
     """)
     return
 
@@ -857,7 +902,7 @@ def _(mo):
     mo.md(r"""
     ### Example: Double compound pendulum in joint space
 
-    Let's recalculate the former example but employing generalized coordinates in the joint space:$\alpha_1=\theta_1$and$\alpha_2=\theta_2-\theta_1$.
+    Let's recalculate the former example but employing generalized coordinates in the joint space: $\alpha_1=\theta_1$ and $\alpha_2=\theta_2-\theta_1$.
     """)
     return
 
@@ -932,8 +977,8 @@ def _(mo):
     mo.md(r"""
     **Forces on the pendulum**
 
-    We can see that besides the terms proportional to gravity$g$, there are three types of forces in the equations, two of these forces we already saw in the solution of the double pendulum employing generalized coordinates in the segment space: forces proportional to angular velocity squared$\dot{\theta}_i^2$(now proportional to$\dot{\alpha}_i^2$) and forces proportional to the angular acceleration$\ddot{\theta}_i$(now proportional to$\ddot{\alpha}_i$). These are the centripetal forces and tangential forces.<br>
-    A new type of force appeared explicitly in the equations when we employed generalized coordinates in the joint space: forces proportional to the product of the two angular velocities in joint space$\dot{\alpha}_1\dot{\alpha}_2$. These are the force of Coriolis.
+    We can see that besides the terms proportional to gravity $g$, there are three types of forces in the equations, two of these forces we already saw in the solution of the double pendulum employing generalized coordinates in the segment space: forces proportional to angular velocity squared $\dot{\theta}_i^2$ (now proportional to $\dot{\alpha}_i^2$) and forces proportional to the angular acceleration $\ddot{\theta}_i$ (now proportional to $\ddot{\alpha}_i$). These are the centripetal forces and tangential forces.<br>
+    A new type of force appeared explicitly in the equations when we employed generalized coordinates in the joint space: forces proportional to the product of the two angular velocities in joint space $\dot{\alpha}_1\dot{\alpha}_2$. These are the force of Coriolis.
     """)
     return
 
@@ -952,7 +997,7 @@ def _(mo):
 
     Let's solve item b using Lagrangian mechanics.
 
-    To calculate the potential and kinetic energy of the system, we will need to calculate the position and velocity of the mass. It's convenient to use as generalized coordinates, the radial position$r$and the angle$\theta$.
+    To calculate the potential and kinetic energy of the system, we will need to calculate the position and velocity of the mass. It's convenient to use as generalized coordinates, the radial position $r$ and the angle $\theta$.
 
     Using Sympy, declaring our parameters and coordinates:
     """)
@@ -1071,43 +1116,55 @@ def _(mo):
 
     <figure><img src="https://github.com/BMClab/BMC/blob/master/images/pendulumforce.png?raw=1" width="260" alt="pendulum" style="float:right;margin: 5px 10px 5px 5px;"/></figure>
 
-    For example, consider a pendulum with a massless rod of length$d$and a mass$m$at the extremity swinging in a plane forming the angle$\theta$with the vertical.<br>
+    For example, consider a pendulum with a massless rod of length $d$ and a mass $m$ at the extremity swinging in a plane forming the angle $\theta$ with the vertical.<br>
     An external force acts on the tip of the pendulum at the horizontal direction.<br>
-    The pendulum cord is inextensible and the tip of the pendulum can only move along the arc of a circumference with radius$d$.
+    The pendulum cord is inextensible and the tip of the pendulum can only move along the arc of a circumference with radius $d$.
 
-    The work done by this force to produce a small variation$\delta \theta$is:
-    <p>
-    <span class="notranslate">$\begin{array}{l}
+    The work done by this force to produce a small variation $\delta \theta$ is:
+
+    $$
+    \begin{array}{l}
     \delta W_{NC} = \vec{F} \cdot \delta \vec{r} \\
     \delta W_{NC} = F d \cos(\theta) \delta \theta
-    \end{array}$</span>
+    \end{array}
+    $$
 
-    We now reexpress the work as the product of the corresponding generalized force$Q_{NC}$and the generalized coordinate:
-    <p>
-    <span class="notranslate">$\delta W_{NC} = Q_{NC} \delta \theta$</span>
+    We now reexpress the work as the product of the corresponding generalized force $Q_{NC}$ and the generalized coordinate:
+
+    $$
+    \delta W_{NC} = Q_{NC} \delta \theta
+    $$
 
     And comparing the last two equations, the generalized force (in fact, a moment of force) is:
-    <p>
-    <span class="notranslate">$Q_{NC} = F d \cos(\theta)$</span>
 
-    Note that the work done by definition was expressed in Cartesian coordinates as the scalar product between vectors$\vec F$and$\delta \vec{r}$and after the scalar product was evaluated we end up with the work done expressed in terms of the generalized coordinate. This is somewhat similar to the calculation of kinetic and potential energy, these quantities are typically expressed first in terms of Cartesian coordinates, which in turn are expressed in terms of the generalized coordinates, so we end up with only generalized coordinates.
+    $$
+    Q_{NC} = F d \cos(\theta)
+    $$
+
+    Note that the work done by definition was expressed in Cartesian coordinates as the scalar product between vectors $\vec F$ and $\delta \vec{r}$ and after the scalar product was evaluated we end up with the work done expressed in terms of the generalized coordinate. This is somewhat similar to the calculation of kinetic and potential energy, these quantities are typically expressed first in terms of Cartesian coordinates, which in turn are expressed in terms of the generalized coordinates, so we end up with only generalized coordinates.<br>
     Also note, we employ the term generalized force to refer to a non-conservative force or moment of force expressed in the generalized coordinate.
 
-    If the force had components on both directions, we would calculate the work computing the scalar product between the variation in displacement and the force, as usual. For example, consider a force$\vec{F}=2\hat{i}+7\hat{j}$, the work done is:
-    <p>
-    <span class="notranslate">$\begin{array}{l}
+    If the force had components on both directions, we would calculate the work computing the scalar product between the variation in displacement and the force, as usual. For example, consider a force $\vec{F}=2\hat{i}+7\hat{j}$, the work done is:
+
+    $$
+    \begin{array}{l}
     \delta W_{NC} = \vec{F} \cdot \delta \vec{r} \\
     \delta W_{NC} = [2\hat{i}+7\hat{j}] \cdot [d\cos(\theta) \delta \theta \hat{i} + d\sin(\theta) \delta \theta \hat{j}] \\
     \delta W_{NC} = d[2\cos(\theta) + 7\sin(\theta)] \delta \theta
-    \end{array}$</span>
+    \end{array}
+    $$
 
     Finally, the generalized force (a moment of force) is:
-    <p>
-    <span class="notranslate">$Q_{NC} = d[2\cos(\theta) + 7\sin(\theta)]$</span>
 
-    For a system with$N$generalized coordinates and$n$non-conservative forces, to determine the generalized force at each generalized coordinate, we would compute the work as the sum of the works done by each force at each small variation:
-    <p>
-    <span class="notranslate">$\delta W_{NC} = \sum\limits_{j=1}^n F_{j} \cdot \delta x_j(\delta q_1, \dotsc, \delta q_N ) = \sum\limits_{i=1}^N  Q_{i} \delta q_i$</span>
+    $$
+    Q_{NC} = d[2\cos(\theta) + 7\sin(\theta)]
+    $$
+
+    For a system with $N$ generalized coordinates and $n$ non-conservative forces, to determine the generalized force at each generalized coordinate, we would compute the work as the sum of the works done by each force at each small variation:
+
+    $$
+    \delta W_{NC} = \sum\limits_{j=1}^n F_{j} \cdot \delta x_j(\delta q_1, \dotsc, \delta q_N ) = \sum\limits_{i=1}^N  Q_{i} \delta q_i
+    $$
 
     For simpler problems, in which we can separately analyze each non-conservative force acting on each generalized coordinate, the work done by each force on a given generalized coordinate can be calculated by making all other coordinates immovable ('frozen') and then sum the generalized forces.
 
@@ -1123,15 +1180,15 @@ def _(mo):
 
     <figure><img src="https://github.com/BMClab/BMC/blob/master/images/masspend_lagrange.png?raw=1" width="250" alt="cart pendulum" style="float:right;margin: 10px 50px 10px 50px;"/></figure>
 
-    Consider a simple pendulum with massless rod of length$d$and mass$m$at the extremity of the rod forming an angle$\theta$with the vertical direction under the action of gravity. The pendulum swings freely from a cart with mass$M$that moves at the horizontal direction pushed by a force$F_x$.
+    Consider a simple pendulum with massless rod of length $d$ and mass $m$ at the extremity of the rod forming an angle $\theta$ with the vertical direction under the action of gravity. The pendulum swings freely from a cart with mass $M$ that moves at the horizontal direction pushed by a force $F_x$.
 
     Let's use the Lagrangian mechanics to derive the EOM for the system.
 
-    We will model the cart as a particle moving along the axis$x$, i.e.,$y=0$. The system has two degrees of freedom and because of the constraints introduced by the constant length of the rod and the motion the cart can perform, good generalized coordinates to describe the configuration of the system are$x$and$\theta$.
+    We will model the cart as a particle moving along the axis $x$, i.e., $y=0$. The system has two degrees of freedom and because of the constraints introduced by the constant length of the rod and the motion the cart can perform, good generalized coordinates to describe the configuration of the system are $x$ and $\theta$.
 
     **Determination of the generalized force**<br>
-    The force$F$acts along the same direction of the generalized coordinate$x$, this means$F$contributes entirely to the work done at the direction$x$. At this generalized coordinate, the generalized force due to$F$is$F$.<br>
-    At the generalized coordinate$θ$, if we 'freeze' the generalized coordinate$x$and let$F$act on the system, there is no movement at the generalized coordinate$θ$, so no work is done. At this generalized coordinate, the generalized force due to$F$is$0$.
+    The force $F$ acts along the same direction of the generalized coordinate $x$, this means $F$ contributes entirely to the work done at the direction $x$. At this generalized coordinate, the generalized force due to $F$ is $F$.<br>
+    At the generalized coordinate $θ$, if we 'freeze' the generalized coordinate $x$ and let $F$ act on the system, there is no movement at the generalized coordinate $θ$, so no work is done. At this generalized coordinate, the generalized force due to $F$ is $0$.
 
     Let's now use Sympy to determine the EOM.
     """)
@@ -1249,7 +1306,7 @@ def _(Fx, Lterms_5, lagrange_eq_solve, x_2, θ_2):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    Note that although the force$F_x$acts solely on the cart, the acceleration of the pendulum$\ddot{\theta}$is also dependent on$F$, as expected.
+    Note that although the force $F_x$ acts solely on the cart, the acceleration of the pendulum $\ddot{\theta}$ is also dependent on $F$, as expected.
 
     [Clik here for solutions to this problem using the Newtonian and Lagrangian approaches and how this system of two coupled second order differential equations can be rearranged for its numerical solution](http://www.emomi.com/download/neumann/pendulum_cart.html).
     """)
@@ -1263,20 +1320,20 @@ def _(mo):
 
     <figure><img src="https://github.com/BMClab/BMC/blob/master/images/springs_masses_g.png?raw=1" width="200" alt="double pendulum" style="float:right;margin: 10px 50px 10px 50px;"/></figure>
 
-    Consider a system composed by two masses$m_1,\, m_2$and two ideal springs (massless, lengths$\ell_1,\, \ell_2$, and spring constants$k_1,\,k_2$) attached in series under gravity and a force$F$acting directly on$m_2$.
+    Consider a system composed by two masses $m_1,\, m_2$ and two ideal springs (massless, lengths $\ell_1,\, \ell_2$, and spring constants $k_1,\,k_2$) attached in series under gravity and a force $F$ acting directly on $m_2$.
 
     We can model this system as composed by two particles with two degrees of freedom and we need two generalized coordinates to describe the system's configuration; two obvious options are:
 
-     -${y_1, y_2}$, positions of masses$m_1,\, m_2$w.r.t. ceiling (origin).<br>
-     -${z_1, z_2}$, position of mass$m_1$w.r.t. ceiling and position of mass$m_2$w.r.t. mass$m_1$.
+     - ${y_1, y_2}$, positions of masses $m_1,\, m_2$ w.r.t. ceiling (origin).<br>
+     - ${z_1, z_2}$, position of mass $m_1$ w.r.t. ceiling and position of mass $m_2$ w.r.t. mass $m_1$.
 
-    The set${y_1, y_2}$is at an inertial reference frame, while the second set it's not.<br>
+    The set ${y_1, y_2}$ is at an inertial reference frame, while the second set it's not.<br>
     Let's find the EOM's using both sets of generalized coordinates and compare them.
 
     **Generalized forces**<br>
-    Using${y_1, y_2}$, force$F$acts on mass$m_2$at the same direction of the generalized coordinate$y_2$. At this coordinate, the generalized force of$F$is$F$. At the generalized coordinate$y_1$, if we 'freeze' the generalized coordinate$y_2$and let$F$act on the system, there is no movement at the generalized coordinate$y_1$and no work is done. At this generalized coordinate, the generalized force due to$F$is$0$.
+    Using ${y_1, y_2}$, force $F$ acts on mass $m_2$ at the same direction of the generalized coordinate $y_2$. At this coordinate, the generalized force of $F$ is $F$. At the generalized coordinate $y_1$, if we 'freeze' the generalized coordinate $y_2$ and let $F$ act on the system, there is no movement at the generalized coordinate $y_1$ and no work is done. At this generalized coordinate, the generalized force due to $F$ is $0$.
 
-    Using${z_1, z_2}$, force$F$acts on mass$m_2$at the same direction of the generalized coordinate$z_2$. At this coordinate, the generalized force of$F$is$F$. At the generalized coordinate$z_1$, if we 'freeze' the generalized coordinate$z_2$and let$F$act on the system, mass$m_1$suffers the action of force$F$at the generalized coordinate$y_1$. At this generalized coordinate, the generalized force due to$F$is$F$.
+    Using ${z_1, z_2}$, force $F$ acts on mass $m_2$ at the same direction of the generalized coordinate $z_2$. At this coordinate, the generalized force of $F$ is $F$. At the generalized coordinate $z_1$, if we 'freeze' the generalized coordinate $z_2$ and let $F$ act on the system, mass $m_1$ suffers the action of force $F$ at the generalized coordinate $y_1$. At this generalized coordinate, the generalized force due to $F$ is $F$.
 
     Sympy is our friend once again:
     """)
@@ -1378,7 +1435,7 @@ def _(mo):
     mo.md(r"""
     **Same problem, but with the other set of coordinates**
 
-    Using${z_1, z_2}$as the position of mass$m_1$w.r.t. the ceiling and the position of mass$m_2$w.r.t. the mass$m_1$, the solution is:
+    Using ${z_1, z_2}$ as the position of mass $m_1$ w.r.t. the ceiling and the position of mass $m_2$ w.r.t. the mass $m_1$, the solution is:
     """)
     return
 
@@ -1432,7 +1489,7 @@ def _(F, Lterms_7, lagrange_eq_solve, z1, z2):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    The solutions using the two sets of coordinates seem different; the reader is invited to verify that in fact they are the same (remember that$y_1 = z_1,\, y_2 = z_1+z_2,\, \ddot{y}_2 = \ddot{z}_1+\ddot{z}_2$).
+    The solutions using the two sets of coordinates seem different; the reader is invited to verify that in fact they are the same (remember that $y_1 = z_1,\, y_2 = z_1+z_2,\, \ddot{y}_2 = \ddot{z}_1+\ddot{z}_2$).
     """)
     return
 
@@ -1445,20 +1502,48 @@ def _(mo):
     <figure><img src="https://github.com/BMClab/BMC/blob/master/images/mass_spring_damper_gravity.png?raw=1" width="220" alt="mass-spring-damper system" style="float:right;margin: 10px 50px 10px 50px;"/></figure>
 
     Consider a mass-spring-damper system under the action of the gravitational force and an external force acting on the mass.<br>
-    The massless spring has a stiffness coefficient$k$and length at rest$\ell_0$.<br>
-    The massless damper has a damping coefficient$b$.<br>
+    The massless spring has a stiffness coefficient $k$ and length at rest $\ell_0$.<br>
+    The massless damper has a damping coefficient $b$.<br>
     The gravitational force acts downwards and it is negative (see figure).<br>
     The system has one degree of freedom and we need only one generalized coordinate ($y$) to describe the system's configuration.
 
-    There are two non-conservative forces acting at the direction of the generalized coordinate: the external force F and the force of the damper. By calculating the work done by each of these forces, the total generalized force is:$Q_{NC} = F_0 \cos(\omega t) - b\dot y$.
+    There are two non-conservative forces acting at the direction of the generalized coordinate: the external force F and the force of the damper. By calculating the work done by each of these forces, the total generalized force is: $Q_{NC} = F_0 \cos(\omega t) - b\dot y$.
 
     Let's use the Lagrangian mechanics to derive the equations of motion for the system.
 
-    The kinetic energy of the system is:$T = \frac{1}{2} m \dot y^2$The potential energy of the system is:$V = \frac{1}{2} k (y-\ell_0)^2 + m g y$The Lagrangian function is:$\mathcal{L} = \frac{1}{2} m \dot y^2 - \frac{1}{2} k (y-\ell_0)^2 - m g y$The derivatives of the Lagrangian w.r.t.$y$and$t$are:$\begin{array}{rcl}
+    The kinetic energy of the system is:
+
+    $$
+    T = \frac{1}{2} m \dot y^2
+    $$
+
+    The potential energy of the system is:
+
+    $$
+    V = \frac{1}{2} k (y-\ell_0)^2 + m g y
+    $$
+
+    The Lagrangian function is:
+
+    $$
+    \mathcal{L} = \frac{1}{2} m \dot y^2 - \frac{1}{2} k (y-\ell_0)^2 - m g y
+    $$
+
+    The derivatives of the Lagrangian w.r.t. $y$ and $t$ are:
+
+    $$
+    \begin{array}{rcl}
     \dfrac{\partial \mathcal{L}}{\partial y} &=& -k(y-\ell_0) - mg \\
     \dfrac{\partial \mathcal{L}}{\partial \dot{y}} &=& m \dot{y} \\
     \dfrac{\mathrm d }{\mathrm d t}\left( {\dfrac{\partial \mathcal{L}}{\partial \dot{y}}} \right) &=& m\ddot{y}
-    \end{array}$Substituting all these terms in the Euler-Lagrange equation, results in:$m\ddot{y} + b\dot{y} + k(y-\ell_0) + mg = F_0 \cos(\omega t)$
+    \end{array}
+    $$
+
+    Substituting all these terms in the Euler-Lagrange equation, results in:
+
+    $$
+    m\ddot{y} + b\dot{y} + k(y-\ell_0) + mg = F_0 \cos(\omega t)
+    $$
     """)
     return
 
@@ -1549,58 +1634,76 @@ def _(mo):
 
     <figure><img src="https://github.com/BMClab/BMC/blob/master/images/simplependulum_lagrange.png?raw=1" width="220" alt="simple pendulum" style="float:right;margin: 10px 50px 10px 50px;"/></figure>
 
-    Consider a pendulum with a massless rod of length$d$and a mass$m$at the extremity swinging in a plane forming the angle$\theta$with vertical and$g=10 m/s^2$.
+    Consider a pendulum with a massless rod of length $d$ and a mass $m$ at the extremity swinging in a plane forming the angle $\theta$ with vertical and $g=10 m/s^2$.
 
-    Although the pendulum moves at the plane, it only has one degree of freedom, which can be described by the angle$\theta$, the generalized coordinate. But because we want to determine the force of constraint tension at the rod, let's also consider for now the variable$r$for the 'varying' length of the rod (instead of the constant$d$).
+    Although the pendulum moves at the plane, it only has one degree of freedom, which can be described by the angle $\theta$, the generalized coordinate. But because we want to determine the force of constraint tension at the rod, let's also consider for now the variable $r$ for the 'varying' length of the rod (instead of the constant $d$).
 
     In this case, the kinetic energy of the system will be:
-    <p>
-    <span class="notranslate">$T = \frac{1}{2}mr^2\dot\theta^2 + \frac{1}{2}m\dot r^2$</span>
 
-    And for the potential energy we will also have to consider the constraining potential,$V_r(r(t))$:
-    <p>
-    <span class="notranslate">$V = -mgr\cos\theta + V_r(r(t))$</span>
+    $$
+    T = \frac{1}{2}mr^2\dot\theta^2 + \frac{1}{2}m\dot r^2
+    $$
+
+    And for the potential energy we will also have to consider the constraining potential, $V_r(r(t))$:
+
+    $$
+    V = -mgr\cos\theta + V_r(r(t))
+    $$
 
     The Lagrangian function is:
-    <p>
-    <span class="notranslate">$\mathcal{L} = \frac{1}{2}m(\dot r^2(t) + r^2(t)\,\dot\theta^2(t)) + mgr(t)\cos\theta(t) - V_r(r(t))$</span>
 
-    The derivatives w.r.t.$\theta$are:
-    <p>
-    <span class="notranslate">$\begin{array}{rcl}
+    $$
+    \mathcal{L} = \frac{1}{2}m(\dot r^2(t) + r^2(t)\,\dot\theta^2(t)) + mgr(t)\cos\theta(t) - V_r(r(t))
+    $$
+
+    The derivatives w.r.t. $\theta$ are:
+
+    $$
+    \begin{array}{rcl}
     &\dfrac{\partial \mathcal{L}}{\partial \theta} &=& -mgr\sin\theta \\
     &\dfrac{\partial \mathcal{L}}{\partial \dot{\theta}} &=& mr^2\dot{\theta} \\
     &\dfrac{\mathrm d }{\mathrm d t}\left( {\dfrac{\partial \mathcal{L}}{\partial \dot{\theta}}} \right) &=& 2mr\dot{r}\dot{\theta} + mr^2\ddot{\theta}
-    \end{array}$</span>
+    \end{array}
+    $$
 
-    The derivatives w.r.t.$r$are:
-    <p>
-    <span class="notranslate">$\begin{array}{rcl}
+    The derivatives w.r.t. $r$ are:
+
+    $$
+    \begin{array}{rcl}
     &\dfrac{\partial \mathcal{L}}{\partial r} &=& mr \dot\theta^2 + mg\cos\theta - \dot{V}_r(r) \\
     &\dfrac{\partial \mathcal{L}}{\partial \dot{r}} &=& m\dot r \\
     &\dfrac{\mathrm d }{\mathrm d t}\left( {\dfrac{\partial \mathcal{L}}{\partial \dot{r}}} \right) &=& m\ddot{r}
-    \end{array}$</span>
+    \end{array}
+    $$
 
     The Euler-Lagrange's equations (the equations of motion) are:
-    <p>
-    <span class="notranslate">$\begin{array}{rcl}
+
+    $$
+    \begin{array}{rcl}
     &2mr\dot{r}\dot{\theta} + mr^2\ddot{\theta} + mgr\sin\theta &=& 0 \\
     &m\ddot{r} - mr \dot\theta^2 - mg\cos\theta + \dot{V}_r(r) &=& 0 \\
-    \end{array}$</span>
+    \end{array}
+    $$
 
-    Now, we will apply the constraint condition,$r(t)=d$. This means that$\dot{r}=\ddot{r}=0$.
+    Now, we will apply the constraint condition, $r(t)=d$. This means that $\dot{r}=\ddot{r}=0$.
 
     With this constraint applied, the first Euler-Lagrange equation is the equation for the simple pendulum:
-    <p>
-    <span class="notranslate">$md^2\ddot{\theta} + mgd\sin\theta = 0$</span>
+
+    $$
+    md^2\ddot{\theta} + mgd\sin\theta = 0
+    $$
 
     The second equation yields:
-    <p>
-    <span class="notranslate">$-\dfrac{\mathrm d V_r}{\mathrm d r}\bigg{\rvert}_{r=d} = - md \dot\theta^2 - mg\cos\theta$</span>
 
-    But the tension force,$F_T$, is by definition equal to the gradient of the constraining potential, so:
-    <p>
-    <span class="notranslate">$F_T = - md \dot\theta^2 - mg\cos\theta$</span>
+    $$
+    -\dfrac{\mathrm d V_r}{\mathrm d r}\bigg{\rvert}_{r=d} = - md \dot\theta^2 - mg\cos\theta
+    $$
+
+    But the tension force, $F_T$, is by definition equal to the gradient of the constraining potential, so:
+
+    $$
+    F_T = - md \dot\theta^2 - mg\cos\theta
+    $$
 
     As expected, the tension at the rod is proportional to the centripetal and the gravitational forces.
     """)
@@ -1624,15 +1727,34 @@ def _(mo):
 
     <figure><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/RLC_series_circuit_v1.svg/173px-RLC_series_circuit_v1.svg.png" width="140" alt="RLC circuit" style="float:right;margin: 0px 10px 0px 10px;"/></figure>
 
-    For a series RLC circuit, consider the following notation:$q$: charge$\dot{q}$: current admitted through the circuit$R$: effective resistance of the combined load, source, and components$C$: capacitance of the capacitor component$L$: inductance of the inductor component$u$: voltage source powering the circuit$P$: power dissipated by the resistance
+    For a series RLC circuit, consider the following notation:<br>
+    $q$: charge<br>
+    $\dot{q}$: current admitted through the circuit<br>
+    $R$: effective resistance of the combined load, source, and components<br>
+    $C$: capacitance of the capacitor component<br>
+    $L$: inductance of the inductor component<br>
+    $u$: voltage source powering the circuit<br>
+    $P$: power dissipated by the resistance
 
-    So, the equivalents of kinetic and potential energies are:$T = \frac{1}{2}L\dot{q}^2$$V = \frac{1}{2C}q^2$With a dissipative element:$P = \frac{1}{2}R\dot{q}^2$And the Lagrangian function is:$\mathcal{L} = \frac{1}{2}L\dot{q}^2 - \frac{1}{2C}q^2$Calculating the derivatives and substituting them in the Euler-Lagrange equation, we will have:
-    <p>
-    <span class="notranslate">$L \ddot{q} + R\dot{q} + \frac{q}{C} = u(t)$</span>
+    So, the equivalents of kinetic and potential energies are:<br>
+    $T = \frac{1}{2}L\dot{q}^2$<br>
+    $V = \frac{1}{2C}q^2$<br>
+    With a dissipative element:<br>
+    $P = \frac{1}{2}R\dot{q}^2$<br>
+    And the Lagrangian function is:<br>
+    $\mathcal{L} = \frac{1}{2}L\dot{q}^2 - \frac{1}{2C}q^2$
 
-    Replacing$\dot{q}$by$i$and considering$v_c = q/C$for a capacitor, we have the familar KVL equation:
-    <p>
-    <span class="notranslate">$L \frac{\mathrm d i}{\mathrm d t} + v_c + Ri = u(t)$</span>
+    Calculating the derivatives and substituting them in the Euler-Lagrange equation, we will have:
+
+    $$
+    L \ddot{q} + R\dot{q} + \frac{q}{C} = u(t)
+    $$
+
+    Replacing $\dot{q}$ by $i$ and considering $v_c = q/C$ for a capacitor, we have the familar KVL equation:
+
+    $$
+    L \frac{\mathrm d i}{\mathrm d t} + v_c + Ri = u(t)
+    $$
     """)
     return
 
@@ -1678,40 +1800,40 @@ def _(mo):
     mo.md(r"""
     ## Problems
 
-    1. Derive the Euler-Lagrange equation (the equation of motion) for a mass-spring system where the spring is attached to the ceiling and the mass in hanging in the vertical (see solution for a system with two masses at https://youtu.be/dZjjzzWykio).
+    1. Derive the Euler-Lagrange equation (the equation of motion) for a mass-spring system where the spring is attached to the ceiling and the mass in hanging in the vertical (see solution for a system with two masses at https://youtu.be/dZjjzzWykio).<br>
     <figure><img src="https://github.com/BMClab/BMC/blob/master/images/springgravity.png?raw=1" width="200" alt="mass-spring with gravity"/></figure>
 
-    2. Derive the Euler-Lagrange equation for an inverted pendulum in the vertical.
+    2. Derive the Euler-Lagrange equation for an inverted pendulum in the vertical.<br>
     <figure><img src="https://github.com/BMClab/BMC/blob/master/images/invpendulum2.png?raw=1" width="200" alt="inverted pendulum"/></figure>
 
-    3. Derive the Euler-Lagrange equation for the following system (see solution at https://youtu.be/8FSjEsUVNx8):
+    3. Derive the Euler-Lagrange equation for the following system (see solution at https://youtu.be/8FSjEsUVNx8):<br>
     <figure><img src="https://github.com/BMClab/BMC/blob/master/images/massessprings_lagrange.png?raw=1" width="280" alt="two masses and two springs"/></figure>
 
-    4. Derive the Euler-Lagrange equation for a spring pendulum, a simple pendulum where a mass$m$is attached to a massless spring with spring constant$k$and length at rest$d_0$(see solution at https://youtu.be/iULa9A00JpA).
+    4. Derive the Euler-Lagrange equation for a spring pendulum, a simple pendulum where a mass $m$ is attached to a massless spring with spring constant $k$ and length at rest $d_0$  (see solution at https://youtu.be/iULa9A00JpA).<br>
     <figure><img src="https://github.com/BMClab/BMC/blob/master/images/pendulumspring.png?raw=1" width="200" alt="mass-spring pendulum"/></figure>
 
-    5. Derive the Euler-Lagrange equation for the system shown below (see solution for one mass spring system at https://youtu.be/eY0I8QK-ITE).
+    5. Derive the Euler-Lagrange equation for the system shown below (see solution for one mass spring system at https://youtu.be/eY0I8QK-ITE).<br>
     <figure><img src="https://github.com/BMClab/BMC/blob/master/images/pendulumramp.png?raw=1" width="250" alt="pendulum on a ramp"/></figure>
 
-    6. Derive the Euler-Lagrange equation for the following Atwood machine (consider that$m_1 > m_2$, i.e., the pulley will rotate counter-clockwise, and that moving down is in the positive direction) (see solution at https://youtu.be/lVg8I23Khz4):
+    6. Derive the Euler-Lagrange equation for the following Atwood machine (consider that $m_1 > m_2$, i.e., the pulley will rotate counter-clockwise, and that moving down is in the positive direction) (see solution at https://youtu.be/lVg8I23Khz4):<br>
     <figure><img src="https://github.com/BMClab/BMC/blob/master/images/atwood_machine.png?raw=1" width="125" alt="Atwood machine"/></figure>
 
-    7. Derive the Euler-Lagrange equation for the system below (see solution at https://youtu.be/gsi_0cVZ5-s):
+    7. Derive the Euler-Lagrange equation for the system below (see solution at https://youtu.be/gsi_0cVZ5-s):<br>
     <figure><img src="https://github.com/BMClab/BMC/blob/master/images/cart_pendulum_spring.png?raw=1" width="250" alt="cart_pendulum_spring"/></figure>
 
-    8. Consider a person hanging by their hands from a bar and this person oscillates freely, behaving like a rigid pendulum under the action of gravity. The person's mass is$m$, the distance from their center of gravity to the bar is$r$, their rotational inertia is$I$, a line that passes through the bar and the person's body forms an angle$\theta$with the vertical and the magnitude of the acceleration of gravity is$g$.<br>
+    8. Consider a person hanging by their hands from a bar and this person oscillates freely, behaving like a rigid pendulum under the action of gravity. The person's mass is $m$, the distance from their center of gravity to the bar is $r$, their rotational inertia is $I$, a line that passes through the bar and the person's body forms an angle $\theta$ with the vertical and the magnitude of the acceleration of gravity is $g$.<br>
       a. Derive the equation of motion for the person's body using the Lagrangian formalism.<br>
-      b. If$m=100 kg$,$r=1 m$and$g=10 m/s^2$and the person takes$1 s$to perform a complete oscillation, calculate an estimate for the rotational inertia.<br>
-      Tip: Use the approximation that for small angles$\sin\theta \approx \theta$and solve the differential equation.
+      b. If $m=100 kg$, $r=1 m$ and $g=10 m/s^2$ and the person takes $1 s$ to perform a complete oscillation, calculate an estimate for the rotational inertia.<br>
+      Tip: Use the approximation that for small angles $\sin\theta \approx \theta$ and solve the differential equation.
 
-    9. Consider a mass-spring system under the action of gravity where the spring is attached to the ceiling and the mass in hanging in the vertical. The spring's proportionality constant is$k = 2 N/m$and its resting length is$\ell_0=1 m$. The mass attached to the spring is$2 kg$. Use$g = 10m/s^2$.<br>
+    9. Consider a mass-spring system under the action of gravity where the spring is attached to the ceiling and the mass in hanging in the vertical. The spring's proportionality constant is $k = 2 N/m$ and its resting length is $\ell_0=1 m$. The mass attached to the spring is $2 kg$. Use $g = 10m/s^2$.<br>
       a. Derive the differential equation that describes the movement of mass.<br>
       b. Calculate the position of the mass over time considering that the spring is initially 2 m long and at rest.<br>
       c. Write a pseudocode to calculate the position of the mass by numerical calculation using Euler's method to solve the differential equation.
 
-    10. A widely used approach to study the interaction between the human body and the ground in locomotion is to model this interaction as a mass-spring-damper system with different quantities of these components. In an experiment to study this interaction during running, the vertical ground reaction force (GRF) was measured during the stance phase of a runner with a mass equal to$100 kg$and the magnitude of GRF versus time is shown in the figure.  <figure><img src="https://github.com/BMClab/BMC/blob/master/images/GRFv.png?raw=1" width="350" alt="GRFv"/></figure><br>
+    10. A widely used approach to study the interaction between the human body and the ground in locomotion is to model this interaction as a mass-spring-damper system with different quantities of these components. In an experiment to study this interaction during running, the vertical ground reaction force (GRF) was measured during the stance phase of a runner with a mass equal to $100 kg$ and the magnitude of GRF versus time is shown in the figure.  <figure><img src="https://github.com/BMClab/BMC/blob/master/images/GRFv.png?raw=1" width="350" alt="GRFv"/></figure><br>
       a. Draw a free-body diagram for the runner's center of gravity.<br>
-      b. The maximum height of the runner in the aerial phase after the support phase shown in the graph above, knowing that the initial height and vertical speed (at$t=0 s$) of the runner (from his center of gravity) were$y_0 = 1 m$and$v_0 = –2  m/s$.<br>
+      b. The maximum height of the runner in the aerial phase after the support phase shown in the graph above, knowing that the initial height and vertical speed (at $t=0 s$) of the runner (from his center of gravity) were $y_0 = 1 m$ and $v_0 = –2  m/s$.<br>
       c. Draw the free-body diagram for a mechanical model of the corridor as a system consisting of a mass and spring and interaction with the ground.<br>
       d. Derive the equation of motion for this model obtained in item c.<br>
       e. Write a pseudocode to calculate the vertical trajectory from the differential equation obtained in item d by numerical calculation using Euler's method.

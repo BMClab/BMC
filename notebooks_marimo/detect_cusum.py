@@ -19,7 +19,10 @@ def _(mo):
     mo.md(r"""
     [Change detection](http://en.wikipedia.org/wiki/Change_detection) refers to procedures to identify abrupt changes in a phenomenon (Basseville and Nikiforov 1993, Gustafsson 2000). By abrupt change it is meant any difference in relation to previous known data faster than expected of some characteristic of the data such as amplitude, mean, variance, frequency, etc.
 
-    The [Cumulative sum (CUSUM)](http://en.wikipedia.org/wiki/CUSUM) algorithm is a classical technique for monitoring change detection. One form of implementing the CUSUM algorithm involves the calculation of the cumulative sum of positive and negative changes ($g_t^+$and$g_t^-$) in the data ($x$) and comparison to a$threshold$. When this threshold is exceeded a change is detected ($t_{talarm}$) and the cumulative sum restarts from zero. To avoid the detection of a change in absence of an actual change or a slow drift, this algorithm also depends on a parameter$drift$for drift correction. This form of the CUSUM algorithm is given by:$\begin{array}{l l}
+    The [Cumulative sum (CUSUM)](http://en.wikipedia.org/wiki/CUSUM) algorithm is a classical technique for monitoring change detection. One form of implementing the CUSUM algorithm involves the calculation of the cumulative sum of positive and negative changes ($g_t^+$ and $g_t^-$) in the data ($x$) and comparison to a $threshold$. When this threshold is exceeded a change is detected ($t_{talarm}$) and the cumulative sum restarts from zero. To avoid the detection of a change in absence of an actual change or a slow drift, this algorithm also depends on a parameter $drift$ for drift correction. This form of the CUSUM algorithm is given by:
+
+    $$
+    \begin{array}{l l}
     \left\{ \begin{array}{l l}
     s[t] = x[t] - x[t-1] \\
     g^+[t] = max\left(g^+[t-1] + s[t]-drift,\; 0\right) \\
@@ -33,23 +36,26 @@ def _(mo):
     g^+[t] = 0 \\
     g^-[t] = 0
     \end{array} \right.
-    \end{array}$<!-- TEASER_END -->
+    \end{array}
+    $$
 
-    There are different implementations of the CUSUM algorithm; for example, the term for the sum of the last elements ($s[t]$above) can have a longer history (with filtering), it can be normalized by removing the data mean and then divided by the data variance), or this sum term can be squared for detecting both variance and parameter changes, etc.
+    <!-- TEASER_END -->
 
-    For the CUSUM algorithm to work properly, it depends on tuning the parameters$h$and$v$to what is meant by a change in the data. According to Gustafsson (2000), this tuning can be performed following these steps:
+    There are different implementations of the CUSUM algorithm; for example, the term for the sum of the last elements ($s[t]$ above) can have a longer history (with filtering), it can be normalized by removing the data mean and then divided by the data variance), or this sum term can be squared for detecting both variance and parameter changes, etc.
 
-     - Start with a very large$threshold$.
-     - Choose$drift$to one half of the expected change, or adjust$drift$such that$g$= 0 more than 50% of the time.
-     - Then set the$threshold$so the required number of false alarms (this can be done automatically) or delay for detection is obtained.
-     - If faster detection is sought, try to decrease$drift$.
-     - If fewer false alarms are wanted, try to increase$drift$.
-     - If there is a subset of the change times that does not make sense, try to increase$drift$.
+    For the CUSUM algorithm to work properly, it depends on tuning the parameters $h$ and $v$ to what is meant by a change in the data. According to Gustafsson (2000), this tuning can be performed following these steps:
+
+     - Start with a very large $threshold$.<br>
+     - Choose $drift$ to one half of the expected change, or adjust $drift$ such that $g$ = 0 more than 50% of the time.<br>
+     - Then set the $threshold$ so the required number of false alarms (this can be done automatically) or delay for detection is obtained.<br>
+     - If faster detection is sought, try to decrease $drift$.<br>
+     - If fewer false alarms are wanted, try to increase $drift$.<br>
+     - If there is a subset of the change times that does not make sense, try to increase $drift$.
 
     The function `detect_cusum.py` (code at the end of this text) implements the CUSUM algorithm and a procedure to calculate the ending of the detected change. The function signature is:<br>
     ```python
     ta, tai, taf, amp = detect_cusum(x, threshold=1, drift=0, ending=False, show=True, ax=None)
-    ```
+    ```<br>
     Let's see how to use `detect_cusum.py`; first let's import the necessary Python libraries and configure the environment:
     """)
     return

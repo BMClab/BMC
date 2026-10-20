@@ -36,14 +36,15 @@ def _(mo):
 def _(mo):
     mo.md(r"""
     Let's simulate the 3-component Hill-type muscle model we described in [Muscle modeling](https://marimo.app/?src=https%3A%2F%2Fgithub.com%2FBMClab%2FBMC%2Fblob%2Fmaster%2Fnotebooks_marimo%2Fmuscle_modeling.py) and illustrated below:
-
-    <img src="https://raw.githubusercontent.com/BMClab/BMC/master/images/muscle_hill.png" width="400" alt="Hill-type muscle model." />
+    <p></p>
+    <img src="https://raw.githubusercontent.com/BMClab/BMC/master/images/muscle_hill.png" width="400" alt="Hill-type muscle model."/>
 
     *Figure. A Hill-type muscle model with three components: two for the muscle, an active contractile element, $\mathsf{CE}$, and a passive elastic element in parallel, $\mathsf{PE}$, with the $\mathsf{CE}$, and one component for the tendon, an elastic element in series, $\mathsf{SE}$, with the muscle. $\mathsf{L_{MT}}$: muscle–tendon length, $\mathsf{L_T}$: tendon length, $\mathsf{L_M}$: muscle fiber length, $\mathsf{F_T}$: tendon force, $\mathsf{F_M}$: muscle force, and $\alpha$: pennation angle.*
 
     The following relationships are true for the model:
 
-    $\begin{array}{l}
+    $$
+    \begin{array}{l}
     L_{MT} = L_{T} + L_M\cos\alpha  \\
     \\
     L_M = L_{CE} = L_{PE} \\
@@ -51,11 +52,14 @@ def _(mo):
     \dot{L}_M = \dot{L}_{CE} = \dot{L}_{PE} \\
     \\
     F_{M} = F_{CE} + F_{PE}
-    \end{array}$
+    \end{array}
+    $$
 
-    If we assume that the muscle–tendon system is at equilibrium, that is, muscle,$F_{M}$, and tendon,$F_{T}$, forces are in equilibrium at all times, the following equation holds (and that a muscle can only pull):
+    If we assume that the muscle–tendon system is at equilibrium, that is, muscle, $F_{M}$, and tendon, $F_{T}$, forces are in equilibrium at all times, the following equation holds (and that a muscle can only pull):
 
-    $F_{T} = F_{SE} = F_{M}\cos\alpha$
+    $$
+    F_{T} = F_{SE} = F_{M}\cos\alpha
+    $
 
     **Guiding questions 1.**
 
@@ -73,19 +77,27 @@ def _(mo):
 
     The pennation angle will vary during muscle activation; for instance, Kawakami et al. (1998) showed that the pennation angle of the medial gastrocnemius muscle can vary from 22$^o$ to 67$^o$ during activation. The most used approach is to assume that the muscle width (defined as the length of the perpendicular line between the lines of the muscle origin and insertion) remains constant (Scott & Winter, 1991):
 
-    $w = L_{M,0} \sin\alpha_0$
+    $$
+    w = L_{M,0} \sin\alpha_0
+    $$
 
     The pennation angle as a function of time will be given by:
 
-    $\alpha = \sin^{-1} \left(\dfrac{w}{L_M}\right)$
+    $$
+    \alpha = \sin^{-1} \left(\dfrac{w}{L_M}\right)
+    $$
 
-    The cosine of the pennation angle can be given by (if$L_M$is known):
+    The cosine of the pennation angle can be given by (if $L_M$ is known):
 
-    $\cos \alpha = \dfrac{\sqrt{L_M^2-w^2}}{L_M} = \sqrt{1-\left(\dfrac{w}{L_M}\right)^2}$
+    $$
+    \cos \alpha = \dfrac{\sqrt{L_M^2-w^2}}{L_M} = \sqrt{1-\left(\dfrac{w}{L_M}\right)^2}
+    $$
 
     or (if $L_M$ is not known):
 
-    $\cos \alpha = \dfrac{L_{MT}-L_T}{L_M} = \dfrac{1}{\sqrt{1 + \left(\dfrac{w}{L_{MT}-L_T}\right)^2}}$
+    $$
+    \cos \alpha = \dfrac{L_{MT}-L_T}{L_M} = \dfrac{1}{\sqrt{1 + \left(\dfrac{w}{L_{MT}-L_T}\right)^2}}
+    $
 
     **Guiding questions 2.**
 
@@ -104,31 +116,33 @@ def _(mo):
 
     In general, the dependence of the force of the contractile element with its length and velocity and with the activation level are assumed independent of each other:
 
-    $F_{CE}(a, L_{CE}, \dot{L}_{CE}) = a \: f_l(L_{CE}) \: f_v(\dot{L}_{CE}) \: F_{M0}$
+    $$
+    F_{CE}(a, L_{CE}, \dot{L}_{CE}) = a \: f_l(L_{CE}) \: f_v(\dot{L}_{CE}) \: F_{M0}
+    $$
 
     where $f_l(L_M)$ and $f_v(\dot{L}_M)$ are mathematical functions describing the force-length and force-velocity relationships of the contractile element (typically these functions are normalized by $F_{M0}$, the maximum isometric (at zero velocity) muscle force, so we have to multiply the right side of the equation by $F_{M0}$).
 
     And for the muscle force:
 
-    $F_{M}(a, L_M, \dot{L}_M) = \left[a \: f_l(L_M)f_v(\dot{L}_M) + F_{PE}(L_M)\right]F_{M0}$
+    $$
+    F_{M}(a, L_M, \dot{L}_M) = \left[a \: f_l(L_M)f_v(\dot{L}_M) + F_{PE}(L_M)\right]F_{M0}
+    $$
 
-    This equation for the muscle force, with $a$, $L_{M}$, and $\dot{L}_{M}$ as state variables, can be used to simulate the dynamics of a muscle given an excitation and determine the muscle force and length. We can rearrange the equation, invert the expression for $f_v$, and integrate the resulting first-order ordinary differential equation (ODE) to obatin
+    This equation for the muscle force, with $a$, $L_{M}$, and $\dot{L}_{M}$ as state variables, can be used to simulate the dynamics of a muscle given an excitation and determine the muscle force and length. We can rearrange the equation, invert the expression for $f_v$, and integrate the resulting first-order ordinary differential equation (ODE) to obatin $L_M$:
 
-    $L_M$:$\dot{L}_M = f_v^{-1}\left(\dfrac{F_{SE}(L_{MT}-L_M\cos\alpha)/\cos\alpha - F_{PE}(L_M)}{a f_l(L_M)}\right)$
+    $$
+    \dot{L}_M = f_v^{-1}\left(\dfrac{F_{SE}(L_{MT}-L_M\cos\alpha)/\cos\alpha - F_{PE}(L_M)}{a f_l(L_M)}\right)
+    $$
 
     This approach is the most commonly employed in the literature (see for example, [OpenSim](http://simtk-confluence.stanford.edu:8080/display/OpenSim/Muscle+Model+Theory+and+Publications); McLean, Su, van den Bogert, 2003; Thelen, 2003; Nigg and Herzog, 2007).
 
-    Although the equation for the muscle force doesn't have numerical singularities, the differential equation for muscle velocity has four ([OpenSim Millard 2012 Muscle Models](http://simtk-confluence.stanford.edu:8080/display/OpenSim/Millard+2012+Muscle+Models)):
-    When $a \rightarrow 0$; when $f_l(L_M) \rightarrow 0$; when $\alpha \rightarrow \pi/2$; and when $\partial f_v/\partial v \rightarrow 0$.
-    The following solutions can be employed to avoid the numerical singularities ([OpenSim Millard 2012 Muscle Models](http://simtk-confluence.stanford.edu:8080/display/OpenSim/Millard+2012+Muscle+Models)):
-
-    - A minimum value for $a$; e.g., $a_{min}=0.01$;
-
-    - A minimum value for $f_l(L_M)$; e.g., $f_l(0.1)$;
-
-    - A maximum value for pennation angle; e.g., constrain $\alpha$ to $\cos\alpha > 0.1; (\alpha < 84.26^o)$;
-
-    - Make the slope of $f_V$ at and beyond maximum velocity different than zero (for both concentric and eccentric activations).
+    Although the equation for the muscle force doesn't have numerical singularities, the differential equation for muscle velocity has four ([OpenSim Millard 2012 Muscle Models](http://simtk-confluence.stanford.edu:8080/display/OpenSim/Millard+2012+Muscle+Models)):<br>
+    When $a \rightarrow 0$; when $f_l(L_M) \rightarrow 0$; when $\alpha \rightarrow \pi/2$; and when $\partial f_v/\partial v \rightarrow 0$.<br>
+    The following solutions can be employed to avoid the numerical singularities ([OpenSim Millard 2012 Muscle Models](http://simtk-confluence.stanford.edu:8080/display/OpenSim/Millard+2012+Muscle+Models)):<br>
+     - A minimum value for $a$; e.g., $a_{min}=0.01$;<br>
+     - A minimum value for $f_l(L_M)$; e.g., $f_l(0.1)$;<br>
+     - A maximum value for pennation angle; e.g., constrain $\alpha$ to $\cos\alpha > 0.1; (\alpha < 84.26^o)$;<br>
+     - Make the slope of $f_V$ at and beyond maximum velocity different than zero (for both concentric and eccentric activations).
 
     We will adopt these solutions to avoid singularities in the simulation of muscle mechanics. A problem of imposing values to variables as described above is that we can make the ordinary differential equation numerically stiff, which will increase the computational cost of the numerical integration. A better solution would be to modify the model to not have these singularities (see [OpenSim Millard 2012 Muscle Models](http://simtk-confluence.stanford.edu:8080/display/OpenSim/Millard+2012+Muscle+Models)).
 
@@ -149,24 +163,28 @@ def _(mo):
 
     Let's simulate muscle dynamics using the Thelen2003Muscle model we defined in [Muscle modeling](https://marimo.app/?src=https%3A%2F%2Fgithub.com%2FBMClab%2FBMC%2Fblob%2Fmaster%2Fnotebooks_marimo%2Fmuscle_modeling.py). For the simulation of the Thelen2003Muscle, we simply have to integrate the equation:
 
-    $V_M = (0.25+0.75a)\,V_{Mmax}\frac{\bar{F}_M-a\bar{f}_{l,CE}}{b}$
+    $$
+    V_M = (0.25+0.75a)\,V_{Mmax}\frac{\bar{F}_M-a\bar{f}_{l,CE}}{b}
+    $$
 
     where
 
-    $b = \left\{
+    $$
+    b = \left\{
       \begin{array}{l l l}
         a\bar{f}_{l,CE} + \bar{F}_M/A_f \quad & \text{if} \quad \bar{F}_M \leq a\bar{f}_{l,CE} & \text{(shortening)} \\
         \\
         \dfrac{(2+2/A_f)(a\bar{f}_{l,CE}\bar{f}_{CEmax} - \bar{F}_M)}{\bar{f}_{CEmax}-1} \quad & \text{if} \quad \bar{F}_M > a\bar{f}_{l,CE} & \text{(lengthening)}
-    \end{array} \right.$
+    \end{array} \right.
+    $$
 
-    The equation above already contains the terms for actvation,$a$, and force-length dependence, $\bar{f}_{l,CE}$. The equation is too complicated for solving analytically, we will solve it by numerical integration with a simple fixed-step forward [Euler method](https://en.wikipedia.org/wiki/Euler_method). We could run a simulation using [OpenSim](https://simtk.org/home/opensim); it would be faster, but for fun, let's program in Python. All the necessary functions for the Thelen2003Muscle model described in [Muscle modeling](https://marimo.app/?src=https%3A%2F%2Fgithub.com%2FBMClab%2FBMC%2Fblob%2Fmaster%2Fnotebooks_marimo%2Fmuscle_modeling.py) were grouped in one file (module), `muscles.py`. Besides these functions, the module `muscles.py` contains a function for the muscle velocity, `vm_eq`, which is evaluated at each integration step by the solver `lm_sol`:
+    The equation above already contains the terms for actvation, $a$, and force-length dependence, $\bar{f}_{l,CE}$. The equation is too complicated for solving analytically, we will solve it by numerical integration with a simple fixed-step forward [Euler method](https://en.wikipedia.org/wiki/Euler_method). We could run a simulation using [OpenSim](https://simtk.org/home/opensim); it would be faster, but for fun, let's program in Python. All the necessary functions for the Thelen2003Muscle model described in [Muscle modeling](https://marimo.app/?src=https%3A%2F%2Fgithub.com%2FBMClab%2FBMC%2Fblob%2Fmaster%2Fnotebooks_marimo%2Fmuscle_modeling.py) were grouped in one file (module), `muscles.py`. Besides these functions, the module `muscles.py` contains a function for the muscle velocity, `vm_eq`, which is evaluated at each integration step by the solver `lm_sol`:
 
-    ```python
+    ```python<br>
     def vm_eq(self, t, lm, lm0, lmt0, lmopt, ltslack, alpha0, vmmax, fm0):
         "\"\"Equation for muscle velocity."\"\"
         if lm < 0.1*lmopt:
-            lm = 0.1*lmopt
+            lm = 0.1*lmopt<br>
         a     = self.activation(t)
         lmt   = self.lmt_eq(t, lmt0)
         alpha = self.penn_ang(lmt=lmt, lm=lm, lm0=lm0, alpha0=alpha0)

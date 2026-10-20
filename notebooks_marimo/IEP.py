@@ -209,10 +209,10 @@ def _(mo):
     mo.md(r"""
     ### Decomposition based on the instant-equilibrium-point hypothesis
 
-    The rambling and trembling components of the COP trajectory were computed in the following way:
-     1. The instants when$F_{hor}$changes its sign from positive (negative) to negative (positive) are determined.
-     2. The COP positions at these instants (the instant equilibrium points, IEP, or zero-force points) are determined.
-     3. To obtain an estimate of the rambling trajectory, the IEP discrete positions are interpolated by cubic spline functions.
+    The rambling and trembling components of the COP trajectory were computed in the following way:<br>
+     1. The instants when $F_{hor}$ changes its sign from positive (negative) to negative (positive) are determined.<br>
+     2. The COP positions at these instants (the instant equilibrium points, IEP, or zero-force points) are determined.<br>
+     3. To obtain an estimate of the rambling trajectory, the IEP discrete positions are interpolated by cubic spline functions.<br>
      4. To obtain the trembling trajectory, the deviation of the COP from the rambling trajectory is determined.
     """)
     return

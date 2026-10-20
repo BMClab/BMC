@@ -160,8 +160,14 @@ def _(mo):
 
     See the notebook [Center of Mass and Moment of Inertia](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/CenterOfMassAndMomentOfInertia.ipynb) for a description of center of mass.
 
-    Using the data of the body segment parameters table, the center of mass of a single segment$i$is (see figure below):$r_{i} = r_{i,p} + \text{bsp[i,cmp]} \cdot (r_{i,d}-r_{i,p})$Where$r_{i,p}$and$\:r_{i,d}$are the positions of the proximal and distal landmarks used to define the$i$segment.<br>
-    Note that$r$is a vector and may have more than one dimension. The equation for the center of mass is valid in each direction and the calculations are performed independently in each direction. In addition, there is no need to include the mass of the segment in the equation above; the mass of the segment is used only when there is more than one segment.
+    Using the data of the body segment parameters table, the center of mass of a single segment $i$ is (see figure below):
+
+    $$
+    r_{i} = r_{i,p} + \text{bsp[i,cmp]} \cdot (r_{i,d}-r_{i,p})
+    $$
+
+    Where $r_{i,p}$ and $\:r_{i,d}$ are the positions of the proximal and distal landmarks used to define the $i$ segment.<br>
+    Note that $r$ is a vector and may have more than one dimension. The equation for the center of mass is valid in each direction and the calculations are performed independently in each direction. In addition, there is no need to include the mass of the segment in the equation above; the mass of the segment is used only when there is more than one segment.
 
     For example, given the following coordinates ($x, y$) for the MT2, ankle, knee and hip joints:
     """)
@@ -256,7 +262,13 @@ def _(mo):
 
     The radius of gyration (as a fraction of the segment length) is the quantity that is given in the table of body segment parameters. Because of that, we don't need to sum each element of mass of the segment to calculate its moment of inertia; we just need to take the mass of the segment times the radius or gyration squared.
 
-    Using the body segment parameters, the moment of inertia of a single segment$i$rotating around its own center of mass is (see figure below):$I_{i,cm} = M \cdot \text{bsp[i,mass]} \cdot \left(\text{bsp[i,rgcm]} \cdot ||r_{i,d}-r_{i,p}||\right)^2$Where$M$is the total body mass of the subject and$||r_{i,d}-r_{i,p}||$is the length of the segment$i$.
+    Using the body segment parameters, the moment of inertia of a single segment $i$ rotating around its own center of mass is (see figure below):
+
+    $$
+    I_{i,cm} = M \cdot \text{bsp[i,mass]} \cdot \left(\text{bsp[i,rgcm]} \cdot ||r_{i,d}-r_{i,p}||\right)^2
+    $$
+
+    Where $M$ is the total body mass of the subject and $||r_{i,d}-r_{i,p}||$ is the length of the segment $i$.
 
     For example, the moment of inertia of each segment of the lower limb around each corresponding segment center of mass considering the coordinates (x, y) for the MT2, ankle, knee and hip joints given above are:
     """)
@@ -389,16 +401,16 @@ def _(mo):
     mo.md(r"""
     ## Problems
 
-    1. Take a picture at the frontal plane of somebody standing on one foot on tiptoes with the arms and the other leg abducted at the horizontal.
-      1. Estimate the body center of mass of this person. Hint: for simplicity, consider the center of mass of each segment to be located at the middle of the segment and measure these positions using a image digitizer, e.g., [WebPlotDigitizer](https://automeris.io/WebPlotDigitizer/).
+    1. Take a picture at the frontal plane of somebody standing on one foot on tiptoes with the arms and the other leg abducted at the horizontal.<br>
+      1. Estimate the body center of mass of this person. Hint: for simplicity, consider the center of mass of each segment to be located at the middle of the segment and measure these positions using a image digitizer, e.g., [WebPlotDigitizer](https://automeris.io/WebPlotDigitizer/).<br>
       2. If the person is almost standing still, through which part of the body a vertical line through the center of mass should necessarily pass? Have you obtained this result? Comment on possible differences between the expected and obtained results.
 
-    2. Consider the kinematic data from table A.1 of the Winter's book (Winter, 2009) used in problem 2 of the notebook [Angular kinematics in a plane (2D)](http://nbviewer.jupyter.org/github/demotu/BMC/blob/master/notebooks/KinematicsAngular2D.ipynb).
-      1. Calculate the center of mass position for each segment and for the whole body (beware that no data are given for the head and arms segments) using the Dempster's and Zatsiorsky's models.
+    2. Consider the kinematic data from table A.1 of the Winter's book (Winter, 2009) used in problem 2 of the notebook [Angular kinematics in a plane (2D)](http://nbviewer.jupyter.org/github/demotu/BMC/blob/master/notebooks/KinematicsAngular2D.ipynb).<br>
+      1. Calculate the center of mass position for each segment and for the whole body (beware that no data are given for the head and arms segments) using the Dempster's and Zatsiorsky's models.<br>
       2. Perform these calculations also for the moment of inertia (of each segment and of the whole body around the corresponding centers of mass).
 
-    3. Consider the following positions of markers placed on a leg (described in the laboratory coordinate system with coordinates$x, y, z$in cm, the$x$axis points forward and the$y$axes points upward): lateral malleolus (**lm** = [2.92, 10.10, 18.85]), medial malleolus (**mm** = [2.71, 10.22, 26.52]), fibular head (**fh** = [5.05, 41.90, 15.41]), and medial condyle (**mc** = [8.29, 41.88, 26.52]). Define the ankle joint center as the centroid between the **lm** and **mm** markers and the knee joint center as the centroid between the **fh** and **mc** markers (same data as in the "Example with actual motion analysis data" of the notebook [Rigid-body transformations in three dimensions](https://github.com/BMClab/BMC/blob/master/notebooks/Transformation3D.ipynb)). Consider that the principal axes of the leg are aligned with the axes of the respective anatomical coordinate system.
-      1. Determine the center of mass position of the leg at the anatomical and laboratory coordinate systems.
+    3. Consider the following positions of markers placed on a leg (described in the laboratory coordinate system with coordinates $x, y, z$ in cm, the $x$ axis points forward and the $y$ axes points upward): lateral malleolus (**lm** = [2.92, 10.10, 18.85]), medial malleolus (**mm** = [2.71, 10.22, 26.52]), fibular head (**fh** = [5.05, 41.90, 15.41]), and medial condyle (**mc** = [8.29, 41.88, 26.52]). Define the ankle joint center as the centroid between the **lm** and **mm** markers and the knee joint center as the centroid between the **fh** and **mc** markers (same data as in the "Example with actual motion analysis data" of the notebook [Rigid-body transformations in three dimensions](https://github.com/BMClab/BMC/blob/master/notebooks/Transformation3D.ipynb)). Consider that the principal axes of the leg are aligned with the axes of the respective anatomical coordinate system.<br>
+      1. Determine the center of mass position of the leg at the anatomical and laboratory coordinate systems.<br>
       2. Determine the inertia tensor of the leg for a rotation around its proximal joint and around its center of mass.
     """)
     return

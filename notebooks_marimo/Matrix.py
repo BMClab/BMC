@@ -19,15 +19,25 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    A matrix is a square or rectangular array of numbers or symbols (termed elements), arranged in rows and columns. For instance:$\mathbf{A} =
+    A matrix is a square or rectangular array of numbers or symbols (termed elements), arranged in rows and columns. For instance:
+
+    $$
+    \mathbf{A} =
     \begin{bmatrix}
     a_{1,1} & a_{1,2} & a_{1,3} \\
     a_{2,1} & a_{2,2} & a_{2,3}
-    \end{bmatrix}$$\mathbf{A} =
+    \end{bmatrix}
+    $$
+
+    $$
+    \mathbf{A} =
     \begin{bmatrix}
     1 & 2 & 3 \\
     4 & 5 & 6
-    \end{bmatrix}$The matrix$\mathbf{A}$above has two rows and three columns, it is a 2x3 matrix.
+    \end{bmatrix}
+    $$
+
+    The matrix $\mathbf{A}$ above has two rows and three columns, it is a 2x3 matrix.
 
     In Numpy:
     """)
@@ -112,7 +122,7 @@ def _(mo):
     mo.md(r"""
     ## Addition and multiplication
 
-    The sum of two m-by-n matrices$\mathbf{A}$and$\mathbf{B}$is another m-by-n matrix:
+    The sum of two m-by-n matrices $\mathbf{A}$ and $\mathbf{B}$ is another m-by-n matrix:
     """)
     return
 
@@ -120,7 +130,8 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    $\mathbf{A} =
+    $$
+    \mathbf{A} =
     \begin{bmatrix}
     a_{1,1} & a_{1,2} & a_{1,3} \\
     a_{2,1} & a_{2,2} & a_{2,3}
@@ -130,11 +141,18 @@ def _(mo):
     \begin{bmatrix}
     b_{1,1} & b_{1,2} & b_{1,3} \\
     b_{2,1} & b_{2,2} & b_{2,3}
-    \end{bmatrix}$$\mathbf{A} + \mathbf{B} =
+    \end{bmatrix}
+    $$
+
+    $$
+    \mathbf{A} + \mathbf{B} =
     \begin{bmatrix}
     a_{1,1}+b_{1,1} & a_{1,2}+b_{1,2} & a_{1,3}+b_{1,3} \\
     a_{2,1}+b_{2,1} & a_{2,2}+b_{2,2} & a_{2,3}+b_{2,3}
-    \end{bmatrix}$In Numpy:
+    \end{bmatrix}
+    $$
+
+    In Numpy:
     """)
     return
 
@@ -152,7 +170,10 @@ def _(np):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    The multiplication of the m-by-n matrix$\mathbf{A}$by the n-by-p matrix$\mathbf{B}$is a m-by-p matrix:$\mathbf{A} =
+    The multiplication of the m-by-n matrix $\mathbf{A}$ by the n-by-p matrix $\mathbf{B}$ is a m-by-p matrix:
+
+    $$
+    \mathbf{A} =
     \begin{bmatrix}
     a_{1,1} & a_{1,2} \\
     a_{2,1} & a_{2,2}
@@ -162,11 +183,18 @@ def _(mo):
     \begin{bmatrix}
     b_{1,1} & b_{1,2} & b_{1,3} \\
     b_{2,1} & b_{2,2} & b_{2,3}
-    \end{bmatrix}$$\mathbf{A} \mathbf{B} =
+    \end{bmatrix}
+    $$
+
+    $$
+    \mathbf{A} \mathbf{B} =
     \begin{bmatrix}
     a_{1,1}b_{1,1} + a_{1,2}b_{2,1} & a_{1,1}b_{1,2} + a_{1,2}b_{2,2} & a_{1,1}b_{1,3} + a_{1,2}b_{2,3} \\
     a_{2,1}b_{1,1} + a_{2,2}b_{2,1} & a_{2,1}b_{1,2} + a_{2,2}b_{2,2} & a_{2,1}b_{1,3} + a_{2,2}b_{2,3}
-    \end{bmatrix}$In Numpy:
+    \end{bmatrix}
+    $$
+
+    In Numpy:
     """)
     return
 
@@ -205,7 +233,7 @@ def _(mo):
     mo.md(r"""
     Same result as before.
 
-    The order in multiplication matters,$\mathbf{AB} \neq \mathbf{BA}$:
+    The order in multiplication matters, $\mathbf{AB} \neq \mathbf{BA}$:
     """)
     return
 
@@ -245,7 +273,10 @@ def _(mo):
     mo.md(r"""
     ## Transposition
 
-    The transpose of the matrix$\mathbf{A}$is the matrix$\mathbf{A^T}$turning all the rows of matrix$\mathbf{A}$into columns (or columns into rows):$\mathbf{A} =
+    The transpose of the matrix $\mathbf{A}$ is the matrix $\mathbf{A^T}$ turning all the rows of matrix $\mathbf{A}$ into columns (or columns into rows):
+
+    $$
+    \mathbf{A} =
     \begin{bmatrix}
     a & b & c \\
     d & e & f \end{bmatrix}
@@ -255,7 +286,10 @@ def _(mo):
     a & d \\
     b & e \\
     c & f
-    \end{bmatrix}$In NumPy, the transpose operator can be used as a method or function:
+    \end{bmatrix}
+    $$
+
+    In NumPy, the transpose operator can be used as a method or function:
     """)
     return
 
@@ -276,13 +310,31 @@ def _(mo):
 
     The determinant is a number associated with a square matrix.
 
-    The determinant of the following matrix:$\left[  \begin{array}{ccc}
+    The determinant of the following matrix:
+
+    $$
+    \left[  \begin{array}{ccc}
     a & b & c \\
     d & e & f \\
-    g & h & i \end{array} \right]$is written as:$\left|  \begin{array}{ccc}
+    g & h & i \end{array} \right]
+    $$
+
+    is written as:
+
+    $$
+    \left|  \begin{array}{ccc}
     a & b & c \\
     d & e & f \\
-    g & h & i \end{array} \right|$And has the value:$(aei + bfg + cdh) - (ceg + bdi + afh)$One way to manually calculate the determinant of a matrix is to use the [rule of Sarrus](http://en.wikipedia.org/wiki/Rule_of_Sarrus): we repeat the last columns (all columns but the first one) in the right side of the matrix and calculate the sum of the products of three diagonal north-west to south-east lines of matrix elements, minus the sum of the products of three diagonal south-west to north-east lines of elements as illustrated in the following figure:<br>
+    g & h & i \end{array} \right|
+    $$
+
+    And has the value:
+
+    $$
+    (aei + bfg + cdh) - (ceg + bdi + afh)
+    $$
+
+    One way to manually calculate the determinant of a matrix is to use the [rule of Sarrus](http://en.wikipedia.org/wiki/Rule_of_Sarrus): we repeat the last columns (all columns but the first one) in the right side of the matrix and calculate the sum of the products of three diagonal north-west to south-east lines of matrix elements, minus the sum of the products of three diagonal south-west to north-east lines of elements as illustrated in the following figure:<br>
     <br>
     <figure><img src='http://upload.wikimedia.org/wikipedia/commons/6/66/Sarrus_rule.svg' width=300 alt='Rule of Sarrus'/><center><figcaption><i>Figure. Rule of Sarrus: the sum of the products of the solid diagonals minus the sum of the products of the dashed diagonals (<a href="http://en.wikipedia.org/wiki/Rule_of_Sarrus">image from Wikipedia</a>).</i></figcaption></center> </figure>
 
@@ -309,11 +361,17 @@ def _(mo):
     mo.md(r"""
     ## Identity
 
-    The identity matrix$\mathbf{I}$is a matrix with ones in the main diagonal and zeros otherwise. The 3x3 identity matrix is:$\mathbf{I} =
+    The identity matrix $\mathbf{I}$ is a matrix with ones in the main diagonal and zeros otherwise. The 3x3 identity matrix is:
+
+    $$
+    \mathbf{I} =
     \begin{bmatrix}
     1 & 0 & 0 \\
     0 & 1 & 0 \\
-    0 & 0 & 1 \end{bmatrix}$In Numpy, instead of manually creating this matrix we can use the function `eye`:
+    0 & 0 & 1 \end{bmatrix}
+    $$
+
+    In Numpy, instead of manually creating this matrix we can use the function `eye`:
     """)
     return
 
@@ -329,7 +387,13 @@ def _(mo):
     mo.md(r"""
     ## Inverse
 
-    The inverse of the matrix$\mathbf{A}$is the matrix$\mathbf{A^{-1}}$such that the product between these two matrices is the identity matrix:$\mathbf{A}\cdot\mathbf{A^{-1}} = \mathbf{I}$The calculation of the inverse of a matrix is usually not simple (the inverse of the matrix$\mathbf{A}$is not$1/\mathbf{A}$; there is no division operation between matrices).  The Numpy function `linalg.inv` computes the inverse of a square matrix:
+    The inverse of the matrix $\mathbf{A}$ is the matrix $\mathbf{A^{-1}}$ such that the product between these two matrices is the identity matrix:
+
+    $$
+    \mathbf{A}\cdot\mathbf{A^{-1}} = \mathbf{I}
+    $$
+
+    The calculation of the inverse of a matrix is usually not simple (the inverse of the matrix $\mathbf{A}$ is not $1/\mathbf{A}$; there is no division operation between matrices).  The Numpy function `linalg.inv` computes the inverse of a square matrix:
 
         numpy.linalg.inv(a)
         Compute the (multiplicative) inverse of a matrix.
@@ -353,8 +417,14 @@ def _(mo):
     ### Pseudo-inverse
 
     For a non-square matrix, its inverse is not defined. However, we can calculate what it's known as the pseudo-inverse.<br>
-    Consider a non-square matrix,$\mathbf{A}$. To calculate its inverse, note that the following manipulation results in the identity matrix:$\mathbf{A} \mathbf{A}^T (\mathbf{A}\mathbf{A}^T)^{-1} = \mathbf{I}$The$\mathbf{A} \mathbf{A}^T$is a square matrix and is invertible (also [nonsingular](https://en.wikipedia.org/wiki/Invertible_matrix)) if$\mathbf{A}$is L.I. ([linearly independent rows/columns](https://en.wikipedia.org/wiki/Linear_independence)).<br>
-    The matrix$\mathbf{A}^T(\mathbf{A}\mathbf{A}^T)^{-1}$is known as the [generalized inverse or Moore–Penrose pseudoinverse](https://en.wikipedia.org/wiki/Moore%E2%80%93Penrose_pseudoinverse) of the matrix$\mathbf{A}$, a generalization of the inverse matrix.
+    Consider a non-square matrix, $\mathbf{A}$. To calculate its inverse, note that the following manipulation results in the identity matrix:
+
+    $$
+    \mathbf{A} \mathbf{A}^T (\mathbf{A}\mathbf{A}^T)^{-1} = \mathbf{I}
+    $$
+
+    The $\mathbf{A} \mathbf{A}^T$ is a square matrix and is invertible (also [nonsingular](https://en.wikipedia.org/wiki/Invertible_matrix)) if $\mathbf{A}$ is L.I. ([linearly independent rows/columns](https://en.wikipedia.org/wiki/Linear_independence)).<br>
+    The matrix $\mathbf{A}^T(\mathbf{A}\mathbf{A}^T)^{-1}$ is known as the [generalized inverse or Moore–Penrose pseudoinverse](https://en.wikipedia.org/wiki/Moore%E2%80%93Penrose_pseudoinverse) of the matrix $\mathbf{A}$, a generalization of the inverse matrix.
 
     To compute the Moore–Penrose pseudoinverse, we could calculate it by a naive approach in Python:
     ```python
@@ -386,7 +456,7 @@ def _(mo):
 
     A square matrix is said to be orthogonal if:
 
-    1. There is no linear combination of one of the lines or columns of the matrix that would lead to the other row or column.
+    1. There is no linear combination of one of the lines or columns of the matrix that would lead to the other row or column.<br>
     2. Its columns or rows form a basis of (independent) unit vectors (versors).
 
     As consequence:
@@ -394,10 +464,16 @@ def _(mo):
     1. Its determinant is equal to 1 or -1.
     2. Its inverse is equal to its transpose.
 
-    However, keep in mind that not all matrices with determinant equals to one are orthogonal, for example, the matrix:$\begin{bmatrix}
+    However, keep in mind that not all matrices with determinant equals to one are orthogonal, for example, the matrix:
+
+    $$
+    \begin{bmatrix}
     3 & 2 \\
     4 & 3
-    \end{bmatrix}$Has determinant equals to one but it is not orthogonal (the columns or rows don't have norm equals to one).
+    \end{bmatrix}
+    $$
+
+    Has determinant equals to one but it is not orthogonal (the columns or rows don't have norm equals to one).
     """)
     return
 
@@ -409,8 +485,21 @@ def _(mo):
 
     > A linear equation is an algebraic equation in which each term is either a constant or the product of a constant and (the first power of) a single variable ([Wikipedia](http://en.wikipedia.org/wiki/Linear_equation)).
 
-    We are interested in solving a set of linear equations where two or more variables are unknown, for instance:$x + 2y = 4$$3x + 4y = 10$Let's see how to employ the matrix formalism to solve these equations (even that we know the solution is `x=2` and `y=1`).<br>
-    Let's express this set of equations in matrix form:$\begin{bmatrix}
+    We are interested in solving a set of linear equations where two or more variables are unknown, for instance:
+
+    $$
+    x + 2y = 4
+    $$
+
+    $$
+    3x + 4y = 10
+    $$
+
+    Let's see how to employ the matrix formalism to solve these equations (even that we know the solution is `x=2` and `y=1`).<br>
+    Let's express this set of equations in matrix form:
+
+    $$
+    \begin{bmatrix}
     1 & 2 \\
     3 & 4 \end{bmatrix}
     \begin{bmatrix}
@@ -418,8 +507,27 @@ def _(mo):
     y \end{bmatrix}
     = \begin{bmatrix}
     4 \\
-    10 \end{bmatrix}$And for the general case:$\mathbf{Av} = \mathbf{c}$Where$\mathbf{A, v, c}$are the matrices above and we want to find the values `x,y` for the matrix$\mathbf{v}$.<br>
-    Because there is no division of matrices, we can use the inverse of$\mathbf{A}$to solve for$\mathbf{v}$:$\mathbf{A}^{-1}\mathbf{Av} = \mathbf{A}^{-1}\mathbf{c} \implies$$\mathbf{v} = \mathbf{A}^{-1}\mathbf{c}$As we know how to compute the inverse of$\mathbf{A}$, the solution is:
+    10 \end{bmatrix}
+    $$
+
+    And for the general case:
+
+    $$
+    \mathbf{Av} = \mathbf{c}
+    $$
+
+    Where $\mathbf{A, v, c}$ are the matrices above and we want to find the values `x,y` for the matrix $\mathbf{v}$.<br>
+    Because there is no division of matrices, we can use the inverse of $\mathbf{A}$ to solve for $\mathbf{v}$:
+
+    $$
+    \mathbf{A}^{-1}\mathbf{Av} = \mathbf{A}^{-1}\mathbf{c} \implies
+    $$
+
+    $$
+    \mathbf{v} = \mathbf{A}^{-1}\mathbf{c}
+    $$
+
+    As we know how to compute the inverse of $\mathbf{A}$, the solution is:
     """)
     return
 
@@ -486,7 +594,21 @@ def _(mo):
     When a system of equations has a unique solution, the determinant of the **square** matrix associated to this system of equations is nonzero.<br>
     When the determinant is zero there are either no solutions or many solutions to the system of equations.
 
-    But if we have an overdetermined system:$x + 2y = 4$$3x + 4y = 10$$5x + 6y = 15$(Note that the possible solution for this set of equations is not exact because the last equation should be equal to 16.)
+    But if we have an overdetermined system:
+
+    $$
+    x + 2y = 4
+    $$
+
+    $$
+    3x + 4y = 10
+    $$
+
+    $$
+    5x + 6y = 15
+    $$
+
+    (Note that the possible solution for this set of equations is not exact because the last equation should be equal to 16.)
 
     Let's try to solve it:
     """)
@@ -505,7 +627,7 @@ def _(np):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    Because the matix$\mathbf{A}$is not squared, we can calculate its pseudo-inverse or use the function `linalg.lstsq`:
+    Because the matix $\mathbf{A}$ is not squared, we can calculate its pseudo-inverse or use the function `linalg.lstsq`:
     """)
     return
 
@@ -521,9 +643,22 @@ def _(A_11, c_2, np):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    The functions `inv` and `solve` failed because the matrix$\mathbf{A}$was not square (overdetermined system). The function `lstsq` not only was able to handle an overdetermined system but was also able to find the best approximate solution.
+    The functions `inv` and `solve` failed because the matrix $\mathbf{A}$ was not square (overdetermined system). The function `lstsq` not only was able to handle an overdetermined system but was also able to find the best approximate solution.
 
-    And if the the set of equations was undetermined, `lstsq` would also work. For instance, consider the system:$x + 2y + 2z = 10$$3x + 4y + z = 13$And in matrix form:$\begin{bmatrix}
+    And if the the set of equations was undetermined, `lstsq` would also work. For instance, consider the system:
+
+    $$
+    x + 2y + 2z = 10
+    $$
+
+    $$
+    3x + 4y + z = 13
+    $$
+
+    And in matrix form:
+
+    $$
+    \begin{bmatrix}
     1 & 2 & 2 \\
     3 & 4 & 1 \end{bmatrix}
     \begin{bmatrix}
@@ -532,7 +667,10 @@ def _(mo):
     z \end{bmatrix}
     = \begin{bmatrix}
     10 \\
-    13 \end{bmatrix}$A possible solution would be `x=2,y=1,z=3`, but other values would also satisfy this set of equations.
+    13 \end{bmatrix}
+    $$
+
+    A possible solution would be `x=2,y=1,z=3`, but other values would also satisfy this set of equations.
 
     Let's try to solve using `lstsq`:
     """)

@@ -40,7 +40,18 @@ def _(mo):
     mo.md(r"""
     ## Bayes' theorem
 
-    Given two events$A$and$B$, the conditional probability of$A$given that$B$is true is expressed by the Bayes' theorem:$P(A \mid B) = \frac{P(B \mid A)P(A)}{P(B)}$where$P(B) \neq 0$.$P(A)$is the prior probability of$A$which expresses one's beliefs about$A$before evidence is taken into account;$P(B)$is the probability of the evidence$B$;$P(B∣A)$is the likelihood function, which can be interpreted as the probability of the evidence$B$given that$A$is true. The likelihood quantifies the extent to which the evidence$B$supports the proposition$A$;$P(A∣B)$is the posterior probability, the probability of the proposition$A$after taking the evidence$B$into account.
+    Given two events $A$ and $B$, the conditional probability of $A$ given that $B$ is true is expressed by the Bayes' theorem:
+
+    $$
+    P(A \mid B) = \frac{P(B \mid A)P(A)}{P(B)}
+    $$
+
+    where $P(B) \neq 0$.
+
+    $P(A)$ is the prior probability of $A$ which expresses one's beliefs about $A$ before evidence is taken into account;<br>
+    $P(B)$ is the probability of the evidence $B$;<br>
+    $P(B∣A)$ is the likelihood function, which can be interpreted as the probability of the evidence $B$ given that $A$ is true. The likelihood quantifies the extent to which the evidence $B$ supports the proposition $A$;<br>
+    $P(A∣B)$ is the posterior probability, the probability of the proposition $A$ after taking the evidence $B$ into account.
     """)
     return
 
@@ -60,11 +71,21 @@ def _(mo):
     Let's use Bayes' theorem to answer this problem:
 
     The two events are: having the disease ($A$) and the positive result ($B$).<br>
-    The question is: which is the probability,$P(A∣B)$, of actually having the disease given a positive result of the test for the disease.$P(A)$is the prior probability, the probability of having the disease before taking the test.$P(B∣A)$is the likelihood function, the probability of testing positive if you have the disease.$P(B)$is the probability of testing positive for the disease.
+    The question is: which is the probability, $P(A∣B)$, of actually having the disease given a positive result of the test for the disease.<br>
+    $P(A)$ is the prior probability, the probability of having the disease before taking the test.<br>
+    $P(B∣A)$ is the likelihood function, the probability of testing positive if you have the disease.<br>
+    $P(B)$ is the probability of testing positive for the disease.
 
-    With no more information about you and the disease, let's assume that$P(A)$is equal to the frequency of occurrence of the disease in the population,$0.001$.$P(B∣A)$is known,$0.99$.
-    Concerning$P(B)$, we know there are two ways of testing positive for the disease: someone has the disease and the test result is positive and someone doesn't have the disease but the the test result is positive. The probability for the first case is$0.001 \times 0.99$and for the second case is$0.999 \times 0.01$. The total probability of testing positive is the sum of these two probabilities.<br>
-    Them for$P(A∣B)$:$P(A\mid B) = \frac{P(B\mid A)P(A)}{P(B)} = \frac{0.99 \times 0.001}{0.001 \times 0.99 + 0.999 \times 0.01} = 0.09$So, there is a 9% chance that you actually have the disease. Given the accuracy of the test, 99%, and the fact that you tested positive, only 9% of chance seems surprising.
+    With no more information about you and the disease, let's assume that $P(A)$ is equal to the frequency of occurrence of the disease in the population, $0.001$.
+    $P(B∣A)$ is known, $0.99$.
+    Concerning $P(B)$, we know there are two ways of testing positive for the disease: someone has the disease and the test result is positive and someone doesn't have the disease but the the test result is positive. The probability for the first case is $0.001 \times 0.99$ and for the second case is $0.999 \times 0.01$. The total probability of testing positive is the sum of these two probabilities.<br>
+    Them for $P(A∣B)$:
+
+    $$
+    P(A\mid B) = \frac{P(B\mid A)P(A)}{P(B)} = \frac{0.99 \times 0.001}{0.001 \times 0.99 + 0.999 \times 0.01} = 0.09
+    $$
+
+    So, there is a 9% chance that you actually have the disease. Given the accuracy of the test, 99%, and the fact that you tested positive, only 9% of chance seems surprising.
     """)
     return
 

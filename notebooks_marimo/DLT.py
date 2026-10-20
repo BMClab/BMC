@@ -22,9 +22,15 @@ def _(mo):
     ## Camera calibration and point reconstruction based on DLT
 
     The fundamental problem here is to find a mathematical relationship between the coordinates of a 3D point and its projection onto the image plane. The DLT (a linear approximation to this problem) is derived from modeling the object and its projection on the image plane as a pinhole camera situation.<br>
-    In simplistic terms, using a pinhole camera model, it can be found by similar triangles the following relation between the image coordinates (u,v) and the 3D point (X,Y,Z):$\begin{bmatrix} u \\\ v\\\ l \end{bmatrix} =
+    In simplistic terms, using a pinhole camera model, it can be found by similar triangles the following relation between the image coordinates (u,v) and the 3D point (X,Y,Z):
+
+    $$
+    \begin{bmatrix} u \\\ v\\\ l \end{bmatrix} =
     \begin{bmatrix} L1 &  L2 & L3 & L4 \\\ L5 & L6 & L7 & L8 \\\ L9 & L10 & L11 & L12 \end{bmatrix}
-    \begin{bmatrix} X \\\ Y \\\ Z \\\ 1 \end{bmatrix}$The matrix L is kwnown as the camera matrix or camera projection matrix. For a 2D point (X,Y), this matrix is 3x3. In fact, the L12 term (or L9 for 2D DLT) is not independent from the other parameters and then there are only 11 (or 8 for 2D DLT) independent parameters in the DLT to be determined through the calibration procedure.
+    \begin{bmatrix} X \\\ Y \\\ Z \\\ 1 \end{bmatrix}
+    $$
+
+    The matrix L is kwnown as the camera matrix or camera projection matrix. For a 2D point (X,Y), this matrix is 3x3. In fact, the L12 term (or L9 for 2D DLT) is not independent from the other parameters and then there are only 11 (or 8 for 2D DLT) independent parameters in the DLT to be determined through the calibration procedure.
 
     There are more accurate (but more complex) algorithms for camera calibration that also consider lens distortion. For example, OpenCV and Tsai softwares have been ported to Python. However, DLT is classic, simple, and effective (fast) for most applications.
 

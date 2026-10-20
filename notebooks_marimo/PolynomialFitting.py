@@ -107,7 +107,7 @@ def _(MSE):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    The$\chi^2_{red}$value is much higher than one, suggesting a poor fitting (although the$R^2$value is good). We can see that the data variability not accounted by the model is very high. One way of considering this variability is to treat it as error (uncertainty) in the measurement of the y variable. The square root of the$\chi^2_{red}$value is a good average estimate of this error in y (see for example page 79 of [https://www.astro.rug.nl/software/kapteyn/_downloads/statmain.pdf](https://www.astro.rug.nl/software/kapteyn/_downloads/statmain.pdf)).<br>
+    The $\chi^2_{red}$ value is much higher than one, suggesting a poor fitting (although the $R^2$ value is good). We can see that the data variability not accounted by the model is very high. One way of considering this variability is to treat it as error (uncertainty) in the measurement of the y variable. The square root of the $\chi^2_{red}$ value is a good average estimate of this error in y (see for example page 79 of [https://www.astro.rug.nl/software/kapteyn/_downloads/statmain.pdf](https://www.astro.rug.nl/software/kapteyn/_downloads/statmain.pdf)).<br>
     Let's generate an array for the error in y:
     """)
     return

@@ -19,7 +19,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    A usual procedure employed to present the average pattern of a variable as a function of time or movement cycle across trials or across subjects is to show the ensemble average curve, which is a fancy name for (typically) the mean$\pm$1 standard-deviation curve.
+    A usual procedure employed to present the average pattern of a variable as a function of time or movement cycle across trials or across subjects is to show the ensemble average curve, which is a fancy name for (typically) the mean $\pm$ 1 standard-deviation curve.
 
     Let's simulate some data and explore different aesthetic variations to present the ensemble average.
     """)

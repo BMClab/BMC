@@ -19,9 +19,9 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    If two right triangles (triangles with an angle of$90^o$($\pi/2$radians)) have equal acute angles, they are similar, so their side lengths are proportional.<br>
-    These proportionality constants are the values of$\sin\theta$,$\cos\theta$, and$\tan\theta$.<br>
-    Here is a geometric representation of the main [trigonometric functions](http://en.wikipedia.org/wiki/Trigonometric_function) of an angle$\theta$:<br>
+    If two right triangles (triangles with an angle of $90^o$ ($\pi/2$ radians)) have equal acute angles, they are similar, so their side lengths are proportional.<br>
+    These proportionality constants are the values of $\sin\theta$, $\cos\theta$, and  $\tan\theta$.<br>
+    Here is a geometric representation of the main [trigonometric functions](http://en.wikipedia.org/wiki/Trigonometric_function) of an angle $\theta$:<br>
     <br>
     <figure><img src='http://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Academ_Base_of_trigonometry.svg/300px-Academ_Base_of_trigonometry.svg.png' alt='Main trigonometric functions'/><figcaption><center><i>Figure. Main trigonometric functions (<a href="http://en.wikipedia.org/wiki/Trigonometric_function">image from Wikipedia</a>).</i></center></figcaption></figure>
     """)
@@ -98,7 +98,27 @@ def _(mo):
     mo.md(r"""
     ## Trigonometric identities
 
-    Some of the main trigonometric identities are (see a [complete list at Wikipedia](http://en.wikipedia.org/wiki/List_of_trigonometric_identities)):$\sin^2{\alpha} + \cos^2{\alpha} = 1$$\sin(2\alpha) = 2\sin{\alpha} \cos{\alpha}$$\cos(2\alpha) = \cos^2{\alpha} - \sin^2{\alpha}$$\sin(\alpha \pm \beta) = \sin{\alpha} \cos{\beta} \pm \cos{\alpha} \sin{\beta}$$\cos(\alpha \pm \beta) = \cos{\alpha} \cos{\beta} \mp \sin{\alpha} \cos{\beta}$
+    Some of the main trigonometric identities are (see a [complete list at Wikipedia](http://en.wikipedia.org/wiki/List_of_trigonometric_identities)):
+
+    $$
+    \sin^2{\alpha} + \cos^2{\alpha} = 1
+    $$
+
+    $$
+    \sin(2\alpha) = 2\sin{\alpha} \cos{\alpha}
+    $$
+
+    $$
+    \cos(2\alpha) = \cos^2{\alpha} - \sin^2{\alpha}
+    $$
+
+    $$
+    \sin(\alpha \pm \beta) = \sin{\alpha} \cos{\beta} \pm \cos{\alpha} \sin{\beta}
+    $$
+
+    $$
+    \cos(\alpha \pm \beta) = \cos{\alpha} \cos{\beta} \mp \sin{\alpha} \cos{\beta}
+    $$
     """)
     return
 

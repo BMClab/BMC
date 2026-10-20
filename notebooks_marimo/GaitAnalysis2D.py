@@ -108,19 +108,34 @@ def _(mo):
 
     The equilibrium equations for the forces and moments of force around the center of mass are:
 
-    For body 1 (foot):$\begin{array}{l l}
+    For body 1 (foot):
+
+    $$
+    \begin{array}{l l}
     \mathbf{F}_1 + m_1\mathbf{g} + \mathbf{GRF} = m_1\mathbf{a}_1 \\
     \mathbf{M}_1 + \mathbf{r}_{cmp1}\times\mathbf{F}_1 + \mathbf{r}_{cmCOP}\times\mathbf{GRF} = I_1\mathbf{\alpha}_1
+    \end{array}
+    $$
 
-    \end{array}$For body 2 (leg):$\begin{array}{l}
+    For body 2 (leg):
+
+    $$
+    \begin{array}{l}
     \mathbf{F}_2 + m_2\mathbf{g} - \mathbf{F}_1 = m_2\mathbf{a}_2 \\
     \mathbf{M}_2 + \mathbf{r}_{cmp2}\times\mathbf{F}_2 + \mathbf{r}_{cmd2}\times-\mathbf{F}_{1} - \mathbf{M}_1 = I_2\mathbf{\alpha}_2
+    \end{array}
+    $$
 
-    \end{array}$For body 3 (thigh):$\begin{array}{l l}
+    For body 3 (thigh):
+
+    $$
+    \begin{array}{l l}
     \mathbf{F}_3 + m_3\mathbf{g} - \mathbf{F}_2 = m_3\mathbf{a}_3 \\
     \mathbf{M}_3 + \mathbf{r}_{cmp3}\times\mathbf{F}_3 + \mathbf{r}_{cmd3}\times-\mathbf{F}_{2} - \mathbf{M}_2 = I_3\mathbf{\alpha}_3
+    \end{array}
+    $$
 
-    \end{array}$Where$p$and$d$stands for proximal and distal joints (with respect to the fixed extremity),$\mathbf{r}_{cmji}$is the position vector from the center of mass of body$i$to the joint$j$,$COP$is the center of pressure, the position of application of the resultant ground reaction force (GRF),$\mathbf{\alpha}$is the angular acceleration, and$g$is the acceleration of gravity
+    Where $p$ and $d$ stands for proximal and distal joints (with respect to the fixed extremity), $\mathbf{r}_{cmji}$ is the position vector from the center of mass of body $i$ to the joint $j$, $COP$ is the center of pressure, the position of application of the resultant ground reaction force (GRF), $\mathbf{\alpha}$ is the angular acceleration, and $g$ is the acceleration of gravity
 
     Note that the pattern of the equations is the same for the three segments: distal and proximal forces and moments of force and the weight force are present in all segments.<br>
     The only exception is with the foot in contact with the ground. As the ground only pushes the foot, it can not generate a moment of force over the foot. Because of that we model the interaction foot-ground as a resultant ground reaction force (GRF) applied on the foot at the COP position.
@@ -135,19 +150,32 @@ def _(mo):
 def _(mo):
     mo.md(r"""
     The system of equations above is simple and straightforward to solve, it is just a matter of being systematic.<br>
-    We start by segment 1, find$\mathbf{F}_1$and$\mathbf{M}_1$, substitute these values on the equations for segment 2, find$\mathbf{F}_2$and$\mathbf{M}_2$, substitute them in the equations for segment 3 and find$\mathbf{F}_3$and$\mathbf{M}_3\:$:
+    We start by segment 1, find $\mathbf{F}_1$ and $\mathbf{M}_1$, substitute these values on the equations for segment 2, find $\mathbf{F}_2$ and $\mathbf{M}_2$, substitute them in the equations for segment 3 and find $\mathbf{F}_3$ and $\mathbf{M}_3\:$:
 
-    For body 1 (foot):$\begin{array}{l l}
+    For body 1 (foot):
+
+    $$
+    \begin{array}{l l}
     \mathbf{F}_1 &=& m_1\mathbf{a}_1 - m_1\mathbf{g} - \mathbf{GRF} \\
     \mathbf{M}_1 &=& I_1\mathbf{\alpha}_1 - \mathbf{r}_{cmp1}\times\big(m_1\mathbf{a}_1 - m_1\mathbf{g} - \mathbf{GRF}\big) - \mathbf{r}_{cmCOP}\times\mathbf{GRF}
+    \end{array}
+    $$
 
-    \end{array}$For body 2 (leg):$\begin{array}{l l}
+    For body 2 (leg):
+
+    $$
+    \begin{array}{l l}
     \mathbf{F}_2 &=& m_1\mathbf{a}_1 + m_2\mathbf{a}_2 - (m_1+m_2)\mathbf{g} - \mathbf{GRF} \\
     \mathbf{M}_2 &=& I_1\mathbf{\alpha}_1 + I_2\mathbf{\alpha}_2 - \mathbf{r}_{cmp2}\times\big(m_1\mathbf{a}_1 + m_2\mathbf{a}_2 - (m_1+m_2)\mathbf{g} - \mathbf{GRF}\big)\, + \\
     &\phantom{=}& \mathbf{r}_{cgd2}\times\big(m_1\mathbf{a}_1 - m_1\mathbf{g} - \mathbf{GRF}\big) - \mathbf{r}_{cmp1}\times\big(m_1\mathbf{a}_1 - m_1\mathbf{g} - \mathbf{GRF}\big)\, - \\
     &\phantom{=}& \mathbf{r}_{cmCOP}\times\mathbf{GRF}
+    \end{array}
+    $$
 
-    \end{array}$For body 3 (thigh):$\begin{array}{l l}
+    For body 3 (thigh):
+
+    $$
+    \begin{array}{l l}
     \mathbf{F}_3 &=& m_1\mathbf{a}_1 + m_2\mathbf{a}_2 + m_3\mathbf{a}_3 - (m_1+m_2+m_3)\mathbf{g} - \mathbf{GRF} \\
     \mathbf{M}_3 &=& I_1\mathbf{\alpha}_1 + I_2\mathbf{\alpha}_2 + I_3\mathbf{\alpha}_3\, - \\
     &\phantom{=}& \mathbf{r}_{cmp3}\times\big(m_1\mathbf{a}_1 + m_2\mathbf{a}_2 + m_3\mathbf{a}_3\, - (m_1+m_2+m_3)\mathbf{g} - \mathbf{GRF}\big)\, + \\
@@ -156,8 +184,8 @@ def _(mo):
     &\phantom{=}& \mathbf{r}_{cmd2}\times\big(m_1\mathbf{a}_1 - m_1\mathbf{g} - \mathbf{GRF}\big)\, - \\
     &\phantom{=}& \mathbf{r}_{cmp1}\times\big(m_1\mathbf{a}_1 - m_1\mathbf{g} - \mathbf{GRF}\big)\, - \\
     &\phantom{=}& \mathbf{r}_{cmCOP}\times\mathbf{GRF}
-
-    \end{array}$
+    \end{array}
+    $$
     """)
     return
 
@@ -169,23 +197,36 @@ def _(mo):
 
     The calculation above is tedious, error prone, useless, and probably it's wrong.
 
-    To make some use of it, we can clearly see that forces act on far segments, which are not directly in contact with these forces. In fact, this is true for all stuff happening on a segment: note that$\mathbf{F}_1$and$\mathbf{M}_1$are present in the expression for$\mathbf{F}_3$and$\mathbf{M}_3$and that the acceleration of segment 1 matters for the calculations of segment 3.
+    To make some use of it, we can clearly see that forces act on far segments, which are not directly in contact with these forces. In fact, this is true for all stuff happening on a segment: note that $\mathbf{F}_1$ and $\mathbf{M}_1$ are present in the expression for $\mathbf{F}_3$ and $\mathbf{M}_3$ and that the acceleration of segment 1 matters for the calculations of segment 3.
 
     Instead, we can use the power of computer programming (like this one right now!) and solve these equations recursively hence they have the same pattern. Let's do that.
 
-    For body 1 (foot):$\begin{array}{l l}
+    For body 1 (foot):
+
+    $$
+    \begin{array}{l l}
     \mathbf{F}_1 = m_1\mathbf{a}_1 - m_1\mathbf{g} -  \mathbf{GRF} \\
     \mathbf{M}_1 = I_1\mathbf{\alpha}_1 - \mathbf{r}_{cmp1}\times\mathbf{F}_1 - \mathbf{r}_{cmCOP}\times\mathbf{GRF}
+    \end{array}
+    $$
 
-    \end{array}$For body 2 (leg):$\begin{array}{l}
+    For body 2 (leg):
+
+    $$
+    \begin{array}{l}
     \mathbf{F}_2  = m_2\mathbf{a}_2 -  m_2\mathbf{g} + \mathbf{F}_1\\
     \mathbf{M}_2 = I_2\mathbf{\alpha}_2 - \mathbf{r}_{cmp2}\times\mathbf{F}_2 +\mathbf{r}_{cmd2}\times\mathbf{F}_{1} + \mathbf{M}_1
+    \end{array}
+    $$
 
-    \end{array}$For body 3 (thigh):$\begin{array}{l l}
+    For body 3 (thigh):
+
+    $$
+    \begin{array}{l l}
     \mathbf{F}_3  = m_3\mathbf{a}_3 - m_3\mathbf{g} + \mathbf{F}_2\\
     \mathbf{M}_3  = I_3\mathbf{\alpha}_3 - \mathbf{r}_{cmp3}\times\mathbf{F}_3 + \mathbf{r}_{cmd3}\times\mathbf{F}_{2} + \mathbf{M}_2
-
-    \end{array}$
+    \end{array}
+    $$
     """)
     return
 
@@ -568,15 +609,25 @@ def _(
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    Neglecting all the accelerations and the weight of the segments means that the only external force that actuates on the system is the ground reaction force, which although is only actuating at the foot-ground interface it will be transmitted to the other segments through the joint forces.  Because of that, the joint forces on the ankle, knee, and hip will simply be minus the ground reaction force. Note that the forces shown above for the three joints are the same and equal to:$\begin{array}{l}
-    \sqrt{GRF_x^2+GRF_y^2}
+    Neglecting all the accelerations and the weight of the segments means that the only external force that actuates on the system is the ground reaction force, which although is only actuating at the foot-ground interface it will be transmitted to the other segments through the joint forces.  Because of that, the joint forces on the ankle, knee, and hip will simply be minus the ground reaction force. Note that the forces shown above for the three joints are the same and equal to:
 
-    \end{array}$These simplifications also mean that the moments of force could have been simply calculated as the cross product between the vector position of the the COP in relation to the joint and the GRF vector:$\begin{array}{l}
+    $$
+    \begin{array}{l}
+    \sqrt{GRF_x^2+GRF_y^2}
+    \end{array}
+    $$
+
+    These simplifications also mean that the moments of force could have been simply calculated as the cross product between the vector position of the the COP in relation to the joint and the GRF vector:
+
+    $$
+    \begin{array}{l}
     \mathbf{M_{a}} = -\mathbf{cross}(\mathbf{COP}-\mathbf{r_{a}},\,\mathbf{GRF}) \\
     \mathbf{M_{k}} = -\mathbf{cross}(\mathbf{COP}-\mathbf{r_{k}},\,\mathbf{GRF}) \\
     \mathbf{M_{h}} = -\mathbf{cross}(\mathbf{COP}-\mathbf{r_{h}},\,\mathbf{GRF})
+    \end{array}
+    $$
 
-    \end{array}$Where$\mathbf{r_{i}}\;$is the position vector of joint$i$.
+    Where $\mathbf{r_{i}}\;$ is the position vector of joint $i$.
 
     Let's calculate the variables in this way:
     """)

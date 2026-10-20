@@ -21,7 +21,19 @@ def _(mo):
 
     > The 95% prediction hyperellipsoid is a prediction interval for a sample of a multivariate random variable such that there is 95% of probability that a new observation will lie inside the hyperellipsoid.
 
-    The 95% prediction interval (a p-dimensional hyperellipsoid) for a sample of a multivariate random variable with$p$dimensions and size$n$from a population with normal distribution is given by the following probabilistic bounds which holds 95% of the time (Chew, 1966):$(x_{n+1}-\bar{x})'\: S^{-1} (x_{n+1}-\bar{x}) \leq \frac{F_{(0.95,\: p,\: n-p)}(n-1)\:p\:(n+1)}{n\:(n-p)}$Where$x_{n+i}$(with dimension$p$) is the new observation for which we want to calculate the prediction interval;$F$is the [F-distribution](http://en.wikipedia.org/wiki/F-distribution);$\bar{x}$is the sample mean (with dimension$p$), and$S$is the [sample covariance matrix](http://en.wikipedia.org/wiki/Sample_mean_and_sample_covariance) defined as:$S_{j,k} = \frac{1}{n-1}\sum_{i=1}^{n}(x_{ij}-\bar{x}_j)(x_{ik}-\bar{x}_k)$This is the formula for the prediction of the next single observation where the population mean and variance are unknown (we only have estimates of these parameters from the sample). This formula is also equivalent to the formula for calculation of a tolerance region (called Type 2 tolerance region by [Chew (1966)](http://www.jstor.org/stable/2282774)):
+    The 95% prediction interval (a p-dimensional hyperellipsoid) for a sample of a multivariate random variable with $p$ dimensions and size $n$ from a population with normal distribution is given by the following probabilistic bounds which holds 95% of the time (Chew, 1966):
+
+    $$
+    (x_{n+1}-\bar{x})'\: S^{-1} (x_{n+1}-\bar{x}) \leq \frac{F_{(0.95,\: p,\: n-p)}(n-1)\:p\:(n+1)}{n\:(n-p)}
+    $$
+
+    Where $x_{n+i}$ (with dimension $p$) is the new observation for which we want to calculate the prediction interval; $F$ is the [F-distribution](http://en.wikipedia.org/wiki/F-distribution); $\bar{x}$ is the sample mean (with dimension $p$), and $S$ is the [sample covariance matrix](http://en.wikipedia.org/wiki/Sample_mean_and_sample_covariance) defined as:
+
+    $$
+    S_{j,k} = \frac{1}{n-1}\sum_{i=1}^{n}(x_{ij}-\bar{x}_j)(x_{ik}-\bar{x}_k)
+    $$
+
+    This is the formula for the prediction of the next single observation where the population mean and variance are unknown (we only have estimates of these parameters from the sample). This formula is also equivalent to the formula for calculation of a tolerance region (called Type 2 tolerance region by [Chew (1966)](http://www.jstor.org/stable/2282774)):
 
     > The 95% tolerance hyperellipsoid is a tolerance region for a sample of a multivariate random variable such that the average or expected value of the proportion of the population contained in the hyperellipsoid is 95%.
 
@@ -44,11 +56,29 @@ def _(mo):
     mo.md(r"""
     ## Univariate variable
 
-    For$p$= 1 (univariate case) the 95% prediction interval formula above reduces to:$\left|\frac{x_{n+1}-\bar{x}}{s}\right| \leq \sqrt{F_{(0.95,\: 1,\: n-1)}(1+1/n)}$Where$s$is the square root of the sample covariance, the sample standard deviation.
+    For $p$ = 1 (univariate case) the 95% prediction interval formula above reduces to:
 
-    And considering that$F_{(0.95,\: 1,\: n-1)}$is equal to$T^2_{(0.975,\: n-1)}$, the square of the <a href="http://en.wikipedia.org/wiki/Student's_t-distribution">Student's t-distribution</a>, finally we have:$\left|x_{n+1}-\bar{x}\right| \leq s\:T_{(0.975,\: n-1)}\sqrt{1+1/n}$Indeed, this results in the 95% prediction interval used for a sample of a univariate variable, see [Confidence and prediction intervals](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/ConfidencePredictionIntervals.ipynb).
+    $$
+    \left|\frac{x_{n+1}-\bar{x}}{s}\right| \leq \sqrt{F_{(0.95,\: 1,\: n-1)}(1+1/n)}
+    $$
 
-    For large$n$, according to the [central limit theorem](http://en.wikipedia.org/wiki/Central_limit_theorem), we can use the fact that$T(\infty)=N$, where$N$is the [normal distribution](http://en.wikipedia.org/wiki/Normal_distribution), and the above statement can be simplified to:$\left|x_{n+1}-\bar{x}\right| \leq s\:N_{0.975}$$N_{0.975}$is equal to 1.96, a commonly used value for calculating 95%-probability intervals.<br>
+    Where $s$ is the square root of the sample covariance, the sample standard deviation.
+
+    And considering that $F_{(0.95,\: 1,\: n-1)}$ is equal to $T^2_{(0.975,\: n-1)}$, the square of the <a href="http://en.wikipedia.org/wiki/Student's_t-distribution">Student's t-distribution</a>, finally we have:
+
+    $$
+    \left|x_{n+1}-\bar{x}\right| \leq s\:T_{(0.975,\: n-1)}\sqrt{1+1/n}
+    $$
+
+    Indeed, this results in the 95% prediction interval used for a sample of a univariate variable, see [Confidence and prediction intervals](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/ConfidencePredictionIntervals.ipynb).
+
+    For large $n$, according to the [central limit theorem](http://en.wikipedia.org/wiki/Central_limit_theorem), we can use the fact that $T(\infty)=N$, where $N$ is the [normal distribution](http://en.wikipedia.org/wiki/Normal_distribution), and the above statement can be simplified to:
+
+    $$
+    \left|x_{n+1}-\bar{x}\right| \leq s\:N_{0.975}
+    $$
+
+    $N_{0.975}$ is equal to 1.96, a commonly used value for calculating 95%-probability intervals.<br>
     Let's calculate the error of this approximation for different sample sizes.<br>
     First let's import the necessary Python libraries:
     """)
@@ -87,9 +117,27 @@ def _(mo):
     mo.md(r"""
     ## Bivariate variable
 
-    For$p$= 2 (bivariate case) the 95% prediction interval formula above reduces to (again, these probabilistic bounds hold 95% of the time ([Chew, 1966](http://www.jstor.org/stable/2282774)):$(x_{n+1}-\bar{x})'\: S^{-1} (x_{n+1}-\bar{x}) \leq \frac{2(n-1)(n+1)}{n\:(n-2)}F_{(0.95,\: 2,\: n-2)}$This formula is also equivalent to the formula for calculation of a tolerance region such that the average or expected value of the proportion of the population contained in this region is exactly 95% (called Type 2 tolerance region by [Chew (1966)](http://www.jstor.org/stable/2282774)).
+    For $p$ = 2 (bivariate case) the 95% prediction interval formula above reduces to (again, these probabilistic bounds hold 95% of the time ([Chew, 1966](http://www.jstor.org/stable/2282774)):
 
-    For large$n$, according to the [central limit theorem](http://en.wikipedia.org/wiki/Central_limit_theorem), we can use the fact that$2F(2,\infty)=\chi^2(2)$, where$\chi^2$is the [chi-square distribution](http://en.wikipedia.org/wiki/Chi-squared_distribution), and the formula above for the 95% prediction interval for the bivariate case can be simplified to:$(x_{n+1}-\bar{x})'\: S^{-1} (x_{n+1}-\bar{x}) \leq \chi^2_{0.95,\: 2}$Or, equivalently, we can use the fact that$\sqrt{2F(2,\infty)}=R$, where$R$is the [Rayleigh distribution](http://en.wikipedia.org/wiki/Rayleigh_distribution), and:$(x_{n+1}-\bar{x})'\: S^{-1} (x_{n+1}-\bar{x}) \leq (R_{0.95})^2$Let's calulate the error of this approximation for different sample sizes:
+    $$
+    (x_{n+1}-\bar{x})'\: S^{-1} (x_{n+1}-\bar{x}) \leq \frac{2(n-1)(n+1)}{n\:(n-2)}F_{(0.95,\: 2,\: n-2)}
+    $$
+
+    This formula is also equivalent to the formula for calculation of a tolerance region such that the average or expected value of the proportion of the population contained in this region is exactly 95% (called Type 2 tolerance region by [Chew (1966)](http://www.jstor.org/stable/2282774)).
+
+    For large $n$, according to the [central limit theorem](http://en.wikipedia.org/wiki/Central_limit_theorem), we can use the fact that $2F(2,\infty)=\chi^2(2)$, where $\chi^2$ is the [chi-square distribution](http://en.wikipedia.org/wiki/Chi-squared_distribution), and the formula above for the 95% prediction interval for the bivariate case can be simplified to:
+
+    $$
+    (x_{n+1}-\bar{x})'\: S^{-1} (x_{n+1}-\bar{x}) \leq \chi^2_{0.95,\: 2}
+    $$
+
+    Or, equivalently, we can use the fact that $\sqrt{2F(2,\infty)}=R$, where $R$ is the [Rayleigh distribution](http://en.wikipedia.org/wiki/Rayleigh_distribution), and:
+
+    $$
+    (x_{n+1}-\bar{x})'\: S^{-1} (x_{n+1}-\bar{x}) \leq (R_{0.95})^2
+    $$
+
+    Let's calulate the error of this approximation for different sample sizes:
     """)
     return
 

@@ -63,8 +63,10 @@ def _(mo):
     The Newton's laws of motion describe the relationship between the forces acting on a body and the resultant linear motion due to those forces:
 
     - **First law**: An object will remain at rest or in uniform motion in a straight line unless an external force acts on the body.
-    - **Second law**: The acceleration of an object is directly proportional to the net force acting on the object and inversely proportional to the mass of the object:$\vec{F} = m \vec{a}$.
-    - **Third law**: Whenever an object exerts a force$\vec{F}_1$(action) on a second object, this second object simultaneously exerts a force$\vec{F}_2$on the first object with the same magnitude but opposite direction (reaction):$\vec{F}_2 = −\vec{F}_1.$These three statements are astonishing in their simplicity and how much of knowledge they empower.<br>
+    - **Second law**: The acceleration of an object is directly proportional to the net force acting on the object and inversely proportional to the mass of the object: $\vec{F} = m \vec{a}$.
+    - **Third law**: Whenever an object exerts a force $\vec{F}_1$ (action) on a second object, this second object simultaneously exerts a force $\vec{F}_2$ on the first object with the same magnitude but opposite direction (reaction): $\vec{F}_2 = −\vec{F}_1.$
+
+    These three statements are astonishing in their simplicity and how much of knowledge they empower.<br>
     Isaac Newton was born in 1943 and his works that resulted in these equations and other discoveries were mostly done in the years of 1666 and 1667, when he was only 24 years old!
 
     Here are these three laws in Newton's own words (from page 83 of Book I in the first American edition of the [*Philosophiæ Naturalis Principia Mathematica*](http://archive.org/details/newtonspmathema00newtrich):
@@ -95,7 +97,19 @@ def _(mo):
     mo.md(r"""
     ## Linear momentum
 
-    From Definition II above, we can see that Newton defined as motion what we know today as linear momentum, the product between mass and velocity:$\vec{p} = m\vec{v}$So, in his second law, *alteration of motion is ever proportional to the motive force impressed*, if we understand that it was implicit that the *alteration* occurs in a certain time (or we can understand *force impressed* as force during a certain  time), Newton actually stated:$\vec{F} = \frac{\Delta\vec{p}}{\Delta t} \;\;\;\;\;\; \text{or}\;\;\;\;\;\; \vec{F}\Delta t = \Delta\vec{p}$What is equivalent to$\vec{F} = m\vec{a} \;$if mass is constant.
+    From Definition II above, we can see that Newton defined as motion what we know today as linear momentum, the product between mass and velocity:
+
+    $$
+    \vec{p} = m\vec{v}
+    $$
+
+    So, in his second law, *alteration of motion is ever proportional to the motive force impressed*, if we understand that it was implicit that the *alteration* occurs in a certain time (or we can understand *force impressed* as force during a certain  time), Newton actually stated:
+
+    $$
+    \vec{F} = \frac{\Delta\vec{p}}{\Delta t} \;\;\;\;\;\; \text{or}\;\;\;\;\;\; \vec{F}\Delta t = \Delta\vec{p}
+    $$
+
+    What is equivalent to $\vec{F} = m\vec{a} \;$ if mass is constant.
     """)
     return
 
@@ -105,7 +119,25 @@ def _(mo):
     mo.md(r"""
     ## Impulse
 
-    The mechanical linear impulse is a related concept and it can be derived from the second law of motion:$\vec{Imp} = \vec{F}\Delta t = m\Delta\vec{v}$And if the force varies with time:$\vec{Imp} = \sum_t \vec{F}(t)\Delta t$or using [infinitesimal calculus](http://en.wikipedia.org/wiki/Infinitesimal_calculus) (that it was independently developed by Newton himself and Leibniz):$\vec{Imp} = \int_t \vec{F}(t)dt$The concept of impulse due to a force that varies with time is often applied in biomechanics because it is common to measure forces (for example, with force plates) during human movement.<br>
+    The mechanical linear impulse is a related concept and it can be derived from the second law of motion:
+
+    $$
+    \vec{Imp} = \vec{F}\Delta t = m\Delta\vec{v}
+    $$
+
+    And if the force varies with time:
+
+    $$
+    \vec{Imp} = \sum_t \vec{F}(t)\Delta t
+    $$
+
+    or using [infinitesimal calculus](http://en.wikipedia.org/wiki/Infinitesimal_calculus) (that it was independently developed by Newton himself and Leibniz):
+
+    $$
+    \vec{Imp} = \int_t \vec{F}(t)dt
+    $$
+
+    The concept of impulse due to a force that varies with time is often applied in biomechanics because it is common to measure forces (for example, with force plates) during human movement.<br>
     When such varying force is measured, the impulse can be calculated as the area under the force-versus-time curve:
     """)
     return
@@ -146,8 +178,8 @@ def _(mo):
 
     There are many manifestations of force we may experience during movement: gravitational, friction, ground reaction force, muscle force, buoyancy, elastic force, and other less visible such as electromagnetic, nuclear, etc. But in reality, all these different forces can be grouped in only four fundamental forces:
 
-    - Strong force: hold the nucleus of an atom together. Range of action is$10^{-15}$m.
-    - Weak force: force acting between particles of the nucleus. Range of action is$10^{-18}$m.
+    - Strong force: hold the nucleus of an atom together. Range of action is $10^{-15}$ m.
+    - Weak force: force acting between particles of the nucleus. Range of action is $10^{-18}$ m.
     - Electromagnetic force: forces between electrical charges and the magnetic forces.
     - Gravity force: forces between masses; is the weakest of the four fundamental forces.
 
@@ -162,7 +194,13 @@ def _(mo):
     mo.md(r"""
     ## Work
 
-    The mechanical work of a force done on a body is the product between the component of the force in the direction of the resultant motion and the displacement:$W = \vec{F} \cdot \Delta\vec{x}$Where the symbol$\cdot$stands for the [scalar product](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/ScalarVector.ipynb) mathematical function.
+    The mechanical work of a force done on a body is the product between the component of the force in the direction of the resultant motion and the displacement:
+
+    $$
+    W = \vec{F} \cdot \Delta\vec{x}
+    $$
+
+    Where the symbol $\cdot$ stands for the [scalar product](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/ScalarVector.ipynb) mathematical function.
 
     Mechanical work can also be understood as the amount of mechanical energy transferred into or out of a system.
     """)
@@ -176,9 +214,37 @@ def _(mo):
 
     Mechanical energy is the sum of kinetic and potential energies.
 
-    ### Kinetic energy$E_k = \frac{1}{2}mv^2$The linear momentum and the kinetic energy are related by:$\vec{p} = \frac{\partial E_k}{\partial\vec{v}}$### Potential energy
+    ### Kinetic energy
 
-    The potential energy due to the gravitational force at the Earth's surface is:$E_p = mgh$The potential energy stored in a spring is:$E_p = \frac{1}{2}Kx^2$### Power$P = \frac{\Delta E}{\Delta t} \quad \text{and} \quad P = \vec{F} \cdot \vec{v}$
+    $$
+    E_k = \frac{1}{2}mv^2
+    $$
+
+    The linear momentum and the kinetic energy are related by:
+
+    $$
+    \vec{p} = \frac{\partial E_k}{\partial\vec{v}}
+    $$
+
+    ### Potential energy
+
+    The potential energy due to the gravitational force at the Earth's surface is:
+
+    $$
+    E_p = mgh
+    $$
+
+    The potential energy stored in a spring is:
+
+    $$
+    E_p = \frac{1}{2}Kx^2
+    $$
+
+    ### Power
+
+    $$
+    P = \frac{\Delta E}{\Delta t} \quad \text{and} \quad P = \vec{F} \cdot \vec{v}
+    $$
     """)
     return
 
@@ -188,7 +254,19 @@ def _(mo):
     mo.md(r"""
     ## Angular momentum
 
-    In analogy to the linear momentum, the angular momentum is the quantity of movement of a particle rotating around an axis at a distance$\vec{r}$:$\vec{L} = \vec{r} \times \vec{p}$For a particle rotating around an axis, the angular momentum can be expressed as:$\vec{L} = I \vec{\omega}$Where$I$is the rotational inertia or moment of inertia of the particle around the axis.
+    In analogy to the linear momentum, the angular momentum is the quantity of movement of a particle rotating around an axis at a distance $\vec{r}$:
+
+    $$
+    \vec{L} = \vec{r} \times \vec{p}
+    $$
+
+    For a particle rotating around an axis, the angular momentum can be expressed as:
+
+    $$
+    \vec{L} = I \vec{\omega}
+    $$
+
+    Where $I$ is the rotational inertia or moment of inertia of the particle around the axis.
     """)
     return
 
@@ -198,16 +276,46 @@ def _(mo):
     mo.md(r"""
     ## Torque (moment of force)
 
-    In analogy to the second Newton's law for the linear case, torque or moment of force (or simply moment) is the time derivative of angular momentum:$\vec{M} = \frac{d\vec{L}}{dt} = \frac{d}{dt}(\vec{r} \times \vec{p}) = \frac{d\vec{r}}{dt} \times \vec{p} + \vec{r} \times \frac{d\vec{p}}{dt} = 0 + \vec{r} \times \vec{F}$$\vec{M} = \vec{r} \times \vec{F}$$\vec{M} = (r_x\:\mathbf{\hat{i}}+r_y\:\mathbf{\hat{j}}+r_z\:\mathbf{\hat{k}}) \times  (F_x\:\mathbf{\hat{i}}+F_y\:\mathbf{\hat{j}}+F_z\:\mathbf{\hat{k}})$Where the symbol$\times$stands for the [cross product](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/ScalarVector.ipynb) mathematical function.<br>
-    The moment of force can be calculated as the determinant of the following matrix:$\vec{M} = \begin{bmatrix}
+    In analogy to the second Newton's law for the linear case, torque or moment of force (or simply moment) is the time derivative of angular momentum:
+
+    $$
+    \vec{M} = \frac{d\vec{L}}{dt} = \frac{d}{dt}(\vec{r} \times \vec{p}) = \frac{d\vec{r}}{dt} \times \vec{p} + \vec{r} \times \frac{d\vec{p}}{dt} = 0 + \vec{r} \times \vec{F}
+    $$
+
+    $$
+    \vec{M} = \vec{r} \times \vec{F}
+    $$
+
+    $$
+    \vec{M} = (r_x\:\mathbf{\hat{i}}+r_y\:\mathbf{\hat{j}}+r_z\:\mathbf{\hat{k}}) \times  (F_x\:\mathbf{\hat{i}}+F_y\:\mathbf{\hat{j}}+F_z\:\mathbf{\hat{k}})
+    $$
+
+    Where the symbol $\times$ stands for the [cross product](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/ScalarVector.ipynb) mathematical function.<br>
+    The moment of force can be calculated as the determinant of the following matrix:
+
+    $$
+    \vec{M} = \begin{bmatrix}
     \mathbf{\hat{i}} & \mathbf{\hat{j}} & \mathbf{\hat{k}} \\
     r_x & r_y & r_z \\
     F_x & F_y & F_z
-    \end{bmatrix}$$\vec{M} = (r_yF_z-r_zF_y)\mathbf{\hat{i}}+(r_zF_x-r_xF_z)\mathbf{\hat{j}}+(r_xF_y-r_yF_x)\mathbf{\hat{k}}$The moment of force can also be calculated by the geometric equivalent formula:$\vec{M} = \vec{r} \times \vec{F} = ||\vec{r}||\:||\vec{F}||\:sin(\theta)$Where$\theta$is the angle between the vectors$\vec{r}$and$\vec{F}$.
+    \end{bmatrix}
+    $$
 
-    The animation below (from [Wikipedia](http://en.wikipedia.org/wiki/File:Torque_animation.gif)) illustrates the relationship between force ($\vec{F}$), torque ($\tau$), and momentum vectors ($\mathbf{p}$and$\vec{L}$):
+    $$
+    \vec{M} = (r_yF_z-r_zF_y)\mathbf{\hat{i}}+(r_zF_x-r_xF_z)\mathbf{\hat{j}}+(r_xF_y-r_yF_x)\mathbf{\hat{k}}
+    $$
 
-    <figure><img src="http://upload.wikimedia.org/wikipedia/commons/0/09/Torque_animation.gif" alt="Torque animation" width="300"/><figcaption><center><i>Figure. Relationship between force ($\mathbf{F}$), torque ($\tau$), and momentum vectors ($\mathbf{p}$and$\mathbf{L}$) (from [Wikipedia](http://en.wikipedia.org/wiki/File:Torque_animation.gif)).</i></center></figcaption></figure>
+    The moment of force can also be calculated by the geometric equivalent formula:
+
+    $$
+    \vec{M} = \vec{r} \times \vec{F} = ||\vec{r}||\:||\vec{F}||\:sin(\theta)
+    $$
+
+    Where $\theta$ is the angle between the vectors $\vec{r}$ and $\vec{F}$.
+
+    The animation below (from [Wikipedia](http://en.wikipedia.org/wiki/File:Torque_animation.gif)) illustrates the relationship between force ($\vec{F}$), torque ($\tau$), and momentum vectors ($\mathbf{p}$ and $\vec{L}$):
+
+    <figure><img src="http://upload.wikimedia.org/wikipedia/commons/0/09/Torque_animation.gif" alt="Torque animation" width="300"/><figcaption><center><i>Figure. Relationship between force ($\mathbf{F}$), torque ($\tau$), and momentum vectors ($\mathbf{p}$ and $\mathbf{L}$) (from [Wikipedia](http://en.wikipedia.org/wiki/File:Torque_animation.gif)).</i></center></figcaption></figure>
     """)
     return
 
@@ -217,7 +325,23 @@ def _(mo):
     mo.md(r"""
     ## Mechanical energy for angular motion
 
-    ### Kinetic energy$E_k = \frac{1}{2}I\omega^2$### Work$W = \vec{M} \cdot \Delta\vec{\theta}$### Power$P = \frac{\Delta E}{\Delta t} \quad \text{and} \quad P = \vec{M} \cdot \vec{\omega}$
+    ### Kinetic energy
+
+    $$
+    E_k = \frac{1}{2}I\omega^2
+    $$
+
+    ### Work
+
+    $$
+    W = \vec{M} \cdot \Delta\vec{\theta}
+    $$
+
+    ### Power
+
+    $$
+    P = \frac{\Delta E}{\Delta t} \quad \text{and} \quad P = \vec{M} \cdot \vec{\omega}
+    $$
     """)
     return
 
@@ -239,10 +363,15 @@ def _(mo):
 
     > *In a closed system with no external forces acting upon it, the mechanical energy of this system is constant if only conservative forces act in this system.*
 
-
     #### Conservative forces
 
-    A force is said to be conservative if this force produces the same work regardless of its trajectory between two points, if not the force is said to be non-conservative. Mathematically, the force$\vec{F}$is conservative if:$\oint \vec{F} \cdot d\vec{s} = 0$The gravitational force and the elastic force of an ideal spring are examples of conservative forces but friction force is not conservative. The forces generated by our muscles are also not conservative.
+    A force is said to be conservative if this force produces the same work regardless of its trajectory between two points, if not the force is said to be non-conservative. Mathematically, the force $\vec{F}$ is conservative if:
+
+    $$
+    \oint \vec{F} \cdot d\vec{s} = 0
+    $$
+
+    The gravitational force and the elastic force of an ideal spring are examples of conservative forces but friction force is not conservative. The forces generated by our muscles are also not conservative.
     """)
     return
 

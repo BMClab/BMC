@@ -60,13 +60,18 @@ def _(mo):
     ### Linear momentum
 
     The linear momentum, or quantity of motion, is defined as the product between mass and velocity:
-    <span class="notranslate">$\mathbf{\vec{L}} = m\mathbf{\vec{v}}$</span>
+
+    $$
+    \mathbf{\vec{L}} = m\mathbf{\vec{v}}
+    $$
 
     ### Angular momentum
 
-    In analogy to the linear momentum, the angular momentum is the quantity of movement of a particle rotating around an axis passing through any point O at a distance$\mathbf{\vec{r}}$to the particle:
+    In analogy to the linear momentum, the angular momentum is the quantity of movement of a particle rotating around an axis passing through any point O at a distance $\mathbf{\vec{r}}$ to the particle:
 
-    <span class="notranslate">$\mathbf{\vec{H_O}} = \mathbf{\vec{r_{O}}} \times \mathbf{\vec{L}}$</span>
+    $$
+    \mathbf{\vec{H_O}} = \mathbf{\vec{r_{O}}} \times \mathbf{\vec{L}}
+    $$
     """)
     return
 
@@ -78,18 +83,32 @@ def _(mo):
 
     In analogy to the second Newton's law for the linear case, torque or moment of force (or simply moment) is the time derivative of angular momentum:
 
-    <span class="notranslate">$\mathbf{\vec{M_O}} = \frac{d\mathbf{\vec{H_O}}}{dt} = \frac{d}{dt}(\mathbf{\mathbf{\vec{r}} \times \mathbf{\vec{L}}}) = \frac{d\mathbf{\vec{r_O}}}{dt} \times \mathbf{\vec{L}} + \mathbf{\vec{r_O}} \times \frac{d\mathbf{\vec{L}}}{dt} = \frac{d\mathbf{\vec{r_O}}}{dt} \times (m\mathbf{\mathbf{\vec{v}}}) + \mathbf{\vec{r_O}} \times \frac{d(m\mathbf{\vec{v}})}{dt} = \mathbf{\vec{v}} \times (m\mathbf{\mathbf{\vec{v}}}) + \mathbf{\vec{r_O}} \times \frac{d(m\mathbf{\vec{v}})}{dt} = 0 + \mathbf{\vec{r_O}} \times \mathbf{\vec{F}}$$\mathbf{\vec{M_O}} = \mathbf{\vec{r_O}} \times \mathbf{\vec{F}}$$\mathbf{\vec{M_O}} = (r_{O_x}\:\mathbf{\hat{i}}+r_{O_y}\:\mathbf{\hat{j}}+r_{O_z}\:\mathbf{\hat{k}}) \times  (F_x\:\mathbf{\hat{i}}+F_y\:\mathbf{\hat{j}}+F_z\:\mathbf{\hat{k}})$</span>
+    $$
+    \mathbf{\vec{M_O}} = \frac{d\mathbf{\vec{H_O}}}{dt} = \frac{d}{dt}(\mathbf{\mathbf{\vec{r}} \times \mathbf{\vec{L}}}) = \frac{d\mathbf{\vec{r_O}}}{dt} \times \mathbf{\vec{L}} + \mathbf{\vec{r_O}} \times \frac{d\mathbf{\vec{L}}}{dt} = \frac{d\mathbf{\vec{r_O}}}{dt} \times (m\mathbf{\mathbf{\vec{v}}}) + \mathbf{\vec{r_O}} \times \frac{d(m\mathbf{\vec{v}})}{dt} = \mathbf{\vec{v}} \times (m\mathbf{\mathbf{\vec{v}}}) + \mathbf{\vec{r_O}} \times \frac{d(m\mathbf{\vec{v}})}{dt} = 0 + \mathbf{\vec{r_O}} \times \mathbf{\vec{F}}
+    $$
 
-    Where the symbol$\times$stands for the [cross product](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/ScalarVector.ipynb) mathematical function.<br>
+    $$
+    \mathbf{\vec{M_O}} = \mathbf{\vec{r_O}} \times \mathbf{\vec{F}}
+    $$
+
+    $$
+    \mathbf{\vec{M_O}} = (r_{O_x}\:\mathbf{\hat{i}}+r_{O_y}\:\mathbf{\hat{j}}+r_{O_z}\:\mathbf{\hat{k}}) \times  (F_x\:\mathbf{\hat{i}}+F_y\:\mathbf{\hat{j}}+F_z\:\mathbf{\hat{k}})
+    $$
+
+    Where the symbol $\times$ stands for the [cross product](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/ScalarVector.ipynb) mathematical function.<br>
     The the moment of force can be calculated as the determinant of the following matrix:
 
-    <span class="notranslate">$\mathbf{\vec{M_O}} = \det \begin{bmatrix}
+    $$
+    \mathbf{\vec{M_O}} = \det \begin{bmatrix}
     \mathbf{\hat{i}} & \mathbf{\hat{j}} & \mathbf{\hat{k}} \\
     r_{O_x} & r_{O_y} & r_{O_z} \\
     F_x & F_y & F_z
-    \end{bmatrix}$</span>
+    \end{bmatrix}
+    $$
 
-    <span class="notranslate">$\mathbf{\vec{M_O}} = (r_{O_y}F_z-r_{O_z}F_y)\mathbf{\hat{i}}+(r_{O_z}F_x-r_{O_x}F_z)\mathbf{\hat{j}}+(r_{O_x}F_y-r_{O_y}F_x)\mathbf{\hat{k}}$</span>
+    $$
+    \mathbf{\vec{M_O}} = (r_{O_y}F_z-r_{O_z}F_y)\mathbf{\hat{i}}+(r_{O_z}F_x-r_{O_x}F_z)\mathbf{\hat{j}}+(r_{O_x}F_y-r_{O_y}F_x)\mathbf{\hat{k}}
+    $$
     """)
     return
 
@@ -115,15 +134,19 @@ def _(mo):
     mo.md(r"""
     ### Moment of inertia
 
-    Let's use the example above, where <span class="notranslate">$\mathbf{\vec{r_O}}$</span> and <span class="notranslate">$\mathbf{\vec{F}}$</span> are orthogonal and derive an expression for the magnitude of these quantities as the equivalent of Newton's second law for angular motion:
+    Let's use the example above, where $\mathbf{\vec{r_O}}$ and $\mathbf{\vec{F}}$ are orthogonal and derive an expression for the magnitude of these quantities as the equivalent of Newton's second law for angular motion:
 
-    <span class="notranslate">$M_O = r_OF = r_Oma$</span>
+    $$
+    M_O = r_OF = r_Oma
+    $$
 
-    Replacing the linear acceleration$a$by the angular acceleration$\alpha$:
+    Replacing the linear acceleration $a$ by the angular acceleration $\alpha$:
 
-    <span class="notranslate">$M_O = r_Omr_O\alpha = mr_O^2 \alpha$</span>
+    $$
+    M_O = r_Omr_O\alpha = mr_O^2 \alpha
+    $$
 
-    In analogy to Newton's second law, where the constant of proportionality between$a$and$F$is called inertia (mass), the constant of proportionality between$M_O$and$\alpha$is called rotational inertia or moment of inertia,$I_O=mr_O^2$for a particle with mass$m$rotating at a distance$r$from the center of rotation O.
+    In analogy to Newton's second law, where the constant of proportionality between $a$ and $F$ is called inertia (mass), the constant of proportionality between $M_O$ and $\alpha$ is called rotational inertia or moment of inertia, $I_O=mr_O^2$ for a particle with mass $m$ rotating at a distance $r$ from the center of rotation O.
     """)
     return
 
@@ -170,9 +193,11 @@ def _(mo):
     mo.md(r"""
     Similarly, the total moment applied to the body relative to a point O is:
 
-    <span class="notranslate">$\vec{\bf{M_O}} = \sum\limits_{i}\vec{\bf{r_{i/O}}} \times \vec{\bf{F_i}} + \sum\limits_{i}\vec{\bf{M_{F_i}}}$</span>
+    $$
+    \vec{\bf{M_O}} = \sum\limits_{i}\vec{\bf{r_{i/O}}} \times \vec{\bf{F_i}} + \sum\limits_{i}\vec{\bf{M_{F_i}}}
+    $$
 
-    where <span class="notranslate">$\vec{\bf{r_{i/O}}}$</span> is the vector from the point O to the point where the force <span class="notranslate">$\vec{\bf{F_i}}$</span> is being applied and$\vec{\bf{M_{F_i}}}$are the free moments.
+    where $\vec{\bf{r_{i/O}}}$ is the vector from the point O to the point where the force $\vec{\bf{F_i}}$ is being applied and $\vec{\bf{M_{F_i}}}$ are the free moments.
 
     Free moments are moments created by a pair of forces. They do not sum um to the resultant force, since they have have the same magnitude and opposite directions, but create a moment because there is a distance between these forces.
 
@@ -184,11 +209,13 @@ def _(mo):
 
     To compute the resultant force and moment relative to another point O', the new moment is:
 
-    <span class="notranslate">$\vec{\bf{M_{O'}}} = \vec{\bf{M_O}} + \vec{\bf{r_{O'/O}}} \times \vec{\bf{F}}$</span>
+    $$
+    \vec{\bf{M_{O'}}} = \vec{\bf{M_O}} + \vec{\bf{r_{O'/O}}} \times \vec{\bf{F}}
+    $$
 
     And the resultant force is the same.
 
-    It is worth to note that if the resultant force  <span class="notranslate">$\vec{\bf{F}}$</span> is zero, than the moment is the same relative to any point.
+    It is worth to note that if the resultant force  $\vec{\bf{F}}$ is zero, than the moment is the same relative to any point.
 
     <center><figure><img src="https://github.com/BMClab/BMC/blob/master/images/equivalentSystem.png?raw=1" width=850/></figure></center>
     """)
@@ -290,27 +317,37 @@ def _(mo):
     Let's derive the second Euler's law of motion for a simpler case of a rigid body rotating in a plane.
 
     First, a general consideration about the total angular momentum of a rotting rigid body:<br>
-    The total angular momentum of a rigid body rotating around a point$O$can be expressed as the angular momentum of the body center of mass around the point$O$plus the sum of the angular momentum of each particle around the body center of mass (for a proof see page 368 of Taylor, 2005):
+    The total angular momentum of a rigid body rotating around a point $O$ can be expressed as the angular momentum of the body center of mass around the point $O$ plus the sum of the angular momentum of each particle around the body center of mass (for a proof see page 368 of Taylor, 2005):
 
-    <span class="notranslate">$\mathbf{\vec{H_O}} = \mathbf{\vec{r}}_{cm/O} \times m\mathbf{\vec{v}}_{cm/O} + \sum \mathbf{\vec{r}}_{i/cm} \times m_i\mathbf{\vec{v}}_{i/cm}$</span>
+    $$
+    \mathbf{\vec{H_O}} = \mathbf{\vec{r}}_{cm/O} \times m\mathbf{\vec{v}}_{cm/O} + \sum \mathbf{\vec{r}}_{i/cm} \times m_i\mathbf{\vec{v}}_{i/cm}
+    $$
 
-    For a two-dimensional case, where the rigid body rotates around its own center of mass and also rotates around another parallel axis (fixed), the second term of the right side of the equation above can be simplified to <span class="notranslate">$\sum (m_i\mathbf{r}^2_{i/cm}) \mathbf{\vec{\omega}}$</span> and calculating the time derivative of the whole equation,
+    For a two-dimensional case, where the rigid body rotates around its own center of mass and also rotates around another parallel axis (fixed), the second term of the right side of the equation above can be simplified to $\sum (m_i\mathbf{r}^2_{i/cm}) \mathbf{\vec{\omega}}$ and calculating the time derivative of the whole equation,
 
-    <span class="notranslate">$\mathbf{\vec{M_O}} = \frac{d\mathbf{\vec{H_O}}}{dt} \rightarrow \mathbf{\vec{M_O}} = \frac{d\left( \mathbf{\vec{r}}_{cm/O} \times m\mathbf{\vec{v}}_{cm/O} + \sum \mathbf{\vec{r}}_{i/cm} \times m_i\mathbf{\vec{v}}_{i/cm} \right)}{dt}$</span>
+    $$
+    \mathbf{\vec{M_O}} = \frac{d\mathbf{\vec{H_O}}}{dt} \rightarrow \mathbf{\vec{M_O}} = \frac{d\left( \mathbf{\vec{r}}_{cm/O} \times m\mathbf{\vec{v}}_{cm/O} + \sum \mathbf{\vec{r}}_{i/cm} \times m_i\mathbf{\vec{v}}_{i/cm} \right)}{dt}
+    $$
 
     the second Euler's law of motion simplifies to:
 
-    <span class="notranslate">$\mathbf{\vec{M_O}} = \mathbf{\vec{r}}_{cm/O} \times m\mathbf{\vec{a}}_{cm} + I_{cm} \mathbf{\vec{\alpha}}$</span>
+    $$
+    \mathbf{\vec{M_O}} = \mathbf{\vec{r}}_{cm/O} \times m\mathbf{\vec{a}}_{cm} + I_{cm} \mathbf{\vec{\alpha}}
+    $$
 
-    where <span class="notranslate">$\mathbf{\vec{r}}_{cm}$</span> is the position vector of the center of mass with respect to the point$O$about which moments are summed, <span class="notranslate">$\mathbf{\vec{\alpha}}$</span> is the angular acceleration of the body about its center of mass, and <span class="notranslate">$I_{cm}$</span> is the moment of inertia of the body about its center of mass.
+    where $\mathbf{\vec{r}}_{cm}$ is the position vector of the center of mass with respect to the point $O$ about which moments are summed, $\mathbf{\vec{\alpha}}$ is the angular acceleration of the body about its center of mass, and $I_{cm}$ is the moment of inertia of the body about its center of mass.
 
-    If <span class="notranslate">$d$</span> is the (shortest) distance between the point$O$and the line of the acceleration vector, then the equation above becomes:
+    If $d$ is the (shortest) distance between the point $O$ and the line of the acceleration vector, then the equation above becomes:
 
-    <span class="notranslate">$\mathbf{M} = ma_{cm}d + I_{cm} \mathbf{\alpha}$</span>
+    $$
+    \mathbf{M} = ma_{cm}d + I_{cm} \mathbf{\alpha}
+    $$
 
-    Note that if the acceleration of the center of mass is zero or the sum of moments of force is calculated around the center of mass (then$\mathbf{r}_{cm}=0$), this case of rotation in a plane simplifies to the well-known simple equation:
+    Note that if the acceleration of the center of mass is zero or the sum of moments of force is calculated around the center of mass (then $\mathbf{r}_{cm}=0$), this case of rotation in a plane simplifies to the well-known simple equation:
 
-    <span class="notranslate">$\mathbf{\vec{M_{cm}}} = I_{cm} \mathbf{\vec{\alpha}}$</span>
+    $$
+    \mathbf{\vec{M_{cm}}} = I_{cm} \mathbf{\vec{\alpha}}
+    $$
     """)
     return
 
@@ -335,13 +372,13 @@ def _(mo):
     1. (Sample problem 2/5, Taylor's book)Calculate the magnitude of the moment about the base point *O* of the 600-N force in five different ways for the structure shown below (hint: use the equation for torque in different ways, and also the principles of moments and of transmissibility)
     <center><figure><img src="https://github.com/BMClab/BMC/blob/master/images/torque2.png?raw=1" alt="Torque" width="250"/></figure></center>
 
-    2. (Example 17.7, Hibbeler's book) A uniform$50kg$crate rests on a horizontal surface for which the coefficient of kinetic friction is$\mu_k = 0.2$. Determine the acceleration if a force of$P = 600 N$is applied to the crate as shown in the figure.
+    2. (Example 17.7, Hibbeler's book) A uniform $50kg$ crate rests on a horizontal surface for which the coefficient of kinetic friction is $\mu_k = 0.2$. Determine the acceleration if a force of $P = 600 N$ is applied to the crate as shown in the figure.<br>
     <center><figure><img src="https://github.com/BMClab/BMC/blob/master/images/hibbeler_17_7.png?raw=1" alt="crate" width="350"/></figure></center>
 
-    3. (Example 17.10, Hibbeler's book) At the instant shown in the figure, the$20kg$slender rod has an angular velocity of$\omega = S rad/s$. Determine the angular acceleration and the horizontal and vertical components of reaction of the pin on the rod at this instant.
+    3. (Example 17.10, Hibbeler's book) At the instant shown in the figure, the $20kg$ slender rod has an angular velocity of $\omega = S rad/s$. Determine the angular acceleration and the horizontal and vertical components of reaction of the pin on the rod at this instant.<br>
     <center><figure><img src="https://github.com/BMClab/BMC/blob/master/images/hibbeler_17_10.png?raw=1" alt="rod" width="350"/></figure></center>
 
-    4. (Example 17.12, Hibbeler's book) The slender rod shown in the figure has a mass$m$and length$l$and is released from rest when$\theta = 0^o$. Determine the horizontal and vertical components of force which the pin at$A$exerts on the rod at the instant$\theta = 90^o$.
+    4. (Example 17.12, Hibbeler's book) The slender rod shown in the figure has a mass $m$ and length $l$ and is released from rest when $\theta = 0^o$. Determine the horizontal and vertical components of force which the pin at $A$ exerts on the rod at the instant $\theta = 90^o$.<br>
     <center><figure><img src="https://github.com/BMClab/BMC/blob/master/images/hibbeler_17_12.png?raw=1" alt="pendulum" width="300"/></figure></center>
     """)
     return

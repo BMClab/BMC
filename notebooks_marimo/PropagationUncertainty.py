@@ -33,7 +33,17 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    For instance, to calculate the density of a material someone made the following measurements of mass and volume (m=d/V):$m = 4.0 \pm 0.5 \; g$$V = 2.0 \pm 0.2 \; cm^3$Where 0.5 g and 0.2 cm$^3$each represent a value of one standard deviation and express the errors in the measured weight and volume.
+    For instance, to calculate the density of a material someone made the following measurements of mass and volume (m=d/V):
+
+    $$
+    m = 4.0 \pm 0.5 \; g
+    $$
+
+    $$
+    V = 2.0 \pm 0.2 \; cm^3
+    $$
+
+    Where 0.5 g and 0.2 cm$^3$ each represent a value of one standard deviation and express the errors in the measured weight and volume.
 
     Based on these numbers, the material density is 2 g/cm$^3$; but how much is the error (uncertainty) of the density?
     """)
@@ -57,7 +67,13 @@ def _(mo):
 
     The classic way for propagation of uncertainty is through linear approximation of error propagation theory. We start with the mathematical function that relates the physical quantities and estimate the contribution of their variations by means of partial derivatives (the rate of variation) of each of these primary quantities. The linearity of the mathematical function in the vicinity of the obtained value and the statistical correlations between these quantities are also taken into consideration in the propagation of uncertainty.
 
-    If the measurand$f$is defined in terms of the variables$x, y, z, ...$by a general expression$f(x, y, z, ...)$, a first order approximation of the propagation of uncertainty ignoring correlations between these variables is given by the well known formula:$\sigma _{f}\;=\;\sqrt{\left ( \frac{\partial f}{\partial x}  \right)^2\sigma _{x}^{2} + \left ( \frac{\partial f}{\partial y} \right)^2 \sigma _{y}^{2} + \left ( \frac{\partial f}{\partial z} \right)^2 \sigma _{z}^{2}\: + \ldots}$Where$\partial f/\partial i$is the first partial derivative of$f$with respect to variable$i$and$\sigma_i$is the uncertainty of the measurement of the variable$i$(one standard deviation).
+    If the measurand $f$ is defined in terms of the variables $x, y, z, ...$ by a general expression $f(x, y, z, ...)$, a first order approximation of the propagation of uncertainty ignoring correlations between these variables is given by the well known formula:
+
+    $$
+    \sigma _{f}\;=\;\sqrt{\left ( \frac{\partial f}{\partial x}  \right)^2\sigma _{x}^{2} + \left ( \frac{\partial f}{\partial y} \right)^2 \sigma _{y}^{2} + \left ( \frac{\partial f}{\partial z} \right)^2 \sigma _{z}^{2}\: + \ldots}
+    $$
+
+    Where $\partial f/\partial i$ is the first partial derivative of $f$ with respect to variable $i$ and $\sigma_i$ is the uncertainty of the measurement of the variable $i$ (one standard deviation).
     """)
     return
 
@@ -65,9 +81,21 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    Using the former formula for linear approximation of error propagation, the estimation of the uncertainty of the density is given by:$d=\frac{m}{V} \\
+    Using the former formula for linear approximation of error propagation, the estimation of the uncertainty of the density is given by:
+
+    $$
+    d=\frac{m}{V} \\
     \sigma _{d}\;=\;\sqrt{ \left ( \frac{\partial d}{\partial m}  \right)^2 \sigma _{m}^{2}+\left ( \frac{\partial d}{\partial V} \right)^2 \sigma _{V}^{2} } \\
-    \sigma _{d}\;=\;\sqrt{ \left ( \frac{1}{V} \right)^2 \sigma _{m}^{2}+\left ( -\frac{m}{V^2} \right)^2 \sigma _{V}^{2} }$And considering the values of mass and volume given earlier:$\sigma_{d}\;=\;\sqrt{\left(\frac{1}{2}\right)^2\times 0.5\:^2+\left(-\frac{4}{2^2}\right)^2\times 0.2\:^2}\;\;\approx\; 0.32$Then, the estimated value of the density can now be expressed in a complete form: d = 2.00±0.32 g/cm$^3$.
+    \sigma _{d}\;=\;\sqrt{ \left ( \frac{1}{V} \right)^2 \sigma _{m}^{2}+\left ( -\frac{m}{V^2} \right)^2 \sigma _{V}^{2} }
+    $$
+
+    And considering the values of mass and volume given earlier:
+
+    $$
+    \sigma_{d}\;=\;\sqrt{\left(\frac{1}{2}\right)^2\times 0.5\:^2+\left(-\frac{4}{2^2}\right)^2\times 0.2\:^2}\;\;\approx\; 0.32
+    $$
+
+    Then, the estimated value of the density can now be expressed in a complete form: d = 2.00±0.32 g/cm$^3$.
     """)
     return
 
@@ -241,7 +269,7 @@ def _(mo):
     mo.md(r"""
     ### Another example
 
-    Let's estimate the uncertainty in the measurement of the volume of a cylinder given its diameter ($d=2.0\pm0.1$) cm and height$h=10.0\pm0.5$cm. But now, let's go straight to the solution:
+    Let's estimate the uncertainty in the measurement of the volume of a cylinder given its diameter ($d=2.0\pm0.1$) cm and height $h=10.0\pm0.5$ cm. But now, let's go straight to the solution:
     """)
     return
 
@@ -273,9 +301,9 @@ def _(mo):
     mo.md(r"""
     ## Other Python packages for uncertainty analysis
 
-    The uncertainty package employs a linear approximation of error propagation, which is only valid for small errors, and it assumes that the errors follow normal distributions. There are other packages that can be used when these assumptions are violated:
-     - [NIST Uncertainty Machine](https://uncertainty.nist.gov/): *A Web-based software application to evaluate the measurement uncertainty associated with an output quantity defined by a measurement model of the form$y=f(x_0,	\ldots,x_n)$.*  The NIST Uncertainty Machine allows to select a probability distribution for each of the input quantities and can evaluate the measurement uncertainty using two methods: the linear approximation and the Monte Carlo method,
-     - [mcerp](https://github.com/tisimst/mcerp): *A stochastic calculator for Monte Carlo methods that uses latin-hypercube sampling to perform non-order specific error propagation (or uncertainty analysis).*
+    The uncertainty package employs a linear approximation of error propagation, which is only valid for small errors, and it assumes that the errors follow normal distributions. There are other packages that can be used when these assumptions are violated:<br>
+     - [NIST Uncertainty Machine](https://uncertainty.nist.gov/): *A Web-based software application to evaluate the measurement uncertainty associated with an output quantity defined by a measurement model of the form $y=f(x_0,	\ldots,x_n)$.*  The NIST Uncertainty Machine allows to select a probability distribution for each of the input quantities and can evaluate the measurement uncertainty using two methods: the linear approximation and the Monte Carlo method,
+     - [mcerp](https://github.com/tisimst/mcerp): *A stochastic calculator for Monte Carlo methods that uses latin-hypercube sampling to perform non-order specific error propagation (or uncertainty analysis).*<br>
      - [soerp](https://github.com/tisimst/soerp): *Python implementation of the original Fortran code SOERP by N. D. Cox to apply a second-order analysis to error propagation (or uncertainty analysis). The soerp package allows you to easily and transparently track the effects of uncertainty through mathematical calculations.*
     """)
     return

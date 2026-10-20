@@ -75,7 +75,7 @@ def _(mo):
 
     <div class='center-align'><figure><img src='https://github.com/BMClab/BMC/blob/master/images/maxmin.png?raw=1' width=350 alt='minima and maxima of a function'/> <figcaption><center><i>Figure. Maxima and minima of a function of one variable.</i></center></figcaption> </figure></div>
 
-     - Note that the requirement that the second derivative on the extremum to be positive for a minimum or negative for a maximum is sufficient but not a necessary condition. For instance, the function$f(x)=x^4$has an extremum in$x=0$since$f'(x)=4x^3$and$f'(0)=0$, but its second derivative at$x=0$is also zero:$f''(x)=12x^2;\: f''(0)=0$. In fact, the requirement is that the first non-zero derivative on that point should be positive for a minimum or negative for a maximum:$f''''(0)=24$; the extremum is a minimum.
+     - Note that the requirement that the second derivative on the extremum to be positive for a minimum or negative for a maximum is sufficient but not a necessary condition. For instance, the function $f(x)=x^4$ has an extremum in $x=0$ since $f'(x)=4x^3$ and $f'(0)=0$, but its second derivative at $x=0$ is also zero: $f''(x)=12x^2;\: f''(0)=0$. In fact, the requirement is that the first non-zero derivative on that point should be positive for a minimum or negative for a maximum: $f''''(0)=24$; the extremum is a minimum.
     """)
     return
 
@@ -109,7 +109,7 @@ def _(mo):
     mo.md(r"""
     ### Example 1: Maximum volume of a cardboard box
 
-    We want to make a box from a square cardboard with side$a$such that its volume should be maximum.<br>
+    We want to make a box from a square cardboard with side $a$ such that its volume should be maximum.<br>
     What is the optimal distance where the square cardboard should be cut and folded to make a box with maximum volume?
 
     <div class='center-align'><figure><img src='https://github.com/BMClab/BMC/blob/master/images/box.png?raw=1' width=450 alt='box optimization'/> <figcaption><center><i>Figure. A box to be made from a cardboard such that its volume should be maximum. Where we should cut?</i></center></figcaption> </figure></div>
@@ -120,18 +120,30 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    If the distance where to cut and fold the cardboard is$b$, see figure above, the volume of the box will be:$\begin{array}{l l}
+    If the distance where to cut and fold the cardboard is $b$, see figure above, the volume of the box will be:
+
+    $$
+    \begin{array}{l l}
     V(b) = b(a-2b)(a-2b) \\
     \\
     V(b) = a^2b - 4ab^2 + 4b^3
-    \end{array}$In the context of optimization:<br>
-    **The expression for$V$is the cost function,$b$is the design variable, and the constraint is that feasible values of$b$are in the interval$]0, \dfrac{a}{2}[$, i.e.,$b>0$and$b<\dfrac{a}{2}$.**
+    \end{array}
+    $$
 
-    The first and second derivatives of$V$w.r.t.$b$are:$\begin{array}{l l}
+    In the context of optimization:<br>
+    **The expression for $V$ is the cost function, $b$ is the design variable, and the constraint is that feasible values of $b$ are in the interval $]0, \dfrac{a}{2}[$, i.e., $b>0$ and $b<\dfrac{a}{2}$.**
+
+    The first and second derivatives of $V$ w.r.t. $b$ are:
+
+    $$
+    \begin{array}{l l}
     \dfrac{\mathrm{d}V}{\mathrm{d}b} = a^2 - 8ab + 12b^2 \\
     \\
     \dfrac{\mathrm{d}^2 V}{\mathrm{d}b^2} = - 8a + 24b
-    \end{array}$We have to find the values for$b$where the first derivative of$V$is zero (the extrema) and then use the expression for the second derivative of$V$to find whether each of these extrema is a minimum (positive value) or a maximum (negative value).<br>
+    \end{array}
+    $$
+
+    We have to find the values for $b$ where the first derivative of $V$ is zero (the extrema) and then use the expression for the second derivative of $V$ to find whether each of these extrema is a minimum (positive value) or a maximum (negative value).<br>
     Let's use Sympy for that:
     """)
     return
@@ -150,8 +162,8 @@ def _(Math, display, sym):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    Discarding the solution$b=\dfrac{a}{2}$(where$V=0$, which is a minimum),$b=\dfrac{a}{6}$results in the maximum volume.<br>
-    We can check that by plotting the volume of the cardboard box for$a=1$and$b: [0,\:0.5]$:
+    Discarding the solution $b=\dfrac{a}{2}$ (where $V=0$, which is a minimum), $b=\dfrac{a}{6}$ results in the maximum volume.<br>
+    We can check that by plotting the volume of the cardboard box for $a=1$ and $b: [0,\:0.5]$:
     """)
     return
 
@@ -203,9 +215,15 @@ def _(mo):
     Gradient descent is a first-order iterative optimization algorithm for finding the minimum of a function ([Wikipedia](https://en.wikipedia.org/wiki/Gradient_descent)).<br>
     In the gradient descent algorithm, a local minimum of a function is found starting from an initial point and taking steps proportional to the negative of the derivative of the function (gradient) at the current point and we evaluate if the current point is lower than then the previous point until a local minimum in reached (hopefully).
 
-    It follows that, if$x_{n+1} = x_n - \gamma \nabla f(x)$for$\gamma$small enough, then$f(x_{n}) \geq f(x_{n+1})$.
+    It follows that, if
 
-    This process is repeated iteratively until the step size (which is proportional to the gradient!) is below a required precision (hopefully the sequence$x_{n}$converges to the desired local minimum).
+    $$
+    x_{n+1} = x_n - \gamma \nabla f(x)
+    $$
+
+    for $\gamma$ small enough, then $f(x_{n}) \geq f(x_{n+1})$.
+
+    This process is repeated iteratively until the step size (which is proportional to the gradient!) is below a required precision (hopefully the sequence $x_{n}$ converges to the desired local minimum).
     """)
     return
 
@@ -216,7 +234,7 @@ def _(mo):
     ### Example 2: Minimum of a function by gradient descent
 
     From https://en.wikipedia.org/wiki/Gradient_descent:<br>
-    Calculate the minimum of$f(x)=x^4-3x^3+2$.
+    Calculate the minimum of $f(x)=x^4-3x^3+2$.
     """)
     return
 
@@ -265,8 +283,14 @@ def _(mo):
     mo.md(r"""
     ## Multivariate optimization
 
-    When there is more than one design variable (the cost function depends on more than one variable), it's a multivariate optimization. The general idea of finding minimum and maximum values where the derivatives are zero still holds for a multivariate function. The second derivative of a multivariate function can be described by the Hessian matrix:$\mathbf{H} = \begin{bmatrix}{\dfrac  {\partial ^{2}f}{\partial x_{1}^{2}}}&{\dfrac  {\partial ^{2}f}{\partial x_{1}\,\partial x_{2}}}&\cdots &{\dfrac  {\partial ^{2}f}{\partial x_{1}\,\partial x_{n}}}\\[2.2ex]{\dfrac  {\partial ^{2}f}{\partial x_{2}\,\partial x_{1}}}&{\dfrac  {\partial ^{2}f}{\partial x_{2}^{2}}}&\cdots &{\dfrac  {\partial ^{2}f}{\partial x_{2}\,\partial x_{n}}}\\[2.2ex]\vdots &\vdots &\ddots &\vdots \\[2.2ex]{\dfrac  {\partial ^{2}f}{\partial x_{n}\,\partial x_{1}}}&{\dfrac  {\partial ^{2}f}{\partial x_{n}\,\partial x_{2}}}&\cdots &{\dfrac  {\partial ^{2}f}{\partial x_{n}^{2}}}
-    \end{bmatrix}$Let's see now a classical problem in biomechanics where optimization is useful and there is more than one design variable.
+    When there is more than one design variable (the cost function depends on more than one variable), it's a multivariate optimization. The general idea of finding minimum and maximum values where the derivatives are zero still holds for a multivariate function. The second derivative of a multivariate function can be described by the Hessian matrix:
+
+    $$
+    \mathbf{H} = \begin{bmatrix}{\dfrac  {\partial ^{2}f}{\partial x_{1}^{2}}}&{\dfrac  {\partial ^{2}f}{\partial x_{1}\,\partial x_{2}}}&\cdots &{\dfrac  {\partial ^{2}f}{\partial x_{1}\,\partial x_{n}}}\\[2.2ex]{\dfrac  {\partial ^{2}f}{\partial x_{2}\,\partial x_{1}}}&{\dfrac  {\partial ^{2}f}{\partial x_{2}^{2}}}&\cdots &{\dfrac  {\partial ^{2}f}{\partial x_{2}\,\partial x_{n}}}\\[2.2ex]\vdots &\vdots &\ddots &\vdots \\[2.2ex]{\dfrac  {\partial ^{2}f}{\partial x_{n}\,\partial x_{1}}}&{\dfrac  {\partial ^{2}f}{\partial x_{n}\,\partial x_{2}}}&\cdots &{\dfrac  {\partial ^{2}f}{\partial x_{n}^{2}}}
+    \end{bmatrix}
+    $$
+
+    Let's see now a classical problem in biomechanics where optimization is useful and there is more than one design variable.
     """)
     return
 
@@ -276,13 +300,22 @@ def _(mo):
     mo.md(r"""
     ## The distribution problem in biomechanics
 
-    Using the inverse dynamics approach in biomechanics, we can determine the net force and torque acting on a joint if we know the external forces on the segments and the kinematics and inertial properties of the segments. But with this approach we are unable to determine the individual muscles forces that  created such torque, as expressed in the following equation:$M_{total} = M_1 + M_2 + \dots + M_n = r_1F_1 + r_2F_2 + \dots + r_nF_n$where$r_i$is the moment arm of the force$F_i$that generates a torque$M_i$, a parcel of the (known) total torque$M_{total}$.
+    Using the inverse dynamics approach in biomechanics, we can determine the net force and torque acting on a joint if we know the external forces on the segments and the kinematics and inertial properties of the segments. But with this approach we are unable to determine the individual muscles forces that  created such torque, as expressed in the following equation:
 
-    Even if we know the moment arm of each muscle (e.g., from cadaveric data or from image analysis), the equation above has$n$unknowns. Because there is more than one muscle that potentially created such torque, there are more unknowns than equations, and the problem is undetermined. So, the problem is how to find how the torque is distributed among the muscles of that joint.
+    $$
+    M_{total} = M_1 + M_2 + \dots + M_n = r_1F_1 + r_2F_2 + \dots + r_nF_n
+    $$
+
+    where $r_i$ is the moment arm of the force $F_i$ that generates a torque $M_i$, a parcel of the (known) total torque $M_{total}$.
+
+    Even if we know the moment arm of each muscle (e.g., from cadaveric data or from image analysis), the equation above has $n$ unknowns. Because there is more than one muscle that potentially created such torque, there are more unknowns than equations, and the problem is undetermined. So, the problem is how to find how the torque is distributed among the muscles of that joint.
 
     One solution is to consider that we (biological systems) optimize our effort in order to minimize energy expenditure, stresses on our tissues, fatigue, etc. The principle of least action, stated in the opening of this text, is an allusion that optimization might be ubiquitous in nature. With this rationale, let's solve the distribution problem in biomechanics using optimization and find the minimum force of each muscle necessary to complete a given task.
 
-    The following cost functions have been proposed to solve the distribution problem in biomechanics:$\begin{array}{l l}
+    The following cost functions have been proposed to solve the distribution problem in biomechanics:
+
+    $$
+    \begin{array}{l l}
     \displaystyle\sum_{i=1}^N F_i \quad &\text{e.g., Seireg and Arkivar (1973)}
     \\
     \displaystyle\sum_{i=1}^N F_i^2 \quad &
@@ -290,12 +323,21 @@ def _(mo):
     \displaystyle\sum_{i=1}^N \left(\dfrac{F_i}{pcsa_i}\right)^2 \quad &\text{e.g., Crowninshield and Brand (1981)}
     \\
     \displaystyle\sum_{i=1}^N \left(\dfrac{F_i}{M_{max,i}}\right)^3 \quad &\text{e.g., Herzog (1987)}
-    \end{array}$Where$pcsa_i$is the physiological cross-sectional area of muscle$i$and$M_{max,i}$is the maximum torque muscle$i$can produce.<br>
-    Each muscle force$F_i$is a design variable and the following constraints must be satisfied:$\begin{array}{l l}
+    \end{array}
+    $$
+
+    Where $pcsa_i$ is the physiological cross-sectional area of muscle $i$ and $M_{max,i}$ is the maximum torque muscle $i$ can produce.<br>
+    Each muscle force $F_i$ is a design variable and the following constraints must be satisfied:
+
+    $$
+    \begin{array}{l l}
     0 \leq F_i \leq F_{max}
     \\
     \displaystyle\sum_{i=1}^N r_i \times F_i = M
-    \end{array}$Let's apply this concept to solve a distribution problem in biomechanics.
+    \end{array}
+    $$
+
+    Let's apply this concept to solve a distribution problem in biomechanics.
     """)
     return
 
@@ -634,8 +676,8 @@ def _(mo):
     mo.md(r"""
     ## Exercises
 
-    1. Find the extrema in the function$f(x)=x^3-7.5x^2+18x-10$analytically and determine if they are minimum or maximum.
-    2. Find the minimum in the$f(x)=x^3-7.5x^2+18x-10$using the gradient descent algorithm.
+    1. Find the extrema in the function $f(x)=x^3-7.5x^2+18x-10$ analytically and determine if they are minimum or maximum.<br>
+    2. Find the minimum in the $f(x)=x^3-7.5x^2+18x-10$ using the gradient descent algorithm.<br>
     2. Regarding the distribution problem for the elbow muscles presented in this text:<br>
         a. Test different initial values for the optimization.<br>
         b. Test other values for the elbow angle where the results are likely to change.

@@ -55,8 +55,10 @@ def _(mo):
     The Newton's laws of motion describe the relationship between the forces acting on a body and the resultant linear motion due to those forces:
 
     - **First law**: An object will remain at rest or in uniform motion in a straight line unless an external force acts on the body.
-    - **Second law**: The acceleration of an object is directly proportional to the net force acting on the object and inversely proportional to the mass of the object:$\vec{\bf{F}} = m \vec{\bf{a}}$.
-    - **Third law**: Whenever an object exerts a force$\vec{\bf{F}}_1$(action) on a second object, this second object simultaneously exerts a force$\vec{\bf{F}}_2$on the first object with the same magnitude but opposite direction (reaction):$\vec{\bf{F}}_2 = −\vec{\bf{F}}_1.$These three statements are astonishing in their simplicity and how much of knowledge they empower.
+    - **Second law**: The acceleration of an object is directly proportional to the net force acting on the object and inversely proportional to the mass of the object: $\vec{\bf{F}} = m \vec{\bf{a}}$.
+    - **Third law**: Whenever an object exerts a force $\vec{\bf{F}}_1$ (action) on a second object, this second object simultaneously exerts a force $\vec{\bf{F}}_2$ on the first object with the same magnitude but opposite direction (reaction): $\vec{\bf{F}}_2 = −\vec{\bf{F}}_1.$
+
+    These three statements are astonishing in their simplicity and how much of knowledge they empower.<br>
     Isaac Newton was born in 1943 and his works that resulted in these equations and other discoveries were mostly done in the years of 1666 and 1667, when he was only 24 years old!
     """)
     return
@@ -67,16 +69,16 @@ def _(mo):
     mo.md(r"""
     ## Steps to find the motion of a particle
 
-    1. Draw a free body diagram of the particle. Draw all the forces being applied to the particle.
-    2. Write the expression of each force applied to the particle. For external forces (for example gravity and air friction) write the constitutive laws of the phenomena.
-    3. Write the Newton's second Law$\vec{\bf{F}} = m \vec{\bf{a}}$, where$\vec{\bf{F}}$is the sum of all forces applied to the particle and$\vec{\bf{a}}$is the particle acceleration.
-    4. Separate the equation into the 3 cartesian components (or 2 components if the movement is bidimensional).
+    1. Draw a free body diagram of the particle. Draw all the forces being applied to the particle.<br>
+    2. Write the expression of each force applied to the particle. For external forces (for example gravity and air friction) write the constitutive laws of the phenomena.<br>
+    3. Write the Newton's second Law $\vec{\bf{F}} = m \vec{\bf{a}}$, where $\vec{\bf{F}}$ is the sum of all forces applied to the particle and $\vec{\bf{a}}$ is the particle acceleration.<br>
+    4. Separate the equation into the 3 cartesian components (or 2 components if the movement is bidimensional).<br>
     5. Solve the differential equations
-     1. If possible, solve the differential equations analytically.
-     2. If not possible to solve the differential equations analytically, separate each equation into 2 first order differential equations and use some numerical method (e.g. Euler, Runge-Kutta) to solve the first order differential equations with the aid of a computer.
+     1. If possible, solve the differential equations analytically.<br>
+     2. If not possible to solve the differential equations analytically, separate each equation into 2 first order differential equations and use some numerical method (e.g. Euler, Runge-Kutta) to solve the first order differential equations with the aid of a computer.<br>
     6. Use the solution to interpret the situation, or to find some error on your approach.
 
-    **Later, we will study in details how to draw a free-body diagram.**
+    **Later, we will study in details how to draw a free-body diagram.**<br>
     Let's see now some examples on how to find the motion of a particle
     """)
     return
@@ -89,16 +91,24 @@ def _(mo):
 
     #### Analytical solution
 
-    A football ball is kicked with an angle of 30 degrees with the ground (horizontal).
-    The mass of the ball is 0.43 kg. The initial speed of the ball is 20 m/s and the initial height is 0 m. Consider the gravitational acceleration as 9.81$m/s^2$.
+    A football ball is kicked with an angle of 30 degrees with the ground (horizontal).<br>
+    The mass of the ball is 0.43 kg. The initial speed of the ball is 20 m/s and the initial height is 0 m. Consider the gravitational acceleration as 9.81 $m/s^2$.<br>
     Find the motion of the ball.
 
-    Solution:
+    Solution:<br>
     We know that:
-    <span class="notranslate">$x_0 = 0 m \\ y_0 = 0 m$</span>
+
+    $$
+    x_0 = 0 m \\ y_0 = 0 m
+    $$
+
     As the angle of the initial velocity of the ball with the ground is 30 degrees:
-    <span class="notranslate">$v_{x0} = 20 \cos(30^\circ) = 20\frac{\sqrt{3}}{2} = 10\sqrt{3} m/s \\
-    v_{y0} = 20 \sin(30^\circ) = 20 \frac{1}{2} = 10 m/s$</span>
+
+    $$
+    v_{x0} = 20 \cos(30^\circ) = 20\frac{\sqrt{3}}{2} = 10\sqrt{3} m/s \\
+    v_{y0} = 20 \sin(30^\circ) = 20 \frac{1}{2} = 10 m/s
+    $$
+
     The free-body diagram of the ball is depicted below:
 
     <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/ballGrav.png?raw=1" alt="free-body diagram of a ball" width="500"/><figcaption><i>Figure. Free-body diagram of a ball under the influence of gravity.</i></figcaption></center></figure>
@@ -185,22 +195,52 @@ def _(mo):
     We can solve this problem numerically and compare both solutions.
 
     We start from the differential equations of each coordinate, and then break them into two first-order differential equations:
-    <span class="notranslate">$0 = \frac{d^2x}{dt^2}$</span>
-    and
-    <span class="notranslate">$- g = \frac{d^2y}{dt^2}$</span>
-    The first equation can be broken as:
-    <span class="notranslate">$\frac{dv_x}{dt} = 0$</span>
-    <span class="notranslate">$\frac{dx}{dt} = v_x(t)$</span>
-    And the second equation can be broken as:
-    <span class="notranslate">$\frac{dv_y}{dt} = -g$</span>
-    <span class="notranslate">$\frac{dy}{dt} = v_y(t)$</span>
-    You can use any numerical integration method you want (Euler, Runge-Kutta, etc), but here we will use the Euler method. Let's see the solution for the$x(t)$variable.
 
-    The derivative of$x(t)$is given by:
-    <span class="notranslate">$\frac{dx}{dt} = \lim\limits_{\Delta t \rightarrow 0} \frac{x(t+\Delta t) - x(t)}{\Delta t}$</span>
+    $$
+    0 = \frac{d^2x}{dt^2}
+    $$
+
+    and
+
+    $$
+    -g = \frac{d^2y}{dt^2}
+    $$
+
+    The first equation can be broken as:
+
+    $$
+    \frac{dv_x}{dt} = 0
+    $$
+
+    $$
+    \frac{dx}{dt} = v_x(t)
+    $$
+
+    And the second equation can be broken as:
+
+    $$
+    \frac{dv_y}{dt} = -g
+    $$
+
+    $$
+    \frac{dy}{dt} = v_y(t)
+    $$
+
+    You can use any numerical integration method you want (Euler, Runge-Kutta, etc), but here we will use the Euler method. Let's see the solution for the $x(t)$ variable.
+
+    The derivative of $x(t)$ is given by:
+
+    $$
+    \frac{dx}{dt} = \lim\limits_{\Delta t \rightarrow 0} \frac{x(t+\Delta t) - x(t)}{\Delta t}
+    $$
+
     Whcih can be approximated by:
-    <span class="notranslate">$\frac{dx}{dt} \approx \frac{x(t+\Delta t) - x(t)}{\Delta t} \quad \rightarrow \quad x(t+\Delta t) \approx x(t) + \Delta t \frac{dx}{dt}$</span>
-    So, with the initial conditions of all the variables, we can apply the equation above to find the values of the variables along time (for a revision of Ordinary Differential Equations, see the notebook [Ordinary Differential Equation](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/OrdinaryDifferentialEquation.ipynb)).
+
+    $$
+    \frac{dx}{dt} \approx \frac{x(t+\Delta t) - x(t)}{\Delta t} \quad \rightarrow \quad x(t+\Delta t) \approx x(t) + \Delta t \frac{dx}{dt}
+    $$
+
+    So, with the initial conditions of all the variables, we can apply the equation above to find the values of the variables along time (for a revision of Ordinary Differential Equations, see the notebook [Ordinary Differential Equation](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/OrdinaryDifferentialEquation.ipynb)).<br>
     In the cell below, we apply the Euler method for the four first-order differential equations.
     """)
     return
@@ -269,25 +309,40 @@ def _(mo):
 
     The solution of a linear differential equation can be found by finding the natural (or homogeneous) solution and the forced (or non-homogeneous) solution and then adding both solutions.
 
-    First, we solve the first differential equation ($x$coordinate). The characteristic polynomial of the equation is:
+    First, we solve the first differential equation ($x$ coordinate). The characteristic polynomial of the equation is:
 
-    <span class="notranslate">$\lambda^2 + \frac{b}{m}\lambda = 0$</span>
+    $$
+    \lambda^2 + \frac{b}{m}\lambda = 0
+    $$
 
-    The roots of this equation are$\lambda = 0$and$\lambda = -\frac{b}{m}$, and consequently, its natural modes are:
+    The roots of this equation are $\lambda = 0$ and $\lambda = -\frac{b}{m}$, and consequently, its natural modes are:
 
-    <span class="notranslate">$x_{n_1}(t) = Ae^{0t} = A \\
-    x_{n_2}(t) = B e^{-\frac{b}{m}t}$</span>
+    $$
+    x_{n_1}(t) = Ae^{0t} = A \\
+    x_{n_2}(t) = B e^{-\frac{b}{m}t}
+    $$
 
-    As there is no external forces in the$x$direction, there is no forced solution. So, the motion of the ball in the$x$coordinate is:
+    As there is no external forces in the $x$ direction, there is no forced solution. So, the motion of the ball in the $x$ coordinate is:
 
-    <span class="notranslate">$x(t) = A + Be^{-\frac{b}{m}t}$</span>
+    $$
+    x(t) = A + Be^{-\frac{b}{m}t}
+    $$
 
-    To find the values of the$A$and$B$constants, we must use the initial conditions$x(0)$and$v_x(0)$.
+    To find the values of the $A$ and $B$ constants, we must use the initial conditions $x(0)$ and $v_x(0)$.
 
-    <span class="notranslate">$x(0) = 0 = A + B$</span>
-    <span class="notranslate">$v_x(0) = v_{x0} = \frac{dx(0)}{dt} = -\frac{Bb}{m}e^{-\frac{b}{m}0} \quad \rightarrow \quad B = -\frac{v_{x0}m}{b} \quad \rightarrow \quad A = \frac{v_{x0}m}{b}$</span>
+    $$
+    x(0) = 0 = A + B
+    $$
+
+    $$
+    v_x(0) = v_{x0} = \frac{dx(0)}{dt} = -\frac{Bb}{m}e^{-\frac{b}{m}0} \quad \rightarrow \quad B = -\frac{v_{x0}m}{b} \quad \rightarrow \quad A = \frac{v_{x0}m}{b}
+    $$
+
     So:
-    <span class="notranslate">$x(t) = \frac{v_{x0}m}{b} - \frac{v_{x0}m}{b}e^{-\frac{b}{m}t} = \frac{v_{x0}m}{b}\left(1-e^{-\frac{b}{m}t} \right)$</span>
+
+    $$
+    x(t) = \frac{v_{x0}m}{b} - \frac{v_{x0}m}{b}e^{-\frac{b}{m}t} = \frac{v_{x0}m}{b}\left(1-e^{-\frac{b}{m}t} \right)
+    $$
     """)
     return
 
@@ -295,13 +350,24 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    Now, we solve the differential equation for the$y$coordinate.
+    Now, we solve the differential equation for the $y$ coordinate.<br>
     First, we find the natural solution, which comprises the solution from the equation without the gravitational force (the force indepedent of y(t) and its derivatives), in this case:
-    <span class="notranslate">$\frac{d^2y}{dt^2} = -\frac{b}{m}\frac{dy}{dt}$</span>
-    The solution of this equation is the same from the$x$coordinate:
-    <span class="notranslate">$y_n(t) = A + Be^{-\frac{b}{m}t}$</span>
+
+    $$
+    \frac{d^2y}{dt^2} = -\frac{b}{m}\frac{dy}{dt}
+    $$
+
+    The solution of this equation is the same from the $x$ coordinate:
+
+    $$
+    y_n(t) = A + Be^{-\frac{b}{m}t}
+    $$
+
     The forced solution (including the gravitational force, which is constant) happens when every derivative, with the exception of the derivative with the lowest order (in this case order 1 but it could be order 0, i.e. no derivative) goes to zero.
-    <span class="notranslate">$\frac{d^2y}{dt^2} \quad = \quad 0 \quad = \quad -\frac{b}{m}\frac{dy_f}{dt} - g \quad \rightarrow \quad \frac{dy_f}{dt} = -\frac{mg}{b} \quad \rightarrow \quad y_f(t) = -\frac{mg}{b}t$</span>
+
+    $$
+    \frac{d^2y}{dt^2} \quad = \quad 0 \quad = \quad -\frac{b}{m}\frac{dy_f}{dt} - g \quad \rightarrow \quad \frac{dy_f}{dt} = -\frac{mg}{b} \quad \rightarrow \quad y_f(t) = -\frac{mg}{b}t
+    $$
     """)
     return
 
@@ -309,22 +375,30 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    The complete solution of the motion of the ball in the$y$coordinate is the sum of the natural and forced solutions:
+    The complete solution of the motion of the ball in the $y$ coordinate is the sum of the natural and forced solutions:
 
-    <span class="notranslate">$y(t) = A + Be^{-\frac{b}{m}t} - \frac{mg}{b}t$</span>
+    $$
+    y(t) = A + Be^{-\frac{b}{m}t} - \frac{mg}{b}t
+    $$
 
-    To find the values of the constants A and B, we must use the initial conditions$y(0)$and$v_y(0)$.
+    To find the values of the constants A and B, we must use the initial conditions $y(0)$ and $v_y(0)$.
 
-    <span class="notranslate">$y(0) = 0 = A + B$</span>
+    $$
+    y(0) = 0 = A + B
+    $$
 
-    <span class="notranslate">$v_y(0) = v_{y0} = \frac{dy(0)}{dt} = - \frac{Bb}{m} - \frac{mg}{b} \\
+    $$
+    v_y(0) = v_{y0} = \frac{dy(0)}{dt} = - \frac{Bb}{m} - \frac{mg}{b} \\
     B = -\frac{m^2g}{b^2} -\frac{v_{y0}m}{b} \\
-    A = +\frac{m^2g}{b^2} + \frac{v_{y0}m}{b}$</span>
+    A = +\frac{m^2g}{b^2} + \frac{v_{y0}m}{b}
+    $$
 
     So, the motion of the ball in the y coordinate is:
 
-    <span class="notranslate">$y(t) = \left(\frac{m^2g}{b^2} + \frac{v_{y0}m}{b}\right) - \left(\frac{m^2g}{b^2} + \frac{v_{y0}m}{b}\right)e^{-\frac{b}{m}t} -\frac{mg}{b}t \\
-    y(t) = \left(\frac{m^2g}{b^2} + \frac{v_{y0}m}{b}\right)\left(1 - e^{-\frac{b}{m}t}\right) - \frac{mg}{b}t$</span>
+    $$
+    y(t) = \left(\frac{m^2g}{b^2} + \frac{v_{y0}m}{b}\right) - \left(\frac{m^2g}{b^2} + \frac{v_{y0}m}{b}\right)e^{-\frac{b}{m}t} -\frac{mg}{b}t \\
+    y(t) = \left(\frac{m^2g}{b^2} + \frac{v_{y0}m}{b}\right)\left(1 - e^{-\frac{b}{m}t}\right) - \frac{mg}{b}t
+    $$
     """)
     return
 
@@ -418,25 +492,53 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    So the forces being applied on the ball are (for a revision of Time-varying frames and the meaning of the$\hat{\bf{e_t}}$, see [Time-varying frames notebook](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/Time-varying%20frames.ipynb)):
-    <span class="notranslate">$\vec{\bf{F}} = -mg \; \hat{\bf{j}} - bv^2\hat{\bf{e_t}} \\
+    So the forces being applied on the ball are (for a revision of Time-varying frames and the meaning of the $\hat{\bf{e_t}}$, see [Time-varying frames notebook](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/Time-varying%20frames.ipynb)):
+
+    $$
+    \vec{\bf{F}} = -mg \; \hat{\bf{j}} - bv^2\hat{\bf{e_t}} \\
     \vec{\bf{F}} = -mg \; \hat{\bf{j}} - b (v_x^2+v_y^2) \frac{v_x \; \hat{\bf{i}} + v_y \; \hat{\bf{j}}}{\sqrt{v_x^2+v_y^2}} \\
     \vec{\bf{F}} = -mg \; \hat{\bf{j}} - b \sqrt{v_x^2+v_y^2} \,(v_x \; \hat{\bf{i}}+v_y \; \hat{\bf{j}}) \\
-    \vec{\bf{F}} = -mg \; \hat{\bf{j}} - b \sqrt{\left(\frac{dx}{dt} \right)^2+\left(\frac{dy}{dt} \right)^2} \,\left(\frac{dx}{dt} \hat{\bf{i}} + \frac{dy}{dt} \; \hat{\bf{j}}\right)$</span>
+    \vec{\bf{F}} = -mg \; \hat{\bf{j}} - b \sqrt{\left(\frac{dx}{dt} \right)^2+\left(\frac{dy}{dt} \right)^2} \,\left(\frac{dx}{dt} \hat{\bf{i}} + \frac{dy}{dt} \; \hat{\bf{j}}\right)
+    $$
+
     Writing down the Newton's second law:
-    <span class="notranslate">$\vec{\bf{F}} = m \frac{d^2\vec{\bf{r}}}{dt^2} \\
-    -mg \; \hat{\bf{j}} - b \sqrt{\left(\frac{dx}{dt} \right)^2+\left(\frac{dy}{dt} \right)^2} \,\left(\frac{dx}{dt} \hat{\bf{i}}+\frac{dy}{dt}\hat{\bf{j}}\right) = m\left(\frac{d^2x}{dt^2}\hat{\bf{i}}+\frac{d^2y}{dt^2}\hat{\bf{j}}\right)$</span>
+
+    $$
+    \vec{\bf{F}} = m \frac{d^2\vec{\bf{r}}}{dt^2} \\
+    -mg \; \hat{\bf{j}} - b \sqrt{\left(\frac{dx}{dt} \right)^2+\left(\frac{dy}{dt} \right)^2} \,\left(\frac{dx}{dt} \hat{\bf{i}}+\frac{dy}{dt}\hat{\bf{j}}\right) = m\left(\frac{d^2x}{dt^2}\hat{\bf{i}}+\frac{d^2y}{dt^2}\hat{\bf{j}}\right)
+    $$
+
     Now, we can separate into one equation for each coordinate:
-    <span class="notranslate">$- b \sqrt{\left(\frac{dx}{dt} \right)^2+\left(\frac{dy}{dt} \right)^2} \,\frac{dx}{dt} = m\frac{d^2x}{dt^2} \quad \rightarrow \\
-    \frac{d^2x}{dt^2} = - \frac{b}{m} \sqrt{\left(\frac{dx}{dt} \right)^2+\left(\frac{dy}{dt} \right)^2} \,\frac{dx}{dt}$</span>
-    <span class="notranslate">$-mg - b \sqrt{\left(\frac{dx}{dt} \right)^2+\left(\frac{dy}{dt} \right)^2} \,\frac{dy}{dt} = m\frac{d^2y}{dt^2} \quad \rightarrow \\
-    \frac{d^2y}{dt^2} = - \frac{b}{m} \sqrt{\left(\frac{dx}{dt} \right)^2 + \left(\frac{dy}{dt} \right)^2} \,\frac{dy}{dt} -g$</span>
-    These equations are very difficult to solve analytically, but they can be easily  solved by using numerical methods. Below we  will use the same numerical method (Euler method) to solve these equations.
+
+    $$
+    -b \sqrt{\left(\frac{dx}{dt} \right)^2+\left(\frac{dy}{dt} \right)^2} \,\frac{dx}{dt} = m\frac{d^2x}{dt^2} \quad \rightarrow \\
+    \frac{d^2x}{dt^2} = - \frac{b}{m} \sqrt{\left(\frac{dx}{dt} \right)^2+\left(\frac{dy}{dt} \right)^2} \,\frac{dx}{dt}
+    $$
+
+    $$
+    -mg - b \sqrt{\left(\frac{dx}{dt} \right)^2+\left(\frac{dy}{dt} \right)^2} \,\frac{dy}{dt} = m\frac{d^2y}{dt^2} \quad \rightarrow \\
+    \frac{d^2y}{dt^2} = - \frac{b}{m} \sqrt{\left(\frac{dx}{dt} \right)^2 + \left(\frac{dy}{dt} \right)^2} \,\frac{dy}{dt} -g
+    $$
+
+    These equations are very difficult to solve analytically, but they can be easily  solved by using numerical methods. Below we  will use the same numerical method (Euler method) to solve these equations.<br>
     For that, again we must break each equation into two first-order differential equations:
-    <span class="notranslate">$\frac{dv_x}{dt} = - \frac{b}{m} \sqrt{v_x^2+v_y^2} \,v_x$</span>
-    <span class="notranslate">$\frac{dx}{dt} = v_x$</span>
-    <span class="notranslate">$\frac{dv_y}{dt} = - \frac{b}{m} \sqrt{v_x^2+v_y^2} \,v_y -g$</span>
-    <span class="notranslate">$\frac{dy}{dt} = v_y$</span>
+
+    $$
+    \frac{dv_x}{dt} = - \frac{b}{m} \sqrt{v_x^2+v_y^2} \,v_x
+    $$
+
+    $$
+    \frac{dx}{dt} = v_x
+    $$
+
+    $$
+    \frac{dv_y}{dt} = - \frac{b}{m} \sqrt{v_x^2+v_y^2} \,v_y -g
+    $$
+
+    $$
+    \frac{dy}{dt} = v_y
+    $$
+
     Now, we can apply the Euler method to find a solution.
     """)
     return
@@ -529,29 +631,29 @@ def _(mo):
     mo.md(r"""
     ## Problems
 
-    1. (Example 13.1, Hibbeler's book) A$50 kg$crate rests on a horizontal surface for which the coefficient of kinetic friction is$\mu_k = 0.3$. If the crate is subjected to a$400 N$towing force applied upward with a$30^o$angle w.r.t. the horizontal, determine the velocity of the crate after$3 s$starting from rest.
+    1. (Example 13.1, Hibbeler's book) A $50 kg$ crate rests on a horizontal surface for which the coefficient of kinetic friction is $\mu_k = 0.3$. If the crate is subjected to a $400 N$ towing force applied upward with a $30^o$ angle w.r.t. the horizontal, determine the velocity of the crate after $3 s$ starting from rest.
 
-    2. (Example 13.2, Hibbeler's book) A 10 kg projectile is fired vertically upward from the ground, with an initial velocity of 50$m/s$. Determine the maximum height to which it will travel if (a) atmospheric resistance is neglected; and (b) atmospheric resistance is measured as$F_D=0.01v^2$$N$, where$v$is the speed of the projectile at any instant, measured in$m/s$.
+    2. (Example 13.2, Hibbeler's book) A 10 kg projectile is fired vertically upward from the ground, with an initial velocity of 50 $m/s$. Determine the maximum height to which it will travel if (a) atmospheric resistance is neglected; and (b) atmospheric resistance is measured as $F_D=0.01v^2$ $N$, where $v$ is the speed of the projectile at any instant, measured in $m/s$.
 
-    3. (Exercise 13.6, Hibbeler's book) A person pushes on a$60 kg$crate with a force$F$. The force is always directed down at$30^o$from the horizontal as shown, and its magnitude is increased until the crate begins to slide. Determine the crate’s initial acceleration if the coefficient of static friction is$\mu_s=0.6$and the coefficient of kinetic friction is$\mu_k=0.3$.
+    3. (Exercise 13.6, Hibbeler's book) A person pushes on a $60 kg$ crate with a force $F$. The force is always directed down at $30^o$ from the horizontal as shown, and its magnitude is increased until the crate begins to slide. Determine the crate’s initial acceleration if the coefficient of static friction is $\mu_s=0.6$ and the coefficient of kinetic friction is $\mu_k=0.3$.
 
-    4. (Exercise 13.46, Hibbeler's book) The parachutist of mass$m$is falling with a velocity of$v_0$at the instant she opens the parachute. If air resistance is$F_D = Cv^2$, show that her maximum velocity (terminal velocity) during the descent is$v_{max}=\sqrt{{mg}/{C}}$. Solve the problem numerically considering$m=100 kg$,$g=10 m/s^2$, and$C=10 kg/m$. Plot a simulation of this numerical solution and show that indeed the parachutist approaches the terminal velocity.
+    4. (Exercise 13.46, Hibbeler's book) The parachutist of mass $m$ is falling with a velocity of $v_0$ at the instant she opens the parachute. If air resistance is $F_D = Cv^2$, show that her maximum velocity (terminal velocity) during the descent is $v_{max}=\sqrt{{mg}/{C}}$. Solve the problem numerically considering $m=100 kg$, $g=10 m/s^2$, and $C=10 kg/m$. Plot a simulation of this numerical solution and show that indeed the parachutist approaches the terminal velocity.
 
-    5. Consider a block with mass of$1 kg$attached to a spring hanging from a ceiling (the spring constant$k = 100 N/m$). At$t = 0 s$, the spring is stretched by$0.1 m$from the equilibrium position of the block + spring system and then it's released (the initial velocity is not specified). Find the motion of the block.
+    5. Consider a block with mass of $1 kg$ attached to a spring hanging from a ceiling (the spring constant $k = 100 N/m$). At $t = 0 s$, the spring is stretched by $0.1 m$ from the equilibrium position of the block + spring system and then it's released (the initial velocity is not specified). Find the motion of the block.
 
     6. Solve exercises 12.1.16, 12.1.19, 12.1.24, 12.1.29, 12.1.30, 12.1.31(a, b, d) and 12.1.32 from Ruina and Pratap's book (2019).
 
-    7. (https://youtu.be/N6IhkTjWrd4) A$15 kg$box rests on a frictionless horizontal surface attached to a$5 kg$box as shown below.
-      a. What is the acceleration of the system?
-      b. What is the tension in the rope?
-      c. Now consider a coefficient of kinetic friction of$0.25$between the horizontal surface and the box. What are the acceleration of the system and the tension in the rope?
+    7. (https://youtu.be/N6IhkTjWrd4) A $15 kg$ box rests on a frictionless horizontal surface attached to a $5 kg$ box as shown below.<br>
+      a. What is the acceleration of the system?<br>
+      b. What is the tension in the rope?<br>
+      c. Now consider a coefficient of kinetic friction of $0.25$ between the horizontal surface and the box. What are the acceleration of the system and the tension in the rope?
 
     <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/boxes_pulley_rope.png?raw=1" alt="free-body diagram of the ball" width="300"/></center></figure>
 
-    8. Consider a moving particle in a fluid with viscosity proportional to the cube of the velocity. This particle moves only vertically and never reaches the ground. Consider the magnitude of the acceleration due to gravity as$10 m/s^2$.
-       a. Draw the free body diagram.
-       b. What is the differential equation that describes the particle's motion?
-       c. If the viscosity coefficient is$5 Ns^3/m^3$, what is the maximum speed of the particle?
+    8. Consider a moving particle in a fluid with viscosity proportional to the cube of the velocity. This particle moves only vertically and never reaches the ground. Consider the magnitude of the acceleration due to gravity as $10 m/s^2$.<br>
+       a. Draw the free body diagram.<br>
+       b. What is the differential equation that describes the particle's motion?<br>
+       c. If the viscosity coefficient is $5 Ns^3/m^3$, what is the maximum speed of the particle?
     """)
     return
 

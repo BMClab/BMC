@@ -34,13 +34,25 @@ def _(mo):
     mo.md(r"""
     ## Least squares
 
-    Consider$n$data points$(x_i, y_i),\: i=1, \dots , n$, where$x_i$is the independent variable (or predictor) and$y_i$is the dependent variable (or response) to be fitted by a model function$y$with$m$adjustable parameters$\beta_i,\: i=1, \dots , m$. The problem is to find the parameter values for the model which best fits the data. A classical solution is to find the best fit by minimizing the sum of the squared differences between data points and the model function (the sum of squared residuals as the merit function), which is known as the least-squares fit:$\sum_{i=1}^{n} \left[ y_i - y(x | \beta_1 \dots \beta_{m}) \right]^2 \;\;\;\;\;\; \mathrm{minimize\; over:} \;\;\; \beta_1 \dots \beta_{m}$**Chi-Square**<br>
-    If we consider that each response$y_i$has a measurement error or uncertainty described by a standard deviation,$\sigma_i$, the problem now is to minimize the following function:$\sum_{i=1}^{n} \left[ \frac{ y_i - y(x | \beta_1 \dots \beta_{m}) }{\sigma_i} \right]^2 = \chi^2$Considering that the residuals are normally distributed, the sum of squared residuals divided by their variance,$\sigma_i^2$, by definition will have a [chi-squared distribution](http://en.wikipedia.org/wiki/Chi-squared_distribution),$\chi^2$. Once the best-fit parameters are found, the terms in the sum above are not all statistically independent and the probability distribution of$\chi^2$will be the chi-squared distribution for$n-m$degrees of freedom.
+    Consider $n$ data points $(x_i, y_i),\: i=1, \dots , n$, where $x_i$ is the independent variable (or predictor) and $y_i$ is the dependent variable (or response) to be fitted by a model function $y$ with $m$ adjustable parameters $\beta_i,\: i=1, \dots , m$. The problem is to find the parameter values for the model which best fits the data. A classical solution is to find the best fit by minimizing the sum of the squared differences between data points and the model function (the sum of squared residuals as the merit function), which is known as the least-squares fit:
 
-    The uncertainty$\sigma_i$can be seen as the inverse of the weights in a weighted sum (because less certainty we have about this measure). Larger$\sigma_i$, smaller the weight of$y_i$in the sum. If$y_i$has no uncertainty,$\sigma_i$should be equal to one.
+    $$
+    \sum_{i=1}^{n} \left[ y_i - y(x | \beta_1 \dots \beta_{m}) \right]^2 \;\;\;\;\;\; \mathrm{minimize\; over:} \;\;\; \beta_1 \dots \beta_{m}
+    $$
 
-    A rough estimate of the goodness of fit is the reduced chi-square statistic,$\chi^2_{red}$: the$\chi^2$value divided by the number of degrees of freedom ($n-m$).<br>
-    A good fitting should have$\chi^2_{red}$equals to one.
+    **Chi-Square**<br>
+    If we consider that each response $y_i$ has a measurement error or uncertainty described by a standard deviation, $\sigma_i$, the problem now is to minimize the following function:
+
+    $$
+    \sum_{i=1}^{n} \left[ \frac{ y_i - y(x | \beta_1 \dots \beta_{m}) }{\sigma_i} \right]^2 = \chi^2
+    $$
+
+    Considering that the residuals are normally distributed, the sum of squared residuals divided by their variance, $\sigma_i^2$, by definition will have a [chi-squared distribution](http://en.wikipedia.org/wiki/Chi-squared_distribution), $\chi^2$. Once the best-fit parameters are found, the terms in the sum above are not all statistically independent and the probability distribution of $\chi^2$ will be the chi-squared distribution for $n-m$ degrees of freedom.
+
+    The uncertainty $\sigma_i$ can be seen as the inverse of the weights in a weighted sum (because less certainty we have about this measure). Larger $\sigma_i$, smaller the weight of $y_i$ in the sum. If $y_i$ has no uncertainty, $\sigma_i$ should be equal to one.
+
+    A rough estimate of the goodness of fit is the reduced chi-square statistic, $\chi^2_{red}$: the $\chi^2$ value divided by the number of degrees of freedom ($n-m$).<br>
+    A good fitting should have $\chi^2_{red}$ equals to one.
     """)
     return
 
@@ -50,11 +62,73 @@ def _(mo):
     mo.md(r"""
     ## Linear fit
 
-    Let's derive the analytical expression for the least-square fit when the model function is a straight line (a.k.a. linear regression) and the dependent variable$y_i$has uncertainty:$y(x) = y(x | a,b) = a + bx$We want to find$a, b$such that minimizes the$\chi^2$function defined above (a.k.a.$\chi^2$fitting):$\chi^2(a,b) = \sum_{i=1}^{n} \left[ \frac{ y_i - (a + bx_i) }{\sigma_i} \right]^2$Using the property that at the minimum of$\chi^2$its derivative is zero:$\frac{\partial \chi^2}{\partial a} = -2 \sum_{i=1}^{n} \frac{ y_i - a - bx_i }{\sigma_i^2} = 0$$\frac{\partial \chi^2}{\partial b} = -2 \sum_{i=1}^{n} \frac{ x_i(y_i - a - bx_i) }{\sigma_i^2} = 0$To solve these two equations, let's define the sums as:$S = \sum_{i=1}^{n} \frac{1}{\sigma_i^2} \;\;\; S_x = \sum_{i=1}^{n} \frac{x_i}{\sigma_i^2} \;\;\; S_y = \sum_{i=1}^{n} \frac{y_i}{\sigma_i^2} \;\;\; S_{xx} = \sum_{i=1}^{n} \frac{x_i^2}{\sigma_i^2} \;\;\; S_{xy} = \sum_{i=1}^{n} \frac{x_i y_i}{\sigma_i^2}$Using these definitions, the former two equations become:$S_y \:\: = aS + bS_x$$S_{xy} = aS_x + bS_{xx}$And solving these two equations for the two unknowns:$a = \frac{S_{xx}S_y - S_x S_{xy}}{\Delta}$$b = \frac{S S_{xy} - S_x S_y}{\Delta}$Where:$\Delta = S S_{xx} - S_x^2$With the parameters above, the straight line will be the best fit in the sense that the sum of the squared residuals are minimum.
+    Let's derive the analytical expression for the least-square fit when the model function is a straight line (a.k.a. linear regression) and the dependent variable $y_i$ has uncertainty:
+
+    $$
+    y(x) = y(x | a,b) = a + bx
+    $$
+
+    We want to find $a, b$ such that minimizes the $\chi^2$ function defined above (a.k.a. $\chi^2$ fitting):
+
+    $$
+    \chi^2(a,b) = \sum_{i=1}^{n} \left[ \frac{ y_i - (a + bx_i) }{\sigma_i} \right]^2
+    $$
+
+    Using the property that at the minimum of $\chi^2$ its derivative is zero:
+
+    $$
+    \frac{\partial \chi^2}{\partial a} = -2 \sum_{i=1}^{n} \frac{ y_i - a - bx_i }{\sigma_i^2} = 0
+    $$
+
+    $$
+    \frac{\partial \chi^2}{\partial b} = -2 \sum_{i=1}^{n} \frac{ x_i(y_i - a - bx_i) }{\sigma_i^2} = 0
+    $$
+
+    To solve these two equations, let's define the sums as:
+
+    $$
+    S = \sum_{i=1}^{n} \frac{1}{\sigma_i^2} \;\;\; S_x = \sum_{i=1}^{n} \frac{x_i}{\sigma_i^2} \;\;\; S_y = \sum_{i=1}^{n} \frac{y_i}{\sigma_i^2} \;\;\; S_{xx} = \sum_{i=1}^{n} \frac{x_i^2}{\sigma_i^2} \;\;\; S_{xy} = \sum_{i=1}^{n} \frac{x_i y_i}{\sigma_i^2}
+    $$
+
+    Using these definitions, the former two equations become:
+
+    $$
+    S_y \:\: = aS + bS_x
+    $$
+
+    $$
+    S_{xy} = aS_x + bS_{xx}
+    $$
+
+    And solving these two equations for the two unknowns:
+
+    $$
+    a = \frac{S_{xx}S_y - S_x S_{xy}}{\Delta}
+    $$
+
+    $$
+    b = \frac{S S_{xy} - S_x S_y}{\Delta}
+    $$
+
+    Where:
+
+    $$
+    \Delta = S S_{xx} - S_x^2
+    $$
+
+    With the parameters above, the straight line will be the best fit in the sense that the sum of the squared residuals are minimum.
 
     **Estimating the uncertainty of the parameters**
 
-    The uncertainty of each parameter is given by:$\sigma_a^2 = \frac{Sxx}{\Delta}$$\sigma_b^2 = \frac{S}{\Delta}$
+    The uncertainty of each parameter is given by:
+
+    $$
+    \sigma_a^2 = \frac{Sxx}{\Delta}
+    $$
+
+    $$
+    \sigma_b^2 = \frac{S}{\Delta}
+    $$
     """)
     return
 
@@ -64,12 +138,40 @@ def _(mo):
     mo.md(r"""
     ## Correlation coefficient
 
-    The Pearson product-moment correlation coefficient, or simply the correlation coefficient, is a measure of the linear correlation between two variables$x$and$y$, with values varying from +1 to −1, where 1 is total positive correlation, 0 is no correlation, and −1 is total negative correlation.<br>
-    The correlation coefficient between populations of two random variables is the covariance of the two variables divided by the product of their standard deviations:$\rho_{x, y} = \frac{cov(x, y)}{\sigma_x\sigma_y} = \frac{E[(x-\mu_x)(y-\mu_y)]}{\sqrt{E[(x-\mu_x)^2]}\sqrt{E[(y-\mu_y)^2]}}$Where$E[\cdot]$is the <a href="http://en.wikipedia.org/wiki/Moment_(mathematics)">expectation operator</a>.
+    The Pearson product-moment correlation coefficient, or simply the correlation coefficient, is a measure of the linear correlation between two variables $x$ and $y$, with values varying from +1 to −1, where 1 is total positive correlation, 0 is no correlation, and −1 is total negative correlation.<br>
+    The correlation coefficient between populations of two random variables is the covariance of the two variables divided by the product of their standard deviations:
 
-    For samples of two random variables, the covariance and standard deviation are given by:$cov(x, y) = \frac{1}{n-1}\sum_{i=1}^{n}(x_i-\bar{x})(y_i-\bar{y})$$\sigma_x = \sqrt{\frac{1}{n-1}\sum_{i=1}^{n}(x_i-\bar{x})^2}$So, the correlation coefficient for the samples is:$r_{x, y} = \frac{\sum_{i=1}^{n}(x_i-\bar{x})(y_i-\bar{y})}{\sqrt{\sum_{i=1}^{n}(x_i-\bar{x})^2}\sqrt{\sum_{i=1}^{n}(y_i-\bar{y})^2}}$The square of the sample correlation coefficient, denoted$r^2$or$R^2$, is called the coefficient of determination and it can be shown it is related to the linear fit formalism by:$R^2(y, \widehat{y}) = \frac{\sum_{i=1}^{n}(\widehat{y}_i-\bar{y})^2}{\sum_{i=1}^{n}(y_i-\bar{y})^2}$Where$\widehat{y}_i$are the fitted values from the linear fit.
+    $$
+    \rho_{x, y} = \frac{cov(x, y)}{\sigma_x\sigma_y} = \frac{E[(x-\mu_x)(y-\mu_y)]}{\sqrt{E[(x-\mu_x)^2]}\sqrt{E[(y-\mu_y)^2]}}
+    $$
 
-    Examining the division above, it consists of the variance of the fitted values around the mean value of$y$divided by the variance of$y_i$. Because of that, it is said that the coefficient of determination is the proportion of variance in$y$explained by a linear function of$x$.
+    Where $E[\cdot]$ is the <a href="http://en.wikipedia.org/wiki/Moment_(mathematics)">expectation operator</a>.
+
+    For samples of two random variables, the covariance and standard deviation are given by:
+
+    $$
+    cov(x, y) = \frac{1}{n-1}\sum_{i=1}^{n}(x_i-\bar{x})(y_i-\bar{y})
+    $$
+
+    $$
+    \sigma_x = \sqrt{\frac{1}{n-1}\sum_{i=1}^{n}(x_i-\bar{x})^2}
+    $$
+
+    So, the correlation coefficient for the samples is:
+
+    $$
+    r_{x, y} = \frac{\sum_{i=1}^{n}(x_i-\bar{x})(y_i-\bar{y})}{\sqrt{\sum_{i=1}^{n}(x_i-\bar{x})^2}\sqrt{\sum_{i=1}^{n}(y_i-\bar{y})^2}}
+    $$
+
+    The square of the sample correlation coefficient, denoted $r^2$ or $R^2$, is called the coefficient of determination and it can be shown it is related to the linear fit formalism by:
+
+    $$
+    R^2(y, \widehat{y}) = \frac{\sum_{i=1}^{n}(\widehat{y}_i-\bar{y})^2}{\sum_{i=1}^{n}(y_i-\bar{y})^2}
+    $$
+
+    Where $\widehat{y}_i$ are the fitted values from the linear fit.
+
+    Examining the division above, it consists of the variance of the fitted values around the mean value of $y$ divided by the variance of $y_i$. Because of that, it is said that the coefficient of determination is the proportion of variance in $y$ explained by a linear function of $x$.
     """)
     return
 
@@ -388,9 +490,33 @@ def _(mo):
 
     **Confidence interval**
 
-    A 95% confidence interval for the linear fit gives the 95% probability that this interval around the linear fit,$\hat{\mu}_{y|x0}$, contains the mean response of new values,$\mu_{y|x0}$, at a specified value,$x_0$, and it is given by:$\left| \: \hat{\mu}_{y|x0} - \mu_{y|x0} \: \right| \; \leq \; T_{n-2}^{.975} \; \hat{\sigma} \; \sqrt{\frac{1}{n}+\frac{(x_0-\bar{x})^2}{\sum_{i=1}^n{(x_i-\bar{x})^2}}}$Where:$\hat{\mu}_{y|x0} = a + bx_0$is computed from the lineat fit.$T_{n-2}^{.975}$is the$97.5^{th}$percentile of the Student's t-distribution with n−2 degrees of freedom.$\hat{\sigma}$is the standard deviation of the error term in the linear fit (residuals) given by:$\hat{\sigma} = \sqrt{\sum_{i=1}^n{\frac{(y_i-\hat{y})^2}{n-2}}}$**Prediction interval**
+    A 95% confidence interval for the linear fit gives the 95% probability that this interval around the linear fit, $\hat{\mu}_{y|x0}$, contains the mean response of new values, $\mu_{y|x0}$, at a specified value, $x_0$, and it is given by:
 
-    A 95% prediction interval for the linear fit gives the 95% probability that this interval around the linear fit,$\hat{y}_0$, contains a new observation,$y_0$, at a specified value,$x_0$, and it is given by:$\left| \: \hat{y}_0 - y_0 \: \right| \; \leq \; T_{n-2}^{.975} \; \hat{\sigma} \; \sqrt{1 + \frac{1}{n}+\frac{(x_0-\bar{x})^2}{\sum_{i=1}^n{(x_i-\bar{x})^2}}}$Where$\hat{y}_0 = a + bx_0$is computed from the lineat fit.
+    $$
+    \left| \: \hat{\mu}_{y|x0} - \mu_{y|x0} \: \right| \; \leq \; T_{n-2}^{.975} \; \hat{\sigma} \; \sqrt{\frac{1}{n}+\frac{(x_0-\bar{x})^2}{\sum_{i=1}^n{(x_i-\bar{x})^2}}}
+    $$
+
+    Where:
+
+    $\hat{\mu}_{y|x0} = a + bx_0$ is computed from the lineat fit.
+
+    $T_{n-2}^{.975}$ is the $97.5^{th}$ percentile of the Student's t-distribution with n−2 degrees of freedom.
+
+    $\hat{\sigma}$ is the standard deviation of the error term in the linear fit (residuals) given by:
+
+    $$
+    \hat{\sigma} = \sqrt{\sum_{i=1}^n{\frac{(y_i-\hat{y})^2}{n-2}}}
+    $$
+
+    **Prediction interval**
+
+    A 95% prediction interval for the linear fit gives the 95% probability that this interval around the linear fit, $\hat{y}_0$, contains a new observation, $y_0$, at a specified value, $x_0$, and it is given by:
+
+    $$
+    \left| \: \hat{y}_0 - y_0 \: \right| \; \leq \; T_{n-2}^{.975} \; \hat{\sigma} \; \sqrt{1 + \frac{1}{n}+\frac{(x_0-\bar{x})^2}{\sum_{i=1}^n{(x_i-\bar{x})^2}}}
+    $$
+
+    Where $\hat{y}_0 = a + bx_0$ is computed from the lineat fit.
 
     **Implementation in Python**
 

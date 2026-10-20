@@ -126,7 +126,7 @@ def _(mo):
     mo.md(r"""
     ## The matrix of inertia is different depending on the body orientation
 
-    So, to compute the angular momentum of a body we have to multiply the matrix of inertia <span class="notranslate">$I$</span> of the body by its angular velocity <span class="notranslate">$\vec{\omega}$</span>. The problem on this approach is that the moments and products of inertia depends on the orientation of the body relative to the frame of reference. As they depend on the distances of each point of the body to the axes, if the body is rotating, the matrix of inertia$I$will be different at each instant.
+    So, to compute the angular momentum of a body we have to multiply the matrix of inertia $I$ of the body by its angular velocity $\vec{\omega}$. The problem on this approach is that the moments and products of inertia depends on the orientation of the body relative to the frame of reference. As they depend on the distances of each point of the body to the axes, if the body is rotating, the matrix of inertia $I$ will be different at each instant.
 
     <figure><img src="https://github.com/BMClab/BMC/blob/master/images/3Dbodyref.png?raw=1" width=800 />
     """)
@@ -138,7 +138,7 @@ def _(mo):
     mo.md(r"""
     ### The solution is to attach a frame reference to the body
 
-    The solution to this problem is to attach a frame of reference to the body. We will denote this frame of reference as <span class="notranslate">$\hat{\boldsymbol{e_1}}$</span>, <span class="notranslate">$\hat{\boldsymbol{e_2}}$</span> and <span class="notranslate">$\hat{\boldsymbol{e_3}}$</span>, with origin in the center of mass of the body. As can be noted from the figure below, the frame of reference moves along the body. Now the matrix of inertia <span class="notranslate">$I$</span> will be constant relative to this new basis <span class="notranslate">$\hat{\boldsymbol{e_1}}$,$\hat{\boldsymbol{e_2}}$</span> and <span class="notranslate">$\hat{\boldsymbol{e_3}}$</span>.
+    The solution to this problem is to attach a frame of reference to the body. We will denote this frame of reference as $\hat{\boldsymbol{e_1}}$, $\hat{\boldsymbol{e_2}}$ and $\hat{\boldsymbol{e_3}}$, with origin in the center of mass of the body. As can be noted from the figure below, the frame of reference moves along the body. Now the matrix of inertia $I$ will be constant relative to this new basis $\hat{\boldsymbol{e_1}}$, $\hat{\boldsymbol{e_2}}$ and $\hat{\boldsymbol{e_3}}$.
 
     <figure><img src="https://github.com/BMClab/BMC/blob/master/images/3DbodyrefMove.png?raw=1" width=800 />
     """)
@@ -150,9 +150,13 @@ def _(mo):
     mo.md(r"""
     ### The fixed frame is chosen in a way that the matrix of inertia is a diagonal matrix
 
-    As we can choose the basis versors as we want, we can choose them so as to the products of inertia be equal to zero. This can always be done. If the body has axes of symmetry,  we can choose these axes (principal axes) as the direction of the basis to the products of inertia be equal to zero. Having the basis <span class="notranslate">$\hat{\boldsymbol{e_1}}$,$\hat{\boldsymbol{e_2}}$</span> and <span class="notranslate">$\hat{\boldsymbol{e_3}}$</span>, the matrix of inertia will be a diagonal matrix:$I = \left[\begin{array}{ccc}I_1&0&0\\
+    As we can choose the basis versors as we want, we can choose them so as to the products of inertia be equal to zero. This can always be done. If the body has axes of symmetry,  we can choose these axes (principal axes) as the direction of the basis to the products of inertia be equal to zero. Having the basis $\hat{\boldsymbol{e_1}}$, $\hat{\boldsymbol{e_2}}$ and $\hat{\boldsymbol{e_3}}$, the matrix of inertia will be a diagonal matrix:
+
+    $$
+    I = \left[\begin{array}{ccc}I_1&0&0\\
               0&I_2&0\\
-              0&0&I_3\end{array}\right]$
+              0&0&I_3\end{array}\right]
+    $$
     """)
     return
 
@@ -188,11 +192,13 @@ def _(mo):
     mo.md(r"""
     ## Derivative of the angular momentum
 
-    For the second Newton-Euler law, we must compute the derivative of the angular momentum. So, we derive the angular momentum in Eq. \eqref{eq:angmomprinc}. As the versors <span class="notranslate">$\hat{\boldsymbol{e_1}}$,$\hat{\boldsymbol{e_2}}$</span> and <span class="notranslate">$\hat{\boldsymbol{e_3}}$</span> are varying in time, we must consider their derivatives.
+    For the second Newton-Euler law, we must compute the derivative of the angular momentum. So, we derive the angular momentum in Eq. \eqref{eq:angmomprinc}. As the versors $\hat{\boldsymbol{e_1}}$, $\hat{\boldsymbol{e_2}}$ and $\hat{\boldsymbol{e_3}}$ are varying in time, we must consider their derivatives.
 
-    <span class="notranslate">$\frac{d\vec{H_{cm}}}{dt} = I_1\dot{\omega_1}\hat{\boldsymbol{e_1}} + I_2\dot{\omega_2}\hat{\boldsymbol{e_2}}+I_3\dot{\omega_3}\hat{\boldsymbol{e_3}} + I_1\omega_1\frac{d\hat{\boldsymbol{e_1}}}{dt} + I_2\omega_2\frac{d\hat{\boldsymbol{e_2}}}{dt}+I_3\omega_3\frac{d\hat{\boldsymbol{e_3}}}{dt}$</span>
+    $$
+    \frac{d\vec{H_{cm}}}{dt} = I_1\dot{\omega_1}\hat{\boldsymbol{e_1}} + I_2\dot{\omega_2}\hat{\boldsymbol{e_2}}+I_3\dot{\omega_3}\hat{\boldsymbol{e_3}} + I_1\omega_1\frac{d\hat{\boldsymbol{e_1}}}{dt} + I_2\omega_2\frac{d\hat{\boldsymbol{e_2}}}{dt}+I_3\omega_3\frac{d\hat{\boldsymbol{e_3}}}{dt}
+    $$
 
-    Now it only remains to find an expression for the derivative of the versors <span class="notranslate">$\frac{d\hat{\boldsymbol{e_1}}}{dt}$,$\frac{d\hat{\boldsymbol{e_2}}}{dt}$</span> and <span class="notranslate">$\frac{d\hat{\boldsymbol{e_3}}}{dt}$<span>.
+    Now it only remains to find an expression for the derivative of the versors $\frac{d\hat{\boldsymbol{e_1}}}{dt}$, $\frac{d\hat{\boldsymbol{e_2}}}{dt}$ and <span class="notranslate">$\frac{d\hat{\boldsymbol{e_3}}}{dt}$<span>.
     """)
     return
 
@@ -216,17 +222,37 @@ def _(mo):
     mo.md(r"""
     ### The derivative of the versors
 
-    Now, we must isolate the derivative of the versors to substitute them in the Eq. \eqref{eq:derivangmom}. To isolate the derivative of the versor <span class="notranslate">$\hat{\boldsymbol{e_1}}$</span>, first we cross multiply both sides of the equation above by <span class="notranslate">$\hat{\boldsymbol{e_1}}$</span>:
+    Now, we must isolate the derivative of the versors to substitute them in the Eq. \eqref{eq:derivangmom}. To isolate the derivative of the versor $\hat{\boldsymbol{e_1}}$, first we cross multiply both sides of the equation above by $\hat{\boldsymbol{e_1}}$:
 
-    <span class="notranslate">$\vec{\omega} \times \hat{\boldsymbol{e_1}} = - \left(\frac{d\hat{\boldsymbol{e_3}}}{dt}\cdot \hat{\boldsymbol{e_1}}\right) \hat{\boldsymbol{e_3}} + \left(\frac{d\hat{\boldsymbol{e_1}}}{dt}\cdot \hat{\boldsymbol{e_2}}\right) \hat{\boldsymbol{e_2}}$</span>
+    $$
+    \vec{\omega} \times \hat{\boldsymbol{e_1}} = - \left(\frac{d\hat{\boldsymbol{e_3}}}{dt}\cdot \hat{\boldsymbol{e_1}}\right) \hat{\boldsymbol{e_3}} + \left(\frac{d\hat{\boldsymbol{e_1}}}{dt}\cdot \hat{\boldsymbol{e_2}}\right) \hat{\boldsymbol{e_2}}
+    $$
 
-    If we note that the term multipliying <span class="notranslate">$\hat{\boldsymbol{e_3}}$</span> in the right side of the identity can be obtained by <span class="notranslate">$\frac{d\hat{\boldsymbol{e_1}}\cdot\hat{\boldsymbol{e_3}} }{dt} = \frac{d\hat{\boldsymbol{e_1}}}{dt}\cdot\hat{\boldsymbol{e_3}} + \frac{d\hat{\boldsymbol{e_3}}}{dt}\cdot\hat{\boldsymbol{e_1}} \rightarrow 0 = \frac{d\hat{\boldsymbol{e_1}}}{dt}\cdot\hat{\boldsymbol{e_3}} + \frac{d\hat{\boldsymbol{e_3}}}{dt}\cdot\hat{\boldsymbol{e_1}} \rightarrow \frac{d\hat{\boldsymbol{e_3}}}{dt}\cdot\hat{\boldsymbol{e_1}}  = - \frac{d\hat{\boldsymbol{e_1}}}{dt}\cdot\hat{\boldsymbol{e_3}}$</span> (the scalar product <span class="notranslate">$\hat{\boldsymbol{e_1}}\cdot\hat{\boldsymbol{e_3}}$</span> is zero because these vectors are orthogonal), we can write the equation above becomes:
+    If we note that the term multipliying $\hat{\boldsymbol{e_3}}$ in the right side of the identity can be obtained by $\frac{d\hat{\boldsymbol{e_1}}\cdot\hat{\boldsymbol{e_3}} }{dt} = \frac{d\hat{\boldsymbol{e_1}}}{dt}\cdot\hat{\boldsymbol{e_3}} + \frac{d\hat{\boldsymbol{e_3}}}{dt}\cdot\hat{\boldsymbol{e_1}} \rightarrow 0 = \frac{d\hat{\boldsymbol{e_1}}}{dt}\cdot\hat{\boldsymbol{e_3}} + \frac{d\hat{\boldsymbol{e_3}}}{dt}\cdot\hat{\boldsymbol{e_1}} \rightarrow \frac{d\hat{\boldsymbol{e_3}}}{dt}\cdot\hat{\boldsymbol{e_1}}  = - \frac{d\hat{\boldsymbol{e_1}}}{dt}\cdot\hat{\boldsymbol{e_3}}$ (the scalar product $\hat{\boldsymbol{e_1}}\cdot\hat{\boldsymbol{e_3}}$ is zero because these vectors are orthogonal), we can write the equation above becomes:
 
-    <span class="notranslate">$\vec{\omega} \times \hat{\boldsymbol{e_1}} = \left(\frac{d\hat{\boldsymbol{e_1}}}{dt}\cdot \hat{\boldsymbol{e_3}}\right) \hat{\boldsymbol{e_3}} + \left(\frac{d\hat{\boldsymbol{e_1}}}{dt}\cdot \hat{\boldsymbol{e_2}}\right) \hat{\boldsymbol{e_2}}$</span>
+    $$
+    \vec{\omega} \times \hat{\boldsymbol{e_1}} = \left(\frac{d\hat{\boldsymbol{e_1}}}{dt}\cdot \hat{\boldsymbol{e_3}}\right) \hat{\boldsymbol{e_3}} + \left(\frac{d\hat{\boldsymbol{e_1}}}{dt}\cdot \hat{\boldsymbol{e_2}}\right) \hat{\boldsymbol{e_2}}
+    $$
 
-    Finally, we can note that$\frac{d\hat{\boldsymbol{e_1}}\cdot\hat{\boldsymbol{e_1}} }{dt} = \frac{d\hat{\boldsymbol{e_1}}}{dt}\cdot\hat{\boldsymbol{e_1}} + \frac{d\hat{\boldsymbol{e_1}}}{dt}\cdot\hat{\boldsymbol{e_1}} \rightarrow \frac{d(1)}{dt} = 2\frac{d\hat{\boldsymbol{e_1}}}{dt}\cdot\hat{\boldsymbol{e_1}} \rightarrow \frac{d\hat{\boldsymbol{e_1}}}{dt}\cdot\hat{\boldsymbol{e_1}}  = 0$. As this term is equal to zero, we can add it to the expression above:$\vec{\boldsymbol{\omega}} \times \hat{\boldsymbol{e_1}} = \left(\frac{d\hat{\boldsymbol{e_1}}}{dt}\cdot\hat{\boldsymbol{e_1}}\right)\hat{\boldsymbol{e_1}} +  \left(\frac{d\hat{\boldsymbol{e_1}}}{dt}\cdot \hat{\boldsymbol{e_3}}\right) \hat{\boldsymbol{e_3}} + \left(\frac{d\hat{\boldsymbol{e_1}}}{dt}\cdot \hat{\boldsymbol{e_2}}\right) \hat{\boldsymbol{e_2}}$Note that the expression above is just another manner to write the vector$\frac{d\hat{\boldsymbol{e_1}}}{dt}$, as any vector can be described by the sum of the projections on each of the versors forming a basis.
+    Finally, we can note that $\frac{d\hat{\boldsymbol{e_1}}\cdot\hat{\boldsymbol{e_1}} }{dt} = \frac{d\hat{\boldsymbol{e_1}}}{dt}\cdot\hat{\boldsymbol{e_1}} + \frac{d\hat{\boldsymbol{e_1}}}{dt}\cdot\hat{\boldsymbol{e_1}} \rightarrow \frac{d(1)}{dt} = 2\frac{d\hat{\boldsymbol{e_1}}}{dt}\cdot\hat{\boldsymbol{e_1}} \rightarrow \frac{d\hat{\boldsymbol{e_1}}}{dt}\cdot\hat{\boldsymbol{e_1}}  = 0$. As this term is equal to zero, we can add it to the expression above:
 
-    So, the derivative of the versor$\hat{\boldsymbol{e_1}}$can be written as:$\frac{d\hat{\boldsymbol{e_1}}}{dt} = \vec{\boldsymbol{\omega}} \times \hat{\boldsymbol{e_1}}$Similarly, the derivatives of the versors$\hat{\boldsymbol{e_2}}$and$\hat{\boldsymbol{e_3}}$can be written as:$\frac{d\hat{\boldsymbol{e_2}}}{dt} = \vec{\boldsymbol{\omega}} \times \hat{\boldsymbol{e_2}} ~~~~~~~~\text{and} ~~~~~~ \frac{d\hat{\boldsymbol{e_3}}}{dt} = \vec{\boldsymbol{\omega}} \times \hat{\boldsymbol{e_3}}$
+    $$
+    \vec{\boldsymbol{\omega}} \times \hat{\boldsymbol{e_1}} = \left(\frac{d\hat{\boldsymbol{e_1}}}{dt}\cdot\hat{\boldsymbol{e_1}}\right)\hat{\boldsymbol{e_1}} +  \left(\frac{d\hat{\boldsymbol{e_1}}}{dt}\cdot \hat{\boldsymbol{e_3}}\right) \hat{\boldsymbol{e_3}} + \left(\frac{d\hat{\boldsymbol{e_1}}}{dt}\cdot \hat{\boldsymbol{e_2}}\right) \hat{\boldsymbol{e_2}}
+    $$
+
+    Note that the expression above is just another manner to write the vector $\frac{d\hat{\boldsymbol{e_1}}}{dt}$, as any vector can be described by the sum of the projections on each of the versors forming a basis.
+
+    So, the derivative of the versor $\hat{\boldsymbol{e_1}}$  can be written as:
+
+    $$
+    \frac{d\hat{\boldsymbol{e_1}}}{dt} = \vec{\boldsymbol{\omega}} \times \hat{\boldsymbol{e_1}}
+    $$
+
+    Similarly, the derivatives of the versors $\hat{\boldsymbol{e_2}}$ and $\hat{\boldsymbol{e_3}}$ can be written as:
+
+    $$
+    \frac{d\hat{\boldsymbol{e_2}}}{dt} = \vec{\boldsymbol{\omega}} \times \hat{\boldsymbol{e_2}} ~~~~~~~~\text{and} ~~~~~~ \frac{d\hat{\boldsymbol{e_3}}}{dt} = \vec{\boldsymbol{\omega}} \times \hat{\boldsymbol{e_3}}
+    $$
     """)
     return
 
@@ -298,7 +324,7 @@ def _(mo):
     mo.md(r"""
     ###  3D pendulum bar
 
-     At the file '../data/3Dpendulum.txt' there are 3 seconds of data of 3 points of the three-dimensional cylindrical pendulum, very similar to the pendulum shown in the [notebook about free-body diagrams](FreeBodyDiagramForRigidBodies.ipynb#pendulum), except that it can move in every direction. Also it has a motor at the upper part of the cylindrical bar producing torques to move the bar. It has mass <span class="notranslate">$m=1$kg</span>, length <span class="notranslate">$l=1$m</span> and radius <span class="notranslate">$r=0.1$m</span>.
+     At the file '../data/3Dpendulum.txt' there are 3 seconds of data of 3 points of the three-dimensional cylindrical pendulum, very similar to the pendulum shown in the [notebook about free-body diagrams](FreeBodyDiagramForRigidBodies.ipynb#pendulum), except that it can move in every direction. Also it has a motor at the upper part of the cylindrical bar producing torques to move the bar. It has mass $m=1$ kg, length $l=1$ m and radius $r=0.1$ m.
 
      The point m1 is at the upper part of the cylinder and is the origin of the system.
 
@@ -306,7 +332,7 @@ def _(mo):
 
      The point m3 is a point at the surface of the cylinder.
 
-    The free-body diagram of the 3d pendulum is depicted below. There is the gravitational force acting at the center of mass of gravity of the body and the torque <span class="notranslate">$\vec{M_1}$</span> due to the motor acting on the pendulum and the force <span class="notranslate">$\vec{F_1}$</span> due to the restraint at the upper part of the cylinder. Together with the forces, the local basis <span class="notranslate">$\hat{\boldsymbol{e_1}}$,$\hat{\boldsymbol{e_2}}$</span> and <span class="notranslate">$\hat{\boldsymbol{e_3}}$</span> in the direction of the principal axes an origin at the center of mass of the body is also shown.
+    The free-body diagram of the 3d pendulum is depicted below. There is the gravitational force acting at the center of mass of gravity of the body and the torque $\vec{M_1}$ due to the motor acting on the pendulum and the force $\vec{F_1}$ due to the restraint at the upper part of the cylinder. Together with the forces, the local basis $\hat{\boldsymbol{e_1}}$, $\hat{\boldsymbol{e_2}}$ and $\hat{\boldsymbol{e_3}}$ in the direction of the principal axes an origin at the center of mass of the body is also shown.
 
     <figure><img src="https://github.com/BMClab/BMC/blob/master/images/3DpendulumFBD.png?raw=1" width=400 />
     """)
@@ -341,23 +367,27 @@ def _(mo):
     mo.md(r"""
     Now, the resultant moment applied to the body, computed relative to the center of mass, is:
 
-    <span class="notranslate">$\vec{M} = \vec{M_O} + \vec{r_{O/cm}} \times \vec{F_O}$</span>
+    $$
+    \vec{M} = \vec{M_O} + \vec{r_{O/cm}} \times \vec{F_O}
+    $$
 
     So, the second Newton-Euler law, at each of the components at the local basis of the body, is written as:
 
-    <span class="notranslate">
-    \begin{align}
-        \begin{split}
+    $$
+    \begin{aligned}
+    \begin{split}
             M_{O_1} + MFocm_1 &= I_1\dot{\omega_1} + \omega_2\omega_3(I_3-I_2) \rightarrow M_{O_1} &= I_1\dot{\omega_1} + \omega_2\omega_3(I_3-I_2) -  MFocm_1\\
             M_{O_2} + MFocm_2 &= I_2\dot{\omega_2} + \omega_1\omega_3(I_1-I_3) \rightarrow M_{O_2} &= I_2\dot{\omega_2} + \omega_1\omega_3(I_1-I_3) -  MFocm_2\\
-            M_{O_3} + MFocm_3 &= I_3\dot{\omega_3} + \omega_1\omega_2(I_2-I_1) \rightarrow M_{O_3} &= I_3\dot{\omega_3} + \omega_1\omega_2(I_2-I_1) -  MFocm_3<br>
+            M_{O_3} + MFocm_3 &= I_3\dot{\omega_3} + \omega_1\omega_2(I_2-I_1) \rightarrow M_{O_3} &= I_3\dot{\omega_3} + \omega_1\omega_2(I_2-I_1) -  MFocm_3
         \end{split}
-    \end{align}
+    \end{aligned}
+    $$
+
     <span class="notranslate">
 
-    where <span class="notranslate">$\vec{MFocm} = \vec{r_{O/cm}} \times \vec{F_O}$</span>.
+    where <span class="notranslate">$\vec{MFocm} = \vec{r_{O/cm}} \times \vec{F_O}$.
 
-    The moments of inertia at the directions of <span class="notranslate">$\hat{\boldsymbol{e_1}}$,$\hat{\boldsymbol{e_2}}$</span> and <span class="notranslate">$\hat{\boldsymbol{e_3}}$</span> are, <span class="notranslate">$I_1 = \frac{mR^2}{12}$</span> and <span class="notranslate">$I_2=I_3=\frac{m(3R^2+l^2)}{12}$</span>. Now, to compute the moment <span class="notranslate">$\vec{M_O}$</span> and the force  <span class="notranslate">$\vec{F_O}$</span>, we will need to find the acceleration of the center of mass <span class="notranslate">$\vec{a_{cm}}$</span>, the angular velocity  <span class="notranslate">$\vec{\omega}$</span>, the time-derivatives of each component of the angular velocity, and the moment-arm <span class="notranslate">$\vec{r_{O/cm}}$</span> to compute the torque due to the force <span class="notranslate">$\vec{F_O}$</span>. These signals will come from the kinematic data file.
+    The moments of inertia at the directions of $\hat{\boldsymbol{e_1}}$, $\hat{\boldsymbol{e_2}}$ and $\hat{\boldsymbol{e_3}}$ are, $I_1 = \frac{mR^2}{12}$ and $I_2=I_3=\frac{m(3R^2+l^2)}{12}$. Now, to compute the moment $\vec{M_O}$ and the force  $\vec{F_O}$, we will need to find the acceleration of the center of mass $\vec{a_{cm}}$, the angular velocity  $\vec{\omega}$, the time-derivatives of each component of the angular velocity, and the moment-arm $\vec{r_{O/cm}}$ to compute the torque due to the force $\vec{F_O}$. These signals will come from the kinematic data file.
 
     First,  we need to open the file with the data:
     """)
@@ -434,7 +464,25 @@ def _(data):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    As the center of mass is the data contained in m2, we can find the acceleration of the center of mass$\vec{\boldsymbol{a_{cm}}}$. This will be performed by deriving numerically the position of the center of mass twice. The numerical derivative of a function$f(t)$with the samples$f(i)$can be performed by taking the forward difference of the values$f(i)$:$\frac{df}{dt}(i) = \frac{f(i+1)-f(i)}{\Delta t}$The numerical derivative could be obtained by taking the backward differences as well:$\frac{df}{dt}(i) = \frac{f(i)-f(i-1)}{\Delta t}$A better estimation of the derivative of the time derivative of the function$f(t)$would be obtained by the average value between the estimations using the backward and forward differences (this subject is treated [in this notebook about data filtering](DataFiltering.ipynb#numdiff)):$\frac{df}{dt}(i) = \frac{\frac{f(i+1)-f(i)}{\Delta t} + \frac{f(i)-f(i-1)}{\Delta t}}{2} = \frac{f(i+1)-f(i-1)}{2\Delta t}$So, the acceleration of the center of mass, is:
+    As the center of mass is the data contained in m2, we can find the acceleration of the center of mass $\vec{\boldsymbol{a_{cm}}}$. This will be performed by deriving numerically the position of the center of mass twice. The numerical derivative of a function $f(t)$ with the samples $f(i)$ can be performed by taking the forward difference of the values $f(i)$:
+
+    $$
+    \frac{df}{dt}(i) = \frac{f(i+1)-f(i)}{\Delta t}
+    $$
+
+    The numerical derivative could be obtained by taking the backward differences as well:
+
+    $$
+    \frac{df}{dt}(i) = \frac{f(i)-f(i-1)}{\Delta t}
+    $$
+
+    A better estimation of the derivative of the time derivative of the function $f(t)$ would be obtained by the average value between the estimations using the backward and forward differences (this subject is treated [in this notebook about data filtering](DataFiltering.ipynb#numdiff)):
+
+    $$
+    \frac{df}{dt}(i) = \frac{\frac{f(i+1)-f(i)}{\Delta t} + \frac{f(i)-f(i-1)}{\Delta t}}{2} = \frac{f(i+1)-f(i-1)}{2\Delta t}
+    $$
+
+    So, the acceleration of the center of mass, is:
     """)
     return
 
@@ -542,7 +590,7 @@ def _(dt, omega):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    It remains to find the moment caused by the force <span class="notranslate">$\vec{F_O}$,$\vec{MFocm} = \vec{r_{O/cm}} \times \vec{F_O}$</span>. The moment-arm <span class="notranslate">$\vec{r_{O/cm}} =-\vec{r_{cm}}$.
+    It remains to find the moment caused by the force $\vec{F_O}$, $\vec{MFocm} = \vec{r_{O/cm}} \times \vec{F_O}$. The moment-arm <span class="notranslate">$\vec{r_{O/cm}} =-\vec{r_{cm}}$.
     """)
     return
 
@@ -556,7 +604,7 @@ def _(Fo, np, rcm):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    The problem is that this moment is in the global basis. We need to transform it to the local basis. This will be performed using the rotation matrix of the bar. Each row of this matrix is one of the basis versors. Note that at each instant the matrix of rotation$R$will be different.  After the matrix is formed, we can find the components of the moment <span class="notranslate">$\vec{MFocm}$</span> in the local basis by multiplying the matrix of rotation <span class="notranslate">$R$</span> by the vector <span class="notranslate">$\vec{MFocm}$</span>.
+    The problem is that this moment is in the global basis. We need to transform it to the local basis. This will be performed using the rotation matrix of the bar. Each row of this matrix is one of the basis versors. Note that at each instant the matrix of rotation $R$ will be different.  After the matrix is formed, we can find the components of the moment $\vec{MFocm}$ in the local basis by multiplying the matrix of rotation $R$ by the vector $\vec{MFocm}$.
     """)
     return
 
@@ -610,38 +658,39 @@ def _(mo):
 
     This example will use real data from a subject during quiet standing during 60 seconds. This data is from the database freely available at [https://github.com/demotu/datasets/tree/master/PDS](https://github.com/demotu/datasets/tree/master/PDS). The data of this subject is in the file '../data/postureData.txt'.
 
-    The mass of the subject was$m = 53$kg and her height was$h= 1.65$m.
+    The mass of the subject was $m = 53$ kg and her height was $h= 1.65$ m.
 
-
-       The free-body diagram is very similar to the free-body diagram shown [in the notebook about free-body diagram](FreeBodyDiagramForRigidBodies.ipynb#quietstanding), except that the force <span class="notranslate">$\vec{F_A}$</span> and the moment <span class="notranslate">$\vec{M_A}$</span> have components at all 3 directions.
+       The free-body diagram is very similar to the free-body diagram shown [in the notebook about free-body diagram](FreeBodyDiagramForRigidBodies.ipynb#quietstanding), except that the force $\vec{F_A}$ and the moment $\vec{M_A}$ have components at all 3 directions.
 
        So, the first Newton-Euler law, at each component of the global  basis, is written as (note that in these data, the vertical direction is the y coordinate):
 
-    <span class="notranslate">
-    \begin{align}
-        \begin{split}
+    $$
+    \begin{aligned}
+    \begin{split}
             F_{A_x} &=  ma_{cm_x} &\rightarrow  F_{A_x} &=  ma_{cm_x} \\
             F_{A_y}  - mg &= ma_{cm_y} &\rightarrow  F_{A_y} &=  ma_{cm_y} + mg\\
             F_{A_z} &= ma_{cm_z} &\rightarrow  F_{A_z} &=  ma_{cm_z}
         \end{split}
-        \label{eq:fnequiet}
-    \end{align}
-    </span>
+    \end{aligned}
+    $$
 
     Now, the resultant moment applied to the body, computed relative to the center of mass, is:
 
-    <span class="notranslate">$\vec{M} = \vec{M_A} + \vec{r_{A/cm}} \times \vec{F_A}$</span>
+    $$
+    \vec{M} = \vec{M_A} + \vec{r_{A/cm}} \times \vec{F_A}
+    $$
 
     So, the second Newton-Euler law, at each of the components at the local basis of the body, is written as:
 
-    <span class="notranslate">
-    \begin{align}
-        \begin{split}
+    $$
+    \begin{aligned}
+    \begin{split}
             \vec{M_A} + \vec{MFacm} &= I\left[\begin{array}{c}\dot{\omega_1}\\\dot{\omega_2}\\\dot{\omega_3}\end{array}\right] + \vec{\omega}\times  I\vec{\omega} \rightarrow \vec{M_A} = I\left[\begin{array}{c}\dot{\omega_1}\\\dot{\omega_2}\\\dot{\omega_3}\end{array}\right] + \vec{\omega} \times  I\vec{\omega}- \vec{MFacm}
         \end{split}
-    \end{align}
-    </span>
-    where  <span class="notranslate">$\vec{MFAcm} = \vec{r_{A/cm}} \times \vec{F_A}$</span>.
+    \end{aligned}
+    $$
+
+    where  $\vec{MFAcm} = \vec{r_{A/cm}} \times \vec{F_A}$.
 
     Now we open the data and assign the coordinates of each marker to a variable.
     """)
@@ -692,7 +741,7 @@ def _(dt_1, g, m_1, np, rcm_1):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    Now we form the basis attached to the body. The first versor <span class="notranslate">$\hat{\boldsymbol{e_1}}$</span> will be a versor from the midpoint between the medial malleoli and the center of mass of the body. The second versor$\hat{\boldsymbol{e_2}}$will be a versor from  the right to the left malleolus. The third versor <span class="notranslate">$\hat{\boldsymbol{e_3}}$</span> will be a cross product between <span class="notranslate">$\hat{\boldsymbol{e_1}}$</span> and <span class="notranslate">$\hat{\boldsymbol{e_2}}$</span>.
+    Now we form the basis attached to the body. The first versor $\hat{\boldsymbol{e_1}}$ will be a versor from the midpoint between the medial malleoli and the center of mass of the body. The second versor $\hat{\boldsymbol{e_2}}$ will be a versor from  the right to the left malleolus. The third versor $\hat{\boldsymbol{e_3}}$ will be a cross product between $\hat{\boldsymbol{e_1}}$ and $\hat{\boldsymbol{e_2}}$.
     """)
     return
 
@@ -731,9 +780,9 @@ def _(dt_1, e1_1, e2_1, e3_1, np):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    Now we need to find the moment caused by the force at the ankles <span class="notranslate">$\vec{F_A}$,$\vec{MFAcm} = \vec{r_{A/cm}} \times \vec{F_A}$</span>. The moment-arm <span class="notranslate">$\vec{r_{A/cm}}$</span> is the vector from the center of mass to the midpoint of the lateral malleoli.
+    Now we need to find the moment caused by the force at the ankles $\vec{F_A}$, $\vec{MFAcm} = \vec{r_{A/cm}} \times \vec{F_A}$. The moment-arm $\vec{r_{A/cm}}$ is the vector from the center of mass to the midpoint of the lateral malleoli.
 
-    Besides the description of the moment due to the force <span class="notranslate">$\vec{F_A}$</span> in the basis attached to the body, we will also describe the force <span class="notranslate">$\vec{F_A}$</span> at the local basis. This is useful because it has an anatomical meaning. After this we can use the equations of Newton-Euler to obtain the moment at the ankle.
+    Besides the description of the moment due to the force $\vec{F_A}$ in the basis attached to the body, we will also describe the force $\vec{F_A}$ at the local basis. This is useful because it has an anatomical meaning. After this we can use the equations of Newton-Euler to obtain the moment at the ankle.
 
     After having all signals described in the basis of the body, the moment being applied by the muscles of the ankle is computed using Eq. \eqref{eq:derivangmomVec}.
     """)

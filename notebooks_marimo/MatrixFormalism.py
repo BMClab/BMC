@@ -97,9 +97,11 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    To solve this differential equation numerically, we must obtain the expression of the angular accelerations. We can perform this by multiplying both sides by the inverse of the matrix$M$.
+    To solve this differential equation numerically, we must obtain the expression of the angular accelerations. We can perform this by multiplying both sides by the inverse of the matrix $M$.
 
-    <span class="notranslate">$\left[\begin{array}{c}\frac{d^2\theta_1}{dt^2}\\\frac{d^2\theta_2}{dt^2} \end{array}\right] = \left[\begin{array}{cc}\frac{m_1l_1^2}{3} +m_2l_1^2&\frac{m_2l_1l_2}{2} \cos(\theta_1-\theta_2)\\\frac{m_2l_1l_2}{2}\cos(\theta_1-\theta_2)&\frac{m_2l_2^2}{3}\end{array}\right]^{-1}\cdot\left(\left[\begin{array}{c}- \frac{m_2l_1l_2}{2}\left(\frac{d\theta_2}{dt}\right)^2 \sin(\theta_1-\theta_2)\\ \frac{m_2l_1l_2}{2}\left(\frac{d\theta_1}{dt}\right)^2 \sin(\theta_1-\theta_2)\end{array}\right] + \left[\begin{array}{c}-\frac{m_1gl_1}{2}\sin(\theta_1)- m_2l_1g \sin(\theta_1)\\ -\frac{m_2gl_2}{2}\sin(\theta_2) \end{array}\right] + \left[\begin{array}{c} M_1 - M_{12}\\M_{12} \end{array}\right]\right)$</span>
+    $$
+    \left[\begin{array}{c}\frac{d^2\theta_1}{dt^2}\\\frac{d^2\theta_2}{dt^2} \end{array}\right] = \left[\begin{array}{cc}\frac{m_1l_1^2}{3} +m_2l_1^2&\frac{m_2l_1l_2}{2} \cos(\theta_1-\theta_2)\\\frac{m_2l_1l_2}{2}\cos(\theta_1-\theta_2)&\frac{m_2l_2^2}{3}\end{array}\right]^{-1}\cdot\left(\left[\begin{array}{c}- \frac{m_2l_1l_2}{2}\left(\frac{d\theta_2}{dt}\right)^2 \sin(\theta_1-\theta_2)\\ \frac{m_2l_1l_2}{2}\left(\frac{d\theta_1}{dt}\right)^2 \sin(\theta_1-\theta_2)\end{array}\right] + \left[\begin{array}{c}-\frac{m_1gl_1}{2}\sin(\theta_1)- m_2l_1g \sin(\theta_1)\\ -\frac{m_2gl_2}{2}\sin(\theta_2) \end{array}\right] + \left[\begin{array}{c} M_1 - M_{12}\\M_{12} \end{array}\right]\right)
+    $$
     """)
     return
 

@@ -19,8 +19,17 @@ def _(mo):
     mo.md(r"""
     This notebook demonstrates the algorithm for force plate calibration proposed by Cedraro et al. (2008, 2009).
 
-    A force plate (FP) is an electromechanical device that measures the components of the vectors force$(\mathbf{F} = [F_X,\, F_Y,\, F_Z])$and moment of force or torque$(\mathbf{M} = [M_X,\, M_Y,\, M_Z])$applied to the it. The FP is composed by a transducer that transforms a mechanical deformation to an electrical signal usually using strain gauges or piezoelectric sensors. The transformation from electrical signals (input) to force and moment of force (output) as a function of time in a six-component FP usually is given by the following linear relationship:$\mathbf{L}(t) = \mathbf{C}\mathbf{V}(t)$Where$\mathbf{L}(t)$is the force plate output vector$([\mathbf{F}(t), \mathbf{M}(t)]^T)$, in N and Nm,$\mathbf{V}(t)$is the vector of electrical signals (six voltage signals, in V) and$\mathbf{C}$is known as the six-by-six (constant) calibration matrix (in N/V or Nm/V). Note that we used the term vector here to refer to an uni-dimensional matrix (usual in scientific computing), which is different from vector/scalar concept in Mechanics.<br>
-    The expansion of the former equiation at a given instant is:$\begin{bmatrix}
+    A force plate (FP) is an electromechanical device that measures the components of the vectors force $(\mathbf{F} = [F_X,\, F_Y,\, F_Z])$ and moment of force or torque $(\mathbf{M} = [M_X,\, M_Y,\, M_Z])$ applied to the it. The FP is composed by a transducer that transforms a mechanical deformation to an electrical signal usually using strain gauges or piezoelectric sensors. The transformation from electrical signals (input) to force and moment of force (output) as a function of time in a six-component FP usually is given by the following linear relationship:
+
+    $$
+    \mathbf{L}(t) = \mathbf{C}\mathbf{V}(t)
+    $$
+
+    Where $\mathbf{L}(t)$ is the force plate output vector $([\mathbf{F}(t), \mathbf{M}(t)]^T)$, in N and Nm, $\mathbf{V}(t)$ is the vector of electrical signals (six voltage signals, in V) and  $\mathbf{C}$ is known as the six-by-six (constant) calibration matrix (in N/V or Nm/V). Note that we used the term vector here to refer to an uni-dimensional matrix (usual in scientific computing), which is different from vector/scalar concept in Mechanics.<br>
+    The expansion of the former equiation at a given instant is:
+
+    $$
+    \begin{bmatrix}
     F_x \\ F_y \\ F_z \\ M_x \\ M_y \\ M_z
     \end{bmatrix}\, = \,
     \begin{bmatrix}
@@ -33,7 +42,10 @@ def _(mo):
     \end{bmatrix}\,
     \begin{bmatrix}
     V_1 \\ V_2 \\ V_3 \\ V_4 \\ V_5 \\ V_6
-    \end{bmatrix}$The terms off-diagonal are known as the crosstalk terms and represent the effect of a load applied in one direction on the other direction. For a FP with none or small crosstalk, the off-diagonal terms are zero or very small compared to the main-diagonal terms. Note that the equation above is in fact a system of six linear independent equations with six unknowns each (where$V_1 ... V_6$are the measured inputs):
+    \end{bmatrix}
+    $$
+
+    The terms off-diagonal are known as the crosstalk terms and represent the effect of a load applied in one direction on the other direction. For a FP with none or small crosstalk, the off-diagonal terms are zero or very small compared to the main-diagonal terms. Note that the equation above is in fact a system of six linear independent equations with six unknowns each (where $V_1 ... V_6$ are the measured inputs):
 
     \begin{cases}
         F_x &=& C_{11}V_1 + C_{12}V_2 + C_{13}V_3 + C_{14}V_4 + C_{15}V_5 + C_{16}V_6 \\
@@ -54,19 +66,29 @@ def _(mo):
     mo.md(r"""
     ## Algorithm
 
-    Consider that in a re-calibration procedure we apply on the FP known forces,$\mathbf{F}_I = [F_{X_I},\, F_{Y_I},\, F_{Z_I}]^T$, at known places,$\mathbf{COP} = [X_{COP},\,  Y_{COP},\,  Z_{COP}]$(the center of pressure coordinates in the FP reference frame).<br>
-    The moments of forces,$\mathbf{M}_I = [M_{X_I},\, M_{Y_I},\, M_{Z_I}]^T$, due to these forces can be found using the equation$\mathbf{M}_I = \mathbf{COP} \times \mathbf{F}_I$, which can be expressed in matrix form as:$\mathbf{M}_I =
+    Consider that in a re-calibration procedure we apply on the FP known forces, $\mathbf{F}_I = [F_{X_I},\, F_{Y_I},\, F_{Z_I}]^T$, at known places, $\mathbf{COP} = [X_{COP},\,  Y_{COP},\,  Z_{COP}]$ (the center of pressure coordinates in the FP reference frame).<br>
+    The moments of forces, $\mathbf{M}_I = [M_{X_I},\, M_{Y_I},\, M_{Z_I}]^T$, due to these forces can be found using the equation $\mathbf{M}_I = \mathbf{COP} \times \mathbf{F}_I$, which can be expressed in matrix form as:
+
+    $$
+    \mathbf{M}_I =
     \begin{bmatrix}
     0 && -Z_{COP} && Y_{COP} \\
     Z_{COP} && 0 && -X_{COP} \\
     -Y_{COP} && X_{COP} && 0
-    \end{bmatrix}\, \mathbf{F}_I \, = \, \mathbf{A}_{COP}\mathbf{F}_I$$\mathbf{A}_{COP}$(a [skew-symmetric matrix](https://en.wikipedia.org/wiki/Skew-symmetric_matrix)) is simply the COP position in matrix form in order to calculate the [cross product with matrix multiplication](https://en.wikipedia.org/wiki/Cross_product).
+    \end{bmatrix}\, \mathbf{F}_I \, = \, \mathbf{A}_{COP}\mathbf{F}_I
+    $$
 
-    These known loads on the FP can also be represented as:$\mathbf{L}_I =
+    $\mathbf{A}_{COP}$ (a [skew-symmetric matrix](https://en.wikipedia.org/wiki/Skew-symmetric_matrix)) is simply the COP position in matrix form in order to calculate the [cross product with matrix multiplication](https://en.wikipedia.org/wiki/Cross_product).
+
+    These known loads on the FP can also be represented as:
+
+    $$
+    \mathbf{L}_I =
     \begin{bmatrix}
     \mathbf{F}_I \\
     \mathbf{M}_I
-    \end{bmatrix}$
+    \end{bmatrix}
+    $$
     """)
     return
 
@@ -76,30 +98,60 @@ def _(mo):
     mo.md(r"""
     ### Linear re-calibration
 
-    For a linear re-calibration, the relationship between the measured FP output,$\mathbf{L}$, and the known loads,$\mathbf{L}_I$, is approximated by a linear equation:$\mathbf{L}_I = \mathbf{C}\mathbf{L} + \mathbf{E}$Where$\mathbf{C}$now is the six-by-six re-calibration matrix (with dimensionless units) and$\mathbf{E}$is a gaussian, uncorrelated, zero mean
-    noise six-by-one matrix.<br>
-    The re-calibration matrix can be found by solving the equation above and then$\mathbf{C}$can be later used to re-calibrate the FP output:$\mathbf{L}_C = \mathbf{C}\mathbf{L}$Where$\mathbf{L}_C$is the re-calibrated FP output. For a perfectly calibrated FP,$\mathbf{L}_C = \mathbf{L}$and$\mathbf{C} = \mathbf{I}$, the six-by-six identity matrix.
+    For a linear re-calibration, the relationship between the measured FP output, $\mathbf{L}$, and the known loads, $\mathbf{L}_I$, is approximated by a linear equation:
 
-    Cedraro et al. (2008, 2009) proposed to use a calibrated three-component load cell (LC) to measure the loads$\mathbf{F}_I(t)$applied on the FP at$k$known measurements sites. The LC measures the loads in its own coordinate system$(xyz)$:$\mathbf{F}_{LC}(t) = [F_x(t),\, F_y(t),\, F_z(t)]^T$, which is probaly rotated (by an unknown value, represented by rotation matrix$\mathbf{R}^k$) in relation to the FP coordinate system (the coordinate systems are also translated to each other but the translation is known and given by the COP position).<br>
-    For each measurement site, the equation for the determination of the re-calibration matrix will be given by:$\mathbf{P}^k\mathbf{R}^k\mathbf{F}^k_{LC}(t)= \mathbf{P}^k\mathbf{F}_I^k(t) = \mathbf{C}\mathbf{L}^k(t) + \mathbf{E}^k(t) \quad k = 1, ..., n$Where:$\mathbf{P}^k =
+    $$
+    \mathbf{L}_I = \mathbf{C}\mathbf{L} + \mathbf{E}
+    $$
+
+    Where $\mathbf{C}$ now is the six-by-six re-calibration matrix (with dimensionless units) and $\mathbf{E}$ is a gaussian, uncorrelated, zero mean
+    noise six-by-one matrix.<br>
+    The re-calibration matrix can be found by solving the equation above and then $\mathbf{C}$ can be later used to re-calibrate the FP output:
+
+    $$
+    \mathbf{L}_C = \mathbf{C}\mathbf{L}
+    $$
+
+    Where $\mathbf{L}_C$ is the re-calibrated FP output. For a perfectly calibrated FP, $\mathbf{L}_C = \mathbf{L}$ and $\mathbf{C} = \mathbf{I}$, the six-by-six identity matrix.
+
+    Cedraro et al. (2008, 2009) proposed to use a calibrated three-component load cell (LC) to measure the loads $\mathbf{F}_I(t)$ applied on the FP at $k$ known measurements sites. The LC measures the loads in its own coordinate system $(xyz)$: $\mathbf{F}_{LC}(t) = [F_x(t),\, F_y(t),\, F_z(t)]^T$, which is probaly rotated (by an unknown value, represented by rotation matrix $\mathbf{R}^k$) in relation to the FP coordinate system (the coordinate systems are also translated to each other but the translation is known and given by the COP position).<br>
+    For each measurement site, the equation for the determination of the re-calibration matrix will be given by:
+
+    $$
+    \mathbf{P}^k\mathbf{R}^k\mathbf{F}^k_{LC}(t)= \mathbf{P}^k\mathbf{F}_I^k(t) = \mathbf{C}\mathbf{L}^k(t) + \mathbf{E}^k(t) \quad k = 1, ..., n
+    $$
+
+    Where:
+
+    $$
+    \mathbf{P}^k =
     \begin{bmatrix}
     \mathbf{I}_3 \\
     \mathbf{A}_{COP}
-    \end{bmatrix}$and$I_3$is the three-by-three identity matrix.
+    \end{bmatrix}
+    $$
 
-    Using a typical load cell, with a flat bottom, on top the FP, a realistic assumption is to consider that$z$of LC is aligned to$Z$of FP (the vertical direction); in this case the rotation matrix is:$\mathbf{R}^k =
+    and $I_3$ is the three-by-three identity matrix.
+
+    Using a typical load cell, with a flat bottom, on top the FP, a realistic assumption is to consider that $z$ of LC is aligned to $Z$ of FP (the vertical direction); in this case the rotation matrix is:
+
+    $$
+    \mathbf{R}^k =
     \begin{bmatrix}
     \cos\alpha^k && -\sin\alpha^k && 0 \\
     \sin\alpha^k && \cos\alpha^k && 0 \\
     0 && 0 && 1
-    \end{bmatrix}$Cedraro et al. (2008) propose the following algorithm to estimate$\mathbf{C}$:
-    1. The misalignments,$\alpha^k$, are initialized:$\mathbf{\alpha} = [\alpha^1, \cdots, \alpha^n]$;
-    2.$\mathbf{C}$is calculated by a least-squares approach;
-    3. The residual errors are estimated as:$\mathbf{E}^k(t) = \mathbf{P}^k\mathbf{R}^k\mathbf{F}^k_{LC}(t) - \mathbf{C}\mathbf{L}^k(t)$;
-    4. The increment$\mathbf{\Delta\alpha}$is calculated by minimizing the cost function$\sum_{k,t}\mathbf{E}^k(t)^T\mathbf{E}^k(t)$, assuming dimensional unitary weights;
-    5. The parameters are updated:$\mathbf{\alpha} = \mathbf{\alpha} + \mathbf{\Delta\alpha}$.
+    \end{bmatrix}
+    $$
 
-    The iteration of steps 2–5 stops when each$\Delta\alpha^k < \varepsilon_0$, where$\varepsilon_0=10^{-10}$is the chosen threshold.
+    Cedraro et al. (2008) propose the following algorithm to estimate $\mathbf{C}$:
+    1. The misalignments, $\alpha^k$, are initialized: $\mathbf{\alpha} = [\alpha^1, \cdots, \alpha^n]$;
+    2. $\mathbf{C}$ is calculated by a least-squares approach;
+    3. The residual errors are estimated as: $\mathbf{E}^k(t) = \mathbf{P}^k\mathbf{R}^k\mathbf{F}^k_{LC}(t) - \mathbf{C}\mathbf{L}^k(t)$;
+    4. The increment $\mathbf{\Delta\alpha}$ is calculated by minimizing the cost function $\sum_{k,t}\mathbf{E}^k(t)^T\mathbf{E}^k(t)$, assuming dimensional unitary weights;
+    5. The parameters are updated: $\mathbf{\alpha} = \mathbf{\alpha} + \mathbf{\Delta\alpha}$.
+
+    The iteration of steps 2–5 stops when each $\Delta\alpha^k < \varepsilon_0$, where $\varepsilon_0=10^{-10}$ is the chosen threshold.
     """)
     return
 
@@ -175,7 +227,19 @@ def _(Flc, np):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    Let's generate the loads measured by the FP given the re-calibration matrix and the simulated forces measured by the load cell (we will consider no rotation for now). For that we will have to solve the equation:$\mathbf{L}_I = \mathbf{C}\mathbf{L}$Which is:$\mathbf{L} = \mathbf{C}^{-1}\mathbf{L}_I$$\mathbf{C}$is a square (6-by-6) matrix and the computation of its inverse is straightforward.
+    Let's generate the loads measured by the FP given the re-calibration matrix and the simulated forces measured by the load cell (we will consider no rotation for now). For that we will have to solve the equation:
+
+    $$
+    \mathbf{L}_I = \mathbf{C}\mathbf{L}
+    $$
+
+    Which is:
+
+    $$
+    \mathbf{L} = \mathbf{C}^{-1}\mathbf{L}_I
+    $$
+
+    $\mathbf{C}$ is a square (6-by-6) matrix and the computation of its inverse is straightforward.
     """)
     return
 
@@ -198,7 +262,49 @@ def _(mo):
 
     We can now simulate the re-calibration procedure by determining the re-calibration matrix using these loads. Of course, the re-calibration matrix to be determined should be equal to the simulated re-calibration matrix we started with, but this is the fun of the simulation - we know where we want to go.
 
-    The re-calibration matrix can be found by solving the following equation (considering the angles equal zero for now):$\mathbf{L}_I = \mathbf{C}\mathbf{L}$$\mathbf{L}_I \mathbf{L}^{-1} = \mathbf{C}\mathbf{L} \mathbf{L}^{-1} = \mathbf{C}\mathbf{I}$$\mathbf{C} = \mathbf{L}_I\mathbf{L}^{-1}$The problem is that$\mathbf{L}$in general is a non-square matrix and its inverse is not defined (unless you perform exactly six measurements and then$\mathbf{L}$would be a six-by-six square matrix, but this is too restrictive). However, we still can solve the equation with some extra manipulation:$\mathbf{L}_I = \mathbf{C}\mathbf{L}$$\mathbf{L}_I \mathbf{L}^T = \mathbf{C}\mathbf{L} \mathbf{L}^T$$\mathbf{L}_I \mathbf{L}^T(\mathbf{L}\mathbf{L}^T)^{-1} = \mathbf{C}\mathbf{L} \mathbf{L}^T (\mathbf{L}\mathbf{L}^T)^{-1} = \mathbf{C}\mathbf{I}$$\mathbf{C} = \mathbf{L}_I\mathbf{L}^T(\mathbf{L}\mathbf{L}^T)^{-1}$Note that$\mathbf{L} \mathbf{L}^T$is a square matrix and is invertible (also [nonsingular](https://en.wikipedia.org/wiki/Invertible_matrix)) if$\mathbf{L}$is L.I. ([linearly independent rows/columns](https://en.wikipedia.org/wiki/Linear_independence)). The matrix$\mathbf{L}^T(\mathbf{L}\mathbf{L}^T)^{-1}$is known as the [generalized inverse or Moore–Penrose pseudoinverse](https://en.wikipedia.org/wiki/Moore%E2%80%93Penrose_pseudoinverse), a generalization of the inverse matrix. If we denote this pseudoinverse matrix by$\mathbf{L}^+$, we can state the solution of the equation simply as:$\mathbf{L}_I = \mathbf{C}\mathbf{L}$$\mathbf{C} = \mathbf{L}_I \mathbf{L}^+$To compute the Moore–Penrose pseudoinverse, we could calculate it by the naive approach in Python:
+    The re-calibration matrix can be found by solving the following equation (considering the angles equal zero for now):
+
+    $$
+    \mathbf{L}_I = \mathbf{C}\mathbf{L}
+    $$
+
+    $$
+    \mathbf{L}_I \mathbf{L}^{-1} = \mathbf{C}\mathbf{L} \mathbf{L}^{-1} = \mathbf{C}\mathbf{I}
+    $$
+
+    $$
+    \mathbf{C} = \mathbf{L}_I\mathbf{L}^{-1}
+    $$
+
+    The problem is that $\mathbf{L}$ in general is a non-square matrix and its inverse is not defined (unless you perform exactly six measurements and then $\mathbf{L}$ would be a six-by-six square matrix, but this is too restrictive). However, we still can solve the equation with some extra manipulation:
+
+    $$
+    \mathbf{L}_I = \mathbf{C}\mathbf{L}
+    $$
+
+    $$
+    \mathbf{L}_I \mathbf{L}^T = \mathbf{C}\mathbf{L} \mathbf{L}^T
+    $$
+
+    $$
+    \mathbf{L}_I \mathbf{L}^T(\mathbf{L}\mathbf{L}^T)^{-1} = \mathbf{C}\mathbf{L} \mathbf{L}^T (\mathbf{L}\mathbf{L}^T)^{-1} = \mathbf{C}\mathbf{I}
+    $$
+
+    $$
+    \mathbf{C} = \mathbf{L}_I\mathbf{L}^T(\mathbf{L}\mathbf{L}^T)^{-1}
+    $$
+
+    Note that $\mathbf{L} \mathbf{L}^T$ is a square matrix and is invertible (also [nonsingular](https://en.wikipedia.org/wiki/Invertible_matrix)) if $\mathbf{L}$ is L.I. ([linearly independent rows/columns](https://en.wikipedia.org/wiki/Linear_independence)). The matrix $\mathbf{L}^T(\mathbf{L}\mathbf{L}^T)^{-1}$ is known as the [generalized inverse or Moore–Penrose pseudoinverse](https://en.wikipedia.org/wiki/Moore%E2%80%93Penrose_pseudoinverse), a generalization of the inverse matrix. If we denote this pseudoinverse matrix by $\mathbf{L}^+$, we can state the solution of the equation simply as:
+
+    $$
+    \mathbf{L}_I = \mathbf{C}\mathbf{L}
+    $$
+
+    $$
+    \mathbf{C} = \mathbf{L}_I \mathbf{L}^+
+    $$
+
+    To compute the Moore–Penrose pseudoinverse, we could calculate it by the naive approach in Python:
     ```python
     Linv = L.T @ inv(L @ L.T)
     ```
@@ -374,7 +480,10 @@ def _(mo):
 
     Cappello et al. (2011) extended the algorithm described earlier and proposed an algorithm for non-linear re-calibration of FPs.<br>
     The idea is that a load applied on the FP produces bending which depends on the point of force application and in turn will result in systematic errors in the COP determination. Consequently, this non-linearity could be modeled and compensated with a re-calibration which takes into account the COP coordinates measured by the FP and added to the linear re-calibration we deduced above (Cappello et al., 2011).<br>
-    The re-calibration equation will be (Cappello et al., 2011):$\begin{array}{l l}
+    The re-calibration equation will be (Cappello et al., 2011):
+
+    $$
+    \begin{array}{l l}
     \mathbf{L}_C = \mathbf{C}_0\mathbf{L} + \,
     \begin{bmatrix}
     C_{x_{11}} & C_{x_{12}} & 0 & C_{x_{14}} & C_{x_{15}} & C_{x_{16}} \\
@@ -400,9 +509,12 @@ def _(mo):
     \end{bmatrix} COP_y
     \\[6pt]
     \mathbf{L}_C = (\mathbf{C}_0 + \mathbf{C}_x COP_x + \mathbf{C}_y COP_y)\mathbf{L} = \mathbf{C}_{NL}\mathbf{L}
-    \end{array}$Where$\mathbf{C}_0$is the linear re-calibration matrix,$\mathbf{L}$is the measured FP output,$\mathbf{C}_x$and$\mathbf{C}_y$are the non-linear re-calibration matrices.
+    \end{array}
+    $$
 
-    To estimate$\mathbf{C}_{NL}$, Cappello et al. (2011) suggest to employ the algorithm proposed by Cedraro et al. (2008) to estimate the linear re-calibration described earlier.
+    Where $\mathbf{C}_0$ is the linear re-calibration matrix, $\mathbf{L}$ is the measured FP output, $\mathbf{C}_x$ and  $\mathbf{C}_y$ are the non-linear re-calibration matrices.
+
+    To estimate $\mathbf{C}_{NL}$, Cappello et al. (2011) suggest to employ the algorithm proposed by Cedraro et al. (2008) to estimate the linear re-calibration described earlier.
     """)
     return
 

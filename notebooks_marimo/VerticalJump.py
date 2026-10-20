@@ -56,17 +56,29 @@ def _(mo):
     Center of gravity or center of mass is a measure of the average location in space of the body considering all body segments, their mass and their position.<br>
     From Mechanics, the exact definitions of these quantities are:
 
-    - **Center of mass (CM)**: The center of mass (or barycenter) is the unique point at the center of a distribution of mass in space that has the property that the weighted position vectors relative to this point sum to zero. SI unit:$m$(vector).
-    - **Center of gravity (CG)**: Center of gravity is the point in an object around which the resultant torque due to gravity forces vanishes. Near the surface of the earth, where the gravity acts downward as a parallel force field, the center of gravity and the center of mass are the same. SI unit:$m$(vector).
+    - **Center of mass (CM)**: The center of mass (or barycenter) is the unique point at the center of a distribution of mass in space that has the property that the weighted position vectors relative to this point sum to zero. SI unit: $m$ (vector).<br>
+    - **Center of gravity (CG)**: Center of gravity is the point in an object around which the resultant torque due to gravity forces vanishes. Near the surface of the earth, where the gravity acts downward as a parallel force field, the center of gravity and the center of mass are the same. SI unit: $m$ (vector).
 
-    The mathematical definition for the center of mass or center of gravity of a system with N objects (or particles), each with mass$m_i$and position$r_i$is:$\begin{array}{l l}
+    The mathematical definition for the center of mass or center of gravity of a system with N objects (or particles), each with mass $m_i$ and position $r_i$ is:
+
+    $$
+    \begin{array}{l l}
     \vec{r}_{cm} = \dfrac{1}{M}\sum_{i=1}^N m_{i}\vec{r}_i \quad\quad \text{where} \quad M = \sum_{i=1}^N m_{i} \\
     \vec{r}_{cg} = \dfrac{1}{Mg}\sum_{i=1}^N m_{i}g_{i}\vec{r}_i \quad \text{where} \quad Mg = \sum_{i=1}^N m_{i}g_{i}
-    \end{array}$If we consider$g$constant:$\begin{array}{l l}
+    \end{array}
+    $$
+
+    If we consider $g$ constant:
+
+    $$
+    \begin{array}{l l}
     \vec{r}_{cg} = \dfrac{g}{Mg}\sum_{i=1}^N m_{i} \: \vec{r}_i = \dfrac{1}{M}\sum_{i=1}^N m_{i}\:\vec{r}_i \\
     \\
     \vec{r}_{cg} = \vec{r}_{cm}
-    \end{array}$This means that how much a person jumps is measured by the displacement of his or her center of gravity, and not by how much the feet was raised in space. For instance, the following Youtube video entitled "Highest Vertical jump 62 inches" (157.5 cm!) shows a great vertical jump, but in fact its height is 'just' about half of that:
+    \end{array}
+    $$
+
+    This means that how much a person jumps is measured by the displacement of his or her center of gravity, and not by how much the feet was raised in space. For instance, the following Youtube video entitled "Highest Vertical jump 62 inches" (157.5 cm!) shows a great vertical jump, but in fact its height is 'just' about half of that:
     """)
     return
 
@@ -95,7 +107,25 @@ def _(mo):
     mo.md(r"""
     ### Measurement of the jump height from flight time
 
-    We can estimate the height of a jump measuring for how long the jumper stayed in the air during the jump (flight time). At the vertical direction and ignoring the air resistance, the only external force that acts on the body in the air is the (constant) gravitational force, with magnitude$P = -mg$, where$g$is the acceleration of gravity (about$9.8 m/s^2$on the surface of the Earth). Using the equation of motion for a body with constant acceleration, the height of the center of gravity of a body in the air at a certain time is:$h(t) = h_0 + v_0 t - \frac{gt^2}{2}$At the maximum height ($h$, the jump height), the vertical velocity of the body is zero. We can take use this property to calculate the jump height from the time of falling:$h = \frac{gt_{fall}^2}{2}$Because the time of falling is equal to the time of rising,$t_{flight} = t_{rise} + t_{fall} = 2 t_{fall}$, the jump height as a function of the flight time is:$h = \frac{gt_{\text{flight}}^2}{8}$This simple equation is the principle of measurement of the jump height any an instrument that measures the time the feet is not in contact with ground (using a pressure mat or a photocell sensor).<br>
+    We can estimate the height of a jump measuring for how long the jumper stayed in the air during the jump (flight time). At the vertical direction and ignoring the air resistance, the only external force that acts on the body in the air is the (constant) gravitational force, with magnitude $P = -mg$, where $g$ is the acceleration of gravity (about $9.8 m/s^2$ on the surface of the Earth). Using the equation of motion for a body with constant acceleration, the height of the center of gravity of a body in the air at a certain time is:
+
+    $$
+    h(t) = h_0 + v_0 t - \frac{gt^2}{2}
+    $$
+
+    At the maximum height ($h$, the jump height), the vertical velocity of the body is zero. We can take use this property to calculate the jump height from the time of falling:
+
+    $$
+    h = \frac{gt_{fall}^2}{2}
+    $$
+
+    Because the time of falling is equal to the time of rising, $t_{flight} = t_{rise} + t_{fall} = 2 t_{fall}$, the jump height as a function of the flight time is:
+
+    $$
+    h = \frac{gt_{\text{flight}}^2}{8}
+    $$
+
+    This simple equation is the principle of measurement of the jump height any an instrument that measures the time the feet is not in contact with ground (using a pressure mat or a photocell sensor).<br>
     There are (were) even shoes using this principle of measurement:
     """)
     return
@@ -128,7 +158,13 @@ def _(mo):
 
     <div class='center-align'><figure><img src="https://github.com/BMClab/BMC/blob/master/images/FBDjump.png?raw=1" alt="Vertical jump FBD"/><figcaption><center><i>A person during the propulsion phase of jumping and the corresponding free body diagram drawn for the center of mass. GRF(t) is the time-varying ground reaction force.</i></center></figcaption></figure></div>
 
-    So, according to the Euler's version of the Newton's second law (for the motion of the body center of mass), the dynamics (as a function of time) for the body center of mass during a jump is given by:$GRF(t) - mg = ma(t)$Where$GRF(t)$is the ground reaction force applied by the ground on the jumper,$m$is the subject mass, and$a(t)$the center of mass acceleration.
+    So, according to the Euler's version of the Newton's second law (for the motion of the body center of mass), the dynamics (as a function of time) for the body center of mass during a jump is given by:
+
+    $$
+    GRF(t) - mg = ma(t)
+    $$
+
+    Where $GRF(t)$ is the ground reaction force applied by the ground on the jumper, $m$ is the subject mass, and $a(t)$ the center of mass acceleration.
     """)
     return
 
@@ -265,18 +301,62 @@ def _(mo):
     mo.md(r"""
     ### Jump height from the impulse measurement
 
-    We know that the [mechanical impulse](http://nbviewer.ipython.org/github/BMClab/bmc/blob/master/notebooks/KineticsFundamentalConcepts.ipynb#Impulse) is equal to the change in linear momentum of a body, which for a body with constant mass is simply the body mass times the change in velocity. For a time-varying force, the impulse is:$\vec{Imp} = \int_{t_0}^{t_f} \vec{F}(t) \mathrm{d}t = m [\vec{v}_{t_f} - \vec{v}_{t_0}]$For the analysis of a vertical jump, in the vertical direction$F(t) = GRF(t) - mg$and$F(t)$is discrete in time (sampled at intervals$\Delta t$):$Imp = \sum_{t_0}^{t_f} F(t)\Delta t = m [v_{t_f} - v_{t_0}]$For a jump starting from a rest position, the initial velocity is zero. This means that the change in velocity is equal to the final velocity (at the moment of takeoff). Therefore, we can calculate the final velocity of the propulsion phase as:$\begin{array}{l l}
+    We know that the [mechanical impulse](http://nbviewer.ipython.org/github/BMClab/bmc/blob/master/notebooks/KineticsFundamentalConcepts.ipynb#Impulse) is equal to the change in linear momentum of a body, which for a body with constant mass is simply the body mass times the change in velocity. For a time-varying force, the impulse is:
+
+    $$
+    \vec{Imp} = \int_{t_0}^{t_f} \vec{F}(t) \mathrm{d}t = m [\vec{v}_{t_f} - \vec{v}_{t_0}]
+    $$
+
+    For the analysis of a vertical jump, in the vertical direction $F(t) = GRF(t) - mg$ and $F(t)$ is discrete in time (sampled at intervals $\Delta t$):
+
+    $$
+    Imp = \sum_{t_0}^{t_f} F(t)\Delta t = m [v_{t_f} - v_{t_0}]
+    $$
+
+    For a jump starting from a rest position, the initial velocity is zero. This means that the change in velocity is equal to the final velocity (at the moment of takeoff). Therefore, we can calculate the final velocity of the propulsion phase as:
+
+    $$
+    \begin{array}{l l}
     \sum_{t_0}^{t_f} F(t)\Delta t = m[v_f-0] \implies \\
     v_f = \dfrac{\sum_{t_0}^{t_f} F(t)\Delta t}{m}
-    \end{array}$This final velocity is the initial velocity of the aerial phase of the jump.<br>
-    If we know the initial velocity of the jump, it's straightforward to calculate the jump height, for example, using the [Torricelli's equation](http://en.wikipedia.org/wiki/Torricelli's_equation):$v_f^2 = v_0^2 - 2gh$Where$v_i$and$v_f$are the initial and final velocities and$h$is the change in the position of the body center of gravity (the height of the vertical jump) and we considered just the first part of the jump, the upward phase.
+    \end{array}
+    $$
+
+    This final velocity is the initial velocity of the aerial phase of the jump.<br>
+    If we know the initial velocity of the jump, it's straightforward to calculate the jump height, for example, using the [Torricelli's equation](http://en.wikipedia.org/wiki/Torricelli's_equation):
+
+    $$
+    v_f^2 = v_0^2 - 2gh
+    $$
+
+    Where $v_i$ and $v_f$ are the initial and final velocities and $h$ is the change in the position of the body center of gravity (the height of the vertical jump) and we considered just the first part of the jump, the upward phase.
 
     From Mechanics we know that the velocities at takeoff and at landing are equal in magnitude and that the time of the upward phase is equal to the time of the downward phase of this ballistic flight.
 
-    For the upward phase of the vertical jump:$\begin{array}{l l}
+    For the upward phase of the vertical jump:
+
+    $$
+    \begin{array}{l l}
     0 = v_0^2 - 2gh \implies \\
     h = \dfrac{v_0^2}{2g}
-    \end{array}$We could also have calculated the jump height from the velocity using the [principle of conservation of the mechanical energy](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/KineticsFundamentalConcepts.ipynb#Principles-of-conservation). The sum of the potential and kinetic energies at the instants beginning of the jump ($t_0$) and highest point of the jump trajectory ($t_{hmax}$) are equal:$mgh(t_0) + \frac{mv^2(t_0)}{2} = mgh(t_{hmax}) + \frac{mv^2(t_{hmax})}{2}$$0 + \frac{mv^2(t_0)}{2} =  mgh(t_{hmax}) + 0$$h(t_{hmax}) = \frac{v^2(t_0)}{2g}$Same expression as before.
+    \end{array}
+    $$
+
+    We could also have calculated the jump height from the velocity using the [principle of conservation of the mechanical energy](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/KineticsFundamentalConcepts.ipynb#Principles-of-conservation). The sum of the potential and kinetic energies at the instants beginning of the jump ($t_0$) and highest point of the jump trajectory ($t_{hmax}$) are equal:
+
+    $$
+    mgh(t_0) + \frac{mv^2(t_0)}{2} = mgh(t_{hmax}) + \frac{mv^2(t_{hmax})}{2}
+    $$
+
+    $$
+    0 + \frac{mv^2(t_0)}{2} =  mgh(t_{hmax}) + 0
+    $$
+
+    $$
+    h(t_{hmax}) = \frac{v^2(t_0)}{2g}
+    $$
+
+    Same expression as before.
     """)
     return
 
@@ -288,7 +368,37 @@ def _(mo):
 
     The force plate can also be used to calculate other mechanical variables to characterize the subject's performance (see Dowling and Vamos 1993) for a list of such variables). For example,
 
-    Resultant vertical force on the subject:$F(t) = GRF(t) - mg$Vertical acceleration of the center of mass:$a(t) = \frac{F(t)}{m}$Vertical velocity of the center of mass (initial velocity equals zero):$v(t) = \sum_{t_0}^{t_f} a(t) \Delta t$Vertical displacement of the center of mass (initial displacement equals zero):$h(t) = \sum_{t_0}^{t_f} v(t) \Delta t$Power due to the resultant vertical force:$P(t) = GRF(t)v(t)$Note that we used the vertical ground reaction force for the calculation of mechanical power, not the resultant force on the body, to represent the total power the jumper is producing. One could argue that during standing the jumper is not actually 'generating' any force (so we should not use GRF), but in this phase, the jumper's speed is zero, and the power is zero.
+    Resultant vertical force on the subject:
+
+    $$
+    F(t) = GRF(t) - mg
+    $$
+
+    Vertical acceleration of the center of mass:
+
+    $$
+    a(t) = \frac{F(t)}{m}
+    $$
+
+    Vertical velocity of the center of mass (initial velocity equals zero):
+
+    $$
+    v(t) = \sum_{t_0}^{t_f} a(t) \Delta t
+    $$
+
+    Vertical displacement of the center of mass (initial displacement equals zero):
+
+    $$
+    h(t) = \sum_{t_0}^{t_f} v(t) \Delta t
+    $$
+
+    Power due to the resultant vertical force:
+
+    $$
+    P(t) = GRF(t)v(t)
+    $$
+
+    Note that we used the vertical ground reaction force for the calculation of mechanical power, not the resultant force on the body, to represent the total power the jumper is producing. One could argue that during standing the jumper is not actually 'generating' any force (so we should not use GRF), but in this phase, the jumper's speed is zero, and the power is zero.
 
     Let's work with the ground reaction force data from a vertical jump and calculate such quantities.<br>
     For now, let's ignore the landing and focus on the propulsion phase of the jump.
@@ -419,7 +529,19 @@ def _(mo):
     mo.md(r"""
     ## Problems
 
-    1. The mechanical work ($W$) by the vertical force is defined as:$W = \int_{h_0}^{h_f} F(h) \mathrm{d}h$Which can also be calculated as the variation in the kinetic energy or the integral of mechanical power:$W = \Delta E_K = \int_{t_0}^{t_f} P(t) \mathrm{d}t$a) Use the data of the vertical jump in this text to plot the graph for the ground reaction force versus displacement.<br>
+    1. The mechanical work ($W$) by the vertical force is defined as:
+
+    $$
+    W = \int_{h_0}^{h_f} F(h) \mathrm{d}h
+    $$
+
+    Which can also be calculated as the variation in the kinetic energy or the integral of mechanical power:
+
+    $$
+    W = \Delta E_K = \int_{t_0}^{t_f} P(t) \mathrm{d}t
+    $$
+
+     a) Use the data of the vertical jump in this text to plot the graph for the ground reaction force versus displacement.<br>
      b) Calculate the mechanical work produced in the entire jump and in the eccentric and concentric phases using the two methods described above.
 
     2. For the dataset in this text, calculate all the variables described in Dowling, Vamos (1993).

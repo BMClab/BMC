@@ -210,7 +210,19 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ### Length step$\dot x_1 =  - \frac{k_sx_{1}}{b} + x$$F_1 =  - \frac{k_s^2x_{1}}{b} + k_sx$$F = F_1+k_px$
+    ### Length step
+
+    $$
+    \dot x_1 =  - \frac{k_sx_{1}}{b} + x
+    $$
+
+    $$
+    F_1 =  - \frac{k_s^2x_{1}}{b} + k_sx
+    $$
+
+    $$
+    F = F_1+k_px
+    $$
     """)
     return
 
@@ -244,7 +256,27 @@ def _(np, plt):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ### Force step$\dot x = \frac{\dot F - k_p\dot x}{k_s} + \frac{F - k_px}{b}$$\dot x\left(\frac{k_s+k_p}{k_s} \right) = \frac{\dot F}{k_s} + \frac{F - k_px}{b}$$\dot x = \frac{\dot F}{k_s+k_p} + \frac{k_sF}{b(k_s+k_p)} - \frac{k_sk_px}{b(k_s+k_p)}$$\dot x_1 = F - \frac{k_sk_px}{b(k_s+k_p)}$$x = \frac{\dot x_1}{k_s+k_p} + \frac{k_sx_1}{b(k_s+k_p)}$
+    ### Force step
+
+    $$
+    \dot x = \frac{\dot F - k_p\dot x}{k_s} + \frac{F - k_px}{b}
+    $$
+
+    $$
+    \dot x\left(\frac{k_s+k_p}{k_s} \right) = \frac{\dot F}{k_s} + \frac{F - k_px}{b}
+    $$
+
+    $$
+    \dot x = \frac{\dot F}{k_s+k_p} + \frac{k_sF}{b(k_s+k_p)} - \frac{k_sk_px}{b(k_s+k_p)}
+    $$
+
+    $$
+    \dot x_1 = F - \frac{k_sk_px}{b(k_s+k_p)}
+    $$
+
+    $$
+    x = \frac{\dot x_1}{k_s+k_p} + \frac{k_sx_1}{b(k_s+k_p)}
+    $$
     """)
     return
 

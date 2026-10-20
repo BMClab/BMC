@@ -23,7 +23,19 @@ def _(mo):
 
     This principle is so fundamental that it can be used to derive the equations of motion of a system, for example, independent of the Newton's laws of motion. Let's now see the principle of least action in mathematical terms.
 
-    The difference between the kinetic and potential energy in a system is known as the [Lagrange or Lagrangian function](https://en.wikipedia.org/wiki/Lagrangian_mechanics):$\mathcal{L} = T - V$The [principle of least action](https://en.wikipedia.org/wiki/Principle_of_least_action) states that the actual path which a system follows between two points in the time interval$t_1$and$t_2$is such that the integral$\mathcal{S}\; =\; \int _{t_1}^{t_2} \mathcal{L} \; dt$is stationary, meaning that$\delta \mathcal{S}=0$(i.e., the value of$\mathcal{S}$is an extremum), and it can be shown in fact that the value of this integral is a minimum for the actual path of the system. The integral above is known as the action integral and$\mathcal{S}$is known as the action.
+    The difference between the kinetic and potential energy in a system is known as the [Lagrange or Lagrangian function](https://en.wikipedia.org/wiki/Lagrangian_mechanics):
+
+    $$
+    \mathcal{L} = T - V
+    $$
+
+    The [principle of least action](https://en.wikipedia.org/wiki/Principle_of_least_action) states that the actual path which a system follows between two points in the time interval $t_1$ and $t_2$ is such that the integral
+
+    $$
+    \mathcal{S}\; =\; \int _{t_1}^{t_2} \mathcal{L} \; dt
+    $$
+
+    is stationary, meaning that $\delta \mathcal{S}=0$ (i.e., the value of $\mathcal{S}$ is an extremum), and it can be shown in fact that the value of this integral is a minimum for the actual path of the system. The integral above is known as the action integral and $\mathcal{S}$ is known as the action.
 
     A formal demonstration that the the value of this integral above is stationary and that one can derive the Euler-Lagrange equation in the present form we use today was first formulated by the mathematician [William Hamilton](https://en.wikipedia.org/wiki/William_Rowan_Hamilton) in the XIXth century; because that the principle of least action as presented above is also known as [Hamilton's principle](https://en.wikipedia.org/wiki/Hamilton%27s_principle).
 

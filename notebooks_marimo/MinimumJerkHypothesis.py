@@ -68,14 +68,24 @@ def _(mo):
 
     Hogan and Flash (1984, 1985), based on observations of voluntary movements in primates, suggested that movements are performed (organized) with the smoothest trajectory possible. In this organizing principle, the endpoint trajectory is such that the mean squared-jerk across time of this movement is minimum.
 
-    Jerk is the derivative of acceleration and the observation of the minimum-jerk trajectory is for the endpoint in the extracorporal coordinates (not for joint angles) and according to Flash and Hogan (1985), the minimum-jerk trajectory of a planar movement is such that minimizes the following objective function:$\begin{array}{rcl}
-    C = \frac{1}{2} \displaystyle\int\limits_{t_{i}}^{t_{f}}\;\left[\left(\dfrac{d^{3}x}{dt^{3}}\right)^2+\left(\dfrac{d^{3}y}{dt^{3}}\right)^2\right]\;\mathrm{d}t
+    Jerk is the derivative of acceleration and the observation of the minimum-jerk trajectory is for the endpoint in the extracorporal coordinates (not for joint angles) and according to Flash and Hogan (1985), the minimum-jerk trajectory of a planar movement is such that minimizes the following objective function:
 
-    \end{array}$Hogan (1984) found that the solution for this objective function is a fifth-order polynomial trajectory (see Shadmehr and Wise (2004) for a simpler proof):$\begin{array}{l l}
+    $$
+    \begin{array}{rcl}
+    C = \frac{1}{2} \displaystyle\int\limits_{t_{i}}^{t_{f}}\;\left[\left(\dfrac{d^{3}x}{dt^{3}}\right)^2+\left(\dfrac{d^{3}y}{dt^{3}}\right)^2\right]\;\mathrm{d}t
+    \end{array}
+    $$
+
+    Hogan (1984) found that the solution for this objective function is a fifth-order polynomial trajectory (see Shadmehr and Wise (2004) for a simpler proof):
+
+    $$
+    \begin{array}{l l}
     x(t) = a_0+a_1t+a_2t^2+a_3t^3+a_4t^4+a_5t^5 \\
     y(t) = b_0+b_1t+b_2t^2+b_3t^3+b_4t^4+b_5t^5
+    \end{array}
+    $$
 
-    \end{array}$With the following boundary conditions for$x(t)$and$y(t)$: initial and final positions are$(x_i,y_i)$and$(x_f,y_f)$and initial and final velocities and accelerations are zero.
+    With the following boundary conditions for $x(t)$ and $y(t)$: initial and final positions are $(x_i,y_i)$ and $(x_f,y_f)$ and initial and final velocities and accelerations are zero.
     """)
     return
 
@@ -104,8 +114,8 @@ def _(Eq, S, display, symbols):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    Without loss of generality, consider$t_i=0$and let's use$d$for movement duration ($d=t_f$).<br>
-    The system of equations with the boundary conditions for$x$is:
+    Without loss of generality, consider $t_i=0$ and let's use $d$ for movement duration ($d=t_f$).<br>
+    The system of equations with the boundary conditions for $x$ is:
     """)
     return
 
@@ -181,7 +191,7 @@ def _(Eq, S, display, t, x2):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    Let's plot the minimum jerk trajectory for x and its velocity, acceleration, and jerk considering$x_i=0,x_f=1,d=1$:
+    Let's plot the minimum jerk trajectory for x and its velocity, acceleration, and jerk considering $x_i=0,x_f=1,d=1$:
     """)
     return
 
@@ -227,7 +237,7 @@ def _(mo):
     mo.md(r"""
     ## The angular trajectory of a minimum jerk trajectory
 
-    Let's calculate the resulting angular trajectory given a minimum jerk linear trajectory, supposing it is from a circular motion of an elbow flexion. The length of the forearm is 0.5 m, the movement duration is 1 s, the elbow starts flexed at 90$^o$and the flexes to 180$^o$.
+    Let's calculate the resulting angular trajectory given a minimum jerk linear trajectory, supposing it is from a circular motion of an elbow flexion. The length of the forearm is 0.5 m, the movement duration is 1 s, the elbow starts flexed at 90$^o$ and the flexes to 180$^o$.
 
     First, the linear trajectories for this circular motion:
     """)

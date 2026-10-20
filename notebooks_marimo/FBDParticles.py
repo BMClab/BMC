@@ -81,13 +81,21 @@ def _(mo):
     mo.md(r"""
     ### Gravity
 
-    The gravity force acts on two masses, each one atracting each other:$\vec{{\bf{F}}} = - G\frac{m_1m_2}{||\vec{\bf{r}}||^2}\frac{\vec{\bf{r}}}{||\vec{\bf{r}}||}$where$G = 6.67.10^{−11} Nm^2/kg^2$and$\vec{\bf{r}}$is a vector with length equal to the distance between the masses and directing towards the other mass. Note the forces acting on each mass have the same absolute value.
+    The gravity force acts on two masses, each one atracting each other:
 
-    Since the mass of the Earth is$m_1=5.9736×10^{24}kg$and its radius is 6.371×10$^6$m, the gravity force near the surface of the Earth is:
+    $$
+    \vec{{\bf{F}}} = - G\frac{m_1m_2}{||\vec{\bf{r}}||^2}\frac{\vec{\bf{r}}}{||\vec{\bf{r}}||}
+    $$
 
-    <span class="notranslate">$\vec{{\bf{F}}} = m\vec{\bf{g}}$</span>
+    where $G = 6.67.10^{−11} Nm^2/kg^2$ and $\vec{\bf{r}}$ is a vector with length equal to the distance between the masses and directing towards the other mass. Note the forces acting on each mass have the same absolute value.
 
-    with the absolute value of$\vec{\bf{g}}$approximately equal to 9.81$m/s^2$, pointing towards the center of Earth.
+    Since the mass of the Earth is $m_1=5.9736×10^{24}kg$ and its radius is 6.371×10$^6$ m, the gravity force near the surface of the Earth is:
+
+    $$
+    \vec{{\bf{F}}} = m\vec{\bf{g}}
+    $$
+
+    with the absolute value of $\vec{\bf{g}}$ approximately equal to 9.81 $m/s^2$, pointing towards the center of Earth.
     """)
     return
 
@@ -99,9 +107,11 @@ def _(mo):
 
     Spring is an element used to represent a force proportional to some length or displacement. It produces a force in the same direction of the vector linking the spring extremities and opposite to its length or displacement from an equilibrium length. Frequently it has a linear relation, but it could be nonlinear as well. The force exerted by the spring in one of the extremities is:
 
-    <span class="notranslate">$\vec{\bf{F}} = - k(||\vec{\bf{r}}||-l_0)\frac{\vec{\bf{r}}}{||\vec{\bf{r}}||} = -k\vec{\bf{r}} +kl_0\frac{\vec{\bf{r}}}{||\vec{\bf{r}}||} = -k\left(1-\frac{l_0}{||\vec{\bf{r}}||}\right)\vec{\bf{r}}$</span>
+    $$
+    \vec{\bf{F}} = - k(||\vec{\bf{r}}||-l_0)\frac{\vec{\bf{r}}}{||\vec{\bf{r}}||} = -k\vec{\bf{r}} +kl_0\frac{\vec{\bf{r}}}{||\vec{\bf{r}}||} = -k\left(1-\frac{l_0}{||\vec{\bf{r}}||}\right)\vec{\bf{r}}
+    $$
 
-    where$\vec{\bf{r}}$is the vector linking the extremity applying the force to the other extremity and$l_0$is the equilibrium length of the spring.
+    where $\vec{\bf{r}}$ is the vector linking the extremity applying the force to the other extremity and $l_0$ is the equilibrium length of the spring.
 
     Since the spring element is a massless element, the force in  both extremities have the same absolute value and opposite directions.
     """)
@@ -117,9 +127,11 @@ def _(mo):
 
     Frequently it has a linear relation, but it could be nonlinear as well. The force exerted by the damper element in one of its extremities is:
 
-    <span class="notranslate">$\vec{\bf{F}} = - b||\vec{\bf{v}}||\frac{\vec{\bf{v}}}{||\vec{\bf{v}}||} = -b\vec{\bf{v}} = -b\frac{d\vec{\bf{r}}}{dt}$</span>
+    $$
+    \vec{\bf{F}} = - b||\vec{\bf{v}}||\frac{\vec{\bf{v}}}{||\vec{\bf{v}}||} = -b\vec{\bf{v}} = -b\frac{d\vec{\bf{r}}}{dt}
+    $$
 
-    where$\vec{\bf{r}}$is the vector linking the extremity applying the force to the other extremity.
+    where $\vec{\bf{r}}$ is the vector linking the extremity applying the force to the other extremity.
 
     Since the damper element is a massless element, , the force in  both extremities have the same absolute value and opposite directions.
     """)
@@ -251,23 +263,33 @@ def _(mo):
 
     Since the movement is horizontal, we can neglect the gravity force.
 
-    <span class="notranslate">$\vec{\bf{F}} = -k\left(1-\frac{l_0}{||\vec{\bf{r}}||}\right)\vec{\bf{r}}$</span>
+    $$
+    \vec{\bf{F}} = -k\left(1-\frac{l_0}{||\vec{\bf{r}}||}\right)\vec{\bf{r}}
+    $$
 
     Applying Newton's second law to the mass:
 
-    <span class="notranslate">$m\frac{d^2\vec{\bf{r}}}{dt^2} = -k\left(1-\frac{l_0}{||\vec{\bf{r}}||}\right)\vec{\bf{r}} \rightarrow \frac{d^2\vec{\bf{r}}}{dt^2} = -\frac{k}{m}\left(1-\frac{l_0}{||\vec{\bf{r}}||}\right)\vec{\bf{r}}$</span>
+    $$
+    m\frac{d^2\vec{\bf{r}}}{dt^2} = -k\left(1-\frac{l_0}{||\vec{\bf{r}}||}\right)\vec{\bf{r}} \rightarrow \frac{d^2\vec{\bf{r}}}{dt^2} = -\frac{k}{m}\left(1-\frac{l_0}{||\vec{\bf{r}}||}\right)\vec{\bf{r}}
+    $$
 
     Since the movement is unidimensional, we can deal with it scalarly:
 
-    <span class="notranslate">$\frac{d^2x}{dt^2} = -\frac{k}{m}\left(1-\frac{l_0}{x}\right)x = -\frac{k}{m}(x-l_0)$</span>
+    $$
+    \frac{d^2x}{dt^2} = -\frac{k}{m}\left(1-\frac{l_0}{x}\right)x = -\frac{k}{m}(x-l_0)
+    $$
 
     To solve this equation numerically, we must break the equations into two first-order differential equation:
 
-    <span class="notranslate">$\frac{dv_x}{dt} =  -\frac{k}{m}(x-l_0)$</span>
+    $$
+    \frac{dv_x}{dt} =  -\frac{k}{m}(x-l_0)
+    $$
 
-    <span class="notranslate">$\frac{dx}{dt} =  v_x$</span>
+    $$
+    \frac{dx}{dt} =  v_x
+    $$
 
-    In the numerical solution below, we will use$k = 40 N/m$,$m = 2 kg$,$l_0 = 0.5 m$and the mass starts from the position$x = 0.8m$and at rest.
+    In the numerical solution below, we will use $k = 40 N/m$, $m = 2 kg$, $l_0 = 0.5 m$ and the mass starts from the position $x = 0.8m$ and at rest.
     """)
     return
 
@@ -397,7 +419,7 @@ def _(mo):
     mo.md(r"""
     Note that if you did not want to know the details about the motion of each mass, but only the motion of the center of mass of the masses-spring system, you could have modeled the whole system as a single particle.
 
-    To solve the equations numerically, we will use the$m_1=1 kg$,$m_2 = 2 kg$,$l_0 = 0.5 m$,$k = 90 N/m$and$x_{1_0} = 0 m$,$x_{2_0} = 0 m$,$y_{1_0} = 1 m$,$y_{2_0} = -1 m$,$v_{x1_0} = -2 m/s$,$v_{x2_0} = 0 m/s$,$v_{y1_0} = 0 m/s$,$v_{y2_0} = 0 m/s$.
+    To solve the equations numerically, we will use the $m_1=1 kg$, $m_2 = 2 kg$, $l_0 = 0.5 m$, $k = 90 N/m$ and $x_{1_0} = 0 m$, $x_{2_0} = 0 m$, $y_{1_0} = 1 m$, $y_{2_0} = -1 m$, $v_{x1_0} = -2 m/s$, $v_{x2_0} = 0 m/s$, $v_{y1_0} = 0 m/s$, $v_{y2_0} = 0 m/s$.
     """)
     return
 
@@ -596,23 +618,39 @@ def _(mo):
     mo.md(r"""
     If you want to solve these equations numerically, you must break these equations into first-order  equations:
 
-    <span class="notranslate">$\frac{dv_{x_1}}{dt} = -\frac{b}{m_1}\left(v_{x_1}-v_{x_2}\right)-\frac{k}{m_1}\left(1-\frac{l_0}{\sqrt{(x_2-x_1)^2+(y_2-y_1)^2}}\right)(x_1-x_2)$</span>
+    $$
+    \frac{dv_{x_1}}{dt} = -\frac{b}{m_1}\left(v_{x_1}-v_{x_2}\right)-\frac{k}{m_1}\left(1-\frac{l_0}{\sqrt{(x_2-x_1)^2+(y_2-y_1)^2}}\right)(x_1-x_2)
+    $$
 
-    <span class="notranslate">$\frac{dv_{y_1}}{dt} =  -\frac{b}{m_1}\left(v_{y_1}-v_{y_2}\right)-\frac{k}{m_1}\left(1-\frac{l_0}{\sqrt{(x_2-x_1)^2+(y_2-y_1)^2}}\right)(y_1-y_2)$</span>
+    $$
+    \frac{dv_{y_1}}{dt} =  -\frac{b}{m_1}\left(v_{y_1}-v_{y_2}\right)-\frac{k}{m_1}\left(1-\frac{l_0}{\sqrt{(x_2-x_1)^2+(y_2-y_1)^2}}\right)(y_1-y_2)
+    $$
 
-    <span class="notranslate">$\frac{dv_{x_2}}{dt} = -\frac{b}{m_2}\left(v_{x_2}-v_{x_1}\right)-\frac{k}{m_2}\left(1-\frac{l_0}{\sqrt{(x_2-x_1)^2+(y_2-y_1)^2}}\right)(x_2-x_1)$</span>
+    $$
+    \frac{dv_{x_2}}{dt} = -\frac{b}{m_2}\left(v_{x_2}-v_{x_1}\right)-\frac{k}{m_2}\left(1-\frac{l_0}{\sqrt{(x_2-x_1)^2+(y_2-y_1)^2}}\right)(x_2-x_1)
+    $$
 
-    <span class="notranslate">$\frac{dv_{y_2}}{dt} = -\frac{b}{m_2}\left(v_{y_2}-v_{y_1}\right)-\frac{k}{m_2}\left(1-\frac{l_0}{\sqrt{(x_2-x_1)^2+(y_2-y_1)^2}}\right)(y_2-y_1)$</span>
+    $$
+    \frac{dv_{y_2}}{dt} = -\frac{b}{m_2}\left(v_{y_2}-v_{y_1}\right)-\frac{k}{m_2}\left(1-\frac{l_0}{\sqrt{(x_2-x_1)^2+(y_2-y_1)^2}}\right)(y_2-y_1)
+    $$
 
-    <span class="notranslate">$\frac{dx_1}{dt} = v_{x_1}$</span>
+    $$
+    \frac{dx_1}{dt} = v_{x_1}
+    $$
 
-    <span class="notranslate">$\frac{dy_1}{dt} = v_{y_1}$</span>
+    $$
+    \frac{dy_1}{dt} = v_{y_1}
+    $$
 
-    <span class="notranslate">$\frac{dx_2}{dt} = v_{x_2}$</span>
+    $$
+    \frac{dx_2}{dt} = v_{x_2}
+    $$
 
-    <span class="notranslate">$\frac{dy_2}{dt} = v_{y_2}$</span>
+    $$
+    \frac{dy_2}{dt} = v_{y_2}
+    $$
 
-    To solve the equations numerically, we will use the$m_1=1 kg$,$m_2 = 2 kg$,$l_0 = 0.5 m$,$k = 10 N/m$,$b = 0.6 Ns/m$and$x_{1_0} = 0 m$,$x_{2_0} = 0 m$,$y_{1_0} = 1 m$,$y_{2_0} = -1 m$,$v_{x1_0} = -2 m/s$,$v_{x2_0} = 1 m/s$,$v_{y1_0} = 0 m/s$,$v_{y2_0} = 0 m/s$.
+    To solve the equations numerically, we will use the $m_1=1 kg$, $m_2 = 2 kg$, $l_0 = 0.5 m$, $k = 10 N/m$, $b = 0.6 Ns/m$ and $x_{1_0} = 0 m$, $x_{2_0} = 0 m$, $y_{1_0} = 1 m$, $y_{2_0} = -1 m$, $v_{x1_0} = -2 m/s$, $v_{x2_0} = 1 m/s$, $v_{y1_0} = 0 m/s$, $v_{y2_0} = 0 m/s$.
     """)
     return
 
@@ -688,15 +726,17 @@ def _(mo):
     mo.md(r"""
     ### 9. Simple muscle model
 
-    The diagram below shows a simple muscle model. The spring in the left represents the tendinous tissues and the spring in the right represents the elastic properties of the muscle fibers. The damping is present to model the viscous properties of the muscle fibers, the element CE is the contractile element (force production) and the mass$m$is the muscle mass.
+    The diagram below shows a simple muscle model. The spring in the left represents the tendinous tissues and the spring in the right represents the elastic properties of the muscle fibers. The damping is present to model the viscous properties of the muscle fibers, the element CE is the contractile element (force production) and the mass $m$ is the muscle mass.
 
-    The length$L_{MT}$is the length of the muscle plus the tendon. In our model$L_{MT}$is constant, but it could be a function of the joint angle.
+    The length $L_{MT}$ is the length of the muscle plus the tendon. In our model $L_{MT}$ is constant, but it could be a function of the joint angle.
 
     <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/simpleMuscle.png?raw=1" alt="Linear spring" width="500"/><figcaption><i>Figure. Simple muscle model.</i></figcaption></center></figure>
 
-    The length of the tendon will be denoted by$l_T(t)$and the muscle length, by$l_{m}(t)$. Both lengths are related by each other  by the following expression:
+    The length of the tendon will be denoted by $l_T(t)$ and the muscle length, by $l_{m}(t)$. Both lengths are related by each other  by the following expression:
 
-    <span class="notranslate">$l_t(t) + l_m(t) = L_{MT}$</span>
+    $$
+    l_t(t) + l_m(t) = L_{MT}
+    $$
     """)
     return
 
@@ -710,9 +750,11 @@ def _(mo):
 
     The resultant force being applied in the muscle mass is:
 
-    <span class="notranslate">$\vec{\bf{F}} = -k_T(||\vec{\bf{r_m}}||-l_{t_0})\frac{\vec{\bf{r_m}}}{||\vec{\bf{r_m}}||} + b\frac{d(L_{MT}\hat{\bf{i}} - \vec{\bf{r_{m}}})}{dt} + k_m (||L_{MT}\hat{\bf{i}} - \vec{\bf{r_{m}}}||-l_{m_0})\frac{L_{MT}\hat{\bf{i}} - \vec{\bf{r_{m}}}}{||L_{MT}\hat{\bf{i}} - \vec{\bf{r_{m}}}||} +\vec{\bf{F}}{\bf{_{CE}}}(t)$</span>
+    $$
+    \vec{\bf{F}} = -k_T(||\vec{\bf{r_m}}||-l_{t_0})\frac{\vec{\bf{r_m}}}{||\vec{\bf{r_m}}||} + b\frac{d(L_{MT}\hat{\bf{i}} - \vec{\bf{r_{m}}})}{dt} + k_m (||L_{MT}\hat{\bf{i}} - \vec{\bf{r_{m}}}||-l_{m_0})\frac{L_{MT}\hat{\bf{i}} - \vec{\bf{r_{m}}}}{||L_{MT}\hat{\bf{i}} - \vec{\bf{r_{m}}}||} +\vec{\bf{F}}{\bf{_{CE}}}(t)
+    $$
 
-    where$\vec{\bf{r_m}}$is the muscle mass position.
+    where $\vec{\bf{r_m}}$ is the muscle mass position.
     """)
     return
 
@@ -720,15 +762,19 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    Since the model is unidimensional, we can assume that the force$\vec{\bf{F}}\bf{_{CE}}(t)$is in the x direction, so the analysis will be done only in this direction.
+    Since the model is unidimensional, we can assume that the force $\vec{\bf{F}}\bf{_{CE}}(t)$ is in the x direction, so the analysis will be done only in this direction.
 
-    <span class="notranslate">$F = -k_T(l_t-l_{t_0}) + b\frac{d(L_{MT} - l_t)}{dt} + k_m (l_m-l_{m_0}) + F_{CE}(t) \\
+    $$
+    F = -k_T(l_t-l_{t_0}) + b\frac{d(L_{MT} - l_t)}{dt} + k_m (l_m-l_{m_0}) + F_{CE}(t) \\
     F = -k_T(l_t-l_{t_0}) -b\frac{dl_t}{dt} + k_m (L_{MT}-l_t-l_{m_0}) + F_{CE}(t) \\
-    F = -b\frac{dl_t}{dt}-(k_T+k_m)l_t+F_{CE}(t)+k_Tl_{t_0}+k_m(L_{MT}-l_{m_0})$</span>
+    F = -b\frac{dl_t}{dt}-(k_T+k_m)l_t+F_{CE}(t)+k_Tl_{t_0}+k_m(L_{MT}-l_{m_0})
+    $$
 
     Applying the Newton's second law:
 
-    <span class="notranslate">$m\frac{d^2l_t}{dt^2} = -b\frac{dl_t}{dt}-(k_T+k_m)l_t+F_{CE}(t)+k_Tl_{t_0}+k_m(L_{MT}-l_{m_0})$</span>
+    $$
+    m\frac{d^2l_t}{dt^2} = -b\frac{dl_t}{dt}-(k_T+k_m)l_t+F_{CE}(t)+k_Tl_{t_0}+k_m(L_{MT}-l_{m_0})
+    $$
     """)
     return
 
@@ -738,13 +784,17 @@ def _(mo):
     mo.md(r"""
     To solve this equation, we must break the equation into two first-order differential equations:
 
-    <span class="notranslate">$\frac{dvt}{dt} = - \frac{b}{m}v_t - \frac{k_T+k_m}{m}l_t +\frac{F_{CE}(t)}{m} + \frac{k_T}{m}l_{t_0}+\frac{k_m}{m}(L_{MT}-l_{m_0})$</span>
+    $$
+    \frac{dvt}{dt} = - \frac{b}{m}v_t - \frac{k_T+k_m}{m}l_t +\frac{F_{CE}(t)}{m} + \frac{k_T}{m}l_{t_0}+\frac{k_m}{m}(L_{MT}-l_{m_0})
+    $$
 
-    <span class="notranslate">$\frac{d l_t}{dt} = v_t$</span>
+    $$
+    \frac{d l_t}{dt} = v_t
+    $$
 
-    Now, we can solve these equations by using some numerical method. To obtain the solution, we will use the damping factor of the muscle as$b = 10\,Ns/m$, the muscle mass is$m = 2 kg$, the stiffness of the tendon as$k_t=1000\,N/m$and the elastic element of the muscle as$k_m=1500\,N/m$. The tendon-length is$L_{MT} = 0.35\,m$, and the tendon equilibrium length is$l_{t0} = 0.28\,m$and the muscle fiber equilibrium length is$l_{m0} = 0.07\,m$. Both the tendon and the muscle fiber are at their equilibrium lengths and at rest.
+    Now, we can solve these equations by using some numerical method. To obtain the solution, we will use the damping factor of the muscle as $b = 10\,Ns/m$, the muscle mass is $m = 2 kg$, the stiffness of the tendon as $k_t=1000\,N/m$ and the elastic element of the muscle as $k_m=1500\,N/m$. The tendon-length is $L_{MT} = 0.35\,m$, and the tendon equilibrium length is $l_{t0} = 0.28\,m$ and the muscle fiber equilibrium length is $l_{m0} = 0.07\,m$. Both the tendon and the muscle fiber are at their equilibrium lengths and at rest.
 
-    Also, we will model the force of the contractile element as a Heaviside step of$90\,N$(90 N beginning at$t=0$), but normally it is modeled as a function of$l_m$and$v_m$having a neural activation signal as input.
+    Also, we will model the force of the contractile element as a Heaviside step of $90\,N$ (90 N beginning at $t=0$), but normally it is modeled as a function of $l_m$ and $v_m$ having a neural activation signal as input.
     """)
     return
 

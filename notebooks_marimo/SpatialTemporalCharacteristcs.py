@@ -37,23 +37,23 @@ def _(mo):
 
     The most commonly investigated spatial and temporal characteristics in the context of human gait (walking or running) analysis are:
 
-    - Step length: distance in the direction of progression between two consecutive similar events with the different limbs. For instance, the distance between two heel strikes, with the right and left limbs.
-    - Stride length: distance in the direction of progression between two consecutive similar events with the same limb. For instance, the distance between two heel strikes with the right limb.
-    - Step duration: time duration of the step.
-    - Stride duration: time duration of the stride.
-    - Cadence: number of steps per unit of time.
-    - Velocity: traveled distance divided by the spent time.
+    - Step length: distance in the direction of progression between two consecutive similar events with the different limbs. For instance, the distance between two heel strikes, with the right and left limbs.<br>
+    - Stride length: distance in the direction of progression between two consecutive similar events with the same limb. For instance, the distance between two heel strikes with the right limb.<br>
+    - Step duration: time duration of the step.<br>
+    - Stride duration: time duration of the stride.<br>
+    - Cadence: number of steps per unit of time.<br>
+    - Velocity: traveled distance divided by the spent time.<br>
     - Stance duration: time duration which one limb is in contact with the ground.
-    - Swing duration: time duration which one limb is not in contact with the ground.
-    - Single support duration: time duration which only one limb is in contact with the ground.
-    - Double support duration: time duration which the two limbs are in contact with the ground.
+    - Swing duration: time duration which one limb is not in contact with the ground.<br>
+    - Single support duration: time duration which only one limb is in contact with the ground.<br>
+    - Double support duration: time duration which the two limbs are in contact with the ground.<br>
     - Base of support width: distance in the frontal plane between the two feet when they were in contact with the ground (in different instants of time).
 
     Some of these variables can be normalized by a parameter to take into account individual characteristics or to simply make them dimensionless, for instance:
 
     - Dimensionless stride length: stride length divided by lower limb length.
-    - Dimensionless speed: the [Froude number](http://en.wikipedia.org/wiki/Froude_number),$v/\sqrt{gL}$, where g is the gravitational acceleration and L is the lower limb length.
-    - Dimensionless stride frequency: stride frequency multiplied by$\sqrt{L/g}$.
+    - Dimensionless speed: the [Froude number](http://en.wikipedia.org/wiki/Froude_number), $v/\sqrt{gL}$, where g is the gravitational acceleration and L is the lower limb length.
+    - Dimensionless stride frequency: stride frequency multiplied by $\sqrt{L/g}$.
     - Duty factor: period of contact of one limb with the ground divided by the stride period.
     - Stance, swing, single support and double support durations can be expressed as a fraction of the stride duration and multiplied by 100 for percentage values.
     """)
