@@ -1,16 +1,16 @@
 import marimo
 
-__generated_with = "0.24.2"
-app = marimo.App()
+__generated_with = "0.25.1"
+app = marimo.App(width="medium")
 
 
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    # Rigid-body transformations in three-dimensions
+    # Rigid-body transformations in three dimensions
 
-    > Marcos Duarte, Renato Naville Watanabe<br>
-    > [Laboratory of Biomechanics and Motor Control](https://bmclab.pesquisa.ufabc.edu.br)<br>
+    > Marcos Duarte, Renato Naville Watanabe,
+    > [Laboratory of Biomechanics and Motor Control](https://bmclab.pesquisa.ufabc.edu.br),
     > Federal University of ABC, Brazil
     """)
     return
@@ -19,13 +19,41 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    The kinematics of a rigid body is completely described by its pose, i.e., its position and orientation in space (and the corresponding changes, translation and rotation). In a three-dimensional space, at least three coordinates and three angles are necessary to describe the pose of the rigid body, totalizing six degrees of freedom for a rigid body.
+    ## How to use this guide
 
-    In motion analysis, to describe a translation and rotation of a rigid body with respect to a coordinate system, typically we attach another coordinate system to the rigid body and determine a transformation between these two coordinate systems.
+    In a plane, rotations are easy. One angle describes an orientation, and angles add: turn by 30° and then by 20°, and you have turned by 50°, in whichever order you like. In three dimensions neither statement survives. An orientation needs three angles, and the result of two rotations depends on the order in which they are made. Almost everything that is hard about three-dimensional kinematics comes from that one fact.
 
-    A transformation is any function mapping a set to another set. For the description of the kinematics of rigid bodies, we are interested only in what is called rigid or Euclidean transformations (denoted as SE(3) for the three-dimensional space) because they preserve the distance between every pair of points of the body (which is considered rigid by definition). Translations and rotations are examples of rigid transformations (a reflection is also an example of rigid transformation but this changes the right-hand axis convention to a left hand, which usually is not of interest). In turn, rigid transformations are examples of [affine transformations](https://en.wikipedia.org/wiki/Affine_transformation). Examples of other affine transformations are shear and scaling transformations (which preserves angles but not lengths).
+    This notebook builds the tools to handle it. It starts with the rotation matrix, the object that describes an orientation without ambiguity, and then turns to Euler angles, the three numbers that people actually report, with their conventions and their failure mode, the gimbal lock. It ends where motion analysis does: combining rotation and translation, first on a static example from a textbook and then on every frame of a real walking trial.
 
-    We will follow the same rationale as in the notebook [Rigid-body transformations in a plane (2D)](https://nbviewer.org/github/BMClab/bmc/blob/master/notebooks/Transformation2D.ipynb) and we will skip the fundamental concepts already covered there. So, you if haven't done yet, you should read that notebook before continuing here.
+    Read it in order and run each cell as you reach it. Where you find a **Challenge** or a set of **Guiding questions**, stop and answer on a scratchpad before moving on. Several of them ask you to predict a result *before* the code prints it. Make the prediction; a wrong guess that the code then corrects teaches more than a right one.
+
+    The notebook follows the same rationale as [Rigid-body transformations in a plane (2D)](https://github.com/BMClab/BMC/blob/master/notebooks/Transformation2D.ipynb) and skips the fundamental concepts covered there, so if you have not read that notebook yet, read it first. You will also need matrix multiplication (see [Matrix](https://github.com/BMClab/BMC/blob/master/notebooks/Matrix.ipynb)), and the construction of a basis from three markers, explained in [Determination of a coordinate system](https://github.com/BMClab/BMC/blob/master/notebooks/CoordinateSystem.ipynb) and [Frame of reference](https://github.com/BMClab/BMC/blob/master/notebooks/ReferenceFrame.ipynb).
+
+    **Challenge 0.** Take a book and hold it upright in front of you, with its spine towards you. Turn it by 90° about a horizontal axis pointing to your right, and then by 90° about the vertical axis. Note where the spine ends up. Now start again and make the same two turns in the opposite order. Sketch both results; the section on rotation shows the answer.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## Codman's paradox
+
+    Stand up and let your right arm hang at your side, with the palm against your thigh and the thumb pointing forward. Keeping the elbow straight, make three movements, each a quarter of a turn:
+
+    1. Raise the arm forward until it is horizontal (90° of flexion).
+    2. Keeping it horizontal, swing it out to the side (90° of horizontal abduction).
+    3. Lower it to your side again (90° of adduction).
+
+    The arm is back where it started. Now look at your palm.
+
+    This is known as Codman's paradox, after the surgeon Ernest Codman, who described it while studying the shoulder. None of the three movements turned the arm about its own long axis, and yet the hand did not come back the way it left. It is not really a paradox (Politti et al., 1998): it is what rotations in three dimensions do, and later in this notebook you will compute it with three matrices.
+
+    **Guiding questions 0.**
+
+    1. Where does your palm face at the end? At which of the three movements, if any, did your arm turn about its long axis?
+    2. Make the same three movements in a different order: first raise the arm sideways to horizontal, then swing it forward, then lower it in front of you. Do you end in the same place?
+    3. If three quarter turns about three perpendicular axes can add up to a turn about a fourth axis, what does that tell you about adding angles in three dimensions?
     """)
     return
 
@@ -34,17 +62,64 @@ def _(mo):
 def _(mo):
     mo.md(r"""
     ## Python setup
+
+    NumPy does the numerical work, [SymPy](https://www.sympy.org) the symbolic work, and Matplotlib the figures. The helper functions `CCS`, which draws coordinate systems in 3D, and `read_trc`, which reads motion capture files, come from the `functions` folder of this repository and are loaded where they are first needed.
     """)
     return
 
 
 @app.cell
 def _():
-    # Import the necessary libraries
     import numpy as np
-    # suppress scientific notation for small numbers:
-    np.set_printoptions(precision=4, suppress=True)
-    return (np,)
+    import sympy as sym
+    import matplotlib
+    import matplotlib.pyplot as plt
+
+    np.set_printoptions(precision=4, suppress=True)  # suppress scientific notation for small numbers
+    matplotlib.rc("axes", labelsize=13, titlesize=14)
+    matplotlib.rc("xtick", labelsize=11)
+    matplotlib.rc("ytick", labelsize=11)
+    matplotlib.rc("legend", fontsize=11)
+    return np, plt, sym
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    Many results in this notebook are matrices, symbolic or numerical. The function below displays one as a formula:
+    """)
+    return
+
+
+@app.function
+def show_matrix(lhs, matrix, digits=None):
+    """Display `lhs` = `matrix` as LaTeX, for a SymPy or NumPy matrix.
+
+    With `digits`, the entries are evaluated numerically to that number of
+    significant digits, and entries that are zero to within rounding are shown
+    as zero.
+    """
+    import marimo as mo
+    import sympy as sym
+
+    M = sym.Matrix(matrix)
+    if digits is not None:
+        M = M.n(digits, chop=True)
+    return mo.md(rf"$${lhs} = {sym.latex(M, mat_str='matrix')}$$")
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## Rigid bodies and their transformations
+
+    The kinematics of a rigid body is completely described by its pose, that is, its position and orientation in space, and by the changes of pose, translation and rotation. In three-dimensional space, at least three coordinates and three angles are needed to describe the pose of a rigid body: six degrees of freedom.
+
+    In motion analysis, to describe the translation and rotation of a rigid body with respect to a coordinate system, we typically attach another coordinate system to the rigid body and determine the transformation between the two coordinate systems.
+
+    A transformation is any function mapping a set to another set. For the kinematics of rigid bodies we are interested only in the rigid, or Euclidean, transformations (denoted SE(3) for three-dimensional space), because they preserve the distance between every pair of points of the body, which is rigid by definition. Translations and rotations are rigid transformations. A reflection also preserves distances, but it turns a right-handed coordinate system into a left-handed one, which is usually not of interest. In turn, rigid transformations are examples of [affine transformations](https://en.wikipedia.org/wiki/Affine_transformation); shear and scaling are other affine transformations, which do not preserve lengths.
+    """)
+    return
 
 
 @app.cell(hide_code=True)
@@ -52,25 +127,30 @@ def _(mo):
     mo.md(r"""
     ## Translation
 
-    A pure three-dimensional translation of a rigid body (or a coordinate system attached to it) in relation to other rigid body (with other coordinate system) is illustrated in the figure below.<br>
-    <br>
-    <figure><img src='./../images/translation3D.png' alt='translation 3D'/> <figcaption><center><i>Figure. A point in three-dimensional space represented in two coordinate systems, with one coordinate system translated.</i></center></figcaption> </figure>
+    A pure three-dimensional translation of a rigid body (or of a coordinate system attached to it) in relation to another rigid body (with another coordinate system) is illustrated in the figure below.
 
-    The position of point$\mathbf{P}$originally described in the$xyz$(local) coordinate system but now described in the$\mathbf{XYZ}$(Global) coordinate system in vector form is:<br>
-    <br>
-    <span class="notranslate">$\mathbf{P_G} = \mathbf{L_G} + \mathbf{P_l}$</span>
+    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/translation3D.png?raw=1" width=450 alt="translation 3D"/></center><figcaption><center><i>Figure. A point in three-dimensional space represented in two coordinate systems, with one coordinate system translated.</i></center></figcaption></figure>
 
-    Or in terms of its components:
+    The position of the point $\mathbf{P}$, originally described in the $xyz$ (local) coordinate system but now described in the $\mathbf{XYZ}$ (Global) coordinate system, is in vector form
 
-    <span class="notranslate">$\begin{array}{ll}
+    $$
+    \mathbf{P_G} = \mathbf{L_G} + \mathbf{P_l}
+    $$
+
+    or, in terms of its components,
+
+    $$
+    \begin{array}{ll}
     \mathbf{P_X} =& \mathbf{L_X} + \mathbf{P}_x \\
     \mathbf{P_Y} =& \mathbf{L_Y} + \mathbf{P}_y \\
     \mathbf{P_Z} =& \mathbf{L_Z} + \mathbf{P}_z
-    \end{array}$</span>
+    \end{array}
+    $$
 
-    And in matrix form:
+    and in matrix form:
 
-    <span class="notranslate">$\begin{bmatrix}
+    $$
+    \begin{bmatrix}
     \mathbf{P_X} \\
     \mathbf{P_Y} \\
     \mathbf{P_Z}
@@ -84,45 +164,41 @@ def _(mo):
     \mathbf{P}_x \\
     \mathbf{P}_y \\
     \mathbf{P}_z
-    \end{bmatrix}$</span>
+    \end{bmatrix}
+    $$
 
-    From classical mechanics, this is an example of [Galilean transformation](http://en.wikipedia.org/wiki/Galilean_transformation).
+    In classical mechanics, this is an example of a [Galilean transformation](https://en.wikipedia.org/wiki/Galilean_transformation), the same one that relates a runner on a treadmill to a runner on the ground in [Frame of reference](https://github.com/BMClab/BMC/blob/master/notebooks/ReferenceFrame.ipynb).
 
-    Let's use Python to compute some numeric examples:
-    """)
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    For example, if the local coordinate system is translated by$\mathbf{L_G}=[1, 2, 3]$in relation to the Global coordinate system, a point with coordinates$\mathbf{P_l}=[4, 5, 6]$at the local coordinate system will have the position$\mathbf{P_G}=[5, 7, 9]$at the Global coordinate system:
+    For example, if the local coordinate system is translated by $\mathbf{L_G}=[1, 2, 3]$ in relation to the Global coordinate system, a point with coordinates $\mathbf{P_l}=[4, 5, 6]$ in the local coordinate system has the position $\mathbf{P_G}=[5, 7, 9]$ in the Global coordinate system:
     """)
     return
 
 
 @app.cell
 def _(np):
-    LG = np.array([1, 2, 3])
+    _LG = np.array([1, 2, 3])  # NumPy array
     _Pl = np.array([4, 5, 6])
-    _PG = LG + _Pl
-    _PG
-    return (LG,)
+    _PG = _LG + _Pl
+
+    print("PG =", _PG)
+    return
 
 
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    This operation also works if we have more than one point (NumPy try to guess how to handle vectors with different dimensions):
+    The same operation works for several points at once, one per row: NumPy adds the translation to every row (this is called broadcasting).
     """)
     return
 
 
 @app.cell
-def _(LG, np):
-    _Pl = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
-    _PG = LG + _Pl
-    _PG
+def _(np):
+    _LG = np.array([1, 2, 3])
+    _Pl = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])  # 2D array with 3 rows and 3 columns
+    _PG = _LG + _Pl
+
+    print("PG =\n", _PG)
     return
 
 
@@ -131,15 +207,15 @@ def _(mo):
     mo.md(r"""
     ## Rotation
 
-    A pure three-dimensional rotation of a$xyz$(local) coordinate system in relation to other$\mathbf{XYZ}$(Global) coordinate system and the position of a point in these two coordinate systems are illustrated in the next figure (remember that this is equivalent to describing a rotation between two rigid bodies).<br>
-    <br>
-    <figure><img src='./../images/rotation3D.png' alt='rotation 3D'/> <figcaption><center><i>A point in three-dimensional space represented in two coordinate systems, with one system rotated.</i></center></figcaption> </figure>
+    A pure three-dimensional rotation of an $xyz$ (local) coordinate system in relation to another, $\mathbf{XYZ}$ (Global), coordinate system, and the position of a point in these two coordinate systems, are illustrated in the next figure. Remember that this is equivalent to describing a rotation between two rigid bodies.
 
-    An important characteristic of angles in the three-dimensional space is that angles cannot be treated as vectors: the result of a sequence of rotations of a rigid body around different axes depends on the order of the rotations, as illustrated in the next figure.<br>
-    <br>
-    <figure>
-    <img src='./../images/rotationsseqs2.png' alt='rotations'/><figcaption><i>Figure. The result of a sequence of rotations around different axes of a coordinate system depends on the order of the rotations. In the first example (first row), the rotations are around a Global (fixed) coordinate system. In the second example (second row), the rotations are around a local (rotating) coordinate system.</i></figcaption>
-    </figure>
+    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/rotation3D.png?raw=1" width=450 alt="rotation 3D"/></center><figcaption><center><i>Figure. A point in three-dimensional space represented in two coordinate systems, with one coordinate system rotated.</i></center></figcaption></figure>
+
+    An important characteristic of rotations in three-dimensional space is that angles cannot be treated as vectors: the result of a sequence of rotations of a rigid body about different axes depends on the order of the rotations, as the next figure shows for the book of Challenge 0.
+
+    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/rotationsseqs2.png?raw=1" width=700 alt="sequences of rotations of a book"/></center><figcaption><center><i>Figure. The result of a sequence of rotations about different axes of a coordinate system depends on the order of the rotations. In the first example (first row), the rotations are about a Global (fixed) coordinate system. In the second example (second row), the rotations are about a local (rotating) coordinate system.</i></center></figcaption></figure>
+
+    Compare the figure with your sketches from Challenge 0. Notice also something that the figure shows without saying: the two orders *about the fixed axes* give results that reappear, in the opposite order, *about the rotating axes*. We will come back to that.
     """)
     return
 
@@ -147,23 +223,23 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ###  Determination of the rotation matrix using direction cosines
+    ### Determination of the rotation matrix using direction cosines
 
-    In analogy to the rotation in two dimensions, we can calculate the rotation matrix that describes the rotation of the$xyz$(local) coordinate system in relation to the$\mathbf{XYZ}$(Global) coordinate system using the direction cosines between the axes of the two coordinate systems:<br>
-    <br>
-    <span class="notranslate">$\mathbf{R_{Gl}} = \begin{bmatrix}
+    As for rotations in two dimensions, we can calculate the rotation matrix that describes the rotation of the $xyz$ (local) coordinate system in relation to the $\mathbf{XYZ}$ (Global) coordinate system from the direction cosines between the axes of the two coordinate systems:
+
+    $$
+    \mathbf{R_{Gl}} = \begin{bmatrix}
     \cos\mathbf{X}x & \cos\mathbf{X}y & \cos\mathbf{X}z \\
     \cos\mathbf{Y}x & \cos\mathbf{Y}y & \cos\mathbf{Y}z \\
     \cos\mathbf{Z}x & \cos\mathbf{Z}y & \cos\mathbf{Z}z
-    \end{bmatrix}$</span>
+    \end{bmatrix}
+    $$
 
-    Note however that for rotations around more than one axis, these angles will not lie in the main planes ($\mathbf{XY, YZ, ZX}$) of the$\mathbf{XYZ}$coordinate system, as illustrated in the figure below for the direction angles of the$y$axis only. Thus, the determination of these angles by simple inspection, as we have done for the two-dimensional case, would not be simple.<br>
-    <br>
-    <figure>
-    <img src='./../images/directioncosine3D.png' width=260 alt='direction angles 3D'/> <figcaption><center><i>Figure. Definition of direction angles for the$y$axis of the local coordinate system in relation to the$\mathbf{XYZ}$Global coordinate system.</i></center></figcaption>
-    </figure>
+    Note, however, that for rotations about more than one axis these angles do not lie in the main planes ($\mathbf{XY, YZ, ZX}$) of the $\mathbf{XYZ}$ coordinate system, as illustrated in the figure below for the direction angles of the $y$ axis alone. Determining these angles by simple inspection, as we did in two dimensions, is no longer simple.
 
-    Note that the nine angles shown in the matrix above for the direction cosines are obviously redundant since only three angles are necessary to describe the orientation of a rigid body in the three-dimensional space.
+    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/directioncosine3D.png?raw=1" width=260 alt="direction angles 3D"/></center><figcaption><center><i>Figure. Definition of the direction angles of the $y$ axis of the local coordinate system in relation to the $\mathbf{XYZ}$ Global coordinate system.</i></center></figcaption></figure>
+
+    The nine angles in the matrix are also obviously redundant, since only three angles are needed to describe the orientation of a rigid body in three-dimensional space.
     """)
     return
 
@@ -173,48 +249,64 @@ def _(mo):
     mo.md(r"""
     ### Determination of the rotation matrix using the basis method
 
-    Analogue to what we have described in the notebook [Rigid-body transformations in a plane (2D)](https://nbviewer.org/github/BMClab/bmc/blob/master/notebooks/Transformation2D.ipynb), the columns (or rows) of the 3D rotation matrix$\mathbf{R_{Gl}}$(or$\mathbf{R_{lG}}$) between two coordinate systems are the versors of the basis of the rotated coordinate system.
+    As described in [Rigid-body transformations in a plane (2D)](https://github.com/BMClab/BMC/blob/master/notebooks/Transformation2D.ipynb), the columns (or rows) of the 3D rotation matrix $\mathbf{R_{Gl}}$ (or $\mathbf{R_{lG}}$) between two coordinate systems are the versors of the basis of the rotated coordinate system.
 
-    For example, consider that we have measured the position of at least three non-collinear markers placed on the rigid body, let's calculate a basis with these positions and then the rotation matrix.
+    Suppose we have measured the positions of at least three noncollinear markers placed on the rigid body. Let's calculate a basis from these positions, and then the rotation matrix. Given three markers $\mathbf{m_1}$, $\mathbf{m_2}$, $\mathbf{m_3}$, a basis of three orthogonal versors can be found as follows (see [Determination of a coordinate system](https://github.com/BMClab/BMC/blob/master/notebooks/CoordinateSystem.ipynb) for this recipe in detail):
 
-    If we have the position of three markers: **m1**, **m2**, **m3**, a basis (formed by three orthogonal versors) can be found as:
+    - First axis, $\mathbf{v_1}$: the vector $\mathbf{m_2}-\mathbf{m_1}$.
+    - Second axis, $\mathbf{v_2}$: the cross product between the vectors $\mathbf{v_1}$ and $\mathbf{m_3}-\mathbf{m_1}$.
+    - Third axis, $\mathbf{v_3}$: the cross product between the vectors $\mathbf{v_1}$ and $\mathbf{v_2}$.
 
-     - First axis, **v1**, the vector **m2-m1**;
-     - Second axis, **v2**, the cross product between the vectors **v1** and **m3-m1**;
-     - Third axis, **v3**, the cross product between the vectors **v1** and **v2**.
+    Each of these vectors is then normalized, resulting in three orthogonal versors.
 
-    Then, each of these vectors are normalized resulting in three orthogonal versors.
-
-    For example, given the positions m1 = [1,0,0], m2 = [0,1,0], m3 = [0,0,1], a basis can be found:
+    For example, given the positions $\mathbf{m_1} = [1,0,0]$, $\mathbf{m_2} = [0,1,0]$, $\mathbf{m_3} = [0,0,1]$, a basis can be found:
     """)
     return
 
 
 @app.cell
 def _(np):
-    _m1 = np.array([1, 0, 0])
-    _m2 = np.array([0, 1, 0])
-    _m3 = np.array([0, 0, 1])
-    v1 = _m2 - _m1
-    v2 = np.cross(v1, _m3 - _m1)
+    m1 = np.array([1, 0, 0])
+    m2 = np.array([0, 1, 0])
+    m3 = np.array([0, 0, 1])
+
+    v1 = m2 - m1
+    v2 = np.cross(v1, m3 - m1)
     v3 = np.cross(v1, v2)
-    print('Versors:')
+
     v1 = v1 / np.linalg.norm(v1)
-    print('v1 =', v1)
     v2 = v2 / np.linalg.norm(v2)
-    print('v2 =', v2)
     v3 = v3 / np.linalg.norm(v3)
-    print('v3 =', v3)
-    print('\nNorm of each versor:\n', np.linalg.norm(np.cross(v1, v2)), np.linalg.norm(np.cross(v1, v3)), np.linalg.norm(np.cross(v2, v3)))
+    print("Versors:", "\nv1 =", v1, "\nv2 =", v2, "\nv3 =", v3)
+
+    _RGl = np.array([v1, v2, v3]).T  # or np.vstack((v1, v2, v3)).T
+    print("\nRotation matrix RGl:\n", _RGl)
+    return v1, v2, v3
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    A rotation matrix is not just any matrix. Its columns are orthogonal versors, so it is **orthonormal**: $\mathbf{R}^T\mathbf{R} = \mathbf{I}$, which means that its inverse is its transpose. And because the basis is right-handed, its determinant is $+1$. Let's check both, together with the norms and the dot products of the versors:
+    """)
+    return
+
+
+@app.cell
+def _(np, v1, v2, v3):
     _RGl = np.array([v1, v2, v3]).T
-    print('\nRotation matrix RGl:\n', _RGl)
+
+    print("Norm of each versor:", np.linalg.norm(v1), np.linalg.norm(v2), np.linalg.norm(v3))
+    print(f"Dot products: v1.v2 = {np.dot(v1, v2):.1e}, v1.v3 = {np.dot(v1, v3):.1e}, v2.v3 = {np.dot(v2, v3):.1e}")
+    print("\nRGl^T RGl =\n", (_RGl.T @ _RGl).round(10) + 0.0)
+    print(f"\ndet(RGl) = {np.linalg.det(_RGl):g}")
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    However, we have the same problem as with the rotation matrix deduced from the direction cosines; there is no simple way to determine/interpret the angles of rotation from this matrix!
+    However, we have the same problem as with the rotation matrix deduced from the direction cosines: there is no simple way to read angles of rotation off this matrix.
     """)
     return
 
@@ -224,12 +316,11 @@ def _(mo):
     mo.md(r"""
     ### Euler angles
 
-    There are different ways to describe a three-dimensional rotation of a rigid body (or of a coordinate system). The most straightforward solution would probably be to use a spherical coordinate system, but spherical coordinates would be difficult to give an anatomical or clinical interpretation. A solution that has been often employed in biomechanics to handle rotations in the three-dimensional space is to use Euler angles. Under certain conditions, Euler angles can have an anatomical interpretation, but this representation also has some caveats. Let's see the Euler angles now.
+    There are different ways to describe a three-dimensional rotation of a rigid body (or of a coordinate system). The most straightforward would probably be spherical coordinates, but it would be difficult to give them an anatomical or clinical interpretation. The solution most often employed in biomechanics is Euler angles. Under certain conditions Euler angles have an anatomical interpretation, but the representation also has caveats, as we will see.
 
-    [Leonhard Euler](https://en.wikipedia.org/wiki/Leonhard_Euler) in the XVIII century showed that two three-dimensional coordinate systems with a common origin can be related by a sequence of up to three elemental rotations about the axes of the local coordinate system, where no two successive rotations may be about the same axis, which now are known as [Euler (or Eulerian) angles](http://en.wikipedia.org/wiki/Euler_angles).
+    In the 18th century, [Leonhard Euler](https://en.wikipedia.org/wiki/Leonhard_Euler) showed that two three-dimensional coordinate systems with a common origin can be related by a sequence of up to three elemental rotations about the axes of the local coordinate system, where no two successive rotations may be about the same axis. The angles of these rotations are now known as [Euler (or Eulerian) angles](https://en.wikipedia.org/wiki/Euler_angles).
 
-    <br>
-    <figure><img src='https://upload.wikimedia.org/wikipedia/commons/8/85/Euler2a.gif' width=300 alt='translation and rotation 3D'/> <figcaption><center><i>Figure. Euler angles: a way to reach any orientation using a specific sequence of elemental rotations (<a href="https://en.wikipedia.org/wiki/Euler_angles">image from Wikipedia</a>).</i></center></figcaption> </figure>
+    <figure><center><img src="https://upload.wikimedia.org/wikipedia/commons/8/85/Euler2a.gif" width=300 alt="Euler angles"/></center><figcaption><center><i>Figure. Euler angles: a way to reach any orientation using a specific sequence of elemental rotations (<a href="https://en.wikipedia.org/wiki/Euler_angles">image from Wikipedia</a>).</i></center></figcaption></figure>
     """)
     return
 
@@ -239,11 +330,9 @@ def _(mo):
     mo.md(r"""
     ### Elemental rotations
 
-    First, let's see rotations around a fixed Global coordinate system as we did for the two-dimensional case. The next figure illustrates elemental rotations of the local coordinate system around each axis of the fixed Global coordinate system.<br>
-    <br>
-    <figure>
-    <img src='./../images/rotations.png' alt='rotations'/> <figcaption><center><i>Figure. Elemental rotations of the$xyz$coordinate system around each axis,$\mathbf{X}$,$\mathbf{Y}$, and$\mathbf{Z}$, of the fixed$\mathbf{XYZ}$coordinate system. Note that for better clarity, the axis around where the rotation occurs is shown perpendicular to this page for each elemental rotation.</i></center></figcaption>
-    </figure>
+    First, let's look at rotations about a fixed Global coordinate system, as we did in two dimensions. The next figure illustrates elemental rotations of the local coordinate system about each axis of the fixed Global coordinate system.
+
+    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/rotations.png?raw=1" width=700 alt="elemental rotations"/></center><figcaption><center><i>Figure. Elemental rotations of the $xyz$ coordinate system about each axis, $\mathbf{X}$, $\mathbf{Y}$ and $\mathbf{Z}$, of the fixed $\mathbf{XYZ}$ coordinate system. For clarity, the axis of each rotation is drawn perpendicular to the page.</i></center></figcaption></figure>
     """)
     return
 
@@ -251,39 +340,98 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ### Rotations around the fixed coordinate system
+    ### Rotations about the fixed coordinate system
 
-    The rotation matrices for the elemental rotations around each axis of the fixed$\mathbf{XYZ}$coordinate system (rotations of the local coordinate system in relation to the Global coordinate system) are shown next.
+    The rotation matrices for the elemental rotations about each axis of the fixed $\mathbf{XYZ}$ coordinate system (rotations of the local coordinate system in relation to the Global coordinate system) are:
 
-    Around$\mathbf{X}$axis:
+    About the $\mathbf{X}$ axis:
 
-    <span class="notranslate">$\mathbf{R_{Gl,\,X}} =
+    $$
+    \mathbf{R_{Gl,\,X}} =
     \begin{bmatrix}
     1 & 0 & 0 \\
     0 & \cos\alpha & -\sin\alpha \\
     0 & \sin\alpha & \cos\alpha
-    \end{bmatrix}$</span>
+    \end{bmatrix}
+    $$
 
-    Around$\mathbf{Y}$axis:
+    About the $\mathbf{Y}$ axis:
 
-    <span class="notranslate">$\mathbf{R_{Gl,\,Y}} =
+    $$
+    \mathbf{R_{Gl,\,Y}} =
     \begin{bmatrix}
     \cos\beta & 0 & \sin\beta \\
     0 & 1 & 0 \\
     -\sin\beta & 0 & \cos\beta
-    \end{bmatrix}$</span>
+    \end{bmatrix}
+    $$
 
-    Around$\mathbf{Z}$axis:
+    About the $\mathbf{Z}$ axis:
 
-    <span class="notranslate">$\mathbf{R_{Gl,\,Z}} =
+    $$
+    \mathbf{R_{Gl,\,Z}} =
     \begin{bmatrix}
     \cos\gamma & -\sin\gamma & 0\\
     \sin\gamma & \cos\gamma & 0 \\
     0 & 0 & 1
-    \end{bmatrix}$</span>
+    \end{bmatrix}
+    $$
 
-    These matrices are the rotation matrices for the case of two-dimensional coordinate systems plus the corresponding terms for the third axes of the local and Global coordinate systems, which are parallel.<br>
-    To understand why the terms for the third axes are 1's or 0's, for instance, remember they represent the cosine directors. The cosines between$\mathbf{X}x$,$\mathbf{Y}y$, and$\mathbf{Z}z$for the elemental rotations around respectively the$\mathbf{X}$,$\mathbf{Y}$, and$\mathbf{Z}$axes are all 1 because$\mathbf{X}x$,$\mathbf{Y}y$, and$\mathbf{Z}z$are parallel <span class="notranslate">($\cos 0^o$)</span>. The cosines of the other elements are zero because the axis around where each rotation occurs is perpendicular to the other axes of the coordinate systems <span class="notranslate">($\cos 90^o$)</span>.
+    These are the rotation matrices of the two-dimensional case plus the terms for the third axes of the local and Global coordinate systems, which stay parallel. To see why those terms are ones and zeros, remember that they are direction cosines. The cosines between $\mathbf{X}x$, $\mathbf{Y}y$ and $\mathbf{Z}z$, for the elemental rotations about the $\mathbf{X}$, $\mathbf{Y}$ and $\mathbf{Z}$ axes respectively, are all 1, because those axes are parallel ($\cos 0^o$). The other cosines in the same row and column are zero, because the axis of each rotation is perpendicular to the other axes of the coordinate systems ($\cos 90^o$).
+
+    Let's write the three matrices as Python functions of an angle in degrees; we will use them throughout the notebook:
+    """)
+    return
+
+
+@app.function
+def rotX(angle):
+    """Elemental rotation matrix about the fixed X axis (angle in degrees)."""
+    import numpy as np
+
+    t = np.radians(angle)
+    return np.array([[1, 0, 0], [0, np.cos(t), -np.sin(t)], [0, np.sin(t), np.cos(t)]])
+
+
+@app.function
+def rotY(angle):
+    """Elemental rotation matrix about the fixed Y axis (angle in degrees)."""
+    import numpy as np
+
+    t = np.radians(angle)
+    return np.array([[np.cos(t), 0, np.sin(t)], [0, 1, 0], [-np.sin(t), 0, np.cos(t)]])
+
+
+@app.function
+def rotZ(angle):
+    """Elemental rotation matrix about the fixed Z axis (angle in degrees)."""
+    import numpy as np
+
+    t = np.radians(angle)
+    return np.array([[np.cos(t), -np.sin(t), 0], [np.sin(t), np.cos(t), 0], [0, 0, 1]])
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    **Before you run the next cell**, predict: where does the vector $[1, 0, 0]$ end up after a rotation of 90° about $\mathbf{Z}$ followed by a rotation of 90° about $\mathbf{X}$? And in the opposite order? (Each new rotation about a fixed axis multiplies the previous result from the left.)
+    """)
+    return
+
+
+@app.cell
+def _(np):
+    _v = np.array([1, 0, 0])
+
+    print("First Z, then X:", (rotX(90) @ rotZ(90) @ _v).round(4) + 0.0)
+    print("First X, then Z:", (rotZ(90) @ rotX(90) @ _v).round(4) + 0.0)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    The first rotation, about $\mathbf{Z}$, takes $[1,0,0]$ to $[0,1,0]$, and the rotation about $\mathbf{X}$ then lifts it to $[0,0,1]$. In the opposite order, the rotation about $\mathbf{X}$ leaves $[1,0,0]$ where it is, because the vector lies on the axis of rotation, and the rotation about $\mathbf{Z}$ then takes it to $[0,1,0]$. Two quarter turns, two different results: matrix multiplication is not commutative, and neither are rotations.
     """)
     return
 
@@ -291,38 +439,44 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ### Rotations around the local coordinate system
+    ### Rotations about the local coordinate system
 
-    The rotation matrices for the elemental rotations this time around each axis of the$xyz$coordinate system (rotations of the Global coordinate system in relation to the local coordinate system), similarly to the two-dimensional case, are simply the transpose of the above matrices as shown next.
+    The rotation matrices for the elemental rotations about each axis of the $xyz$ coordinate system (rotations of the Global coordinate system in relation to the local coordinate system) are, as in the two-dimensional case, simply the transposes of the matrices above.
 
-    Around$x$axis:
+    About the $x$ axis:
 
-    <span class="notranslate">$\mathbf{R}_{\mathbf{lG},\,x} =
+    $$
+    \mathbf{R}_{\mathbf{lG},\,x} =
     \begin{bmatrix}
     1 & 0 & 0 \\
     0 & \cos\alpha & \sin\alpha \\
     0 & -\sin\alpha & \cos\alpha
-    \end{bmatrix}$</span>
+    \end{bmatrix}
+    $$
 
-    Around$y$axis:
+    About the $y$ axis:
 
-    <span class="notranslate">$\mathbf{R}_{\mathbf{lG},\,y} =
+    $$
+    \mathbf{R}_{\mathbf{lG},\,y} =
     \begin{bmatrix}
     \cos\beta & 0 & -\sin\beta \\
     0 & 1 & 0 \\
     \sin\beta & 0 & \cos\beta
-    \end{bmatrix}$</span>
+    \end{bmatrix}
+    $$
 
-    Around$z$axis:
+    About the $z$ axis:
 
-    <span class="notranslate">$\mathbf{R}_{\mathbf{lG},\,z} =
+    $$
+    \mathbf{R}_{\mathbf{lG},\,z} =
     \begin{bmatrix}
     \cos\gamma & \sin\gamma & 0\\
     -\sin\gamma & \cos\gamma & 0 \\
     0 & 0 & 1
-    \end{bmatrix}$</span>
+    \end{bmatrix}
+    $$
 
-    Notice this is equivalent to instead of rotating the local coordinate system by$\alpha, \beta, \gamma$in relation to axes of the Global coordinate system, to rotate the Global coordinate system by$-\alpha, -\beta, -\gamma$in relation to the axes of the local coordinate system; remember that <span class="notranslate">$\cos(-\:\cdot)=\cos(\cdot)$</span> and <span class="notranslate">$\sin(-\:\cdot)=-\sin(\cdot)$</span>.
+    This is equivalent to rotating the Global coordinate system by $-\alpha, -\beta, -\gamma$ in relation to the axes of the local coordinate system, instead of rotating the local coordinate system by $\alpha, \beta, \gamma$ in relation to the axes of the Global coordinate system; remember that $\cos(-\:\cdot)=\cos(\cdot)$ and $\sin(-\:\cdot)=-\sin(\cdot)$.
     """)
     return
 
@@ -332,13 +486,14 @@ def _(mo):
     mo.md(r"""
     ### Sequence of elemental rotations
 
-    Consider now a sequence of elemental rotations around the$\mathbf{X}$,$\mathbf{Y}$, and$\mathbf{Z}$axes of the fixed$\mathbf{XYZ}$coordinate system illustrated in the next figure.<br>
-    <br>
-    <figure><img src='./../images/rotations_XYZ.png' alt='rotations'/> <figcaption><center><i>Figure. Sequence of elemental rotations of the$xyz$coordinate system around each axis,$\mathbf{X}$,$\mathbf{Y}$,$\mathbf{Z}$, of the fixed$\mathbf{XYZ}$coordinate system.</i></center></figcaption> </figure>
+    Consider now a sequence of elemental rotations about the $\mathbf{X}$, $\mathbf{Y}$ and $\mathbf{Z}$ axes of the fixed $\mathbf{XYZ}$ coordinate system, illustrated in the next figure.
 
-    This sequence of elemental rotations (each one of the local coordinate system with respect to the fixed Global coordinate system) is mathematically represented by a multiplication between the rotation matrices:<br>
-    <br>
-    <span class="notranslate">$\begin{array}{ll}
+    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/rotations_XYZ.png?raw=1" width=700 alt="sequence of rotations about the fixed axes"/></center><figcaption><center><i>Figure. Sequence of elemental rotations of the $xyz$ coordinate system about each axis, $\mathbf{X}$, $\mathbf{Y}$, $\mathbf{Z}$, of the fixed $\mathbf{XYZ}$ coordinate system.</i></center></figcaption></figure>
+
+    This sequence of elemental rotations, each one of the local coordinate system with respect to the fixed Global coordinate system, is represented mathematically by a product of rotation matrices:
+
+    $$
+    \begin{array}{ll}
     \mathbf{R_{Gl,\;XYZ}} & = \mathbf{R_{Z}} \mathbf{R_{Y}} \mathbf{R_{X}} \\
     \\
     & = \begin{bmatrix}
@@ -361,111 +516,106 @@ def _(mo):
     \begin{bmatrix}
     \cos\beta\:\cos\gamma \;&\;
     \sin\alpha\:\sin\beta\:\cos\gamma-\cos\alpha\:\sin\gamma \;&\;
-    \cos\alpha\:\sin\beta\:cos\gamma+\sin\alpha\:\sin\gamma \;\;\; \\
+    \cos\alpha\:\sin\beta\:\cos\gamma+\sin\alpha\:\sin\gamma \;\;\; \\
     \cos\beta\:\sin\gamma \;&\;
     \sin\alpha\:\sin\beta\:\sin\gamma+\cos\alpha\:\cos\gamma \;&\;
     \cos\alpha\:\sin\beta\:\sin\gamma-\sin\alpha\:\cos\gamma \;\;\;  \\
     -\sin\beta \;&\; \sin\alpha\:\cos\beta \;&\; \cos\alpha\:\cos\beta \;\;\;
     \end{bmatrix}
-    \end{array}$</span>
+    \end{array}
+    $$
 
-    Note the order of the matrices.
+    Note the order of the matrices: the first rotation is the rightmost one.
 
-    We can check this matrix multiplication using [Sympy](http://sympy.org/en/index.html):
+    We can check this matrix multiplication with [SymPy](https://www.sympy.org):
     """)
     return
 
 
 @app.cell
-def _():
-    #import the necessary libraries
-    from IPython.core.display import Math, display
-    import sympy as sym
+def _(sym):
     cos, sin = sym.cos, sym.sin
-
-    a, b, g = sym.symbols('alpha, beta, gamma')
+    a, b, g = sym.symbols("alpha, beta, gamma")
 
     # Elemental rotation matrices of xyz in relation to XYZ:
-    RX = sym.Matrix([[1,      0,       0],
-                     [0, cos(a), -sin(a)],
-                     [0, sin(a), cos(a)]])
-
-    RY = sym.Matrix([[cos(b), 0,  sin(b)],
-                     [0,       1,       0],
-                     [-sin(b), 0,  cos(b)]])
-
-    RZ = sym.Matrix([[cos(g), -sin(g), 0],
-                     [sin(g),  cos(g), 0],
-                     [     0,       0, 1]])
+    RX = sym.Matrix([[1, 0, 0], [0, cos(a), -sin(a)], [0, sin(a), cos(a)]])
+    RY = sym.Matrix([[cos(b), 0, sin(b)], [0, 1, 0], [-sin(b), 0, cos(b)]])
+    RZ = sym.Matrix([[cos(g), -sin(g), 0], [sin(g), cos(g), 0], [0, 0, 1]])
 
     # Rotation matrix of xyz in relation to XYZ:
     RXYZ = RZ @ RY @ RX
 
-    display(Math(r'\mathbf{R_{Gl,\,XYZ}}=' + sym.latex(RXYZ,
-                                                                  mat_str='matrix')))
-    return Math, RX, RXYZ, RY, RZ, a, b, cos, display, g, sin, sym
+    show_matrix(r"\mathbf{R_{Gl,\,XYZ}}", RXYZ)
+    return RX, RXYZ, RY, RZ, a, b, cos, g, sin
 
 
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    For instance, we can calculate the numerical rotation matrix for these sequential elemental rotations by$90^o$around$\mathbf{X,Y,Z}$:
+    For instance, here is the numerical rotation matrix for sequential elemental rotations by $90^o$ about $\mathbf{X}$, $\mathbf{Y}$ and $\mathbf{Z}$:
     """)
     return
 
 
 @app.cell
-def _(Math, RXYZ, a, b, display, g, np, sym):
-    _R = sym.lambdify((a, b, g), RXYZ, 'numpy')
-    _R = _R(np.pi / 2, np.pi / 2, np.pi / 2)
-    display(Math('\\mathbf{R_{Gl,\\,XYZ\\,}}(90^o, 90^o, 90^o) =' + sym.latex(sym.Matrix(_R).n(3, chop=True))))
+def _(RXYZ, a, b, g, np, sym):
+    _R = sym.lambdify((a, b, g), RXYZ, "numpy")(np.pi / 2, np.pi / 2, np.pi / 2)
+
+    show_matrix(r"\mathbf{R_{Gl,\,XYZ\,}}(90^o, 90^o, 90^o)", _R, digits=3)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    Below you can test any sequence of rotation around the global coordinates. Just change the matrix R, and the angles of the variables$\alpha$,$\beta$and$\gamma$. In the example below is the rotation around the global basis, in the sequence x,y,z, with the angles$\alpha=\pi/3$rad,$\beta=\pi/4$rad and$\gamma=\pi/6$rad.
+    Let's draw the rotated coordinate system with `CCS`. The first cell loads it, together with `read_trc`, which we will need at the end. In the figure, the black arrows are the Global axes $\mathbf{X}$, $\mathbf{Y}$, $\mathbf{Z}$, and the red, green and blue arrows, which `CCS` labels i, j and k, are the local axes $x$, $y$, $z$. Since the columns of $\mathbf{R_{Gl}}$ are the local versors written in the Global coordinate system, those are the vectors we draw. Use the sliders to try other angles.
     """)
     return
 
 
 @app.cell
-def _(RX, RY, RZ, a, b, g, np, sym):
+def _(mo):
     import sys
-    sys.path.insert(1, './../functions')
-    import matplotlib.pyplot as plt
+
+    sys.path.insert(0, str(mo.notebook_dir() / ".." / "functions"))  # add to pythonpath
     from CCS import CCS
-    _R = RZ * RY * RX
-    _R = sym.lambdify((a, b, g), _R, 'numpy')
-    _alpha = np.pi / 2
-    _beta = np.pi / 2
-    _gamma = np.pi / 2
-    _R = _R(_alpha, _beta, _gamma)
-    _e1 = np.array([[1, 0, 0]])
-    _e2 = np.array([[0, 1, 0]])
-    _e3 = np.array([[0, 0, 1]])
-    _basis = np.vstack((_e1, _e2, _e3))
-    _basisRot = _R @ _basis
-    CCS(Oijk=np.array([0, 0, 0]), Oxyz=np.array([0, 0, 0]), ijk=_basis.T, xyz=_basisRot.T, vector=False)
-    plt.show()
-    return CCS, plt, sys
+    from read_trc import read_trc
+
+    return CCS, read_trc
+
+
+@app.cell
+def _(mo):
+    alpha_XYZ = mo.ui.slider(start=-180, stop=180, step=5, value=90, label="α about X [degrees]", show_value=True)
+    beta_XYZ = mo.ui.slider(start=-180, stop=180, step=5, value=90, label="β about Y [degrees]", show_value=True)
+    gamma_XYZ = mo.ui.slider(start=-180, stop=180, step=5, value=90, label="γ about Z [degrees]", show_value=True)
+    mo.hstack([alpha_XYZ, beta_XYZ, gamma_XYZ], justify="start")
+    return alpha_XYZ, beta_XYZ, gamma_XYZ
+
+
+@app.cell
+def _(CCS, RXYZ, a, alpha_XYZ, b, beta_XYZ, g, gamma_XYZ, np, sym):
+    _angles = np.radians([alpha_XYZ.value, beta_XYZ.value, gamma_XYZ.value])
+    _R = sym.lambdify((a, b, g), RXYZ, "numpy")(*_angles)
+
+    # the columns of RGl are the local versors in the Global coordinate system
+    _ccs = CCS(Oijk=np.zeros(3), Oxyz=np.zeros(3), ijk=_R.T, xyz=np.eye(3), vector=False)
+    return
 
 
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    Examining the matrix above and the correspondent previous figure, one can see they agree: the rotated$x$axis (first column of the above matrix) has value -1 in the$\mathbf{Z}$direction$[0,0,-1]$, the rotated$y$axis (second column) is at the$\mathbf{Y}$direction$[0,1,0]$, and the rotated$z$axis (third column) is at the$\mathbf{X}$direction$[1,0,0]$.
+    With the sliders at their initial 90°, the matrix and the figures agree: the rotated $x$ axis (first column of the matrix) is $[0,0,-1]$, pointing along $-\mathbf{Z}$; the rotated $y$ axis (second column) is along $\mathbf{Y}$, $[0,1,0]$; and the rotated $z$ axis (third column) is along $\mathbf{X}$, $[1,0,0]$.
 
-    We also can calculate the sequence of elemental rotations around the$x$,$y$,$z$axes of the rotating$xyz$coordinate system illustrated in the next figure.<br>
-    <br>
-    <figure>
-    <img src='./../images/rotations_xyz2.png' alt='rotations'/> <figcaption><center><i>Figure. Sequence of elemental rotations of a second$xyz$local coordinate system around each axis,$x$,$y$,$z$, of the rotating$xyz$coordinate system.</i></center></figcaption>
-    </figure>
+    We can also calculate a sequence of elemental rotations about the $x$, $y$, $z$ axes of the rotating $xyz$ coordinate system, illustrated in the next figure.
 
-    Likewise, this sequence of elemental rotations (each one of the local coordinate system with respect to the rotating local coordinate system) is mathematically represented by a multiplication between the rotation matrices (which are the inverse of the matrices for the rotations around$\mathbf{X,Y,Z}$as we saw earlier):<br>
-    <br>
-    <span class="notranslate">$\begin{array}{ll}
+    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/rotations_xyz2.png?raw=1" width=700 alt="sequence of rotations about the local axes"/></center><figcaption><center><i>Figure. Sequence of elemental rotations of a second $xyz$ local coordinate system about each axis, $x$, $y$, $z$, of the rotating $xyz$ coordinate system.</i></center></figcaption></figure>
+
+    Likewise, this sequence of elemental rotations, each one of the local coordinate system with respect to the rotating local coordinate system, is represented by a product of rotation matrices, which are the inverses of the matrices for the rotations about $\mathbf{X,Y,Z}$, as we saw earlier:
+
+    $$
+    \begin{array}{ll}
     \mathbf{R}_{\mathbf{lG},\,xyz} & = \mathbf{R_{z}} \mathbf{R_{y}} \mathbf{R_{x}} \\
     \\
     & = \begin{bmatrix}
@@ -488,241 +638,250 @@ def _(mo):
     \begin{bmatrix}
     \cos\beta\:\cos\gamma \;&\;
     \sin\alpha\:\sin\beta\:\cos\gamma+\cos\alpha\:\sin\gamma \;&\;
-    \cos\alpha\:\sin\beta\:\cos\gamma-\sin\alpha\:\sin\gamma \;\;\; \\
+    -\cos\alpha\:\sin\beta\:\cos\gamma+\sin\alpha\:\sin\gamma \;\;\; \\
     -\cos\beta\:\sin\gamma \;&\;
     -\sin\alpha\:\sin\beta\:\sin\gamma+\cos\alpha\:\cos\gamma \;&\;
     \cos\alpha\:\sin\beta\:\sin\gamma+\sin\alpha\:\cos\gamma \;\;\;  \\
     \sin\beta \;&\; -\sin\alpha\:\cos\beta \;&\; \cos\alpha\:\cos\beta \;\;\;
     \end{bmatrix}
-    \end{array}$</span>
+    \end{array}
+    $$
 
     As before, the order of the matrices is from right to left.
 
-    Once again, we can check this matrix multiplication using [Sympy](http://sympy.org/en/index.html):
+    Once again, we can check this matrix multiplication with SymPy:
     """)
     return
 
 
 @app.cell
-def _(Math, cos, sin, sym):
-    (a_1, b_1, g_1) = sym.symbols('alpha, beta, gamma')
-    Rx = sym.Matrix([[1, 0, 0], [0, cos(a_1), sin(a_1)], [0, -sin(a_1), cos(a_1)]])
-    Ry = sym.Matrix([[cos(b_1), 0, -sin(b_1)], [0, 1, 0], [sin(b_1), 0, cos(b_1)]])
-    Rz = sym.Matrix([[cos(g_1), sin(g_1), 0], [-sin(g_1), cos(g_1), 0], [0, 0, 1]])
+def _(a, b, cos, g, sin, sym):
+    # Elemental rotation matrices of xyz (local):
+    Rx = sym.Matrix([[1, 0, 0], [0, cos(a), sin(a)], [0, -sin(a), cos(a)]])
+    Ry = sym.Matrix([[cos(b), 0, -sin(b)], [0, 1, 0], [sin(b), 0, cos(b)]])
+    Rz = sym.Matrix([[cos(g), sin(g), 0], [-sin(g), cos(g), 0], [0, 0, 1]])
+
+    # Rotation matrix of xyz' in relation to xyz:
     Rxyz = Rz @ Ry @ Rx
-    Math('\\mathbf{R}_{\\mathbf{lG},\\,xyz}=' + sym.latex(Rxyz, mat_str='matrix'))
-    return Rx, Rxyz, Ry, Rz, a_1, b_1, g_1
+
+    show_matrix(r"\mathbf{R}_{\mathbf{lG},\,xyz}", Rxyz)
+    return Rx, Rxyz, Ry, Rz
 
 
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    For instance, let's calculate the numerical rotation matrix for these sequential elemental rotations by$90^o$around$x,y,z$:
+    For instance, the numerical rotation matrix for sequential elemental rotations by $90^o$ about $x$, $y$, $z$:
     """)
     return
 
 
 @app.cell
-def _(Math, Rxyz, a_1, b_1, display, g_1, np, sym):
-    _R = sym.lambdify((a_1, b_1, g_1), Rxyz, 'numpy')
-    _R = _R(np.pi / 2, np.pi / 2, np.pi / 2)
-    display(Math('\\mathbf{R}_{\\mathbf{lG},\\,xyz\\,}(90^o, 90^o, 90^o) =' + sym.latex(sym.Matrix(_R).n(3, chop=True))))
+def _(Rxyz, a, b, g, np, sym):
+    _R = sym.lambdify((a, b, g), Rxyz, "numpy")(np.pi / 2, np.pi / 2, np.pi / 2)
+
+    show_matrix(r"\mathbf{R}_{\mathbf{lG},\,xyz\,}(90^o, 90^o, 90^o)", _R, digits=3)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    Once again, let's compare the above matrix and the correspondent previous figure to see if it makes sense. But remember that this matrix is the Global-to-local rotation matrix,$\mathbf{R}_{\mathbf{lG},\,xyz}$, where the coordinates of the local basis' versors are rows, not columns, in this matrix. With this detail in mind, one can see that the previous figure and matrix also agree: the rotated$x$axis (first row of the above matrix) is at the$\mathbf{Z}$direction$[0,0,1]$, the rotated$y$axis (second row) is at the$\mathbf{-Y}$direction$[0,-1,0]$, and the rotated$z$axis (third row) is at the$\mathbf{X}$direction$[1,0,0]$.
+    Let's compare this matrix with the figure. Remember that it is the Global-to-local rotation matrix, $\mathbf{R}_{\mathbf{lG},\,xyz}$, in which the coordinates of the local versors are the *rows*, not the columns. With this in mind, the figure and the matrix agree: the rotated $x$ axis (first row) is along $\mathbf{Z}$, $[0,0,1]$; the rotated $y$ axis (second row) is along $-\mathbf{Y}$, $[0,-1,0]$; and the rotated $z$ axis (third row) is along $\mathbf{X}$, $[1,0,0]$.
 
-    In fact, this example didn't serve to distinguish versors as rows or columns because the$\mathbf{R}_{\mathbf{lG},\,xyz}$matrix above is symmetric!<br>
-    Let's look on the resultant matrix for the example above after only the first two rotations,$\mathbf{R}_{\mathbf{lG},\,xy}$to understand this difference:
+    In fact, this example cannot tell rows from columns, because the matrix above is symmetric. Let's look at the matrix after only the first two rotations, $\mathbf{R}_{\mathbf{lG},\,xy}$:
     """)
     return
 
 
 @app.cell
-def _(Math, Rx, Ry, a_1, b_1, display, np, sym):
+def _(Rx, Ry, a, b, np, sym):
     _Rxy = Ry * Rx
-    _R = sym.lambdify((a_1, b_1), _Rxy, 'numpy')
-    _R = _R(np.pi / 2, np.pi / 2)
-    display(Math('\\mathbf{R}_{\\mathbf{lG},\\,xy\\,}(90^o, 90^o) =' + sym.latex(sym.Matrix(_R).n(3, chop=True))))
+    _R = sym.lambdify((a, b), _Rxy, "numpy")(np.pi / 2, np.pi / 2)
+
+    show_matrix(r"\mathbf{R}_{\mathbf{lG},\,xy\,}(90^o, 90^o)", _R, digits=3)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    Comparing this matrix with the third plot in the figure, we see that the coordinates of versor$x$in the Global coordinate system are$[0,1,0]$, i.e., local axis$x$is aligned with Global axis$Y$, and this versor is indeed the first row, not first column, of the matrix above. Confer the other two rows.
+    In the third plot of the figure, the versor $x$ is along the Global axis $\mathbf{Y}$, so its coordinates in the Global coordinate system are $[0,1,0]$, and that is indeed the first *row* of the matrix. Check the other two rows.
 
-    What are then in the columns of the local-to-Global rotation matrix?<br>
-    The columns are the coordinates of Global basis' versors in the local coordinate system! For example, the first column of the matrix above is the coordinates of$X$, which is aligned with$z$:$[0,0,1]$.
-    """)
-    return
+    What, then, are the columns of this matrix? The coordinates of the Global versors in the local coordinate system. The first column is the coordinates of $\mathbf{X}$, which is aligned with $z$: $[0,0,1]$.
 
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    Below you can test any sequence of rotation, around the local coordinates. Just change the matrix R, and the angles of the variables$\alpha$,$\beta$and$\gamma$. In the example below is the rotation around the local basis, in the sequence x,y,z, with the angles$\alpha=\pi/3$rad,$\beta=\pi/4$rad and$\gamma=\pi/2$rad.
+    Here, too, you can try other angles. This time the local versors are the rows of the matrix, so they are what we pass to `CCS`:
     """)
     return
 
 
 @app.cell
-def _(CCS, Rx, Ry, Rz, a_1, b_1, g_1, np, plt, sym):
-    _R = Rz * Ry * Rx
-    _R = sym.lambdify((a_1, b_1, g_1), _R, 'numpy')
-    _alpha = np.pi / 3
-    _beta = np.pi / 4
-    _gamma = np.pi / 6
-    _R = _R(_alpha, _beta, _gamma)
-    _e1 = np.array([[1, 0, 0]])
-    _e2 = np.array([[0, 1, 0]])
-    _e3 = np.array([[0, 0, 1]])
-    _basis = np.vstack((_e1, _e2, _e3))
-    _basisRot = _R @ _basis
-    CCS(Oijk=np.array([0, 0, 0]), Oxyz=np.array([0, 0, 0]), ijk=_basisRot.T, xyz=_basis.T, vector=False)
-    plt.show()
+def _(mo):
+    alpha_xyz = mo.ui.slider(start=-180, stop=180, step=5, value=60, label="α about x [degrees]", show_value=True)
+    beta_xyz = mo.ui.slider(start=-180, stop=180, step=5, value=45, label="β about y [degrees]", show_value=True)
+    gamma_xyz = mo.ui.slider(start=-180, stop=180, step=5, value=30, label="γ about z [degrees]", show_value=True)
+    mo.hstack([alpha_xyz, beta_xyz, gamma_xyz], justify="start")
+    return alpha_xyz, beta_xyz, gamma_xyz
+
+
+@app.cell
+def _(CCS, Rxyz, a, alpha_xyz, b, beta_xyz, g, gamma_xyz, np, sym):
+    _angles = np.radians([alpha_xyz.value, beta_xyz.value, gamma_xyz.value])
+    _R = sym.lambdify((a, b, g), Rxyz, "numpy")(*_angles)
+
+    # the rows of RlG are the local versors in the Global coordinate system
+    _ccs = CCS(Oijk=np.zeros(3), Oxyz=np.zeros(3), ijk=_R, xyz=np.eye(3), vector=False)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ### Rotations in a coordinate system is equivalent to minus rotations in the other coordinate system
+    ### A rotation in one coordinate system is a negative rotation in the other
 
-    Remember that we saw for the elemental rotations that it's equivalent to instead of rotating the local coordinate system,$xyz$, by$\alpha, \beta, \gamma$in relation to axes of the Global coordinate system, to rotate the Global coordinate system,$\mathbf{XYZ}$, by$-\alpha, -\beta, -\gamma$in relation to the axes of the local coordinate system. The same property applies to a sequence of rotations: rotations of$xyz$in relation to$\mathbf{XYZ}$by$\alpha, \beta, \gamma$result in the same matrix as rotations of$\mathbf{XYZ}$in relation to$xyz$by$-\alpha, -\beta, -\gamma$:<br>
-    <br>
-    <span class="notranslate">$\begin{array}{ll}
+    We saw for the elemental rotations that rotating the local coordinate system, $xyz$, by $\alpha, \beta, \gamma$ in relation to the axes of the Global coordinate system is equivalent to rotating the Global coordinate system, $\mathbf{XYZ}$, by $-\alpha, -\beta, -\gamma$ in relation to the axes of the local coordinate system. The same property applies to a sequence of rotations: rotations of $xyz$ in relation to $\mathbf{XYZ}$ by $\alpha, \beta, \gamma$ result in the same matrix as rotations of $\mathbf{XYZ}$ in relation to $xyz$ by $-\alpha, -\beta, -\gamma$:
+
+    $$
+    \begin{array}{ll}
     \mathbf{R_{Gl,\,XYZ\,}}(\alpha,\beta,\gamma) & = \mathbf{R_{Gl,\,Z}}(\gamma)\, \mathbf{R_{Gl,\,Y}}(\beta)\, \mathbf{R_{Gl,\,X}}(\alpha) \\
     & = \mathbf{R}_{\mathbf{lG},\,z\,}(-\gamma)\, \mathbf{R}_{\mathbf{lG},\,y\,}(-\beta)\, \mathbf{R}_{\mathbf{lG},\,x\,}(-\alpha) \\
     & = \mathbf{R}_{\mathbf{lG},\,xyz\,}(-\alpha,-\beta,-\gamma)
-    \end{array}$</span>
+    \end{array}
+    $$
 
-    Confer that by examining the$\mathbf{R_{Gl,\,XYZ}}$and$\mathbf{R}_{\mathbf{lG},\,xyz}$matrices above.
-
-    Let's verify this property with Sympy:
+    Compare the $\mathbf{R_{Gl,\,XYZ}}$ and $\mathbf{R}_{\mathbf{lG},\,xyz}$ matrices above to confirm it, or let SymPy do it:
     """)
     return
 
 
 @app.cell
-def _(Math, RX, RY, RZ, a_1, b_1, cos, display, g_1, sin, sym):
-    RXYZ_1 = RZ * RY * RX
-    display(Math('\\mathbf{R_{Gl,\\,XYZ\\,}}(\\alpha,\\beta,\\gamma) ='))
-    display(Math(sym.latex(RXYZ_1, mat_str='matrix')))
-    Rx_neg = sym.Matrix([[1, 0, 0], [0, cos(-a_1), -sin(-a_1)], [0, sin(-a_1), cos(-a_1)]]).T
-    Ry_neg = sym.Matrix([[cos(-b_1), 0, sin(-b_1)], [0, 1, 0], [-sin(-b_1), 0, cos(-b_1)]]).T
-    Rz_neg = sym.Matrix([[cos(-g_1), -sin(-g_1), 0], [sin(-g_1), cos(-g_1), 0], [0, 0, 1]]).T
-    Rxyz_neg = Rz_neg * Ry_neg * Rx_neg
-    display(Math('\\mathbf{R}_{\\mathbf{lG},\\,xyz\\,}(-\\alpha,-\\beta,-\\gamma) ='))
-    display(Math(sym.latex(Rxyz_neg, mat_str='matrix')))
-    display(Math('\\mathbf{R_{Gl,\\,XYZ\\,}}(\\alpha,\\beta,\\gamma) \\;==\\;' + '\\mathbf{R}_{\\mathbf{lG},\\,xyz\\,}(-\\alpha,-\\beta,-\\gamma)'))
-    RXYZ_1 == Rxyz_neg
+def _(RXYZ, a, b, cos, g, sin, sym):
+    # Elemental rotation matrices of XYZ in relation to xyz, with all angles negated:
+    _Rx_neg = sym.Matrix([[1, 0, 0], [0, cos(-a), -sin(-a)], [0, sin(-a), cos(-a)]]).T
+    _Ry_neg = sym.Matrix([[cos(-b), 0, sin(-b)], [0, 1, 0], [-sin(-b), 0, cos(-b)]]).T
+    _Rz_neg = sym.Matrix([[cos(-g), -sin(-g), 0], [sin(-g), cos(-g), 0], [0, 0, 1]]).T
+
+    # Rotation matrix of XYZ in relation to xyz:
+    _Rxyz_neg = _Rz_neg * _Ry_neg * _Rx_neg
+
+    print("RGl,XYZ(alpha, beta, gamma) == RlG,xyz(-alpha, -beta, -gamma):", RXYZ == _Rxyz_neg)
+    show_matrix(r"\mathbf{R}_{\mathbf{lG},\,xyz\,}(-\alpha,-\beta,-\gamma)", _Rxyz_neg)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ### Rotations in a coordinate system is the transpose of inverse order of rotations in the other coordinate system
+    ### A rotation in one coordinate system is the transpose of the inverse sequence in the other
 
-    There is another property of the rotation matrices for the different coordinate systems: the rotation matrix, for example from the Global to the local coordinate system for the$xyz$sequence, is just the transpose of the rotation matrix for the inverse operation (from the local to the Global coordinate system) of the inverse sequence ($\mathbf{ZYX}$) and vice-versa:<br>
-    <br>
-    <span class="notranslate">$\begin{array}{ll}
+    There is another property relating the two kinds of rotation matrix. The Global-to-local rotation matrix for, say, the $xyz$ sequence is the transpose of the rotation matrix for the inverse operation (from local to Global) with the inverse sequence ($\mathbf{ZYX}$), and vice versa:
+
+    $$
+    \begin{array}{ll}
     \mathbf{R}_{\mathbf{lG},\,xyz}(\alpha,\beta,\gamma) & = \mathbf{R}_{\mathbf{lG},\,z\,} \mathbf{R}_{\mathbf{lG},\,y\,} \mathbf{R}_{\mathbf{lG},\,x} \\
     & = \mathbf{R_{Gl,\,Z\,}^{-1}} \mathbf{R_{Gl,\,Y\,}^{-1}} \mathbf{R_{Gl,\,X\,}^{-1}} \\
     & = \mathbf{R_{Gl,\,Z\,}^{T}} \mathbf{R_{Gl,\,Y\,}^{T}} \mathbf{R_{Gl,\,X\,}^{T}} \\
     & = (\mathbf{R_{Gl,\,X\,}} \mathbf{R_{Gl,\,Y\,}} \mathbf{R_{Gl,\,Z}})^\mathbf{T} \\
     & = \mathbf{R_{Gl,\,ZYX\,}^{T}}(\gamma,\beta,\alpha)
-    \end{array}$</span>
+    \end{array}
+    $$
 
-    Where we used the properties that the inverse of the rotation matrix (which is orthonormal) is its transpose and that the transpose of a product of matrices is equal to the product of their transposes in reverse order.
+    where we used two properties: the inverse of a rotation matrix (which is orthonormal) is its transpose, and the transpose of a product of matrices is the product of their transposes in reverse order. This is what the figure of the book showed: rotating about the rotating axes in one order ends where rotating about the fixed axes in the opposite order does.
 
-    Let's verify this property with Sympy:
+    Let's verify this property with SymPy:
     """)
     return
 
 
 @app.cell
-def _(Math, RX, RY, RZ, Rx, Ry, Rz, display, sym):
+def _(RX, RY, RZ, Rxyz):
     RZYX = RX * RY * RZ
-    Rxyz_1 = Rz * Ry * Rx
-    display(Math('\\mathbf{R_{Gl,\\,ZYX\\,}^T}=' + sym.latex(RZYX.T, mat_str='matrix')))
-    display(Math('\\mathbf{R}_{\\mathbf{lG},\\,xyz\\,}(\\alpha,\\beta,\\gamma) \\,==\\,' + '\\mathbf{R_{Gl,\\,ZYX\\,}^T}(\\gamma,\\beta,\\alpha)'))
-    Rxyz_1 == RZYX.T
+
+    print("RlG,xyz(alpha, beta, gamma) == RGl,ZYX(gamma, beta, alpha)^T:", Rxyz == RZYX.T)
+    show_matrix(r"\mathbf{R_{Gl,\,ZYX\,}^T}", RZYX.T)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ### Sequence of rotations of a Vector
+    **Guiding questions 1.**
 
-    We saw in the notebook [Rigid-body transformations in a plane (2D)](https://nbviewer.org/github/BMClab/bmc/blob/master/notebooks/Transformation2D.ipynb#Rotation-of-a-Vector) that the rotation matrix can also be used to rotate a vector (in fact, a point, image, solid, etc.) by a given angle around an axis of the coordinate system. Let's investigate that for the 3D case using the example earlier where a book was rotated in different orders and around the Global and local coordinate systems.
+    1. A rotation matrix $\mathbf{R_{Gl}}$ has the local versors as its columns. Without computing anything, what are the columns of $\mathbf{R_{lG}}$?
+    2. Why does the first rotation of a sequence appear as the *rightmost* matrix of the product?
+    3. Look again at the two orders in the first row of the figure of the book. Using the property above, which sequence about the rotating axes gives the same final orientation as each of them?
+    """)
+    return
 
-    Before any rotation, the point shown in that figure as a round black dot on the spine of the book has coordinates$\mathbf{P}=[0, 1, 2]$(the book has thickness 0, width 1, and height 2).
 
-    After the first sequence of rotations shown in the figure (rotated around$X$and$Y$by$90^0$each time),$\mathbf{P}$has coordinates$\mathbf{P}=[1, -2, 0]$in the global coordinate system. Let's verify that:
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ### Sequence of rotations of a vector
+
+    We saw in [Rigid-body transformations in a plane (2D)](https://github.com/BMClab/BMC/blob/master/notebooks/Transformation2D.ipynb) that the rotation matrix can also be used to rotate a vector (or a point, an image, a solid) by a given angle about an axis of the coordinate system. Let's investigate that in 3D with the book, rotated in different orders about the Global and local coordinate systems.
+
+    Before any rotation, the point drawn in that figure as a round black dot on the spine of the book has coordinates $\mathbf{P}=[0, 1, 2]$ (the book has thickness 0, width 1 and height 2).
+
+    After the first sequence of rotations in the figure (about $\mathbf{X}$ and then $\mathbf{Y}$, by $90^o$ each time), $\mathbf{P}$ has coordinates $\mathbf{P_1}=[1, -2, 0]$ in the Global coordinate system. Let's verify that:
     """)
     return
 
 
 @app.cell
-def _(RX, RY, a_1, b_1, np, sym):
+def _(RX, RY, a, b, np, sym):
     P = np.array([[0, 1, 2]]).T
+
     _RXY = RY * RX
-    _R = sym.lambdify((a_1, b_1), _RXY, 'numpy')
-    _R = _R(np.pi / 2, np.pi / 2)
+    _R = sym.lambdify((a, b), _RXY, "numpy")(np.pi / 2, np.pi / 2)
     _P1 = np.dot(_R, P)
-    print('P1 =', _P1.T)
+
+    print("P1 =", _P1.T.round(4) + 0.0)
     return (P,)
 
 
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    As expected.<br>
-    The reader is invited to deduce the position of point$\mathbf{P}$after the inverse order of rotations, but still around the Global coordinate system.
+    As expected.
 
-    Although we are performing vector rotation, where we don't need the concept of transformation between coordinate systems, in the example above we used the local-to-Global rotation matrix,$\mathbf{R_{Gl}}$. As we saw in the notebook for the 2D transformation, when we use this matrix, it performs a counter-clockwise (positive) rotation.<br>
-    If we want to rotate the vector in the clockwise (negative) direction, we can use the very same rotation matrix entering a negative angle or we can use the inverse rotation matrix, the Global-to-local rotation matrix,$\mathbf{R_{lG}}$and a positive (negative of negative) angle, because$\mathbf{R_{Gl}}(\alpha) = \mathbf{R_{lG}}(-\alpha)$, but bear in mind that even in this latter case we are rotating around the Global coordinate system!
+    Although we are rotating a vector here, without any need for the idea of a transformation between coordinate systems, we used the local-to-Global rotation matrix, $\mathbf{R_{Gl}}$. As we saw for the 2D case, this matrix performs a counterclockwise (positive) rotation. To rotate the vector clockwise (negative direction), we can use the very same matrix with a negative angle, or the inverse matrix, the Global-to-local rotation matrix $\mathbf{R_{lG}}$, with a positive angle, because $\mathbf{R_{Gl}}(\alpha) = \mathbf{R_{lG}}(-\alpha)$. Bear in mind that even in the latter case we are rotating about the Global coordinate system.
 
-    Consider now that we want to deduce algebraically the position of the point$\mathbf{P}$after the rotations around the local coordinate system as shown in the second set of examples in the figure with the sequence of book rotations. The point has the same initial position,$\mathbf{P}=[0, 1, 2]$, and after the rotations around$x$and$y$by$90^0$each time, what is the position of this point?<br>
-    It's implicit in this question that the new desired position is in the Global coordinate system because the local coordinate system rotates with the book and the point never changes its position in the local coordinate system. So, by inspection of the figure, the new position of the point is$\mathbf{P1}=[2, 0, 1]$.<br>
-    Let's naively try to deduce this position by repeating the steps as before:
+    Now let's deduce algebraically the position of the point $\mathbf{P}$ after the rotations about the *local* coordinate system, the second row of the figure. The point starts at the same position, $\mathbf{P}=[0, 1, 2]$, and the book is rotated about $x$ and then about $y$, by $90^o$ each time. Where is the point now?
+
+    The question implicitly asks for the position in the Global coordinate system, because the local coordinate system rotates with the book and the point never moves in it. By inspection of the figure, the new position is $\mathbf{P_1}=[2, 0, 1]$. Let's naively try to obtain it by repeating the steps above with the local matrices:
     """)
     return
 
 
 @app.cell
-def _(P, Rx, Ry, a_1, b_1, np, sym):
+def _(P, Rx, Ry, a, b, np, sym):
     _Rxy = Ry * Rx
-    _R = sym.lambdify((a_1, b_1), _Rxy, 'numpy')
-    _R = _R(np.pi / 2, np.pi / 2)
+    _R = sym.lambdify((a, b), _Rxy, "numpy")(np.pi / 2, np.pi / 2)
     _P1 = np.dot(_R, P)
-    print('P1 =', _P1.T)
+
+    print("P1 =", _P1.T.round(4) + 0.0)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    The wrong answer.<br>
-    The problem is that we defined the rotation of a vector using the local-to-Global rotation matrix. One correction solution for this problem is to continuing using the multiplication of the Global-to-local rotation matrices,$\mathbf{R}_{xy} = \mathbf{R}_y\,\mathbf{R}_x$, transpose$\mathbf{R}_{xy}$to get the Global-to-local coordinate system,$\mathbf{R_{XY}}=\mathbf{R^T}_{xy}$, and then rotate the vector using this matrix:
+    The wrong answer.
+
+    The problem is that we defined the rotation of a vector with the local-to-Global rotation matrix. One correct solution is to keep multiplying the Global-to-local rotation matrices, $\mathbf{R}_{xy} = \mathbf{R}_y\,\mathbf{R}_x$, transpose $\mathbf{R}_{xy}$ to obtain the corresponding local-to-Global rotation matrix, $\mathbf{R_{XY}}=\mathbf{R^T}_{xy}$, and then rotate the vector with this matrix:
     """)
     return
 
 
 @app.cell
-def _(P, Rx, Ry, a_1, b_1, np, sym):
+def _(P, Rx, Ry, a, b, np, sym):
     _Rxy = Ry * Rx
     _RXY = _Rxy.T
-    _R = sym.lambdify((a_1, b_1), _RXY, 'numpy')
-    _R = _R(np.pi / 2, np.pi / 2)
+    _R = sym.lambdify((a, b), _RXY, "numpy")(np.pi / 2, np.pi / 2)
     _P1 = np.dot(_R, P)
-    print('P1 =', _P1.T)
+
+    print("P1 =", _P1.T.round(4) + 0.0)
     return
 
 
@@ -731,28 +890,85 @@ def _(mo):
     mo.md(r"""
     The correct answer.
 
-    Another solution is to understand that when using the Global-to-local rotation matrix, counter-clockwise rotations (as performed with the book the figure) are negative, not positive, and that when dealing with rotations with the Global-to-local rotation matrix the order of matrix multiplication is inverted, for example, it should be$\mathbf{R\_}_{xyz} = \mathbf{R}_x\,\mathbf{R}_y\,\mathbf{R}_z$(an added underscore to remind us this is not the convention adopted here).
+    Another solution is to understand that, with the Global-to-local rotation matrix, counterclockwise rotations (as performed with the book in the figure) are negative, not positive, and that the order of the matrix multiplication is inverted: it should be $\mathbf{R\_}_{xyz} = \mathbf{R}_x\,\mathbf{R}_y\,\mathbf{R}_z$ (the underscore is a reminder that this is not the convention adopted here).
     """)
     return
 
 
 @app.cell
-def _(P, Rx, Ry, a_1, b_1, np, sym):
-    R_xy = Rx * Ry
-    _R = sym.lambdify((a_1, b_1), R_xy, 'numpy')
-    _R = _R(-np.pi / 2, -np.pi / 2)
+def _(P, Rx, Ry, a, b, np, sym):
+    _R_xy = Rx * Ry
+    _R = sym.lambdify((a, b), _R_xy, "numpy")(-np.pi / 2, -np.pi / 2)
     _P1 = np.dot(_R, P)
-    print('P1 =', _P1.T)
+
+    print("P1 =", _P1.T.round(4) + 0.0)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    The correct answer.<br>
-    The reader is invited to deduce the position of point$\mathbf{P}$after the inverse order of rotations, around the local coordinate system.
+    The correct answer again.
 
-    In fact, you will find elsewhere texts about rotations in 3D adopting this latter convention as the standard, i.e., they introduce the Global-to-local rotation matrix and describe sequence of rotations algebraically as matrix multiplication in the direct order,$\mathbf{R\_}_{xyz} = \mathbf{R}_x\,\mathbf{R}_y\,\mathbf{R}_z$, the inverse we have done in this text. It's all a matter of convention, just that.
+    You will find texts on 3D rotations that adopt this latter convention as the standard: they introduce the Global-to-local rotation matrix and describe a sequence of rotations as a matrix product in the direct order, $\mathbf{R\_}_{xyz} = \mathbf{R}_x\,\mathbf{R}_y\,\mathbf{R}_z$, the opposite of what we do here. It is a matter of convention, nothing more, but you have to know which convention a text, a paper or a piece of software is using.
+
+    **Challenge 1.** Deduce the position of the point $\mathbf{P}$ after the inverse order of rotations, first about the Global coordinate system and then about the local one, by inspection of the figure. Then check your answers with code. Which of the four results coincide, and why?
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ### Codman's paradox, computed
+
+    We now have everything needed to explain the arm movements at the start of this notebook. Let's use a Global coordinate system with $\mathbf{X}$ pointing forward, $\mathbf{Y}$ upwards and $\mathbf{Z}$ to the right, the convention recommended for motion analysis by the International Society of Biomechanics (Wu & Cavanagh, 1995). We follow two vectors attached to the right arm: its long axis, pointing from the shoulder down to the hand, $[0, -1, 0]$; and the direction the palm faces, initially towards the thigh, $[0, 0, -1]$.
+
+    The three movements are rotations about fixed axes:
+
+    1. Flexion: the arm swings forward and up, a rotation of $+90^o$ about $\mathbf{Z}$.
+    2. Horizontal abduction: the arm swings from the front to the side, a rotation of $-90^o$ about $\mathbf{Y}$.
+    3. Adduction: the arm comes down from the side, a rotation of $+90^o$ about $\mathbf{X}$.
+
+    **Before you run the next cell**, check those signs with the right-hand rule, and predict where the palm faces at the end.
+    """)
+    return
+
+
+@app.cell
+def _(np):
+    _arm = np.array([0, -1, 0])  # long axis of the arm, from the shoulder to the hand
+    _palm = np.array([0, 0, -1])  # the right palm, facing the thigh
+    _steps = [
+        ("flexion, +90 about Z", rotZ(90)),
+        ("horizontal abduction, -90 about Y", rotY(-90)),
+        ("adduction, +90 about X", rotX(90)),
+    ]
+
+    _R = np.eye(3)
+    for _name, _Ri in _steps:
+        _R = _Ri @ _R  # each new rotation about a fixed axis multiplies from the left
+        print(f"after {_name:34s} arm: {(_R @ _arm).round(4) + 0.0}  palm: {(_R @ _palm).round(4) + 0.0}")
+
+    print("\nRotation matrix of the whole sequence:\n", _R.round(4) + 0.0)
+    print("\nIs it a single rotation of -90 degrees about Y?", np.allclose(_R, rotY(-90)))
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    The arm comes back to $[0,-1,0]$, hanging at the side, but the palm, which started facing the thigh, now faces forward, $[1,0,0]$. And the product of the three matrices is a single rotation of $-90^o$ about the vertical axis, which at the end is also the long axis of the arm: the arm has rotated externally by 90°, without a single movement about its long axis.
+
+    There is no contradiction. Each movement was a rotation about an axis perpendicular to the arm *at that moment*, but those axes were fixed in space while the arm moved, and three rotations compose into a rotation about an axis that none of them used. In a plane that cannot happen: rotations about the one available axis simply add. In three dimensions, the result of a sequence of rotations is the product of the matrices, not the sum of the angles.
+
+    For the shoulder, this is not a curiosity. It means that the axial rotation of the humerus depends on the path the arm took to reach a position, and that a description of the arm's orientation by three angles depends on the order in which the angles are defined.
+
+    **Guiding questions 2.**
+
+    1. Problem 6 asks you to compute the order you tried in Guiding question 0.2. Before computing, predict: will the palm end up facing forward again?
+    2. Why did the second movement change the direction of the palm, while the first one did not?
+    3. A colleague reports the arm's orientation as the sum of the three angles about $\mathbf{X}$, $\mathbf{Y}$ and $\mathbf{Z}$. What would that sum be for Codman's movement, and what is wrong with it?
     """)
     return
 
@@ -762,40 +978,88 @@ def _(mo):
     mo.md(r"""
     ### The 12 different sequences of Euler angles
 
-    The Euler angles are defined in terms of rotations around a rotating local coordinate system. As we saw for the sequence of rotations around$x, y, z$, the axes of the local rotated coordinate system are not fixed in space because after the first elemental rotation, the other two axes rotate.
+    The Euler angles are defined in terms of rotations about a rotating local coordinate system. As we saw for the sequence of rotations about $x, y, z$, the axes of the local coordinate system are not fixed in space: after the first elemental rotation, the other two axes have moved.
 
-    Other sequences of rotations could be produced without combining axes of the two different coordinate systems (Global and local) for the definition of the rotation axes. There is a total of 12 different sequences of three elemental rotations that are valid and may be used for describing the rotation of a coordinate system with respect to another coordinate system:<br>
-    <br>
-    <span class="notranslate">$\begin{array}{ll}
+    Other sequences of rotations can be formed without mixing axes of the two coordinate systems (Global and local) as rotation axes. There are 12 valid sequences of three elemental rotations that can describe the rotation of a coordinate system with respect to another:
+
+    $$
+    \begin{array}{ll}
     xyz \quad xzy \quad yzx \quad yxz \quad zxy \quad zyx  \\
     xyx \quad xzx \quad yzy \quad yxy \quad zxz \quad zyz
-    \end{array}$</span>
+    \end{array}
+    $$
 
-    The first six sequences (first row) are all around different axes, they are usually referred as Cardan or Tait–Bryan angles. The other six sequences (second row) have the first and third rotations around the same axis, but keep in mind that the axis for the third rotation is not at the same place anymore because it changed its orientation after the second rotation. The sequences with repeated axes are known as proper or classic Euler angles.
+    The first six sequences (first row) are about three different axes and are usually referred to as Cardan or Tait–Bryan angles. The other six (second row) have the first and third rotations about the same axis, but keep in mind that the axis of the third rotation is no longer where it was, because it changed orientation with the second rotation. The sequences with a repeated axis are known as proper or classic Euler angles.
 
-    Which order to use it is a matter of convention, but because the order affects the results, it's fundamental to follow a convention and report it. In Engineering Mechanics (including Biomechanics), the$xyz$order is more common; in Physics the$zxz$order is more common (but the letters chosen to refer to the axes are arbitrary, what matters is the directions they represent). In Biomechanics, the order for the Cardan angles is most often based on the angle of most interest or of most reliable measurement. Accordingly, the axis of flexion/extension is typically selected as the first axis, the axis for abduction/adduction is the second, and the axis for internal/external rotation is the last one. We will see about this order later. The$zyx$order is commonly used to describe the orientation of a ship or aircraft and the rotations are known as the nautical angles: yaw, pitch and roll, respectively (see next figure).<br>
-    <br>
-    <figure><img src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Yaw_Axis.svg/319px-Yaw_Axis.svg.png' alt='translation and rotation 3D'/> <figcaption><center><i>Figure. The principal axes of an aircraft and the names for the rotations around these axes (<a href="https://en.wikipedia.org/wiki/Euler_angles">image from Wikipedia</a>).</i></center></figcaption> </figure>
+    Which order to use is a matter of convention, but because the order affects the results, it is fundamental to follow a convention and to report it. In engineering mechanics (including biomechanics), the $xyz$ order is more common; in physics, the $zxz$ order is more common (but the letters chosen for the axes are arbitrary; what matters is the directions they represent). In biomechanics, the order of the Cardan angles is most often based on the angle of most interest or of most reliable measurement. Accordingly, the axis of flexion–extension is typically the first axis, the axis of abduction–adduction the second, and the axis of internal–external rotation the last one; for the knee, this is the order of the joint coordinate system of Grood and Suntay (1983). The $zyx$ order is commonly used to describe the orientation of a ship or an aircraft, and the rotations are known as the nautical angles: yaw, pitch and roll, respectively (see next figure).
 
-    If instead of rotations around the rotating local coordinate system we perform rotations around the fixed Global coordinate system, we will have other 12 different sequences of three elemental rotations, these are called simply rotation angles. So, in total there are 24 possible different sequences of three elemental rotations, but the 24 orders are not independent; with the 12 different sequences of Euler angles at the local coordinate system we can obtain the other 12 sequences at the Global coordinate system.
+    <figure><center><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Yaw_Axis.svg/330px-Yaw_Axis.svg.png" width=320 alt="principal axes of an aircraft"/></center><figcaption><center><i>Figure. The principal axes of an aircraft and the names of the rotations about them (<a href="https://en.wikipedia.org/wiki/Euler_angles">image from Wikipedia</a>).</i></center></figcaption></figure>
 
-    The Python function `euler_rotmat.py` (code at the end of this text) determines the rotation matrix in algebraic form for any of the 24 different sequences (and sequences with only one or two axes can be inputed). This function also determines the rotation matrix in numeric form if a list of up to three angles are inputed.
+    If, instead of rotations about the rotating local coordinate system, we perform rotations about the fixed Global coordinate system, we have another 12 sequences of three elemental rotations, called simply rotation angles. In total there are 24 possible sequences, but they are not independent: with the 12 sequences of Euler angles in the local coordinate system we can obtain the other 12 in the Global coordinate system.
 
-    For instance, the rotation matrix in algebraic form for the$zxz$order of Euler angles at the local coordinate system and the correspondent rotation matrix in numeric form after three elemental rotations by$90^o$each are:
+    The function below determines the rotation matrix in algebraic form for any of the 24 sequences (sequences of only one or two axes can also be entered), and in numerical form if a list of angles is given. It is a compact version of the function `euler_rotmat.py`, from the `functions` folder of this repository.
+    """)
+    return
+
+
+@app.function
+def euler_rotmat(order="xyz", frame="local", angles=None, unit="deg"):
+    """Rotation matrix for a sequence of up to three elemental rotations.
+
+    `order` is a string of one to three letters among x, y and z; the first
+    letter is the first rotation. With frame="local", the rotations are about
+    the axes of the rotating coordinate system (Euler angles) and the matrix is
+    Global-to-local; with frame="global", they are about the fixed axes and the
+    matrix is local-to-Global. The angles of the first, second and third
+    rotations are the symbols alpha, beta and gamma.
+
+    Returns the algebraic matrix and, if `angles` is given, also the matrix with
+    those values substituted (use None for an angle that stays symbolic).
+    """
+    import sympy as sym
+
+    cos, sin = sym.cos, sym.sin
+    symbols = sym.symbols("alpha, beta, gamma")
+
+    def elemental(axis, q):
+        R = {
+            "x": sym.Matrix([[1, 0, 0], [0, cos(q), sin(q)], [0, -sin(q), cos(q)]]),
+            "y": sym.Matrix([[cos(q), 0, -sin(q)], [0, 1, 0], [sin(q), 0, cos(q)]]),
+            "z": sym.Matrix([[cos(q), sin(q), 0], [-sin(q), cos(q), 0], [0, 0, 1]]),
+        }[axis]
+        return R.T if frame.lower() == "global" else R
+
+    R = sym.eye(3)
+    for axis, q in zip(order.lower(), symbols):
+        R = elemental(axis, q) * R  # the matrix product goes from right to left
+    if angles is None:
+        return R
+
+    values = {}
+    for q, angle in zip(symbols, angles):
+        if angle is not None:
+            values[q] = sym.rad(angle) if unit[:3].lower() == "deg" else angle
+    return R, sym.simplify(R.subs(values))
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    For instance, here are the rotation matrix in algebraic form for the $zxz$ order of Euler angles in the local coordinate system, and the corresponding numerical matrix after three elemental rotations by $90^o$ each:
     """)
     return
 
 
 @app.cell
-def _():
-    from euler_rotmat import euler_rotmat
+def _(mo):
+    _Ra, _Rn = euler_rotmat(order="zxz", frame="local", angles=[90, 90, 90])
 
-    return (euler_rotmat,)
-
-
-@app.cell
-def _(euler_rotmat):
-    (_Ra, Rn) = euler_rotmat(order='zxz', frame='local', angles=[90, 90, 90])
+    mo.vstack(
+        [
+            show_matrix(r"\mathbf{R}_{local}(z:\alpha, x:\beta, z:\gamma)", _Ra),
+            show_matrix(r"\mathbf{R}_{local}(z:90^o, x:90^o, z:90^o)", _Rn),
+        ]
+    )
     return
 
 
@@ -804,9 +1068,9 @@ def _(mo):
     mo.md(r"""
     ### Line of nodes
 
-    The second axis of rotation in the rotating coordinate system is also referred as the nodal axis or line of nodes; this axis coincides with the intersection of two perpendicular planes, one from each Global (fixed) and local (rotating) coordinate systems. The figure below shows an example of rotations and the nodal axis for the$xyz$sequence of the Cardan angles.
+    The second axis of rotation in the rotating coordinate system is also referred to as the nodal axis, or line of nodes. It coincides with the intersection of two perpendicular planes, one from each coordinate system, Global (fixed) and local (rotating). The figure below shows an example of rotations and the nodal axis for the $xyz$ sequence of Cardan angles.
 
-    <div class='center-align'><figure><img src='./../images/Node.png' alt='rotations'/> <figcaption><center><i>Figure. First row: example of rotations for the$xyz$sequence of the Cardan angles. The Global (fixed)$XYZ$coordinate system is shown in green, the local (rotating)$xyz$coordinate system is shown in blue. The nodal axis (<b>N</b>, shown in red) is defined by the intersection of the$YZ$and$xy$planes and all rotations can be described in relation to this nodal axis or to a perpendicular axis to it. Second row: starting from no rotation, the local coordinate system is rotated by$\alpha$around the$x$axis, then by$\beta$around the rotated$y$axis, and finally by$\gamma$around the twice rotated$z$axis. Note that the line of nodes coincides with the$y$axis for the second rotation. </i></center></figcaption> </figure></div>
+    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/Node.png?raw=1" width=700 alt="line of nodes"/></center><figcaption><center><i>Figure. First row: example of rotations for the $xyz$ sequence of Cardan angles. The Global (fixed) $XYZ$ coordinate system is shown in green, the local (rotating) $xyz$ coordinate system in blue. The nodal axis (<b>N</b>, in red) is defined by the intersection of the $YZ$ and $xy$ planes, and all rotations can be described in relation to this nodal axis or to an axis perpendicular to it. Second row: starting from no rotation, the local coordinate system is rotated by $\alpha$ about the $x$ axis, then by $\beta$ about the rotated $y$ axis, and finally by $\gamma$ about the twice-rotated $z$ axis. The line of nodes coincides with the $y$ axis of the second rotation.</i></center></figcaption></figure>
     """)
     return
 
@@ -816,88 +1080,93 @@ def _(mo):
     mo.md(r"""
     ### Determination of the Euler angles
 
-    Once a convention is adopted, the corresponding three Euler angles of rotation can be found.<br>
-    For example, for the$\mathbf{R}_{xyz}$rotation matrix:
+    Once a convention is adopted, the corresponding three Euler angles can be found from the rotation matrix. For example, for the $\mathbf{R}_{xyz}$ rotation matrix:
     """)
     return
 
 
 @app.cell
-def _(euler_rotmat):
-    _R = euler_rotmat(order='xyz', frame='local')
+def _():
+    show_matrix(r"\mathbf{R}_{local}(x:\alpha, y:\beta, z:\gamma)", euler_rotmat(order="xyz", frame="local"))
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    The corresponding Cardan angles for the `xyz` sequence can be given by:<br>
-    <br>
-    <span class="notranslate">$\begin{array}{ll}
+    The corresponding Cardan angles for the $xyz$ sequence are:
+
+    $$
+    \begin{array}{ll}
     \alpha = \arctan\left(\dfrac{\sin(\alpha)}{\cos(\alpha)}\right) = \arctan\left(\dfrac{-\mathbf{R}_{21}}{\;\;\;\mathbf{R}_{22}}\right) \\
     \\
     \beta = \arctan\left(\dfrac{\sin(\beta)}{\cos(\beta)}\right) = \arctan\left(\dfrac{\mathbf{R}_{20}}{\sqrt{\mathbf{R}_{00}^2+\mathbf{R}_{10}^2}}\right) \\
     \\
     \gamma = \arctan\left(\dfrac{\sin(\gamma)}{\cos(\gamma)}\right) = \arctan\left(\dfrac{-\mathbf{R}_{10}}{\;\;\;\mathbf{R}_{00}}\right)
-    \end{array}$</span>
+    \end{array}
+    $$
 
-    Note that we prefer to use the mathematical function `arctan2` rather than simply `arcsin`, `arccos` or `arctan` because the latter cannot for example distinguish$45^o$from$135^o$and also for better numerical accuracy. See the text [Angular kinematics in a plane (2D)](https://nbviewer.org/github/BMClab/bmc/blob/master/notebooks/KinematicsAngular2D.ipynb) for more on these issues.
+    (with the rows and columns numbered from 0, as in Python). We use the function `arctan2` rather than `arcsin`, `arccos` or `arctan`, because those cannot, for example, distinguish $45^o$ from $135^o$, and for better numerical accuracy; see [Angular kinematics in a plane (2D)](https://github.com/BMClab/BMC/blob/master/notebooks/KinematicsAngular2D.ipynb) for more on these issues.
 
-    And here is a Python function to compute the Euler angles of rotations from the Global to the local coordinate system for the$xyz$Cardan sequence:
+    Here is a Python function that computes the Euler angles of the rotation from the Global to the local coordinate system for the $xyz$ Cardan sequence:
     """)
     return
 
 
-@app.cell
-def _(np):
-    def euler_angles_from_rot_xyz(rot_matrix, unit='deg'):
-        """ Compute Euler angles from rotation matrix in the xyz sequence."""
-        _R = np.array(rot_matrix, copy=False).astype(np.float64)[:3, :3]
-        angles = np.zeros(3)
-        angles[0] = np.arctan2(-_R[2, 1], _R[2, 2])
-        angles[1] = np.arctan2(_R[2, 0], np.sqrt(_R[0, 0] ** 2 + _R[1, 0] ** 2))
-        angles[2] = np.arctan2(-_R[1, 0], _R[0, 0])
-        if unit[:3].lower() == 'deg':
-            angles = np.rad2deg(angles)
-        return angles
+@app.function
+def euler_angles_from_rot_xyz(rot_matrix, unit="deg"):
+    """Compute Euler angles from rotation matrix in the xyz sequence."""
+    import numpy as np
 
-    return (euler_angles_from_rot_xyz,)
+    R = np.asarray(rot_matrix, dtype=np.float64)[:3, :3]
+    angles = np.zeros(3)
+
+    angles[0] = np.arctan2(-R[2, 1], R[2, 2])
+    angles[1] = np.arctan2(R[2, 0], np.sqrt(R[0, 0] ** 2 + R[1, 0] ** 2))
+    angles[2] = np.arctan2(-R[1, 0], R[0, 0])
+
+    if unit[:3].lower() == "deg":  # convert from rad to degree
+        angles = np.rad2deg(angles)
+
+    return angles
 
 
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    For instance, consider sequential rotations of 45$^o$around$x,y,z$. The resultant rotation matrix is:
+    For instance, consider sequential rotations of $45^o$ about $x$, $y$, $z$. The resulting rotation matrix is:
     """)
     return
 
 
 @app.cell
-def _(euler_rotmat):
-    (_Ra, Rn_1) = euler_rotmat(order='xyz', frame='local', angles=[45, 45, 45], showA=False)
-    return (Rn_1,)
+def _():
+    _Ra, Rn45 = euler_rotmat(order="xyz", frame="local", angles=[45, 45, 45])
+
+    show_matrix(r"\mathbf{R}_{local}(x:45^o, y:45^o, z:45^o)", Rn45, digits=4)
+    return (Rn45,)
 
 
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    Let's check that calculating back the Cardan angles from this rotation matrix using the `euler_angles_from_rot_xyz()` function:
+    Let's check by calculating the Cardan angles back from this rotation matrix with `euler_angles_from_rot_xyz()`:
     """)
     return
 
 
 @app.cell
-def _(Rn_1, euler_angles_from_rot_xyz):
-    euler_angles_from_rot_xyz(Rn_1, unit='deg')
+def _(Rn45):
+    euler_angles_from_rot_xyz(Rn45, unit="deg")
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    We could implement a function to calculate the Euler angles for any of the 12 sequences (in fact, plus another 12 sequences if we consider all the rotations from and to the two coordinate systems), but this is tedious. There is a smarter solution using the concept of [quaternion](http://en.wikipedia.org/wiki/Quaternion), but we will not see that now.
+    We could implement a function to calculate the Euler angles for each of the 12 sequences (24, counting the rotations from and to both coordinate systems), but this is tedious. There is a smarter solution using the concept of [quaternion](https://en.wikipedia.org/wiki/Quaternion), but we will not see it here.
 
-    Let's see a problem with using Euler angles known as gimbal lock.
+    The round trip worked here. It does not always work, and the reason is a problem of Euler angles known as gimbal lock.
     """)
     return
 
@@ -907,10 +1176,12 @@ def _(mo):
     mo.md(r"""
     ### Gimbal lock
 
-    [Gimbal lock](http://en.wikipedia.org/wiki/Gimbal_lock) is the loss of one degree of freedom in a three-dimensional coordinate system that occurs when an axis of rotation is placed parallel with another previous axis of rotation and two of the three rotations will be around the same direction given a certain convention of the Euler angles. This "locks" the system into rotations in a degenerate two-dimensional space. The system is not really locked in the sense it can't be moved or reach the other degree of freedom, but it will need an extra rotation for that.<br>
-    For instance, let's look at the$zxz$sequence of rotations by the angles$\alpha, \beta, \gamma$:<br>
-    <br>
-    <span class="notranslate">$\begin{array}{ll}
+    [Gimbal lock](https://en.wikipedia.org/wiki/Gimbal_lock) is the loss of one degree of freedom that occurs when an axis of rotation is placed parallel to a previous axis of rotation, so that, in a given convention of Euler angles, two of the three rotations are about the same direction. This "locks" the system into rotations in a degenerate two-dimensional space. The system is not really locked, in the sense that it cannot move or cannot reach the other degree of freedom, but it needs an extra rotation for that.
+
+    For instance, look at the $zxz$ sequence of rotations by the angles $\alpha, \beta, \gamma$:
+
+    $$
+    \begin{array}{ll}
     \mathbf{R}_{zxz} & = \mathbf{R_{z}} \mathbf{R_{x}} \mathbf{R_{z}} \\
     \\
     & =
@@ -929,30 +1200,34 @@ def _(mo):
     -\sin\alpha & \cos\alpha & 0 \\
     0 & 0 & 1
     \end{bmatrix}
-    \end{array}$</span>
+    \end{array}
+    $$
 
-    Which results in:
+    which results in:
     """)
     return
 
 
 @app.cell
-def _(Math, cos, sin, sym):
-    (a_2, b_2, g_2) = sym.symbols('alpha, beta, gamma')
-    Rz_1 = sym.Matrix([[cos(a_2), sin(a_2), 0], [-sin(a_2), cos(a_2), 0], [0, 0, 1]])
-    Rx_1 = sym.Matrix([[1, 0, 0], [0, cos(b_2), sin(b_2)], [0, -sin(b_2), cos(b_2)]])
-    Rz2 = sym.Matrix([[cos(g_2), sin(g_2), 0], [-sin(g_2), cos(g_2), 0], [0, 0, 1]])
-    Rzxz = Rz2 * Rx_1 * Rz_1
-    Math('\\mathbf{R}_{zxz}=' + sym.latex(Rzxz, mat_str='matrix'))
-    return Rz2, Rz_1
+def _(a, b, cos, g, sin, sym):
+    # Elemental rotation matrices of xyz (local) for the zxz sequence:
+    Rz1 = sym.Matrix([[cos(a), sin(a), 0], [-sin(a), cos(a), 0], [0, 0, 1]])
+    Rx2 = sym.Matrix([[1, 0, 0], [0, cos(b), sin(b)], [0, -sin(b), cos(b)]])
+    Rz3 = sym.Matrix([[cos(g), sin(g), 0], [-sin(g), cos(g), 0], [0, 0, 1]])
+
+    # Rotation matrix for the zxz sequence:
+    Rzxz = Rz3 * Rx2 * Rz1
+
+    show_matrix(r"\mathbf{R}_{zxz}", Rzxz)
+    return Rz1, Rz3
 
 
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    Let's examine what happens with this rotation matrix when the rotation around the second axis ($x$) by$\beta$is zero:
+    Let's examine what happens to this rotation matrix when the rotation about the second axis ($x$) by $\beta$ is zero:
 
-    <span class="notranslate">$\begin{array}{l l}
+    $$
     \mathbf{R}_{zxz}(\alpha, \beta=0, \gamma) =
     \begin{bmatrix}
     \cos\gamma & \sin\gamma & 0\\
@@ -969,60 +1244,81 @@ def _(mo):
     -\sin\alpha & \cos\alpha & 0 \\
     0 & 0 & 1
     \end{bmatrix}
-    \end{array}$</span>
+    $$
 
-    The second matrix is the identity matrix and has no effect on the product of the matrices, which will be:
+    The second matrix is the identity matrix and has no effect on the product, which is:
     """)
     return
 
 
 @app.cell
-def _(Math, Rz2, Rz_1, sym):
-    Rzxz_1 = Rz2 * Rz_1
-    Math('\\mathbf{R}_{xyz}(\\alpha, \\beta=0, \\gamma)=' + sym.latex(Rzxz_1, mat_str='matrix'))
-    return (Rzxz_1,)
+def _(Rz1, Rz3, mo, sym):
+    _Rzxz0 = Rz3 * Rz1
 
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    Which simplifies to:
-    """)
-    return
-
-
-@app.cell
-def _(Math, Rzxz_1, sym):
-    Rzxz_2 = sym.simplify(Rzxz_1)
-    Math('\\mathbf{R}_{xyz}(\\alpha, \\beta=0, \\gamma)=' + sym.latex(Rzxz_2, mat_str='matrix'))
+    mo.vstack(
+        [
+            show_matrix(r"\mathbf{R}_{zxz}(\alpha, \beta=0, \gamma)", _Rzxz0),
+            show_matrix(r"\mathbf{R}_{zxz}(\alpha, \beta=0, \gamma)", sym.simplify(_Rzxz0)),
+        ]
+    )
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    Despite different values of$\alpha$and$\gamma$the result is a single rotation around the$z$axis given by the sum$\alpha+\gamma$. In this case, of the three degrees of freedom one was lost (the other degree of freedom was set by$\beta=0$). For movement analysis, this means for example that one angle will be undetermined because everything we know is the sum of the two angles obtained from the rotation matrix. We can set the unknown angle to zero but this is arbitrary.
+    which, after simplification (above), is a single rotation about the $z$ axis by the sum $\alpha+\gamma$. Whatever the values of $\alpha$ and $\gamma$, only their sum matters: of the three degrees of freedom, one was lost (and another was fixed by setting $\beta=0$). For movement analysis, this means that one angle is undetermined, because all we can recover from the rotation matrix is the sum of the two. We can set the unknown angle to zero, but that is arbitrary.
 
-    In fact, we already dealt with another example of gimbal lock when we looked at the$xyz$sequence with rotations by$90^o$. See the figure representing these rotations again and perceive that the first and third rotations were around the same axis because the second rotation was by$90^o$. Let's do the matrix multiplication replacing only the second angle by$90^o$(and let's use the `euler_rotmat.py`:
+    We have already met another example of gimbal lock, in the $xyz$ sequence with rotations by $90^o$. Look again at the figure of those rotations: the first and third rotations were about the same direction, because the second rotation was by $90^o$. Let's do the matrix multiplication with only the second angle replaced by $90^o$:
     """)
     return
 
 
 @app.cell
-def _(euler_rotmat):
-    (_Ra, Rn_2) = euler_rotmat(order='xyz', frame='local', angles=[None, 90.0, None], showA=False)
+def _():
+    _Ra, _Rn = euler_rotmat(order="xyz", frame="local", angles=[None, 90.0, None])
+
+    show_matrix(r"\mathbf{R}_{local}(x:\alpha, y:90^o, z:\gamma)", _Rn)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    Once again, one degree of freedom was lost and we will not be able to uniquely determine the three angles for the given rotation matrix and sequence.
+    Once again, one degree of freedom was lost: only $\alpha+\gamma$ appears, and we cannot determine the three angles uniquely from the rotation matrix of this sequence.
 
-    Possible solutions to avoid the gimbal lock are: choose a different sequence; do not rotate the system by the angle that puts the system in gimbal lock (in the examples above, avoid$\beta=90^o$); or add an extra fourth parameter in the description of the rotation angles.
+    ### How close is too close?
 
-    But if we have a physical system where we measure or specify exactly three Euler angles in a fixed sequence to describe or control it, and we can't avoid the system to assume certain angles, then we might have to say "Houston, we have a problem".<br>
-    A famous situation where such a problem occurred was during the Apollo 13 mission. This is an actual conversation between crew and mission control during the Apollo 13 mission (Corke, 2011):
+    A rotation of exactly $90^o$ is rare in measured data. Is there anything to worry about at, say, $89^o$?
+
+    Let's take a rotation in the $xyz$ sequence with $\alpha = 30^o$, $\gamma = 20^o$ and different values of $\beta$, spoil each matrix with a tiny error, a rotation of about 0.14° made of 0.1° about $\mathbf{X}$ and 0.1° about $\mathbf{Y}$, much smaller than the errors of a real measurement, and calculate the angles back.
+
+    **Before you run the next cell**, predict: how large will the errors in the three angles be when $\beta = 45^o$? And when $\beta = 89.9^o$?
+    """)
+    return
+
+
+@app.cell
+def _(Rxyz, a, b, g, np, sym):
+    _R_of = sym.lambdify((a, b, g), Rxyz, "numpy")
+    _error = rotX(0.1) @ rotY(0.1)  # a small error in the orientation
+
+    print(" beta     angles from the slightly wrong matrix    errors           alpha + gamma")
+    for _beta in [0, 45, 80, 89, 89.9, 89.99]:
+        _true = np.array([30, _beta, 20])
+        _back = euler_angles_from_rot_xyz(_R_of(*np.radians(_true)) @ _error)
+        print(f"{_beta:6.2f}   {_back.round(2)}   {(_back - _true).round(2)}   {_back[0] + _back[2]:6.2f}")
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    Far from the lock, an error of 0.14° in the orientation becomes errors of about 0.1° in the angles, as it should. As $\beta$ approaches $90^o$, the errors in $\alpha$ and $\gamma$ grow without bound: about 2.7° at $\beta = 89^o$, 15° at $89.9^o$, 27° at $89.99^o$. Their sum stays close to $50^o$ throughout. Near the lock, the matrix determines only the sum, and the split between the two angles is decided by the error. So gimbal lock is not a single bad orientation to avoid, but a region around it where two of the angles become meaningless.
+
+    Possible solutions to avoid gimbal lock are: choose a different sequence; avoid the orientations that put the system in gimbal lock (in the examples above, $\beta=90^o$); or add a fourth parameter to the description of the orientation, as quaternions do.
+
+    But if we have a physical system that we describe or control with exactly three Euler angles in a fixed sequence, and we cannot prevent it from reaching certain angles, then we might have to say "Houston, we have a problem". A famous situation where this happened was the Apollo 13 mission. This is an actual conversation between the crew and mission control during that mission (Corke, 2011):
 
     >`Mission clock: 02 08 12 47`<br>
     **Flight**: *Go, Guidance.*<br>
@@ -1030,7 +1326,13 @@ def _(mo):
     **Flight**: *Roger. CapCom, recommend he bring up C3, C4, B3, B4, C1 and C2 thrusters, and advise he’s getting close to gimbal lock.*<br>
     **CapCom**: *Roger.*
 
-    *Of note, it was not a gimbal lock that caused the accident with the the Apollo 13 mission, the problem was an oxygen tank explosion.*
+    *Of note, gimbal lock did not cause the Apollo 13 accident; the problem was an oxygen tank explosion.*
+
+    **Guiding questions 3.**
+
+    1. For which value of $\beta$ does the $zxz$ sequence lock? And the $xyz$ sequence? Why are they different?
+    2. In the table above, $\beta$ itself is recovered with an error of about 0.1° all the way to the lock. Why is the second angle unaffected?
+    3. You measure the shoulder of a person raising the arm sideways to above the head. Why might the sequence you chose for the knee be a poor choice here?
     """)
     return
 
@@ -1040,56 +1342,24 @@ def _(mo):
     mo.md(r"""
     ## Determination of the rotation matrix
 
-    Let's revise the example where we determined the rotation matrix by building a basis given at least three non-collinear points, but now we will find the Euler angles of rotation.
-
-    Given the positions m1 = [1,0,0], m2 = [0,1,0], m3 = [0,0,1], a basis can be found:
+    Let's revisit the example where we determined the rotation matrix by building a basis from three noncollinear points, $\mathbf{m_1} = [1,0,0]$, $\mathbf{m_2} = [0,1,0]$, $\mathbf{m_3} = [0,0,1]$, and now find its Euler angles. The versors of the basis, as rows, form the rotation matrix from the Global to the local coordinate system:
     """)
     return
 
 
 @app.cell
-def _(np):
-    _m1 = np.array([1, 0, 0])
-    _m2 = np.array([0, 1, 0])
-    _m3 = np.array([0, 0, 1])
-    v1_1 = _m2 - _m1
-    v2_1 = np.cross(v1_1, _m3 - _m1)
-    v3_1 = np.cross(v1_1, v2_1)
-    print('Versors:')
-    v1_1 = v1_1 / np.linalg.norm(v1_1)
-    print('v1 =', v1_1)
-    v2_1 = v2_1 / np.linalg.norm(v2_1)
-    print('v2 =', v2_1)
-    v3_1 = v3_1 / np.linalg.norm(v3_1)
-    print('v3 =', v3_1)
-    return v1_1, v2_1, v3_1
+def _(np, v1, v2, v3):
+    _RlG = np.array([v1, v2, v3])
 
-
-@app.cell
-def _(np, v1_1, v2_1, v3_1):
-    RlG = np.array([v1_1, v2_1, v3_1])
-    print('Rotation matrix from Global to local coordinate system:\n', RlG)
-    return (RlG,)
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    And the corresponding angles of rotation using the$xyz$sequence are:
-    """)
-    return
-
-
-@app.cell
-def _(RlG, euler_angles_from_rot_xyz):
-    euler_angles_from_rot_xyz(RlG)
+    print("Rotation matrix from Global to local coordinate system:\n", _RlG)
+    print("\nAngles of rotation for the xyz sequence:", euler_angles_from_rot_xyz(_RlG))
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    These angles don't mean anything now because they are angles of the axes of the arbitrary basis we computed. In biomechanics, if we want an anatomical interpretation of the coordinate system orientation, we define the versors of the basis oriented with anatomical axes (e.g., for the shoulder, one versor would be aligned with the long axis of the upper arm) as seen [in this notebook about reference frames](https://nbviewer.org/github/BMClab/bmc/blob/master/notebooks/ReferenceFrame.ipynb).
+    These angles do not mean anything here, because they are the angles of the axes of the arbitrary basis we computed. In biomechanics, to give the orientation of a coordinate system an anatomical interpretation, we define the versors of the basis along anatomical axes (for the upper arm, for example, one versor along the long axis of the humerus), as seen in [Frame of reference](https://github.com/BMClab/BMC/blob/master/notebooks/ReferenceFrame.ipynb).
     """)
     return
 
@@ -1099,11 +1369,34 @@ def _(mo):
     mo.md(r"""
     ## Determination of the rotation matrix between two local coordinate systems
 
-    Similarly to the [bidimensional case](https://nbviewer.org/github/BMClab/bmc/blob/master/notebooks/Transformation2D.ipynb), to compute the rotation matrix between two local coordinate systems we can use the rotation matrices of both coordinate systems:
+    As in the [two-dimensional case](https://github.com/BMClab/BMC/blob/master/notebooks/Transformation2D.ipynb), the rotation matrix between two local coordinate systems can be computed from the rotation matrices of both coordinate systems:
 
-    <span class="notranslate">$R_{l_1l_2} = R_{Gl_1}^TR_{Gl_2}$</span>
+    $$
+    R_{l_1l_2} = R_{Gl_1}^TR_{Gl_2}
+    $$
 
-    After this, the Euler angles between both coordinate systems can be found using the `arctan2` function as shown previously.
+    The Euler angles between the two coordinate systems can then be found with the `arctan2` function, as shown previously. This is how a joint angle is calculated: the knee angle is the orientation of the shank's coordinate system relative to the thigh's.
+
+    For example, suppose the thigh is rotated from the laboratory by 30° about $\mathbf{Z}$ and the shank by $-20^o$ about $\mathbf{Z}$. **Before you run the next cell**, predict the rotation of the shank relative to the thigh.
+    """)
+    return
+
+
+@app.cell
+def _(np):
+    _RGl_thigh = rotZ(30)
+    _RGl_shank = rotZ(-20)
+    _Rl1l2 = _RGl_thigh.T @ _RGl_shank
+
+    print("Rotation matrix of the shank relative to the thigh:\n", _Rl1l2.round(4) + 0.0)
+    print("Equal to a rotation of -50 degrees about Z?", np.allclose(_Rl1l2, rotZ(-50)))
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    A rotation of $-50^o$ about $\mathbf{Z}$: the difference between the two angles. That is only because both rotations are about the same axis, which makes this a two-dimensional problem in disguise. As soon as the two segments are rotated about different axes, the relative angles are no longer differences of angles; Problem 8 asks you to show it.
     """)
     return
 
@@ -1111,21 +1404,24 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## Translation and Rotation
+    ## Translation and rotation
 
-    Consider the case where the local coordinate system is translated and rotated in relation to the Global coordinate system as illustrated in the next figure.<br>
-    <br>
-    <figure><img src='./../images/transrot3D.png' alt='translation and rotation 3D'/> <figcaption><center><i>Figure. A point in three-dimensional space represented in two coordinate systems, with one system translated and rotated.</i></center></figcaption> </figure>
+    Consider the case where the local coordinate system is translated and rotated in relation to the Global coordinate system, as illustrated in the next figure.
 
-    The position of point$\mathbf{P}$originally described in the local coordinate system, but now described in the Global coordinate system in vector form is:<br>
-    <br>
-    <span class="notranslate">$\mathbf{P_G} = \mathbf{L_G} + \mathbf{R_{Gl}}\mathbf{P_l}$</span>
+    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/transrot3D.png?raw=1" width=450 alt="translation and rotation 3D"/></center><figcaption><center><i>Figure. A point in three-dimensional space represented in two coordinate systems, with one coordinate system translated and rotated.</i></center></figcaption></figure>
 
-    This means that we first *disrotate* the local coordinate system and then correct for the translation between the two coordinate systems. Note that we can't invert this order: the point position is expressed in the local coordinate system and we can't add this vector to another vector expressed in the Global coordinate system, first we have to convert the vectors to the same coordinate system.
+    The position of the point $\mathbf{P}$, originally described in the local coordinate system, is described in the Global coordinate system in vector form by:
 
-    If now we want to find the position of a point at the local coordinate system given its position in the Global coordinate system, the rotation matrix and the translation vector, we have to invert the expression above:<br>
-    <br>
-    <span class="notranslate">$\begin{array}{ll}
+    $$
+    \mathbf{P_G} = \mathbf{L_G} + \mathbf{R_{Gl}}\mathbf{P_l}
+    $$
+
+    This means that we first *disrotate* the local coordinate system and then correct for the translation between the two coordinate systems. We cannot invert this order: the position of the point is expressed in the local coordinate system, and we cannot add it to a vector expressed in the Global coordinate system before converting both vectors to the same coordinate system.
+
+    To find the position of a point in the local coordinate system, given its position in the Global coordinate system, the rotation matrix and the translation vector, we invert the expression above:
+
+    $$
+    \begin{array}{ll}
     \mathbf{P_G} = \mathbf{L_G} + \mathbf{R_{Gl}}\mathbf{P_l} \implies \\
     \\
     \mathbf{R_{Gl}^{-1}}\cdot\mathbf{P_G} = \mathbf{R_{Gl}^{-1}}\left(\mathbf{L_G} + \mathbf{R_{Gl}}\mathbf{P_l}\right) \implies \\
@@ -1133,9 +1429,10 @@ def _(mo):
     \mathbf{R_{Gl}^{-1}}\mathbf{P_G} = \mathbf{R_{Gl}^{-1}}\mathbf{L_G} + \mathbf{R_{Gl}^{-1}}\mathbf{R_{Gl}}\mathbf{P_l} \implies \\
     \\
     \mathbf{P_l} = \mathbf{R_{Gl}^{-1}}\left(\mathbf{P_G}-\mathbf{L_G}\right) =  \mathbf{R_{Gl}^T}\left(\mathbf{P_G}-\mathbf{L_G}\right) \;\;\;\;\; \text{or} \;\;\;\;\; \mathbf{P_l} = \mathbf{R_{lG}}\left(\mathbf{P_G}-\mathbf{L_G}\right)
-    \end{array}$</span>
+    \end{array}
+    $$
 
-    The expression above indicates that to perform the inverse operation, to go from the Global to the local coordinate system, we first translate and then rotate the coordinate system.
+    To perform the inverse operation, from the Global to the local coordinate system, we first translate and then rotate.
     """)
     return
 
@@ -1145,9 +1442,10 @@ def _(mo):
     mo.md(r"""
     ### Transformation matrix
 
-    It is possible to combine the translation and rotation operations in only one matrix, called the transformation matrix:<br>
-    <br>
-    <span class="notranslate">$\begin{bmatrix}
+    The translation and rotation operations can be combined in a single matrix, called the transformation matrix:
+
+    $$
+    \begin{bmatrix}
     \mathbf{P_X} \\
     \mathbf{P_Y} \\
     \mathbf{P_Z} \\
@@ -1164,19 +1462,25 @@ def _(mo):
     \mathbf{P}_y \\
     \mathbf{P}_z \\
     1
-    \end{bmatrix}$</span>
+    \end{bmatrix}
+    $$
 
-    Or simply:<br>
-    <br>
-    <span class="notranslate">$\mathbf{P_G} = \mathbf{T_{Gl}}\mathbf{P_l}$</span>
+    or simply
 
-    Remember that in general the transformation matrix is not orthonormal, i.e., its inverse is not equal to its transpose.
+    $$
+    \mathbf{P_G} = \mathbf{T_{Gl}}\mathbf{P_l}
+    $$
 
-    The inverse operation, to express the position at the local coordinate system in terms of the Global reference system, is:<br>
-    <br>
-    <span class="notranslate">$\mathbf{P_l} = \mathbf{T_{Gl}^{-1}}\mathbf{P_G}$</span>
-    <br>
-    <span class="notranslate">$\begin{bmatrix}
+    Remember that, in general, the transformation matrix is not orthonormal: its inverse is not equal to its transpose.
+
+    The inverse operation, expressing a position given in the Global coordinate system in the local coordinate system, is
+
+    $$
+    \mathbf{P_l} = \mathbf{T_{Gl}^{-1}}\mathbf{P_G}
+    $$
+
+    $$
+    \begin{bmatrix}
     \mathbf{P_x} \\
     \mathbf{P_y} \\
     \mathbf{P_z} \\
@@ -1193,7 +1497,8 @@ def _(mo):
     \mathbf{P_Y} \\
     \mathbf{P_Z} \\
     1
-    \end{bmatrix}$</span>
+    \end{bmatrix}
+    $$
     """)
     return
 
@@ -1203,12 +1508,16 @@ def _(mo):
     mo.md(r"""
     ### Example with actual motion analysis data
 
-    *The data for this example is taken from page 183 of David Winter's book.*<br>
-    Consider the following marker positions placed on a leg (described in the laboratory coordinate system with coordinates$x, y, z$in cm, the$x$axis points forward and the$y$axes points upward): lateral malleolus (**lm** = [2.92, 10.10, 18.85]), medial malleolus (**mm** = [2.71, 10.22, 26.52]), fibular head (**fh** = [5.05, 41.90, 15.41]), and medial condyle (**mc** = [8.29, 41.88, 26.52]). Define the ankle joint center as the centroid between the **lm** and **mm** markers and the knee joint center as the centroid between the **fh** and **mc** markers. An anatomical coordinate system for the leg can be defined as: the quasi-vertical axis ($y$) passes through the ankle and knee joint centers; a temporary medio-lateral axis ($z$) passes through the two markers on the malleolus, an anterior-posterior as the cross product between the two former calculated orthogonal axes, and the origin at the ankle joint center.<br>
-     a) Calculate the anatomical coordinate system for the leg as described above.<br>
-     b) Calculate the rotation matrix and the translation vector for the transformation from the anatomical to the laboratory coordinate system.<br>
-     c) Calculate the position of each marker and of each joint center at the anatomical coordinate system.<br>
-     d) Calculate the Cardan angles using the$zxy$sequence for the orientation of the leg with respect to the laboratory (but remember that the letters chosen to refer to axes are arbitrary, what matters is the directions they represent).
+    *The data for this example are taken from page 183 of David Winter's book.*
+
+    Consider the following positions of markers placed on a leg (described in the laboratory coordinate system with coordinates $x, y, z$ in cm, the $x$ axis pointing forward and the $y$ axis pointing upward): lateral malleolus (**lm** = [2.92, 10.10, 18.85]), medial malleolus (**mm** = [2.71, 10.22, 26.52]), fibular head (**fh** = [5.05, 41.90, 15.41]) and medial condyle (**mc** = [8.29, 41.88, 26.52]). Define the ankle joint center as the centroid of the **lm** and **mm** markers, and the knee joint center as the centroid of the **fh** and **mc** markers. An anatomical coordinate system for the leg can be defined as follows: the quasi-vertical axis ($y$) passes through the ankle and knee joint centers; a temporary medio-lateral axis ($z$) passes through the two markers on the malleoli; the anterior-posterior axis is the cross product of the two former axes; and the origin is at the ankle joint center.
+
+    a) Calculate the anatomical coordinate system for the leg as described above.<br>
+    b) Calculate the rotation matrix and the translation vector for the transformation from the anatomical to the laboratory coordinate system.<br>
+    c) Calculate the position of each marker and of each joint center in the anatomical coordinate system.<br>
+    d) Calculate the Cardan angles using the $zxy$ sequence for the orientation of the leg with respect to the laboratory (but remember that the letters chosen to refer to axes are arbitrary; what matters is the directions they represent).
+
+    We solve parts a) to c) here. Part d) is Problem 3.
     """)
     return
 
@@ -1220,10 +1529,11 @@ def _(np):
     lm = np.array([2.92, 10.10, 18.85])
     fh = np.array([5.05, 41.90, 15.41])
     mc = np.array([8.29, 41.88, 26.52])
-    ajc = (mm + lm)/2
-    kjc = (fh + mc)/2
-    print('Poition of the ankle joint center:', ajc)
-    print('Poition of the knee joint center:', kjc)
+    ajc = (mm + lm) / 2
+    kjc = (fh + mc) / 2
+
+    print("Position of the ankle joint center:", ajc)
+    print("Position of the knee joint center:", kjc)
     return ajc, fh, kjc, lm, mc, mm
 
 
@@ -1233,70 +1543,97 @@ def _(ajc, kjc, lm, mm, np):
     y = kjc - ajc
     x = np.cross(y, mm - lm)
     z = np.cross(x, y)
-    print('Versors:')
-    x = x/np.linalg.norm(x)
-    y = y/np.linalg.norm(y)
-    z = z/np.linalg.norm(z)
-    print('x =', x)
-    print('y =', y)
-    print('z =', z)
+    print("Versors:")
+    x = x / np.linalg.norm(x)
+    y = y / np.linalg.norm(y)
+    z = z / np.linalg.norm(z)
+    print("x =", x)
+    print("y =", y)
+    print("z =", z)
     Oleg = ajc
-    print('\nOrigin =', Oleg)
+    print("\nOrigin =", Oleg)
     return Oleg, x, y, z
 
 
 @app.cell
 def _(np, x, y, z):
-    _RGl = np.array([x, y, z]).T
-    print('Rotation matrix from the anatomical to the laboratory coordinate system:\n', _RGl)
-    RlG_1 = _RGl.T
-    print('\nRotation matrix from the laboratory to the anatomical coordinate system:\n', RlG_1)
-    return (RlG_1,)
+    # Rotation matrices
+    RGl = np.array([x, y, z]).T
+    print("Rotation matrix from the anatomical to the laboratory coordinate system:\n", RGl)
+    RlG = RGl.T
+    print("\nRotation matrix from the laboratory to the anatomical coordinate system:\n", RlG)
+    return RGl, RlG
 
 
 @app.cell
 def _(Oleg, np):
-    OG = np.array([0, 0, 0])
-    LG_1 = Oleg - OG
-    print('Translational vector from the anatomical to the laboratory coordinate system:\n', LG_1)
-    return (LG_1,)
+    # Translational vector
+    OG = np.array([0, 0, 0])  # Laboratory coordinate system origin
+    LG = Oleg - OG
+    print("Translational vector from the anatomical to the laboratory coordinate system:\n", LG)
+    return (LG,)
 
 
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    To get the coordinates from the laboratory (global) coordinate system to the anatomical (local) coordinate system:<br>
-    <br>
-    <span class="notranslate">$\mathbf{P_l} = \mathbf{R_{lG}}\left(\mathbf{P_G}-\mathbf{L_G}\right)$</span>
+    To get the coordinates from the laboratory (Global) coordinate system to the anatomical (local) coordinate system:
+
+    $$
+    \mathbf{P_l} = \mathbf{R_{lG}}\left(\mathbf{P_G}-\mathbf{L_G}\right)
+    $$
+
+    **Before you run the next cell**, predict two of the results without computing anything: the coordinates of the ankle joint center, and two of the three coordinates of the knee joint center.
     """)
     return
 
 
 @app.cell
-def _(LG_1, RlG_1, ajc, fh, kjc, lm, mc, mm, np):
-    mml = np.dot(RlG_1, mm - LG_1)
-    lml = np.dot(RlG_1, lm - LG_1)
-    fhl = np.dot(RlG_1, fh - LG_1)
-    mcl = np.dot(RlG_1, mc - LG_1)
-    ajcl = np.dot(RlG_1, ajc - LG_1)
-    kjcl = np.dot(RlG_1, kjc - LG_1)
-    print('Coordinates of mm in the anatomical system:\n', mml)
-    print('Coordinates of lm in the anatomical system:\n', lml)
-    print('Coordinates of fh in the anatomical system:\n', fhl)
-    print('Coordinates of mc in the anatomical system:\n', mcl)
-    print('Coordinates of kjc in the anatomical system:\n', kjcl)
-    print('Coordinates of ajc in the anatomical system (origin):\n', ajcl)
+def _(LG, RlG, ajc, fh, kjc, lm, mc, mm, np):
+    # position of each marker and of each joint center in the anatomical coordinate system
+    mml = np.dot(RlG, (mm - LG))  # equivalent to the algebraic expression RlG*(mm - LG).T
+    lml = np.dot(RlG, (lm - LG))
+    fhl = np.dot(RlG, (fh - LG))
+    mcl = np.dot(RlG, (mc - LG))
+    ajcl = np.dot(RlG, (ajc - LG))
+    kjcl = np.dot(RlG, (kjc - LG))
+    print("Coordinates of mm in the anatomical system:\n", mml.round(4) + 0.0)
+    print("Coordinates of lm in the anatomical system:\n", lml.round(4) + 0.0)
+    print("Coordinates of fh in the anatomical system:\n", fhl.round(4) + 0.0)
+    print("Coordinates of mc in the anatomical system:\n", mcl.round(4) + 0.0)
+    print("Coordinates of kjc in the anatomical system:\n", kjcl.round(4) + 0.0)
+    print("Coordinates of ajc in the anatomical system (origin):\n", ajcl.round(4) + 0.0)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## Further reading
+    The results read like a description of the leg. The ankle joint center is the origin, $[0,0,0]$. The knee joint center lies on the $y$ axis, at $[0, 32.01, 0]$: 32 cm up the leg, which is the length of the leg between the two joint centers. The two malleoli have equal and opposite coordinates, because the origin is their midpoint, and they lie in the $yz$ plane ($x = 0$), because the anterior-posterior axis was built perpendicular to the line between them. And the two markers at the knee are 3.5 cm apart in $x$: the fibular head is behind the medial condyle.
 
-    - Read pages 1136-1164 of the 21th chapter of the [Ruina and Rudra's book](http://ruina.tam.cornell.edu/Book/index.html) about elementary introduction to 3D rigid-body dynamics
-    - [Rotation matrix](https://en.wikipedia.org/wiki/Rotation_matrix) - Wikipedia
-    - [Euler angles](https://en.wikipedia.org/wiki/Euler_angles) - Wikipedia
+    Now the same transformation with the transformation matrix. Let's build $\mathbf{T_{Gl}}$, check that its inverse has the form given above, and check that it is not orthonormal:
+    """)
+    return
+
+
+@app.cell
+def _(LG, RGl, RlG, mm, np):
+    TGl = np.eye(4)
+    TGl[:3, :3] = RGl
+    TGl[:3, 3] = LG
+    _TlG = np.linalg.inv(TGl)
+
+    print("Transformation matrix TGl:\n", TGl)
+    print("\nIts inverse equals [RlG, -RlG LG]?", np.allclose(_TlG[:3, :3], RlG) and np.allclose(_TlG[:3, 3], -RlG @ LG))
+    print("Its inverse equals its transpose?", np.allclose(_TlG, TGl.T))
+    print("\nCoordinates of mm in the anatomical system, with the transformation matrix:", (_TlG @ np.append(mm, 1)).round(4) + 0.0)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    Same coordinates as before, now with a fourth component equal to 1, the price of packing a translation into a matrix product.
     """)
     return
 
@@ -1304,11 +1641,123 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## Video lectures on the Internet
+    ## A whole stride
 
-    - [Rotation in R3 around the x-axis](https://www.khanacademy.org/math/linear-algebra/matrix-transformations/lin-trans-examples/v/rotation-in-r3-around-the-x-axis) - Khan Academy
-    - [Modern Robotics, Chapter 3.2.1: Rotation Matrices (Part 1 of 2)](https://youtu.be/OZucG1DY_sY) - Northwestern Robotics.
-    - [Rotations in 3D](https://youtu.be/wg9bI8-Qx2Q)
+    Winter's example is a single instant. A motion capture system gives the same markers at every frame, and the same calculation, repeated frame by frame, gives the orientation of the leg throughout a movement. Let's do it for a walking trial recorded in our laboratory, in the file `walk.trc` in the `data` folder of this repository: 184 frames at 150 Hz, with the laboratory's $\mathbf{X}$ axis pointing in the direction of walking, $\mathbf{Y}$ upwards and $\mathbf{Z}$ to the right.
+
+    A `.trc` file is a tab-separated text file with six lines of header before the numbers. pandas can read the numbers directly, with the separator, no header, and the number of rows to skip:
+    """)
+    return
+
+
+@app.cell
+def _(mo):
+    import pandas as pd
+
+    _data = pd.read_csv(mo.notebook_dir() / ".." / "data" / "walk.trc", sep="\t", header=None, skiprows=6)
+    _data.iloc[:5, :8]
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    But then the columns have no names. The names of the markers are in the fourth line of the file and the coordinates in the fifth, so it is easier to read the header first and the numbers second. The function `read_trc`, from the `functions` folder, does that, and returns the header and a pandas DataFrame with one column per coordinate of each marker:
+    """)
+    return
+
+
+@app.cell
+def _(mo, read_trc):
+    _h, walk = read_trc(str(mo.notebook_dir() / ".." / "data" / "walk.trc"), fname2="", dropna=False, na=0.0, fmt="uni")
+    walk.iloc[:5, :8]
+    return (walk,)
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    The right leg carries the same four markers as Winter's example: `R.Ankle` (lateral malleolus), `R.Ankle.Medial`, `R.HF` (fibular head) and `R.Knee.Medial`. We convert them from millimetres to centimetres and apply Winter's definition to every frame at once; NumPy's cross product works row by row.
+
+    One detail needs care. In Winter's data the medial malleolus has the larger $z$ coordinate, so $\mathbf{mm} - \mathbf{lm}$ points along $+z$, and $\mathbf{y} \times (\mathbf{mm} - \mathbf{lm})$ points forward. In our laboratory $\mathbf{Z}$ points to the right, so for the right leg it is the *lateral* malleolus that has the larger $z$, and we must use $\mathbf{lm} - \mathbf{mm}$ to keep the $x$ axis pointing forward. It is the same left-right issue as for the femur in [Frame of reference](https://github.com/BMClab/BMC/blob/master/notebooks/ReferenceFrame.ipynb).
+
+    Each frame then gives a rotation matrix $\mathbf{R_{lG}}$, with the versors as rows, and `euler_angles_from_rot_xyz` turns it into three angles: $\alpha$ about the anterior-posterior axis $x$, $\beta$ about the long axis $y$, and $\gamma$ about the medio-lateral axis $z$.
+    """)
+    return
+
+
+@app.cell
+def _(np, plt, walk):
+    _t = walk["Time"].to_numpy()
+
+    def _marker(name):
+        return walk[[name + c for c in "xyz"]].to_numpy() / 10  # cm
+
+    _lm, _mm = _marker("R.Ankle"), _marker("R.Ankle.Medial")
+    _fh, _mc = _marker("R.HF"), _marker("R.Knee.Medial")
+    _ajc, _kjc = (_lm + _mm) / 2, (_fh + _mc) / 2
+
+    _y = _kjc - _ajc
+    _x = np.cross(_y, _lm - _mm)  # lateral minus medial: right leg, Z to the right
+    _z = np.cross(_x, _y)
+    _x, _y, _z = (v / np.linalg.norm(v, axis=1, keepdims=True) for v in (_x, _y, _z))
+    _RlG = np.stack((_x, _y, _z), axis=1)  # one rotation matrix per frame, versors as rows
+
+    shank_angles = np.array([euler_angles_from_rot_xyz(_R) for _R in _RlG])
+    shank_length = np.linalg.norm(_kjc - _ajc, axis=1)
+
+    _, _ax = plt.subplots(figsize=(9, 4.5))
+    _labels = [r"$\alpha$, about $x$ (anterior-posterior)", r"$\beta$, about $y$ (long axis)", r"$\gamma$, about $z$ (medio-lateral)"]
+    for _i, _color in enumerate(["tab:red", "tab:green", "tab:blue"]):
+        _ax.plot(_t, shank_angles[:, _i], color=_color, linewidth=2, label=_labels[_i])
+    _ax.axhline(0, color="0.7", linewidth=1, zorder=0)
+    _ax.set_xlabel("Time [s]")
+    _ax.set_ylabel("Angle [degrees]")
+    _ax.set_title("Orientation of the right shank, xyz Cardan angles")
+    _ax.legend(loc="lower right")
+    plt.tight_layout()
+    plt.show()
+    return shank_angles, shank_length
+
+
+@app.cell
+def _(shank_angles, shank_length):
+    print("Range of each angle [degrees]:")
+    for _name, _col in zip(["alpha", "beta", "gamma"], shank_angles.T):
+        print(f"  {_name:5s}: from {_col.min():6.1f} to {_col.max():6.1f}")
+    print(f"\nDistance between the joint centers: from {shank_length.min():.2f} to {shank_length.max():.2f} cm")
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    The trial starts with the right leg in swing and covers the following stance phase. The largest rotation is $\gamma$, the inclination of the shank in the sagittal plane: from about $-65^o$ in swing, with the knee far ahead of the ankle, to about $+36^o$ around heel strike, with the ankle ahead of the knee, after which the shank rotates forward over the foot during stance.
+
+    $\beta$, the rotation about the long axis, stays between about $-32^o$ and $-19^o$: the shank's coordinate system is rotated externally, with its $x$ axis pointing forward and to the right. Part of the reason is anatomical: the line through the two malleoli is normally turned outwards relative to the axis of the knee (external tibial torsion), and the definition we used takes its medio-lateral direction from the malleoli. Part is the posture of the whole leg: these angles are measured relative to the laboratory, so any outward turn of the leg relative to the direction of walking adds to them.
+
+    And $\alpha$ swings by about 45°, from $-27^o$ to $+18^o$. Is the shank really tilting sideways that much at every stride? It is not. With a large sagittal rotation applied *last* and a coordinate system turned about its long axis, the $xyz$ decomposition attributes part of the sagittal motion to $\alpha$: the same orientations, described in another order, would give a much smaller frontal angle. This "cross-talk" between angles is another face of the dependence on the sequence, and one reason why the flexion–extension axis is placed first in biomechanics. Problem 9 asks you to check it.
+
+    Finally, the distance between the two joint centers, which should be constant for a rigid leg, varies by about 1.3 cm during the trial. The markers move on the skin, and the leg is rigid only approximately; see [Determination of a coordinate system](https://github.com/BMClab/BMC/blob/master/notebooks/CoordinateSystem.ipynb) for what that does to the axes.
+
+    **Challenge 2.** Add a horizontal line at the angles of the leg in Winter's static example (calculated with `euler_angles_from_rot_xyz(RlG)`) to the figure. Is Winter's posture close to any instant of this stride?
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## Checkpoint questions
+
+    Pause here before the problems.
+
+    1. Go back to your sketches from Challenge 0 and to Codman's paradox. In one sentence each, explain both with rotation matrices.
+    2. You are given a 3×3 matrix and told it is a rotation matrix. Name two checks you would make before believing it.
+    3. A paper reports "the knee was flexed 40°, abducted 5° and rotated 10°" without stating the sequence. What is missing, and how much could it matter?
+    4. Why can't you obtain the orientation of the shank relative to the thigh by subtracting the Euler angles of the two segments?
+    5. You analyse a movement in which one segment approaches 90° in the second rotation of your sequence. What do you expect to see in the other two angles, and what would you do about it?
+    6. The transformation matrix packs a rotation and a translation together. Why is its inverse not its transpose, when the inverse of the rotation matrix is?
     """)
     return
 
@@ -1318,19 +1767,47 @@ def _(mo):
     mo.md(r"""
     ## Problems
 
-    1. For the example about how the order of rotations of a rigid body affects the orientation shown in a figure above, deduce the rotation matrices for each of the 4 cases shown in the figure. For the first two cases, deduce the rotation matrices from the global to the local coordinate system and for the other two examples, deduce the rotation matrices from the local to the global coordinate system.
+    1. For the example of how the order of rotations of a rigid body affects its orientation, shown in a figure above, deduce the rotation matrices for each of the 4 cases shown in the figure. For the first two cases, deduce the rotation matrices from the Global to the local coordinate system, and for the other two, the rotation matrices from the local to the Global coordinate system.
 
-    2. Consider the data from problem 7 in the notebook [Frame of reference](https://nbviewer.org/github/BMClab/bmc/blob/master/notebooks/ReferenceFrame.ipynb) where the following anatomical landmark positions are given (units in meters): RASIS=[0.5, 0.8, 0.4], LASIS=[0.55, 0.78, 0.1], RPSIS=[0.3, 0.85, 0.2], and LPSIS=[0.29, 0.78, 0.3]. Deduce the rotation matrices for the global to anatomical coordinate system and for the anatomical to global coordinate system.
+    2. Consider the data from problem 7 in the notebook [Frame of reference](https://github.com/BMClab/BMC/blob/master/notebooks/ReferenceFrame.ipynb), where the following anatomical landmark positions are given (units in meters): RASIS=[0.5, 0.8, 0.4], LASIS=[0.55, 0.78, 0.1], RPSIS=[0.3, 0.85, 0.2], and LPSIS=[0.29, 0.78, 0.3]. Deduce the rotation matrices for the Global to anatomical coordinate system and for the anatomical to Global coordinate system.
 
-    3. For the data from the last example, calculate the Cardan angles using the$zxy$sequence for the orientation of the leg with respect to the laboratory (but remember that the letters chosen to refer to axes are arbitrary, what matters is the directions they represent).
+    3. For the data from the example with actual motion analysis data, calculate the Cardan angles using the $zxy$ sequence for the orientation of the leg with respect to the laboratory (but remember that the letters chosen to refer to axes are arbitrary; what matters is the directions they represent).
 
-    4. Write down 4*4 matrices for each of the following (from http://www.eecs.qmul.ac.uk/~sgg/cg/Exers/transformations_ex.html):
-     1. To translate by the vector (1, 2, 3)
-     2. To scale with respect to the origin by the amount (2, 4, 6)
-     3. To rotate around the z-axis by 45 degrees (note sin 45 = cos 45 = 1/sqrt(2))
-     4. To rotate around the x-axis by 45 degrees.
+    4. Write down the 4×4 matrices for each of the following (adapted from a [computer graphics exercise sheet](https://web.archive.org/web/20200224231232/http://www.eecs.qmul.ac.uk/~sgg/cg/Exers/transformations_ex.html) of Queen Mary University of London):<br>
+       a. To translate by the vector (1, 2, 3).<br>
+       b. To scale with respect to the origin by the amount (2, 4, 6).<br>
+       c. To rotate around the z axis by 45 degrees (note that sin 45° = cos 45° = 1/√2).<br>
+       d. To rotate around the x axis by 45 degrees.
 
-    5. Solve the first two problems from [https://rrg.utk.edu/resources/BME473/assignments/BME473_homework_3.pdf](https://rrg.utk.edu/resources/BME473/assignments/BME473_homework_3.pdf).
+    5. Solve the first two problems of [this homework assignment](https://web.archive.org/web/20240420193536/https://rrg.utk.edu/resources/BME473/assignments/BME473_homework_3.pdf) (BME 473, University of Tennessee).
+
+    6. Compute the variation of Codman's movement from Guiding question 0.2: starting from the arm hanging at the side, abduct the arm 90° in the frontal plane, then swing it horizontally 90° to the front, then lower it 90° in front of the body to the side. Write each movement as a rotation about a fixed axis, with its sign, and find where the palm faces at the end. What single rotation is equivalent to the whole sequence?
+
+    7. For the $zxz$ sequence, repeat the analysis of the section "How close is too close?": find the value of $\beta$ at which the sequence locks, write a function that computes the three $zxz$ angles from a rotation matrix, and show how the errors in the angles grow near the lock.
+
+    8. The coordinate system of the thigh is rotated from the laboratory by the $xyz$ Euler angles (5°, 10°, 30°), and that of the shank by (5°, 15°, −20°). Calculate the rotation matrix of the shank relative to the thigh and its $xyz$ Euler angles. Are they the differences between the angles of the two segments?
+
+    9. Repeat the analysis of the whole stride with the $zxy$ sequence, which puts the rotation about the medio-lateral axis first. Use `euler_rotmat` to obtain the algebraic matrix, derive the formulas for the three angles, and plot them. Compare the frontal-plane angle with $\alpha$ of the $xyz$ sequence, and explain the difference.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## Go deeper
+
+    - Read pages 1136–1164 of chapter 21 of [Ruina and Pratap's book](http://ruina.tam.cornell.edu/Book/index.html), an elementary introduction to 3D rigid-body dynamics.
+    - [Rotation matrix](https://en.wikipedia.org/wiki/Rotation_matrix) and [Euler angles](https://en.wikipedia.org/wiki/Euler_angles) on Wikipedia.
+    - [Rigid-body transformations in a plane (2D)](https://github.com/BMClab/BMC/blob/master/notebooks/Transformation2D.ipynb): the two-dimensional version of this notebook.
+    - [Frame of reference](https://github.com/BMClab/BMC/blob/master/notebooks/ReferenceFrame.ipynb) and [Determination of a coordinate system](https://github.com/BMClab/BMC/blob/master/notebooks/CoordinateSystem.ipynb): how the coordinate systems related by these matrices are built from markers.
+    - [Angular velocity in 3D](https://github.com/BMClab/BMC/blob/master/notebooks/AngularVelocity3D.ipynb): what comes after orientation.
+
+    ### Video lectures on the Internet
+
+    - [Rotation in R3 around the x-axis](https://www.khanacademy.org/math/linear-algebra/matrix-transformations/lin-trans-examples/v/rotation-in-r3-around-the-x-axis) - Khan Academy
+    - [Modern Robotics, Chapter 3.2.1: Rotation Matrices (Part 1 of 2)](https://youtu.be/OZucG1DY_sY) - Northwestern Robotics
+    - [Rotations in 3D](https://youtu.be/wg9bI8-Qx2Q)
     """)
     return
 
@@ -1340,278 +1817,19 @@ def _(mo):
     mo.md(r"""
     ## References
 
-    - Corke P (2011) [Robotics, Vision and Control: Fundamental Algorithms in MATLAB](http://www.petercorke.com/RVC/). Springer-Verlag Berlin.
-    - Robertson G, Caldwell G, Hamill J, Kamen G (2013) [Research Methods in Biomechanics](http://books.google.com.br/books?id=gRn8AAAAQBAJ). 2nd Edition. Human Kinetics.
+    - Corke P (2011) [Robotics, Vision and Control: Fundamental Algorithms in MATLAB](https://petercorke.com/RVC/). Springer-Verlag Berlin.
+    - Grood ES, Suntay WJ (1983) [A joint coordinate system for the clinical description of three-dimensional motions: application to the knee](https://doi.org/10.1115/1.3138397). Journal of Biomechanical Engineering, 105(2), 136–144.
     - [Maths - Euler Angles](http://www.euclideanspace.com/maths/geometry/rotations/euler/).
     - Murray RM, Li Z, Sastry SS (1994) [A Mathematical Introduction to Robotic Manipulation](http://www.cds.caltech.edu/~murray/mlswiki/index.php/Main_Page). Boca Raton, CRC Press.
+    - Politti JC, Goroso G, Valentinuzzi ME, Bravo O (1998) [Codman's paradox of the arm rotations is not a paradox: mathematical validation](https://doi.org/10.1016/S1350-4533(98)00020-4). Medical Engineering & Physics, 20(4), 257–260.
     - Rade D (2017) [Cinemática e Dinâmica para Engenharia](https://www.grupogen.com.br/e-book-cinematica-e-dinamica-para-engenharia). Grupo GEN.
-    - Ruina A, Rudra P (2013) [Introduction to Statics and Dynamics](http://ruina.tam.cornell.edu/Book/index.html). Oxford University Press.
+    - Robertson G, Caldwell G, Hamill J, Kamen G (2013) [Research Methods in Biomechanics](http://books.google.com.br/books?id=gRn8AAAAQBAJ). 2nd Edition. Human Kinetics.
+    - Ruina A, Pratap R (2019) [Introduction to Statics and Dynamics](http://ruina.tam.cornell.edu/Book/index.html). Oxford University Press.
     - Siciliano B, Sciavicco L, Villani L, Oriolo G (2009) [Robotics - Modelling, Planning and Control](http://books.google.com.br/books/about/Robotics.html?hl=pt-BR&id=jPCAFmE-logC). Springer-Verlag London.
     - Winter DA (2009) [Biomechanics and motor control of human movement](http://books.google.com.br/books?id=_bFHL08IWfwC). 4 ed. Hoboken, USA: Wiley.
+    - Wu G, Cavanagh PR (1995) [ISB recommendations for standardization in the reporting of kinematic data](https://doi.org/10.1016/0021-9290(95)00017-C). Journal of Biomechanics, 28(10), 1257–1261.
     - Zatsiorsky VM (1997) [Kinematics of Human Motion](http://books.google.com.br/books/about/Kinematics_of_Human_Motion.html?id=Pql_xXdbrMcC&redir_esc=y). Champaign, Human Kinetics.
     """)
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    ## Function `euler_rotmatrix.py`
-    """)
-    return
-
-
-@app.cell
-def _(Math, display, np, sym):
-    """Euler rotation matrix given sequence, frame, and angles."""
-    from __future__ import division, print_function
-    __author__ = 'Marcos Duarte, https://github.com/demotu/BMC'
-    __version__ = 'euler_rotmat.py v.1 2014/03/10'
-
-    def euler_rotmat_1(order='xyz', frame='local', angles=None, unit='deg', str_symbols=None, showA=True, showN=True):
-        """Euler rotation matrix given sequence, frame, and angles.
-
-        This function calculates the algebraic rotation matrix (3x3) for a given
-        sequence ('order' argument) of up to three elemental rotations of a given
-        coordinate system ('frame' argument) around another coordinate system, the
-        Euler (or Eulerian) angles [1]_.
-
-        This function also calculates the numerical values of the rotation matrix
-        when numerical values for the angles are inputed for each rotation axis.
-        Use None as value if the rotation angle for the particular axis is unknown.
-
-        The symbols for the angles are: alpha, beta, and gamma for the first,
-        second, and third rotations, respectively.
-        The matrix product is calulated from right to left and in the specified
-        sequence for the Euler angles. The first letter will be the first rotation.
-
-        The function will print and return the algebraic rotation matrix and the
-        numerical rotation matrix if angles were inputed.
-
-        Parameters
-        ----------
-        order  : string, optional (default = 'xyz')
-                 Sequence for the Euler angles, any combination of the letters
-                 x, y, and z with 1 to 3 letters is accepted to denote the
-                 elemental rotations. The first letter will be the first rotation.
-
-        frame  : string, optional (default = 'local')
-                 Coordinate system for which the rotations are calculated.
-                 Valid values are 'local' or 'global'.
-
-        angles : list, array, or bool, optional (default = None)
-                 Numeric values of the rotation angles ordered as the 'order'
-                 parameter. Enter None for a rotation whith unknown value.
-
-        unit   : str, optional (default = 'deg')
-                 Unit of the input angles.
-
-        str_symbols : list of strings, optional (default = None)
-                 New symbols for the angles, for instance, ['theta', 'phi', 'psi']
-         
-        showA  : bool, optional (default = True)
-                 True (1) displays the Algebraic rotation matrix in rich format.
-                 False (0) to not display.
-
-        showN  : bool, optional (default = True)
-                 True (1) displays the Numeric rotation matrix in rich format.
-                 False (0) to not display.
-         
-        Returns
-        -------
-        R     :  Matrix Sympy object
-                 Rotation matrix (3x3) in algebraic format.
-
-        Rn    :  Numpy array or Matrix Sympy object (only if angles are inputed)
-                 Numeric rotation matrix (if values for all angles were inputed) or
-                 a algebraic matrix with some of the algebraic angles substituted
-                 by the corresponding inputed numeric values.
-
-        Notes
-        -----
-        This code uses Sympy, the Python library for symbolic mathematics, to
-        calculate the algebraic rotation matrix and shows this matrix in latex form
-        possibly for using with the IPython Notebook, see [1]_.
-
-        References
-        ----------
-        .. [1] http://nbviewer.ipython.org/github/duartexyz/BMC/blob/master/Transformation3D.ipynb
-
-        Examples
-        --------
-        >>> # import function
-        >>> from euler_rotmat import euler_rotmat
-        >>> # Default options: xyz sequence, local frame and show matrix
-        >>> R = euler_rotmat()
-        >>> # XYZ sequence (around global (fixed) coordinate system)
-        >>> R = euler_rotmat(frame='global')
-        >>> # Enter numeric values for all angles and show both matrices
-        >>> R, Rn = euler_rotmat(angles=[90, 90, 90])
-        >>> # show what is returned
-        >>> euler_rotmat(angles=[90, 90, 90])
-        >>> # show only the rotation matrix for the elemental rotation at x axis
-        >>> R = euler_rotmat(order='x')
-        >>> # zxz sequence and numeric value for only one angle
-        >>> R, Rn = euler_rotmat(order='zxz', angles=[None, 0, None])
-        >>> # input values in radians:
-        >>> import numpy as np
-        >>> R, Rn = euler_rotmat(order='zxz', angles=[None, np.pi, None], unit='rad')
-        >>> # shows only the numeric matrix
-        >>> R, Rn = euler_rotmat(order='zxz', angles=[90, 0, None], showA='False')
-        >>> # Change the angles' symbols
-        >>> R = euler_rotmat(order='zxz', str_symbols=['theta', 'phi', 'psi'])
-        >>> # Negativate the angles' symbols
-        >>> R = euler_rotmat(order='zxz', str_symbols=['-theta', '-phi', '-psi'])
-        >>> # all algebraic matrices for all possible sequences for the local frame
-        >>> s=['xyz','xzy','yzx','yxz','zxy','zyx','xyx','xzx','yzy','yxy','zxz','zyz']
-        >>> for seq in s: R = euler_rotmat(order=seq)
-        >>> # all algebraic matrices for all possible sequences for the global frame
-        >>> for seq in s: R = euler_rotmat(order=seq, frame='global')
-        """
-        try:
-            ipython = True
-        except:
-            ipython = False
-        angles = np.asarray(np.atleast_1d(angles), dtype=np.float64)
-        if ~np.isnan(angles).all():
-            if len(order) != angles.size:
-                raise ValueError("Parameters 'order' and 'angles' (when " + 'different from None) must have the same size.')
-        (x, y, z) = sym.symbols('x, y, z')
-        sig = [1, 1, 1]
-        if str_symbols is None:
-            (a, b, g) = sym.symbols('alpha, beta, gamma')
-        else:
-            s = str_symbols
-            if s[0][0] == '-':
-                s[0] = s[0][1:]
-                sig[0] = -1
-            if s[1][0] == '-':
-                s[1] = s[1][1:]
-                sig[1] = -1
-            if s[2][0] == '-':
-                s[2] = s[2][1:]
-                sig[2] = -1
-            (a, b, g) = sym.symbols(s)
-        var = {'x': x, 'y': y, 'z': z, 0: a, 1: b, 2: g}
-        (cos, sin) = (sym.cos, sym.sin)
-        Rx = sym.Matrix([[1, 0, 0], [0, cos(x), sin(x)], [0, -sin(x), cos(x)]])
-        Ry = sym.Matrix([[cos(y), 0, -sin(y)], [0, 1, 0], [sin(y), 0, cos(y)]])
-        Rz = sym.Matrix([[cos(z), sin(z), 0], [-sin(z), cos(z), 0], [0, 0, 1]])
-        if frame.lower() == 'global':
-            Rs = {'x': Rx.T, 'y': Ry.T, 'z': Rz.T}
-            order = order.upper()
-        else:
-            Rs = {'x': Rx, 'y': Ry, 'z': Rz}
-            order = order.lower()
-        _R = Rn = sym.Matrix(sym.Identity(3))
-        str1 = '\\mathbf{R}_{%s}( ' % frame
-        str2 = [1, 1, 1]
-        for i in range(len(order)):
-            Ri = Rs[order[i].lower()].subs(var[order[i].lower()], sig[i] * var[i])
-            _R = Ri * _R
-            if sig[i] > 0:
-                str2[i] = '%s:%s' % (order[i], sym.latex(var[i]))
-            else:
-                str2[i] = '%s:-%s' % (order[i], sym.latex(var[i]))
-            str1 = str1 + str2[i] + ','
-            if ~np.isnan(angles).all() and ~np.isnan(angles[i]):
-                if unit[:3].lower() == 'deg':
-                    angles[i] = np.deg2rad(angles[i])
-                Rn = Ri.subs(var[i], angles[i]) * Rn
-                str2[i] = str2[i] + '=%.0f^o' % np.around(np.rad2deg(angles[i]), 0)
-            else:
-                Rn = Ri * Rn
-        Rn = sym.simplify(Rn)
-        try:
-            Rn2 = sym.latex(sym.nsimplify(Rn, tolerance=1e-08).n(chop=True, prec=4))
-        except:
-            Rn2 = sym.latex(Rn.n(chop=True, prec=4))
-            Rn = np.asarray(Rn)
-        if showA and ipython:
-            display(Math(str1[:-1] + ') =' + sym.latex(_R, mat_str='matrix')))
-        if showN and ~np.isnan(angles).all() and ipython:
-            str2 = ',\\;'.join(str2[:angles.size])
-            display(Math('\\mathbf{R}_{%s}(%s)=%s' % (frame, str2, Rn2)))
-        if np.isnan(angles).all():
-            return _R
-        else:
-            return (_R, Rn)
-
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    ## Appendix
-    """)
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    ### How to load .trc files
-    """)
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    Using Pandas, to load a .trc file, we must specify the parameters:
-    - 'sep': separator between columns
-    - 'header': by default, Pandas will infer the header and read the first line as the header
-    - 'skiprows': a .trc file has 6 columns of text file before the numerica data
-    """)
-    return
-
-
-@app.cell
-def _():
-    import pandas as pd
-
-    return (pd,)
-
-
-@app.cell
-def _(pd):
-    _data = pd.read_csv('./../data/walk.trc', sep='\t', header=None, skiprows=6)
-    _data
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    But now the columns of the pandas dataframe don't have names and it will be easier if the columns have as names the marker's name (line 4 of the .trc file) and its direction (line 5).<br>
-    The solution is to first read only the header of the .trc file to get the markers' names and directions and read a second time only to get the numeric data.<br>
-    We wrote a function to do that, named 'read_trc.py' and it is stored in the functions directory of the BMC repository.<br>
-    Here is how to use this function:
-    """)
-    return
-
-
-@app.cell
-def _(sys):
-    sys.path.insert(1, r'./../functions')  # add to pythonpath
-
-    from read_trc import read_trc
-
-    return (read_trc,)
-
-
-@app.cell
-def _(read_trc):
-    (_h, _data) = read_trc('./../data/walk.trc', fname2='', dropna=False, na=0.0, fmt='uni')
-    _data
-    return
-
-
-@app.cell
-def _(read_trc):
-    (_h, _data) = read_trc('./../data/walk.trc', fname2='', dropna=False, na=0.0, fmt='multi')
-    _data
     return
 
 
