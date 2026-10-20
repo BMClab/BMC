@@ -735,7 +735,7 @@ def _(mo):
 
     Here is the payoff, and the reason the rest of this notebook exists.
 
-    In three-dimensional motion analysis you place markers on a segment — three of them, say, on the thigh — and you need a *coordinate system* attached to that segment: three mutually perpendicular unit vectors that move with the bone. What you have is three points, in no particular arrangement, measured with error. What you need is an orthonormal basis. The [Gram–Schmidt process](http://en.wikipedia.org/wiki/Gram%E2%80%93Schmidt_process) is how you get from one to the other, using nothing but the dot product and the norm.
+    In three-dimensional motion analysis you place markers on a segment — three of them, say, on the thigh — and you need a *coordinate system* attached to that segment: three mutually perpendicular unit vectors that move with the bone. What you have is three points, in no particular arrangement, measured with error. What you need is an orthonormal basis. The [Gram–Schmidt process](http://en.wikipedia.org/wiki/Gram%E2%80%93Schmidt_process), with a little help from the cross product, is how you get from one to the other.
 
     Given three vectors $\overrightarrow{\mathbf{a}}, \overrightarrow{\mathbf{b}}, \overrightarrow{\mathbf{c}}$ in 3D space, a basis $\{\hat{e}_a, \hat{e}_b, \hat{e}_c\}$ can be found as follows. The first versor is in the $\overrightarrow{\mathbf{a}}$ direction (or in the direction of any of the other vectors):
 
@@ -783,11 +783,19 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    Let's implement the Gram–Schmidt process in Python. Read the three vectors below as the positions of three markers:
+    Let's implement the Gram–Schmidt process in Python, and use it for what the introduction promised: a coordinate system for a segment carrying three markers at the positions
 
     $$
     \overrightarrow{\mathbf{m_1}} = [1,2,0], \quad \overrightarrow{\mathbf{m_2}} = [0,1,3], \quad \overrightarrow{\mathbf{m_3}} = [1,0,1]
     $$
+
+    There is a trap to avoid first. A marker position is an arrow from the laboratory's origin to the marker, and where that origin lies is an accident of how the cameras were calibrated. Feed the three positions themselves to the Gram–Schmidt process and the basis inherits that accident: move the laboratory's origin and the "segment" axes turn, although the segment has not moved ([Frame of reference](https://github.com/BMClab/BMC/blob/master/notebooks/ReferenceFrame.ipynb) demonstrates it). What belongs to the segment are the *differences* between markers, which are the same wherever the origin is. So the vectors we orthonormalize are
+
+    $$
+    \overrightarrow{\mathbf{d_1}} = \overrightarrow{\mathbf{m_2}} - \overrightarrow{\mathbf{m_1}}, \quad \overrightarrow{\mathbf{d_2}} = \overrightarrow{\mathbf{m_3}} - \overrightarrow{\mathbf{m_1}}
+    $$
+
+    which play the roles of $\overrightarrow{\mathbf{a}}$ and $\overrightarrow{\mathbf{b}}$ in the equations above.
     """)
     return
 
@@ -797,7 +805,10 @@ def _(np):
     m1 = np.array([1, 2, 0])
     m2 = np.array([0, 1, 3])
     m3 = np.array([1, 0, 1])
-    return m1, m2, m3
+
+    d1 = m2 - m1
+    d2 = m3 - m1
+    return d1, d2
 
 
 @app.cell(hide_code=True)
@@ -809,8 +820,8 @@ def _(mo):
 
 
 @app.cell
-def _(m1, np):
-    e1 = m1 / np.linalg.norm(m1)
+def _(d1, np):
+    e1 = d1 / np.linalg.norm(d1)
 
     print(e1)
     return (e1,)
@@ -825,8 +836,8 @@ def _(mo):
 
 
 @app.cell
-def _(e1, m2, np):
-    e2 = m2 - np.dot(m2, e1) * e1
+def _(d2, e1, np):
+    e2 = d2 - np.dot(d2, e1) * e1
     e2 = e2 / np.linalg.norm(e2)
 
     print(e2)
@@ -836,15 +847,14 @@ def _(e1, m2, np):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    And the third versor removes both components already accounted for:
+    With a third independent vector, the third versor would come from the third step above, removing both components already accounted for. But three markers give only two independent differences: the three points always lie in one plane, and $\hat{e}_1$ and $\hat{e}_2$ both lie in it. In three dimensions we do not need a third vector. The cross product of two perpendicular versors is a versor perpendicular to both, and it completes a right-handed basis:
     """)
     return
 
 
 @app.cell
-def _(e1, e2, m3, np):
-    e3 = m3 - np.dot(m3, e1) * e1 - np.dot(m3, e2) * e2
-    e3 = e3 / np.linalg.norm(e3)
+def _(e1, e2, np):
+    e3 = np.cross(e1, e2)
 
     print(e3)
     return (e3,)
@@ -881,42 +891,42 @@ def _(mo):
     mo.md(r"""
     The dot products are not exactly zero and the norms are not exactly one; they are zero and one to about fifteen decimal places. That is floating-point arithmetic, not a failure of the method, and it is why orthogonality is tested with a tolerance rather than with `==`.
 
-    Or we can simply use the built-in QR factorization function from NumPy, which performs an equivalent orthogonalization:
+    Or we can use the built-in QR factorization function from NumPy, which performs an equivalent orthogonalization of the columns of a matrix. Given the two differences as columns, it returns two orthonormal columns:
     """)
     return
 
 
 @app.cell
-def _(m1, m2, m3, np):
-    markers = np.vstack((m1, m2, m3)).T
-    Q, R = np.linalg.qr(markers)
+def _(d1, d2, np):
+    differences = np.column_stack((d1, d2))
+    Q, R = np.linalg.qr(differences)
 
     print(Q)
     return (Q,)
 
 
 @app.cell
-def _(Q, np):
-    q1, q2, q3 = Q[:, 0], Q[:, 1], Q[:, 2]
+def _(Q, e1, e2, np):
+    q1, q2 = Q[:, 0], Q[:, 1]
 
-    print("Versors:", "\nq1 =", q1, "\nq2 =", q2, "\nq3 =", q3)
+    print("Versors:", "\nq1 =", q1, "\nq2 =", q2)
     print("\nTest of orthogonality (the matrix Q' Q should be the identity):")
     print(np.dot(Q.T, Q))
     print(
         "\nNorm of each versor:",
         "\n||q1|| =", np.linalg.norm(q1),
         "\n||q2|| =", np.linalg.norm(q2),
-        "\n||q3|| =", np.linalg.norm(q3),
     )
+    print("\nSame as the Gram-Schmidt versors?", np.allclose(q1, e1), np.allclose(q2, e2))
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    This results in the same basis, with the exception of the changed signs — QR is free to choose the opposite direction along each axis, and it does. For a coordinate system attached to a body segment, that sign is the difference between an axis pointing forward and one pointing backward, so it is never a detail you can ignore.
+    Here QR returned exactly the versors we built by hand. Do not count on it: QR is free to choose the opposite direction along each axis, and with other inputs it does. For a coordinate system attached to a body segment, that sign is the difference between an axis pointing forward and one pointing backward, so it is never a detail you can ignore.
 
-    **Challenge 4.** The basis you built depends on the *order* of the three vectors: $\hat{e}_1$ is exactly along $\overrightarrow{\mathbf{m_1}}$, while $\overrightarrow{\mathbf{m_3}}$ only gets whatever direction is left over. Redo the process with the markers in the reverse order and compare the two bases. Then ask the question that matters in practice: if one marker is noisier than the other two, where in the ordering should it go?
+    **Challenge 4.** The basis you built depends on the *order* of the differences: $\hat{e}_1$ is exactly along $\overrightarrow{\mathbf{d_1}}$, while $\overrightarrow{\mathbf{d_2}}$ only contributes whatever direction is left over. Redo the process with $\overrightarrow{\mathbf{d_2}}$ first and compare the two bases; then pass the differences to `np.linalg.qr` in that order too, and see what happens to the signs. Finally, ask the question that matters in practice: if one marker is noisier than the other two, which difference should go first?
 
     How these bases become anatomical frames of reference — and what to do when the markers move relative to the bone — is the subject of the notebook [Frame of reference](https://github.com/BMClab/BMC/blob/master/notebooks/ReferenceFrame.ipynb).
     """)
