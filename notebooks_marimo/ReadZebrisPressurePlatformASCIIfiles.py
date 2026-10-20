@@ -57,13 +57,35 @@ def _():
     return np, plt
 
 
+@app.function
+def repo_file(path):
+    """Local path of a file of the BMC repository, e.g. "data/walk.trc".
+
+    Where only the notebook is available (e.g., on molab), the file is
+    downloaded from GitHub to a temporary folder.
+    """
+    import tempfile
+    import urllib.request
+    from pathlib import Path
+
+    import marimo as mo
+
+    local = mo.notebook_dir() / ".." / path
+    if local.exists():
+        return local
+    cached = Path(tempfile.gettempdir()) / "BMC" / path
+    if not cached.exists():
+        cached.parent.mkdir(parents=True, exist_ok=True)
+        urllib.request.urlretrieve(f"https://raw.githubusercontent.com/BMClab/BMC/master/{path}", cached)
+    return cached
+
+
 @app.cell
 def _():
-    path2 = './../Data/'
-    filename = path2 + 'MDwalk2.apd'
+    filename = str(repo_file('data/MDwalk2.apd'))
     with open(file=filename, mode='rt', newline='') as f:
         print(f.read())
-    return filename, path2
+    return (filename,)
 
 
 @app.cell(hide_code=True)
@@ -247,12 +269,12 @@ def _(cm, dx, dy):
 
 
 @app.cell
-def _(path2, plot_apd, plt, read_zebris_apd):
+def _(plot_apd, plt, read_zebris_apd):
     steps = ['MDwalk2' + _step for _step in ['', '_1', '_2', '_3', '_4']]
     (infos, datas) = ({}, {})
     (_fig, _axs) = plt.subplots(1, len(steps), figsize=(14, 7))
     for (_s, _step) in enumerate(steps):
-        (infos[_step], datas[_step]) = read_zebris_apd(path2 + _step + '.apd')
+        (infos[_step], datas[_step]) = read_zebris_apd(str(repo_file('data/' + _step + '.apd')))
         _img = plot_apd(infos[_step], datas[_step], _axs[_s], _step)
     _axs[0].set_ylabel('X (cm)')
     _fig.colorbar(_img, ax=list(_axs), label='Pressure (N/cm$^2$)', orientation='horizontal', pad=0.1, aspect=40)

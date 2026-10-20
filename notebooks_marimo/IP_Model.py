@@ -35,7 +35,7 @@ def _(mo):
 
     In the most simple version of the model, the human body in the sagittal plane is reduced to a two-link body with a single inverted pendulum articulated by only one joint (representing the feet, with the rest of the body articulated by the ankle joint). Let's deduce the equations for such inverted pendulum model as the representation at the sagital plane of the human standing still posture. The inverted pendulum model and the correspondent free-body diagrams (FBDs) are shown in Figure 1.
 
-    <div><figure><img src="./../images/invpendulum.png" width=400 alt="onelink"/><figcaption><b>Figure 1.</b> <i>Model of a two-link inverted pendulum and the external forces acting on it for the representation at the sagital plane of the human standing still posture and the corresponding free-body diagrams.$COG$: body center of gravity;$COG_v$:$COG$vertical projection (at the horizontal plane) in relation to the ankle joint;$COP$: body center of pressure in relation to the ankle joint;$GRF$: ground reaction force (typically measured by a force plate);$\alpha$: angle of the body in relation to the vertical direction;$m$: mass of the body minus feet;$g$: acceleration of gravity;$F_a$and$T_a$: resultant force and torque at the ankle joint;$h$: height of the$COG$in relation to the ankle joint;$m_f$and$h_f$: mass and height of the feet.</i></figcaption></figure></div>
+    <div><figure><img src="https://github.com/BMClab/BMC/blob/master/images/invpendulum.png?raw=1" width=400 alt="onelink"/><figcaption><b>Figure 1.</b> <i>Model of a two-link inverted pendulum and the external forces acting on it for the representation at the sagital plane of the human standing still posture and the corresponding free-body diagrams.$COG$: body center of gravity;$COG_v$:$COG$vertical projection (at the horizontal plane) in relation to the ankle joint;$COP$: body center of pressure in relation to the ankle joint;$GRF$: ground reaction force (typically measured by a force plate);$\alpha$: angle of the body in relation to the vertical direction;$m$: mass of the body minus feet;$g$: acceleration of gravity;$F_a$and$T_a$: resultant force and torque at the ankle joint;$h$: height of the$COG$in relation to the ankle joint;$m_f$and$h_f$: mass and height of the feet.</i></figcaption></figure></div>
     """)
     return
 
@@ -140,6 +140,29 @@ def _(mo):
     return
 
 
+@app.function
+def repo_file(path):
+    """Local path of a file of the BMC repository, e.g. "data/walk.trc".
+
+    Where only the notebook is available (e.g., on molab), the file is
+    downloaded from GitHub to a temporary folder.
+    """
+    import tempfile
+    import urllib.request
+    from pathlib import Path
+
+    import marimo as mo
+
+    local = mo.notebook_dir() / ".." / path
+    if local.exists():
+        return local
+    cached = Path(tempfile.gettempdir()) / "BMC" / path
+    if not cached.exists():
+        cached.parent.mkdir(parents=True, exist_ok=True)
+        urllib.request.urlretrieve(f"https://raw.githubusercontent.com/BMClab/BMC/master/{path}", cached)
+    return cached
+
+
 @app.cell
 def _():
     # Import the necessary libraries
@@ -147,7 +170,7 @@ def _():
     import matplotlib.pyplot as plt
     # '%matplotlib inline' command supported automatically in marimo
     import sys
-    sys.path.insert(1, r'./../functions')
+    sys.path.insert(0, str(repo_file('functions/cogve.py').parent))  # add to pythonpath
     from cogve import cogve
 
     return cogve, plt

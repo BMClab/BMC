@@ -520,6 +520,29 @@ def _(mo):
     return
 
 
+@app.function
+def repo_file(path):
+    """Local path of a file of the BMC repository, e.g. "data/walk.trc".
+
+    Where only the notebook is available (e.g., on molab), the file is
+    downloaded from GitHub to a temporary folder.
+    """
+    import tempfile
+    import urllib.request
+    from pathlib import Path
+
+    import marimo as mo
+
+    local = mo.notebook_dir() / ".." / path
+    if local.exists():
+        return local
+    cached = Path(tempfile.gettempdir()) / "BMC" / path
+    if not cached.exists():
+        cached.parent.mkdir(parents=True, exist_ok=True)
+        urllib.request.urlretrieve(f"https://raw.githubusercontent.com/BMClab/BMC/master/{path}", cached)
+    return cached
+
+
 @app.cell
 def _(np):
     """Muscle modeling and simulation."""
@@ -544,7 +567,7 @@ def _(np):
         def set_parameters(self, var=None):
             """Load and set parameters for the muscle model."""
             if var is None:
-                var = "./../data/muscle_parameter.txt"
+                var = str(repo_file("data/muscle_parameter.txt"))
             if isinstance(var, str):
                 self.P = self.config_parser(var, "parameters")
             elif isinstance(var, dict):
@@ -560,7 +583,7 @@ def _(np):
         def set_states(self, var=None):
             """Load and set states for the muscle model."""
             if var is None:
-                var = "./../data/muscle_state.txt"
+                var = str(repo_file("data/muscle_state.txt"))
             if isinstance(var, str):
                 self.S = self.config_parser(var, "states")
             elif isinstance(var, dict):

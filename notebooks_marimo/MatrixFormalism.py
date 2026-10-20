@@ -31,7 +31,7 @@ def _(mo):
 
     For the forward dynamics analysis, we will consider that we know the torques and find the angular accelerations. Naturally, we could begin our analysis from the muscle forces, from the muscle activations or even from the neural commands from the motor cortex.
 
-    <figure><img src="../images/foward.png" width=600/> <figcaption><i><center>Adapted from Erdemir et al. (2007) </center></i></figcaption>
+    <figure><img src="https://github.com/BMClab/BMC/blob/master/images/foward.png?raw=1" width=600/> <figcaption><i><center>Adapted from Erdemir et al. (2007) </center></i></figcaption>
     """)
     return
 
@@ -254,7 +254,7 @@ def _(mo):
 
     1. Solve the problems 19.3.20 and 19.3.24 of the Ruina and Rudra's book using the Lagrangian formalism (it is much easier than use the Newton-Euler formalism) and then use the matrix formalism to obtain the expressions of the angular accelerations.
     2. Derive the equations of motion in matrix form for the system below (see solution at https://youtu.be/ositbkD5J2M):
-    <figure><img src="./../images/masses_springs_gravity.png" width="200" alt="masses_springs_gravity"/></figure>
+    <figure><img src="https://github.com/BMClab/BMC/blob/master/images/masses_springs_gravity.png?raw=1" width="200" alt="masses_springs_gravity"/></figure>
     """)
     return
 

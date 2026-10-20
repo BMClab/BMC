@@ -24,6 +24,29 @@ def _(mo):
     return
 
 
+@app.function
+def repo_file(path):
+    """Local path of a file of the BMC repository, e.g. "data/walk.trc".
+
+    Where only the notebook is available (e.g., on molab), the file is
+    downloaded from GitHub to a temporary folder.
+    """
+    import tempfile
+    import urllib.request
+    from pathlib import Path
+
+    import marimo as mo
+
+    local = mo.notebook_dir() / ".." / path
+    if local.exists():
+        return local
+    cached = Path(tempfile.gettempdir()) / "BMC" / path
+    if not cached.exists():
+        cached.parent.mkdir(parents=True, exist_ok=True)
+        urllib.request.urlretrieve(f"https://raw.githubusercontent.com/BMClab/BMC/master/{path}", cached)
+    return cached
+
+
 @app.cell
 def _():
     # import the necessary libraries
@@ -34,7 +57,7 @@ def _():
     import seaborn as sns
     sns.set_context('notebook', font_scale=1.2, rc={"lines.linewidth": 2})
     import sys
-    sys.path.insert(1, r'./../functions')
+    sys.path.insert(0, str(repo_file('functions/invdyn2d.py').parent))  # add to pythonpath
     return IFrame, cross, np, plt
 
 
@@ -45,12 +68,12 @@ def _(mo):
 
     With respect to the equations of motion to determine the dynamics of a system, there are two general approaches: forward (or direct) and inverse dynamics. For example, consider the solution of Newton's second law for a particle. If we know the force(s) and want to find the trajectory, this is **forward dynamics**. If instead, we know the trajectory and want to find the force(s), this is **inverse dynamics**:
 
-    <figure><img src="./../images/dynamics.png" alt="Forward and inverse dynamics." width=220/><figcaption><i><center>Figure. The equation of motion and the forward and inverse dynamics approaches.</center></i></figcaption></figure>
+    <figure><img src="https://github.com/BMClab/BMC/blob/master/images/dynamics.png?raw=1" alt="Forward and inverse dynamics." width=220/><figcaption><i><center>Figure. The equation of motion and the forward and inverse dynamics approaches.</center></i></figcaption></figure>
 
     In Biomechanics, in a typical movement analysis of the human body using inverse dynamics, we would measure the positions of the segments and measure the external forces, calculate the segments' linear and angular acceleration, and find the internal net force and moment of force at the joint using the equations of motion. In addition, we could estimate the muscle forces (if we solve the redundancy problem of having more muscles than joints).<br>
     Using forward dynamics, the muscle forces would be the inputs and the trajectories of the segments would be the outputs. The figure below compares the forward and inverse dynamics approaches.
 
-    <figure><img src="./../images/InvDirDyn.png" alt="Direct and inverse dynamics."/><figcaption><i><center>Figure. Inverse dynamics and Forward (or Direct) dynamics approaches for movement analysis (adapted from Zajac and Gordon, 1989).</center></i></figcaption></figure>
+    <figure><img src="https://github.com/BMClab/BMC/blob/master/images/InvDirDyn.png?raw=1" alt="Direct and inverse dynamics."/><figcaption><i><center>Figure. Inverse dynamics and Forward (or Direct) dynamics approaches for movement analysis (adapted from Zajac and Gordon, 1989).</center></i></figcaption></figure>
     """)
     return
 
@@ -73,7 +96,7 @@ def _(mo):
 
     The [free body diagrams](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/FreeBodyDiagram.ipynb) of the lower limbs are:<br>
     <br>
-    <figure><img src="./../images/fbdgaitb.png" width=640 alt="FBD lowerlimb"/><figcaption><center><i>Figure. Free body diagrams of the lower limbs for a gait analysis. <b>GRF</b> is the resultant ground reaction force applied on the foot at the center of pressure, <b>COP</b>, position.</i></center></figcaption></figure>
+    <figure><img src="https://github.com/BMClab/BMC/blob/master/images/fbdgaitb.png?raw=1" width=640 alt="FBD lowerlimb"/><figcaption><center><i>Figure. Free body diagrams of the lower limbs for a gait analysis. <b>GRF</b> is the resultant ground reaction force applied on the foot at the center of pressure, <b>COP</b>, position.</i></center></figcaption></figure>
     """)
     return
 
@@ -291,9 +314,9 @@ def _(mo):
 @app.cell
 def _(np):
     # load file with ground reaction force data
-    grf = np.loadtxt('./../data/all.frc') # [Fx, Fy, COPx]
+    grf = np.loadtxt(repo_file('data/all.frc')) # [Fx, Fy, COPx]
     # load file with kinematic data
-    kin = np.loadtxt('./../data/all.kin') # [Hip(x,y), knee(x,y), ankle(x,y), toe(x,y)] 
+    kin = np.loadtxt(repo_file('data/all.kin')) # [Hip(x,y), knee(x,y), ankle(x,y), toe(x,y)] 
     freq = 10000
     time = np.linspace(0, grf.shape[0]/freq, grf.shape[0])
     return freq, grf, kin, time
@@ -459,8 +482,8 @@ def _(mo):
 @app.cell
 def _(freq, np):
     # load file with true joint forces and moments of force
-    forces  = np.loadtxt('./../data/all.fmg') # [Hip, knee, ankle]
-    moments = np.loadtxt('./../data/all.mom') # [Hip, knee, ankle]
+    forces  = np.loadtxt(repo_file('data/all.fmg')) # [Hip, knee, ankle]
+    moments = np.loadtxt(repo_file('data/all.mom')) # [Hip, knee, ankle]
     #heel strike occurs at sample 3001
     forces  = forces[3001-int(freq/40):-int(freq/20), :]
     moments = moments[3001-int(freq/40):-int(freq/20), :]

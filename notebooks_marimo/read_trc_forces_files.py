@@ -15,6 +15,29 @@ def _(mo):
     return
 
 
+@app.function
+def repo_file(path):
+    """Local path of a file of the BMC repository, e.g. "data/walk.trc".
+
+    Where only the notebook is available (e.g., on molab), the file is
+    downloaded from GitHub to a temporary folder.
+    """
+    import tempfile
+    import urllib.request
+    from pathlib import Path
+
+    import marimo as mo
+
+    local = mo.notebook_dir() / ".." / path
+    if local.exists():
+        return local
+    cached = Path(tempfile.gettempdir()) / "BMC" / path
+    if not cached.exists():
+        cached.parent.mkdir(parents=True, exist_ok=True)
+        urllib.request.urlretrieve(f"https://raw.githubusercontent.com/BMClab/BMC/master/{path}", cached)
+    return cached
+
+
 @app.cell
 def _():
     import numpy as np
@@ -28,7 +51,8 @@ def _():
     from scipy import signal
     import sys, os
     import pyversions  # https://pypi.org/project/pyversions/
-    sys.path.insert(1, r'./../functions')
+    _functions = [repo_file(f'functions/{_m}.py') for _m in ('io_cortexmac', 'critic_damp', 'linear_envelope', 'tnorm')]
+    sys.path.insert(0, str(_functions[0].parent))  # add to pythonpath
     import io_cortexmac as io  # from https://github.com/BMClab/BMC/tree/master/functions
 
     return io, np, os, pd, plt, pyversions, signal

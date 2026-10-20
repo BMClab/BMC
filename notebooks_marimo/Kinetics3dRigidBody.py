@@ -128,7 +128,7 @@ def _(mo):
 
     So, to compute the angular momentum of a body we have to multiply the matrix of inertia <span class="notranslate">$I$</span> of the body by its angular velocity <span class="notranslate">$\vec{\omega}$</span>. The problem on this approach is that the moments and products of inertia depends on the orientation of the body relative to the frame of reference. As they depend on the distances of each point of the body to the axes, if the body is rotating, the matrix of inertia$I$will be different at each instant.
 
-    <figure><img src="../images/3Dbodyref.png" width=800 />
+    <figure><img src="https://github.com/BMClab/BMC/blob/master/images/3Dbodyref.png?raw=1" width=800 />
     """)
     return
 
@@ -140,7 +140,7 @@ def _(mo):
 
     The solution to this problem is to attach a frame of reference to the body. We will denote this frame of reference as <span class="notranslate">$\hat{\boldsymbol{e_1}}$</span>, <span class="notranslate">$\hat{\boldsymbol{e_2}}$</span> and <span class="notranslate">$\hat{\boldsymbol{e_3}}$</span>, with origin in the center of mass of the body. As can be noted from the figure below, the frame of reference moves along the body. Now the matrix of inertia <span class="notranslate">$I$</span> will be constant relative to this new basis <span class="notranslate">$\hat{\boldsymbol{e_1}}$,$\hat{\boldsymbol{e_2}}$</span> and <span class="notranslate">$\hat{\boldsymbol{e_3}}$</span>.
 
-    <figure><img src="../images/3DbodyrefMove.png" width=800 />
+    <figure><img src="https://github.com/BMClab/BMC/blob/master/images/3DbodyrefMove.png?raw=1" width=800 />
     """)
     return
 
@@ -308,7 +308,7 @@ def _(mo):
 
     The free-body diagram of the 3d pendulum is depicted below. There is the gravitational force acting at the center of mass of gravity of the body and the torque <span class="notranslate">$\vec{M_1}$</span> due to the motor acting on the pendulum and the force <span class="notranslate">$\vec{F_1}$</span> due to the restraint at the upper part of the cylinder. Together with the forces, the local basis <span class="notranslate">$\hat{\boldsymbol{e_1}}$,$\hat{\boldsymbol{e_2}}$</span> and <span class="notranslate">$\hat{\boldsymbol{e_3}}$</span> in the direction of the principal axes an origin at the center of mass of the body is also shown.
 
-    <figure><img src="../images/3DpendulumFBD.png" width=400 />
+    <figure><img src="https://github.com/BMClab/BMC/blob/master/images/3DpendulumFBD.png?raw=1" width=400 />
     """)
     return
 
@@ -364,14 +364,37 @@ def _(mo):
     return
 
 
+@app.function
+def repo_file(path):
+    """Local path of a file of the BMC repository, e.g. "data/walk.trc".
+
+    Where only the notebook is available (e.g., on molab), the file is
+    downloaded from GitHub to a temporary folder.
+    """
+    import tempfile
+    import urllib.request
+    from pathlib import Path
+
+    import marimo as mo
+
+    local = mo.notebook_dir() / ".." / path
+    if local.exists():
+        return local
+    cached = Path(tempfile.gettempdir()) / "BMC" / path
+    if not cached.exists():
+        cached.parent.mkdir(parents=True, exist_ok=True)
+        urllib.request.urlretrieve(f"https://raw.githubusercontent.com/BMClab/BMC/master/{path}", cached)
+    return cached
+
+
 @app.cell
 def _():
     import numpy as np
     import matplotlib.pyplot as plt
 
     np.set_printoptions(precision=2)
-    f = open('../data/3dPendulum.txt')
-    data = np.loadtxt('../data/3dPendulum.txt', 
+    f = open(repo_file('data/3dPendulum.txt'))
+    data = np.loadtxt(repo_file('data/3dPendulum.txt'), 
                       skiprows=1, delimiter = ',')
     header = f.readline()
     print(header)
@@ -627,7 +650,7 @@ def _(mo):
 
 @app.cell
 def _(np):
-    data_1 = np.loadtxt('../data/postureData.txt', skiprows=1, delimiter=',')
+    data_1 = np.loadtxt(repo_file('data/postureData.txt'), skiprows=1, delimiter=',')
     t_1 = data_1[:, 0]
     dt_1 = t_1[2] - t_1[1]
     rcm_1 = data_1[:, 1:4]

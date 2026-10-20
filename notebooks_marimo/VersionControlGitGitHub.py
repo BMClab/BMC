@@ -57,7 +57,7 @@ def _(mo):
     Committed means that the data is safely stored in your local database. Modified means that you have changed the file but have not committed it to your database yet. Staged means that you have marked a modified file in its current version to go into your next commit snapshot.<br>
     This leads us to the three main sections of a Git project: the Git directory, the working directory, and the staging area." ([Pro Git Book](http://git-scm.com/book))
 
-    <div class='center-align'><figure><img src="./../images/GitLocalOperations.png"/><figcaption><i>Working directory, staging area, and Git directory ([Pro Git Book](http://git-scm.com/book)).</i></figcaption></figure></div>
+    <div class='center-align'><figure><img src="https://github.com/BMClab/BMC/blob/master/images/GitLocalOperations.png?raw=1"/><figcaption><i>Working directory, staging area, and Git directory ([Pro Git Book](http://git-scm.com/book)).</i></figcaption></figure></div>
 
     The local repository consists of three "trees" maintained by Git:
 
@@ -71,7 +71,7 @@ def _(mo):
     - Stage the files, adding snapshots of them to the staging area.
     - Do a commit, which takes the files as they are in the staging area and stores that snapshot permanently to the Git directory.
 
-    <div><center><figure><img src="./../images/GitFileLifecycle.png"/><figcaption><i>Figure. Lifecycle of a file using Git ([Pro Git Book](http://git-scm.com/book)).</i></figcaption></figure></center></div>
+    <div><center><figure><img src="https://github.com/BMClab/BMC/blob/master/images/GitFileLifecycle.png?raw=1"/><figcaption><i>Figure. Lifecycle of a file using Git ([Pro Git Book](http://git-scm.com/book)).</i></figcaption></figure></center></div>
     """)
     return
 

@@ -32,14 +32,37 @@ def _(mo):
     return
 
 
+@app.function
+def repo_file(path):
+    """Local path of a file of the BMC repository, e.g. "data/walk.trc".
+
+    Where only the notebook is available (e.g., on molab), the file is
+    downloaded from GitHub to a temporary folder.
+    """
+    import tempfile
+    import urllib.request
+    from pathlib import Path
+
+    import marimo as mo
+
+    local = mo.notebook_dir() / ".." / path
+    if local.exists():
+        return local
+    cached = Path(tempfile.gettempdir()) / "BMC" / path
+    if not cached.exists():
+        cached.parent.mkdir(parents=True, exist_ok=True)
+        urllib.request.urlretrieve(f"https://raw.githubusercontent.com/BMClab/BMC/master/{path}", cached)
+    return cached
+
+
 @app.cell
 def _():
     import numpy as np
     import matplotlib as mpl
     import matplotlib.pyplot as plt
     from scipy import signal
-    import sys
-    _sys.path.insert(1, './../functions')
+    import sys as _sys
+    _sys.path.insert(0, str(repo_file('functions/read_trc.py').parent))  # add to pythonpath
     from read_trc import read_trc
 
     return (read_trc,)
@@ -116,21 +139,21 @@ def _(fname_1, read_trc):
 
 @app.cell
 def _(read_trc):
-    (h_4, _data) = read_trc('./../data/walk.trc', fname2='', dropna=False, na=0.0, fmt='uni')
+    (h_4, _data) = read_trc(str(repo_file('data/walk.trc')), fname2='', dropna=False, na=0.0, fmt='uni')
     _data
     return
 
 
 @app.cell
 def _(read_trc):
-    (h_5, _data) = read_trc('./../data/walk.trc', fname2='', dropna=False, na=0.0, fmt='multi')
+    (h_5, _data) = read_trc(str(repo_file('data/walk.trc')), fname2='', dropna=False, na=0.0, fmt='multi')
     _data
     return
 
 
 @app.cell
 def _(read_trc):
-    (h_6, _data) = read_trc('./../data/walk.trc', fname2='', dropna=True, na=0.0, fmt='multi')
+    (h_6, _data) = read_trc(str(repo_file('data/walk.trc')), fname2='', dropna=True, na=0.0, fmt='multi')
     _data
     return
 

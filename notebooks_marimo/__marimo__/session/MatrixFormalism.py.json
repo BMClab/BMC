@@ -1,7 +1,7 @@
 {
   "version": "1",
   "metadata": {
-    "marimo_version": "0.24.2",
+    "marimo_version": "0.25.1",
     "script_metadata_hash": null
   },
   "cells": [
@@ -33,12 +33,12 @@
     },
     {
       "id": "vblA",
-      "code_hash": "9cfcb8f1a59e1a3e7c932e7006a85ce4",
+      "code_hash": "51149433ba371c15f5c5d02e75feee7b",
       "outputs": [
         {
           "type": "data",
           "data": {
-            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"forward-dynamics\">Forward Dynamics</h2>\n<span class=\"paragraph\">For the forward dynamics analysis, we will consider that we know the torques and find the angular accelerations. Naturally, we could begin our analysis from the muscle forces, from the muscle activations or even from the neural commands from the motor cortex.</span>\n<figure><img src=\"../images/foward.png\" width=600/> <figcaption><i><center>Adapted from Erdemir et al. (2007) </center></i></figcaption></span>"
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"forward-dynamics\">Forward Dynamics</h2>\n<span class=\"paragraph\">For the forward dynamics analysis, we will consider that we know the torques and find the angular accelerations. Naturally, we could begin our analysis from the muscle forces, from the muscle activations or even from the neural commands from the motor cortex.</span>\n<figure><img src=\"https://github.com/BMClab/BMC/blob/master/images/foward.png?raw=1\" width=600/> <figcaption><i><center>Adapted from Erdemir et al. (2007) </center></i></figcaption></span>"
           }
         }
       ],
@@ -229,12 +229,12 @@
     },
     {
       "id": "ROlb",
-      "code_hash": "06c4a2bee3936eb24343459ea9de09d6",
+      "code_hash": "52f9798d47b049c66c4f69c00cd9d555",
       "outputs": [
         {
           "type": "data",
           "data": {
-            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"problems\">Problems</h2>\n<ol>\n<li>Solve the problems 19.3.20 and 19.3.24 of the Ruina and Rudra's book using the Lagrangian formalism (it is much easier than use the Newton-Euler formalism) and then use the matrix formalism to obtain the expressions of the angular accelerations.</li>\n<li>Derive the equations of motion in matrix form for the system below (see solution at <a href=\"https://youtu.be/ositbkD5J2M\" rel=\"noopener noreferrer\" target=\"_blank\">https://youtu.be/ositbkD5J2M</a>):</li>\n</ol>\n<figure><img src=\"./../images/masses_springs_gravity.png\" width=\"200\" alt=\"masses_springs_gravity\"/></figure></span>"
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"problems\">Problems</h2>\n<ol>\n<li>Solve the problems 19.3.20 and 19.3.24 of the Ruina and Rudra's book using the Lagrangian formalism (it is much easier than use the Newton-Euler formalism) and then use the matrix formalism to obtain the expressions of the angular accelerations.</li>\n<li>Derive the equations of motion in matrix form for the system below (see solution at <a href=\"https://youtu.be/ositbkD5J2M\" rel=\"noopener noreferrer\" target=\"_blank\">https://youtu.be/ositbkD5J2M</a>):</li>\n</ol>\n<figure><img src=\"https://github.com/BMClab/BMC/blob/master/images/masses_springs_gravity.png?raw=1\" width=\"200\" alt=\"masses_springs_gravity\"/></figure></span>"
           }
         }
       ],

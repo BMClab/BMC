@@ -76,7 +76,10 @@ def _(mo):
 @app.cell
 def _(conditions, subjects, trials):
     import numpy as np
-    path = './../data/'
+    import tempfile as _tempfile
+    from pathlib import Path as _Path
+    path = str(_Path(_tempfile.gettempdir()) / 'BMC' / 'CodeStructure') + '/'
+    _Path(path).mkdir(parents=True, exist_ok=True)
     extension = '.txt'
     for _subject in subjects:
         for _condition in conditions:
@@ -92,16 +95,16 @@ def _(conditions, subjects, trials):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    In my case I used the './../' command to move up one directory relatively to my current directory (see the <a href="http://en.wikipedia.org/wiki/Cd_(command)">cd (command)</a>).<br>
+    The files are saved in a temporary folder, so that the notebook also runs where it cannot write next to itself (e.g., on molab). To save them somewhere else, change `path`; for instance, './../data/' moves up one directory relatively to the current directory (see the <a href="http://en.wikipedia.org/wiki/Cd_(command)">cd (command)</a>) and then into the folder data.<br>
     Let's remove one of the files:
     """)
     return
 
 
 @app.cell
-def _():
+def _(path):
     import os
-    os.remove('./../data/AAc202.txt')
+    os.remove(path + 'AAc202.txt')
     return
 
 

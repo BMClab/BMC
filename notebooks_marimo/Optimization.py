@@ -73,7 +73,7 @@ def _(mo):
 
     For a function of one variable, if the maximum or minimum of a function is not at the limits of the domain and if at least the first and second derivatives of the function exist, a maximum and minimum can be found as the point where the first derivative of the function is zero. If the second derivative on that point is positive, then it's a minimum, if it is negative, it's a maximum.
 
-    <div class='center-align'><figure><img src='./../images/maxmin.png' width=350 alt='minima and maxima of a function'/> <figcaption><center><i>Figure. Maxima and minima of a function of one variable.</i></center></figcaption> </figure></div>
+    <div class='center-align'><figure><img src='https://github.com/BMClab/BMC/blob/master/images/maxmin.png?raw=1' width=350 alt='minima and maxima of a function'/> <figcaption><center><i>Figure. Maxima and minima of a function of one variable.</i></center></figcaption> </figure></div>
 
      - Note that the requirement that the second derivative on the extremum to be positive for a minimum or negative for a maximum is sufficient but not a necessary condition. For instance, the function$f(x)=x^4$has an extremum in$x=0$since$f'(x)=4x^3$and$f'(0)=0$, but its second derivative at$x=0$is also zero:$f''(x)=12x^2;\: f''(0)=0$. In fact, the requirement is that the first non-zero derivative on that point should be positive for a minimum or negative for a maximum:$f''''(0)=24$; the extremum is a minimum.
     """)
@@ -112,7 +112,7 @@ def _(mo):
     We want to make a box from a square cardboard with side$a$such that its volume should be maximum.<br>
     What is the optimal distance where the square cardboard should be cut and folded to make a box with maximum volume?
 
-    <div class='center-align'><figure><img src='./../images/box.png' width=450 alt='box optimization'/> <figcaption><center><i>Figure. A box to be made from a cardboard such that its volume should be maximum. Where we should cut?</i></center></figcaption> </figure></div>
+    <div class='center-align'><figure><img src='https://github.com/BMClab/BMC/blob/master/images/box.png?raw=1' width=450 alt='box optimization'/> <figcaption><center><i>Figure. A box to be made from a cardboard such that its volume should be maximum. Where we should cut?</i></center></figcaption> </figure></div>
     """)
     return
 
@@ -307,18 +307,41 @@ def _(mo):
 
     Consider the following main flexors of the elbow joint (see figure below): biceps long head, biceps short head, and brachialis. Suppose that the elbow net joint torque determined using inverse dynamics is 20 Nm (flexor). How much each of these muscles contributed to the net torque?
 
-    <div class='center-align'><figure><img src='./../images/elbowflexors.png' alt='Elbow flexors'/> <figcaption><center><i>Figure. A view in OpenSim of the arm26 model showing three elbow flexors (Biceps long and short heads and Brachialis).</i></center></figcaption> </figure></div>
+    <div class='center-align'><figure><img src='https://github.com/BMClab/BMC/blob/master/images/elbowflexors.png?raw=1' alt='Elbow flexors'/> <figcaption><center><i>Figure. A view in OpenSim of the arm26 model showing three elbow flexors (Biceps long and short heads and Brachialis).</i></center></figcaption> </figure></div>
 
     For the optimization, we will need experimental data for the moment arm, maximum moment, and *pcsa* of each muscle. Let's import these data from the OpenSim arm26 model:
     """)
     return
 
 
+@app.function
+def repo_file(path):
+    """Local path of a file of the BMC repository, e.g. "data/walk.trc".
+
+    Where only the notebook is available (e.g., on molab), the file is
+    downloaded from GitHub to a temporary folder.
+    """
+    import tempfile
+    import urllib.request
+    from pathlib import Path
+
+    import marimo as mo
+
+    local = mo.notebook_dir() / ".." / path
+    if local.exists():
+        return local
+    cached = Path(tempfile.gettempdir()) / "BMC" / path
+    if not cached.exists():
+        cached.parent.mkdir(parents=True, exist_ok=True)
+        urllib.request.urlretrieve(f"https://raw.githubusercontent.com/BMClab/BMC/master/{path}", cached)
+    return cached
+
+
 @app.cell
 def _(np):
     # time elbow_flexion BIClong BICshort BRA
-    r_ef = np.loadtxt('./../data/r_elbowflexors.mot', skiprows=7)
-    f_ef = np.loadtxt('./../data/f_elbowflexors.mot', skiprows=7)
+    r_ef = np.loadtxt(repo_file('data/r_elbowflexors.mot'), skiprows=7)
+    f_ef = np.loadtxt(repo_file('data/f_elbowflexors.mot'), skiprows=7)
     return f_ef, r_ef
 
 
@@ -387,7 +410,7 @@ def _(mo):
 
     In the context of biomechanics, we can solve the distribution problem separately for each angle (instant) of the elbow; we will refer to that as static optimization. However, there is no guarantee that when we analyze all these solutions across the range of angles, they will be the best solution overall. One reason is that static optimization ignores the time history of the muscle force. Dynamic optimization refers to the optimization over a period of time. For such, we will need to input a cost function spanning the entire period of time at once. Dynamic optimization usually has a higher computational cost than static optimization. The term 'Dynamic optimization' used in Biomechanics is not related to the broader method known as '[dynamic programming](https://en.wikipedia.org/wiki/Dynamic_programming)' in mathematical optimization or computer programming.
 
-    <div class='center-align'><figure><img src='./../images/optim_stat_dyn.png' width=550 alt='static versus dynamic optimization' vspace="10"/> <figcaption><center><i>Figure. Static and dynamic optimization approaches in Biomechanics. Figure taken from Robertson et al. (2013).</i></center></figcaption> </figure></div>
+    <div class='center-align'><figure><img src='https://github.com/BMClab/BMC/blob/master/images/optim_stat_dyn.png?raw=1' width=550 alt='static versus dynamic optimization' vspace="10"/> <figcaption><center><i>Figure. Static and dynamic optimization approaches in Biomechanics. Figure taken from Robertson et al. (2013).</i></center></figcaption> </figure></div>
 
     The title 'Static and dynamic optimization solutions for gait are practically equivalent' of an article published by Anderson and Pandy (2001), where they studied normal walking (full gait cycle equals to 1.12 s), summarizes the results of such comparison. The authors reported that the dynamic solution required 1000 times more computation time than the static solution.
 

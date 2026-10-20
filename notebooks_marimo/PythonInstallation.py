@@ -31,15 +31,15 @@ def _(mo):
 
     First and foremost, Python already comes installed in your computer if you have a Mac OS (from Apple) or a Linux OS in your computer. Unfortunately, Windows OS (from Microsoft) does not come with Python. If you have a computer with Mac OSX or Linux OS, you can check the Python distribution you have by opening a *Terminal* window. On Mac OSX, you can either open the *Terminal*  by navigating in the main menu to *Applications -> Utilities* and then clicking on the *Terminal* icon, or by hitting the *Spotlight* shortcut `Command + Spacebar` and typing 'terminal'). On Linux, you can open the *Terminal* in a similar way by navigating in the main menu to *Applications -> Utilities* and then clicking on the Terminal icon, or yet open the *Terminal* by hitting the keyboard shortcut `Ctrl+Alt+T` (usually the default shortcut for *Terminal*). Here is a screenshot of the *Terminal* window on Mac OSX after I typed 'python' (without the quotation marks) and hit `Enter`:
 
-    <div class='center-align'><figure><img src="./../images/terminal_mac_osx.png" alt="Mac OSX Terminal window"/><figcaption><i>Running Python in a *Terminal* window on Mac OSX.</i></figcaption></figure></div>
+    <div class='center-align'><figure><img src="https://github.com/BMClab/BMC/blob/master/images/terminal_mac_osx.png?raw=1" alt="Mac OSX Terminal window"/><figcaption><i>Running Python in a *Terminal* window on Mac OSX.</i></figcaption></figure></div>
 
     In fact, the Python shown above is not the one that came with Mac OSX. The Python above was installed with the *Homebrew* software ([http://brew.sh/](http://brew.sh/)). You would need to do something like that only if you want to install Python and its packages one by one, which I wouldn't recommend. More on this later. Here is a screenshot of the *Terminal* window on Linux Ubuntu OS after I typed 'python' (without the quotation marks) and hit `Enter`:
 
-    <div class='center-align'><figure><img src="./../images/terminal_linux_ubuntu.png" alt="Linux Ubuntu Terminal window"/><figcaption><i>Running Python in a *Terminal* window on Linux Ubuntu OS.</i></figcaption></figure></div>
+    <div class='center-align'><figure><img src="https://github.com/BMClab/BMC/blob/master/images/terminal_linux_ubuntu.png?raw=1" alt="Linux Ubuntu Terminal window"/><figcaption><i>Running Python in a *Terminal* window on Linux Ubuntu OS.</i></figcaption></figure></div>
 
     On Windows, the equivalent of the *Terminal* window is the *Command Prompt* window. You can either open *Command Prompt* window by navigating in the main menu to *All Programs -> Accessories -> Utilities* and then clicking on the *Command Prompt* icon. Here is a screenshot of the *Command Prompt* window on Windows 7 OS after I typed 'python' (without the quotation marks) and hit `Enter`:
 
-    <div class='center-align'><figure><img src="./../images/command_prompt.png" alt="Windows OS Command Prompt"/><figcaption><i>Running Python in a *Command Prompt* window on Windows 7 OS.</i></figcaption></figure></div>
+    <div class='center-align'><figure><img src="https://github.com/BMClab/BMC/blob/master/images/command_prompt.png?raw=1" alt="Windows OS Command Prompt"/><figcaption><i>Running Python in a *Command Prompt* window on Windows 7 OS.</i></figcaption></figure></div>
 
     Of course, you would see a screen like above only if you already have Python installed in your Windows OS.
 
@@ -119,15 +119,15 @@ def _(mo):
 
     After the *Anaconda* installation, you can launch fancier shells for Python than the one we saw when we ran Python in a Terminal window. In the main menu of your OS, you should see icons for different shells inside the *Anaconda* menu. If you click on the *Launcher* icon, the following screen should appear:
 
-    <div class='center-align'><figure><img src="./../images/anaconda_launcher_win7.png" alt="Anaconda launcher on Windows OS" width=640/><figcaption><i>Anaconda Launcher on Windows 7 OS.</i></figcaption></figure></div>
+    <div class='center-align'><figure><img src="https://github.com/BMClab/BMC/blob/master/images/anaconda_launcher_win7.png?raw=1" alt="Anaconda launcher on Windows OS" width=640/><figcaption><i>Anaconda Launcher on Windows 7 OS.</i></figcaption></figure></div>
 
     From the *Launcher* screen you will be able to launch ipython-notebook, ipython-console, or spyder-app. The first two applications are different ways to run the IPython enhanced interactive Python shell, being the ipython-notebook a much nicer shell running on a web browser. Here is a screenshot of IPython Notebook:
 
-    <div class='center-align'><figure><img src="./../images/ipython_notebook_win7.png" alt="IPython Notebook on Windows OS" width=640/><figcaption><i>IPython Notebook on Windows OS.</i></figcaption></figure></div>
+    <div class='center-align'><figure><img src="https://github.com/BMClab/BMC/blob/master/images/ipython_notebook_win7.png?raw=1" alt="IPython Notebook on Windows OS" width=640/><figcaption><i>IPython Notebook on Windows OS.</i></figcaption></figure></div>
 
     The spyder-app is for launching *Spyder*, an interactive development environment (IDE) for Python and Spyder also includes an IPython shell. *Spyder* is very similar to the Matlab IDE if you are familiar with. Here is a screenshot of Spyder:
 
-    <div class='center-align'><figure><img src="./../images/spyder_win7.png" alt="Spyder on Windows OS" width=640/><figcaption><i>*Spyder* IDE for Python on Windows 7 OS. An editor appears on left, an IPython shell on the botton right, and a window on the top right for help documentation, variable or file explorer.</i></figcaption></figure></div>
+    <div class='center-align'><figure><img src="https://github.com/BMClab/BMC/blob/master/images/spyder_win7.png?raw=1" alt="Spyder on Windows OS" width=640/><figcaption><i>*Spyder* IDE for Python on Windows 7 OS. An editor appears on left, an IPython shell on the botton right, and a window on the top right for help documentation, variable or file explorer.</i></figcaption></figure></div>
 
     Another way to use Python for scientific computing is to use Python in the cloud with for example, [Wakari.io](https://wakari.io/). In this way, you don't have to install anything in your computer. *Wakari* has a free base account and you can buy more computer power according to your needs. Here is a screenshot of the *Wakari* website running an IPython Notebook:
 

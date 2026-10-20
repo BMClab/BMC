@@ -101,7 +101,7 @@ def _(mo):
     v_{y0} = 20 \sin(30^\circ) = 20 \frac{1}{2} = 10 m/s$</span>
     The free-body diagram of the ball is depicted below:
 
-    <figure><center><img src="../images/ballGrav.png" alt="free-body diagram of a ball" width="500"/><figcaption><i>Figure. Free-body diagram of a ball under the influence of gravity.</i></figcaption></center></figure>
+    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/ballGrav.png?raw=1" alt="free-body diagram of a ball" width="500"/><figcaption><i>Figure. Free-body diagram of a ball under the influence of gravity.</i></figcaption></center></figure>
     """)
     return
 
@@ -248,7 +248,7 @@ def _(mo):
 
     Now, besides the gravity, we consider the drag due to the air resistance ($b$= 0.006 Ns/m). First we will consider the drag force  proportional to the speed and opposite direction to the velocity vector.
 
-    <figure><center><img src="../images/ballGravLinearRes.png" alt="free-body diagram of the ball" width="600"/><figcaption><i>Figure. Free-body diagram of a ball under the influence of gravity and drag.</i></figcaption></center></figure>
+    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/ballGravLinearRes.png?raw=1" alt="free-body diagram of the ball" width="600"/><figcaption><i>Figure. Free-body diagram of a ball under the influence of gravity and drag.</i></figcaption></center></figure>
 
     So the forces being applied on the ball are:
     <span class="notranslate">$\vec{\bf{F}} = -mg \; \hat{\bf{j}} - b\vec{\bf{v}} = -mg \; \hat{\bf{j}} - b\frac{d\vec{\bf{r}}}{dt} = -mg \;  \hat{\bf{j}} - b\left(\frac{dx}{dt} \; \hat{\bf{i}}+\frac{dy}{dt} \; \hat{\bf{j}}\right) = - b\frac{dx}{dt} \; \hat{\bf{i}} - \left(mg + b\frac{dy}{dt}\right) \; \hat{\bf{j}}$</span>
@@ -410,7 +410,7 @@ def _(mo):
 
     Now, we will consider the drag force due to the air resistance proportional to the square of speed and still in the opposite direction of the velocity vector.
 
-    <figure><center><img src="../images/ballGravSquareRes.png" alt="free-body diagram of the ball" width="600"/><figcaption><i>Figure. Free-body diagram of a ball under the influence of gravity and drag proportional to the square of speed.</i></figcaption></center></figure>
+    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/ballGravSquareRes.png?raw=1" alt="free-body diagram of the ball" width="600"/><figcaption><i>Figure. Free-body diagram of a ball under the influence of gravity and drag proportional to the square of speed.</i></figcaption></center></figure>
     """)
     return
 
@@ -546,7 +546,7 @@ def _(mo):
       b. What is the tension in the rope?
       c. Now consider a coefficient of kinetic friction of$0.25$between the horizontal surface and the box. What are the acceleration of the system and the tension in the rope?
 
-    <figure><center><img src="../images/boxes_pulley_rope.png" alt="free-body diagram of the ball" width="300"/></center></figure>
+    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/boxes_pulley_rope.png?raw=1" alt="free-body diagram of the ball" width="300"/></center></figure>
 
     8. Consider a moving particle in a fluid with viscosity proportional to the cube of the velocity. This particle moves only vertically and never reaches the ground. Consider the magnitude of the acceleration due to gravity as$10 m/s^2$.
        a. Draw the free body diagram.
