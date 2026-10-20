@@ -59,7 +59,7 @@ def _():
     # %watermark -u -t -d -m -v --iversions
 
     np.set_printoptions(precision=3)
-    return mse, np, similarity
+    return mse, np, plt, similarity
 
 
 @app.cell
@@ -82,34 +82,31 @@ def _(mo):
     return
 
 
-app._unparsable_cell(
-    r"""
-    >>> import matplotlib.pyplot as plt
-    >>> rng = np.random.default_rng()
-    >>> t, n = 100, 10
-    >>> y = rng.random((t, n)) / 2
-    >>> y +=  np.atleast_2d(2*np.sin(2*np.pi*np.linspace(0, 1, t))).T
-    >>> for i in range(0, n, 2):
-    >>>    j = rng.integers(t-20)
-    >>>    p = rng.integers(20)
-    >>>    y[j:j+p, i] = y[j:j+p, i] + rng.integers(10) - 5
-    >>>    y[:, i] += rng.integers(4) - 2
-    >>> ysr, ikeptr, inotkeptr, scoresr = similarity(y)
-    >>> ysn, ikeptn, inotkeptn, scoresn = similarity(y, repeat=False)
-    >>> fig, axs = plt.subplots(3, 1, sharex=True, figsize=(7, 7))
-    >>> axs[0].plot(y, label=list(range(n)))
-    >>> axs[0].legend(loc=(1.01, 0), ncol=2)
-    >>> axs[0].set_title(f'Original vectors (n={n})')
-    >>> axs[1].plot(ysr, label= ikeptr.tolist())
-    >>> axs[1].set_title(f'Vectors maintained with repeat selection (n={len(ikeptr)})')
-    >>> axs[1].legend(loc=(1.01, 0))
-    >>> axs[2].plot(ysn, label= ikeptn.tolist())
-    >>> axs[2].set_title(f'Vectors maintained without repeat selection (n={len(ikeptn)})')
-    >>> axs[2].legend(loc=(1.01, 0))
-    >>> plt.show()
-    """,
-    name="_"
-)
+@app.cell
+def _(np, plt, similarity):
+    _rng = np.random.default_rng()
+    _t, _n = 100, 10
+    y = _rng.random((_t, _n)) / 2
+    y +=  np.atleast_2d(2*np.sin(2*np.pi*np.linspace(0, 1, _t))).T
+    for _i in range(0, _n, 2):
+       _j = _rng.integers(_t-20)
+       _p = _rng.integers(20)
+       y[_j:_j+_p, _i] = y[_j:_j+_p, _i] + _rng.integers(10) - 5
+       y[:, _i] += _rng.integers(4) - 2
+    _ysr, _ikeptr, _inotkeptr, _scoresr = similarity(y)
+    _ysn, _ikeptn, _inotkeptn, _scoresn = similarity(y, repeat=False)
+    _fig, _axs = plt.subplots(3, 1, sharex=True, figsize=(7, 7))
+    _axs[0].plot(y, label=list(range(_n)))
+    _axs[0].legend(loc=(1.01, 0), ncol=2)
+    _axs[0].set_title(f'Original vectors (n={_n})')
+    _axs[1].plot(_ysr, label= _ikeptr.tolist())
+    _axs[1].set_title(f'Vectors maintained with repeat selection (n={len(_ikeptr)})')
+    _axs[1].legend(loc=(1.01, 0))
+    _axs[2].plot(_ysn, label= _ikeptn.tolist())
+    _axs[2].set_title(f'Vectors maintained without repeat selection (n={len(_ikeptn)})')
+    _axs[2].legend(loc=(1.01, 0))
+    plt.show()
+    return (y,)
 
 
 @app.cell

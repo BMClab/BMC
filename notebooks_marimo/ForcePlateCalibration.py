@@ -211,8 +211,9 @@ def _(mo):
 
 @app.cell
 def _(L):
-    from scipy.linalg import pinv2
-    Lpinv = pinv2(L)
+    # scipy.linalg.pinv2 was removed in SciPy 1.9; scipy.linalg.pinv now also uses the SVD
+    from scipy.linalg import pinv as _pinv2
+    Lpinv = _pinv2(L)
     return (Lpinv,)
 
 
@@ -308,60 +309,55 @@ def _():
     sys.path.insert(0, str(repo_file('functions/fpcalibra.py').parent))  # add to pythonpath
     from fpcalibra import fpcalibra
 
+    return (fpcalibra,)
+
+
+@app.cell
+def _(fpcalibra, inv, np):
+    # simulated true re-calibration matrix
+    _C = np.array([[ 1.0354, -0.0053, -0.0021, -0.0289, -0.0402,  0.0081],
+                  [ 0.0064,  1.0309, -0.0031,  0.0211,  0.0135, -0.0001],
+                  [ 0.0000, -0.0004,  1.0022, -0.0005, -0.0182,  0.0300],
+                  [-0.0012, -0.0385,  0.0002,  0.9328,  0.0007,  0.0017],
+                  [ 0.0347,  0.0003,  0.0008, -0.0002,  0.9325, -0.0024],
+                  [-0.0004, -0.0013, -0.0003, -0.0023,  0.0035,  1.0592]])
+    # simulated 5 measurements sites (in m)
+    _COP = np.array([[   0,  112,  112, -112, -112],
+                    [   0,  192, -192,  192, -192],
+                    [-124, -124, -124, -124, -124]])/1000
+    _nk = _COP.shape[1]
+    # simulated forces measured by the load cell (in N) before rotation
+    _samples = np.linspace(1, 6000, 6000)
+    _ns = _samples.shape[0]
+    _Flc = np.empty((3, _nk*_ns))
+    for _k in range(_nk):
+        _Flc[:, _k*_ns:(_k+1)*_ns] = np.array([100*np.sin(5*2*np.pi*_samples/_ns) + 2*np.random.randn(_ns),
+                                          100*np.cos(5*2*np.pi*_samples/_ns) + 2*np.random.randn(_ns),
+                                          _samples/15 + 200 + 5*np.random.randn(_ns)])
+    # function for the COP skew-symmetric matrix
+    _Acop = lambda x,y,z : np.array([[.0, -z, y], [z, .0, -x], [-y, x, .0]])
+    # simulated loads measured by the force plate
+    _Li = np.empty((6, _ns*_nk))
+    _P = np.empty((6, 3, _nk))
+    for _k, _cop in enumerate(_COP.T):
+        _P[:, :, _k] = np.vstack((np.eye(3), _Acop(*_cop)))
+        _Li[:, _k*_ns:(_k+1)*_ns] = _P[:, :, _k] @ _Flc[:, _k*_ns:(_k+1)*_ns]
+    _Lfp = inv(_C) @  _Li
+    # simulated angles of rotaton of the measurement sites
+    _ang = np.array([20, -10, 0, 15, -5])/180*np.pi
+    # function for the rotation matrix
+    _R = lambda a : np.array([[np.cos(a), -np.sin(a), 0], [np.sin(a), np.cos(a), 0], [ 0, 0, 1]])
+    # simulated forces measured by the load cell after rotation
+    for _k in range(_nk):
+        _Flc[:, _k*_ns:(_k+1)*_ns] = _R(_ang[_k]).T @ _Flc[:, _k*_ns:(_k+1)*_ns]
+
+    _C2, _ang2 = fpcalibra(_Lfp, _Flc, _COP)
+
+    _e = np.sqrt(np.sum(_C2-_C)**2)
+    print('Residual between simulated and optimal re-calibration matrices:', _e)
+    _e = np.sqrt(np.sum(_ang2-_ang)**2)
+    print('Residual between simulated and optimal rotation angles:', _e)
     return
-
-
-app._unparsable_cell(
-    r"""
-    >>> import numpy as np
-        >>> from numpy.linalg import inv
-        >>>
-        >>> # simulated true re-calibration matrix
-        >>> C = np.array([[ 1.0354, -0.0053, -0.0021, -0.0289, -0.0402,  0.0081],
-        >>>               [ 0.0064,  1.0309, -0.0031,  0.0211,  0.0135, -0.0001],
-        >>>               [ 0.0000, -0.0004,  1.0022, -0.0005, -0.0182,  0.0300],
-        >>>               [-0.0012, -0.0385,  0.0002,  0.9328,  0.0007,  0.0017],
-        >>>               [ 0.0347,  0.0003,  0.0008, -0.0002,  0.9325, -0.0024],
-        >>>               [-0.0004, -0.0013, -0.0003, -0.0023,  0.0035,  1.0592]])
-        >>> # simulated 5 measurements sites (in m)
-        >>> COP = np.array([[   0,  112,  112, -112, -112],
-        >>>                 [   0,  192, -192,  192, -192],
-        >>>                 [-124, -124, -124, -124, -124]])/1000
-        >>> nk = COP.shape[1]
-        >>> # simulated forces measured by the load cell (in N) before rotation
-        >>> samples = np.linspace(1, 6000, 6000)
-        >>> ns = samples.shape[0]
-        >>> Flc = np.empty((3, nk*ns))
-        >>> for k in range(nk):
-        >>>     Flc[:, k*ns:(k+1)*ns] = np.array([100*np.sin(5*2*np.pi*samples/ns) + 2*np.random.randn(ns),
-        >>>                                       100*np.cos(5*2*np.pi*samples/ns) + 2*np.random.randn(ns),
-        >>>                                       samples/15 + 200 + 5*np.random.randn(ns)])
-        >>> # function for the COP skew-symmetric matrix
-        >>> Acop = lambda x,y,z : np.array([[.0, -z, y], [z, .0, -x], [-y, x, .0]])
-        >>> # simulated loads measured by the force plate
-        >>> Li = np.empty((6, ns*nk))
-        >>> P = np.empty((6, 3, nk))
-        >>> for k, cop in enumerate(COP.T):
-        >>>     P[:, :, k] = np.vstack((np.eye(3), Acop(*cop)))
-        >>>     Li[:, k*ns:(k+1)*ns] = P[:, :, k] @ Flc[:, k*ns:(k+1)*ns]
-        >>> Lfp = inv(C) @  Li
-        >>> # simulated angles of rotaton of the measurement sites
-        >>> ang = np.array([20, -10, 0, 15, -5])/180*np.pi
-        >>> # function for the rotation matrix
-        >>> R = lambda a : np.array([[np.cos(a), -np.sin(a), 0], [np.sin(a), np.cos(a), 0], [ 0, 0, 1]])
-        >>> # simulated forces measured by the load cell after rotation
-        >>> for k in range(nk):
-        >>>     Flc[:, k*ns:(k+1)*ns] = R(ang[k]).T @ Flc[:, k*ns:(k+1)*ns]
-        >>> 
-        >>> C2, ang2 = fpcalibra(Lfp, Flc, COP)
-        >>> 
-        >>> e = np.sqrt(np.sum(C2-C)**2)
-        >>> print('Residual between simulated and optimal re-calibration matrices:', e)
-        >>> e = np.sqrt(np.sum(ang2-ang)**2)
-        >>> print('Residual between simulated and optimal rotation angles:', e)
-    """,
-    name="_"
-)
 
 
 @app.cell(hide_code=True)
@@ -412,9 +408,12 @@ def _(mo):
     return
 
 
-app._unparsable_cell(
-    r"""
-    # number of sites
+@app.cell
+def _(minimize, np, pinv, time):
+    # Draft (never run in the original notebook): the body of the linear algorithm of
+    # fpcalibra, as a starting point for implementing the non-linear re-calibration
+    def _fpcalibra_nl(Lfp, Flc, COP, threshold=1e-10, method='SVD'):
+        # number of sites
         nk = COP.shape[1]
         # number of samples
         ns = int(Lfp.shape[1]/nk)
@@ -427,7 +426,7 @@ app._unparsable_cell(
         R = lambda a : np.array([[np.cos(a), -np.sin(a), 0], [np.sin(a), np.cos(a), 0], [ 0, 0, 1]])
         # Pseudoiverse of the loads measured by the force plate
         if method.lower() == 'svd':
-            Lpinv = pinv2(Lfp)
+            Lpinv = pinv(Lfp)
         else:
             Lpinv = pinv(Lfp)        
         # cost function for the optimization
@@ -463,9 +462,7 @@ app._unparsable_cell(
         print('\n')
 
         return C, res.x
-    """,
-    name="_"
-)
+    return
 
 
 @app.cell(hide_code=True)
@@ -498,13 +495,13 @@ def _(mo):
 
 
 @app.cell
-def _(np, pinv2_1):
+def _(np):
     """Force plate calibration algorithm.
     """
     __author__ = 'Marcos Duarte, https://github.com/demotu/BMC'
     __version__ = 'fpcalibra.py v.1.0.1 2016/08/19'
     __license__ = 'MIT'
-    from scipy.linalg import pinv, pinv2
+    from scipy.linalg import pinv  # pinv2 was removed in SciPy 1.9; pinv now also uses the SVD
     from scipy.optimize import minimize
     import time
 
@@ -615,7 +612,7 @@ def _(np, pinv2_1):
             P[:, :, k] = np.vstack((np.eye(3), Acop(*cop)))
         R = lambda a: np.array([[np.cos(a), -np.sin(a), 0], [np.sin(a), np.cos(a), 0], [0, 0, 1]])
         if method.lower() == 'svd':
-            Lpinv = pinv2_1(Lfp)
+            Lpinv = pinv(Lfp)
         else:
             Lpinv = pinv(Lfp)
 
@@ -646,7 +643,7 @@ def _(np, pinv2_1):
         print('\n')
         return (C, res.x)
 
-    return
+    return minimize, pinv, time
 
 
 @app.cell

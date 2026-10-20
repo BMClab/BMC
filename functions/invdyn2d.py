@@ -1,7 +1,7 @@
 """Two-dimensional inverse-dynamics calculations of one segment."""
 
-__author__ = 'Marcos Duarte, https://github.com/demotu/BMC'
-__version__ = 'invdyn2d.py v.2 2015/11/13'
+__author__ = "Marcos Duarte, https://github.com/demotu/BMC"
+__version__ = "invdyn2d.py v.2 2015/11/13"
 
 
 def invdyn2d(rcm, rd, rp, acm, alpha, mass, Icm, Fd, Md):
@@ -20,14 +20,14 @@ def invdyn2d(rcm, rd, rp, acm, alpha, mass, Icm, Fd, Md):
     alpha : array_like [x,y]
             segment angular acceleration
     mass  : number
-            mass of the segment   
+            mass of the segment
     Icm   : number
             rotational inertia around the center of mass of the segment
     Fd    : array_like [x,y]
             force on the distal joint of the segment
     Md    : array_like [x,y]
             moment of force on the distal joint of the segment
-    
+
     Returns
     -------
     Fp    : array_like [x,y]
@@ -37,10 +37,10 @@ def invdyn2d(rcm, rd, rp, acm, alpha, mass, Icm, Fd, Md):
 
     Notes
     -----
-    To use this function recursevely, the outputs [Fp, Mp] must be inputed as 
+    To use this function recursevely, the outputs [Fp, Mp] must be inputed as
     [-Fp, -Mp] on the next call to represent [Fd, Md] on the distal joint of the
     next segment (action-reaction).
-    
+
     This code was inspired by a similar code written by Ton van den Bogert [1]_.
     See this notebook [2]_.
 
@@ -50,12 +50,14 @@ def invdyn2d(rcm, rd, rp, acm, alpha, mass, Icm, Fd, Md):
     .. [2] http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/GaitAnalysis2D.ipynb
 
     """
-    
-    from numpy import cross
-     
+
+    def cross(a, b):
+        """z component of the cross product of 2D vectors (np.cross needs 3D vectors since NumPy 2)."""
+        return a[..., 0] * b[..., 1] - a[..., 1] * b[..., 0]
+
     g = 9.80665  # m/s2, standard acceleration of free fall (ISO 80000-3:2006)
     # Force and moment of force on the proximal joint
-    Fp = mass*acm - Fd - [0, -g*mass]
-    Mp = Icm*alpha - Md - cross(rd-rcm, Fd) - cross(rp-rcm, Fp)
-    
+    Fp = mass * acm - Fd - [0, -g * mass]
+    Mp = Icm * alpha - Md - cross(rd - rcm, Fd) - cross(rp - rcm, Fp)
+
     return Fp, Mp

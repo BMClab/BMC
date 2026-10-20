@@ -50,18 +50,11 @@ def _():
     sns.set_context('notebook', font_scale=1.2, rc={"lines.linewidth": 2})
     from scipy import signal
     import sys, os
-    import pyversions  # https://pypi.org/project/pyversions/
     _functions = [repo_file(f'functions/{_m}.py') for _m in ('io_cortexmac', 'critic_damp', 'linear_envelope', 'tnorm')]
     sys.path.insert(0, str(_functions[0].parent))  # add to pythonpath
     import io_cortexmac as io  # from https://github.com/BMClab/BMC/tree/master/functions
 
-    return io, np, os, pd, plt, pyversions, signal
-
-
-@app.cell
-def _(pyversions):
-    pyversions.versions();
-    return
+    return io, np, os, pd, plt, signal
 
 
 @app.cell(hide_code=True)

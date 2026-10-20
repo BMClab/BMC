@@ -198,7 +198,7 @@ def _(mo):
 def _(X, Y, cm, data, plt):
     from mpl_toolkits.mplot3d import Axes3D
     _fig = plt.figure(figsize=(14, 6))
-    _ax = _fig.gca(projection='3d')
+    _ax = _fig.add_subplot(projection='3d')
     _surf = _ax.plot_surface(X, Y, data, cmap=cm.jet, rcount=data.shape[0], ccount=data.shape[1], linewidth=0, antialiased=True)
     _ax.view_init(60, 200)
     _fig.colorbar(_surf, orientation='vertical', label='Pressure (N/cm$^2$)')
@@ -234,7 +234,7 @@ def _(X, Y, data, dx, info, np):
 @app.cell
 def _(X2, Y2, cm, data2, plt):
     _fig = plt.figure(figsize=(14, 6))
-    _ax = _fig.gca(projection='3d')
+    _ax = _fig.add_subplot(projection='3d')
     _surf = _ax.plot_surface(X2, Y2, data2, cmap=cm.jet, rcount=data2.shape[0], ccount=data2.shape[1], linewidth=0, antialiased=False)
     _ax.view_init(60, 200)
     _fig.colorbar(_surf, orientation='vertical', label='Pressure (N/cm$^2$)')
@@ -260,9 +260,9 @@ def _(cm, dx, dy):
         y0 = int(info['Technical']['StartSensX']) * dy
         xlen = int(info['Technical']['SensCountY'])
         ylen = int(info['Technical']['SensCountX'])
-        _img = _ax.imshow(data, cmap=cm.jet, aspect='auto', origin='lower', extent=[x0, x0 + xlen * dx, y0, y0 + ylen * dy], interpolation='nearest', vmin=0, vmax=40)
-        _ax.set_title(title)
-        _ax.set_xlabel('Y (cm)')
+        _img = ax.imshow(data, cmap=cm.jet, aspect='auto', origin='lower', extent=[x0, x0 + xlen * dx, y0, y0 + ylen * dy], interpolation='nearest', vmin=0, vmax=40)
+        ax.set_title(title)
+        ax.set_xlabel('Y (cm)')
         return _img
 
     return (plot_apd,)
@@ -306,12 +306,12 @@ def _(mo):
 
 @app.cell
 def _(datas, infos, plot_apd, plt, steps):
-    from scipy.misc import imresize
+    from scipy.ndimage import zoom
     datas2 = {}
     (_fig, _axs) = plt.subplots(1, len(steps), figsize=(14, 7))
     for (_s, _step) in enumerate(steps):
         maxdata = datas[_step].max()
-        datas2[_step] = imresize(datas[_step], size=(120, 60), interp='bilinear')
+        datas2[_step] = zoom(datas[_step], (120 / datas[_step].shape[0], 60 / datas[_step].shape[1]), order=1)  # bilinear
         datas2[_step] = maxdata * (datas2[_step] / datas2[_step].max())
         print('%s has %d rows and %d columns.' % (_step, *datas2[_step].shape))
         _img = plot_apd(infos[_step], datas2[_step], _axs[_s], _step)

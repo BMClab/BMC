@@ -83,9 +83,8 @@ def repo_file(path):
 
 @app.cell
 def _():
-    from __future__ import division, print_function
-    from struct import unpack       # convert C structs represented as Python strings
-    from cStringIO import StringIO  # reads and writes a string buffer
+    from struct import unpack       # convert C structs represented as Python bytes
+    from io import BytesIO          # reads and writes a bytes buffer
 
     def getFloat(floatStr,processor):
         "16-bit float string to number conversion"
@@ -99,7 +98,7 @@ def _():
     fid = open(filename, 'rb')       # open file for reading in binary format
     #Header section:
     bytes = fid.read(512)
-    buf = StringIO(bytes)
+    buf = BytesIO(bytes)
     firstBlockParameterSection, fmt = unpack('BB', buf.read(2))
     if fmt != 80:
         print('This file is not a valid C3D file.')
@@ -173,8 +172,12 @@ def _(mo):
 
 @app.cell
 def _():
-    import btk
-
+    try:
+        import btk
+    except ImportError:
+        btk = None
+        print('The btk package is not available (it cannot be installed for this Python version);\n'
+              'the cells below that need it will be skipped.')
     return (btk,)
 
 
@@ -188,10 +191,14 @@ def _(mo):
 
 @app.cell
 def _(btk):
-    reader = btk.btkAcquisitionFileReader()  # build a btk reader object 
-    reader.SetFilename(str(repo_file("data/Gait.c3d"))) # set a filename to the reader
-    acq = reader.GetOutput()                 # btk aquisition object
-    acq.Update()                             # Update ProcessObject associated with DataObject
+    if btk is None:
+        print('Skipped: the btk package is not available.')
+        acq = None
+    else:
+        reader = btk.btkAcquisitionFileReader()  # build a btk reader object 
+        reader.SetFilename(str(repo_file("data/Gait.c3d"))) # set a filename to the reader
+        acq = reader.GetOutput()                 # btk aquisition object
+        acq.Update()                             # Update ProcessObject associated with DataObject
     return (acq,)
 
 
@@ -205,13 +212,16 @@ def _(mo):
 
 @app.cell
 def _(acq):
-    print('Acquisition duration: %.2f s' %acq.GetDuration()) 
-    print('Point frequency: %.2f Hz' %acq.GetPointFrequency())
-    print('Number of frames: %d' %acq.GetPointFrameNumber())
-    print('Point unit: %s' %acq.GetPointUnit())
-    print('Analog frequency: %.2f Hz' %acq.GetAnalogFrequency())
-    print('Number of analog channels: %d' %acq.GetAnalogNumber()) 
-    print('Number of events: %d' %acq.GetEventNumber())
+    if acq is None:
+        print('Skipped: the btk package is not available.')
+    else:
+        print('Acquisition duration: %.2f s' %acq.GetDuration()) 
+        print('Point frequency: %.2f Hz' %acq.GetPointFrequency())
+        print('Number of frames: %d' %acq.GetPointFrameNumber())
+        print('Point unit: %s' %acq.GetPointUnit())
+        print('Analog frequency: %.2f Hz' %acq.GetAnalogFrequency())
+        print('Number of analog channels: %d' %acq.GetAnalogNumber()) 
+        print('Number of events: %d' %acq.GetEventNumber())
     return
 
 
@@ -225,12 +235,15 @@ def _(mo):
 
 @app.cell
 def _(acq):
-    print('Marker labels:')
-    for _i in range(0, acq.GetPoints().GetItemNumber()):
-        print(acq.GetPoint(_i).GetLabel(), end='  ')
-    print('\n\nAnalog channels:')
-    for _i in range(0, acq.GetAnalogs().GetItemNumber()):
-        print(acq.GetAnalog(_i).GetLabel(), end='  ')
+    if acq is None:
+        print('Skipped: the btk package is not available.')
+    else:
+        print('Marker labels:')
+        for _i in range(0, acq.GetPoints().GetItemNumber()):
+            print(acq.GetPoint(_i).GetLabel(), end='  ')
+        print('\n\nAnalog channels:')
+        for _i in range(0, acq.GetAnalogs().GetItemNumber()):
+            print(acq.GetAnalog(_i).GetLabel(), end='  ')
     return
 
 
@@ -244,8 +257,11 @@ def _(mo):
 
 @app.cell
 def _(acq):
-    for _i in range(0, acq.GetEvents().GetItemNumber()):
-        print(acq.GetEvent(_i).GetLabel() + ' at frame %d' % acq.GetEvent(_i).GetFrame())
+    if acq is None:
+        print('Skipped: the btk package is not available.')
+    else:
+        for _i in range(0, acq.GetEvents().GetItemNumber()):
+            print(acq.GetEvent(_i).GetLabel() + ' at frame %d' % acq.GetEvent(_i).GetFrame())
     return
 
 
@@ -261,11 +277,14 @@ def _(mo):
 
 @app.cell
 def _(acq):
-    for _i in range(acq.GetMetaData().GetChildNumber()):
-        print(acq.GetMetaData().GetChild(_i).GetLabel() + ':')
-        for j in range(acq.GetMetaData().GetChild(_i).GetChildNumber()):
-            print(acq.GetMetaData().GetChild(_i).GetChild(j).GetLabel(), end='  ')
-        print('\n')
+    if acq is None:
+        print('Skipped: the btk package is not available.')
+    else:
+        for _i in range(acq.GetMetaData().GetChildNumber()):
+            print(acq.GetMetaData().GetChild(_i).GetLabel() + ':')
+            for j in range(acq.GetMetaData().GetChild(_i).GetChildNumber()):
+                print(acq.GetMetaData().GetChild(_i).GetChild(j).GetLabel(), end='  ')
+            print('\n')
     return
 
 
@@ -280,25 +299,32 @@ def _(mo):
 @app.cell
 def _(acq):
     import numpy as np
-    data = np.empty((3, acq.GetPointFrameNumber(), 1))
-    for _i in range(0, acq.GetPoints().GetItemNumber()):
-        label = acq.GetPoint(_i).GetLabel()
-        data = np.dstack((data, acq.GetPoint(label).GetValues().T))
-    data = data.T
-    data = np.delete(data, 0, axis=0)
-    data[data == 0] = np.NaN
+    if acq is None:
+        print('Skipped: the btk package is not available.')
+        data = None
+    else:
+        data = np.empty((3, acq.GetPointFrameNumber(), 1))
+        for _i in range(0, acq.GetPoints().GetItemNumber()):
+            label = acq.GetPoint(_i).GetLabel()
+            data = np.dstack((data, acq.GetPoint(label).GetValues().T))
+        data = data.T
+        data = np.delete(data, 0, axis=0)
+        data[data == 0] = np.nan
     return data, np
 
 
 @app.cell
 def _(data):
-    data.shape
+    data.shape if data is not None else 'Skipped: the btk package is not available.'
     return
 
 
 @app.cell
 def _(data, np):
-    print(np.nanmin(data), np.nanmax(data))
+    if data is None:
+        print('Skipped: the btk package is not available.')
+    else:
+        print(np.nanmin(data), np.nanmax(data))
     return
 
 
@@ -318,19 +344,22 @@ def _(acq, np):
     import matplotlib.pyplot as plt
     # '%matplotlib inline' command supported automatically in marimo
 
-    ana = acq.GetAnalog("f1z")
-    fz1 = ana.GetValues()/ana.GetScale()
-    ana = acq.GetAnalog("f2z")
-    fz2 = ana.GetValues()/ana.GetScale()
-    freq2 = acq.GetAnalogFrequency()
-    t = np.linspace(1, len(fz1), num=len(fz1))/freq2
-    plt.figure(figsize=(10, 4))
-    plt.plot(t, fz1, label='Fz1')
-    plt.plot(t, fz2, label='Fz2')
-    plt.legend()
-    plt.xlabel('Time [s]')
-    plt.ylabel('GRF vertical [N]')
-    plt.show()
+    if acq is None:
+        print('Skipped: the btk package is not available.')
+    else:
+        ana = acq.GetAnalog("f1z")
+        fz1 = ana.GetValues()/ana.GetScale()
+        ana = acq.GetAnalog("f2z")
+        fz2 = ana.GetValues()/ana.GetScale()
+        freq2 = acq.GetAnalogFrequency()
+        t = np.linspace(1, len(fz1), num=len(fz1))/freq2
+        plt.figure(figsize=(10, 4))
+        plt.plot(t, fz1, label='Fz1')
+        plt.plot(t, fz2, label='Fz2')
+        plt.legend()
+        plt.xlabel('Time [s]')
+        plt.ylabel('GRF vertical [N]')
+        plt.show()
     return (plt,)
 
 
@@ -354,29 +383,33 @@ def _():
 def _(acq, data, np, plt):
     from mpl_toolkits.mplot3d import Axes3D
     import matplotlib.animation as animation
-    dat = data[:, 130:340, :]
-    freq = acq.GetPointFrequency()
-    fig = plt.figure()
-    ax = fig.add_axes([0, 0, 1, 1], projection='3d')
-    ax.view_init(10, 150)
-    pts = []
-    for _i in range(dat.shape[0]):
-        pts += ax.plot([], [], [], 'o')
-    ax.set_xlim3d([np.nanmin(dat[:, :, 0]), np.nanmax(dat[:, :, 0])])
-    ax.set_ylim3d([np.nanmin(dat[:, :, 1]) - 400, np.nanmax(dat[:, :, 1]) + 400])
-    ax.set_zlim3d([np.nanmin(dat[:, :, 2]), np.nanmax(dat[:, :, 2])])
-    ax.set_xlabel('X [mm]')
-    ax.set_ylabel('Y [mm]')
-    ax.set_zlabel('Z [mm]')
+    if data is None:
+        print('Skipped: the btk package is not available.')
+        anim = None
+    else:
+        dat = data[:, 130:340, :]
+        freq = acq.GetPointFrequency()
+        fig = plt.figure()
+        ax = fig.add_axes([0, 0, 1, 1], projection='3d')
+        ax.view_init(10, 150)
+        pts = []
+        for _i in range(dat.shape[0]):
+            pts += ax.plot([], [], [], 'o')
+        ax.set_xlim3d([np.nanmin(dat[:, :, 0]), np.nanmax(dat[:, :, 0])])
+        ax.set_ylim3d([np.nanmin(dat[:, :, 1]) - 400, np.nanmax(dat[:, :, 1]) + 400])
+        ax.set_zlim3d([np.nanmin(dat[:, :, 2]), np.nanmax(dat[:, :, 2])])
+        ax.set_xlabel('X [mm]')
+        ax.set_ylabel('Y [mm]')
+        ax.set_zlabel('Z [mm]')
 
-    def animate(i):
-        for (pt, xi) in zip(pts, dat):
-            (x, y, z) = xi[:_i].T
-            pt.set_data(x[-1:], y[-1:])
-            pt.set_3d_properties(z[-1:])
-        return pts
-    anim = animation.FuncAnimation(fig, func=animate, frames=dat.shape[1], interval=1000 / freq, blit=True)
-    plt.show()
+        def animate(i):
+            for (pt, xi) in zip(pts, dat):
+                (x, y, z) = xi[:i].T
+                pt.set_data(x[-1:], y[-1:])
+                pt.set_3d_properties(z[-1:])
+            return pts
+        anim = animation.FuncAnimation(fig, func=animate, frames=dat.shape[1], interval=1000 / freq, blit=True)
+        plt.show()
     return (anim,)
 
 
@@ -407,9 +440,12 @@ def _(mo):
 
 @app.cell
 def _(anim):
-    anim.save('walking.mp4', writer='ffmpeg', fps=50)
-    # or
-    anim.save('walking.gif', writer='imagemagick', fps=50)
+    if anim is None:
+        print('Skipped: the btk package is not available.')
+    else:
+        anim.save('walking.mp4', writer='ffmpeg', fps=50)
+        # or
+        anim.save('walking.gif', writer='imagemagick', fps=50)
     return
 
 

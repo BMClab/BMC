@@ -146,7 +146,7 @@ def _(mo):
 
 @app.cell
 def _(conditions, extension, np, path, subjects, trials):
-    results = np.empty(shape=(2, 2, 3, 3)) * np.NaN
+    results = np.empty(shape=(2, 2, 3, 3)) * np.nan
     for (_s, _subject) in enumerate(subjects):
         for (_c, _condition) in enumerate(conditions):
             for (_t, _trial) in enumerate(trials):
@@ -188,8 +188,8 @@ def _(mo):
 
 @app.cell
 def _(conditions, extension, np, path, subjects, trials):
-    results_1 = np.empty(shape=(2 * 2 * 3, 3)) * np.NaN
-    results2 = np.empty(shape=(2 * 2 * 3, 3)) * np.NaN
+    results_1 = np.empty(shape=(2 * 2 * 3, 3)) * np.nan
+    results2 = np.empty(shape=(2 * 2 * 3, 3)) * np.nan
     _ind = 0
     for (_s, _subject) in enumerate(subjects):
         for (_c, _condition) in enumerate(conditions):
@@ -221,7 +221,7 @@ def _(mo):
 
 @app.cell
 def _(conditions, extension, np, path, subjects, trials):
-    results_2 = np.empty(shape=(2 * 2 * 3, 3)) * np.NaN
+    results_2 = np.empty(shape=(2 * 2 * 3, 3)) * np.nan
     _ind = 0
     indexes = []
     for (_s, _subject) in enumerate(subjects):

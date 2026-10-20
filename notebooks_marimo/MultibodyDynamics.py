@@ -880,12 +880,12 @@ def _(Fex_1, Fey_1, I1, I2, L1, L2, d1, d2, g_1, m1, m2, plt, t_1):
         """Numerical calculation and plot for the torques of a planar two-link system.
         """
         from sympy import lambdify, symbols
-        Mfun = lambdify((I1, I2, L1, L2, d1, d2, m1, m2, q1, q2), M, 'numpy')
+        Mfun = lambdify((I1, I2, L1, L2, d1, d2, m1, m2, q1, q2), M.tolist(), 'numpy')  # nested list: elements are arrays and constants
         Mn = Mfun(I1n, I2n, L1n, L2n, d1n, d2n, m1n, m2n, rang[:, 0], rang[:, 1])
-        _M00 = Mn[0, 0] * aang[:, 0]
-        _M01 = Mn[0, 1] * aang[:, 1]
-        _M10 = Mn[1, 0] * aang[:, 0]
-        _M11 = Mn[1, 1] * aang[:, 1]
+        _M00 = Mn[0][0] * aang[:, 0]
+        _M01 = Mn[0][1] * aang[:, 1]
+        _M10 = Mn[1][0] * aang[:, 0]
+        _M11 = Mn[1][1] * aang[:, 1]
         (Q1d, Q2d) = symbols('Q1d Q2d')
         dicti = {q1.diff(t_1, 1): Q1d, q2.diff(t_1, 1): Q2d}
         C0fun = lambdify((L1, d2, m2, q2, Q1d, Q2d), C[0].subs(dicti), 'numpy')

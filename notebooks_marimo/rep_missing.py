@@ -86,12 +86,6 @@ def _(rep_missing, x):
 
 
 @app.cell
-def _(np):
-    np.s
-    return
-
-
-@app.cell
 def _(detect_seq, x):
     detect_seq(x, 0, index=True, min_seq=2)
     return

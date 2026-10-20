@@ -376,7 +376,7 @@ def _(f_ef, m_ef, np, plt, r_ef):
     #ax[0].set_xlabel('Elbow angle$(\,^o)$')
     ax[0].set_title('Moment arm (m)')
     ax[1].plot(f_ef[:, 1], f_ef[:, 2:])
-    ax[1].set_xlabel('Elbow angle$(\,^o)$', fontsize=16)
+    ax[1].set_xlabel(r'Elbow angle$(\,^o)$', fontsize=16)
     ax[1].set_title('Maximum force (N)')
     ax[2].plot(m_ef[:, 1], m_ef[:, 2:])
     #ax[2].set_xlabel('Elbow angle$(\,^o)$')
@@ -470,9 +470,9 @@ def _(mo):
 def _(np):
     def cf_f1d(x):
         """Derivative of cost function: sum of forces."""
-        dfdx0 = 1
-        dfdx1 = 1
-        dfdx2 = 1
+        dfdx0 = 1.0
+        dfdx1 = 1.0
+        dfdx2 = 1.0
         return np.array([dfdx0, dfdx1, dfdx2])
 
     def cf_f2d(x):
@@ -555,7 +555,7 @@ def _(M, f0, np, r):
 
 @app.cell
 def _(M, f0, np, r):
-    cons_1 = ({'type': 'eq', 'fun': lambda x, r, f0, M: np.array([r[0] * x[0] + r[1] * x[1] + r[2] * x[2] - M]), 'jac': lambda x, r, f0, M: np.array([r[0], r[1], r[2]]), 'args': (r, f0, M)}, {'type': 'ineq', 'fun': lambda x, r, f0, M: f0[0] - x[0], 'jac': lambda x, r, f0, M: np.array([-1, 0, 0]), 'args': (r, f0, M)}, {'type': 'ineq', 'fun': lambda x, r, f0, M: f0[1] - x[1], 'jac': lambda x, r, f0, M: np.array([0, -1, 0]), 'args': (r, f0, M)}, {'type': 'ineq', 'fun': lambda x, r, f0, M: f0[2] - x[2], 'jac': lambda x, r, f0, M: np.array([0, 0, -1]), 'args': (r, f0, M)}, {'type': 'ineq', 'fun': lambda x, r, f0, M: x[0], 'jac': lambda x, r, f0, M: np.array([1, 0, 0]), 'args': (r, f0, M)}, {'type': 'ineq', 'fun': lambda x, r, f0, M: x[1], 'jac': lambda x, r, f0, M: np.array([0, 1, 0]), 'args': (r, f0, M)}, {'type': 'ineq', 'fun': lambda x, r, f0, M: x[2], 'jac': lambda x, r, f0, M: np.array([0, 0, 1]), 'args': (r, f0, M)})
+    cons_1 = ({'type': 'eq', 'fun': lambda x, r, f0, M: np.array([r[0] * x[0] + r[1] * x[1] + r[2] * x[2] - M]), 'jac': lambda x, r, f0, M: np.array([r[0], r[1], r[2]]), 'args': (r, f0, M)}, {'type': 'ineq', 'fun': lambda x, r, f0, M: f0[0] - x[0], 'jac': lambda x, r, f0, M: np.array([-1.0, 0, 0]), 'args': (r, f0, M)}, {'type': 'ineq', 'fun': lambda x, r, f0, M: f0[1] - x[1], 'jac': lambda x, r, f0, M: np.array([0, -1.0, 0]), 'args': (r, f0, M)}, {'type': 'ineq', 'fun': lambda x, r, f0, M: f0[2] - x[2], 'jac': lambda x, r, f0, M: np.array([0, 0, -1.0]), 'args': (r, f0, M)}, {'type': 'ineq', 'fun': lambda x, r, f0, M: x[0], 'jac': lambda x, r, f0, M: np.array([1.0, 0, 0]), 'args': (r, f0, M)}, {'type': 'ineq', 'fun': lambda x, r, f0, M: x[1], 'jac': lambda x, r, f0, M: np.array([0, 1.0, 0]), 'args': (r, f0, M)}, {'type': 'ineq', 'fun': lambda x, r, f0, M: x[2], 'jac': lambda x, r, f0, M: np.array([0, 0, 1.0]), 'args': (r, f0, M)})
     return (cons_1,)
 
 

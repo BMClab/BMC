@@ -27,37 +27,12 @@ def _(mo):
     return
 
 
-@app.function
-def repo_file(path):
-    """Local path of a file of the BMC repository, e.g. "data/walk.trc".
-
-    Where only the notebook is available (e.g., on molab), the file is
-    downloaded from GitHub to a temporary folder.
-    """
-    import tempfile
-    import urllib.request
-    from pathlib import Path
-
-    import marimo as mo
-
-    local = mo.notebook_dir() / ".." / path
-    if local.exists():
-        return local
-    cached = Path(tempfile.gettempdir()) / "BMC" / path
-    if not cached.exists():
-        cached.parent.mkdir(parents=True, exist_ok=True)
-        urllib.request.urlretrieve(f"https://raw.githubusercontent.com/BMClab/BMC/master/{path}", cached)
-    return cached
-
-
 @app.cell
-def _():
-    import sys
-    sys.path.insert(0, str(repo_file('functions/statdesc.py').parent))  # add to pythonpath
-    from statdesc import statdesc
-
+def _(statdesc):
+    # functions/statdesc.py is an older, Python 2 version of this function that cannot be
+    # imported in Python 3; we use the version 1.0.2 defined at the end of this notebook.
     help(statdesc)
-    return (statdesc,)
+    return
 
 
 @app.cell(hide_code=True)
@@ -99,17 +74,17 @@ def _(mo):
 @app.cell
 def _(np):
     """Descriptive statistics of data."""
-    from __future__ import division, print_function
     __author__ = 'Marcos Duarte, https://github.com/demotu/BMC'
     __version__ = '1.0.2'
     __license__ = 'MIT'
     import scipy.stats as stats
     try:
+        import matplotlib.pyplot as _plt
         import matplotlib.ticker as ticker
     except ImportError:
         _plt = None
 
-    def statdesc_1(data, missing='NaN', labels=[], alpha=0.05, show=2):
+    def statdesc(data, missing='NaN', labels=[], alpha=0.05, show=2):
         """
         Descriptive statistics of data.
 
@@ -180,7 +155,7 @@ def _(np):
         >>> from statdesc import statdesc
         >>> y = np.random.randn(20,3)
         >>> statdesc(y)                # use the default options
-        >>> y[8:12,1] = np.NaN         # add a missing value
+        >>> y[8:12,1] = np.nan         # add a missing value
         >>> y[12,1] = 2                # add another missing value
         >>> statdesc(y, False, 2, ['A','B'], .01) # set arguments
         >>> m_sd,ci,minmax,quartiles,normality,eq_var = statdesc(y)
@@ -195,13 +170,13 @@ def _(np):
         if len(data.shape) == 1:
             data = data.reshape(data.shape[0], 1)
         if isinstance(missing, (int, float)) and ~np.isnan(missing):
-            data[data == missing] = np.NaN
-        m_sd = np.zeros((data.shape[1], 2)) * np.NaN
-        ci = np.zeros((data.shape[1], 2)) * np.NaN
-        min_max = np.zeros((data.shape[1], 2)) * np.NaN
-        quartiles = np.zeros((data.shape[1], 3)) * np.NaN
-        normality = np.zeros((data.shape[1], 2)) * np.NaN
-        eq_var = np.zeros((1, 2)) * np.NaN
+            data[data == missing] = np.nan
+        m_sd = np.zeros((data.shape[1], 2)) * np.nan
+        ci = np.zeros((data.shape[1], 2)) * np.nan
+        min_max = np.zeros((data.shape[1], 2)) * np.nan
+        quartiles = np.zeros((data.shape[1], 3)) * np.nan
+        normality = np.zeros((data.shape[1], 2)) * np.nan
+        eq_var = np.zeros((1, 2)) * np.nan
         x = []
         nmiss = 0
         min_len = 0
@@ -230,9 +205,9 @@ def _(np):
                 i = i + 1
         if len(x) > 1 and min_len > 1:
             if np.all(normality[:, 1] > 0.05):
-                eq_var[0] = _stats.bartlett(*x)
+                eq_var[0] = stats.bartlett(*x)
             else:
-                eq_var[0] = _stats.levene(*x, center='median')
+                eq_var[0] = stats.levene(*x, center='median')
         if show and _plt:
             if data.shape[1] > 1:
                 plotallvar(data, x, min_max, eq_var, min_len, alpha, labels)
@@ -243,14 +218,14 @@ def _(np):
     def summary(x):
         """summary statistics"""
         m_sd = (np.mean(x), np.std(x, ddof=1))
-        ci = np.zeros((1, 2)) * np.NaN
+        ci = np.zeros((1, 2)) * np.nan
         if x.shape[0] > 1:
-            ci = _stats.t._pdf(0.975, x.size - 1) * m_sd[1] / np.sqrt(x.size) * np.array([-1, 1]) + m_sd[0]
+            ci = stats.t._pdf(0.975, x.size - 1) * m_sd[1] / np.sqrt(x.size) * np.array([-1, 1]) + m_sd[0]
         min_max = (x.min(), x.max())
         quartiles = (np.median(x), np.percentile(x, 25), np.percentile(x, 75))
-        normality = np.zeros((1, 2)) * np.NaN
+        normality = np.zeros((1, 2)) * np.nan
         if x.shape[0] > 2:
-            normality = _stats.shapiro(x)
+            normality = stats.shapiro(x)
         return (m_sd, ci, min_max, quartiles, normality)
 
     def plot1var(data, x, m_sd, min_max, normality, labels, alpha, ncol):
@@ -266,8 +241,8 @@ def _(np):
         ax1.set_title(title)
         ax1.set_ylabel('Value')
         if x.shape[0] > 1:
-            _plt.xlim(xmin=-0.5, xmax=data.shape[0] - 0.5)
-            _plt.ylim(ymin=min_max[0] - 0.05 * (min_max[1] - min_max[0]), ymax=min_max[1] + 0.05 * (min_max[1] - min_max[0]))
+            _plt.xlim(left=-0.5, right=data.shape[0] - 0.5)
+            _plt.ylim(bottom=min_max[0] - 0.05 * (min_max[1] - min_max[0]), top=min_max[1] + 0.05 * (min_max[1] - min_max[0]))
         ax2 = _plt.subplot(223)
         h2 = ax2.boxplot(x, notch=1)
         _plt.setp(h2['boxes'], color='r', linewidth=2)
@@ -278,10 +253,10 @@ def _(np):
         ax2.set_xlabel('Variable')
         ax2.set_ylabel('Value')
         ax3 = _plt.subplot(224)
-        nbins = 2 * np.sqrt(x.size) if x.size < 100 else np.sqrt(x.size)
-        (n, bins, patches) = ax3.hist(x, nbins, normed=1, fc='blue', alpha=0.75)
+        nbins = int(2 * np.sqrt(x.size) if x.size < 100 else np.sqrt(x.size))
+        (n, bins, patches) = ax3.hist(x, nbins, density=True, fc='blue', alpha=0.75)
         bincenters = np.linspace((bins[0] + bins[1]) / 2, (bins[-2] + bins[-1]) / 2, 100)
-        y = _stats.norm.pdf(bincenters, loc=m_sd[0], scale=m_sd[1])
+        y = stats.norm.pdf(bincenters, loc=m_sd[0], scale=m_sd[1])
         ax3.plot(bincenters, y, 'r-', linewidth=2)
         ax3.set_xlabel('Value')
         distribution = 'normal' if normality[1] > alpha else 'not normal'
@@ -299,9 +274,9 @@ def _(np):
         ax1.grid(True)
         ax1.set_title('All variables')
         ax1.set_ylabel('Value')
-        _plt.xlim(xmin=-0.5, xmax=data.shape[0] - 0.5)
+        _plt.xlim(left=-0.5, right=data.shape[0] - 0.5)
         if min_max.max() - min_max.min() > 0:
-            _plt.ylim(ymin=min_max.min() - 0.05 * (min_max.max() - min_max.min()), ymax=min_max.max() + 0.05 * (min_max.max() - min_max.min()))
+            _plt.ylim(bottom=min_max.min() - 0.05 * (min_max.max() - min_max.min()), top=min_max.max() + 0.05 * (min_max.max() - min_max.min()))
         ax2 = _plt.subplot(212)
         h2 = ax2.boxplot(x, notch=1)
         ax2.grid(True, linestyle='-', which='major', color='lightgrey', alpha=0.5)
@@ -334,10 +309,10 @@ def _(np):
         for i in range(data.shape[1]):
             for j in range(data.shape[1]):
                 if i == j:
-                    nbins = 2 * np.sqrt(x[i].size) if x[i].size < 100 else np.sqrt(x[i].size)
-                    (n, bins, patches) = ax[i, j].hist(x[i], nbins, normed=1, facecolor='blue', alpha=0.75)
+                    nbins = int(2 * np.sqrt(x[i].size) if x[i].size < 100 else np.sqrt(x[i].size))
+                    (n, bins, patches) = ax[i, j].hist(x[i], nbins, density=True, facecolor='blue', alpha=0.75)
                     bincenters = np.linspace((bins[0] + bins[1]) / 2, (bins[-2] + bins[-1]) / 2, 100)
-                    y = _stats.norm.pdf(bincenters, x[i].mean(), scale=x[i].std())
+                    y = stats.norm.pdf(bincenters, x[i].mean(), scale=x[i].std())
                     ax[i, j].plot(bincenters, y, 'r-', linewidth=2)
                 else:
                     ax[i, j].plot(data[:, i], data[:, j], 'bo', alpha=0.75)
@@ -346,17 +321,17 @@ def _(np):
                 ax[i, j].yaxis.set_visible(False)
                 ax[i, j].xaxis.set_major_locator(ticker.MaxNLocator(nbins=nbins2, prune='both'))
                 ax[i, j].yaxis.set_major_locator(ticker.MaxNLocator(nbins=nbins2, prune='both'))
-                if ax[i, j].is_first_col():
+                if ax[i, j].get_subplotspec().is_first_col():
                     ax[i, j].yaxis.set_ticks_position('left')
                     ax[i, j].yaxis.set_visible(True)
                     ax[i, j].set_ylabel(label[i])
-                if ax[i, j].is_last_col():
+                if ax[i, j].get_subplotspec().is_last_col():
                     ax[i, j].yaxis.set_ticks_position('right')
                     ax[i, j].yaxis.set_visible(True)
-                if ax[i, j].is_first_row():
+                if ax[i, j].get_subplotspec().is_first_row():
                     ax[i, j].xaxis.set_ticks_position('top')
                     ax[i, j].xaxis.set_visible(True)
-                if ax[i, j].is_last_row():
+                if ax[i, j].get_subplotspec().is_last_row():
                     ax[i, j].xaxis.set_ticks_position('bottom')
                     ax[i, j].xaxis.set_visible(True)
                     ax[i, j].set_xlabel(label[j])
@@ -408,8 +383,8 @@ def _(np):
             print('-----------------------------------------------------------')
     if __name__ == '__main__':
         y = np.random.randn(100, 3)
-        statdesc_1(y, 1, [], ['A', 'B', 'C', 'D'], 0.05)
-    return
+        statdesc(y, labels=['A', 'B', 'C'], alpha=0.05)
+    return (statdesc,)
 
 
 @app.cell

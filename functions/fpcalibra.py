@@ -6,7 +6,7 @@ __version__ = 'fpcalibra.py v.1.0.1 2016/08/19'
 __license__ = "MIT"
 
 import numpy as np
-from scipy.linalg import pinv, pinv2
+from scipy.linalg import pinv
 from scipy.optimize import minimize
 import time
 
@@ -124,7 +124,7 @@ def fpcalibra(Lfp, Flc, COP, threshold=1e-10, method='SVD'):
     R = lambda a : np.array([[np.cos(a), -np.sin(a), 0], [np.sin(a), np.cos(a), 0], [ 0, 0, 1]])
     # Pseudoiverse of the loads measured by the force plate
     if method.lower() == 'svd':
-        Lpinv = pinv2(Lfp)
+        Lpinv = pinv(Lfp)  # pinv2 was removed in SciPy 1.9; pinv now also uses the SVD
     else:
         Lpinv = pinv(Lfp)        
     # cost function for the optimization

@@ -123,7 +123,7 @@ def _(mo):
 @app.cell
 def _(stats):
     print('Confidence interval around the mean:')
-    stats.norm.interval(alpha=0.95, loc=0, scale=1)
+    stats.norm.interval(confidence=0.95, loc=0, scale=1)
     return
 
 
@@ -185,7 +185,7 @@ def _(mo):
 
 @app.cell
 def _(np, stats):
-    np.asarray(stats.t.interval(alpha=0.95, df=25-1, loc=0, scale=1)) * np.sqrt(1+1/10)
+    np.asarray(stats.t.interval(confidence=0.95, df=25-1, loc=0, scale=1)) * np.sqrt(1+1/10)
     return
 
 
@@ -199,7 +199,7 @@ def _(mo):
 
 @app.cell
 def _(np, stats):
-    np.asarray(stats.t.interval(alpha=0.95, df=10000-1, loc=0, scale=1)) * np.sqrt(1+1/10000)
+    np.asarray(stats.t.interval(confidence=0.95, df=10000-1, loc=0, scale=1)) * np.sqrt(1+1/10000)
     return
 
 
@@ -271,7 +271,7 @@ def _(mo):
 
 @app.cell
 def _(np, stats):
-    stats.t.interval(alpha=0.95, df=10-1, loc=0, scale=1) / np.sqrt(10)
+    stats.t.interval(confidence=0.95, df=10-1, loc=0, scale=1) / np.sqrt(10)
     return
 
 

@@ -209,69 +209,8 @@ def _(mo):
 
 
 @app.cell
-def _(cross):
-    # %load ./../functions/invdyn2d.py
-    """Two-dimensional inverse-dynamics calculations of one segment."""
-
-    __author__ = 'Marcos Duarte, https://github.com/demotu/BMC'
-    __version__ = 'invdyn2d.py v.2 2015/11/13'
-
-
-    def invdyn2d(rcm, rd, rp, acm, alpha, mass, Icm, Fd, Md):
-        """Two-dimensional inverse-dynamics calculations of one segment
-
-        Parameters
-        ----------
-        rcm   : array_like [x,y]
-                center of mass position (y is vertical)
-        rd    : array_like [x,y]
-                distal joint position
-        rp    : array_like [x,y]
-                proximal joint position
-        acm   : array_like [x,y]
-                center of mass acceleration
-        alpha : array_like [x,y]
-                segment angular acceleration
-        mass  : number
-                mass of the segment<br>
-        Icm   : number
-                rotational inertia around the center of mass of the segment
-        Fd    : array_like [x,y]
-                force on the distal joint of the segment
-        Md    : array_like [x,y]
-                moment of force on the distal joint of the segment
-
-        Returns
-        -------
-        Fp    : array_like [x,y]
-                force on the proximal joint of the segment (y is vertical)
-        Mp    : array_like [x,y]
-                moment of force on the proximal joint of the segment
-
-        Notes
-        -----
-        To use this function recursevely, the outputs [Fp, Mp] must be inputed as 
-        [-Fp, -Mp] on the next call to represent [Fd, Md] on the distal joint of the
-        next segment (action-reaction).
-
-        This code was inspired by a similar code written by Ton van den Bogert [1]_.
-        See this notebook [2]_.
-
-        References
-        ----------
-        .. [1] http://isbweb.org/data/invdyn/index.html
-        .. [2] http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/GaitAnalysis2D.ipynb
-
-        """
-
- 
-        g = 9.80665  # m/s2, standard acceleration of free fall (ISO 80000-3:2006)
-        # Force and moment of force on the proximal joint
-        Fp = mass*acm - Fd - [0, -g*mass]
-        Mp = Icm*alpha - Md - cross(rd-rcm, Fd) - cross(rp-rcm, Fp)
-
-        return Fp, Mp
-
+def _(mo):
+    mo.ui.code_editor(repo_file("functions/invdyn2d.py").read_text(), language="python", disabled=True)
     return
 
 
@@ -460,15 +399,15 @@ def _(mo):
 
 
 @app.cell
-def _(Icm, aang, acm, grf_1, invdyn2d_1, kin_1, mass, np, rcm):
+def _(Icm, aang, acm, grf_1, kin_1, mass, np, rcm):
     from invdyn2d import invdyn2d
-    (Fa, Ma) = invdyn2d_1(rcm[:, (4, 5)], grf_1[:, (2, 2)] * [1, 0], kin_1[:, (4, 5)], acm[:, (4, 5)], aang[:, 2], mass[2], Icm[2], grf_1[:, (0, 1)], 0)
-    (Fk, Mk) = invdyn2d_1(rcm[:, (2, 3)], kin_1[:, (4, 5)], kin_1[:, (2, 3)], acm[:, (2, 3)], aang[:, 1], mass[1], Icm[1], -Fa, -Ma)
-    (Fh, Mh) = invdyn2d_1(rcm[:, (0, 1)], kin_1[:, (2, 3)], kin_1[:, (0, 1)], acm[:, (0, 1)], aang[:, 0], mass[0], Icm[0], -Fk, -Mk)
+    (Fa, Ma) = invdyn2d(rcm[:, (4, 5)], grf_1[:, (2, 2)] * [1, 0], kin_1[:, (4, 5)], acm[:, (4, 5)], aang[:, 2], mass[2], Icm[2], grf_1[:, (0, 1)], 0)
+    (Fk, Mk) = invdyn2d(rcm[:, (2, 3)], kin_1[:, (4, 5)], kin_1[:, (2, 3)], acm[:, (2, 3)], aang[:, 1], mass[1], Icm[1], -Fa, -Ma)
+    (Fh, Mh) = invdyn2d(rcm[:, (0, 1)], kin_1[:, (2, 3)], kin_1[:, (0, 1)], acm[:, (0, 1)], aang[:, 0], mass[0], Icm[0], -Fk, -Mk)
     Fam = np.sqrt(np.sum(np.abs(Fa) ** 2, axis=-1))
     Fkm = np.sqrt(np.sum(np.abs(Fk) ** 2, axis=-1))
     Fhm = np.sqrt(np.sum(np.abs(Fh) ** 2, axis=-1))
-    return Fam, Fhm, Fkm, Ma, Mh, Mk
+    return Fam, Fhm, Fkm, Ma, Mh, Mk, invdyn2d
 
 
 @app.cell(hide_code=True)
@@ -564,7 +503,7 @@ def _(
     acm,
     forces,
     grf_1,
-    invdyn2d_1,
+    invdyn2d,
     kin_1,
     mass,
     moments,
@@ -573,9 +512,9 @@ def _(
     rcm,
     time_1,
 ):
-    (Fast, Mast) = invdyn2d_1(rcm[:, (4, 5)], grf_1[:, (2, 2)] * [1, 0], kin_1[:, (4, 5)], acm[:, (4, 5)] * 0, aang[:, 2] * 0, mass[2], Icm[2], grf_1[:, (0, 1)], 0)
-    (Fkst, Mkst) = invdyn2d_1(rcm[:, (2, 3)], kin_1[:, (4, 5)], kin_1[:, (2, 3)], acm[:, (2, 3)] * 0, aang[:, 1] * 0, mass[1], Icm[1], -Fast, -Mast)
-    (Fhst, Mhst) = invdyn2d_1(rcm[:, (0, 1)], kin_1[:, (2, 3)], kin_1[:, (0, 1)], acm[:, (0, 1)] * 0, aang[:, 0] * 0, mass[0], Icm[0], -Fkst, -Mkst)
+    (Fast, Mast) = invdyn2d(rcm[:, (4, 5)], grf_1[:, (2, 2)] * [1, 0], kin_1[:, (4, 5)], acm[:, (4, 5)] * 0, aang[:, 2] * 0, mass[2], Icm[2], grf_1[:, (0, 1)], 0)
+    (Fkst, Mkst) = invdyn2d(rcm[:, (2, 3)], kin_1[:, (4, 5)], kin_1[:, (2, 3)], acm[:, (2, 3)] * 0, aang[:, 1] * 0, mass[1], Icm[1], -Fast, -Mast)
+    (Fhst, Mhst) = invdyn2d(rcm[:, (0, 1)], kin_1[:, (2, 3)], kin_1[:, (0, 1)], acm[:, (0, 1)] * 0, aang[:, 0] * 0, mass[0], Icm[0], -Fkst, -Mkst)
     Fastm = np.sqrt(np.sum(np.abs(Fast) ** 2, axis=-1))
     Fkstm = np.sqrt(np.sum(np.abs(Fkst) ** 2, axis=-1))
     Fhstm = np.sqrt(np.sum(np.abs(Fhst) ** 2, axis=-1))
@@ -608,7 +547,7 @@ def _(
     acm,
     forces,
     grf_1,
-    invdyn2d_1,
+    invdyn2d,
     kin_1,
     moments,
     np,
@@ -616,9 +555,9 @@ def _(
     rcm,
     time_1,
 ):
-    (Fagrf, Magrf) = invdyn2d_1(rcm[:, (4, 5)], grf_1[:, (2, 2)] * [1, 0], kin_1[:, (4, 5)], acm[:, (4, 5)] * 0, aang[:, 2] * 0, 0, 0, grf_1[:, (0, 1)], 0)
-    (Fkgrf, Mkgrf) = invdyn2d_1(rcm[:, (2, 3)], kin_1[:, (4, 5)], kin_1[:, (2, 3)], acm[:, (2, 3)] * 0, aang[:, 1] * 0, 0, 0, -Fagrf, -Magrf)
-    (Fhgrf, Mhgrf) = invdyn2d_1(rcm[:, (0, 1)], kin_1[:, (2, 3)], kin_1[:, (0, 1)], acm[:, (0, 1)] * 0, aang[:, 0] * 0, 0, 0, -Fkgrf, -Mkgrf)
+    (Fagrf, Magrf) = invdyn2d(rcm[:, (4, 5)], grf_1[:, (2, 2)] * [1, 0], kin_1[:, (4, 5)], acm[:, (4, 5)] * 0, aang[:, 2] * 0, 0, 0, grf_1[:, (0, 1)], 0)
+    (Fkgrf, Mkgrf) = invdyn2d(rcm[:, (2, 3)], kin_1[:, (4, 5)], kin_1[:, (2, 3)], acm[:, (2, 3)] * 0, aang[:, 1] * 0, 0, 0, -Fagrf, -Magrf)
+    (Fhgrf, Mhgrf) = invdyn2d(rcm[:, (0, 1)], kin_1[:, (2, 3)], kin_1[:, (0, 1)], acm[:, (0, 1)] * 0, aang[:, 0] * 0, 0, 0, -Fkgrf, -Mkgrf)
     Fagrfm = np.sqrt(np.sum(np.abs(Fagrf) ** 2, axis=-1))
     Fkgrfm = np.sqrt(np.sum(np.abs(Fkgrf) ** 2, axis=-1))
     Fhgrfm = np.sqrt(np.sum(np.abs(Fhgrf) ** 2, axis=-1))
@@ -647,9 +586,11 @@ def _(mo):
 @app.cell
 def _(forces, grf_1, kin_1, moments, np, plotdata, time_1):
     Fhgrfm2 = Fkgrfm2 = Fagrfm2 = np.sqrt(np.sum(np.abs(-grf_1[:, (0, 1)]) ** 2, axis=-1))
-    Magrf2 = -np.cross(grf_1[:, (2, 2)] * [1, 0] - kin_1[:, (4, 5)], grf_1[:, (0, 1)])
-    Mkgrf2 = -np.cross(grf_1[:, (2, 2)] * [1, 0] - kin_1[:, (2, 3)], grf_1[:, (0, 1)])
-    Mhgrf2 = -np.cross(grf_1[:, (2, 2)] * [1, 0] - kin_1[:, (0, 1)], grf_1[:, (0, 1)])
+    # cross product of 2D vectors (its z component); np.cross no longer accepts 2D vectors
+    _cross = lambda a, b: a[:, 0] * b[:, 1] - a[:, 1] * b[:, 0]
+    Magrf2 = -_cross(grf_1[:, (2, 2)] * [1, 0] - kin_1[:, (4, 5)], grf_1[:, (0, 1)])
+    Mkgrf2 = -_cross(grf_1[:, (2, 2)] * [1, 0] - kin_1[:, (2, 3)], grf_1[:, (0, 1)])
+    Mhgrf2 = -_cross(grf_1[:, (2, 2)] * [1, 0] - kin_1[:, (0, 1)], grf_1[:, (0, 1)])
     plotdata(time_1, Fhgrfm2, Fkgrfm2, Fagrfm2, Mhgrf2, Mkgrf2, Magrf2, forces, moments, 'Inverse dynamics: ground-reaction-force approach versus true values II')
     return
 
