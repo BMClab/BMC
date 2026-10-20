@@ -33,9 +33,9 @@ def _(mo):
 
 
 @app.cell
-def _():
-    import sys
-    _sys.path.insert(1, './../functions')
+def _(mo):
+    import sys as _sys
+    _sys.path.insert(0, str(mo.notebook_dir() / '..' / 'functions'))  # add to pythonpath
     import io_cortexmac as io
 
     return (io,)
@@ -48,16 +48,15 @@ def _(io):
 
 
 @app.cell
-def _():
-    import sys, os
-    path2 = './../data/'
-    fname = _os.path.join(path2, 'arm26_elbow_flex.trc')
+def _(mo):
+    fname = str(mo.notebook_dir() / '..' / 'data' / 'walk.trc')
     return (fname,)
 
 
 @app.cell
 def _(fname, io):
-    h, df = io.read_trc(fname, fname2='_2', units='', df_multi=True)
+    # fname2='_2' would also save a cleaned copy, walk_2.trc, next to the original
+    h, df = io.read_trc(fname, fname2='', units='', df_multi=True)
     return (df,)
 
 
@@ -173,7 +172,7 @@ def _():
             if fname2 == '=':
                 fname2 = fname
             elif len(fname2) <= 3:
-                (name, extension) = _os.path.splitext(fname)
+                (name, extension) = os.path.splitext(fname)
                 fname2 = name + fname2 + extension
             write_trc(fname2, header, df)
         h = {'header': header, 'data_rate': float(header[2][0]), 'camera_rate': float(header[2][1]), 'nframes': int(header[2][2]), 'nmarkers': int(header[2][3]), 'markers': markers, 'xyz': xyz, 'units': header[2][4], 'fname': fname, 'fname2': fname2}
@@ -215,7 +214,7 @@ def _():
             header = [next(read) for x in range(11)]
             h = {'nbits': int(header[3][1]), 'polarity': header[1][3], 'nchannels': int(header[2][7]), 'data_rate': float(header[3][3]), 'ch_names': header[8], 'ch_ranges': header[10]}
             h['ch_names'] = h['ch_names'][1:-1]
-            h['ch_ranges'] = np.asarray(h['ch_ranges'][1:-1], dtype=np.float)
+            h['ch_ranges'] = np.asarray(h['ch_ranges'][1:-1], dtype=float)
             data = pd.read_csv(f, sep='\t', names=h['ch_names'], engine='c', usecols=np.arange(1, 1 + h['nchannels']))
             data = data * (h['ch_ranges'] / (2 ** h['nbits'] / 2 - 2))
         return (h, data)
@@ -254,15 +253,15 @@ def _():
             for row in reader:
                 fp.append(int(row[0][0]))
                 n = 8 if row[0][-1] == 'K' else 6
-                scale_size = np.array(next(reader)).astype(np.float)
+                scale_size = np.array(next(reader)).astype(float)
                 scale.append(scale_size[0])
                 size.append(scale_size[1:])
                 matrix = [next(reader) for x in range(n)]
-                cal_matrix.append(np.array(matrix).astype(np.float))
-                origin.append(np.array(next(reader)).astype(np.float))
-                center.append(np.array(next(reader)).astype(np.float))
+                cal_matrix.append(np.array(matrix).astype(float))
+                origin.append(np.array(next(reader)).astype(float))
+                center.append(np.array(next(reader)).astype(float))
                 orienta = [next(reader) for x in range(3)]
-                orientation.append(np.array(orienta).astype(np.float))
+                orientation.append(np.array(orienta).astype(float))
         forcepla = {'fp': fp, 'scale': scale, 'size': size, 'cal_matrix': cal_matrix, 'origin': origin, 'center': center, 'orientation': orientation}
         return forcepla
 
