@@ -144,7 +144,10 @@ def _(mo):
 
 @app.cell
 def _(mo, pd):
-    data_trc = pd.read_csv(mo.notebook_dir() / ".." / "data" / "walk1.trc", skiprows=3, sep="\t")
+    _path = mo.notebook_dir() / ".." / "data" / "walk1.trc"
+    if not _path.exists():  # e.g., on molab, where only the notebook is available
+        _path = "https://raw.githubusercontent.com/BMClab/BMC/master/data/walk1.trc"
+    data_trc = pd.read_csv(_path, skiprows=3, sep="\t")
     _cols = list(data_trc.columns)
     _cols = [_col.replace(".", "") for _col in _cols]
     for _i in range(2, len(_cols) - 3, 3):
