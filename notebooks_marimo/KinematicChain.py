@@ -27,6 +27,8 @@ def _(mo):
 
     Read it in order and run each cell as you reach it. Where you find a **Challenge** or a set of **Guiding questions**, stop and answer on a scratchpad before moving on. Several of them ask you to predict a result *before* the code prints it. Make the prediction; a wrong guess that the code then corrects teaches more than a right one.
 
+    Along the way there are also **Exercises**, each followed by a collapsed solution. Try the exercise first, and open the solution only to check your answer.
+
     You will need vectors from [Scalar and vector](https://github.com/BMClab/BMC/blob/master/notebooks/ScalarVector.ipynb), derivatives from [Kinematics of a particle](https://github.com/BMClab/BMC/blob/master/notebooks/KinematicsParticle.ipynb), and the tangential and normal accelerations from [Path frame](https://github.com/BMClab/BMC/blob/master/notebooks/PathFrame.ipynb).
 
     **Challenge 0.** Put your hand flat on a table and slide your fingertip along a straight line, from close to your chest to almost arm's length, without moving your trunk. Pay attention to your shoulder and your elbow. Does each of them rotate in one direction only? At a constant rate? Write down your answers; the checkpoint questions ask you to come back to them.
@@ -525,6 +527,30 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
+    **Exercise 1.** With the elbow resting on a table and the upper arm still, the forearm and hand form a one-link system about the elbow, 0.35 m long from the elbow to the centre of the hand. The forearm rotates at a constant $180^o/s$. What are the speed of the hand and its tangential and centripetal accelerations? Which way does the acceleration point?
+
+    /// details | Solution to Exercise 1
+    With $\ell = 0.35$ m and $\dot{\theta} = 180^o/s = \pi$ rad/s (the angles in these formulas must be in radians):
+
+    $$
+    ||\overrightarrow{\mathbf{v}}|| = \ell|\dot{\theta}| = 0.35\,\pi = 1.10\;\mathrm{m/s}
+    $$
+
+    The angular velocity is constant, so $a_t = \ell\ddot{\theta} = 0$, and
+
+    $$
+    a_c = \ell\dot{\theta}^2 = 0.35\,\pi^2 = 3.45\;\mathrm{m/s^2}
+    $$
+
+    All of the acceleration is centripetal: it points from the hand to the elbow, and it is about a third of the gravitational acceleration, although the forearm turns at a perfectly steady rate.
+    ///
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
     ### Jacobian matrix
 
     > The **[Jacobian matrix](https://en.wikipedia.org/wiki/Jacobian_matrix_and_determinant)** is the matrix of all first-order partial derivatives of a vector-valued function $F$:
@@ -668,6 +694,28 @@ def _(J, acc, mo, omega, sym, t):
 def _(mo):
     mo.md(r"""
     For one link, the Jacobian is not much of a shortcut. Its value appears with two or more links, where it organizes the bookkeeping of many joints at once, and where its properties start to say something about the movement itself.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    **Exercise 2.** Show that, for the one-link system, the Jacobian $\mathbf{J}$ is always perpendicular to the position vector $\overrightarrow{\mathbf{r}}_P$ and has the same length as the link. What does that say about the direction and the magnitude of the velocity of the endpoint?
+
+    /// details | Solution to Exercise 2
+    With $\mathbf{J} = [-\ell\sin\theta,\; \ell\cos\theta]^T$ and $\overrightarrow{\mathbf{r}}_P = [\ell\cos\theta,\; \ell\sin\theta]^T$:
+
+    $$
+    \mathbf{J}\cdot\overrightarrow{\mathbf{r}}_P = -\ell^2\sin\theta\cos\theta + \ell^2\cos\theta\sin\theta = 0
+    $$
+
+    $$
+    ||\mathbf{J}|| = \sqrt{\ell^2\sin^2\theta + \ell^2\cos^2\theta} = \ell
+    $$
+
+    Since $\overrightarrow{\mathbf{v}} = \mathbf{J}\,\dot{\theta}$, the velocity is perpendicular to the link, that is, tangent to the circle the endpoint travels on, and its magnitude is $\ell|\dot{\theta}|$, as we found by differentiating. The Jacobian is the velocity of the endpoint for an angular velocity of 1 rad/s.
+    ///
     """)
     return
 
@@ -921,7 +969,107 @@ def _(mo):
     (The determinant of the Jacobian, shown in the title, will make sense in a few sections.)
 
     **Challenge 2.** Find joint angles for which the two configurations coincide. Where in the workspace is the endpoint then? Explain, with the law of cosines, why there is only one solution there.
+
+    **Exercise 3.** For the chain with $\ell_1 = \ell_2 = 0.5$ m, find by hand, with the law of cosines and a sketch, the two pairs of joint angles that put the endpoint at $(0.5, 0.5)$ m. Then check your answer with `inverse_kinematics`.
     """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo, np):
+    _rows = []
+    for _elbow in [1, -1]:
+        _th1, _th2 = inverse_kinematics(0.5, 0.5, 0.5, 0.5, elbow=_elbow)
+        _x, _y = forward_kinematics(_th1, _th2, 0.5, 0.5)
+        _rows.append(
+            f"| {_elbow:+d} | {round(float(np.degrees(_th1)), 1) + 0.0} | {round(float(np.degrees(_th2)), 1) + 0.0}"
+            f" | ({_x:.3f}, {_y:.3f}) |"
+        )
+
+    mo.accordion(
+        {
+            "Solution to Exercise 3": mo.md(
+                r"""
+    The endpoint is at a distance $\sqrt{0.5^2 + 0.5^2} = \sqrt{0.5}$ m from the base, so $x_P^2 + y_P^2 = 0.5$ and
+
+    $$
+    \cos\theta_2 = \frac{0.5 - 0.25 - 0.25}{2 \cdot 0.5 \cdot 0.5} = 0 \quad\Longrightarrow\quad \theta_2 = \pm 90^o
+    $$
+
+    The line from the base to the endpoint is at $45^o$. With $\theta_2 = 90^o$, the triangle formed by the two links is right-angled and isosceles, so $\phi = 45^o$ and $\theta_1 = 45^o - 45^o = 0^o$. With $\theta_2 = -90^o$, $\phi = -45^o$ and $\theta_1 = 90^o$. In words: the first link along $x$ and the second link pointing straight up, or the first link pointing straight up and the second along $x$.
+
+    `inverse_kinematics` agrees, and the forward kinematics puts both back on the target:
+
+    | elbow | $\theta_1$ [degrees] | $\theta_2$ [degrees] | forward kinematics [m] |
+    |:-----:|:--------------------:|:--------------------:|:----------------------:|
+    """
+                + "\n".join("    " + _row for _row in _rows)
+            )
+        }
+    )
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ### Example: an arm reaching across a table
+
+    Let's use the two-link chain for a real arm. Seen from above, with the shoulder at the origin, $x$ pointing to the right and $y$ pointing forward, a right arm reaching over a table is a planar two-link chain: the upper arm, from the shoulder to the elbow, about $\ell_1 = 0.30$ m long in an adult, and the forearm with the hand, from the elbow to the centre of the hand, about $\ell_2 = 0.33$ m. The hand is to reach a cup at $(0.15, 0.40)$ m.
+
+    **Before you run the next cell**, predict: the inverse kinematics has two solutions. Can your right arm adopt both of them? Try it.
+    """)
+    return
+
+
+@app.cell
+def _(np):
+    L1_arm, L2_arm = 0.30, 0.33  # m, upper arm, and forearm with hand
+    cup = (0.15, 0.40)  # m
+
+    print(f"Distance from the shoulder to the cup: {np.hypot(*cup):.3f} m (maximum reach {L1_arm + L2_arm:.2f} m)")
+    for _elbow in [1, -1]:
+        _th1, _th2 = inverse_kinematics(*cup, L1_arm, L2_arm, elbow=_elbow)
+        print(
+            f"theta1 = {np.degrees(_th1):6.1f}, theta2 = {np.degrees(_th2):6.1f} degrees,"
+            f" elbow at ({L1_arm * np.cos(_th1):.3f}, {L1_arm * np.sin(_th1):.3f}) m"
+        )
+    return L1_arm, L2_arm, cup
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    Both solutions put the hand on the cup, 0.427 m from the shoulder. In the first, the elbow is flexed by $94.8^o$ and sits out to the right of the shoulder, at $(0.283, 0.098)$ m: the posture you would adopt. In the second, $\theta_2 = -94.8^o$, and the forearm would have to bend the other way by the same amount, with the elbow in front of the chest.
+
+    Seen from above, flexing the right elbow turns the forearm counterclockwise, so $\theta_2 > 0$ is flexion and $\theta_2 < 0$ is hyperextension, which the elbow allows by a few degrees at most in most adults. The mathematics has two answers; the anatomy has one. Joint limits are how a model of the body discards the solutions the body cannot use.
+
+    **Exercise 4.** For this arm, with no joint limits, what are the inner and outer radii of the workspace? Can the hand reach the points $(0.45, 0.45)$ m and $(0.40, 0.40)$ m? For the point it can reach, by how much is the elbow flexed?
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(L1_arm, L2_arm, mo, np):
+    _inner, _outer = abs(L1_arm - L2_arm), L1_arm + L2_arm
+    _far, _near = (0.45, 0.45), (0.40, 0.40)
+    _th1_far, _th2_far = inverse_kinematics(*_far, L1_arm, L2_arm)
+    _th1, _th2 = inverse_kinematics(*_near, L1_arm, L2_arm)
+
+    mo.accordion(
+        {
+            "Solution to Exercise 4": mo.md(
+                rf"""
+    The workspace is the ring between $|\ell_1 - \ell_2| = {_inner:.2f}$ m and $\ell_1 + \ell_2 = {_outer:.2f}$ m from the shoulder.
+
+    - The point $(0.45, 0.45)$ m is {np.hypot(*_far):.3f} m from the shoulder, just out of reach; `inverse_kinematics` returns `{_th2_far}` for it.
+    - The point $(0.40, 0.40)$ m is {np.hypot(*_near):.3f} m away, inside the ring. The elbow is flexed by $\theta_2 = {np.degrees(_th2):.1f}^o$, with $\theta_1 = {np.degrees(_th1):.1f}^o$.
+
+    The inner radius is tiny because the two links have nearly the same length: with the elbow folded all the way, the hand would come within {100 * _inner:.0f} cm of the shoulder. The real elbow stops long before that; the example on the workspace of a real arm, later in this notebook, adds the joint limits.
+    """
+            )
+        }
+    )
     return
 
 
@@ -1003,7 +1151,53 @@ def _(mo):
     1. Go back to Guiding question 0.3. With the elbow locked ($\dot{\theta}_2 = \ddot{\theta}_2 = 0$) and the shoulder rotating at a constant rate, which of the three terms survive? Where do they point?
     2. With the shoulder fixed and only the elbow moving, the chain is a one-link system. Check that the three terms reduce to the ones we found for one link.
     3. Why is the Coriolis term zero when either joint is still, however fast the other one moves?
+
+    **Exercise 5.** Both joints of the chain with $\ell_1 = \ell_2 = 0.5$ m rotate at constant rates, $\dot{\theta}_1 = 2$ rad/s and $\dot{\theta}_2 = 3$ rad/s. At the instant when $\theta_1 = 0^o$ and $\theta_2 = 90^o$, calculate the tangential, centripetal and Coriolis terms and the total acceleration of the endpoint. Then explain the total without using the three terms.
     """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(co, ct, ell1, ell2, mo, np, sym, t, tg, theta1, theta2):
+    _w1, _w2, _l1, _l2 = 2, 3, 0.5, 0.5
+    _values = [  # higher derivatives first, so they are not caught by the lower ones
+        {theta1.diff(t, 2): 0, theta2.diff(t, 2): 0},
+        {theta1.diff(t): _w1, theta2.diff(t): _w2},
+        {theta1: 0, theta2: sym.pi / 2, ell1: _l1, ell2: _l2},
+    ]
+
+    def _evaluate(term):
+        """Evaluate an acceleration term at the instant of Exercise 5."""
+        for _v in _values:
+            term = term.subs(_v)
+        return np.round(np.array(term, dtype=float).ravel(), 6) + 0.0
+
+    def _fmt(vector):
+        return f"({vector[0]:.1f}, {vector[1]:.1f})"
+
+    _tg, _ct, _co = _evaluate(tg), _evaluate(ct), _evaluate(co)
+    _total = _tg + _ct + _co
+    _text = r"""
+    Nothing accelerates angularly, so the tangential term is @TG@ m/s². With $\theta_1 = 0^o$ the first link lies along $x$, and with $\theta_1 + \theta_2 = 90^o$ the second link points along $y$, so the expressions above give:
+
+    - centripetal: $-\ell_1\dot{\theta}_1^2\,\hat{\mathbf{i}} - \ell_2(\dot{\theta}_1^2 + \dot{\theta}_2^2)\,\hat{\mathbf{j}}$ = @CT@ m/s²;
+    - Coriolis: $-2\ell_2\dot{\theta}_1\dot{\theta}_2\,\hat{\mathbf{j}}$ = @CO@ m/s²;
+    - total: @TOT@ m/s², with a magnitude of @MAG@ m/s².
+
+    Without the three terms: the elbow goes round the shoulder at 2 rad/s, with a centripetal acceleration $\ell_1\dot{\theta}_1^2$ = @A1@ m/s² towards the shoulder, and the second link turns at $\dot{\theta}_1 + \dot{\theta}_2 = 5$ rad/s, which gives the endpoint $\ell_2(\dot{\theta}_1 + \dot{\theta}_2)^2$ = @A2@ m/s² towards the elbow. Expanding $(\dot{\theta}_1 + \dot{\theta}_2)^2$ gives $\dot{\theta}_1^2 + \dot{\theta}_2^2$, which this notebook counts as centripetal, plus $2\dot{\theta}_1\dot{\theta}_2$, the Coriolis term. The split into three terms is bookkeeping; the total is not.
+    """
+    for _key, _value in {
+        "@TG@": _fmt(_tg),
+        "@CT@": _fmt(_ct),
+        "@CO@": _fmt(_co),
+        "@TOT@": _fmt(_total),
+        "@MAG@": f"{np.linalg.norm(_total):.2f}",
+        "@A1@": f"{_l1 * _w1**2:.1f}",
+        "@A2@": f"{_l2 * (_w1 + _w2) ** 2:.1f}",
+    }.items():
+        _text = _text.replace(_key, _value)
+
+    mo.accordion({"Solution to Exercise 5": mo.md(_text)})
     return
 
 
@@ -1134,6 +1328,99 @@ def _(acc2, acc2J):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
+    ### Example: what each joint contributes to the velocity of the hand
+
+    Each column of the Jacobian is the velocity the endpoint would have if only that joint rotated, at 1 rad/s. The velocity of the endpoint is the sum of the two columns, each multiplied by the angular velocity of its joint, and since the columns are vectors, the two contributions add as vectors.
+
+    Take the chain with $\ell_1=\ell_2=0.5$ m at $\theta_1 = 45^o$ and $\theta_2 = 90^o$, with both joints rotating at 1 rad/s.
+
+    **Before you run the next cell**, predict: is the endpoint faster than it would be with only the shoulder rotating? Faster than the sum of the two speeds?
+    """)
+    return
+
+
+@app.cell
+def _(J2, ell1, ell2, np, plt, sym, theta1, theta2):
+    _l1 = _l2 = 0.5  # m
+    _th1, _th2 = np.radians(45), np.radians(90)
+    _w = np.array([1.0, 1.0])  # rad/s
+    _J = np.array(sym.lambdify((theta1, theta2, ell1, ell2), J2, "numpy")(_th1, _th2, _l1, _l2), dtype=float)
+
+    _shoulder, _elbow = _J[:, 0] * _w[0], _J[:, 1] * _w[1]  # contribution of each joint
+    _v = _shoulder + _elbow
+    _p = np.array(forward_kinematics(_th1, _th2, _l1, _l2))
+    _e = np.array([_l1 * np.cos(_th1), _l1 * np.sin(_th1)])
+    _angle = np.degrees(np.arccos(_shoulder @ _elbow / (np.linalg.norm(_shoulder) * np.linalg.norm(_elbow))))
+
+    print(f"Shoulder alone: {np.linalg.norm(_shoulder):.3f} m/s, elbow alone: {np.linalg.norm(_elbow):.3f} m/s, both: {np.linalg.norm(_v):.3f} m/s")
+    print(f"Angle between the two contributions: {_angle:.1f} degrees")
+    print(f"Distance from the shoulder to the endpoint: {np.linalg.norm(_p):.3f} m")
+
+    _, _ax = plt.subplots(figsize=(6.5, 5))
+    _ax.plot([0, _e[0], _p[0]], [0, _e[1], _p[1]], "-o", color="tab:blue", linewidth=4, markersize=8, label="chain")
+    _ax.plot([0, _p[0]], [0, _p[1]], ":", color="0.5", label="shoulder to endpoint")
+    _ax.plot(0, 0, "ks", markersize=12)
+    for _vec, _color, _label in [(_shoulder, "tab:red", "shoulder only"), (_elbow, "tab:green", "elbow only"), (_v, "k", "both joints")]:
+        _ax.quiver(*_p, *_vec, angles="xy", scale_units="xy", scale=2, color=_color, width=0.012, label=_label)
+    _ax.set_aspect("equal")
+    _ax.set_xlim(-0.75, 0.55)
+    _ax.set_ylim(-0.1, 0.95)
+    _ax.set_xlabel("x [m]")
+    _ax.set_ylabel("y [m]")
+    _ax.set_title("Endpoint velocity, 1 rad/s at each joint\n(arrows drawn at 0.5 m per m/s)")
+    _ax.legend(loc="upper right", fontsize=9)
+    _ax.grid(True)
+    plt.tight_layout()
+    plt.show()
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    Alone, the shoulder would move the endpoint at 0.707 m/s and the elbow at 0.5 m/s; together they move it at 1.118 m/s, more than either alone and less than their sum, because the two contributions are $45^o$ apart. Look at the directions of the arrows. The contribution of the shoulder is perpendicular to the dotted line from the shoulder to the endpoint, and its magnitude for 1 rad/s, 0.707 m/s, is the length of that line. The contribution of the elbow is perpendicular to the second link, with magnitude $\ell_2$. Each joint swings everything beyond it on a circle around itself: the rule $\overrightarrow{\mathbf{v}} = \overrightarrow{\boldsymbol{\omega}} \times \overrightarrow{\mathbf{r}}$ of [Kinematics of a rigid body](https://github.com/BMClab/BMC/blob/master/notebooks/KinematicsOfRigidBody.ipynb), applied once per joint.
+
+    **Exercise 6.** Same chain, now at $\theta_1 = 30^o$ and $\theta_2 = 60^o$, with $\dot{\theta}_1 = 1$ rad/s and $\dot{\theta}_2 = -1$ rad/s. Calculate the velocity of the endpoint with the Jacobian. Its magnitude comes out as a round number. Why? (Hint: what happens to the segment angle of the second link?)
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(J2, ell1, ell2, mo, np, sym, theta1, theta2):
+    _J = np.array(
+        sym.lambdify((theta1, theta2, ell1, ell2), J2, "numpy")(np.radians(30), np.radians(60), 0.5, 0.5), dtype=float
+    )
+    _J = np.round(_J, 6) + 0.0
+    _v = _J @ np.array([1.0, -1.0])
+    _text = r"""
+    At $\theta_1 = 30^o$ and $\theta_2 = 60^o$ the Jacobian is (in metres per radian)
+
+    $$
+    \mathbf{J} = \begin{bmatrix} @J00@ & @J01@ \\ @J10@ & @J11@ \end{bmatrix}
+    $$
+
+    and the velocity of the endpoint is $\mathbf{J}\,[1,\; -1]^T$ = @V@ m/s, with a magnitude of @SPEED@ m/s, pointing at @DIR@° from the $x$ axis.
+
+    The round number has a simple reason. With $\dot{\theta}_2 = -\dot{\theta}_1$, the segment angle of the second link, $\theta_1 + \theta_2$, does not change: the second link translates without rotating, and all its points, the endpoint included, move with the elbow. The elbow goes round the shoulder at $\ell_1\dot{\theta}_1 = 0.5$ m/s, perpendicular to the first link, which is at $30^o$; hence the direction $30^o + 90^o = 120^o$.
+    """
+    for _key, _value in {
+        "@J00@": f"{_J[0, 0]:.3f}",
+        "@J01@": f"{_J[0, 1]:.3f}",
+        "@J10@": f"{_J[1, 0]:.3f}",
+        "@J11@": f"{_J[1, 1]:.3f}",
+        "@V@": f"({_v[0]:.3f}, {_v[1]:.3f})",
+        "@SPEED@": f"{np.linalg.norm(_v):.3f}",
+        "@DIR@": f"{np.degrees(np.arctan2(_v[1], _v[0])):.1f}",
+    }.items():
+        _text = _text.replace(_key, _value)
+
+    mo.accordion({"Solution to Exercise 6": mo.md(_text)})
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
     ### When the Jacobian cannot be inverted
 
     The Jacobian turns joint velocities into an endpoint velocity. Going the other way, from a desired endpoint velocity to the joint velocities that produce it, means solving $\mathbf{J}\,\overrightarrow{\mathbf{\omega}} = \overrightarrow{\mathbf{v}}$ for $\overrightarrow{\mathbf{\omega}}$, which is possible only where the matrix can be inverted, that is, where its determinant is not zero:
@@ -1183,6 +1470,103 @@ def _(J2, ell1, ell2, np, sym, theta1, theta2):
 def _(mo):
     mo.md(r"""
     Moving the endpoint sideways always costs about the same: between 57 and 81 °/s at the shoulder, and nothing at the elbow, because rotating the shoulder alone swings the endpoint perpendicular to the line from the base. Moving it radially costs more and more as the chain straightens: 162 °/s at the elbow with the elbow at 90°, 1315 °/s at 10°, and 6566 °/s at 2°, when the endpoint is at 99.98% of its maximum reach. At $\theta_2 = 0$ no finite joint velocity will do; the endpoint simply cannot move radially. Close to a singular configuration, small endpoint movements in some directions require enormous joint movements, and small errors in the endpoint position become large errors in the joint angles calculated by inverse kinematics.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ### Example: the workspace of a real arm
+
+    The ring of Exercise 4 is the workspace of an idealized chain whose joints turn all the way round. Real joints do not. For illustration, let's give the arm of the cup example approximate joint limits: shoulder angles between $\theta_1 = -30^o$ (the upper arm pointing out to the right and slightly backwards) and $135^o$ (across the front of the chest), and elbow angles between $0^o$ (straight) and $145^o$, roughly the normal range of elbow flexion.
+
+    The region the hand can reach can be mapped forwards, by sweeping the joint angles through their ranges, or backwards, by asking `inverse_kinematics` whether each point of the plane has a solution within the limits. The code below does it backwards, for 400 000 random points, which also gives the area of the region, and tests four targets: the cup, a point on the left, a point behind the shoulder, and a point just in front of the shoulder.
+
+    **Before you run the next cell**, predict: what fraction of the ideal ring can the real arm reach? A quarter? A half? Most of it?
+    """)
+    return
+
+
+@app.cell
+def _(L1_arm, L2_arm, cup, np, plt):
+    joint_limits = np.radians([[-30, 135], [0, 145]])  # shoulder and elbow [rad]
+
+    def _reachable(x, y):
+        """True where the hand reaches (x, y) with the joints within their limits."""
+        _th1, _th2 = inverse_kinematics(x, y, L1_arm, L2_arm, elbow=1)  # elbow flexion: theta2 >= 0
+        _th1 = (_th1 + np.pi) % (2 * np.pi) - np.pi  # shoulder angle in [-180, 180) degrees
+        with np.errstate(invalid="ignore"):
+            return (_th2 <= joint_limits[1, 1]) & (_th1 >= joint_limits[0, 0]) & (_th1 <= joint_limits[0, 1])
+
+    _R = L1_arm + L2_arm
+    _pts = np.random.default_rng(0).uniform(-_R, _R, (400_000, 2))
+    _ok = _reachable(_pts[:, 0], _pts[:, 1])
+    workspace_area = _ok.mean() * (2 * _R) ** 2
+    _ring = np.pi * ((L1_arm + L2_arm) ** 2 - (L1_arm - L2_arm) ** 2)
+    print(
+        f"Area reached within the joint limits: {workspace_area:.3f} m2,"
+        f" of an ideal ring of {_ring:.3f} m2 ({100 * workspace_area / _ring:.0f}%)"
+    )
+
+    _targets = {"cup": cup, "left": (-0.30, 0.20), "behind": (0.0, -0.40), "close": (0.10, 0.05)}
+    for _name, (_x, _y) in _targets.items():
+        print(f"{_name:7s} ({_x:5.2f}, {_y:5.2f}) m: {'reachable' if _reachable(_x, _y) else 'out of reach'}")
+
+    _, _ax = plt.subplots(figsize=(6.5, 6))
+    _sample = _pts[_ok][:30_000]
+    _ax.plot(_sample[:, 0], _sample[:, 1], ".", color="tab:blue", markersize=1, alpha=0.3)
+    _ax.plot([], [], "s", color="tab:blue", alpha=0.4, label="reachable within the limits")
+    _circle = np.linspace(0, 2 * np.pi, 200)
+    for _radius in [L1_arm + L2_arm, abs(L1_arm - L2_arm)]:
+        _ax.plot(_radius * np.cos(_circle), _radius * np.sin(_circle), "--", color="0.5")
+    _ax.plot([], [], "--", color="0.5", label="ideal ring")
+    _ax.plot(0, 0, "ks", markersize=10, label="shoulder")
+    for _name, (_x, _y) in _targets.items():
+        _in = bool(_reachable(_x, _y))
+        _ax.plot(_x, _y, "o" if _in else "X", color="tab:green" if _in else "tab:red", markersize=11)
+        _ax.annotate(_name, (_x, _y), textcoords="offset points", xytext=(8, 6), fontsize=11)
+    _ax.set_aspect("equal")
+    _ax.set_xlim(-0.7, 0.7)
+    _ax.set_ylim(-0.7, 0.7)
+    _ax.set_xlabel("x [m] (to the right)")
+    _ax.set_ylabel("y [m] (forward)")
+    _ax.set_title("Workspace of a right arm seen from above")
+    _ax.legend(loc="lower left", fontsize=9)
+    _ax.grid(True)
+    plt.tight_layout()
+    plt.show()
+    return joint_limits, workspace_area
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    The real arm reaches 0.519 m², 42% of the ideal ring. The cup and the point on the left are within reach. The point behind the shoulder would need a shoulder angle of $-144^o$, far beyond the limit, and the point just in front of the shoulder would need the elbow flexed by $160^o$. What the limits remove is the region behind the body and a hole around the shoulder much larger than the 3 cm of Exercise 4: the elbow cannot fold the hand back onto the shoulder.
+
+    There is a neat way to check the area, and it gives the determinant of the Jacobian a second meaning. The forward kinematics maps a small patch of joint space, $d\theta_1\,d\theta_2$, to a small patch of the plane with area $|\det\mathbf{J}|\,d\theta_1\,d\theta_2$: the determinant is the factor by which the chain stretches areas. Within these limits each point is reached by a single posture, so the area of the workspace is the integral of $|\det\mathbf{J}| = \ell_1\ell_2|\sin\theta_2|$ over the joint ranges:
+
+    $$
+    A = \ell_1\ell_2 \int_{-30^o}^{135^o} d\theta_1 \int_{0}^{145^o} \sin\theta_2\, d\theta_2 = \ell_1\ell_2\,\Delta\theta_1\,(1 - \cos 145^o)
+    $$
+
+    with $\Delta\theta_1$ in radians:
+    """)
+    return
+
+
+@app.cell
+def _(L1_arm, L2_arm, joint_limits, np, workspace_area):
+    _formula = L1_arm * L2_arm * np.ptp(joint_limits[0]) * (np.cos(joint_limits[1, 0]) - np.cos(joint_limits[1, 1]))
+
+    print(f"Integral of |det J|: {_formula:.4f} m2;  random points: {workspace_area:.4f} m2")
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    The two agree to within the random error of the 400 000 points. The formula also explains where the area comes from: elbow angles near $0^o$ or $180^o$, where $\sin\theta_2$ is small, add little area. It is the singularity of the previous section seen from another side: where the chain cannot move the endpoint in every direction, it also covers little ground.
     """)
     return
 
@@ -1522,6 +1906,17 @@ def _(mo):
     8. For the one-link minimum-jerk movement of this notebook, find the instant at which the tangential and centripetal accelerations of the endpoint have the same magnitude. What is the magnitude of the total acceleration then?
 
     9. Modify the simulated reach so that the endpoint moves in a straight line from $(0.3, 0.3)$ m to $(0.65, 0.65)$ m, ending close to the edge of the workspace. Plot the joint angles and velocities, and explain what happens to the elbow near the end of the movement using the determinant of the Jacobian.
+
+    10. After an elbow injury, a person can flex the elbow only up to $100^o$. Using the arm and the shoulder limits of the example on the workspace of a real arm, calculate how much of the workspace is lost, and draw the region that remains. Which everyday tasks, done with the hand close to the body, would become difficult?
+
+    11. Add a third link to the chain, so that it models the upper arm, the forearm and the hand, with a wrist joint: $\ell_1 = 0.30$ m, $\ell_2 = 0.25$ m and $\ell_3 = 0.08$ m (from the wrist to the fingertip).<br>
+        a) Write the forward kinematics of the fingertip and its $2\times3$ Jacobian.<br>
+        b) At $\theta_1 = 30^o$, $\theta_2 = 60^o$ and $\theta_3 = 20^o$, find a combination of joint velocities that leaves the fingertip still (hint: `scipy.linalg.null_space`).<br>
+        c) Relate the result to the redundancy of the chain.
+
+    12. The quantity $|\det\mathbf{J}|$ is sometimes used as a measure of how easily the endpoint can move in every direction, the manipulability of the chain. Plot it as a colour map over the workspace of the chain with $\ell_1 = \ell_2 = 0.5$ m. Where is it largest, and what is the elbow angle there? Is that where you would choose to hold an object you are working on?
+
+    13. Inverse kinematics amplifies measurement errors near singular configurations. For the chain with $\ell_1 = \ell_2 = 0.5$ m, put the endpoint at 0.99 m from the base, add random noise with a standard deviation of 1 mm to its coordinates 1000 times, and calculate the standard deviation of the elbow angle given by `inverse_kinematics`. Repeat with the endpoint at 0.70 m from the base, and explain the difference with the determinant of the Jacobian.
     """)
     return
 
