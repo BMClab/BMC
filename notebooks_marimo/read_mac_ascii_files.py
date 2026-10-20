@@ -318,7 +318,11 @@ def _():
             for line in header:
                 f.write('\t'.join(line) + '\n')
             f.write('\n')
-            df.to_csv(f, header=None, index=None, sep='\t', line_terminator='\t\n')
+            # Every data line ends with a tab. Recent versions of Python's csv
+            # module reject a line terminator that contains the delimiter ("\t\n"),
+            # so the tab is added after writing the (purely numeric) data.
+            data = df.to_csv(header=None, index=None, sep='\t', lineterminator='\n')
+            f.write(data.replace('\n', '\t\n'))
 
     def write_v3dtxt(fname, trc, forces, freq=0):
         """Write Visual3d text file from .trc and .forces files or dataframes.
