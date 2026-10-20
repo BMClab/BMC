@@ -27,6 +27,8 @@ def _(mo):
 
     Read it in order and run each cell as you reach it. Where you find a **Challenge** or a set of **Guiding questions**, stop and answer on a scratchpad before moving on. Several of them ask you to predict a result *before* the code prints it. Make the prediction; a wrong guess that the code then corrects teaches more than a right one.
 
+    The **Exercises** are short practice problems placed where the material they need has just been covered. Each one has a collapsed solution right below it: try the exercise first, and open the solution only to check your answer or when you are truly stuck.
+
     You will need the vector operations from [Scalar and vector](https://github.com/BMClab/BMC/blob/master/notebooks/ScalarVector.ipynb): the norm, the dot product and the cross product.
 
     **Challenge 0.** Before you begin, describe the motion of your hand as you scroll down this page, three times: relative to your shoulder, relative to the room, and relative to the screen. Which of the three descriptions is the simplest? Keep your answers nearby; the checkpoint questions ask you to come back to them.
@@ -88,7 +90,76 @@ def _(mo):
 
     A [frame of reference](http://en.wikipedia.org/wiki/Frame_of_reference) is whatever we choose to describe the motion with respect to: the laboratory floor, the treadmill belt, the pelvis, the Earth. In a frame of reference we define a [coordinate system](http://en.wikipedia.org/wiki/Coordinate_system), a set of axes along which positions are measured. The two terms are often used interchangeably, but they are not the same thing. The frame is the physical reference; the coordinate system is the bookkeeping attached to it. The same laboratory floor can carry a coordinate system with X pointing forward or with X pointing to the right, with its origin in a corner or at the centre of a force plate. Choosing between them changes the numbers, not the motion.
 
-    Often, the choice of reference frame and coordinate system is made for convenience. There is one distinction between frames, though, that is not a matter of taste.
+    How much can the choice of frame change the description? Let's look at one hand in two frames.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ### One hand, two frames
+
+    A sprinter runs at 9 m/s. Seen from the shoulder, the hand swings back and forth like a pendulum: we model the arm as a rod of 0.6 m from shoulder to hand, swinging 50° either side of the vertical at 2.2 cycles per second, one cycle per stride. Seen from the track, the same hand also travels with the body.
+
+    **Before you run the next cell**, predict: is the hand ever moving faster than the runner, relative to the track? Is it ever almost at rest?
+    """)
+    return
+
+
+@app.cell
+def _(np, plt):
+    _V, _L, _f = 9.0, 0.6, 2.2  # running speed [m/s], arm length [m], arm swing frequency [Hz]
+    _amp = np.radians(50)  # amplitude of the arm swing
+    _dt = 0.001
+    _t = np.arange(0, 1 + _dt / 2, _dt)
+
+    _theta = _amp * np.sin(2 * np.pi * _f * _t)  # arm angle from the vertical
+    _hand_shoulder = np.column_stack((_L * np.sin(_theta), -_L * np.cos(_theta)))
+    _hand_track = _hand_shoulder + np.column_stack((_V * _t, np.zeros_like(_t)))  # Galilean transformation
+
+    _speed_shoulder = np.linalg.norm(np.gradient(_hand_shoulder, _dt, axis=0, edge_order=2), axis=1)
+    _speed_track = np.linalg.norm(np.gradient(_hand_track, _dt, axis=0, edge_order=2), axis=1)
+    print(f"Hand speed relative to the shoulder: up to {_speed_shoulder.max():.1f} m/s")
+    print(f"Hand speed relative to the track:    from {_speed_track.min():.1f} to {_speed_track.max():.1f} m/s")
+
+    _, _axs = plt.subplots(1, 2, figsize=(10, 3.6), gridspec_kw={"width_ratios": [1, 2.4]})
+    _axs[0].plot(_hand_shoulder[:, 0], _hand_shoulder[:, 1], color="tab:blue", linewidth=3)
+    _axs[0].plot(0, 0, "ko", markersize=8)
+    _axs[0].set_aspect("equal")
+    _axs[0].set_xlim(-0.7, 0.7)
+    _axs[0].set_ylim(-0.75, 0.1)
+    _axs[0].set_xlabel("x [m]")
+    _axs[0].set_ylabel("y [m]")
+    _axs[0].set_title("Relative to the shoulder")
+    _axs[1].plot(_V * _t, np.zeros_like(_t), "k--", linewidth=1, label="shoulder")
+    _axs[1].plot(_hand_track[:, 0], _hand_track[:, 1], color="tab:blue", linewidth=2, label="hand")
+    _axs[1].set_ylim(-0.75, 0.1)
+    _axs[1].set_xlabel("x [m]")
+    _axs[1].set_title("Relative to the track, during 1 s")
+    _axs[1].legend(loc="center right")
+    plt.tight_layout()
+    plt.show()
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    Relative to the shoulder, the hand moves back and forth along the same short arc, never faster than 7.2 m/s. Relative to the track, it never goes backwards at all. On the forward swing it races ahead at 16.2 m/s, nearly twice the speed of the runner; at the bottom of the backswing, where it moves backwards relative to the shoulder almost as fast as the body carries it forwards, it slows down to 1.8 m/s. (The vertical scales of the two panels are the same; the horizontal scale of the second one is squeezed.)
+
+    Both descriptions are correct. Which one is useful depends on the question: the shoulder's frame for the technique of the arm swing, the track's for whether the hand will hit a hurdle.
+
+    **Exercise 1.** A 400 m runner moves at 7 m/s, and at the lowest point of the arm swing the hand moves at 5 m/s relative to the shoulder. What is the speed of the hand relative to the track at that point during the forward swing? And during the backswing?
+
+    /// details | Solution to Exercise 1
+    At the lowest point of the swing the velocity of the hand relative to the shoulder is horizontal, parallel to the velocity of the body, so the two velocities add as numbers along the direction of running (a Galilean transformation):
+
+    - forward swing: $7 + 5 = 12$ m/s forward;
+    - backswing: $7 - 5 = 2$ m/s, still forward.
+
+    Relative to the track, the hand of a runner moves backwards only if it swings backwards faster than the body moves forwards.
+    ///
     """)
     return
 
@@ -97,6 +168,8 @@ def _(mo):
 def _(mo):
     mo.md(r"""
     ## Inertial and non-inertial frames
+
+    Often, the choice of reference frame and coordinate system is made for convenience, as with the hand above. There is one distinction between frames, though, that is not a matter of taste.
 
     When we deal with the dynamics of motion, where we want to understand the forces related to the motion, frames of reference split into two kinds. In an [inertial frame of reference](http://en.wikipedia.org/wiki/Inertial_frame_of_reference) (also called a Galilean reference frame), Newton's laws of motion are valid in their simple form. In a non-inertial frame they are not: the accelerations measured there cannot be explained by the forces acting, and to make the accounts balance we have to add *fictitious* forces, forces that no body exerts.
 
@@ -262,6 +335,79 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
+    ### A force plate in a lift
+
+    A force plate measures the force between the feet and the ground. Put one in a lift, with a 70 kg person standing still on it, and take the lift up one floor: it speeds up at 1.5 m/s² for 1.5 s, travels at a constant speed for 3 s, and slows down at 1.5 m/s² for 1.5 s.
+
+    **Before you run the next cell**, predict what the force plate reads in each of the three phases. Is the reading during the constant-speed part the person's weight, or more?
+    """)
+    return
+
+
+@app.cell
+def _(np, plt):
+    _m, _g = 70.0, 9.81  # kg, m/s2
+    _dt = 0.01
+    _t = np.arange(0, 8 + _dt / 2, _dt)
+    _a = np.where((_t >= 1) & (_t < 2.5), 1.5, 0.0) + np.where((_t >= 5.5) & (_t < 7), -1.5, 0.0)
+    _v = np.concatenate(([0], np.cumsum((_a[1:] + _a[:-1]) / 2 * _dt)))  # velocity of the lift
+    _F = _m * (_g + _a)  # force of the plate on the person, from the laboratory: F - m g = m a
+
+    for _label, _time in [("at rest", 0.5), ("speeding up", 2), ("constant speed", 4), ("slowing down", 6)]:
+        _i = np.argmin(np.abs(_t - _time))
+        print(f"{_label:15s} lift speed {_v[_i]:4.2f} m/s   plate reading {_F[_i]:6.1f} N")
+    print(f"\nBody weight: {_m * _g:.1f} N")
+
+    _, _axs = plt.subplots(2, 1, figsize=(8, 5), sharex=True)
+    _axs[0].plot(_t, _v, color="tab:blue", linewidth=2)
+    _axs[0].set_ylabel("Lift speed [m/s]")
+    _axs[1].plot(_t, _F, color="tab:red", linewidth=2, label="plate reading")
+    _axs[1].axhline(_m * _g, color="0.5", linestyle="--", label="body weight")
+    _axs[1].set_ylabel("Force [N]")
+    _axs[1].set_xlabel("Time [s]")
+    _axs[1].legend(loc="upper right")
+    plt.tight_layout()
+    plt.show()
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    The plate reads 791.7 N while the lift speeds up, 15% more than the person's weight, and 581.7 N while it slows down. During the constant-speed part it reads exactly the weight, 686.7 N, although the person is moving upwards at 2.25 m/s.
+
+    Seen from the laboratory, an inertial frame, the person accelerates with the lift, and Newton's second law needs a net upward force: $F - m g = m a$, so $F = m(g + a)$. Seen from the lift, the person is at rest, and the accounts balance only with a fictitious force $-m\,a_{lift}$, pointing down while the lift accelerates upwards: the "heavy" feeling at the start of the ride. At constant speed the lift is an inertial frame again, and the fictitious force vanishes.
+
+    The lesson for measurement: a force plate tells you about the motion of the body relative to an inertial frame only if the plate itself is in one.
+
+    **Exercise 2.** Imagine a force plate on the deck of a ship. The deck heaves up and down with a vertical acceleration $a(t) = 0.8\sin(2\pi\,0.1\,t)$ m/s². A 75 kg person stands still on the plate. Between which values does the reading oscillate, and how large is the error relative to the person's weight?
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo, np):
+    _m, _g = 75.0, 9.81
+    _t = np.arange(0, 20, 0.01)
+    _F = _m * (_g + 0.8 * np.sin(2 * np.pi * 0.1 * _t))
+    _W = _m * _g
+    mo.accordion(
+        {
+            "Solution to Exercise 2": mo.md(
+                rf"""
+    As in the lift, the plate reads $F = m\,(g + a)$. Over one heave cycle of 10 s, the reading oscillates between **{_F.min():.1f} N** and **{_F.max():.1f} N**, around the weight of {_W:.1f} N: an error of up to {_F.max() - _W:.1f} N, or {100 * (_F.max() - _W) / _W:.1f}% of the weight, in each direction.
+
+    The error is simply $m\,a_{{max}} = 75 \times 0.8 = 60$ N. It is slow (a 10 s period) compared with a jump, but far from negligible: any force plate used on a moving platform needs the platform's own acceleration measured and subtracted.
+    """
+            )
+        }
+    )
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
     ### Is the laboratory an inertial frame?
 
     Strictly, no. The laboratory sits on the surface of a rotating Earth. Every point of that surface, except at the poles, travels in a circle once a day, and moving in a circle means accelerating towards its centre, with $a = \omega^2 r$ (see [Path frame](https://github.com/BMClab/BMC/blob/master/notebooks/PathFrame.ipynb)). How large is that acceleration?
@@ -283,6 +429,18 @@ def _(np):
 def _(mo):
     mo.md(r"""
     At most 0.034 m/s², about a third of a percent of the gravitational acceleration, and far smaller than the accelerations of human movement. That is why biomechanics treats the laboratory as an inertial frame without a second thought. The Earth's rotation matters for long-range ballistics, for weather systems and for Foucault's pendulum, not for a jump on a force plate.
+
+    **Exercise 3.** In some tests of the vestibular system, a person sits on a chair that rotates at a constant rate about a vertical axis. At half a turn per second, what is the centripetal acceleration of a point of the head 10 cm from the axis of rotation? Is the chair an inertial frame?
+
+    /// details | Solution to Exercise 3
+    Half a turn per second is $\omega = \pi$ rad/s, so
+
+    $$
+    a = \omega^2 r = \pi^2 \times 0.1 = 0.99\;\mathrm{m/s^2}
+    $$
+
+    about 10% of $g$, and some thirty times the acceleration due to the Earth's rotation. The chair is not an inertial frame: every point of it, except those on the axis, accelerates towards the axis. In the chair's frame, a fictitious force $m\,\omega^2 r$ pointing away from the axis (the centrifugal force) has to be added, and a second one (the Coriolis force) for anything that moves relative to the chair.
+    ///
     """)
     return
 
@@ -493,6 +651,24 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
+    **Exercise 4.** Before computing anything, predict the basis that the four steps give for markers placed on the laboratory's axes: $\overrightarrow{\mathbf{m}}_1 = [0,0,0],\; \overrightarrow{\mathbf{m}}_2 = [1,0,0],\; \overrightarrow{\mathbf{m}}_3 = [0,1,0]$. Which laboratory axis does each versor coincide with? Then check your answer with the code above.
+
+    /// details | Solution to Exercise 4
+    Following the steps:
+
+    - $\overrightarrow{\mathbf{v}}_1 = \overrightarrow{\mathbf{m}}_2 - \overrightarrow{\mathbf{m}}_1 = [1, 0, 0]$, so $\hat{\mathbf{e}}_1 = \hat{\mathbf{i}}$.
+    - $\overrightarrow{\mathbf{v}}_2 = \overrightarrow{\mathbf{v}}_1 \times (\overrightarrow{\mathbf{m}}_3 - \overrightarrow{\mathbf{m}}_1) = \hat{\mathbf{i}} \times \hat{\mathbf{j}} = \hat{\mathbf{k}}$, so $\hat{\mathbf{e}}_2 = \hat{\mathbf{k}}$.
+    - $\overrightarrow{\mathbf{v}}_3 = \overrightarrow{\mathbf{v}}_1 \times \overrightarrow{\mathbf{v}}_2 = \hat{\mathbf{i}} \times \hat{\mathbf{k}} = -\hat{\mathbf{j}}$, so $\hat{\mathbf{e}}_3 = -\hat{\mathbf{j}}$.
+
+    The basis is not $\hat{\mathbf{i}}, \hat{\mathbf{j}}, \hat{\mathbf{k}}$, as one might guess, but $\hat{\mathbf{i}}, \hat{\mathbf{k}}, -\hat{\mathbf{j}}$: the recipe always makes the second versor perpendicular to the plane of the markers and puts the third one in that plane. It is still right-handed, since $\hat{\mathbf{i}} \times \hat{\mathbf{k}} = -\hat{\mathbf{j}}$.
+    ///
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
     ### Is that a good test of orthogonality?
 
     The test above relies on a true fact: for two versors, $\Vert\hat{\mathbf{a}} \times \hat{\mathbf{b}}\Vert = \sin\theta$, which equals 1 when they are perpendicular. But a test is only as good as its ability to fail when something is wrong.
@@ -556,7 +732,34 @@ def _(e1, e2, e3, np):
 def _(mo):
     mo.md(r"""
     The dot products are zero to within $10^{-16}$ and the basis is right-handed, as the construction guarantees: $\overrightarrow{\mathbf{v}}_3 = \overrightarrow{\mathbf{v}}_1 \times \overrightarrow{\mathbf{v}}_2$ is, by definition, the third axis of a right-handed set.
+
+    **Exercise 5.** A colleague hands you three versors, $\hat{\mathbf{u}}_1 = [0.6, 0.8, 0]$, $\hat{\mathbf{u}}_2 = [-0.8, 0.6, 0]$ and $\hat{\mathbf{u}}_3 = [0, 0, -1]$, as the basis of a segment. Is it orthonormal? Is it right-handed? If it is not, what is the smallest change that makes it right-handed?
     """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo, np):
+    _u1 = np.array([0.6, 0.8, 0])
+    _u2 = np.array([-0.8, 0.6, 0])
+    _u3 = np.array([0, 0, -1])
+    _dots = [round(float(np.dot(_p, _q)), 12) + 0.0 for _p, _q in [(_u1, _u2), (_u1, _u3), (_u2, _u3)]]
+    _norms = [np.linalg.norm(_u) for _u in (_u1, _u2, _u3)]
+    _det = np.linalg.det(np.vstack((_u1, _u2, _u3)))
+    _cross = np.cross(_u1, _u2) + 0.0
+    mo.accordion(
+        {
+            "Solution to Exercise 5": mo.md(
+                rf"""
+    The dot products are {", ".join(f"{_d:g}" for _d in _dots)} and the norms are {", ".join(f"{_n:g}" for _n in _norms)}: the basis is **orthonormal**.
+
+    But $\hat{{\mathbf{{u}}}}_1 \times \hat{{\mathbf{{u}}}}_2 = {_cross.tolist()}$, which is $-\hat{{\mathbf{{u}}}}_3$, and the determinant of the matrix with the versors as rows is **{_det:g}**: the basis is **left-handed**.
+
+    Reversing any one of the versors makes it right-handed. The natural choice here is $\hat{{\mathbf{{u}}}}_3 = [0, 0, 1]$, the cross product of the other two. Swapping two of the versors would also do it, but it changes which axis is which, which is usually worse.
+    """
+            )
+        }
+    )
     return
 
 
@@ -911,7 +1114,7 @@ def _(np):
 
     print("Ot =", Ot)
     print("xt =", xt.round(4), "\nyt =", yt.round(4), "\nzt =", zt.round(4))
-    return le, me, xt, yt, zt
+    return Ot, fh, le, me, xt, yt, zt
 
 
 @app.cell(hide_code=True)
@@ -946,6 +1149,106 @@ def _(mo):
     2. The convention defines $y_t$ first, from the two landmarks that are farthest apart. Why is that a sensible choice when every landmark is located with some error?
     3. Why is the origin at the midpoint of the epicondyles, and not at the centroid of the three landmarks, as for the technical coordinate system earlier?
     """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ### Using the femur's coordinate system
+
+    A coordinate system earns its keep when we use it to describe points. Any point P can be described by its **local coordinates**: the projections of $\overrightarrow{\mathbf{r}}_P - O_t$ on the three versors, found with the dot product. From the local coordinates we get back to the laboratory by adding up the versors:
+
+    $$
+    x^* = (\overrightarrow{\mathbf{r}}_P - O_t)\cdot\hat{x}_t, \quad y^* = (\overrightarrow{\mathbf{r}}_P - O_t)\cdot\hat{y}_t, \quad z^* = (\overrightarrow{\mathbf{r}}_P - O_t)\cdot\hat{z}_t
+    $$
+
+    $$
+    \overrightarrow{\mathbf{r}}_P = O_t + x^*\,\hat{x}_t + y^*\,\hat{y}_t + z^*\,\hat{z}_t
+    $$
+
+    Take a marker on the side of the thigh, 15 cm above the origin of the femur along its long axis and 6 cm lateral to it: local coordinates $(0,\, 0.15,\, 0.06)$ m, since lateral is $+z_t$ for the right femur. Where is it in the laboratory? Then flex the hip by 30°, turning the three landmarks about the centre of the femoral head (the turn is done with a rotation matrix; see [Rigid-body transformations in 3D](https://github.com/BMClab/BMC/blob/master/notebooks/Transformation3D.ipynb)), and rebuild the femur's coordinate system from the new landmarks. The function below collects the recipe of the previous section.
+
+    **Before you run the next cell**, predict: after the hip flexes, are the marker's local coordinates still $(0,\, 0.15,\, 0.06)$? Does the marker move more or less than the knee?
+    """)
+    return
+
+
+@app.function
+def femur_frame(fh, le, me):
+    """Origin and basis (versors as rows) of the right femur, VAKHUM convention.
+
+    `fh`, `le` and `me` are the positions of the centre of the femoral head and
+    of the lateral and medial epicondyles, in a laboratory with x anterior,
+    y upwards and z to the right.
+    """
+    import numpy as np
+
+    origin = (le + me) / 2
+    yt = (fh - origin) / np.linalg.norm(fh - origin)
+    zt = (le - me) - np.dot(le - me, yt) * yt
+    zt = zt / np.linalg.norm(zt)
+    xt = np.cross(yt, zt)
+    return origin, np.vstack((xt, yt, zt))
+
+
+@app.cell
+def _(Ot, fh, le, me, np, xt, yt, zt):
+    _local = np.array([0.0, 0.15, 0.06])  # marker on the thigh, in the femur's coordinates [m]
+    _basis = np.vstack((xt, yt, zt))
+    _p_lab = Ot + _local @ _basis  # local to laboratory
+
+    print("Marker in the laboratory, standing:   ", _p_lab.round(4), "m")
+    print("Back to local coordinates:            ", ((_p_lab - Ot) @ _basis.T).round(4) + 0.0, "m")
+
+    # Flex the hip by 30 degrees: turn the landmarks about the femoral head, about the z axis
+    _theta = np.radians(30)
+    _Rz = np.array([[np.cos(_theta), -np.sin(_theta), 0], [np.sin(_theta), np.cos(_theta), 0], [0, 0, 1]])
+
+    def _turn(p):
+        return fh + _Rz @ (p - fh)
+
+    _Ot_flex, _basis_flex = femur_frame(_turn(fh), _turn(le), _turn(me))
+    _p_flex = _Ot_flex + _local @ _basis_flex  # the same local coordinates, in the new frame
+
+    print("Marker in the laboratory, hip flexed: ", _p_flex.round(4), "m")
+    print(f"Difference from turning the marker itself: {np.abs(_p_flex - _turn(_p_lab)).max():.1e} m")
+    print(
+        f"The marker moved {100 * np.linalg.norm(_p_flex - _p_lab):.1f} cm,"
+        f" the origin of the femur (the knee) {100 * np.linalg.norm(_Ot_flex - Ot):.1f} cm"
+    )
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    The local coordinates do not change. Rebuilt from the flexed landmarks, the femur's coordinate system puts the marker exactly where turning the marker itself would, to within $10^{-16}$ m: the frame carries every point of the segment with it, which is the whole reason for attaching one to the segment. The marker moved 14.2 cm and the knee 22.0 cm, because points nearer the hip, the centre of the rotation, travel along shorter arcs.
+
+    This is also the principle behind the technical and anatomical coordinate systems of the next section: local coordinates measured once, in a calibration trial, give the position of a point at every later instant.
+
+    **Exercise 6.** The centre of the femoral head cannot be palpated; it has to be estimated, and every estimate carries an error. Suppose the estimate is 1 cm too medial (for the right femur, 1 cm towards $-z$). Recalculate the femur's coordinate system with `femur_frame`. Which of its axes change, and by how much? Which joint angle would this error disturb the most?
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(fh, le, me, mo, np):
+    _, _basis = femur_frame(fh, le, me)
+    _, _basis_err = femur_frame(fh + np.array([0, 0, -0.01]), le, me)
+    _angles = angle_between(_basis_err, _basis)
+    _tilt = np.degrees(np.arctan(0.01 / np.linalg.norm(fh - (le + me) / 2)))
+    mo.accordion(
+        {
+            "Solution to Exercise 6": mo.md(
+                rf"""
+    With the femoral head 1 cm too medial, the axes turn by **{_angles[0]:.2f}°** ($x_t$), **{_angles[1]:.2f}°** ($y_t$) and **{_angles[2]:.2f}°** ($z_t$).
+
+    The long axis tilts towards the midline by about the error divided by the length of the femur, $\arctan(0.01/0.425) = {_tilt:.2f}°$, and $z_t$, which is kept perpendicular to it, tilts with it. Both turn about $x_t$, which barely moves. The error is a rotation in the frontal plane of the femur, so it disturbs the abduction–adduction angles of the hip and the knee the most, and their flexion angles hardly at all.
+    """
+            )
+        }
+    )
     return
 
 
@@ -1009,6 +1312,17 @@ def _(mo):
        c. Is the frame of the belt inertial before, during and after the change of speed?
 
     9. The landmarks of the left femur of the person in this notebook are the mirror images of those of the right femur: fh = [0.02, 0.92, −0.09], le = [0.03, 0.50, −0.14] and me = [0.02, 0.49, −0.05] (in metres). Calculate the anatomical coordinate system of the left femur according to the VAKHUM convention, check that it is right-handed, and compare it with that of the right femur. Is the left knee also rotated inwards?
+
+    10. A person stands still on a force plate in a lift. While the lift moves at constant speed, the plate reads 600 N; when the lift starts or stops, the reading changes to 660 N.<br>
+        a. What is the person's mass?<br>
+        b. What is the acceleration of the lift, and in which direction does it point?<br>
+        c. Is the lift starting to go up, or stopping on the way down? Can the force plate tell the two apart?
+
+    11. In the model of the sprinter's hand ("One hand, two frames"), keep the running speed, the arm length and the frequency of the arm swing, and find the amplitude of the swing for which the hand comes to a complete stop relative to the track once per stride. Is that amplitude realistic for sprinting?
+
+    12. In the standing posture of the femur example, the tibial tuberosity is at [0.06, 0.44, 0.10] m in the laboratory. Calculate its local coordinates in the femur's coordinate system and interpret their signs. Would they stay the same when the knee flexes?
+
+    13. Write a function that receives three vectors and returns whether they form an orthonormal, right-handed basis, within a tolerance you choose. Test it with the bases of this notebook, including the one in Exercise 5, and with a basis that is orthogonal but not normalized.
     """)
     return
 
