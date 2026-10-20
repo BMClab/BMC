@@ -25,7 +25,7 @@ def _(mo):
 
     This notebook derives the two equations that tie them together. Given the motion of a single point of the body and the body's angular velocity, they give the velocity and the acceleration of every other point. Along the way they reveal a point that, at each instant, does not move at all, and show why a point that does not move can still be accelerating.
 
-    Read it in order and run each cell as you reach it. Where you find a **Challenge** or a set of **Guiding questions**, stop and answer on a scratchpad before moving on. Several of them ask you to predict a number *before* the code prints it. Make the prediction; a wrong guess that the code then corrects teaches more than a right one.
+    Read it in order and run each cell as you reach it. Where you find a **Challenge** or a set of **Guiding questions**, stop and answer on a scratchpad before moving on. Several of them ask you to predict a number *before* the code prints it. Make the prediction; a wrong guess that the code then corrects teaches more than a right one. The **Exercises** come with worked solutions, folded away under each exercise: work the exercise out first, and open the solution only to check your answer.
 
     You will need the cross product from [Scalar and vector](https://github.com/BMClab/BMC/blob/master/notebooks/ScalarVector.ipynb), the angular velocity from [Angular kinematics in a plane](https://github.com/BMClab/BMC/blob/master/notebooks/KinematicsAngular2D.ipynb), and the normal (centripetal) acceleration from [Path frame](https://github.com/BMClab/BMC/blob/master/notebooks/PathFrame.ipynb).
 
@@ -221,6 +221,31 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
+    **Exercise 1.** A forearm rotates about a fixed elbow, at the origin, with $\omega = 4$ rad/s counterclockwise. At this instant the wrist is 0.25 m from the elbow, along the direction $30^\circ$ above the $+x$ axis. Calculate the velocity of the wrist, as a vector and as a speed.
+
+    /// details | Solution to Exercise 1
+
+    The position of the wrist relative to the elbow is
+
+    $$
+    \vec{\mathbf{r}} = 0.25\,(\cos 30^\circ\,\hat{\mathbf{i}} + \sin 30^\circ\,\hat{\mathbf{j}}) = 0.2165\,\hat{\mathbf{i}} + 0.125\,\hat{\mathbf{j}}\;\mathrm{m}
+    $$
+
+    With $\hat{\mathbf{k}} \times \hat{\mathbf{i}} = \hat{\mathbf{j}}$ and $\hat{\mathbf{k}} \times \hat{\mathbf{j}} = -\hat{\mathbf{i}}$,
+
+    $$
+    \vec{\mathbf{v}} = \omega\,\hat{\mathbf{k}} \times \vec{\mathbf{r}} = 4\,(0.2165\,\hat{\mathbf{j}} - 0.125\,\hat{\mathbf{i}}) = -0.5\,\hat{\mathbf{i}} + 0.866\,\hat{\mathbf{j}}\;\mathrm{m/s}
+    $$
+
+    The speed is $\omega\,\Vert\vec{\mathbf{r}}\Vert = 4 \times 0.25 = 1.0$ m/s, and the velocity points $120^\circ$ from the $+x$ axis: perpendicular to the forearm, turned $90^\circ$ counterclockwise from it, as $\hat{\mathbf{k}} \times$ always does in the plane.
+    ///
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
     ## Relative velocity of a point on a rigid body to another point
 
     To find the velocity of a point of a body that also translates, we first need the velocity of a point P relative to another point A of the same body:
@@ -232,6 +257,27 @@ def _(mo):
     Seen from any point of a rigid body, every other point moves on a circle around it.
 
     There is a test of rigidity hidden here. Because $\vec{\mathbf{v}}_{P/A}$ is perpendicular to $\vec{\mathbf{r}}_{P/A}$, the dot product $(\vec{\mathbf{v}}_P - \vec{\mathbf{v}}_A)\cdot\vec{\mathbf{r}}_{P/A}$ is zero: **two points of a rigid body have the same velocity component along the line that joins them**. If they did not, the distance between them would be changing. In [Angular kinematics in a plane](https://github.com/BMClab/BMC/blob/master/notebooks/KinematicsAngular2D.ipynb), the markers on the leg failed this test by up to 0.4 m/s, a sign of skin movement and measurement error, not of a stretching bone.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    **Exercise 2.** Two markers are on the thigh: A at $(0, 0.9)$ m with velocity $(1.2, 0.1)$ m/s, and B at $(0.1, 0.5)$ m with a horizontal velocity component of 1.5 m/s. What must the vertical velocity component of B be for the two markers to pass the rigidity test?
+
+    /// details | Solution to Exercise 2
+
+    The test requires $(\vec{\mathbf{v}}_B - \vec{\mathbf{v}}_A)\cdot\vec{\mathbf{r}}_{B/A} = 0$, with $\vec{\mathbf{r}}_{B/A} = (0.1, -0.4)$ m and $\vec{\mathbf{v}}_B - \vec{\mathbf{v}}_A = (0.3,\; v_{By} - 0.1)$ m/s:
+
+    $$
+    0.3 \times 0.1 + (v_{By} - 0.1)(-0.4) = 0
+    \quad\Longrightarrow\quad
+    v_{By} = 0.1 + \frac{0.03}{0.4} = 0.175\;\mathrm{m/s}
+    $$
+
+    Any other value would mean that the distance between the markers is changing. For instance, with $v_{By} = 0.2$ m/s, the dot product is $-0.01\;\mathrm{m^2/s}$, and dividing by the distance between the markers, 0.412 m, the markers approach each other at 2.4 cm/s.
+    ///
     """)
     return
 
@@ -394,6 +440,111 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
+    ### Example: the leg in the swing phase
+
+    The velocity equation links two points of the *same* body. A limb is a chain of bodies, but the equation can be applied link by link: the knee belongs to both the thigh and the shank, so the velocity of the knee, computed from the hip with the thigh's angular velocity, is the starting point for the shank.
+
+    Take a plausible instant of mid-swing in walking, in the sagittal plane, with $x$ forward and $y$ up. The hip, at $(0, 0.90)$ m, moves forward at the walking speed, 1.4 m/s. The thigh (0.42 m long) is flexed $20^\circ$ forward of the vertical and swings forward at $\omega_{thigh}$ = 3 rad/s. The shank (0.43 m long) still hangs $15^\circ$ behind the vertical and swings forward at $\omega_{shank}$ = 4 rad/s. Swinging forward is counterclockwise here, so both angular velocities are positive. Then
+
+    $$
+    \vec{\mathbf{v}}_{knee} = \vec{\mathbf{v}}_{hip} + \omega_{thigh}\,\hat{\mathbf{k}} \times \vec{\mathbf{r}}_{knee/hip},
+    \qquad
+    \vec{\mathbf{v}}_{ankle} = \vec{\mathbf{v}}_{knee} + \omega_{shank}\,\hat{\mathbf{k}} \times \vec{\mathbf{r}}_{ankle/knee}
+    $$
+
+    **Before you run the next cell**, predict: how many times faster than the hip does the ankle move?
+    """)
+    return
+
+
+@app.cell
+def _(np):
+    swing_hip = np.array([0.0, 0.90])  # m
+    swing_v_hip = np.array([1.4, 0.0])  # m/s, the walking speed
+    swing_omega_thigh, swing_omega_shank = 3.0, 4.0  # rad/s, counterclockwise = swinging forward
+
+    # segment vectors from the angles to the downward vertical (positive = forward)
+    _r_knee_hip = 0.42 * np.array([np.sin(np.radians(20)), -np.cos(np.radians(20))])
+    _r_ankle_knee = 0.43 * np.array([np.sin(np.radians(-15)), -np.cos(np.radians(-15))])
+    swing_knee = swing_hip + _r_knee_hip
+    swing_ankle = swing_knee + _r_ankle_knee
+
+    swing_v_knee = swing_v_hip + omega_cross(swing_omega_thigh, _r_knee_hip)
+    swing_v_ankle = swing_v_knee + omega_cross(swing_omega_shank, _r_ankle_knee)
+
+    print("            position [m]      velocity [m/s]    speed [m/s]")
+    for _name, _r, _v in [
+        ("hip  ", swing_hip, swing_v_hip),
+        ("knee ", swing_knee, swing_v_knee),
+        ("ankle", swing_ankle, swing_v_ankle),
+    ]:
+        print(f"{_name}   {_r.round(3)}   {_v.round(3)}   {np.linalg.norm(_v):6.2f}")
+    print(f"\nThe ankle moves {np.linalg.norm(swing_v_ankle) / np.linalg.norm(swing_v_hip):.1f} times faster than the hip")
+    return swing_ankle, swing_hip, swing_knee, swing_omega_shank, swing_v_ankle, swing_v_hip, swing_v_knee
+
+
+@app.cell
+def _(plt, swing_ankle, swing_hip, swing_knee, swing_v_ankle, swing_v_hip, swing_v_knee):
+    _fig, _ax = plt.subplots(figsize=(6, 5.5))
+    _ax.plot(*zip(swing_hip, swing_knee), color="tab:green", linewidth=6, solid_capstyle="round", label="thigh")
+    _ax.plot(*zip(swing_knee, swing_ankle), color="tab:olive", linewidth=6, solid_capstyle="round", label="shank")
+    for _r, _v in [(swing_hip, swing_v_hip), (swing_knee, swing_v_knee), (swing_ankle, swing_v_ankle)]:
+        _ax.quiver(*_r, *(0.1 * _v), angles="xy", scale_units="xy", scale=1, width=0.008, color="tab:blue")
+        _ax.plot(*_r, "ko")
+    _ax.set_aspect("equal")
+    _ax.set_xlim(-0.1, 0.6)
+    _ax.set_ylim(0, 1.0)
+    _ax.set_xlabel("x [m]")
+    _ax.set_ylabel("y [m]")
+    _ax.set_title("Velocities in mid-swing (arrows drawn 0.1 s long)")
+    _ax.legend(loc="upper right")
+    plt.tight_layout()
+    plt.show()
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    The ankle moves at 4.25 m/s, three times the walking speed, and almost horizontally. Each link adds its own rotational part: 1.26 m/s from the thigh and 1.72 m/s from the shank, on top of the 1.4 m/s of the hip. The vertical components, upward at the knee and downward from the shank's rotation, nearly cancel at the ankle, which is why the foot skims forward close to the ground instead of rising. This is the same chaining of rigid-body equations that [Kinematic chain](https://github.com/BMClab/BMC/blob/master/notebooks/KinematicChain.ipynb) builds up with joint angles.
+
+    **Exercise 3.** Where is the instantaneous centre of rotation of the shank at this instant? Is it on the shank? Which point of the shank moves most slowly?
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo, np, swing_ankle, swing_hip, swing_knee, swing_omega_shank, swing_v_knee):
+    _ic = instant_centre(swing_knee, swing_v_knee, swing_omega_shank)
+    _from_knee = _ic - swing_knee
+    # speed of points along the shank, from the knee (s = 0) to the ankle (s = 1)
+    _s = np.linspace(0, 1, 101)
+    _points = swing_knee + _s[:, np.newaxis] * (swing_ankle - swing_knee)
+    _speeds = np.linalg.norm(swing_v_knee + omega_cross(swing_omega_shank, _points - swing_knee), axis=1)
+    mo.accordion(
+        {
+            "Solution to Exercise 3": mo.md(
+                r"""
+    Use the knee as the reference point, with the velocity of the knee found above and the shank's angular velocity:
+
+    $$
+    \vec{\mathbf{r}}_{IC} = \vec{\mathbf{r}}_{knee} + \frac{\hat{\mathbf{k}} \times \vec{\mathbf{v}}_{knee}}{\omega_{shank}}
+    $$
+    """
+                + f"""
+    The instantaneous centre is at ({_ic[0]:.3f}, {_ic[1]:.3f}) m: {np.linalg.norm(_from_knee):.2f} m from the knee, {_from_knee[1]:.2f} m above it and {abs(_from_knee[0]):.2f} m behind it. That is {_ic[1] - swing_hip[1]:.2f} m above the hip, well off the shank: at this instant the shank moves mostly forward, and turns about a point high above it.
+
+    Along the shank, the speed grows with the distance from the instantaneous centre, so the slowest point of the shank is the one closest to it: the knee, at {_speeds[0]:.2f} m/s (the speed rises steadily to {_speeds[-1]:.2f} m/s at the ankle). Of all its points, only the instantaneous centre itself, which is not part of the shank, has zero velocity.
+    """
+            )
+        }
+    )
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
     ## Back to the push rim: rolling without slipping
 
     Now the wheelchair. Take a wheel of radius $R$ = 0.30 m, with a push rim of radius $r$ = 0.27 m, rolling to the right ($+x$) at $v$ = 1.5 m/s. Use the hub as the reference point A.
@@ -519,6 +670,65 @@ def _(mo):
     3. The instantaneous centre of the wheel is the point C of the tyre. A tenth of a second later, is it still the same point of the tyre?
 
     **Challenge 1.** Add the instantaneous centre to the slider figure of the ellipse, and draw dashed lines from it to the centre and to P. Check by eye that each velocity arrow is perpendicular to its dashed line.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ### Example: when the wheel slips
+
+    Rolling without slipping is a condition, not a law: on a wet floor or a loose surface, a wheel can spin or skid. The instantaneous centre then leaves the contact point, and where it goes tells you which way the wheel is slipping.
+
+    Take the wheelchair wheel ($R$ = 0.30 m) with its hub moving forward at 1.0 m/s. Rolling without slipping would need $\omega = -v/R = -3.33$ rad/s. Consider two cases: the user pushes too hard on a slippery floor and the wheel *spins* at $-5$ rad/s, or the user brakes and the wheel turns too slowly, at $-3$ rad/s, so that it *skids*.
+
+    **Before you run the next cell**, predict for each case: does the contact point slide forward or backward? Is the instantaneous centre above or below the ground?
+    """)
+    return
+
+
+@app.cell
+def _(R_wheel, np):
+    _v_hub = np.array([1.0, 0.0])  # m/s
+    _r_hub = np.array([0.0, R_wheel])  # m, the contact point is at the origin
+    for _omega, _case in [(-5.0, "spinning"), (-1.0 / R_wheel, "rolling"), (-3.0, "skidding")]:
+        _v_contact = _v_hub + omega_cross(_omega, -_r_hub)
+        _ic = instant_centre(_r_hub, _v_hub, _omega)
+        print(
+            f"{_case:9s} omega = {_omega:5.2f} rad/s:  velocity of the contact point {_v_contact.round(3) + 0.0} m/s,"
+            f"  instantaneous centre at height {_ic[1]:+.3f} m"
+        )
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    A spinning wheel slides backward at the contact point, at 0.5 m/s, and its instantaneous centre rises inside the wheel, 10 cm above the ground: the wheel turns as if around a point between the floor and the hub. A skidding wheel slides forward, at 0.1 m/s, and its instantaneous centre drops 3.3 cm *below* the ground. Only rolling without slipping puts it exactly at the contact point.
+
+    The same reasoning applies to a foot. During stance the instantaneous centre of the foot should stay near the part of the foot in contact with the ground; when it drifts away from the contact, the foot is sliding, as in a slip on ice.
+
+    **Exercise 4.** Seen from above, a wheelchair has its two wheels 0.6 m apart, on a common axle. The left wheel moves forward at 1.0 m/s and the right wheel at 0.5 m/s. Treating the chair as a rigid body moving in the horizontal plane, with $x$ forward and $y$ to the left, find its angular velocity and its instantaneous centre. Which way is the chair turning?
+
+    /// details | Solution to Exercise 4
+
+    Put the left wheel at $(0, 0.3)$ m and the right wheel at $(0, -0.3)$ m. The velocity equation from the left wheel to the right wheel gives
+
+    $$
+    0.5\,\hat{\mathbf{i}} = 1.0\,\hat{\mathbf{i}} + \omega\,\hat{\mathbf{k}} \times (-0.6\,\hat{\mathbf{j}}) = (1.0 + 0.6\,\omega)\,\hat{\mathbf{i}}
+    \quad\Longrightarrow\quad
+    \omega = -0.833\;\mathrm{rad/s}
+    $$
+
+    The minus sign means clockwise seen from above: the chair turns to the right, towards the slower wheel. The instantaneous centre, from the left wheel, is
+
+    $$
+    \vec{\mathbf{r}}_{IC} = \vec{\mathbf{r}}_{L} + \frac{\hat{\mathbf{k}} \times \vec{\mathbf{v}}_{L}}{\omega} = 0.3\,\hat{\mathbf{j}} + \frac{1.0\,\hat{\mathbf{j}}}{-0.833} = -0.9\,\hat{\mathbf{j}}\;\mathrm{m}
+    $$
+
+    It lies on the line of the axle, 0.9 m to the right of the centre of the chair and 0.6 m beyond the right wheel: the chair is driving round a circle of radius 0.9 m, at the speed of its centre, 0.75 m/s.
+    ///
     """)
     return
 
@@ -666,6 +876,139 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
+    ### Example: the giant swing
+
+    In a giant swing on the high bar, a gymnast circles the bar with the body extended, hands fixed on the bar. The hands are a fixed pivot, so $\vec{\mathbf{a}}_A = 0$ and only the two rotational terms are left. Treat the body as rigid, hanging from the bar, with the shoulders 0.6 m, the hips 1.25 m and the feet 2.2 m from the hands, and consider two instants of the downswing:
+
+    - at the bottom of the swing, where the body turns fastest, $\omega$ = 5 rad/s, and so is momentarily not speeding up, $\alpha = 0$;
+    - $45^\circ$ before the bottom, with $\omega$ = 4 rad/s and $\alpha$ = 8 rad/s².
+
+    These values are plausible for a giant swing, not measurements. **Before you run the next cell**, predict: at the bottom, which way do the accelerations point, and how large is the acceleration of the feet compared with $g$? And $45^\circ$ before the bottom, do the accelerations still point at the bar?
+    """)
+    return
+
+
+@app.cell
+def _(np):
+    giant_distances = {"shoulders": 0.6, "hips": 1.25, "feet": 2.2}  # m from the hands
+    giant_instants = [  # (label, body angle from the downward vertical [deg], omega [rad/s], alpha [rad/s2])
+        ("bottom of the swing", 0, 5.0, 0.0),
+        ("45 degrees before the bottom", -45, 4.0, 8.0),
+    ]
+
+    for _label, _angle, _omega, _alpha in giant_instants:
+        _direction = np.array([np.sin(np.radians(_angle)), -np.cos(np.radians(_angle))])  # from the bar along the body
+        print(f"{_label}: omega = {_omega} rad/s, alpha = {_alpha} rad/s2")
+        for _name, _d in giant_distances.items():
+            _r = _d * _direction
+            _a = omega_cross(_alpha, _r) - _omega**2 * _r
+            _to_bar = np.degrees(np.arccos(np.dot(_a, -_r) / (np.linalg.norm(_a) * np.linalg.norm(_r))))
+            print(
+                f"  {_name:9s} |a| = {np.linalg.norm(_a):5.1f} m/s2 = {np.linalg.norm(_a) / 9.81:.1f} g,"
+                f"  {_to_bar:4.1f} degrees from the line to the bar"
+            )
+    return giant_distances, giant_instants
+
+
+@app.cell
+def _(giant_distances, giant_instants, np, plt):
+    _fig, _axs = plt.subplots(1, 2, figsize=(10, 5.5), sharey=True)
+    for _ax, (_label, _angle, _omega, _alpha) in zip(_axs, giant_instants):
+        _direction = np.array([np.sin(np.radians(_angle)), -np.cos(np.radians(_angle))])
+        _feet = giant_distances["feet"] * _direction
+        _ax.plot([0, _feet[0]], [0, _feet[1]], color="tab:green", alpha=0.35, linewidth=4, solid_capstyle="round")
+        _ax.plot(0, 0, "ks", markersize=10)
+        for _d in giant_distances.values():
+            _r = _d * _direction
+            _a = omega_cross(_alpha, _r) - _omega**2 * _r
+            _ax.plot(*_r, "o", color="tab:green", markersize=7)
+            _ax.quiver(*_r, *(0.01 * _a), angles="xy", scale_units="xy", scale=1, width=0.012, color="tab:blue", zorder=3)
+        _ax.set_aspect("equal")
+        _ax.set_xlim(-2.0, 1.2)
+        _ax.set_ylim(-2.5, 0.4)
+        _ax.set_xlabel("x [m]")
+        _ax.set_title(_label)
+    _axs[0].set_ylabel("y [m]")
+    _fig.suptitle("Accelerations of the shoulders, hips and feet (arrows: 0.01 m per m/s²)")
+    plt.tight_layout()
+    plt.show()
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    At the bottom of the swing the accelerations point straight at the bar, and they grow in proportion to the distance from it: 1.5 $g$ at the shoulders, 3.2 $g$ at the hips, 5.6 $g$ at the feet. With $\alpha = 0$ only the centripetal term is left, $\omega^2 r$. The arms, which hold the whole body, must supply the force for these accelerations and support the body's weight as well, which is why the pull on the hands at the bottom of a giant swing reaches several times body weight.
+
+    Before the bottom the accelerations are smaller, but they no longer point at the bar: every one of them is tilted by $26.6^\circ$ from the line to the bar, towards the direction of motion. The tilt is the same for every point, because both terms are proportional to the distance $r$: the tangential term is $\alpha r$, the centripetal term $\omega^2 r$, and the angle between their sum and the body satisfies
+
+    $$
+    \tan\varphi = \frac{\alpha}{\omega^2} = \frac{8}{16} = 0.5
+    $$
+
+    So for any body rotating about a fixed pivot, the acceleration of every point makes the same angle with the line to the pivot, and its magnitude is proportional to the distance, $r\sqrt{\alpha^2 + \omega^4}$.
+
+    **Exercise 5.** The forearm of Exercise 1 is now slowing down: about the fixed elbow, $\omega$ = 4 rad/s counterclockwise with $\alpha = -20$ rad/s². The wrist is 0.25 m from the elbow, $30^\circ$ above the $+x$ axis. Calculate the tangential and centripetal accelerations of the wrist, the total acceleration and its magnitude, and the angle between the acceleration and the line from the wrist to the elbow.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo, np, plt):
+    _omega, _alpha = 4.0, -20.0
+    _r = 0.25 * np.array([np.cos(np.radians(30)), np.sin(np.radians(30))])
+    _tangential = omega_cross(_alpha, _r)
+    _centripetal = -(_omega**2) * _r
+    _a = _tangential + _centripetal
+    _phi = np.degrees(np.arccos(np.dot(_a, -_r) / (np.linalg.norm(_a) * np.linalg.norm(_r))))
+
+    _fig, _ax = plt.subplots(figsize=(5, 5))
+    _ax.plot([0, _r[0]], [0, _r[1]], color="tab:green", alpha=0.35, linewidth=3, solid_capstyle="round")
+    _ax.plot(0, 0, "ko", markersize=8)
+    for _vec, _color, _name in [(_tangential, "tab:orange", "tangential"), (_centripetal, "tab:purple", "centripetal"), (_a, "tab:blue", "total")]:
+        _ax.quiver(*_r, *(0.04 * _vec), angles="xy", scale_units="xy", scale=1, width=0.012, color=_color, label=_name, zorder=3)
+    _ax.set_aspect("equal")
+    _ax.set_xlim(-0.15, 0.4)
+    _ax.set_ylim(-0.2, 0.3)
+    _ax.set_xlabel("x [m]")
+    _ax.set_ylabel("y [m]")
+    _ax.set_title("Wrist acceleration (0.04 m per m/s²)")
+    _ax.legend(loc="upper left")
+    plt.tight_layout()
+    _figure = mo.as_html(_fig)
+    plt.close(_fig)
+
+    mo.accordion(
+        {
+            "Solution to Exercise 5": mo.vstack(
+                [
+                    mo.md(
+                        r"""
+    With $\vec{\mathbf{r}} = (0.2165, 0.125)$ m from Exercise 1, the two rotational terms are
+
+    $$
+    \vec{\mathbf{a}}_t = \alpha\,\hat{\mathbf{k}} \times \vec{\mathbf{r}}, \qquad \vec{\mathbf{a}}_n = -\omega^2\,\vec{\mathbf{r}}
+    $$
+    """
+                        + f"""
+    - tangential: ({_tangential[0]:.3f}, {_tangential[1]:.3f}) m/s², of magnitude |α| r = {np.linalg.norm(_tangential):.1f} m/s². Because α is negative, it points opposite to the velocity of Exercise 1: the forearm is braking.
+    - centripetal: ({_centripetal[0]:.3f}, {_centripetal[1]:.3f}) m/s², of magnitude ω² r = {np.linalg.norm(_centripetal):.1f} m/s², pointing from the wrist to the elbow.
+    - total: ({_a[0]:.3f}, {_a[1]:.3f}) m/s², of magnitude {np.linalg.norm(_a):.2f} m/s².
+
+    The total makes an angle of {_phi:.1f}° with the line from the wrist to the elbow, the angle whose tangent is |α|/ω² = 20/16. It is tilted away from the elbow on the side opposite to the motion, because the forearm is slowing down.
+    """
+                    ),
+                    _figure,
+                ]
+            )
+        }
+    )
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
     ## Zero velocity is not zero acceleration
 
     Back to Guiding question 0.2. The contact point C of the rolling wheel has zero velocity. What about its acceleration?
@@ -746,6 +1089,33 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
+    **Exercise 6.** A cyclist rides at a constant 8 m/s, pedalling at a steady 90 revolutions per minute with cranks 0.17 m long. Seen from the right side, with the bicycle moving in the $+x$ direction, the cranks turn clockwise. Calculate the velocity, relative to the ground, of a pedal at the lowest point of its circle and at the highest point, and the acceleration of the pedal at the lowest point. Does the cyclist's foot ever move backward relative to the ground?
+
+    /// details | Solution to Exercise 6
+
+    The angular velocity of the cranks is $\omega = -90 \times 2\pi/60 = -9.42$ rad/s (clockwise), so the rotational part of the pedal's velocity has magnitude $|\omega|\,r = 9.42 \times 0.17 = 1.60$ m/s. Take the crank axle, which moves with the bicycle at 8 m/s, as the reference point. At the lowest point, $\vec{\mathbf{r}} = -0.17\,\hat{\mathbf{j}}$ m and
+
+    $$
+    \vec{\mathbf{v}} = 8\,\hat{\mathbf{i}} + \omega\,\hat{\mathbf{k}} \times (-0.17\,\hat{\mathbf{j}}) = (8 + 0.17\,\omega)\,\hat{\mathbf{i}} = 6.40\,\hat{\mathbf{i}}\;\mathrm{m/s}
+    $$
+
+    At the highest point the rotational part adds instead, $8 + 1.60 = 9.60$ m/s. The rotational part never exceeds 1.60 m/s, far below the 8 m/s of the bicycle, so the foot always moves forward relative to the ground, between 6.40 and 9.60 m/s. (Compare it with the contact point of the bicycle's wheel, whose rotational part exactly cancels the speed of the bicycle.)
+
+    The axle moves at constant velocity and the cranks turn at constant speed, so only the centripetal term is left. At the lowest point it points up, towards the axle:
+
+    $$
+    \vec{\mathbf{a}} = -\omega^2\,\vec{\mathbf{r}} = 9.42^2 \times 0.17\,\hat{\mathbf{j}} = 15.1\,\hat{\mathbf{j}}\;\mathrm{m/s^2}
+    $$
+
+    That is 1.5 $g$, at every point of the circle, always pointing at the axle.
+    ///
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
     ## Checkpoint questions
 
     Pause here before the problems.
@@ -782,6 +1152,20 @@ def _(mo):
        c. Find the instantaneous centre of rotation of the shank.
 
     6. With the data of Table A.1 of Winter (2009), used in [Angular kinematics in a plane](https://github.com/BMClab/BMC/blob/master/notebooks/KinematicsAngular2D.ipynb), calculate the velocity of the head of the fibula from the velocity of the ankle and the angular velocity of the leg, with the equation of this notebook, and compare it with the velocity obtained by differentiating the position of the head of the fibula. Where do they disagree the most, and why?
+
+    7. In late swing, the hip of a walker is at (0, 0.90) m and moves forward at 1.4 m/s. The thigh (0.42 m) is flexed 25° forward of the vertical and turns forward at 0.5 rad/s; the shank (0.43 m) is 10° forward of the vertical and turns forward at 7 rad/s.<br>
+       a. Calculate the velocities of the knee and the ankle.<br>
+       b. Find the instantaneous centre of the shank. Compare it with the one in mid-swing (Exercise 3), and explain the difference.
+
+    8. For the giant swing of this notebook, at the bottom of the swing:<br>
+       a. At what angular velocity would the acceleration of the feet reach 10 $g$? And that of the hips?<br>
+       b. The gymnast flexes the arms, bringing every point of the body 0.2 m closer to the bar. By what percentage does the acceleration of each point change at $\omega$ = 5 rad/s? Why is the change not the same for all of them?
+
+    9. To turn on the spot, a wheelchair user pushes the left wheel forward and pulls the right wheel backward, so that the wheels move at 0.4 m/s in opposite directions. The wheels are 0.6 m apart.<br>
+       a. Calculate the angular velocity of the chair and find its instantaneous centre.<br>
+       b. Calculate the velocity of the front of the footrest, 0.5 m ahead of the midpoint of the axle.
+
+    10. Write a function that receives the positions and velocities of two markers on a segment moving in a plane and returns the angular velocity of the segment and its instantaneous centre. Use the component of the relative velocity perpendicular to the line between the markers to find $\omega$, and report the component along the line as a measure of how far the markers are from rigid. Test it on two points of the ellipse of this notebook, sampled from the body's outline.
     """)
     return
 
