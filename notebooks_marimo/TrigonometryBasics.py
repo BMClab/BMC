@@ -109,7 +109,7 @@ def _(mo):
     ## References
 
     - [Trigonometric functions [Wikipedia]](http://en.wikipedia.org/wiki/Trigonometric_function).
-    - [Trigonometry [S.O.S. Mathematics]](http://www.sosmath.com/trig/trig.html).
+    - [Trigonometry [Coddy]](https://coddy.tech/landing/trigonometry).
     """)
     return
 
