@@ -27,6 +27,8 @@ def _(mo):
 
     Read it in order and run each cell as you reach it. Where you find a **Challenge** or a set of **Guiding questions**, stop and answer on a scratchpad before moving on. Several of them ask you to predict a result *before* the code prints it. Make the prediction; a wrong guess that the code then corrects teaches more than a right one.
 
+    The numbered **Exercises** come with solutions, folded away under each exercise. Try the exercise first, and open the solution only to check your answer or when you are stuck.
+
     The notebook follows the same rationale as [Rigid-body transformations in a plane (2D)](https://github.com/BMClab/BMC/blob/master/notebooks/Transformation2D.ipynb) and skips the fundamental concepts covered there, so if you have not read that notebook yet, read it first. You will also need matrix multiplication (see [Matrix](https://github.com/BMClab/BMC/blob/master/notebooks/Matrix.ipynb)), and the construction of a basis from three markers, explained in [Determination of a coordinate system](https://github.com/BMClab/BMC/blob/master/notebooks/CoordinateSystem.ipynb) and [Frame of reference](https://github.com/BMClab/BMC/blob/master/notebooks/ReferenceFrame.ipynb).
 
     **Challenge 0.** Take a book and hold it upright in front of you, with its spine towards you. Turn it by 90° about a horizontal axis pointing to your right, and then by 90° about the vertical axis. Note where the spine ends up. Now start again and make the same two turns in the opposite order. Sketch both results; the section on rotation shows the answer.
@@ -205,6 +207,30 @@ def _(np):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
+    **Exercise 1.** A force plate is installed with its axes parallel to those of the laboratory, and the origin of its coordinate system is at $\mathbf{L_G} = [0.40,\, 0.00,\, 0.30]$ m in the laboratory. The plate reports the centre of pressure of a foot at $\mathbf{P_l} = [0.12,\, 0.00,\, 0.25]$ m in its own coordinate system. Where is the centre of pressure in the laboratory? And where, in the coordinate system of the plate, is a heel marker measured at $[0.55,\, 0.05,\, 0.50]$ m in the laboratory?
+
+    /// details | Solution to Exercise 1
+    With parallel axes, changing coordinate system is a pure translation. From the plate to the laboratory, add the position of the plate's origin:
+
+    $$
+    \mathbf{P_G} = \mathbf{L_G} + \mathbf{P_l} = [0.40 + 0.12,\; 0.00 + 0.00,\; 0.30 + 0.25] = [0.52,\; 0.00,\; 0.55]\;\mathrm{m}
+    $$
+
+    From the laboratory to the plate, subtract it:
+
+    $$
+    \mathbf{P_l} = \mathbf{P_G} - \mathbf{L_G} = [0.55 - 0.40,\; 0.05 - 0.00,\; 0.50 - 0.30] = [0.15,\; 0.05,\; 0.20]\;\mathrm{m}
+    $$
+
+    The heel marker is 5 cm above the surface of the plate, as a marker on a shoe should be.
+    ///
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
     ## Rotation
 
     A pure three-dimensional rotation of an $xyz$ (local) coordinate system in relation to another, $\mathbf{XYZ}$ (Global), coordinate system, and the position of a point in these two coordinate systems, are illustrated in the next figure. Remember that this is equivalent to describing a rotation between two rigid bodies.
@@ -307,6 +333,24 @@ def _(np, v1, v2, v3):
 def _(mo):
     mo.md(r"""
     However, we have the same problem as with the rotation matrix deduced from the direction cosines: there is no simple way to read angles of rotation off this matrix.
+
+    **Exercise 2.** Which of the following matrices are rotation matrices? For those that are, find the axis and the angle of the rotation by inspection.
+
+    $$
+    \mathbf{A} = \begin{bmatrix} 0 & 1 & 0 \\ 1 & 0 & 0 \\ 0 & 0 & 1 \end{bmatrix}, \quad
+    \mathbf{B} = \begin{bmatrix} 0 & -1 & 0 \\ 1 & 0 & 0 \\ 0 & 0 & 1 \end{bmatrix}, \quad
+    \mathbf{C} = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 0.8 & -0.6 \\ 0 & 0.6 & 0.8 \end{bmatrix}, \quad
+    \mathbf{D} = \begin{bmatrix} 1 & 0.1 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix}
+    $$
+
+    /// details | Solution to Exercise 2
+    A rotation matrix needs both properties: orthonormal columns and a determinant of $+1$.
+
+    - $\mathbf{A}$ has orthonormal columns, but its determinant is $-1$. It swaps the $\mathbf{X}$ and $\mathbf{Y}$ axes, a reflection in the plane $\mathbf{X} = \mathbf{Y}$, which would turn a right-handed coordinate system into a left-handed one. Not a rotation.
+    - $\mathbf{B}$ is orthonormal with determinant $+1$. Its third column is $[0, 0, 1]$, so $\mathbf{Z}$ is unchanged and the axis is $\mathbf{Z}$. Its first column, the image of $\mathbf{X}$, is $[0, 1, 0]$: $\mathbf{X}$ was turned into $\mathbf{Y}$, a rotation of $+90^o$ about $\mathbf{Z}$.
+    - $\mathbf{C}$ is orthonormal with determinant $0.8^2 + 0.6^2 = 1$. Its first column is $[1, 0, 0]$, so the axis is $\mathbf{X}$, and comparing it with the elemental rotation about $\mathbf{X}$, $\cos\alpha = 0.8$ and $\sin\alpha = 0.6$: $\alpha = \arctan2(0.6, 0.8) = 36.87^o$.
+    - $\mathbf{D}$ has determinant $+1$, but it is not orthonormal: its second column, $[0.1, 1, 0]$, has norm $\sqrt{1.01}$ and is not perpendicular to the first. It is a shear, which changes angles and lengths. A determinant of $+1$ alone is not enough.
+    ///
     """)
     return
 
@@ -432,7 +476,42 @@ def _(np):
 def _(mo):
     mo.md(r"""
     The first rotation, about $\mathbf{Z}$, takes $[1,0,0]$ to $[0,1,0]$, and the rotation about $\mathbf{X}$ then lifts it to $[0,0,1]$. In the opposite order, the rotation about $\mathbf{X}$ leaves $[1,0,0]$ where it is, because the vector lies on the axis of rotation, and the rotation about $\mathbf{Z}$ then takes it to $[0,1,0]$. Two quarter turns, two different results: matrix multiplication is not commutative, and neither are rotations.
+
+    **Exercise 3.** And two half turns? A trampolinist makes a half somersault, $180^o$ about the medio-lateral axis $\mathbf{Z}$ of the laboratory, and a half turn, $180^o$ about the vertical axis $\mathbf{Y}$, both about the fixed axes. Does the order matter? At the end, where do the athlete's front, initially $[1, 0, 0]$, and head, initially $[0, 1, 0]$, point?
     """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo, np):
+    _somersault_first = rotY(180) @ rotZ(180)  # first Z, then Y
+    _turn_first = rotZ(180) @ rotY(180)  # first Y, then Z
+    _same = np.allclose(_somersault_first, _turn_first)
+    _half_turn_x = np.allclose(_somersault_first, rotX(180))
+    _front = (_somersault_first @ np.array([1, 0, 0])).round(4) + 0.0
+    _head = (_somersault_first @ np.array([0, 1, 0])).round(4) + 0.0
+
+    mo.accordion(
+        {
+            "Solution to Exercise 3": mo.vstack(
+                [
+                    show_matrix(r"\mathbf{R_Y}(180^o)\,\mathbf{R_Z}(180^o)", _somersault_first, digits=3),
+                    show_matrix(r"\mathbf{R_Z}(180^o)\,\mathbf{R_Y}(180^o)", _turn_first, digits=3),
+                    mo.md(
+                        f"The two orders give the same matrix (same: {_same}), and it is a half turn about "
+                        + r"$\mathbf{X}$"
+                        + f" (equal to a rotation of 180° about X: {_half_turn_x}). "
+                        + "The order does not matter here: half turns about two perpendicular axes commute, "
+                        + "and together they make a half turn about the third axis. "
+                        + f"The athlete's front ends at {_front}, facing the original direction again, "
+                        + f"and the head at {_head}: upside down.\n\n"
+                        + "So the rule is that the order of rotations *can* matter, not that it always does. "
+                        + "When in doubt, a product of two matrices is quicker than an argument."
+                    ),
+                ]
+            )
+        }
+    )
     return
 
 
@@ -976,6 +1055,115 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
+    ### One rotation is enough
+
+    Codman's three rotations turned out to be a single rotation about one axis. That is not a coincidence of the example. Euler's rotation theorem says that *any* rotation matrix is a single rotation, by some angle $\theta$, about some axis $\hat{\mathbf{n}}$. Both can be read off the matrix. The trace (the sum of the diagonal) gives the angle,
+
+    $$
+    \mathrm{tr}(\mathbf{R}) = 1 + 2\cos\theta
+    $$
+
+    and the antisymmetric part of the matrix gives the axis,
+
+    $$
+    \begin{bmatrix} R_{21} - R_{12} \\ R_{02} - R_{20} \\ R_{10} - R_{01} \end{bmatrix} = 2\sin\theta\;\hat{\mathbf{n}}
+    $$
+
+    (rows and columns numbered from 0, as in Python). The formula for the axis fails in two cases: with no rotation, where any axis will do, and for a half turn, where $\sin\theta = 0$; for the half turn, $(\mathbf{R} + \mathbf{I})/2 = \hat{\mathbf{n}}\hat{\mathbf{n}}^T$ gives the axis instead. Here is a function that handles all three cases:
+    """)
+    return
+
+
+@app.function
+def axis_angle(R):
+    """Axis (versor) and angle (degrees, from 0 to 180) of the single rotation equivalent to R.
+
+    R is a local-to-Global rotation matrix (or a rotation of vectors). With no
+    rotation the axis is undefined and returned as NaN.
+    """
+    import numpy as np
+
+    R = np.asarray(R, dtype=float)
+    angle = np.degrees(np.arccos(np.clip((np.trace(R) - 1) / 2, -1, 1)))
+    w = np.array([R[2, 1] - R[1, 2], R[0, 2] - R[2, 0], R[1, 0] - R[0, 1]])
+    if np.linalg.norm(w) > 1e-9:  # 0 < angle < 180
+        return w / np.linalg.norm(w), angle
+    if angle < 90:  # no rotation
+        return np.full(3, np.nan), angle
+    B = (R + np.eye(3)) / 2  # half turn: B = n n^T
+    n = B[:, np.argmax(np.diag(B))]
+    return n / np.linalg.norm(n), angle
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    **Before you run the next cell**, predict: what single rotation is equivalent to $90^o$ about $\mathbf{X}$, then $90^o$ about $\mathbf{Y}$, then $90^o$ about $\mathbf{Z}$ (you saw its matrix earlier, with the sliders at their initial values)? And how large is the single rotation equivalent to $30^o$, $45^o$ and $60^o$ about the same axes?
+    """)
+    return
+
+
+@app.cell
+def _():
+    _cases = [
+        ("90 about X, then 90 about Y, then 90 about Z", rotZ(90) @ rotY(90) @ rotX(90)),
+        ("Codman's movement", rotX(90) @ rotY(-90) @ rotZ(90)),
+        ("30 about X, then 45 about Y, then 60 about Z", rotZ(60) @ rotY(45) @ rotX(30)),
+    ]
+    for _name, _R in _cases:
+        _axis, _angle = axis_angle(_R)
+        print(f"{_name:46s} -> {_angle:5.1f} degrees about {_axis.round(3) + 0.0}")
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    Three quarter turns, about three different axes, add up to a single quarter turn about $\mathbf{Y}$. Codman's movement is a quarter turn about $-\mathbf{Y}$, which is the rotation of $-90^o$ about $\mathbf{Y}$ found before: the function always reports an angle between $0^o$ and $180^o$, and lets the direction of the axis carry the sign. And rotations of $30^o$, $45^o$ and $60^o$ add up to a single rotation of $69.4^o$, not $135^o$.
+
+    Unlike the three Euler angles, this angle does not depend on any convention: whatever sequence you choose to describe the orientation, the single equivalent rotation is the same. It is the rotational part of the helical (or screw) axis used to describe joint motion, and a convenient, sequence-free answer to the question "how much did this segment rotate?". Problem 10 asks you to go the other way, from an axis and an angle to the rotation matrix.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ### How much does the order matter?
+
+    Two quarter turns about $\mathbf{Z}$ and $\mathbf{X}$ ended in completely different places depending on their order. Are joint angles of a few degrees just as sensitive?
+
+    **Before you run the next cell**, predict: one body is turned by $10^o$ about $\mathbf{Z}$ and then by $10^o$ about $\mathbf{X}$, and another body by the same two rotations in the opposite order. By how much do their final orientations differ? And for $45^o$?
+
+    The difference between two orientations is itself a rotation, $\mathbf{R_1^T}\mathbf{R_2}$, and `axis_angle` measures it:
+    """)
+    return
+
+
+@app.cell
+def _():
+    print(" angle    Z then X vs X then Z: differ by    axis of the difference")
+    for _theta in [1, 5, 10, 20, 45, 90]:
+        _z_then_x = rotX(_theta) @ rotZ(_theta)
+        _x_then_z = rotZ(_theta) @ rotX(_theta)
+        _axis, _diff = axis_angle(_z_then_x.T @ _x_then_z)
+        print(f"{_theta:5d}    {_diff:10.3f} degrees              {_axis.round(2) + 0.0}")
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    For rotations of $1^o$, the two orders end within $0.02^o$ of each other; for $10^o$, within $1.7^o$; for $20^o$, $6.9^o$; for $45^o$, $34^o$; and the two quarter turns end $120^o$ apart. The difference grows roughly with the square of the angle: ten times the angle, a hundred times the difference. For small angles it is a rotation about $\mathbf{Y}$, the axis perpendicular to the two that were used; Problem 11 asks you to show why.
+
+    Small rotations nearly commute. That is why, for a joint that moves little outside its main plane, different sequences of Euler angles give nearly the same angles, and why the choice of sequence matters most for large three-dimensional movements, such as those of the shoulder or of the hip in sport.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
     ### The 12 different sequences of Euler angles
 
     The Euler angles are defined in terms of rotations about a rotating local coordinate system. As we saw for the sequence of rotations about $x, y, z$, the axes of the local coordinate system are not fixed in space: after the first elemental rotation, the other two axes have moved.
@@ -1166,7 +1354,44 @@ def _(mo):
     mo.md(r"""
     We could implement a function to calculate the Euler angles for each of the 12 sequences (24, counting the rotations from and to both coordinate systems), but this is tedious. There is a smarter solution using the concept of [quaternion](https://en.wikipedia.org/wiki/Quaternion), but we will not see it here.
 
-    The round trip worked here. It does not always work, and the reason is a problem of Euler angles known as gimbal lock.
+    **Exercise 4.** The round trip gave back the angles we put in, but the angles that produce a given rotation matrix are not unique. The matrix $\mathbf{R}_{local}(x:10^o, y:-30^o, z:50^o)$ gives back exactly $(10^o, -30^o, 50^o)$. Find another set of three $xyz$ angles that produces the same matrix, and check it with `euler_rotmat`. (Hint: start by adding $180^o$ to the first and the third angles, and see what the second one must do to compensate.)
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo, np):
+    _, _R = euler_rotmat(order="xyz", frame="local", angles=[10, -30, 50])
+    _, _R_alt = euler_rotmat(order="xyz", frame="local", angles=[190, 210, 230])
+    _same = np.allclose(np.array(_R, dtype=float), np.array(_R_alt, dtype=float))
+    _back = euler_angles_from_rot_xyz(np.array(_R_alt, dtype=float)).round(4) + 0.0
+
+    mo.accordion(
+        {
+            "Solution to Exercise 4": mo.md(
+                rf"""
+    Adding $180^o$ to $\alpha$ changes the sign of both $\sin\alpha$ and $\cos\alpha$, and the same for $\gamma$. To compensate, the second angle must keep its sine and change the sign of its cosine, which $180^o - \beta$ does. Every entry of the matrix is then a product in which either none or exactly two of the factors change sign, so the matrix does not change. The second set of angles is
+
+    $$
+    (\alpha + 180^o,\; 180^o - \beta,\; \gamma + 180^o) = (190^o,\; 210^o,\; 230^o)
+    $$
+
+    or, written between $-180^o$ and $180^o$, $(-170^o, -150^o, -130^o)$.
+
+    Same matrix: {_same}. And `euler_angles_from_rot_xyz` applied to this matrix returns {_back}, the first solution again.
+
+    The function always picks the solution with $\cos\beta \geq 0$, that is, with $\beta$ between $-90^o$ and $90^o$, because it computes the cosine of $\beta$ as a positive square root. That choice is a convention too, and it is the reason why the second angle of a Cardan sequence is reported between $-90^o$ and $90^o$.
+    """
+            )
+        }
+    )
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    Apart from that choice between two solutions, the round trip worked here. It does not always work, and the reason is a problem of Euler angles known as gimbal lock.
     """)
     return
 
@@ -1627,14 +1852,41 @@ def _(LG, RGl, RlG, mm, np):
     print("\nIts inverse equals [RlG, -RlG LG]?", np.allclose(_TlG[:3, :3], RlG) and np.allclose(_TlG[:3, 3], -RlG @ LG))
     print("Its inverse equals its transpose?", np.allclose(_TlG, TGl.T))
     print("\nCoordinates of mm in the anatomical system, with the transformation matrix:", (_TlG @ np.append(mm, 1)).round(4) + 0.0)
-    return
+    return (TGl,)
 
 
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
     Same coordinates as before, now with a fourth component equal to 1, the price of packing a translation into a matrix product.
+
+    **Exercise 5.** A marker is placed on the shin, 4 cm in front of the ankle joint center and 15 cm up the leg: $\mathbf{P_l} = [4,\, 15,\, 0]$ cm in the anatomical coordinate system of the leg. Where is it in the laboratory? Calculate it in two ways, with $\mathbf{R_{Gl}}$ and $\mathbf{L_G}$, and with $\mathbf{T_{Gl}}$, and explain why it is more than 4 cm in front of the ankle joint center.
     """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(LG, RGl, TGl, ajc, mo, np):
+    _Pl = np.array([4, 15, 0])
+    _PG = LG + RGl @ _Pl
+    _PG_T = (TGl @ np.append(_Pl, 1))[:3]
+    _offset = _PG - ajc
+
+    mo.accordion(
+        {
+            "Solution to Exercise 5": mo.md(
+                rf"""
+    From the anatomical to the laboratory coordinate system we rotate first and then translate, $\mathbf{{P_G}} = \mathbf{{L_G}} + \mathbf{{R_{{Gl}}}}\,\mathbf{{P_l}}$:
+
+    `P_G = {_PG.round(2)}` cm
+
+    and with the transformation matrix, $\mathbf{{T_{{Gl}}}}\,[\mathbf{{P_l}}, 1]$ gives the same point, `{_PG_T.round(2)}` cm.
+
+    Relative to the ankle joint center the marker is at `{_offset.round(2)}` cm in the laboratory: {_offset[1]:.1f} cm higher and {_offset[0]:.1f} cm further forward. Of those {_offset[0]:.1f} cm, $4 \times {RGl[0, 0]:.4f} = {4 * RGl[0, 0]:.2f}$ cm come from the marker being in front of the leg, and $15 \times {RGl[0, 1]:.4f} = {15 * RGl[0, 1]:.2f}$ cm from the leg itself, which is inclined forward: the $\mathbf{{X}}$ component of its $y$ axis is {RGl[0, 1]:.4f}.
+    """
+            )
+        }
+    )
     return
 
 
@@ -1748,6 +2000,155 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
+    ### A marker hidden from the cameras
+
+    In walking, the medial malleolus marker is often hidden from the cameras for a few frames, when the other leg passes in front of it. The transformation matrix is the standard way to fill such a gap. Three other markers on the same segment, visible throughout, define a technical coordinate system at every frame. In the last frame before the gap, we express the hidden marker in that coordinate system, $\mathbf{P_l} = \mathbf{T_{Gl}^{-1}}\,\mathbf{P_G}$, once. If the segment is rigid, those local coordinates do not change, so during the gap the marker is wherever $\mathbf{P_G} = \mathbf{T_{Gl}}\,\mathbf{P_l}$ puts it, frame by frame.
+
+    Our trial has no gap, which is convenient: we can pretend that `R.Ankle.Medial` disappears for 0.2 s of the swing phase, fill the gap from `R.HF`, `R.TT` (on the tibial tuberosity) and `R.Ankle`, and compare the result with the marker that was actually measured. The technical coordinate system is built with the recipe of the basis method, with its origin at the centroid of the three markers:
+    """)
+    return
+
+
+@app.function
+def transformation_from_markers(m1, m2, m3):
+    """Transformation matrices T_Gl of the technical coordinate system of three markers.
+
+    Each marker is an array of positions, one frame per row. The first axis is
+    along m2 - m1, the second is perpendicular to the plane of the markers, the
+    third completes a right-handed basis, and the origin is the centroid of the
+    markers. Returns one 4x4 matrix per frame.
+    """
+    import numpy as np
+
+    v1 = m2 - m1
+    v2 = np.cross(v1, m3 - m1)
+    v3 = np.cross(v1, v2)
+    T = np.zeros((len(m1), 4, 4))
+    T[:, :3, :3] = np.stack([v / np.linalg.norm(v, axis=1, keepdims=True) for v in (v1, v2, v3)], axis=2)
+    T[:, :3, 3] = (m1 + m2 + m3) / 3
+    T[:, 3, 3] = 1
+    return T
+
+
+@app.function
+def fill_gap(hidden, m1, m2, m3, gap, ref):
+    """Positions of the marker `hidden` in the frames `gap`, from three markers of the same segment.
+
+    The local coordinates of the hidden marker are taken from the frame `ref`.
+    """
+    import numpy as np
+
+    T = transformation_from_markers(m1, m2, m3)
+    p_local = np.linalg.inv(T[ref]) @ np.append(hidden[ref], 1)  # Global to local, once
+    return (T[gap] @ p_local)[:, :3]  # local to Global, at every frame of the gap
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    **Before you run the next cell**, predict: after 0.2 s of swing, how far will the filled marker be from the measured one? A millimetre? A centimetre?
+    """)
+    return
+
+
+@app.cell
+def _(np, plt, walk):
+    walk_time = walk["Time"].to_numpy()
+    shank_markers = {
+        _name: walk[[_name + _c for _c in "xyz"]].to_numpy() / 10  # cm
+        for _name in ["R.HF", "R.TT", "R.Ankle", "R.Ankle.Medial"]
+    }
+    gap_frames = np.arange(15, 45)  # 30 frames, 0.2 s of swing
+    gap_ref = gap_frames[0] - 1  # the last frame in which the marker was seen
+
+    _filled = fill_gap(
+        shank_markers["R.Ankle.Medial"], shank_markers["R.HF"], shank_markers["R.TT"], shank_markers["R.Ankle"],
+        gap_frames, gap_ref,
+    )
+    gap_error = 10 * np.linalg.norm(_filled - shank_markers["R.Ankle.Medial"][gap_frames], axis=1)  # mm
+
+    _names = list(shank_markers)
+    _changes = [
+        np.ptp(np.linalg.norm(shank_markers[_a] - shank_markers[_b], axis=1))
+        for _i, _a in enumerate(_names)
+        for _b in _names[_i + 1 :]
+    ]
+
+    print(f"Gap from {walk_time[gap_frames[0]]:.3f} to {walk_time[gap_frames[-1]]:.3f} s, local coordinates from {walk_time[gap_ref]:.3f} s")
+    print(f"Error of the filled marker: mean {gap_error.mean():.1f} mm, largest {gap_error.max():.1f} mm")
+    print(f"Largest change in a distance between two shank markers during the trial: {max(_changes):.2f} cm")
+
+    _, _ax = plt.subplots(figsize=(8, 4))
+    _ax.plot(walk_time[gap_frames], gap_error, color="tab:red", linewidth=2, marker="o", markersize=4)
+    _ax.set_xlabel("Time [s]")
+    _ax.set_ylabel("Error [mm]")
+    _ax.set_title("Filled medial malleolus marker minus the measured one")
+    plt.tight_layout()
+    plt.show()
+    return gap_error, gap_frames, gap_ref, shank_markers, walk_time
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    The error is zero at the reference frame, just before the gap. It reaches about 1 cm within 0.1 s, eases a little, and then climbs to almost 2 cm at the end of the gap. Two things are to blame. First, the shank is not quite rigid as the markers see it: the markers sit on skin, which moves relative to the bone, and the distances between them, which a rigid body would keep constant, change by more than 1.5 cm during the trial. The further the leg moves from the reference frame, the more the cluster has deformed. Second, the technical coordinate system can amplify the errors of its own markers, which is what the next exercise is about.
+
+    In practice, gaps are filled from the frames closest to them, often from both ends of the gap at once, and a filled marker is always an estimate.
+
+    **Exercise 6.** In the technical coordinate system above, the first axis goes from `R.HF` to `R.TT`, two markers only about 8 cm apart, both near the knee. Build it instead with the first axis along the leg, from `R.HF` to `R.Ankle`, about 36 cm apart, keeping the same three markers, and fill the same gap. Before computing, predict: can the change matter at all, since the three markers are the same?
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(gap_error, gap_frames, gap_ref, mo, np, plt, shank_markers, walk_time):
+    _filled = fill_gap(
+        shank_markers["R.Ankle.Medial"], shank_markers["R.HF"], shank_markers["R.Ankle"], shank_markers["R.TT"],
+        gap_frames, gap_ref,
+    )
+    _error = 10 * np.linalg.norm(_filled - shank_markers["R.Ankle.Medial"][gap_frames], axis=1)  # mm
+    _T = transformation_from_markers(shank_markers["R.HF"], shank_markers["R.TT"], shank_markers["R.Ankle"])
+    _p_local = (np.linalg.inv(_T[gap_ref]) @ np.append(shank_markers["R.Ankle.Medial"][gap_ref], 1))[:3]
+    _lever = np.linalg.norm(_p_local)  # cm, distance of the hidden marker from the origin
+
+    _fig, _ax = plt.subplots(figsize=(8, 4))
+    _ax.plot(walk_time[gap_frames], gap_error, color="tab:red", linewidth=2, label="first axis R.HF to R.TT (8 cm)")
+    _ax.plot(walk_time[gap_frames], _error, color="tab:blue", linewidth=2, label="first axis R.HF to R.Ankle (36 cm)")
+    _ax.set_xlabel("Time [s]")
+    _ax.set_ylabel("Error [mm]")
+    _ax.legend(loc="upper left")
+    plt.tight_layout()
+
+    mo.accordion(
+        {
+            "Solution to Exercise 6": mo.vstack(
+                [
+                    mo.md(
+                        f"It matters a lot. With the first axis along the leg, the mean error drops from {gap_error.mean():.1f} to {_error.mean():.1f} mm, "
+                        + f"and the largest from {gap_error.max():.1f} to {_error.max():.1f} mm."
+                    ),
+                    _fig,
+                    mo.md(
+                        "With noise-free markers, the three markers would define the same coordinate system in any order. "
+                        + "With real markers they do not, because the first axis is taken exactly along the first pair, "
+                        + "and the same error of a few millimetres tilts a vector 8 cm long four to five times more than a vector 36 cm long. "
+                        + f"The hidden marker is {_lever:.0f} cm from the origin of the technical coordinate system, "
+                        + f"so every tenth of a degree of error in the axes moves it by {10 * _lever * np.radians(0.1):.1f} mm. "
+                        + "In the first half of the gap the two curves agree: that part of the error comes from the skin, and no choice of axes removes it. "
+                        + "The late climb came from the short first axis. "
+                        + "The rule from [Determination of a coordinate system](https://github.com/BMClab/BMC/blob/master/notebooks/CoordinateSystem.ipynb) "
+                        + "applies: build the first axis from the two markers that are farthest apart."
+                    ),
+                ]
+            )
+        }
+    )
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
     ## Checkpoint questions
 
     Pause here before the problems.
@@ -1788,6 +2189,14 @@ def _(mo):
     8. The coordinate system of the thigh is rotated from the laboratory by the $xyz$ Euler angles (5°, 10°, 30°), and that of the shank by (5°, 15°, −20°). Calculate the rotation matrix of the shank relative to the thigh and its $xyz$ Euler angles. Are they the differences between the angles of the two segments?
 
     9. Repeat the analysis of the whole stride with the $zxy$ sequence, which puts the rotation about the medio-lateral axis first. Use `euler_rotmat` to obtain the algebraic matrix, derive the formulas for the three angles, and plot them. Compare the frontal-plane angle with $\alpha$ of the $xyz$ sequence, and explain the difference.
+
+    10. Euler's rotation theorem also works the other way round: a rotation by the angle $\theta$ about the axis $\hat{\mathbf{n}}$ has the rotation matrix $\mathbf{R} = \mathbf{I} + \sin\theta\,\mathbf{K} + (1 - \cos\theta)\,\mathbf{K}^2$ (Rodrigues' formula), where $\mathbf{K}$ is the matrix for which $\mathbf{K}\mathbf{v} = \hat{\mathbf{n}} \times \mathbf{v}$ for any vector $\mathbf{v}$. Write $\mathbf{K}$, implement the formula as a function, and check it against `axis_angle` with the rotation of $30^o$, $45^o$ and $60^o$ about $\mathbf{X}$, $\mathbf{Y}$ and $\mathbf{Z}$ from the section "One rotation is enough".
+
+    11. Expand $\mathbf{R_X}(\theta)$ and $\mathbf{R_Z}(\theta)$ to second order in $\theta$ ($\cos\theta \approx 1 - \theta^2/2$, $\sin\theta \approx \theta$) and show that the two orders of the rotations differ by a rotation of approximately $\theta^2$ radians about the $\mathbf{Y}$ axis, as the table in "How much does the order matter?" suggests. Why does the axis of the difference tilt away from $\mathbf{Y}$ for larger angles?
+
+    12. Using the four pelvic markers of `walk.trc` (`R.ASIS`, `L.ASIS`, `R.PSIS` and `L.PSIS`) and the VAKHUM convention of Problem 2, calculate the anatomical coordinate system of the pelvis at every frame of the stride, and plot its $xyz$ Cardan angles relative to the laboratory. Which angle varies most, and by how much? Is the pelvis close to gimbal lock at any moment?
+
+    13. The right thigh in `walk.trc` carries the markers `R.GTR` (greater trochanter), `R.Knee` (lateral epicondyle) and `R.Knee.Medial`. Define a coordinate system for the thigh in the same way as for the shank in the section "A whole stride" (the $y$ axis from the knee joint center, midway between the two knee markers, to the greater trochanter, and a temporary medio-lateral axis from `R.Knee.Medial` to `R.Knee`). Calculate the rotation matrix of the shank relative to the thigh at every frame, and use `axis_angle` to plot the total rotation of the knee during the stride. When is it largest? Why is it not zero when the knee is at its straightest?
     """)
     return
 
