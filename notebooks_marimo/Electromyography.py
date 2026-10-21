@@ -642,10 +642,8 @@ def _(mo):
 
 @app.cell
 def _(dataf, freq):
-    import sys as _sys
-    _sys.path.insert(0, str(repo_file('functions/psd.py').parent))  # add to pythonpath
-    from psd import psd
-    fpcntile, mpf, fmax, Ptotal, f, P = psd(dataf, fs=freq)
+    from psd2 import psd2
+    fpcntile, mpf, fmax, Ptotal, f, P = psd2(dataf, fs=freq)
     return
 
 

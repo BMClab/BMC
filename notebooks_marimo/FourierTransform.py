@@ -505,180 +505,23 @@ def _(mo):
 
     - and the frequency **percentiles**: $F_{50\%}$, the **median frequency**, below which lies half of the total power, and $F_{95\%}$, below which lies 95% of it, an estimate of the bandwidth of the signal.
 
-    The function `psd` below estimates the PSD with Welch's method (it is a wrapper of `scipy.signal.welch`) and computes these characteristics; it returns the frequency percentiles (for example, `fpcntile[50]` is the median frequency), the mean frequency, the peak frequency, the total power, and the PSD itself, and plots the results.
+    The function `psd2`, from the Python package [psd2](https://pypi.org/project/psd2/) (`pip install psd2`), estimates the PSD with Welch's method (it is a wrapper of `scipy.signal.welch`) and computes these characteristics; it returns the frequency percentiles (for example, `fpcntile[50]` is the median frequency), the mean frequency, the peak frequency, the total power, and the PSD itself, and plots the results. Its signature is:
+
+    ```python
+    fpcntile, mpf, fmax, Ptotal, f, P = psd2(x, fs=1.0, window='hann', nperseg=None, noverlap=None, nfft=None,
+                                             detrend='constant', show=True, ax=None, scales='linear', xlim=None, units='V')
+    ```
+
+    Run `help(psd2)` to read its documentation, or read its code on [GitHub](https://github.com/demotu/psd2).
     """)
     return
 
 
-@app.function
-def psd(
-    x,
-    fs=1.0,
-    window="hann",
-    nperseg=None,
-    noverlap=None,
-    nfft=None,
-    detrend="constant",
-    show=True,
-    ax=None,
-    scales="linear",
-    xlim=None,
-    units="V",
-):
-    """Estimate power spectral density characteristics using Welch's method.
+@app.cell
+def _():
+    from psd2 import psd2
 
-    This function is just a wrap of the scipy.signal.welch function with
-    estimation of some frequency characteristics and a plot. For completeness,
-    most of the help from scipy.signal.welch function is pasted here.
-
-    Welch's method [1]_ computes an estimate of the power spectral density
-    by dividing the data into overlapping segments, computing a modified
-    periodogram for each segment and averaging the periodograms.
-
-    Parameters
-    ----------
-    x : array_like
-        Time series of measurement values
-    fs : float, optional
-        Sampling frequency of the `x` time series in units of Hz. Defaults
-        to 1.0.
-    window : str or tuple or array_like, optional
-        Desired window to use. See `get_window` for a list of windows and
-        required parameters. If `window` is array_like it will be used
-        directly as the window and its length will be used for nperseg.
-        Defaults to 'hann'.
-    nperseg : int, optional
-        Length of each segment.  Defaults to half of `x` length.
-    noverlap: int, optional
-        Number of points to overlap between segments. If None,
-        ``noverlap = nperseg / 2``.  Defaults to None.
-    nfft : int, optional
-        Length of the FFT used, if a zero padded FFT is desired.  If None,
-        the FFT length is `nperseg`. Defaults to None.
-    detrend : str or function, optional
-        Specifies how to detrend each segment. If `detrend` is a string,
-        it is passed as the ``type`` argument to `detrend`. If it is a
-        function, it takes a segment and returns a detrended segment.
-        Defaults to 'constant'.
-    show : bool, optional (default = True)
-        True (1) plots data in a matplotlib figure.
-        False (0) to not plot.
-    ax : a matplotlib.axes.Axes instance (default = None)
-    scales : str, optional
-        Specifies the type of scale for the plot; default is 'linear' which
-        makes a plot with linear scaling on both the x and y axis.
-        Use 'semilogy' to plot with log scaling only on the y axis, 'semilogx'
-        to plot with log scaling only on the x axis, and 'loglog' to plot with
-        log scaling on both the x and y axis.
-    xlim : float, optional
-        Specifies the limit for the `x` axis; use as [xmin, xmax].
-        The default is `None` which sets xlim to [0, Fnyquist].
-    units : str, optional
-        Specifies the units of `x`; default is 'V'.
-
-    Returns
-    -------
-    Fpcntile : 1D array
-        frequency percentiles of the power spectral density
-        For example, Fpcntile[50] gives the median power frequency in Hz.
-    mpf : float
-        Mean power frequency in Hz.
-    fmax : float
-        Maximum power frequency in Hz.
-    Ptotal : float
-        Total power in `units` squared.
-    f : 1D array
-        Array of sample frequencies in Hz.
-    P : 1D array
-        Power spectral density or power spectrum of x.
-
-    See Also
-    --------
-    scipy.signal.welch
-
-    Notes
-    -----
-    An appropriate amount of overlap will depend on the choice of window
-    and on your requirements.  For the default 'hann' window an
-    overlap of 50% is a reasonable trade off between accurately estimating
-    the signal power, while not over counting any of the data.  Narrower
-    windows may require a larger overlap.
-    If `noverlap` is 0, this method is equivalent to Bartlett's method [2]_.
-
-    References
-    ----------
-    .. [1] P. Welch, "The use of the fast Fourier transform for the
-           estimation of power spectra: A method based on time averaging
-           over short, modified periodograms", IEEE Trans. Audio
-           Electroacoust. vol. 15, pp. 70-73, 1967.
-    .. [2] M.S. Bartlett, "Periodogram Analysis and Continuous Spectra",
-           Biometrika, vol. 37, pp. 1-16, 1950.
-
-    Examples (also from scipy.signal.welch)
-    --------
-    >>> # Generate a test signal, a 2 Vrms sine wave at 1234 Hz, corrupted by
-    >>> # 0.001 V**2/Hz of white noise sampled at 10 kHz and calculate the PSD:
-    >>> fs = 10e3
-    >>> N = 100000
-    >>> amp = 2*np.sqrt(2)
-    >>> freq = 1234.0
-    >>> noise_power = 0.001 * fs / 2
-    >>> time = np.arange(N) / fs
-    >>> x = amp*np.sin(2*np.pi*freq*time)
-    >>> x += np.random.normal(scale=np.sqrt(noise_power), size=time.shape)
-    >>> psd(x, fs=fs);
-    """
-    import numpy as np
-    from scipy import integrate, signal
-
-    if not nperseg:
-        nperseg = int(np.ceil(len(x) / 2))
-    f, P = signal.welch(x, fs, window, nperseg, noverlap, nfft, detrend)
-    Area = integrate.cumulative_trapezoid(P, f, initial=0)
-    Ptotal = Area[-1]
-    mpf = integrate.trapezoid(f * P, f) / Ptotal  # mean power frequency
-    fmax = f[np.argmax(P)]
-    # frequency percentiles
-    inds = [0]
-    Area = 100 * Area / Ptotal
-    for i in range(1, 101):
-        inds.append(np.argmax(Area[inds[-1] :] >= i) + inds[-1])
-    fpcntile = f[inds]
-
-    if show:
-        plot_psd(x, fs, f, P, mpf, fmax, fpcntile, scales, xlim, units, ax)
-
-    return fpcntile, mpf, fmax, Ptotal, f, P
-
-
-@app.function
-def plot_psd(x, fs, f, P, mpf, fmax, fpcntile, scales, xlim, units, ax):
-    """Plot results of the psd function, see its help."""
-    import matplotlib.pyplot as plt
-    import numpy as np
-
-    if ax is None:
-        _, ax = plt.subplots(1, 1, figsize=(8, 5))
-    if scales.lower() == "semilogy" or scales.lower() == "loglog":
-        ax.set_yscale("log")
-    if scales.lower() == "semilogx" or scales.lower() == "loglog":
-        ax.set_xscale("log")
-    ax.plot(f, P, linewidth=2)
-    ylim = ax.get_ylim()
-    ax.plot([fmax, fmax], [np.max(P), np.max(P)], "ro", label="Fpeak  = %.2f" % fmax)
-    ax.plot([fpcntile[50], fpcntile[50]], ylim, "r", lw=1.5, label="F50%%   = %.2f" % fpcntile[50])
-    ax.plot([mpf, mpf], ylim, "r--", lw=1.5, label="Fmean = %.2f" % mpf)
-    ax.plot([fpcntile[95], fpcntile[95]], ylim, "r-.", lw=2, label="F95%%   = %.2f" % fpcntile[95])
-    leg = ax.legend(loc="best", numpoints=1, framealpha=0.5, title="Frequencies [Hz]")
-    plt.setp(leg.get_title(), fontsize=12)
-    ax.set_xlabel("Frequency [Hz]", fontsize=12)
-    ax.set_ylabel("Magnitude [%s$^2$/Hz]" % units, fontsize=12)
-    ax.set_title("Power spectral density", fontsize=12)
-    if xlim:
-        ax.set_xlim(xlim)
-    ax.set_ylim(ylim)
-    plt.tight_layout()
-    plt.show()
+    return (psd2,)
 
 
 @app.cell(hide_code=True)
@@ -690,7 +533,7 @@ def _(mo):
 
 
 @app.cell
-def _(np):
+def _(np, psd2):
     _fs = 10e3
     _N = 100_000
     _amp = 2 * np.sqrt(2)
@@ -701,7 +544,7 @@ def _(np):
     _x = _amp * np.sin(2 * np.pi * _freq * _time)
     _x += _rng.normal(scale=np.sqrt(_noise_power), size=_time.shape)
 
-    _fpcntile, _mpf, _fmax, _Ptotal, _, _ = psd(_x, fs=_fs)
+    _fpcntile, _mpf, _fmax, _Ptotal, _, _ = psd2(_x, fs=_fs)
     print(f"Peak frequency:   {_fmax:7.1f} Hz")
     print(f"Median frequency: {_fpcntile[50]:7.1f} Hz")
     print(f"Mean frequency:   {_mpf:7.1f} Hz")
@@ -728,8 +571,8 @@ def _(mo):
 
 
 @app.cell
-def _(emg, emg_fs):
-    _fpcntile, _mpf, _fmax, _Ptotal, _, _ = psd(emg, fs=emg_fs, nperseg=256)
+def _(emg, emg_fs, psd2):
+    _fpcntile, _mpf, _fmax, _Ptotal, _, _ = psd2(emg, fs=emg_fs, nperseg=256)
     print(f"Peak frequency:   {_fmax:6.1f} Hz")
     print(f"Median frequency: {_fpcntile[50]:6.1f} Hz")
     print(f"Mean frequency:   {_mpf:6.1f} Hz")
@@ -811,7 +654,7 @@ def _(mo):
     mo.md(r"""
     Each burst of activity is a vertical band of power spread over a broad range of frequencies, brightest roughly between 50 and 250 Hz; between the bursts, there is almost nothing. To follow the median frequency during a fatiguing contraction, you would compute it for each column of a spectrogram like this one, or for each window of a few hundred milliseconds of the EMG.
 
-    **Challenge 2.** Use `psd` on each of the three bursts of the EMG separately (they are roughly centred at 0.5, 1.5 and 2.6 s; take 0.5 s around each). Does the median frequency change from burst to burst? Is the difference larger than what you get by moving each window by 0.1 s?
+    **Challenge 2.** Use `psd2` on each of the three bursts of the EMG separately (they are roughly centred at 0.5, 1.5 and 2.6 s; take 0.5 s around each). Does the median frequency change from burst to burst? Is the difference larger than what you get by moving each window by 0.1 s?
     """)
     return
 

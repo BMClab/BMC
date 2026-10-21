@@ -192,200 +192,30 @@ def _(mo):
     mo.md(r"""
     ## Step 2: an automatic search
 
-    Doing this by eye is easy for one signal and impossible for a thousand. The function `optcutfreq` below automates it in three parts (after the help section):
+    Doing this by eye is easy for one signal and impossible for a thousand. The function `optcutfreq`, from the Python package [optcutfreq](https://pypi.org/project/optcutfreq/) (`pip install optcutfreq`), automates it in three parts:
 
-    1. it computes the residuals over a range of cutoff frequencies, with `residuals`;
+    1. it computes the residuals over a range of cutoff frequencies, as `residuals` does above;
     2. it finds the noisy region of the residual curve. For that, it fits an exponential decay to the residuals and considers that the noisy, linear tail starts after three lifetimes of the decay (a 95% drop); a straight line is then fitted to the residuals from that point on, and its intercept $a$ is the noise level;
     3. it finds the cutoff frequency at which the residual curve equals $a$, by interpolating the residuals with a spline, and optionally plots the results.
 
     Winter should not be blamed for the automatic search. It only follows, as closely as possible, his suggestion of fitting a regression line to the noisy part of the residuals. If the search fails, the frequency limits of the noisy part can be given by hand, with the parameter `fclim`.
 
-    The code is long relative to the simplicity of the idea, because of the help section, the automatic search, and a rich plot. Its signature is:
+    Its signature is:
 
     ```python
     fc_opt = optcutfreq(y, freq=1, fclim=None, show=False, ax=None)
     ```
 
-    (A version of this function is also distributed as the Python package [optcutfreq](https://github.com/demotu/optcutfreq). The copy here is self-contained, so you can read every line of it.)
+    Run `help(optcutfreq)` to read its documentation, or read its code on [GitHub](https://github.com/demotu/optcutfreq). The code is long relative to the simplicity of the idea, because of the help section, the automatic search, and a rich plot.
     """)
     return
 
 
-@app.function
-def optcutfreq(y, freq=1, fclim=None, show=False, ax=None):
-    """Automatic search of the optimal filter cutoff frequency by residual analysis.
+@app.cell
+def _():
+    from optcutfreq import optcutfreq
 
-    This method was proposed by Winter in his book [1]_.
-    The 'optimal' cutoff frequency (in the sense that a filter with such cutoff
-    frequency removes as much noise as possible without considerably affecting
-    the signal) is found by performing a residual analysis of the difference
-    between filtered and unfiltered signals over a range of cutoff frequencies.
-    The optimal cutoff frequency is the one where the residual starts to change
-    very little because it is considered that from this point, it's being
-    filtered mostly noise and minimally signal, ideally.
-
-    Parameters
-    ----------
-    y : 1D array_like
-        Data
-    freq : float, optional (default = 1)
-        sampling frequency of the signal y
-    fclim : list with 2 numbers, optional (default = None)
-        limit frequencies of the noisy part of the residuals curve
-    show : bool, optional (default = False)
-        True (1) plots data in a matplotlib figure
-        False (0) to not plot
-    ax : array of 3 matplotlib.axes.Axes instances, optional (default = None).
-
-    Returns
-    -------
-    fc_opt : float
-             optimal cutoff frequency (None if not found)
-
-    Notes
-    -----
-    A second-order zero-phase digital Butterworth low-pass filter is used.
-    The cutoff frequency is corrected for the number of passes:
-    C = (2**(1/npasses) - 1)**0.25. C = 0.802 for a dual pass filter.
-
-    The matplotlib figure with the results will show a plot of the residual
-    analysis with the optimal cutoff frequency, a plot with the unfiltered and
-    filtered signals at this optimal cutoff frequency (with the RMSE of the
-    difference between these two signals), and a plot with the respective
-    second derivatives of these signals which should be useful to evaluate
-    the quality of the optimal cutoff frequency found.
-
-    Winter should not be blamed for the automatic search algorithm used here.
-    The algorithm implemented is just to follow as close as possible Winter's
-    suggestion of fitting a regression line to the noisy part of the residuals.
-
-    This function performs well with data where the signal has frequencies
-    considerably below the Nyquist frequency and the noise is predominantly
-    white in the higher frequency region.
-
-    If the automatic search fails, the lower and upper frequencies of the noisy
-    part of the residuals curve can be given as a parameter (fclim).
-    These frequencies can be chosen by viewing the plot of the residuals (enter
-    show=True as input parameter when calling this function).
-
-    It is known that this residual analysis algorithm results in oversmoothing
-    kinematic data [2]_. Use it with moderation.
-    This code is described elsewhere [3]_.
-
-    References
-    ----------
-    .. [1] Winter DA (2009) Biomechanics and motor control of human movement.
-    .. [2] http://www.clinicalgaitanalysis.com/faq/cutoff.html
-    .. [3] https://github.com/BMClab/BMC/blob/master/notebooks/ResidualAnalysis.ipynb
-
-    Examples
-    --------
-    >>> rng = np.random.default_rng(seed=42)
-    >>> y = np.cumsum(rng.standard_normal(1000))
-    >>> # optimal cutoff frequency based on residual analysis and plot:
-    >>> fc_opt = optcutfreq(y, freq=1000, show=True)
-    >>> # same analysis but specifying the frequency limits and plot:
-    >>> optcutfreq(y, freq=1000, fclim=[200, 400], show=True)
-    >>> # It's not always possible to find an optimal cutoff frequency
-    >>> # or the one found can be wrong:
-    >>> y = rng.standard_normal(100)
-    >>> optcutfreq(y, freq=100, show=True)
-    """
-    import numpy as np
-    from scipy.interpolate import UnivariateSpline
-
-    freqs, res = residuals(y, freq)
-
-    # find the noisy part of the residuals by fitting an exponential curve
-    # y = A*exp(B*x)+C to the residual data and consider that the tail part
-    # of the exponential (which should be the noisy part of the residuals)
-    # starts after 3 lifetimes (exp(-3), 95% drop)
-    if fclim is None or len(fclim) == 0:
-        fc1 = 0
-        fc2 = int(0.95 * (len(freqs) - 1))
-        # log of exponential turns the problem into a first-order polynomial fit
-        # make the data always greater than zero before taking the logarithm
-        reslog = np.log(np.abs(res[fc1 : fc2 + 1] - res[fc2]) + 1000 * np.finfo(float).eps)
-        Blog, Alog = np.polyfit(freqs[fc1 : fc2 + 1], reslog, 1)
-        fcini = np.nonzero(freqs >= -3 / Blog)[0]  # 3 lifetimes
-        lims = [fcini[0], fc2] if fcini.size else []
-    else:
-        lims = [np.nonzero(freqs >= fclim[0])[0][0], np.nonzero(freqs >= fclim[1])[0][0]]
-
-    # find fc_opt with linear fit y=A+Bx of the noisy part of the residuals
-    B = A = fc_opt = None
-    if len(lims) and lims[0] < lims[1]:
-        B, A = np.polyfit(freqs[lims[0] : lims[1]], res[lims[0] : lims[1]], 1)
-        # optimal cutoff frequency is the frequency where y[fc_opt] = A
-        roots = UnivariateSpline(freqs, res - A, s=0).roots()
-        fc_opt = float(roots[0]) if len(roots) else None
-
-    if show:
-        plot_optcutfreq(y, freq, freqs, res, lims, fc_opt, B, A, ax)
-
-    return fc_opt
-
-
-@app.function
-def plot_optcutfreq(y, freq, freqs, res, lims, fc_opt, B, A, ax=None):
-    """Plot the results of the optcutfreq function, see its help."""
-    import matplotlib.pyplot as plt
-    import numpy as np
-    from scipy.signal import butter, filtfilt
-
-    if ax is None:
-        plt.figure(figsize=(11, 5))
-        ax = np.array([plt.subplot(121), plt.subplot(222), plt.subplot(224)])
-
-    ax[0].plot(freqs, res, "b.", markersize=9)
-    time = np.linspace(0, len(y) / freq, len(y))
-    ax[1].plot(time, y, "g", linewidth=1, label="Unfiltered")
-    ydd = np.diff(y, n=2) * freq**2
-    ax[2].plot(time[:-2], ydd, "g", linewidth=1, label="Unfiltered")
-    if fc_opt:
-        ylin = np.poly1d([B, A])(freqs)
-        ax[0].plot(freqs, ylin, "r--", linewidth=2)
-        ax[0].plot(freqs[lims[0]], res[lims[0]], "r>", freqs[lims[1]], res[lims[1]], "r<", ms=9)
-        ax[0].set_ylim(bottom=0, top=4 * A)
-        ax[0].plot([0, freqs[-1]], [A, A], "r-", linewidth=2)
-        ax[0].plot([fc_opt, fc_opt], [0, A], "r-", linewidth=2)
-        ax[0].plot(
-            fc_opt, 0, "ro", markersize=7, clip_on=False, zorder=9,
-            label=f"$Fc_{{opt}}$ = {fc_opt:.1f} Hz",
-        )
-        ax[0].legend(loc="best", numpoints=1, framealpha=0.5)
-        # correct the cutoff frequency for the number of passes
-        C = 0.802  # for dual pass; C = (2**(1/npasses) - 1)**0.25
-        b, a = butter(2, (fc_opt / C) / (freq / 2))
-        yf = filtfilt(b, a, y)
-        ax[1].plot(time, yf, color=[1, 0, 0, 0.5], linewidth=2, label="Opt. filtered")
-        ax[1].legend(loc="best", framealpha=0.5)
-        ax[1].set_title(f"Signals (RMSE = {A:.3g})")
-        yfdd = np.diff(yf, n=2) * freq**2
-        ax[2].plot(time[:-2], yfdd, color=[1, 0, 0, 0.5], linewidth=2, label="Opt. filtered")
-        ax[2].legend(loc="best", framealpha=0.5)
-        resdd = np.sqrt(np.mean((yfdd - ydd) ** 2))
-        ax[2].set_title(f"Second derivatives (RMSE = {resdd:.3g})")
-    else:
-        ax[0].text(
-            0.5, 0.5, "Unable to find optimal cutoff frequency",
-            horizontalalignment="center", color="r", zorder=9,
-            transform=ax[0].transAxes, fontsize=12,
-        )
-        ax[1].set_title("Signal")
-        ax[2].set_title("Second derivative")
-
-    ax[0].set_xlabel("Cutoff frequency [Hz]")
-    ax[0].set_ylabel("Residual RMSE")
-    ax[0].set_title("Residual analysis")
-    ax[0].grid()
-    ax[1].set_xlim(0, time[-1])
-    ax[1].grid()
-    ax[2].set_xlabel("Time [s]")
-    ax[2].set_xlim(0, time[-1])
-    ax[2].grid()
-    plt.tight_layout()
-    plt.show()
+    return (optcutfreq,)
 
 
 @app.cell(hide_code=True)
@@ -399,7 +229,7 @@ def _(mo):
 
 
 @app.cell
-def _(disp, freq):
+def _(disp, freq, optcutfreq):
     fc_opt = optcutfreq(disp, freq=freq, show=True)
     print(f"Optimal cutoff frequency: {fc_opt:.2f} Hz")
     return (fc_opt,)
@@ -525,7 +355,7 @@ def _(mo):
 
 
 @app.cell
-def _(aacc, disp_noisy, fc_sweep, freq, np, rmse_sweep):
+def _(aacc, disp_noisy, fc_sweep, freq, np, optcutfreq, rmse_sweep):
     _fc_opt = optcutfreq(disp_noisy, freq=freq, show=True)
     _rmse = rmse_sweep(disp_noisy)
     print(f"Optimal cutoff frequency, noisy angle: {_fc_opt:.2f} Hz")

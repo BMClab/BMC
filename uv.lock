@@ -207,9 +207,9 @@ requires-dist = [
     { name = "matplotlib", specifier = ">=3.10.9" },
     { name = "numpy", specifier = ">=2.4.6" },
     { name = "openai", specifier = ">=2.41.0" },
-    { name = "optcutfreq", specifier = ">=0.0.8" },
+    { name = "optcutfreq", specifier = ">=0.0.10" },
     { name = "pandas", specifier = ">=3.0.3" },
-    { name = "psd2", specifier = ">=0.0.4" },
+    { name = "psd2", specifier = ">=0.0.5" },
     { name = "pydantic-ai-slim", specifier = ">=1.106.0" },
     { name = "pyversions", specifier = ">=0.0.3" },
     { name = "rise", specifier = ">=5.7.1" },
@@ -1646,11 +1646,15 @@ wheels = [
 
 [[package]]
 name = "optcutfreq"
-version = "0.0.8"
+version = "0.0.10"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/15/53/489d651e3989edfca5564126bd866355ca653b9cd59b9900a47e134e0d0a/optcutfreq-0.0.8.tar.gz", hash = "sha256:ba7326b15c7460c9d8ebab896adae9f90e1ebd55bc1c3f86e0bd4bc242d27c67", size = 4843, upload-time = "2020-03-29T19:35:21.712Z" }
+dependencies = [
+    { name = "numpy" },
+    { name = "scipy" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/c6/93/b0d1fef7ccfbbee6ba75c047eb9e6a18aaf40b970397d114846851f1d4b9/optcutfreq-0.0.10.tar.gz", hash = "sha256:e9a867f973b17c1e5817f1a40c9f66d6f6a11d9aedfe19b12a96ccaba7716999", size = 10659, upload-time = "2026-10-21T01:23:05.194Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/55/ec/051075c44704b99283b7511ec77d900a0d474da51d1b10f0573353611b60/optcutfreq-0.0.8-py3-none-any.whl", hash = "sha256:a13389deb5d46b901cd20cb9ff0026db854ba39e8ff7e343c88a843e4bded5e4", size = 6484, upload-time = "2020-03-29T19:35:20.476Z" },
+    { url = "https://files.pythonhosted.org/packages/e1/cb/8cb6aaaee28b8097c6ef057efec2cf25bf214b92113e511d008cd27a8c56/optcutfreq-0.0.10-py3-none-any.whl", hash = "sha256:a6df95f72872ab4fdc02caea60928896713f7b7155172a8e869739f5bbd51921", size = 7368, upload-time = "2026-10-21T01:23:03.925Z" },
 ]
 
 [[package]]
@@ -1840,11 +1844,15 @@ wheels = [
 
 [[package]]
 name = "psd2"
-version = "0.0.4"
+version = "0.0.5"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/11/aa/808e486e9fc317a9dbe5ebbdac51f1b463ebb5c014edbb29d4d46658ebd9/psd2-0.0.4.tar.gz", hash = "sha256:4d4f47429df8779116839318cd43cf5ce2f90fa3bf87df0fa7140d631668943b", size = 4475, upload-time = "2020-03-29T19:59:59.199Z" }
+dependencies = [
+    { name = "numpy" },
+    { name = "scipy" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/d4/46/b9aba0674c63d715b59cbb9663e1721fc626c5e24ccf6587decd5dc0d9d4/psd2-0.0.5.tar.gz", hash = "sha256:6fe4d02cffe6293c2640f0663bbea5c0576a4803eda0e65bbb31760a8fd59d11", size = 7147, upload-time = "2026-10-21T01:25:26.812Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/0d/81/7f862a49480421acf63ad8bbc47e809fb31bddbc741098d8f77c4eb93555/psd2-0.0.4-py3-none-any.whl", hash = "sha256:443496469a43a37abafdc8c8426053ee3cf9c3be44e55ec072062435ed77a309", size = 5917, upload-time = "2020-03-29T19:59:58.29Z" },
+    { url = "https://files.pythonhosted.org/packages/12/07/92bdfe0ae97fa8c30dfdb4d37a237ee2c23d7d9a4d48f3232f5235ec0e58/psd2-0.0.5-py3-none-any.whl", hash = "sha256:6daa68ed9073a873c5c4b93c155c8d24d68c07dc902ffae09eda62a443f2a8d4", size = 6624, upload-time = "2026-10-21T01:25:25.634Z" },
 ]
 
 [[package]]

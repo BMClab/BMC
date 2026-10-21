@@ -271,25 +271,23 @@ def _(mo):
     mo.md(r"""
     ## Frequency analysis
 
-    Frequency analysis refers to estimate the frequency content of a signal. Let's use standard Fourier analysis and the related power spectral analysis to estimate some frequency characteristics of the COP displacement. The function `psd.py` (see its code in the notebook [Fourier transform](https://github.com/BMClab/BMC/blob/master/notebooks/FourierTransform.ipynb)) estimates power spectral density characteristics using Welch's method using the `scipy.signal.welch` function, estimates some frequency characteristics, and a plots the results.
+    Frequency analysis refers to estimate the frequency content of a signal. Let's use standard Fourier analysis and the related power spectral analysis to estimate some frequency characteristics of the COP displacement. The function `psd2` from the Python package [psd2](https://pypi.org/project/psd2/) (see how it works in the notebook [Fourier transform](https://github.com/BMClab/BMC/blob/master/notebooks/FourierTransform.ipynb)) estimates the power spectral density with Welch's method, using the `scipy.signal.welch` function, estimates some frequency characteristics, and plots the results.
 
-    Let's use `psd.py` to estimate the frequency characteristics of the COP data.
+    Let's use `psd2` to estimate the frequency characteristics of the COP data.
     """)
     return
 
 
 @app.cell
 def _(COP_1, freq):
-    import sys as _sys
-    _sys.path.insert(0, str(repo_file('functions/psd.py').parent))  # add to pythonpath
-    from psd import psd
-    (fp_ap, mf_ap, fmax_ap, Ptot_ap, _F, P_ap) = psd(COP_1[:, 0], fs=freq, scales='linear', xlim=[0, 2], units='cm')
-    return (psd,)
+    from psd2 import psd2
+    (fp_ap, mf_ap, fmax_ap, Ptot_ap, _F, P_ap) = psd2(COP_1[:, 0], fs=freq, scales='linear', xlim=[0, 2], units='cm')
+    return (psd2,)
 
 
 @app.cell
-def _(COP_1, freq, psd):
-    (fp_ml, mf_ml, fmax_ml, Ptot_ml, _F, P_ml) = psd(COP_1[:, 1], fs=freq, xlim=[0, 2], units='cm')
+def _(COP_1, freq, psd2):
+    (fp_ml, mf_ml, fmax_ml, Ptot_ml, _F, P_ml) = psd2(COP_1[:, 1], fs=freq, xlim=[0, 2], units='cm')
     return
 
 

@@ -3,6 +3,8 @@ import unittest
 from pathlib import Path
 
 import numpy as np
+from optcutfreq import optcutfreq
+from psd2 import psd2
 from scipy import signal
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -76,37 +78,36 @@ class DataFilteringTests(unittest.TestCase):
 
 
 class ResidualAnalysisTests(unittest.TestCase):
+    """The optcutfreq package, as the ResidualAnalysis notebook uses it."""
+
     @classmethod
     def setUpClass(cls):
-        cls.notebook = load_notebook("ResidualAnalysis")
         data = np.loadtxt(ROOT / "data" / "Pezzack.txt", skiprows=6)
         cls.disp = data[:, 1]
         cls.freq = 1 / np.mean(np.diff(data[:, 0]))
 
     def test_optcutfreq_on_pezzack_data(self):
-        fc_opt = self.notebook.optcutfreq(self.disp, freq=self.freq)
+        fc_opt = optcutfreq(self.disp, freq=self.freq)
         self.assertAlmostEqual(fc_opt, 5.59, places=2)
 
     def test_optcutfreq_accepts_fclim_as_a_list(self):
-        fc_opt = self.notebook.optcutfreq(self.disp, freq=self.freq, fclim=[8, 18])
+        fc_opt = optcutfreq(self.disp, freq=self.freq, fclim=[8, 18])
         self.assertGreater(fc_opt, 4)
         self.assertLess(fc_opt, 8)
 
     def test_optcutfreq_returns_none_for_white_noise(self):
         y = np.random.default_rng(seed=42).standard_normal(100)
-        self.assertIsNone(self.notebook.optcutfreq(y, freq=100))
+        self.assertIsNone(optcutfreq(y, freq=100))
 
 
 class FourierTransformTests(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls):
-        cls.notebook = load_notebook("FourierTransform")
+    """The psd2 package, as the FourierTransform notebook uses it."""
 
     def test_psd_of_a_sine_finds_its_frequency_and_power(self):
         fs = 1000
         t = np.arange(10 * fs) / fs
         x = 2 * np.sin(2 * np.pi * 50 * t)  # power = 2**2 / 2
-        fpcntile, mpf, fmax, ptotal, f, _ = self.notebook.psd(x, fs=fs, show=False)
+        fpcntile, mpf, fmax, ptotal, f, _ = psd2(x, fs=fs, show=False)
         self.assertAlmostEqual(fmax, 50, delta=f[1])
         # the median is the first bin reaching 50% of the power: up to one bin above
         self.assertAlmostEqual(fpcntile[50], 50, delta=1.5 * f[1])
