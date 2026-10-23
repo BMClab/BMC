@@ -9,7 +9,43 @@ __generated_with = "0.24.2"
 app = marimo.App()
 
 
-@app.function
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    # Body segment parameters
+
+    > Marcos Duarte, Renato Naville Watanabe<br>
+    > [Laboratory of Biomechanics and Motor Control](https://bmclab.pesquisa.ufabc.edu.br/)<br>
+    > Federal University of ABC, Brazil
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## How to use this guide
+
+    We will read the Dempster and de Leva tables, locate segment centers of mass, and combine segment inertias. You need weighted averages and distances between coordinates. Treat the table as an estimate for a population, and keep its segment landmarks and reference axes attached to every number.
+
+    Try the distributed **Exercises** before opening their collapsed worked solutions. Then use the **Checkpoint questions** and attempt the **Problems** independently; their panels contain final answers only. Predict the effect of a parameter change before running it, and check units and limiting cases.
+
+    **Opening challenge.** Two people have the same total mass and height. Must their leg moments of inertia be equal? Predict which measurements an anthropometric table can supply and which it cannot.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## Python setup
+
+    The dependency declaration at the top of this file lists the packages used by this guide. Marimo runs cells in dependency order. Run the notebook in an editor to use its displays and controls; the computational examples below explain their inputs before using them.
+    """)
+    return
+
+
+@app.function(hide_code=True)
 def repo_file(path, *, base_url="https://raw.githubusercontent.com/BMClab/BMC/master/"):
     """Find a repository file beside this notebook, or fetch a temporary copy.
 
@@ -51,42 +87,6 @@ def repo_file(path, *, base_url="https://raw.githubusercontent.com/BMClab/BMC/ma
         finally:
             temporary.unlink(missing_ok=True)
     return cached
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    # Body segment parameters
-
-    > Marcos Duarte, Renato Naville Watanabe<br>
-    > [Laboratory of Biomechanics and Motor Control](https://bmclab.pesquisa.ufabc.edu.br/)<br>
-    > Federal University of ABC, Brazil
-    """)
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    ## How to use this guide
-
-    We will read the Dempster and de Leva tables, locate segment centers of mass, and combine segment inertias. You need weighted averages and distances between coordinates. Treat the table as an estimate for a population, and keep its segment landmarks and reference axes attached to every number.
-
-    Try the distributed **Exercises** before opening their collapsed worked solutions. Then use the **Checkpoint questions** and attempt the **Problems** independently; their panels contain final answers only. Predict the effect of a parameter change before running it, and check units and limiting cases.
-
-    **Opening challenge.** Two people have the same total mass and height. Must their leg moments of inertia be equal? Predict which measurements an anthropometric table can supply and which it cannot.
-    """)
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    ## Python setup
-
-    The dependency declaration at the top of this file lists the packages used by this guide. Marimo runs cells in dependency order. Run the notebook in an editor to use its displays and controls; the computational examples below explain their inputs before using them.
-    """)
-    return
 
 
 @app.cell(hide_code=True)
