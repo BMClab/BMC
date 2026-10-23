@@ -28,6 +28,10 @@ notebook content and examples.
 - Generated marimo session state and output caches under any `__marimo__/` directory are
   ignored and must not be committed. The three formerly committed session caches were retired
   during migration. Run cells to regenerate outputs; sources do not ship stored outputs.
+- `html/` contains intentional static HTML snapshots with saved outputs and interactive
+  launch badges. Update them with `uv run python scripts/export_notebooks.py` after editing
+  a notebook; `--check` detects stale snapshots without executing or writing. See
+  `scripts/README.md`. Commit the affected sources, HTML and manifest together.
 
 ## Verifying a notebook headlessly
 

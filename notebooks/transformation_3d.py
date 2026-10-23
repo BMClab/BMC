@@ -2332,8 +2332,9 @@ def _(mo, np, plt, walk, walk_time):
     _ax[1].plot(walk_time,_pq);_ax[1].legend(["x","y","z"]);_ax[1].set(ylabel="Pelvis xyz [deg]")
     _ax[2].plot(walk_time,_angle);_ax[2].set(xlabel="Time [s]",ylabel="Knee total rotation [deg]")
     _fig.tight_layout()
-    mo.accordion({"Final stride plots — Problems 8, 11 and 12":mo.as_html(_fig)},expanded=False)
+    _problem_plot = mo.accordion({"Final stride plots — Problems 8, 11 and 12":mo.as_html(_fig)},expanded=False)
     plt.close(_fig)
+    _problem_plot
     return
 
 @app.cell(hide_code=True)

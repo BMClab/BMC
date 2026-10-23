@@ -72,7 +72,7 @@ def _(mo):
     mo.md(r"""
     As an introduction to the matrix formalism used in multibody analysis, we will consider the double-pendulum system. This system could be used as a  model from the arm and forearm of a subject, for example, and is an example of chaotic system.
 
-    In the notebook about [free-body diagram](free_body_diagram_for_rigid_bodies.py#doublependulum), we found the following equations of motion to the double-pendulum with actuators.
+    In the notebook about [free-body diagram](free_body_diagram_for_rigid_bodies.py#double-pendulum-with-actuators), we found the following equations of motion to the double-pendulum with actuators.
 
     <span class="notranslate">
     \begin{align}

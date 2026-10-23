@@ -1955,8 +1955,9 @@ def _(mo, np, plt):
     _i=np.argmax(_point[:,1])
     _ax.plot(*_point[_i],"o")
     _ax.set(xlabel="Laboratory X [m]",ylabel="Laboratory Y [m]",aspect="equal",title="Final foot-point path — Problem 13")
-    mo.accordion({"Final path — Problem 13": mo.as_html(_fig)},expanded=False)
+    _problem_plot = mo.accordion({"Final path — Problem 13": mo.as_html(_fig)},expanded=False)
     plt.close(_fig)
+    _problem_plot
     return
 
 

@@ -13,7 +13,7 @@
     "limitations": "Does not test marimo.app or molab website UI, service package resolution, or browser CORS. A shared runtime includes the union of required packages; standalone dependency declarations were reviewed separately."
   },
   "suite": {
-    "tests_passed": 95,
+    "tests_passed": 106,
     "subtests_passed": 232,
     "expected_c3d_fixture_warnings": 2
   },
@@ -32,8 +32,9 @@
       "lab_filtros.py",
       "sistema_coordenadas.py"
     ],
-    "static_html_guides": 1,
-    "static_html_pilot": "body_segment_parameters.html"
+    "static_html_guides": 84,
+    "static_html_pilot": "body_segment_parameters.html",
+    "title_target": "GitHub Pages static HTML; both compact badges remain interactive"
   },
   "zenodo": {
     "file": ".zenodo.json",
@@ -284,7 +285,7 @@
       "changes_since_flat_and_webassembly_execution": "Only explanatory text and whitespace; computational AST and PEP 723 metadata unchanged."
     },
     "fourier_series": {
-      "sha256": "0e096088a49563b9e705602ce3c13a9443c8e8634dc2725355bab7d9f1a645ab",
+      "sha256": "61b12e16a381dfc2db2280d466f085d8c9bd9faf92b99ecd69b8769d6b6c7aa0",
       "script": 0,
       "html": 0,
       "execution": 0,
@@ -292,8 +293,8 @@
       "native_script_export_sha256": "21aa507c822e0cbb9d57eba1460c527a47b21c0a0237447ceedb217e0eb9fdb7",
       "native_flat_execution_sha256": "21aa507c822e0cbb9d57eba1460c527a47b21c0a0237447ceedb217e0eb9fdb7",
       "webassembly_sha256": "21aa507c822e0cbb9d57eba1460c527a47b21c0a0237447ceedb217e0eb9fdb7",
-      "native_html_sha256": "0e096088a49563b9e705602ce3c13a9443c8e8634dc2725355bab7d9f1a645ab",
-      "changes_since_flat_and_webassembly_execution": "Presentation only: explanatory text, figure-caption Markdown, image sources, and whitespace; scientific computations and PEP 723 metadata unchanged."
+      "native_html_sha256": "61b12e16a381dfc2db2280d466f085d8c9bd9faf92b99ecd69b8769d6b6c7aa0",
+      "changes_since_flat_and_webassembly_execution": "Later presentation updates include display expressions or repaired reading links; scientific computation AST and PEP 723 metadata preserved. Native reactive HTML rerun; flat/WebAssembly hashes retained."
     },
     "fourier_transform": {
       "sha256": "ff4daa0e5e74943b1808f6d430050834d300997c709e8d84f8d4e411dfeb6bff",
@@ -320,7 +321,7 @@
       "changes_since_flat_and_webassembly_execution": "Presentation only: explanatory text, figure-caption Markdown, image sources, and whitespace; scientific computations and PEP 723 metadata unchanged."
     },
     "free_body_diagram_for_rigid_bodies": {
-      "sha256": "0c454d3986a94f5704a8e19c588896259684ce19c29534c485ee30017e46534e",
+      "sha256": "f16d32425832b5329e51ae1b67e411ee3d32e6b1f860df37662667909fd73a98",
       "script": 0,
       "html": 0,
       "execution": 0,
@@ -328,7 +329,8 @@
       "native_script_export_sha256": "0c454d3986a94f5704a8e19c588896259684ce19c29534c485ee30017e46534e",
       "native_flat_execution_sha256": "0c454d3986a94f5704a8e19c588896259684ce19c29534c485ee30017e46534e",
       "webassembly_sha256": "0c454d3986a94f5704a8e19c588896259684ce19c29534c485ee30017e46534e",
-      "native_html_sha256": "0c454d3986a94f5704a8e19c588896259684ce19c29534c485ee30017e46534e"
+      "native_html_sha256": "f16d32425832b5329e51ae1b67e411ee3d32e6b1f860df37662667909fd73a98",
+      "changes_since_flat_and_webassembly_execution": "Later presentation updates include display expressions or repaired reading links; scientific computation AST and PEP 723 metadata preserved. Native reactive HTML rerun; flat/WebAssembly hashes retained."
     },
     "gait_analysis_2d": {
       "sha256": "1c02ec25c5e0e3be329c4f4d80940bdcea6fcf1a47211222d2573a4a1f904eb3",
@@ -367,7 +369,7 @@
       "changes_since_flat_and_webassembly_execution": "Presentation only: explanatory text, figure-caption Markdown, image sources, and whitespace; scientific computations and PEP 723 metadata unchanged."
     },
     "kinematic_chain": {
-      "sha256": "56d71e4abcb11f5f12b0f156c91bed5d78c57262be2e3c1e99f96250f20daa01",
+      "sha256": "d07cb2caa6a14c3da9650c4d51924b7e239a991b83440439b933110baeef7517",
       "script": 0,
       "html": 0,
       "execution": 0,
@@ -375,11 +377,11 @@
       "native_script_export_sha256": "cd14fda22a5a417849ea0768c681d9ee88769afd91665bcb6bd8a1db6f594cb9",
       "native_flat_execution_sha256": "cd14fda22a5a417849ea0768c681d9ee88769afd91665bcb6bd8a1db6f594cb9",
       "webassembly_sha256": "cd14fda22a5a417849ea0768c681d9ee88769afd91665bcb6bd8a1db6f594cb9",
-      "native_html_sha256": "56d71e4abcb11f5f12b0f156c91bed5d78c57262be2e3c1e99f96250f20daa01",
-      "changes_since_flat_and_webassembly_execution": "Presentation only: explanatory text, figure-caption Markdown, image sources, and whitespace; scientific computations and PEP 723 metadata unchanged."
+      "native_html_sha256": "d07cb2caa6a14c3da9650c4d51924b7e239a991b83440439b933110baeef7517",
+      "changes_since_flat_and_webassembly_execution": "Later presentation updates include display expressions or repaired reading links; scientific computation AST and PEP 723 metadata preserved. Native reactive HTML rerun; flat/WebAssembly hashes retained."
     },
     "kinematics_angular_2d": {
-      "sha256": "e92debb204e2840bad7f6dae6affafa6750bc66e639dcda199581ad391716e3b",
+      "sha256": "285ae6fb3f1b8a19545bd529280a4100d5ad6ae7e1da2b85017aa88252a8633a",
       "script": 0,
       "html": 0,
       "execution": 0,
@@ -387,8 +389,8 @@
       "native_script_export_sha256": "af1f4402d70e09f9231cdaae017d69429913bd6712721798027e7cf76a54d5cb",
       "native_flat_execution_sha256": "af1f4402d70e09f9231cdaae017d69429913bd6712721798027e7cf76a54d5cb",
       "webassembly_sha256": "af1f4402d70e09f9231cdaae017d69429913bd6712721798027e7cf76a54d5cb",
-      "native_html_sha256": "e92debb204e2840bad7f6dae6affafa6750bc66e639dcda199581ad391716e3b",
-      "changes_since_flat_and_webassembly_execution": "Presentation only: explanatory text, figure-caption Markdown, image sources, and whitespace; scientific computations and PEP 723 metadata unchanged."
+      "native_html_sha256": "285ae6fb3f1b8a19545bd529280a4100d5ad6ae7e1da2b85017aa88252a8633a",
+      "changes_since_flat_and_webassembly_execution": "Later presentation updates include display expressions or repaired reading links; scientific computation AST and PEP 723 metadata preserved. Native reactive HTML rerun; flat/WebAssembly hashes retained."
     },
     "kinematics_of_rigid_body": {
       "sha256": "b2c7b442b04d0763644d52350a5f6ed9f50f68d17a306fbb2dd5fe593e25d295",
@@ -403,7 +405,7 @@
       "changes_since_flat_and_webassembly_execution": "Presentation only: explanatory text, figure-caption Markdown, image sources, and whitespace; scientific computations and PEP 723 metadata unchanged."
     },
     "kinematics_particle": {
-      "sha256": "7ac05b6a8b5af1012f15b7afd08b38185c000114d9640d0a28482c320f931aff",
+      "sha256": "4dfa39c15574cd0cf88c0ce4e16e632a5903952c14c43b6881005db6d89d4a13",
       "script": 0,
       "html": 0,
       "execution": 0,
@@ -411,11 +413,11 @@
       "native_script_export_sha256": "8521af8aa24af4bda96ecf5ec266f9c3d8858130bb799b371911061b0ba5125c",
       "native_flat_execution_sha256": "8521af8aa24af4bda96ecf5ec266f9c3d8858130bb799b371911061b0ba5125c",
       "webassembly_sha256": "8521af8aa24af4bda96ecf5ec266f9c3d8858130bb799b371911061b0ba5125c",
-      "native_html_sha256": "7ac05b6a8b5af1012f15b7afd08b38185c000114d9640d0a28482c320f931aff",
-      "changes_since_flat_and_webassembly_execution": "Presentation only: explanatory text, figure-caption Markdown, image sources, and whitespace; scientific computations and PEP 723 metadata unchanged."
+      "native_html_sha256": "4dfa39c15574cd0cf88c0ce4e16e632a5903952c14c43b6881005db6d89d4a13",
+      "changes_since_flat_and_webassembly_execution": "Later presentation updates include display expressions or repaired reading links; scientific computation AST and PEP 723 metadata preserved. Native reactive HTML rerun; flat/WebAssembly hashes retained."
     },
     "kinetics_3d_rigid_body": {
-      "sha256": "9d078f66fda8fa10f1aa718d20aa5cd9f09122ad2153a5cd053a8ab4956fa17b",
+      "sha256": "18b17e7d4444e89ced5981f8e1451e5860db701404cb3a2a4da4e2986d66fd50",
       "script": 0,
       "html": 0,
       "execution": 0,
@@ -423,11 +425,11 @@
       "native_script_export_sha256": "595a2bc2476798ba9b2b09e412a710f4b77659e02896c2d473d62f02c6e6f257",
       "native_flat_execution_sha256": "595a2bc2476798ba9b2b09e412a710f4b77659e02896c2d473d62f02c6e6f257",
       "webassembly_sha256": "595a2bc2476798ba9b2b09e412a710f4b77659e02896c2d473d62f02c6e6f257",
-      "native_html_sha256": "9d078f66fda8fa10f1aa718d20aa5cd9f09122ad2153a5cd053a8ab4956fa17b",
-      "changes_since_flat_and_webassembly_execution": "Only explanatory text and whitespace; computational AST and PEP 723 metadata unchanged."
+      "native_html_sha256": "18b17e7d4444e89ced5981f8e1451e5860db701404cb3a2a4da4e2986d66fd50",
+      "changes_since_flat_and_webassembly_execution": "Later presentation updates include display expressions or repaired reading links; scientific computation AST and PEP 723 metadata preserved. Native reactive HTML rerun; flat/WebAssembly hashes retained."
     },
     "kinetics_fundamental_concepts": {
-      "sha256": "e6197b30a081bfc5e642b43a292e8e90f585388efbc92cebce70deb6f6f279a6",
+      "sha256": "31e75d159af8cfc5942d4ef2f1c496d57d83329e28062057f608a7d6a56fe8c2",
       "script": 0,
       "html": 0,
       "execution": 0,
@@ -435,8 +437,8 @@
       "native_script_export_sha256": "58735d293e6e79be0a91b467e313358282cbd12061867e4c60d7e2d5f360f315",
       "native_flat_execution_sha256": "58735d293e6e79be0a91b467e313358282cbd12061867e4c60d7e2d5f360f315",
       "webassembly_sha256": "58735d293e6e79be0a91b467e313358282cbd12061867e4c60d7e2d5f360f315",
-      "native_html_sha256": "e6197b30a081bfc5e642b43a292e8e90f585388efbc92cebce70deb6f6f279a6",
-      "changes_since_flat_and_webassembly_execution": "Presentation only: explanatory text, figure-caption Markdown, image sources, and whitespace; scientific computations and PEP 723 metadata unchanged."
+      "native_html_sha256": "31e75d159af8cfc5942d4ef2f1c496d57d83329e28062057f608a7d6a56fe8c2",
+      "changes_since_flat_and_webassembly_execution": "Later presentation updates include display expressions or repaired reading links; scientific computation AST and PEP 723 metadata preserved. Native reactive HTML rerun; flat/WebAssembly hashes retained."
     },
     "kistler_force_plate_calculation": {
       "sha256": "345828b5dd3160a9489276319acc0318278f90a54098060e380e52a5334501a7",
@@ -475,7 +477,7 @@
       "changes_since_flat_and_webassembly_execution": "Only explanatory text and whitespace; computational AST and PEP 723 metadata unchanged."
     },
     "lagrangian_mechanics": {
-      "sha256": "b5c0a7e13876f8fdc510a96b4010caefa4dad89936f7a2b6294d8e422a968168",
+      "sha256": "32ab170fc80e81508676a9d55081fba865fef7f7e91b88c4f6ed2b01513636d1",
       "script": 0,
       "html": 0,
       "execution": 0,
@@ -483,8 +485,8 @@
       "native_script_export_sha256": "772d48e264e926b92cbebee6db9d2381ef0628c7564b800caa191235e4e902d1",
       "native_flat_execution_sha256": "772d48e264e926b92cbebee6db9d2381ef0628c7564b800caa191235e4e902d1",
       "webassembly_sha256": "772d48e264e926b92cbebee6db9d2381ef0628c7564b800caa191235e4e902d1",
-      "native_html_sha256": "b5c0a7e13876f8fdc510a96b4010caefa4dad89936f7a2b6294d8e422a968168",
-      "changes_since_flat_and_webassembly_execution": "Presentation only: explanatory text, figure-caption Markdown, image sources, and whitespace; scientific computations and PEP 723 metadata unchanged."
+      "native_html_sha256": "32ab170fc80e81508676a9d55081fba865fef7f7e91b88c4f6ed2b01513636d1",
+      "changes_since_flat_and_webassembly_execution": "Later presentation updates include display expressions or repaired reading links; scientific computation AST and PEP 723 metadata preserved. Native reactive HTML rerun; flat/WebAssembly hashes retained."
     },
     "lagrangian_mechanics_generalized": {
       "sha256": "066362674abd008cd2340370da6e1597a6c17c8b752177d329a02cd3a49d9dbf",
@@ -510,7 +512,7 @@
       "changes_since_flat_and_webassembly_execution": "Presentation only: explanatory text, figure-caption Markdown, image sources, and whitespace; scientific computations and PEP 723 metadata unchanged."
     },
     "matrix_formalism": {
-      "sha256": "8f08906c79e332e72215d2d4c6fcd5e8e3a97c52df70ad2b2fc1794812030996",
+      "sha256": "4c85c98c1859a11327dbc703bcfce4717dd8cb5d496606eb2af8ce275bf3f79f",
       "script": 0,
       "html": 0,
       "execution": 0,
@@ -518,8 +520,8 @@
       "native_script_export_sha256": "ebc81986e1c769f42d787468dd43158a89afa56122373f96de40a2c8383f9152",
       "native_flat_execution_sha256": "ebc81986e1c769f42d787468dd43158a89afa56122373f96de40a2c8383f9152",
       "webassembly_sha256": "ebc81986e1c769f42d787468dd43158a89afa56122373f96de40a2c8383f9152",
-      "native_html_sha256": "8f08906c79e332e72215d2d4c6fcd5e8e3a97c52df70ad2b2fc1794812030996",
-      "changes_since_flat_and_webassembly_execution": "Presentation only: explanatory text, figure-caption Markdown, image sources, and whitespace; scientific computations and PEP 723 metadata unchanged."
+      "native_html_sha256": "4c85c98c1859a11327dbc703bcfce4717dd8cb5d496606eb2af8ce275bf3f79f",
+      "changes_since_flat_and_webassembly_execution": "Later presentation updates include display expressions or repaired reading links; scientific computation AST and PEP 723 metadata preserved. Native reactive HTML rerun; flat/WebAssembly hashes retained."
     },
     "minimum_jerk_hypothesis": {
       "sha256": "d216252e15aaae22e48625025c2b619acb419b8b71942a76bac85d20cdf97d08",
@@ -533,7 +535,7 @@
       "native_html_sha256": "d216252e15aaae22e48625025c2b619acb419b8b71942a76bac85d20cdf97d08"
     },
     "multibody_dynamics": {
-      "sha256": "b5dd57dfcb0110081f359d78cf67f1ac3f8b7883323b15c7d106e8ac69ffca17",
+      "sha256": "6b1e22af6a7e38cca0beb384f34d3ff80f251b0b3222bf75913f2659bc8c3b27",
       "script": 0,
       "html": 0,
       "execution": 0,
@@ -541,8 +543,8 @@
       "native_script_export_sha256": "d70dd1db9ab8923f81a2e279e927c26b0aa57d93fca47b7f12671bd45f9f57d9",
       "native_flat_execution_sha256": "d70dd1db9ab8923f81a2e279e927c26b0aa57d93fca47b7f12671bd45f9f57d9",
       "webassembly_sha256": "d70dd1db9ab8923f81a2e279e927c26b0aa57d93fca47b7f12671bd45f9f57d9",
-      "native_html_sha256": "b5dd57dfcb0110081f359d78cf67f1ac3f8b7883323b15c7d106e8ac69ffca17",
-      "changes_since_flat_and_webassembly_execution": "Presentation only: explanatory text, figure-caption Markdown, image sources, and whitespace; scientific computations and PEP 723 metadata unchanged."
+      "native_html_sha256": "6b1e22af6a7e38cca0beb384f34d3ff80f251b0b3222bf75913f2659bc8c3b27",
+      "changes_since_flat_and_webassembly_execution": "Later presentation updates include display expressions or repaired reading links; scientific computation AST and PEP 723 metadata preserved. Native reactive HTML rerun; flat/WebAssembly hashes retained."
     },
     "multibody_inverse_dynamics": {
       "sha256": "ffa042c1ad89a923741c2b5eb03f2a8ea24428fd2ea9e3e836e371ab6851a2a6",
@@ -652,7 +654,7 @@
       "native_html_sha256": "62a6825cf6eb607efbeeae9703f16fb3fff0f00946e74f9ee5dead30c2e9d23b"
     },
     "pandas_data": {
-      "sha256": "b317e26dea49c28dd5e5fbf2d63c7eda4c05e90289dcec827f95fd4b4cd4df94",
+      "sha256": "8f4dc54a7426aa1f0b611e04746dac9b32407a2490c8036e9e5a53ee5277dc56",
       "script": 0,
       "html": 0,
       "execution": 0,
@@ -660,8 +662,8 @@
       "native_script_export_sha256": "0876558095cce83921486b97b6ca74914b3703993c2f54cf8e7b8fdf300b68c3",
       "native_flat_execution_sha256": "0876558095cce83921486b97b6ca74914b3703993c2f54cf8e7b8fdf300b68c3",
       "webassembly_sha256": "0876558095cce83921486b97b6ca74914b3703993c2f54cf8e7b8fdf300b68c3",
-      "native_html_sha256": "b317e26dea49c28dd5e5fbf2d63c7eda4c05e90289dcec827f95fd4b4cd4df94",
-      "changes_since_flat_and_webassembly_execution": "Only explanatory text and whitespace; computational AST and PEP 723 metadata unchanged."
+      "native_html_sha256": "8f4dc54a7426aa1f0b611e04746dac9b32407a2490c8036e9e5a53ee5277dc56",
+      "changes_since_flat_and_webassembly_execution": "Later presentation updates include display expressions or repaired reading links; scientific computation AST and PEP 723 metadata preserved. Native reactive HTML rerun; flat/WebAssembly hashes retained."
     },
     "path_frame": {
       "sha256": "0895d6fa3052a0d9d391e829b2d432b41435f7c3ff2414f3b0af59a75f7ae98b",
@@ -688,7 +690,7 @@
       "changes_since_flat_and_webassembly_execution": "Presentation only: explanatory text, figure-caption Markdown, image sources, and whitespace; scientific computations and PEP 723 metadata unchanged."
     },
     "polynomial_fitting": {
-      "sha256": "86cc313befb72e1295aad51eba6f01b026d0a02a0191e1a519455c8571712999",
+      "sha256": "e81f95c1599afee377c1a484507692ec11dff2fb0509090245c362b738c310d9",
       "script": 0,
       "html": 0,
       "execution": 0,
@@ -696,8 +698,8 @@
       "native_script_export_sha256": "5236656f44b16535f93d1cc13a95905ca01d102218eaa9d6502331a083db0e3e",
       "native_flat_execution_sha256": "5236656f44b16535f93d1cc13a95905ca01d102218eaa9d6502331a083db0e3e",
       "webassembly_sha256": "5236656f44b16535f93d1cc13a95905ca01d102218eaa9d6502331a083db0e3e",
-      "native_html_sha256": "86cc313befb72e1295aad51eba6f01b026d0a02a0191e1a519455c8571712999",
-      "changes_since_flat_and_webassembly_execution": "Only explanatory text and whitespace; computational AST and PEP 723 metadata unchanged."
+      "native_html_sha256": "e81f95c1599afee377c1a484507692ec11dff2fb0509090245c362b738c310d9",
+      "changes_since_flat_and_webassembly_execution": "Later presentation updates include display expressions or repaired reading links; scientific computation AST and PEP 723 metadata preserved. Native reactive HTML rerun; flat/WebAssembly hashes retained."
     },
     "prediction_ellipse_ellipsoid": {
       "sha256": "9c3796bbf2e11e114f583009a64513739b9d354db0e316f1022767a07fd1c096",
@@ -1015,7 +1017,7 @@
       "native_html_sha256": "99a2fb9660d4200b7b4945f720a8ae5705fe6a2a83b839e8972f3c437b91c439"
     },
     "transformation_2d": {
-      "sha256": "5a7e0def9e2ec70e2610bb0ec186eb5c40e386d36ddc72c93bf7040f50c9882e",
+      "sha256": "a79848ee93061d0141a0cb21cc681de9e831f7696324f4c8949f74b8837310a7",
       "script": 0,
       "html": 0,
       "execution": 0,
@@ -1023,11 +1025,11 @@
       "native_script_export_sha256": "9c8387837f5753400d77c9b5ba71484ea27bd230c3ef8114fb7ed76fac9a6220",
       "native_flat_execution_sha256": "9c8387837f5753400d77c9b5ba71484ea27bd230c3ef8114fb7ed76fac9a6220",
       "webassembly_sha256": "9c8387837f5753400d77c9b5ba71484ea27bd230c3ef8114fb7ed76fac9a6220",
-      "native_html_sha256": "5a7e0def9e2ec70e2610bb0ec186eb5c40e386d36ddc72c93bf7040f50c9882e",
-      "changes_since_flat_and_webassembly_execution": "Presentation only: explanatory text, figure-caption Markdown, image sources, and whitespace; scientific computations and PEP 723 metadata unchanged."
+      "native_html_sha256": "a79848ee93061d0141a0cb21cc681de9e831f7696324f4c8949f74b8837310a7",
+      "changes_since_flat_and_webassembly_execution": "Later presentation updates include display expressions or repaired reading links; scientific computation AST and PEP 723 metadata preserved. Native reactive HTML rerun; flat/WebAssembly hashes retained."
     },
     "transformation_3d": {
-      "sha256": "b3255ea6e3a4f94ae60100af2403cd9a2e655a7b84f4c33293b0ffccbd224ee7",
+      "sha256": "3ab37bd1ac114eea777f4799415197ff7421223129832556986c11539a83b33e",
       "script": 0,
       "html": 0,
       "execution": 0,
@@ -1035,8 +1037,8 @@
       "native_script_export_sha256": "99b9963a5ffa95baa2015f805fdbfea0df084c4fb4cfc01234e3f14f5c2f90c1",
       "native_flat_execution_sha256": "99b9963a5ffa95baa2015f805fdbfea0df084c4fb4cfc01234e3f14f5c2f90c1",
       "webassembly_sha256": "99b9963a5ffa95baa2015f805fdbfea0df084c4fb4cfc01234e3f14f5c2f90c1",
-      "native_html_sha256": "b3255ea6e3a4f94ae60100af2403cd9a2e655a7b84f4c33293b0ffccbd224ee7",
-      "changes_since_flat_and_webassembly_execution": "Presentation only: explanatory text, figure-caption Markdown, image sources, and whitespace; scientific computations and PEP 723 metadata unchanged."
+      "native_html_sha256": "3ab37bd1ac114eea777f4799415197ff7421223129832556986c11539a83b33e",
+      "changes_since_flat_and_webassembly_execution": "Later presentation updates include display expressions or repaired reading links; scientific computation AST and PEP 723 metadata preserved. Native reactive HTML rerun; flat/WebAssembly hashes retained."
     },
     "trigonometry_basics": {
       "sha256": "0a699a08197d5e9938282d6cc3629072b0c880849d6e9e152e1844fb99ecf361",
@@ -1061,7 +1063,7 @@
       "native_html_sha256": "a831eb79ebb938b1540059ec7f1fa5b829425374d131ce4e92a8a46cef35001c"
     },
     "vertical_jump": {
-      "sha256": "367760e72f819683af2841c2b9052ee3e5b32291f6896ce88e4f93d59a33bec1",
+      "sha256": "45ca8f9eb94da05a3ed91d139c9864a6f4f83e5bae7f6d74cb08e966628ea4ae",
       "script": 0,
       "html": 0,
       "execution": 0,
@@ -1069,11 +1071,11 @@
       "native_script_export_sha256": "58f6e52fca84b3845842c6da61cf1ab8a235b7539fc216db42c04ec5b5086ab3",
       "native_flat_execution_sha256": "58f6e52fca84b3845842c6da61cf1ab8a235b7539fc216db42c04ec5b5086ab3",
       "webassembly_sha256": "58f6e52fca84b3845842c6da61cf1ab8a235b7539fc216db42c04ec5b5086ab3",
-      "native_html_sha256": "367760e72f819683af2841c2b9052ee3e5b32291f6896ce88e4f93d59a33bec1",
-      "changes_since_flat_and_webassembly_execution": "Presentation only: explanatory text, figure-caption Markdown, image sources, and whitespace; scientific computations and PEP 723 metadata unchanged."
+      "native_html_sha256": "45ca8f9eb94da05a3ed91d139c9864a6f4f83e5bae7f6d74cb08e966628ea4ae",
+      "changes_since_flat_and_webassembly_execution": "Later presentation updates include display expressions or repaired reading links; scientific computation AST and PEP 723 metadata preserved. Native reactive HTML rerun; flat/WebAssembly hashes retained."
     }
   },
-  "source_hash_policy": "sha256 identifies current source. Each execution stage has its own tested source hash. Every current source passed native reactive HTML export. Later presentation changes relative to earlier flat/WebAssembly runs preserve scientific computations and PEP 723 metadata; body_segment_parameters displays the replacement image with a direct HTML link to the repository asset. Presentation changes have not been rerun in WebAssembly or the cloud website UI.",
+  "source_hash_policy": "sha256 identifies current source. Each execution stage has its own tested source hash. All 87 current guides and the 2026 course lecture passed native reactive HTML export for the static collection. Later presentation changes relative to earlier flat/WebAssembly runs preserve scientific computations and PEP 723 metadata. Presentation changes have not been rerun in WebAssembly or the cloud execution website UI; separate browser evidence verifies static reading.",
   "followup_2026_10_23": {
     "retired_helpers": [
       "detect_cusum",
@@ -1287,10 +1289,56 @@
     }
   },
   "static_html_pilot": {
-    "manifest": "../../html/manifest.json",
+    "manifest": "Historical pilot manifest is in commit d05435c; the current ../../html/manifest.json covers the full collection",
     "html_sha256": "90613e91746edff32c47555eb936383ff7d000197f4017bf6eafece9ea538ea5",
     "native_html_source_sha256": "65c5176ac5e713c8570f00917cb6b2aa980a954f1e89a38e0c56b405c3a9c127",
     "browser_validation": "Saved tables, plot, math, images and an expandable solution verified with both execution-service domains blocked; desktop and mobile layout checked.",
     "source_repair": "Display existing hax as the final expression in its plot cell."
+  },
+  "static_html_collection": {
+    "date": "2026-10-23",
+    "manifest": "../../html/manifest.json",
+    "updater": "../../scripts/export_notebooks.py",
+    "instructions": "../../scripts/README.md",
+    "browser_validation": "static-html-browser-results.json",
+    "main_guides": 87,
+    "course_notebooks": 1,
+    "native_exports_passed": 88,
+    "freshness_check": "88/88 current; incremental run 0 exported, 88 unchanged, 0 failed",
+    "readme_static_titles": 84,
+    "interactive_badges": 168,
+    "saved_figure_cells": 319,
+    "display_repairs": {
+      "cells": 16,
+      "guides": 9,
+      "method": "Expose existing Figure/Axes objects or preserve accordion as final cell expression; no calculation changes"
+    },
+    "reading_link_repairs": {
+      "targets": 10,
+      "guides": 7,
+      "local_links_validated": 414,
+      "missing_paths_or_anchors": 0
+    },
+    "updated_source_guides": [
+      "notebooks/fourier_series.py",
+      "notebooks/free_body_diagram_for_rigid_bodies.py",
+      "notebooks/kinematic_chain.py",
+      "notebooks/kinematics_angular_2d.py",
+      "notebooks/kinematics_particle.py",
+      "notebooks/kinetics_3d_rigid_body.py",
+      "notebooks/kinetics_fundamental_concepts.py",
+      "notebooks/lagrangian_mechanics.py",
+      "notebooks/matrix_formalism.py",
+      "notebooks/multibody_dynamics.py",
+      "notebooks/pandas_data.py",
+      "notebooks/polynomial_fitting.py",
+      "notebooks/transformation_2d.py",
+      "notebooks/transformation_3d.py",
+      "notebooks/vertical_jump.py"
+    ],
+    "scientific_computations_and_pep723_metadata_preserved": true,
+    "theme": "jekyll-theme-cayman; title/description configured and downloads disabled",
+    "media_exceptions": "Four historical images on bmclab.pesquisa.ufabc.edu.br are unavailable; user confirmed the host is down. Original references retained; saved figures and remaining images load.",
+    "reading_requirements": "Static read-only snapshots; no Python kernel, molab or marimo.app needed. CDN display assets and external media still need Internet access."
   }
 }

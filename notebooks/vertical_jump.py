@@ -417,7 +417,7 @@ def _(mo):
     mo.md(r"""
     ### Jump height from the impulse measurement
 
-    We know that the [mechanical impulse](kinetics_fundamental_concepts.py#Impulse) is equal to the change in linear momentum of a body, which for a body with constant mass is simply the body mass times the change in velocity. For a time-varying force, the impulse is:
+    We know that the [mechanical impulse](kinetics_fundamental_concepts.py#impulse) is equal to the change in linear momentum of a body, which for a body with constant mass is simply the body mass times the change in velocity. For a time-varying force, the impulse is:
 
     $$
     \vec{Imp} = \int_{t_0}^{t_f} \vec{F}(t) \mathrm{d}t = m [\vec{v}_{t_f} - \vec{v}_{t_0}]
@@ -458,7 +458,7 @@ def _(mo):
     \end{array}
     $$
 
-    We could also have calculated the jump height from the velocity using the [principle of conservation of the mechanical energy](kinetics_fundamental_concepts.py#Principles-of-conservation). The sum of the potential and kinetic energies at the instants beginning of the jump ($t_0$) and highest point of the jump trajectory ($t_{hmax}$) are equal:
+    We could also have calculated the jump height from the velocity using the [principle of conservation of the mechanical energy](kinetics_fundamental_concepts.py#principles-of-conservation). The sum of the potential and kinetic energies at the instants beginning of the jump ($t_0$) and highest point of the jump trajectory ($t_{hmax}$) are equal:
 
     $$
     mgh(t_0) + \frac{mv^2(t_0)}{2} = mgh(t_{hmax}) + \frac{mv^2(t_{hmax})}{2}

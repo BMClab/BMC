@@ -1,1 +1,4 @@
-theme: jekyll-theme-hacker
+theme: jekyll-theme-cayman
+title: Biomechanics and Motor Control
+description: Scientific computing guides with static previews and interactive notebooks
+show_downloads: false

@@ -1014,7 +1014,10 @@ def _(mo, np, plt):
     _axes[1,2].plot(_t,np.c_[2*_t,np.exp(_t)]);_axes[1,2].set(xlabel="Time [s]",ylabel="Velocity [m/s]")
     _axes[2,2].plot(_t,np.c_[np.full_like(_t,2),np.exp(_t)]);_axes[2,2].set(xlabel="Time [s]",ylabel="Acceleration [m/s²]")
     _axes[0,0].set_title("Sinusoidal motion");_axes[0,1].set_title("Cubic position")
-    _fig.tight_layout();mo.accordion({"Final plots — analytic motion problems":mo.as_html(_fig)},expanded=False);plt.close(_fig)
+    _fig.tight_layout()
+    _problem_plot = mo.accordion({"Final plots — analytic motion problems":mo.as_html(_fig)},expanded=False)
+    plt.close(_fig)
+    _problem_plot
     return
 
 @app.cell(hide_code=True)

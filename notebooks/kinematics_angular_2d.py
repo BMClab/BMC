@@ -857,8 +857,9 @@ def _(data, dt, mo, np, plt):
     _axs[0,0].set(xlabel="Time [s]",ylabel="Segment angle [deg]")
     _fig.tight_layout()
     _note = mo.md("Final curves with directed distal-to-proximal thigh/leg axes and MT5-to-heel foot axis; joint definitions are knee = thigh − leg, ankle = leg − foot + 90°, hip = trunk − thigh. The alternative TOE-to-heel foot axis changes the ankle angle by " + f"{np.degrees((_foot-_foot_toe).min()):.2f} to {np.degrees((_foot-_foot_toe).max()):.2f}°. These explicit definitions fix the signs and anatomical zero offsets.")
-    mo.accordion({"Final plots — Winter gait problem": mo.vstack([_note, mo.as_html(_fig)])}, expanded=False)
+    _problem_plot = mo.accordion({"Final plots — Winter gait problem": mo.vstack([_note, mo.as_html(_fig)])}, expanded=False)
     plt.close(_fig)
+    _problem_plot
     return
 
 

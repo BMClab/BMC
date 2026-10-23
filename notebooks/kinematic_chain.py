@@ -1960,8 +1960,9 @@ def _(L1_arm, L2_arm, mo, np, plt):
     _xx=L1_arm*np.cos(_a)+L2_arm*np.cos(_a+_b);_yy=L1_arm*np.sin(_a)+L2_arm*np.sin(_a+_b)
     _ax[2].scatter(_xx.ravel(),_yy.ravel(),s=1,alpha=.25);_ax[2].set(xlabel="X [m]",ylabel="Y [m]",aspect="equal",title="Elbow limit 100°")
     _ax[0].legend(["shoulder","elbow"]);_ax[1].legend(["shoulder","elbow"]);_fig.tight_layout()
-    mo.accordion({"Final plots — Problems 9 and 10":mo.as_html(_fig)},expanded=False)
+    _problem_plot = mo.accordion({"Final plots — Problems 9 and 10":mo.as_html(_fig)},expanded=False)
     plt.close(_fig)
+    _problem_plot
     return
 
 

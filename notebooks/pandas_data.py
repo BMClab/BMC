@@ -134,6 +134,7 @@ def _(df, plt):
     _ax = df.plot(y='RASISX', figsize=(8, 3), title='A plot of kinematics')
     _ax.set_ylabel('Position [mm]')
     plt.tight_layout(pad=0, h_pad=0, rect=[0, 0, 1, 0.95])
+    _ax.figure
     return
 
 
@@ -245,6 +246,7 @@ def _(df_1):
 @app.cell
 def _(df_1):
     _ax = df_1.plot(y=('RASIS', 'X'), subplots=True, figsize=(8, 2), rot=0)
+    _ax[0].figure
     return
 
 
@@ -252,6 +254,7 @@ def _(df_1):
 def _(df_1, plt):
     _ax = df_1.plot(y='RASIS', subplots=True, sharex=True, figsize=(8, 4), rot=0, title='A plot of kinematics')
     plt.tight_layout(pad=0, h_pad=0, rect=[0, 0, 1, 0.95])
+    _ax[0].figure
     return
 
 

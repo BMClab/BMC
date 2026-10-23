@@ -39,7 +39,7 @@ def _(mo):
 def _(mo):
     mo.md(r"""
     Kinetics is the branch of classical mechanics that is concerned with the relationship between the motion of bodies and its causes, namely forces and torques ([Encyclopædia Britannica Online](https://www.britannica.com/science/kinetics)).<br>
-    Kinetics, as used in Biomechanics, also includes the study of statics, the study of equilibrium and its relation to forces and torques (one can treat equilibrium as a special case of motion, where the velocity is zero). This is different than the nowadays most common ramification of Mechanics in Statics and Dynamics, and Dynamics in Kinematics and Kinetics ([Introduction to Biomechanics](biomechanics.py#On-the-branches-of-Mechanics-and-Biomechanics-I)).
+    Kinetics, as used in Biomechanics, also includes the study of statics, the study of equilibrium and its relation to forces and torques (one can treat equilibrium as a special case of motion, where the velocity is zero). This is different than the nowadays most common ramification of Mechanics in Statics and Dynamics, and Dynamics in Kinematics and Kinetics ([Introduction to Biomechanics](biomechanics.py#how-mechanics-is-usually-divided)).
     """)
     return
 
@@ -187,6 +187,7 @@ def _(np, plt):
     s = r'$i=F\Delta t = %.1f Ns$'%imp 
     plt.text(.4, 40, s, fontsize=18,
              bbox=dict(facecolor='white', edgecolor='white'));
+    hax
     return
 
 

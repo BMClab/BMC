@@ -442,12 +442,12 @@ def _(mo):
 
 
 @app.cell
-def _(ax_2, np, plt):
+def _(ax_2, np):
     _t = np.linspace(-3, 3, 1000)
     _x = 4 / np.pi * (np.sin(1 * np.pi * _t) / 1 + np.sin(3 * np.pi * _t) / 3 + np.sin(5 * np.pi * _t) / 5 + np.sin(7 * np.pi * _t) / 7 + np.sin(9 * np.pi * _t) / 9)
     ax_2.plot(_t, _x, color='r', linewidth=2, label='Fourier series')
     ax_2.set_title('Square wave function and the first 5 non-zero terms of its Fourier series', fontsize=14)
-    plt.show()
+    ax_2
     return
 
 
@@ -483,6 +483,7 @@ def _(np, plt):
     _axs[1].set_title('Sum of the harmonics')
     _fig.tight_layout()
     plt.subplots_adjust(hspace=0)
+    _fig
     return
 
 
@@ -596,12 +597,12 @@ def _(mo):
 
 
 @app.cell
-def _(ax_4, np, plt):
+def _(ax_4, np):
     _t = np.linspace(-3 * np.pi, 3 * np.pi, 1000)
     _x = 1 / 2 + 4 / np.pi ** 2 * (np.cos(_t) + np.cos(3 * _t) / 9 + np.cos(5 * _t) / 25 + np.cos(7 * _t) / 49 + np.cos(9 * _t) / 81)
     ax_4.plot(_t, _x, color='r', linewidth=2, label='Fourier series')
     ax_4.set_title('Triangular wave function and the first 6 non-zero terms of its Fourier series', fontsize=14)
-    plt.show()
+    ax_4
     return
 
 
@@ -646,6 +647,7 @@ def _(np, plt):
     _axs[1].set_title('Sum of the harmonics')
     _fig.tight_layout()
     plt.subplots_adjust(hspace=0)
+    _fig
     return
 
 
@@ -828,6 +830,7 @@ def _(np, plt):
         axi.locator_params(axis='y', nbins=4)
     _fig.tight_layout()
     plt.subplots_adjust(hspace=0.2)
+    _fig
     return ampk, fk
 
 
@@ -851,6 +854,7 @@ def _(ampk, fk, plt):
     ax_7.set_xlim(0, 4.55)
     ax_7.grid()
     _fig.tight_layout()
+    _fig
     return
 
 

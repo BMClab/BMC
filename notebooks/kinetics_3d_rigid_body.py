@@ -144,7 +144,7 @@ def _(mo):
           \label{eq:angmom}
      \end{align}
 
-     where this matrix is the Matrix of Inertia (or more rigorously, Tensor of Inertia) as defined previously in [this notebook about moment of inertia](center_of_mass_and_moment_of_inertia.py#matrixinertia).
+     where this matrix is the Matrix of Inertia (or more rigorously, Tensor of Inertia) as defined previously in [this notebook about moment of inertia](center_of_mass_and_moment_of_inertia.py#matrix-of-inertia).
     """)
     return
 
@@ -582,7 +582,7 @@ def _(mo):
     \frac{df}{dt}(i) = \frac{f(i)-f(i-1)}{\Delta t}
     $$
 
-    A better estimation of the derivative of the time derivative of the function $f(t)$ would be obtained by the average value between the estimations using the backward and forward differences (this subject is treated [in this notebook about data filtering](data_filtering.py#numdiff)):
+    A better estimation of the derivative of the time derivative of the function $f(t)$ would be obtained by the average value between the estimations using the backward and forward differences (this subject is treated [in this notebook about data filtering](data_filtering.py#kinematics-of-a-ball-toss)):
 
     $$
     \frac{df}{dt}(i) = \frac{\frac{f(i+1)-f(i)}{\Delta t} + \frac{f(i)-f(i-1)}{\Delta t}}{2} = \frac{f(i+1)-f(i-1)}{2\Delta t}
@@ -785,7 +785,7 @@ def _(mo):
 
     The mass of the subject was $m = 53$ kg and her height was $h= 1.65$ m.
 
-       The free-body diagram is very similar to the free-body diagram shown [in the notebook about free-body diagram](free_body_diagram_for_rigid_bodies.py#quietstanding), except that the force $\vec{F_A}$ and the moment $\vec{M_A}$ have components at all 3 directions.
+       The free-body diagram is very similar to the free-body diagram shown [in the notebook about free-body diagram](free_body_diagram_for_rigid_bodies.py#human-quiet-standing), except that the force $\vec{F_A}$ and the moment $\vec{M_A}$ have components at all 3 directions.
 
        So, the first Newton-Euler law, at each component of the global  basis, is written as (note that in these data, the vertical direction is the y coordinate):
 

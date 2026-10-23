@@ -721,7 +721,7 @@ def _(mo):
     mo.md(r"""
     #### Kinematics
 
-    To find the kinematics of the bar, we could do the same procedure we have used in the pendulum and inverted pendulum examples, but this time we will use polar coordinates (for a revision on polar coordinates, see [Polar coordinates notebook](PolarCoordinates.py)).
+    To find the kinematics of the bar, we could do the same procedure we have used in the pendulum and inverted pendulum examples, but this time we will use polar coordinates (for a revision on polar coordinates, see [Polar coordinates notebook](polar_basis.py)).
 
     <span class="notranslate">$\vec{r_{cm/A}} = \vec{r_{cm}} = h_G\hat{\bf{e_r}}$</span>
 

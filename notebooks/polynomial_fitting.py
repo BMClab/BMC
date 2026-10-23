@@ -228,6 +228,7 @@ def _(plt, polyfit, x, y):
     (p_2, _perr, _R2, chi2red_2, yfit_2, _ci, _pi, MSE_2) = polyfit(x, y, degree=1, axis=ax[0])
     (p_2, _perr, _R2, chi2red_2, yfit_2, _ci, _pi, MSE_2) = polyfit(x, y, degree=2, axis=ax[1], ylabel='')
     plt.tight_layout()
+    fig
     return (yfit_2,)
 
 

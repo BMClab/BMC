@@ -356,7 +356,7 @@ def _(mo):
     #### Numerical solution of the equation of motion for the simple pendulum
 
     A classical approach to solve analytically the EOM for the simple pendulum is to consider the motion for small angles where $\sin\theta \approx \theta$ and the differential equation is linearized to $d\ddot\theta + g\theta = 0$. This equation has an analytical solution of the type $\theta(t) = A \sin(\omega t + \phi)$, where $\omega = \sqrt{g/d}$ and $A$ and $\phi$ are constants related to the initial position and velocity.<br>
-    For didactic purposes, let's solve numerically the differential equation for the pendulum using [Euler’s method](ordinary_differential_equation.py#Euler-method).
+    For didactic purposes, let's solve numerically the differential equation for the pendulum using [Euler’s method](ordinary_differential_equation.py#euler-method).
 
     Remember that we have to:<br>
     1. Transform the second-order ODE into two coupled first-order ODEs,<br>

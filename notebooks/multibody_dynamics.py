@@ -242,7 +242,7 @@ def _(mo):
     mo.md(r"""
     ### Kinematics
 
-    A single planar inverted pendulum has one degree of freedom, the rotation movement of the segment around the pin joint. In this case, if the angular position $\alpha(t)$ is known, the coordinates $x(t)$ and $y(t)$ of the center of mass and their derivatives can be readily determined (a process referred as [forward kinematics)](kinematic_chain.py#Forward-and-inverse-kinematics):
+    A single planar inverted pendulum has one degree of freedom, the rotation movement of the segment around the pin joint. In this case, if the angular position $\alpha(t)$ is known, the coordinates $x(t)$ and $y(t)$ of the center of mass and their derivatives can be readily determined (a process referred as [forward kinematics)](kinematic_chain.py#forward-and-inverse-kinematics):
     """)
     return
 
