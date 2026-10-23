@@ -1,0 +1,1660 @@
+{
+  "date": "2026-10-23",
+  "read_directory": "nbs_read",
+  "edit_directory": "nbs",
+  "discovery": "All marimo apps in notebooks/ and courses/; new apps included on push",
+  "notebooks": 88,
+  "native_read_exports_passed": 88,
+  "native_edit_exports_passed": 88,
+  "browser_runtime": "Actual headless Chromium WebAssembly Python; no data/computation stubs",
+  "browser_url_prefix": "/BMC/nbs/",
+  "blocked_execution_services": [
+    "molab.marimo.io",
+    "marimo.app"
+  ],
+  "runtime_completion": "Sustained idle/error-free cell state after Run all; rendered status counts need not equal source function totals",
+  "tests": {
+    "passed": 115,
+    "subtests_passed": 235,
+    "expected_fixture_warnings": 2
+  },
+  "reading_link_checks": "All rendered current guide links remain on Pages; separate real-DOM checks passed normal, lazy, shadow, course, source, explicit execution and fragment cases",
+  "iep_fix": "Rename only the private plotting helper declaration/call to plot_cogve. Reproduced show=True NameError before fix; actual browser plot passed afterward. Arithmetic unchanged.",
+  "source_note": "Native serialization updates generated-version/cell metadata; the builder changes rendered links rather than editing notebook Python. Only notebook file edit is the IEP helper name.",
+  "independent_review": "Ready; no material findings",
+  "limitations": "Default examples and the IEP optional plot tested, not every optional upload/hardware/input branch. Runtime/package/media downloads need Internet. Publication/live verification follows this prepared commit.",
+  "pages": [
+    {
+      "source": "courses/biomechanicsI_2026/aula_filtragem.py",
+      "html": "courses/biomechanicsI_2026/aula_filtragem.html",
+      "source_sha256": "4d22c37e522a906374af810d7ca3bea60f3ecb9821b249ea82348295bdb54955",
+      "html_sha256": "c988b4cb5dc996f45d78acf4a291e5124f68ddbf256d3e48a84f0acb077b02ea",
+      "cell_states": {
+        "idle": 22
+      },
+      "tables": 1,
+      "plots": 0,
+      "editors": 37,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 26.3,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/amti_bsf_file.py",
+      "html": "amti_bsf_file.html",
+      "source_sha256": "1e3f25f695da69711010bbb126ad4fff85f864ab533cd8c722a8253f2e1151ad",
+      "html_sha256": "63afdd635b1e770532380452f647afcfe981256b096ecc39aedc5c81d31b06c8",
+      "cell_states": {
+        "idle": 20
+      },
+      "tables": 0,
+      "plots": 1,
+      "editors": 21,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 20.4,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/angular_velocity_3d.py",
+      "html": "angular_velocity_3d.html",
+      "source_sha256": "42520bcf2966b20e36340965ac034b012a1df502de087c8cde764c555c5ae836",
+      "html_sha256": "1f0659bea199fe40bae23f76df9b79dbbb9f9e0deabee1f3812c6a07c22b4f77",
+      "cell_states": {
+        "idle": 68
+      },
+      "tables": 1,
+      "plots": 1,
+      "editors": 53,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 116.7,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/basic_mechanical_elements_muscle_model.py",
+      "html": "basic_mechanical_elements_muscle_model.html",
+      "source_sha256": "d46f2a41e003df8f5363612a6432ab3988b835a5a9a643bfbbd43011e3f82b65",
+      "html_sha256": "0d73d54b389985b3c45f2273a19b0a2fb7f02c244b3fdae72103d596d2bdc801",
+      "cell_states": {
+        "idle": 63
+      },
+      "tables": 1,
+      "plots": 6,
+      "editors": 58,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 29.4,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/biomechanics.py",
+      "html": "biomechanics.html",
+      "source_sha256": "300d307ab6c1d1fbe63eb608f7b4f3742683eea2c62bb81a85793322f822beb8",
+      "html_sha256": "363bf624bd0e651bd76b3b168c14979536839eaad13aa744220a8b4a386da726",
+      "cell_states": {
+        "idle": 37
+      },
+      "tables": 0,
+      "plots": 1,
+      "editors": 37,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 17.7,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/bmclab.py",
+      "html": "bmclab.html",
+      "source_sha256": "7c22df1437b789cd0464b014bf97a156b628f02a9b5e109392c91e24ec4a4372",
+      "html_sha256": "a17c31582acc9f9e94d7fe049902b3433ab0dedb0db03acef0e86f797cc8b5a8",
+      "cell_states": {
+        "idle": 28
+      },
+      "tables": 0,
+      "plots": 0,
+      "editors": 28,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 11.1,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/body_segment_parameters.py",
+      "html": "body_segment_parameters.html",
+      "source_sha256": "65c5176ac5e713c8570f00917cb6b2aa980a954f1e89a38e0c56b405c3a9c127",
+      "html_sha256": "1520cc26a1c6c81cfaf91c942585be08b8ab90c5859344b83d666c919f8cbb4c",
+      "cell_states": {
+        "idle": 48
+      },
+      "tables": 6,
+      "plots": 1,
+      "editors": 48,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 24.4,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/center_of_mass_and_moment_of_inertia.py",
+      "html": "center_of_mass_and_moment_of_inertia.html",
+      "source_sha256": "3234fc8b45a6fb5ce1b23f569dc2bada479a0f5532def081af74d0394f33cb39",
+      "html_sha256": "3cca4a1100774c02cc31659a5dd8c390cf95afe4f2bde6520e2121f73ff04340",
+      "cell_states": {
+        "idle": 58
+      },
+      "tables": 0,
+      "plots": 0,
+      "editors": 42,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 48.6,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/ch2_viscoelastic_models.py",
+      "html": "ch2_viscoelastic_models.html",
+      "source_sha256": "2b72bffcebcf5e3c3a328c7b37a05f5eb535473b0799d302400f29e5117743e1",
+      "html_sha256": "d3b71929a2fe8aa00031fe2544f0e40de14a9eb052fd1154cd5a0ed857219ff1",
+      "cell_states": {
+        "idle": 39
+      },
+      "tables": 3,
+      "plots": 6,
+      "editors": 39,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 19.3,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/code_structure.py",
+      "html": "code_structure.html",
+      "source_sha256": "2633518b0a64c15c196aeb9f905375ddcb97f6b9cbe7562d3af815db69b04667",
+      "html_sha256": "37e7633dee6dbd2cde656a236692c74f2267de90fb2e4187b6fc156343384664",
+      "cell_states": {
+        "idle": 29
+      },
+      "tables": 0,
+      "plots": 0,
+      "editors": 29,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 11.5,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/confidence_prediction_intervals.py",
+      "html": "confidence_prediction_intervals.html",
+      "source_sha256": "4c372a22b5b78f1efd7ae6e29d2f262ee52bcefd252764dd40d062d485b5daa5",
+      "html_sha256": "a03a9538b19050a05540c2bca238374aab8c36308234f043a706d60efff5b290",
+      "cell_states": {
+        "idle": 44
+      },
+      "tables": 0,
+      "plots": 6,
+      "editors": 44,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 23.5,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/coordinate_system.py",
+      "html": "coordinate_system.html",
+      "source_sha256": "b9ab1cfcea98d0274d30e2efbda77594e80ea10b2658b17637c425da2282c406",
+      "html_sha256": "ff87dc69b4e273711d460365aba9a15214b26458eb0667bf724c4d2f0fc05f98",
+      "cell_states": {
+        "idle": 65
+      },
+      "tables": 1,
+      "plots": 3,
+      "editors": 43,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 44.0,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/curve_fitting.py",
+      "html": "curve_fitting.html",
+      "source_sha256": "3a4b50a7b9f860139d6dde24e76c4bca41d22b223f99246925713d358fea8124",
+      "html_sha256": "d25cebacfd85efe678c1998f9b5185a3ffbe1acf4faef3069c5f990ba429d861",
+      "cell_states": {
+        "idle": 61
+      },
+      "tables": 1,
+      "plots": 10,
+      "editors": 61,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 51.9,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/data_filtering.py",
+      "html": "data_filtering.html",
+      "source_sha256": "f925c1abb332aca63c70dcc265c11877c37214cbdfef39edc3654c4d4cceb35a",
+      "html_sha256": "766e14c032dcaadee1231334aedd54aad1305ae2e942f2d551259fea4beaa42b",
+      "cell_states": {
+        "idle": 93
+      },
+      "tables": 0,
+      "plots": 15,
+      "editors": 61,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 63.0,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/dlt.py",
+      "html": "dlt.html",
+      "source_sha256": "dee56838e9f7787d35aac9f46996f208c442c2da32c3cc497d99c2f5c7656c83",
+      "html_sha256": "80ffdf242961e4da20688c591c00e894e647304d6330034cf1ec0ccd1a516047",
+      "cell_states": {
+        "idle": 14
+      },
+      "tables": 0,
+      "plots": 0,
+      "editors": 14,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 15.0,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/electromyography.py",
+      "html": "electromyography.html",
+      "source_sha256": "de872539b654853b3ca49c20390e2543bab6591f8e6d9230b71aafeba4ec2586",
+      "html_sha256": "9ff50e37d5b5f473e6b79e2ade17a3dab45e57601a299339823281870e5a351c",
+      "cell_states": {
+        "idle": 73
+      },
+      "tables": 0,
+      "plots": 11,
+      "editors": 73,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 44.6,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/ellipsoid_3d_rotation_matrix_1.py",
+      "html": "ellipsoid_3d_rotation_matrix_1.html",
+      "source_sha256": "d8371cf41c0457643070b1ffb5e68b379cb8f486d13b3c333c7b1449c08a1479",
+      "html_sha256": "d2bfc3bc2b1a2eb6fe40b1fccc09b7033033fd6800527dca1ab347f951afc692",
+      "cell_states": {
+        "idle": 34
+      },
+      "tables": 0,
+      "plots": 2,
+      "editors": 34,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 20.0,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/ellipsoid_rotation_matrix_3d.py",
+      "html": "ellipsoid_rotation_matrix_3d.html",
+      "source_sha256": "468b1d6b78e2e6f3b4ca8c198664a87898158f08adddb1890b0537ea47839a3d",
+      "html_sha256": "608315aa2b81370fc2653933dd2c8660f770dd4721c17521063abab05e811899",
+      "cell_states": {
+        "idle": 6
+      },
+      "tables": 0,
+      "plots": 1,
+      "editors": 6,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 13.1,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/ensemble_average.py",
+      "html": "ensemble_average.html",
+      "source_sha256": "de05d3e954fe49d0963d7540238a3dac2753b2adeb0026dc6bdc192bc1178476",
+      "html_sha256": "f50c8126d24e2b1b54c15a2653418a19507ff86806b7f65e6dbb8e4eebaf0dfc",
+      "cell_states": {
+        "idle": 29
+      },
+      "tables": 0,
+      "plots": 5,
+      "editors": 29,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 24.0,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/fbd_particles.py",
+      "html": "fbd_particles.html",
+      "source_sha256": "7e33136498ff5fd1eb8f3f0d45fa257974438a3df4f07fb9ba958858a60cbb04",
+      "html_sha256": "d950617bb1b55c0b90d32ddb7470680abd9679cf11870e6bd4fe6b9b30afdcdc",
+      "cell_states": {
+        "idle": 58
+      },
+      "tables": 0,
+      "plots": 7,
+      "editors": 54,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 74.8,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/force_plate_calibration.py",
+      "html": "force_plate_calibration.html",
+      "source_sha256": "d2eec85500ec9a7ad652eeb07acf08b0a1d414e378b5cdac23c5d90b906e985f",
+      "html_sha256": "533ac4036bd82941e3f3bc2814f5c07713ed8873658ac0d5db77b64586d748db",
+      "cell_states": {
+        "idle": 36
+      },
+      "tables": 0,
+      "plots": 1,
+      "editors": 36,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 91.6,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/fourier_series.py",
+      "html": "fourier_series.html",
+      "source_sha256": "61b12e16a381dfc2db2280d466f085d8c9bd9faf92b99ecd69b8769d6b6c7aa0",
+      "html_sha256": "53066fc02e488a623649954a85be9d0449a35359a2805d77c1a50b732bbf758a",
+      "cell_states": {
+        "idle": 52
+      },
+      "tables": 0,
+      "plots": 6,
+      "editors": 50,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 41.1,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/fourier_transform.py",
+      "html": "fourier_transform.html",
+      "source_sha256": "ff4daa0e5e74943b1808f6d430050834d300997c709e8d84f8d4e411dfeb6bff",
+      "html_sha256": "49493822e97721d8fd2be645b8055e45634e99b82a0c218905d77010c27f9cd6",
+      "cell_states": {
+        "idle": 55
+      },
+      "tables": 0,
+      "plots": 13,
+      "editors": 55,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 30.8,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/free_body_diagram.py",
+      "html": "free_body_diagram.html",
+      "source_sha256": "65141ae768d6de3e3e20fd078d99b163783535380d1aba0ff63942dafc095907",
+      "html_sha256": "d3cc9927d594c855f18d173e116466264d5b6b45f63a5aa6dde15b82b32a2be3",
+      "cell_states": {
+        "idle": 37
+      },
+      "tables": 0,
+      "plots": 0,
+      "editors": 37,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 25.5,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/free_body_diagram_for_rigid_bodies.py",
+      "html": "free_body_diagram_for_rigid_bodies.html",
+      "source_sha256": "f16d32425832b5329e51ae1b67e411ee3d32e6b1f860df37662667909fd73a98",
+      "html_sha256": "85f1361eaa250771bab13dab19e7dbbf70008b483d04cd55b1c781509d582cf3",
+      "cell_states": {
+        "idle": 87
+      },
+      "tables": 0,
+      "plots": 1,
+      "editors": 34,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 61.7,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/gait_analysis_2d.py",
+      "html": "gait_analysis_2d.html",
+      "source_sha256": "1c02ec25c5e0e3be329c4f4d80940bdcea6fcf1a47211222d2573a4a1f904eb3",
+      "html_sha256": "c483c326b0acba07f413d17415ba1939a1120d7fd78d048486ebadd358ee869e",
+      "cell_states": {
+        "idle": 57
+      },
+      "tables": 0,
+      "plots": 6,
+      "editors": 58,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 37.6,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/iep.py",
+      "html": "iep.html",
+      "source_sha256": "939d377bc0a394bf898cefa7084fd8c2c7a8a5ae806122441cb95371de884670",
+      "html_sha256": "a8ca47cf6d33d3aa9ddfcf9d69cfa324cd5632c63810f81e29ce395820fb5c8a",
+      "cell_states": {
+        "idle": 52
+      },
+      "tables": 3,
+      "plots": 8,
+      "editors": 52,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 27.7,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": [],
+      "optional_plot_followup": "Fresh browser execution after helper rename: all examples and show=True plotting run without cell errors."
+    },
+    {
+      "source": "notebooks/ip_model.py",
+      "html": "ip_model.html",
+      "source_sha256": "54470c119b20f1ec075aa8be8028e5a825fc14d37678fa07e6b2cf4f4ca80fef",
+      "html_sha256": "849716d26f1cb8005e48383cd3bd66de4488e8a12551676d01be2ed122d6d5cf",
+      "cell_states": {
+        "idle": 30
+      },
+      "tables": 0,
+      "plots": 1,
+      "editors": 31,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 25.5,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/kinematic_chain.py",
+      "html": "kinematic_chain.html",
+      "source_sha256": "d07cb2caa6a14c3da9650c4d51924b7e239a991b83440439b933110baeef7517",
+      "html_sha256": "434c8d63f8fff7bf2dcb57671757c3555222d60d218c18505b30e2f7f2d00cff",
+      "cell_states": {
+        "idle": 136
+      },
+      "tables": 1,
+      "plots": 7,
+      "editors": 48,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 148.7,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/kinematics_angular_2d.py",
+      "html": "kinematics_angular_2d.html",
+      "source_sha256": "285ae6fb3f1b8a19545bd529280a4100d5ad6ae7e1da2b85017aa88252a8633a",
+      "html_sha256": "49c084d9ec1d458cb73fde536426b17bdaa47818da519dd923d477ed2c83ab62",
+      "cell_states": {
+        "idle": 50
+      },
+      "tables": 0,
+      "plots": 6,
+      "editors": 50,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 28.9,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/kinematics_of_rigid_body.py",
+      "html": "kinematics_of_rigid_body.html",
+      "source_sha256": "b2c7b442b04d0763644d52350a5f6ed9f50f68d17a306fbb2dd5fe593e25d295",
+      "html_sha256": "99da8e8fef22690704dda0593de944f1d950287962df496f4614be4f4f37b95c",
+      "cell_states": {
+        "idle": 67
+      },
+      "tables": 0,
+      "plots": 6,
+      "editors": 43,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 90.8,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/kinematics_particle.py",
+      "html": "kinematics_particle.html",
+      "source_sha256": "4dfa39c15574cd0cf88c0ce4e16e632a5903952c14c43b6881005db6d89d4a13",
+      "html_sha256": "8fdfd8434fcb3376b59240a0e23c75087ffa43d4f077e6bca08b69a29fa8b06a",
+      "cell_states": {
+        "idle": 54
+      },
+      "tables": 0,
+      "plots": 4,
+      "editors": 54,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 64.5,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/kinetics_3d_rigid_body.py",
+      "html": "kinetics_3d_rigid_body.html",
+      "source_sha256": "18b17e7d4444e89ced5981f8e1451e5860db701404cb3a2a4da4e2986d66fd50",
+      "html_sha256": "0c32aa4f220449f3bbd303b2421a678205b486905c7d2ecb11bb782653be3cbc",
+      "cell_states": {
+        "idle": 76
+      },
+      "tables": 0,
+      "plots": 5,
+      "editors": 40,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 94.2,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/kinetics_fundamental_concepts.py",
+      "html": "kinetics_fundamental_concepts.html",
+      "source_sha256": "31e75d159af8cfc5942d4ef2f1c496d57d83329e28062057f608a7d6a56fe8c2",
+      "html_sha256": "1c20f06a0eb47468a089a63b9b7347b7ec0a01cb4150c8eb0f8279828a7c5ac6",
+      "cell_states": {
+        "idle": 35
+      },
+      "tables": 0,
+      "plots": 1,
+      "editors": 35,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 58.6,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/kistler_force_plate_calculation.py",
+      "html": "kistler_force_plate_calculation.html",
+      "source_sha256": "345828b5dd3160a9489276319acc0318278f90a54098060e380e52a5334501a7",
+      "html_sha256": "2a228eedb25386e3c9522e084493bf457fc923911662cd75ce34524457cd5fe2",
+      "cell_states": {
+        "idle": 18
+      },
+      "tables": 0,
+      "plots": 1,
+      "editors": 19,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 28.1,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/lab_acel_gravidade.py",
+      "html": "lab_acel_gravidade.html",
+      "source_sha256": "d39c4946757b1939275b446714aed20e998762cd8bd55973c0123293910f263f",
+      "html_sha256": "3b51f4c7206586067f1218d7f678ddc40134353ca8b0a2189ecb71edb9fb2c93",
+      "cell_states": {
+        "idle": 54
+      },
+      "tables": 5,
+      "plots": 12,
+      "editors": 54,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 51.1,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/lab_filtros.py",
+      "html": "lab_filtros.html",
+      "source_sha256": "783307ecc8386d4a1a5cf9a0ec3335d5df296455ff94581739351bf01c875013",
+      "html_sha256": "e905f24fce553d8e14689e9e5f5931bfcdd618de097542babcaa9775c0efb9de",
+      "cell_states": {
+        "idle": 54
+      },
+      "tables": 5,
+      "plots": 12,
+      "editors": 54,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 52.2,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/lagrangian_mechanics.py",
+      "html": "lagrangian_mechanics.html",
+      "source_sha256": "32ab170fc80e81508676a9d55081fba865fef7f7e91b88c4f6ed2b01513636d1",
+      "html_sha256": "23f1dca4de60de39b285ca8d6d2fa456630d14f17a6625266f061f1d92edcbf8",
+      "cell_states": {
+        "idle": 145
+      },
+      "tables": 0,
+      "plots": 3,
+      "editors": 85,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 194.3,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/lagrangian_mechanics_generalized.py",
+      "html": "lagrangian_mechanics_generalized.html",
+      "source_sha256": "066362674abd008cd2340370da6e1597a6c17c8b752177d329a02cd3a49d9dbf",
+      "html_sha256": "9acf8ae96a182ff996096fe100e046ac8e2885eca562259a8aa5628d74efe13c",
+      "cell_states": {
+        "idle": 30
+      },
+      "tables": 0,
+      "plots": 0,
+      "editors": 30,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 34.3,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/matrix.py",
+      "html": "matrix.html",
+      "source_sha256": "2056a2d66015634c9356f402ae6417e5d88d890b28018d75b851e343633bf814",
+      "html_sha256": "f9b94896ee2c89afcb61c7c6db04fccfb2a5a8fedd860551db59095a348333b7",
+      "cell_states": {
+        "idle": 57
+      },
+      "tables": 0,
+      "plots": 0,
+      "editors": 52,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 48.1,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/matrix_formalism.py",
+      "html": "matrix_formalism.html",
+      "source_sha256": "4c85c98c1859a11327dbc703bcfce4717dd8cb5d496606eb2af8ce275bf3f79f",
+      "html_sha256": "ba623a2ad7d5ff7d21cf09f6adea08cd9c2b479bce44b7e91defa660e26302a0",
+      "cell_states": {
+        "idle": 32
+      },
+      "tables": 0,
+      "plots": 2,
+      "editors": 32,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 42.7,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/minimum_jerk_hypothesis.py",
+      "html": "minimum_jerk_hypothesis.html",
+      "source_sha256": "d216252e15aaae22e48625025c2b619acb419b8b71942a76bac85d20cdf97d08",
+      "html_sha256": "0910450b8ac52a2f7937ea635f43119158a449e3acbda2e62a652b713a2394fb",
+      "cell_states": {
+        "idle": 34
+      },
+      "tables": 0,
+      "plots": 3,
+      "editors": 34,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 41.0,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/multibody_dynamics.py",
+      "html": "multibody_dynamics.html",
+      "source_sha256": "6b1e22af6a7e38cca0beb384f34d3ff80f251b0b3222bf75913f2659bc8c3b27",
+      "html_sha256": "0c61579e621a25acb90783f0644290af865735ac09c0838f1ca6d1861395d0d0",
+      "cell_states": {
+        "idle": 97
+      },
+      "tables": 0,
+      "plots": 9,
+      "editors": 64,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 89.7,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/multibody_inverse_dynamics.py",
+      "html": "multibody_inverse_dynamics.html",
+      "source_sha256": "ffa042c1ad89a923741c2b5eb03f2a8ea24428fd2ea9e3e836e371ab6851a2a6",
+      "html_sha256": "653bb207bc29c5fcd6e81618ef61d468c73e7ed5e561d91b7ac264c665b5b69f",
+      "cell_states": {
+        "idle": 26
+      },
+      "tables": 0,
+      "plots": 0,
+      "editors": 26,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 23.3,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/muscle_modeling.py",
+      "html": "muscle_modeling.html",
+      "source_sha256": "6e6c81a2cca4481e1be737fdd7645c5f25bd4df85fb73b3792004a40ad11b14b",
+      "html_sha256": "4a764bce465726dac7a505209fc00fda6a9dc20766de1c01886e7d9aa104935a",
+      "cell_states": {
+        "idle": 95
+      },
+      "tables": 0,
+      "plots": 9,
+      "editors": 61,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 69.3,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/muscle_simulation.py",
+      "html": "muscle_simulation.html",
+      "source_sha256": "c4da341cbec8f452a3dd31baddf2fb71ac0cf0e5416860f3ce86a141b9315cf6",
+      "html_sha256": "230ba207500f2c2bf73306df6007a96c7c2f1f72a14648799a154d75287a0ee2",
+      "cell_states": {
+        "idle": 62
+      },
+      "tables": 0,
+      "plots": 10,
+      "editors": 62,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 48.2,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/musculoskeletal_modeling_simulation.py",
+      "html": "musculoskeletal_modeling_simulation.html",
+      "source_sha256": "ff0ad98405b8a96179f60bbe9d04f0adca0b812a39bb3195b1fba1dd40353e40",
+      "html_sha256": "c2ea8fa109a8040826b09b93543d15ce2c4d6927a370ccaffb43a10d3fb009dc",
+      "cell_states": {
+        "idle": 51
+      },
+      "tables": 0,
+      "plots": 6,
+      "editors": 51,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 38.8,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/newton_euler_equations.py",
+      "html": "newton_euler_equations.html",
+      "source_sha256": "cb0ef42b10c9fd39634772f02cb1037d5592b4500911d6a2a1034f37eede559d",
+      "html_sha256": "139be63d0325bde8938627c8d4ad52b4e8373a89a4e56f59703bff0d2ece7539",
+      "cell_states": {
+        "idle": 34
+      },
+      "tables": 0,
+      "plots": 0,
+      "editors": 34,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 27.1,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/newton_law_for_particles.py",
+      "html": "newton_law_for_particles.html",
+      "source_sha256": "250f303b3aedc9ea055477ba07ea89832c006d9ffaa3c6f23fb93af1c402b97f",
+      "html_sha256": "92e01aeb6cce41b8645ac8f81baaa6f1c18e8953e8cbfdf29b8d9a722dd8e212",
+      "cell_states": {
+        "idle": 48
+      },
+      "tables": 0,
+      "plots": 6,
+      "editors": 48,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 43.1,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/open_c3d_file.py",
+      "html": "open_c3d_file.html",
+      "source_sha256": "61f4a9302e61b7a873942546bce622d3ae5e434d8f70631c654410a75b6661b7",
+      "html_sha256": "6c4e4ffa826d59329d12dd5b80349555fc856e17b456ea6df2649c14e9fd9a01",
+      "cell_states": {
+        "idle": 33
+      },
+      "tables": 0,
+      "plots": 3,
+      "editors": 33,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 22.2,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/optimization.py",
+      "html": "optimization.html",
+      "source_sha256": "7fe0de6db2027857dbb66e5a8fcdd44d21cd672b7d535efc9b91ed6abeedb3e4",
+      "html_sha256": "fd9307749a29474a96f8a6d8d8d98cf21dda6f2aa0cb2f5de099d898ea7880a3",
+      "cell_states": {
+        "idle": 61
+      },
+      "tables": 1,
+      "plots": 2,
+      "editors": 61,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 45.3,
+      "page_errors": [],
+      "failed_requests": [
+        {
+          "url": "https://googleads.g.doubleclick.net/pagead/id",
+          "error": "net::ERR_CONNECTION_REFUSED"
+        },
+        {
+          "url": "https://static.doubleclick.net/instream/ad_status.js",
+          "error": "net::ERR_CONNECTION_REFUSED"
+        }
+      ],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/ordinary_differential_equation.py",
+      "html": "ordinary_differential_equation.html",
+      "source_sha256": "62a6825cf6eb607efbeeae9703f16fb3fff0f00946e74f9ee5dead30c2e9d23b",
+      "html_sha256": "fcdfcca6c8acd940cfb4cc36b6a5b99540eca94c17d5f07061f6063194a02f15",
+      "cell_states": {
+        "idle": 71
+      },
+      "tables": 2,
+      "plots": 7,
+      "editors": 52,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 55.2,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/pandas_data.py",
+      "html": "pandas_data.html",
+      "source_sha256": "8f4dc54a7426aa1f0b611e04746dac9b32407a2490c8036e9e5a53ee5277dc56",
+      "html_sha256": "d20e1c4df2e137a57516f1229280d7e6ce8a109efd2c88967da837ae938b32fb",
+      "cell_states": {
+        "idle": 41
+      },
+      "tables": 11,
+      "plots": 4,
+      "editors": 41,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 27.5,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/path_frame.py",
+      "html": "path_frame.html",
+      "source_sha256": "0895d6fa3052a0d9d391e829b2d432b41435f7c3ff2414f3b0af59a75f7ae98b",
+      "html_sha256": "7b5fb7b2ddd9aaa3bd1aab0066aebe4da5d0f36b045a347c6f794f31c9bce770",
+      "cell_states": {
+        "idle": 65
+      },
+      "tables": 0,
+      "plots": 4,
+      "editors": 54,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 52.7,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/polar_basis.py",
+      "html": "polar_basis.html",
+      "source_sha256": "32210e2bdc640ef42c01098e0de7aa94d386792c4d795bb546d4000ceee5e974",
+      "html_sha256": "c80ec112878382f66d047b55a79920bc7db3bec91ed483c20f7c5aa3cf7b8ce8",
+      "cell_states": {
+        "idle": 54
+      },
+      "tables": 0,
+      "plots": 6,
+      "editors": 54,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 48.6,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/polynomial_fitting.py",
+      "html": "polynomial_fitting.html",
+      "source_sha256": "e81f95c1599afee377c1a484507692ec11dff2fb0509090245c362b738c310d9",
+      "html_sha256": "213b277ad984429c161e46bb88ea1f1fe3d46e1b48b1b05224475c61be4b0e4d",
+      "cell_states": {
+        "idle": 30
+      },
+      "tables": 0,
+      "plots": 4,
+      "editors": 30,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 32.3,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/prediction_ellipse_ellipsoid.py",
+      "html": "prediction_ellipse_ellipsoid.html",
+      "source_sha256": "9c3796bbf2e11e114f583009a64513739b9d354db0e316f1022767a07fd1c096",
+      "html_sha256": "8a45371a601aae05c9e2d9937711a6352a6056a47478ee690e18911983913e31",
+      "cell_states": {
+        "idle": 42
+      },
+      "tables": 0,
+      "plots": 8,
+      "editors": 43,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 36.4,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/principle_of_least_action.py",
+      "html": "principle_of_least_action.html",
+      "source_sha256": "7c3cd046ad6a4ba14771ea3bd6b0ca96b5a0d40d0a159b3f0d63a958939e52dc",
+      "html_sha256": "36e9704a47cd190d05308433af514205768da260be4febb9fa5cb76ef3dfe9e6",
+      "cell_states": {
+        "idle": 18
+      },
+      "tables": 0,
+      "plots": 0,
+      "editors": 18,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 15.9,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/projectile_motion.py",
+      "html": "projectile_motion.html",
+      "source_sha256": "cad292cba0d142b6db34370bb31bebebc1b82e9e08983080b2d8c01649794127",
+      "html_sha256": "cb350a7194982544fcb71e9f220e85b419be16c24cbef81caeb6947a9d87ae36",
+      "cell_states": {
+        "idle": 51
+      },
+      "tables": 0,
+      "plots": 3,
+      "editors": 51,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 41.6,
+      "page_errors": [],
+      "failed_requests": [
+        {
+          "url": "https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092",
+          "error": "net::ERR_CONNECTION_REFUSED"
+        },
+        {
+          "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-4EVJVBSTB9&gtm=45je6al1v890910339za20ozb892951130zd892951130xf1&_p=1792737768369&gcs=G101&gcd=13p3t3l3l5l1&npa=0&dma=0&are=1&cid=1273604947.1792737769&frm=2&ngs=1&pscdl=denied&rcb=9&sr=800x600&uaa=x86&uab=64&uafvl=Chromium%3B136.0.7103.92%7CGoogle%2520Chrome%3B136.0.7103.92%7CNot.A%252FBrand%3B99.0.0.0&uam=&uamb=0&uap=Linux&uapv=7.0.0&uaw=0&ul=en-us&_s=1&tag_exp=115616986~115938465~115938468~118897920~118897930~120213116~120385422~120469145~120469153~121246026~121246034&sid=1792737769&sct=1&seg=0&dl=https%3A%2F%2Fphet.colorado.edu%2Fsims%2Fhtml%2Fprojectile-motion%2Flatest%2Fprojectile-motion_en.html&dr=http%3A%2F%2F127.0.0.1%3A44125%2F&dt=%E2%80%AAProjectile%20Motion%E2%80%AC&_tu=QA&en=page_view&_fv=1&_nsi=1&_ss=1&ep.content_group=Simulations%20(HTML5)&ep.simBrand=phet&ep.simBuildTimestamp=2026-08-19%2021%3A33%3A01%20UTC&ep.simLoadType=embedded&ep.simName=projectile-motion&ep.simVersion=1.0.34&ep.simLocale=en&ep.documentReferrer=http%3A%2F%2F127.0.0.1%3A44125%2F&ep.simLicense=NC&tfd=1144",
+          "error": "net::ERR_CONNECTION_REFUSED"
+        },
+        {
+          "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-4EVJVBSTB9&gtm=45je6al1v890910339za20gzb892951130zd892951130xf1&_p=1792737768369&gcs=G101&gcd=13p3t3l3l5l1&npa=0&dma=0&_eu=AEAAAAQ&ae=a&are=1&cid=1273604947.1792737769&frm=2&ngs=1&pscdl=denied&rcb=9&sr=800x600&uaa=x86&uab=64&uafvl=Chromium%3B136.0.7103.92%7CGoogle%2520Chrome%3B136.0.7103.92%7CNot.A%252FBrand%3B99.0.0.0&uam=&uamb=0&uap=Linux&uapv=7.0.0&uaw=0&ul=en-us&_s=2&tag_exp=115616986~115938465~115938468~118897920~118897930~120213116~120385422~120469145~120469153~121246026~121246034&sid=1792737769&sct=1&seg=0&dl=https%3A%2F%2Fphet.colorado.edu%2Fsims%2Fhtml%2Fprojectile-motion%2Flatest%2Fprojectile-motion_en.html&dr=http%3A%2F%2F127.0.0.1%3A44125%2F&dt=%E2%80%AAProjectile%20Motion%E2%80%AC&_tu=QA&en=scroll&ep.content_group=Simulations%20(HTML5)&ep.simBrand=phet&ep.simBuildTimestamp=2026-08-19%2021%3A33%3A01%20UTC&ep.simLoadType=embedded&ep.simName=projectile-motion&ep.simVersion=1.0.34&ep.simLocale=en&ep.documentReferrer=http%3A%2F%2F127.0.0.1%3A44125%2F&ep.simLicense=NC&epn.percent_scrolled=90&tfd=6240",
+          "error": "net::ERR_CONNECTION_REFUSED"
+        }
+      ],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/propagation_uncertainty.py",
+      "html": "propagation_uncertainty.html",
+      "source_sha256": "a0f13467a02def107d8b7dd61d6ab13f4b19f8cce5dbef580508fef5339ba8ff",
+      "html_sha256": "d4d26786b23c8cd689cd5bd0b8a7c45c115ed78b6174bb6b7817ec48cedb7537",
+      "cell_states": {
+        "idle": 38
+      },
+      "tables": 0,
+      "plots": 0,
+      "editors": 38,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 22.7,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/python_for_scientific_computing.py",
+      "html": "python_for_scientific_computing.html",
+      "source_sha256": "cc854cd0e470a308278729429b184858581451499937cff6c7c83676854867e6",
+      "html_sha256": "ed7b8436710de6808c7b451cca4fadbef29820565a089e06e3f5430e335698ac",
+      "cell_states": {
+        "idle": 11
+      },
+      "tables": 0,
+      "plots": 0,
+      "editors": 11,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 14.9,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/python_installation.py",
+      "html": "python_installation.html",
+      "source_sha256": "bba2daf6d8bb801df7d9bf1e83d4ab2bac56833a94e298c093c7c4049dfdee47",
+      "html_sha256": "2915ede1950ee9719bb99e6d5e6476293453f39da15af218964f1b25ad0ec570",
+      "cell_states": {
+        "idle": 12
+      },
+      "tables": 0,
+      "plots": 0,
+      "editors": 12,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 15.0,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/python_tutorial.py",
+      "html": "python_tutorial.html",
+      "source_sha256": "b173fe3184df2aaa859b362da16450678a07c4c342426372ee7a25c75fa74897",
+      "html_sha256": "371be5c1d38c39e1e25668f9b98ae08afcfdd7a08105e6a90cf92cf1af09bf6a",
+      "cell_states": {
+        "idle": 22
+      },
+      "tables": 0,
+      "plots": 0,
+      "editors": 22,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 15.8,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/read_c3d.py",
+      "html": "read_c3d.html",
+      "source_sha256": "e14f28f7b420b79fde4ce5cc0bec5fe6393333d2400d104af65d41031d7074ac",
+      "html_sha256": "2fc058fac56bb927b070b2eb59c3b0cac38565dc0644405fdb303e8014b3f43a",
+      "cell_states": {
+        "idle": 27
+      },
+      "tables": 4,
+      "plots": 1,
+      "editors": 27,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 23.7,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/read_delsys_cortex_file.py",
+      "html": "read_delsys_cortex_file.html",
+      "source_sha256": "6060e99ef5b7fde17fde8e3f3b2adf7319d741bbe6c6764369c07bc40e7fea08",
+      "html_sha256": "a18073993356d618823e13e39a7d1ebe13b7d3861f8dd206fd4e818e0b2391c7",
+      "cell_states": {
+        "idle": 32
+      },
+      "tables": 2,
+      "plots": 1,
+      "editors": 32,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 29.6,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/read_mac_ascii_files.py",
+      "html": "read_mac_ascii_files.html",
+      "source_sha256": "22702a256856bfe4b5fa69fc9dfeca384c80eeb58fe383215916d6c27be889b7",
+      "html_sha256": "6aa814cf64a7be65446e84ab2eab6f5147aa40d4bd53c20024ebb50ad1f8e19f",
+      "cell_states": {
+        "idle": 37
+      },
+      "tables": 2,
+      "plots": 0,
+      "editors": 37,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 25.4,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/read_trc.py",
+      "html": "read_trc.html",
+      "source_sha256": "3db91d634a8accc84216c4f08d96d4e83f694702e8ea81291b71db8d711a9792",
+      "html_sha256": "93f4ca6c0c860445acd34f4f2f0c8cc38eec9cfaebb1268c67d569888eb64e64",
+      "cell_states": {
+        "idle": 35
+      },
+      "tables": 7,
+      "plots": 0,
+      "editors": 35,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 25.1,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/read_trc_forces_files.py",
+      "html": "read_trc_forces_files.html",
+      "source_sha256": "d6d5fe928165e4b1b3039943197c94beab28e1c35397258648e259d8a2400b0c",
+      "html_sha256": "41fb16eb42ef4fe47d9d72d8ffa4d2086cc3bb1d7e644030b6bbb8a5a5dcb8e0",
+      "cell_states": {
+        "idle": 39
+      },
+      "tables": 3,
+      "plots": 2,
+      "editors": 39,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 34.7,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/read_zebris_pressure_platform_ascii_files.py",
+      "html": "read_zebris_pressure_platform_ascii_files.html",
+      "source_sha256": "315d2a5d5b48a36cd0269b3504732e76566b95a253fa16c642eaa7313a82598d",
+      "html_sha256": "8d44d21cfe7259f552a001567d961886166fd75a82727c7516c66c39c1a94475",
+      "cell_states": {
+        "idle": 34
+      },
+      "tables": 0,
+      "plots": 7,
+      "editors": 34,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 32.5,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/reference_frame.py",
+      "html": "reference_frame.html",
+      "source_sha256": "e66d51d17ce9fe6aa7282e7c43bf79706416724dc7e17bf3af879bdacc833bb1",
+      "html_sha256": "84e0e469104c0693f2da557e73346b99794412830df86b879011bd2d5e5da6cb",
+      "cell_states": {
+        "idle": 92
+      },
+      "tables": 0,
+      "plots": 4,
+      "editors": 48,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 57.8,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/rep_missing.py",
+      "html": "rep_missing.html",
+      "source_sha256": "a3475edba851e4cd00c0742e413120e25d1407dc9f30265fef6e1d7f8b31e992",
+      "html_sha256": "42f3b45647829e5b8b29d48562faef928f019bb92904d21c2a7231cd2a9fc0ea",
+      "cell_states": {
+        "idle": 27
+      },
+      "tables": 0,
+      "plots": 0,
+      "editors": 27,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 17.6,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/resample.py",
+      "html": "resample.html",
+      "source_sha256": "34be48a407f775d5520aa95f2ac36436e6b21650586c22acd0464ddf5c09eaf4",
+      "html_sha256": "ad69bc1535e6ddc5f2f6f32adeae6d9c9475db65e1c0b01417e2b929dc0fecea",
+      "cell_states": {
+        "idle": 24
+      },
+      "tables": 2,
+      "plots": 1,
+      "editors": 24,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 28.0,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/residual_analysis.py",
+      "html": "residual_analysis.html",
+      "source_sha256": "9cef136b0632424e847f65d432b24c65f07730c57156f8d855eeb2fc1dd4b3a6",
+      "html_sha256": "bd56e5ee25227a2da5d5175513377581871baf075c0a29ee04fd206a03ede023",
+      "cell_states": {
+        "idle": 40
+      },
+      "tables": 2,
+      "plots": 6,
+      "editors": 40,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 32.1,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/scalar_vector.py",
+      "html": "scalar_vector.html",
+      "source_sha256": "024651bb25daa3601a902df0b18de18186e23992be8559cd2a688bea105c7122",
+      "html_sha256": "a75721a37c3fe277f6f93f4a95884df1d3c36cec2fa3e5e8a32b9a3e6c1145fb",
+      "cell_states": {
+        "idle": 84
+      },
+      "tables": 0,
+      "plots": 0,
+      "editors": 54,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 51.5,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/signal_basic_properties.py",
+      "html": "signal_basic_properties.html",
+      "source_sha256": "c6c502e4cc6beae8d097be1cd79f8da9c12a98d39669c6937cf537e3418703f6",
+      "html_sha256": "d670a2208307838b2c1137ba0f9acb644ca928dcb39c7dc1462c41d690a994ae",
+      "cell_states": {
+        "idle": 65
+      },
+      "tables": 0,
+      "plots": 9,
+      "editors": 65,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 45.5,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/similarity.py",
+      "html": "similarity.html",
+      "source_sha256": "dae44078d7be216f31fc70db864f67707ce0a331fd0203fb6065b6443024ca1d",
+      "html_sha256": "db9731a6fb04c805a5f891d46acf68fb8b231376de368ece32003e945ebcd347",
+      "cell_states": {
+        "idle": 30
+      },
+      "tables": 0,
+      "plots": 1,
+      "editors": 30,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 19.3,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/sistema_coordenadas.py",
+      "html": "sistema_coordenadas.html",
+      "source_sha256": "17f41e90e779899bc4cd9534f75699f29bb6065c01f953a14ef8775ea7711e5d",
+      "html_sha256": "592565280ffb03946866d8cb2fe3ec3ddd411b2caa392e22ad7528fe70986042",
+      "cell_states": {
+        "idle": 77
+      },
+      "tables": 1,
+      "plots": 7,
+      "editors": 57,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 45.3,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/spatial_temporal_characteristics.py",
+      "html": "spatial_temporal_characteristics.html",
+      "source_sha256": "0f8610e6623fa0dd40a1c2d802151c26979a21522e2ae3a5a696d6ce48832365",
+      "html_sha256": "674ef789ca08e7eff5e880a6bcf4242d6a6af4685930acff80d6441709928f49",
+      "cell_states": {
+        "idle": 16
+      },
+      "tables": 0,
+      "plots": 0,
+      "editors": 16,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 14.5,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/stabilography.py",
+      "html": "stabilography.html",
+      "source_sha256": "3d87b7742dd980838a69e5f2c8b9de1d2e0d30c9613c95405b354aac1b3920f3",
+      "html_sha256": "fed56fb1effe0a3ff4a9c1e89d704af4a57fd848c6f28546979308a1e3667107",
+      "cell_states": {
+        "idle": 38
+      },
+      "tables": 0,
+      "plots": 4,
+      "editors": 38,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 29.4,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/statistics_bayesian.py",
+      "html": "statistics_bayesian.html",
+      "source_sha256": "75f0355e0867e6443caaf9c029a5b36f3d2973524393d865480b8a401a1d9710",
+      "html_sha256": "7e3435e3684bd1b2269d8e327180ad3a57e825ee4ef9c653b2198034ec24ba89",
+      "cell_states": {
+        "idle": 19
+      },
+      "tables": 0,
+      "plots": 0,
+      "editors": 19,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 16.2,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/statistics_descriptive.py",
+      "html": "statistics_descriptive.html",
+      "source_sha256": "54d1d30acb60747fb6415277018908a0fa3e08996d2a6e48a2301eb9fa089377",
+      "html_sha256": "3c622ef8cb821aa3d2dd488b839ff950502aae1abb8fd3b7621a723162742e16",
+      "cell_states": {
+        "idle": 15
+      },
+      "tables": 0,
+      "plots": 8,
+      "editors": 15,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 25.8,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/svd_algorithm.py",
+      "html": "svd_algorithm.html",
+      "source_sha256": "2163abea67b5144c27b9f9dab013b426a084d60b721266ed9ed3add9c413cf52",
+      "html_sha256": "407bd774800b408bd779cd4152ac45a8f884814ae870d0d0773203ea127e9808",
+      "cell_states": {
+        "idle": 19
+      },
+      "tables": 0,
+      "plots": 0,
+      "editors": 19,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 15.9,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/text_and_binary_files.py",
+      "html": "text_and_binary_files.html",
+      "source_sha256": "99a2fb9660d4200b7b4945f720a8ae5705fe6a2a83b839e8972f3c437b91c439",
+      "html_sha256": "f6dde23a10b234c49acf9e6b67890a36ff4fdb1662474933b43bbb1b09be8b3d",
+      "cell_states": {
+        "idle": 21
+      },
+      "tables": 0,
+      "plots": 0,
+      "editors": 21,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 14.1,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/transformation_2d.py",
+      "html": "transformation_2d.html",
+      "source_sha256": "a79848ee93061d0141a0cb21cc681de9e831f7696324f4c8949f74b8837310a7",
+      "html_sha256": "b49988cf55f39778c239ebbb6bfccd5bfc42a2a6383ddd784c42f6b14d2001a5",
+      "cell_states": {
+        "idle": 99
+      },
+      "tables": 3,
+      "plots": 3,
+      "editors": 46,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 69.5,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/transformation_3d.py",
+      "html": "transformation_3d.html",
+      "source_sha256": "3ab37bd1ac114eea777f4799415197ff7421223129832556986c11539a83b33e",
+      "html_sha256": "2cc136ea2b26cc9d9d9fb78cc04b719d2c6d0d22e480b90cd5721b80845a890f",
+      "cell_states": {
+        "idle": 141
+      },
+      "tables": 2,
+      "plots": 4,
+      "editors": 45,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 75.6,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/trigonometry_basics.py",
+      "html": "trigonometry_basics.html",
+      "source_sha256": "0a699a08197d5e9938282d6cc3629072b0c880849d6e9e152e1844fb99ecf361",
+      "html_sha256": "499a013a9613b3ecfcce6a8e3d1984870d53455d3efc79117c5bf0f621ff0045",
+      "cell_states": {
+        "idle": 34
+      },
+      "tables": 3,
+      "plots": 0,
+      "editors": 34,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 17.5,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/version_control_git_github.py",
+      "html": "version_control_git_github.html",
+      "source_sha256": "a831eb79ebb938b1540059ec7f1fa5b829425374d131ce4e92a8a46cef35001c",
+      "html_sha256": "9d7d4042a6d774ab31beadaaa234b5cc7d76763837e0bed1927a7f34f932ffbd",
+      "cell_states": {
+        "idle": 13
+      },
+      "tables": 0,
+      "plots": 0,
+      "editors": 13,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 13.1,
+      "page_errors": [],
+      "failed_requests": [],
+      "execution_service_requests": []
+    },
+    {
+      "source": "notebooks/vertical_jump.py",
+      "html": "vertical_jump.html",
+      "source_sha256": "45ca8f9eb94da05a3ed91d139c9864a6f4f83e5bae7f6d74cb08e966628ea4ae",
+      "html_sha256": "23782426198c07c335aaa3325e7a71caa70ec971ab44a27aaeabd305d212df8e",
+      "cell_states": {
+        "idle": 52
+      },
+      "tables": 2,
+      "plots": 3,
+      "editors": 52,
+      "reading_links": [],
+      "status": "passed",
+      "seconds": 26.3,
+      "page_errors": [],
+      "failed_requests": [
+        {
+          "url": "https://googleads.g.doubleclick.net/pagead/id",
+          "error": "net::ERR_CONNECTION_REFUSED"
+        },
+        {
+          "url": "https://static.doubleclick.net/instream/ad_status.js",
+          "error": "net::ERR_CONNECTION_REFUSED"
+        },
+        {
+          "url": "https://googleads.g.doubleclick.net/pagead/id",
+          "error": "net::ERR_CONNECTION_REFUSED"
+        },
+        {
+          "url": "https://static.doubleclick.net/instream/ad_status.js",
+          "error": "net::ERR_CONNECTION_REFUSED"
+        },
+        {
+          "url": "https://googleads.g.doubleclick.net/pagead/id",
+          "error": "net::ERR_CONNECTION_REFUSED"
+        },
+        {
+          "url": "https://static.doubleclick.net/instream/ad_status.js",
+          "error": "net::ERR_CONNECTION_REFUSED"
+        }
+      ],
+      "execution_service_requests": []
+    }
+  ]
+}

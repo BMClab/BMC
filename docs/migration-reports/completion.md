@@ -10,7 +10,7 @@ Actual notebook contents were compared against the baseline; file dates were not
 
 The requested detection notebooks, TimeNormalization, Untitled and duplicate Portuguese viscoelastic chapter were retired. The two Jupyter course labs were converted and retained in the main collection; the entire requested `courses/biomechanicsI_2022/` directory was deleted. Their default data loader retrieves the identical original table from the immutable baseline commit, with optional uploads for new experiments. `fig2_16.png` now resides in `images/` and its notebook reference was repaired.
 
-README now uses **84 guide bullets**, with three links each: a static GitHub Pages version on the title, a compact molab WebAssembly badge, and a compact marimo.app badge. Badge widths are 43 and 53 pixels respectively. The two Portuguese labs and the anatomical coordinate-system guide are omitted from the README index at the user's request; their notebooks are retained. Change detection and Time normalization of data each have one external repository link to detecta and tnorma. Colab, Jupyter and Classic Notebook launch links were removed from active navigation. The existing 2026 course marimo lecture remains in place with its reference links updated.
+README now uses **84 guide bullets**, with three links each: an editable GitHub Pages version on the title, a compact molab WebAssembly badge, and a compact marimo.app badge. Badge widths are 43 and 53 pixels respectively. The two Portuguese labs and the anatomical coordinate-system guide are omitted from the README index at the user's request; their notebooks are retained. Change detection and Time normalization of data each have one external repository link to detecta and tnorma. Colab, Jupyter and Classic Notebook launch links were removed from active navigation. The existing 2026 course marimo lecture remains in place with its reference links updated.
 
 The [filename map](notebook-filenames.json) relates baseline marimo names to final filenames. The [inventory](../notebook-migration-inventory.csv) preserves baseline paths/hashes and adds final paths/hashes. Group reports intentionally retain the names used during comparison.
 
@@ -42,7 +42,7 @@ Current source SHA-256, per-stage executed source SHA-256, and terminal outcomes
 
 | Check | Result |
 | --- | --- |
-| Full local suite, `uv run pytest -q` | **112 tests and 235 subtests passed**; two expected warnings from synthetic C3D fixtures without analog data/labels |
+| Full local suite, `uv run pytest -q` | **115 tests and 235 subtests passed**; two expected warnings from synthetic C3D fixtures without analog data/labels |
 | `uv lock --check` | Passed |
 | `uv run marimo check --strict notebooks/*.py` | **87 passed** |
 | `uv run marimo check --strict --select MW notebooks/*.py` | **87 passed** |
@@ -107,7 +107,7 @@ Browser inspection caught a missing plot: its cell created `hax` but did not dis
 
 After approval of the demonstration, all **87 guides and the 2026 course lecture** were exported to `html/`. Each page includes saved text, tables and figures, an All guides link and two source-specific interactive launch badges. All 84 README titles now link to static GitHub Pages versions; the 168 compact interactive badges and the requested index omissions remain. Internal reading links stay within the HTML collection, including expandable solutions and section anchors. The audit verifies **414 local reading links**, with no missing page or unresolved section target. Ten outdated source/section links in seven guides were corrected using the actual current names and headings.
 
-The reusable [exporter](../../scripts/export_notebooks.py) and [instructions](../../scripts/README.md) support full, single-notebook, incremental, forced and read-only freshness-check runs. It records source, shared-input and output hashes in [the manifest](../../notebooks_read/manifest.json). Shared asset/helper/dependency/exporter changes invalidate cached outputs. Failed execution or an invalid export preserves the previous good page and returns failure. Remote input changes require `--force`. No production dependency was added.
+The reusable [exporter](../../scripts/export_notebooks.py) and [instructions](../../scripts/README.md) support full, single-notebook, incremental, forced and read-only freshness-check runs. It records source, shared-input and output hashes in [the manifest](../../nbs_read/manifest.json). Shared asset/helper/dependency/exporter changes invalidate cached outputs. Failed execution or an invalid export preserves the previous good page and returns failure. Remote input changes require `--force`. No production dependency was added.
 
 The display audit repaired **16 cells in nine guides** that created plots without displaying them, or discarded an accordion by closing its figure as the final expression. These fixes expose existing figures and final-answer panels. Comparison against `d05435c` confirms that scientific computations and standalone dependency metadata are unchanged in all 87 guides. The collection includes **319 cells with saved figures**. Earlier flat-script and WebAssembly execution hashes are retained; this follow-up reran native reactive HTML, not the cloud execution UI or WebAssembly computations.
 
@@ -166,3 +166,35 @@ are included in the pilot verification. The full local suite passes 112 tests
 and 235 subtests with the same two expected C3D fixture warnings. Publication
 through Actions and live verification follow the prepared commit; their results
 are recorded in the final handoff.
+
+## Full editable rollout and short URLs — 2026-10-23
+
+After approving the working pilot, the user requested every remaining editable
+notebook and the names `nbs/` and `nbs_read/`. All **87 guides and the course lecture**
+now have native editable exports. Read-only snapshots moved to `nbs_read/`, and all
+84 README guide titles target editors under `nbs/`. The 168 service badges and
+requested omissions are preserved. Both modes have direct navigation links.
+
+The existing successful push workflow discovers every marimo notebook automatically
+using `nbs/notebooks.json` with `{"include": "all"}`. It refreshes saved outputs,
+builds Cayman, normalizes output ownership and generates the editable collection
+before uploading/deploying the complete site. Generated editors/assets remain in
+the deployment artifact. Old `/html/`, `/notebooks_read/` and `/notebooks_edit/`
+pages redirect to the appropriate current mode, preserving queries and fragments.
+Rendered reading links stay local without changing Python code or source links.
+
+All **88 editors passed actual browser Python execution** with molab and marimo.app
+blocked. Additional real-DOM checks cover lazy and shadow-root links, course paths,
+code/source links, execution badges and section anchors. Current source/output
+hashes, states and limits are in [editable-pages-results.json](editable-pages-results.json).
+Native exports passed in both modes; the full suite passes **115 tests and 235
+subtests**, with the two expected C3D fixture warnings. Independent review found
+no material issue. Publication and live checks follow the prepared commit.
+
+One actual optional-branch defect was corrected: IEP's `_plot` helper became
+cell-local after native WASM serialization, so `cogve(..., show=True)` raised
+NameError. Renaming its declaration/call to `plot_cogve` retains the arithmetic
+and makes the browser example work. The failure and successful corrected plot
+were both observed in the actual editor. No other notebook source or dependency
+metadata changed. The native serializer may update generated-version/return
+metadata in downloadable source; this is distinct from scientific code changes.

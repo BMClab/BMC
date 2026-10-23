@@ -38,5 +38,6 @@
     "expected_c3d_fixture_warnings": 2
   },
   "review": "Fresh independent review: Ready; no Critical, Important or Minor findings",
-  "deployment": "Actions publication and live verification follow the prepared commit; final handoff records results"
+  "deployment": "Actions publication and live verification follow the prepared commit; final handoff records results",
+  "historical_note": "Single-pilot validation before the approved full rollout and directory shortening; see editable-pages-results.json for current results."
 }

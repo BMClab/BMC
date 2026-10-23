@@ -199,12 +199,12 @@ def cogve(COP, freq, mass, height, show=False, ax=None):
     COP, COGv = (COP + COPm, COGv + COPm)
     COP, COGv = (COP[freq:-freq], COGv[freq:-freq])
     if show:
-        _plot(COP, COGv, freq, ax)
+        plot_cogve(COP, COGv, freq, ax)
     return COGv
 
 
 @app.function
-def _plot(COP, COGv, freq, ax):
+def plot_cogve(COP, COGv, freq, ax):
     """Plot results of the cogve function, see its help."""
     import numpy as np
     try:

@@ -28,14 +28,16 @@ notebook content and examples.
 - Generated marimo session state and output caches under any `__marimo__/` directory are
   ignored and must not be committed. The three formerly committed session caches were retired
   during migration. Run cells to regenerate outputs; sources do not ship stored outputs.
-- `notebooks_read/` contains intentional static HTML snapshots with saved outputs and interactive
+- `nbs_read/` contains intentional static HTML snapshots with saved outputs and interactive
   launch badges. Update them with `uv run python scripts/export_notebooks.py` after editing
   a notebook; `--check` detects stale snapshots without executing or writing. See
   `scripts/README.md`. Commit the affected sources, HTML and manifest together.
-- `notebooks_edit/notebooks.json` explicitly lists approved editable Pages notebooks (one
-  pilot initially). GitHub Actions generates their WASM HTML/assets under `notebooks_edit/`
-  in the deployed site; do not commit those generated assets. `scripts/export_editable.py`
-  adds them after the Cayman/Jekyll build and preserves old `/html/` URLs with redirects.
+- `nbs/notebooks.json` uses `{"include": "all"}` to discover every marimo notebook in
+  `notebooks/` and `courses/`. GitHub Actions generates their editable WASM HTML/assets
+  under `nbs/` in the deployed site; do not commit these generated assets. New notebooks
+  are included automatically on push. `scripts/export_editable.py` adds them after the
+  Cayman/Jekyll build, keeps rendered reading links local without altering Python source,
+  and preserves earlier `/html/`, `/notebooks_read/` and `/notebooks_edit/` URLs by redirects.
 
 ## Verifying a notebook headlessly
 
