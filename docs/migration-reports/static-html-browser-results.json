@@ -1,6 +1,6 @@
 {
   "date": "2026-10-23",
-  "environment": "Headless Google Chrome via Playwright, local HTTP server serving html/ only",
+  "environment": "Headless Google Chrome via Playwright, local HTTP server serving html/; repository image requests for the three changed pages fulfilled from actual local image files before publication",
   "execution_service_domains_blocked": [
     "molab.marimo.io",
     "marimo.app"
@@ -10,11 +10,12 @@
     "Rendered notebook H1",
     "Two source-specific interactive launch targets",
     "Saved image decoding",
-    "Completed images decoded; pending external requests recorded separately",
+    "All initial images complete and decoded without broken images",
     "No JavaScript page errors",
     "No execution-service requests",
     "Mobile horizontal fit where recorded",
-    "Repaired final-plot panels expand and show images where recorded"
+    "Repaired final-plot panels expand and show images where recorded",
+    "All four restored image elements decode, using unchanged copied assets and the existing laboratory header"
   ],
   "limitations": "Static reading only. CDN frontend assets and external media used the network. Does not test interactive service UI, runtime package installation or recomputation of Python controls.",
   "summary": {
@@ -25,14 +26,84 @@
     "broken_images": 0,
     "page_errors": 0,
     "execution_service_requests": 0,
-    "pages_with_unavailable_external_media": 3,
-    "pending_external_images": 4
+    "pages_with_unavailable_external_media": 0,
+    "pending_external_images": 0,
+    "restored_image_elements": 4
   },
   "media_followup": {
-    "unavailable_host": "bmclab.pesquisa.ufabc.edu.br",
+    "previous_unavailable_host": "bmclab.pesquisa.ufabc.edu.br",
     "user_confirmed_host_down": true,
-    "original_references_retained": true,
-    "transient_github_image_failure": "vector2.png loaded on targeted retry"
+    "prior_unavailable_images": [
+      {
+        "html": "bmclab.html",
+        "pending_images": [
+          {
+            "src": "https://bmclab.pesquisa.ufabc.edu.br/wp-content/uploads/2016/05/cropped-BMClab0.png",
+            "alt": "BMClab"
+          },
+          {
+            "src": "https://bmclab.pesquisa.ufabc.edu.br/wp-content/uploads/2016/01/BMClab4.png",
+            "alt": "BMClab lab"
+          }
+        ]
+      },
+      {
+        "html": "projectile_motion.html",
+        "pending_images": [
+          {
+            "src": "https://bmclab.pesquisa.ufabc.edu.br/x/salto2/jadel.gif",
+            "alt": "triple jump"
+          }
+        ]
+      },
+      {
+        "html": "spatial_temporal_characteristics.html",
+        "pending_images": [
+          {
+            "src": "https://bmclab.pesquisa.ufabc.edu.br/wp-content/uploads/2016/08/walkAnimation.gif",
+            "alt": "walking"
+          }
+        ]
+      }
+    ],
+    "copied_assets": [
+      {
+        "original_filename": "BMClab4.png",
+        "repository_path": "images/bmclab_lab.png",
+        "sha256": "d0ecf1c329bf9fa8cc6c1d0813468bb1c2ca68f922b29513ea302fcf276778c1",
+        "bytes": 408478,
+        "format": "PNG",
+        "width": 1024,
+        "height": 768,
+        "frames": 1,
+        "all_frames_decoded": true
+      },
+      {
+        "original_filename": "jadel.gif",
+        "repository_path": "images/jadel.gif",
+        "sha256": "e19a4d8c6d41133f915d31ae027473038f69d23e622b822a32b7a04de48763aa",
+        "bytes": 356839,
+        "format": "GIF",
+        "width": 636,
+        "height": 400,
+        "frames": 54,
+        "all_frames_decoded": true
+      },
+      {
+        "original_filename": "walkAnimation.gif",
+        "repository_path": "images/walking_animation.gif",
+        "sha256": "4b5c12ceec5b18d72e1c19a493e0efa1969359627edbc70b32e1a98b431789ac",
+        "bytes": 3266939,
+        "format": "GIF",
+        "width": 720,
+        "height": 576,
+        "frames": 214,
+        "all_frames_decoded": true
+      }
+    ],
+    "header_replacement": "Existing images/BMClab_header.png replaces the unavailable cropped-BMClab0.png",
+    "source_links": "Notebook image tags use the same GitHub raw-link style as the other illustrations; article and laboratory website references are retained",
+    "prepublication_scope": "Only repository image HTTP requests for the three changed guides were fulfilled from their actual local files; notebook outputs and frontend assets were not mocked"
   },
   "static_links": {
     "local_reading_links": 414,
@@ -51,7 +122,7 @@
     {
       "html": "amti_bsf_file.html",
       "source_sha256": "1e3f25f695da69711010bbb126ad4fff85f864ab533cd8c722a8253f2e1151ad",
-      "html_sha256": "323e22912f9a0833f5225d7137de26950b9d215beabd0797e8c858b14cce27b5",
+      "html_sha256": "6314fe75a667ba3bea5f03270d99e2262e13ca508bf223c75f93e8d92e70d9a8",
       "heading": "Open AMTI .bsf file",
       "embedded_images": 1,
       "tables": 0,
@@ -66,7 +137,7 @@
     {
       "html": "angular_velocity_3d.html",
       "source_sha256": "42520bcf2966b20e36340965ac034b012a1df502de087c8cde764c555c5ae836",
-      "html_sha256": "dd340e4b5c37903804fdc828ad57948bce952b275086effb1e8764a37a35f5f5",
+      "html_sha256": "e633ba6e723b7c76e93a1ddcd946c48b32befaff350b77e647fd50c24b9a662b",
       "heading": "Angular velocity in 3D movements",
       "embedded_images": 3,
       "tables": 0,
@@ -81,7 +152,7 @@
     {
       "html": "basic_mechanical_elements_muscle_model.html",
       "source_sha256": "d46f2a41e003df8f5363612a6432ab3988b835a5a9a643bfbbd43011e3f82b65",
-      "html_sha256": "c7417cc40dce58eaa5e0f9a31d6029cac9bb72a758a7ddf83174ea6cd755c46c",
+      "html_sha256": "9c434d05e11c5859e843a57dee73fdaeb2560a7f670a2ec6ee171f0889fa4d79",
       "heading": "Basic Mechanical Elements of a Muscle Model",
       "embedded_images": 6,
       "tables": 1,
@@ -110,19 +181,22 @@
     },
     {
       "html": "bmclab.html",
-      "source_sha256": "767e8044b3dbd0a6a1ff94d327fdcb1eebff19f38002133517a12db4a64981e2",
-      "html_sha256": "2997dc76fd3a39440e8a3a1711e00bb0327b34cf71f1c055710010a67619c5d1",
-      "pending_images": [
+      "source_sha256": "7c22df1437b789cd0464b014bf97a156b628f02a9b5e109392c91e24ec4a4372",
+      "html_sha256": "db4fd139f0a5c317b859fe03b771c652784f6e396d2cdae3963ebe07a94a8f6b",
+      "heading": "The Biomechanics and Motor Control Laboratory",
+      "repository_image_requests": "Fulfilled from actual local image files before publication",
+      "restored_images": [
         {
-          "src": "https://bmclab.pesquisa.ufabc.edu.br/wp-content/uploads/2016/05/cropped-BMClab0.png",
-          "alt": "BMClab"
+          "src": "https://github.com/BMClab/BMC/blob/master/images/BMClab_header.png?raw=1",
+          "width": 920,
+          "height": 165
         },
         {
-          "src": "https://bmclab.pesquisa.ufabc.edu.br/wp-content/uploads/2016/01/BMClab4.png",
-          "alt": "BMClab lab"
+          "src": "https://github.com/BMClab/BMC/blob/master/images/bmclab_lab.png?raw=1",
+          "width": 1024,
+          "height": 768
         }
       ],
-      "heading": "The Biomechanics and Motor Control Laboratory",
       "embedded_images": 0,
       "tables": 0,
       "math": 1,
@@ -130,13 +204,13 @@
       "page_errors": [],
       "execution_service_requests": [],
       "status": "passed",
-      "media_status": "unavailable",
+      "media_status": "loaded",
       "initial_image_elements": 2
     },
     {
       "html": "body_segment_parameters.html",
       "source_sha256": "65c5176ac5e713c8570f00917cb6b2aa980a954f1e89a38e0c56b405c3a9c127",
-      "html_sha256": "51e7ff1c480b12cb1846758764075c3beaa16f1ea5a20239e981b5adc289fb16",
+      "html_sha256": "44f3995aaa6d77b049ae0e2f0d8b34f6bac8367261baf061b7510143bdc043d9",
       "heading": "Body segment parameters",
       "embedded_images": 1,
       "tables": 6,
@@ -167,7 +241,7 @@
     {
       "html": "ch2_viscoelastic_models.html",
       "source_sha256": "2b72bffcebcf5e3c3a328c7b37a05f5eb535473b0799d302400f29e5117743e1",
-      "html_sha256": "2d8108c079d3d8f8df89bc624474d91a94962ba5215f06ca92e8b473227f814b",
+      "html_sha256": "484db09fb0104b01a823fa4c7a74a2b30c5c5e65bf7d2496c5757c678dbedcc7",
       "heading": "Viscoelastic Models of Biological Tissues",
       "embedded_images": 6,
       "tables": 3,
@@ -182,7 +256,7 @@
     {
       "html": "code_structure.html",
       "source_sha256": "2633518b0a64c15c196aeb9f905375ddcb97f6b9cbe7562d3af815db69b04667",
-      "html_sha256": "5850a99043174b88fc2464530506027ee3c29b3678906233398467c7de389759",
+      "html_sha256": "6dfb894d75e6dd55292675ca1d8a09d5c86d6458dd83ccd0e1b650bb3c637c2e",
       "heading": "Code structure for data analysis",
       "embedded_images": 0,
       "tables": 0,
@@ -197,7 +271,7 @@
     {
       "html": "confidence_prediction_intervals.html",
       "source_sha256": "4c372a22b5b78f1efd7ae6e29d2f262ee52bcefd252764dd40d062d485b5daa5",
-      "html_sha256": "6b1c987ff5ccf6a16de29070b3e80af0e7b26e8ed54f3cc4b83817759403341c",
+      "html_sha256": "989345c9044415fdd01e288261f199269bba6a02ad6df753cc13dad1004fac59",
       "heading": "Confidence and prediction intervals",
       "embedded_images": 6,
       "tables": 0,
@@ -227,7 +301,7 @@
     {
       "html": "courses/biomechanicsI_2026/aula_filtragem.html",
       "source_sha256": "4d22c37e522a906374af810d7ca3bea60f3ecb9821b249ea82348295bdb54955",
-      "html_sha256": "133ce556ed4fdadce063a197fa5b919571fad564fd6cbe6649d22cf2afbef26d",
+      "html_sha256": "8fea6e18cd6603511eceacc7e5830f8ccce5ff984f10760d926e58e23e9e4b34",
       "heading": "An\u00e1lise dos dados da trajet\u00f3ria da bola: filtragem",
       "embedded_images": 6,
       "tables": 5,
@@ -243,7 +317,7 @@
     {
       "html": "curve_fitting.html",
       "source_sha256": "3a4b50a7b9f860139d6dde24e76c4bca41d22b223f99246925713d358fea8124",
-      "html_sha256": "efce3e440a9eaacb2838b21eb15e9628bde0a308af6802b090bdc2443374b32f",
+      "html_sha256": "7a000d7c720b57f70eb5cd9d79affe8be235821292691a2b4b509c4990342a3e",
       "heading": "Curve fitting",
       "embedded_images": 10,
       "tables": 1,
@@ -258,7 +332,7 @@
     {
       "html": "data_filtering.html",
       "source_sha256": "f925c1abb332aca63c70dcc265c11877c37214cbdfef39edc3654c4d4cceb35a",
-      "html_sha256": "5bdd608492d641053d2b4a560d2499f07d87074a558acee7763f1738233b9225",
+      "html_sha256": "07bb0a3158d0543353f1cb51670e38f0e568ca802962e2af5426b9ac3b45388b",
       "heading": "Data filtering in signal processing",
       "embedded_images": 15,
       "tables": 0,
@@ -364,7 +438,7 @@
     {
       "html": "force_plate_calibration.html",
       "source_sha256": "d2eec85500ec9a7ad652eeb07acf08b0a1d414e378b5cdac23c5d90b906e985f",
-      "html_sha256": "61170c3c3c542f2d83d3c580f8d4fa7c39d432885d8dd97fb6399e858078abf5",
+      "html_sha256": "f1d99b202b0896936b42c6347d2f06ba7b472645aafd4f4c2e96b2f604580b8f",
       "heading": "Algorithm for force plate calibration",
       "embedded_images": 1,
       "tables": 0,
@@ -440,7 +514,7 @@
     {
       "html": "gait_analysis_2d.html",
       "source_sha256": "1c02ec25c5e0e3be329c4f4d80940bdcea6fcf1a47211222d2573a4a1f904eb3",
-      "html_sha256": "882c87fb7ffdfee8d065018d47b92cd97cc20fdef930333529433c6b3c32800e",
+      "html_sha256": "7336016077beba96667a787909e9db752267c33ef84ec3e0b0445c5e71bf3218",
       "heading": "Inverse dynamics (2D) for gait analysis",
       "embedded_images": 6,
       "tables": 0,
@@ -455,7 +529,7 @@
     {
       "html": "iep.html",
       "source_sha256": "3606e495f21819b848dd732c7b800817ec74ceaa3910d2bcf70ec04cb7c6e056",
-      "html_sha256": "e513006e206ff5a26d6f6ed3e82e69d09618c083f2f86e8ef3ca0c5898ce553c",
+      "html_sha256": "a6b0fa4e3a6bdefa58efeb92a0ff9b38abe56319fd9437a0c9007e6ce4a4815d",
       "heading": "Postural sway: rambling and trembling",
       "embedded_images": 8,
       "tables": 3,
@@ -470,7 +544,7 @@
     {
       "html": "ip_model.html",
       "source_sha256": "54470c119b20f1ec075aa8be8028e5a825fc14d37678fa07e6b2cf4f4ca80fef",
-      "html_sha256": "e9dae5b88c390fdfa0848fe54d8bb21daa67ce4735a06c44bb8b29bedb543bd9",
+      "html_sha256": "3704b598737a412b72bc6b33222838b5ac30f253277668b508e63a5318d4d466",
       "heading": "The inverted pendulum model of the human standing",
       "embedded_images": 1,
       "tables": 0,
@@ -485,7 +559,7 @@
     {
       "html": "kinematic_chain.html",
       "source_sha256": "d07cb2caa6a14c3da9650c4d51924b7e239a991b83440439b933110baeef7517",
-      "html_sha256": "56f3d52ea62fa44de7f2d6f288f1bb15a3615520b9d831ade3f05ab6721aedaf",
+      "html_sha256": "9b5acc23cc394d253b2902ceaadcea8092be805b408a78075586b10203e64625",
       "heading": "Kinematic chain in a plane (2D)",
       "embedded_images": 7,
       "tables": 1,
@@ -518,7 +592,7 @@
     {
       "html": "kinematics_of_rigid_body.html",
       "source_sha256": "b2c7b442b04d0763644d52350a5f6ed9f50f68d17a306fbb2dd5fe593e25d295",
-      "html_sha256": "6ea5045eda8ee935bbb5245eabf0da1f9ea270e5cc49c09cf28e149f40646f6e",
+      "html_sha256": "4ac505847d90cc5dc6e91e8c395a87cdb21ede7013f5661c03dacf4e5fc6e761",
       "heading": "Velocity and acceleration of a point of a rigid body",
       "embedded_images": 6,
       "tables": 0,
@@ -533,7 +607,7 @@
     {
       "html": "kinematics_particle.html",
       "source_sha256": "4dfa39c15574cd0cf88c0ce4e16e632a5903952c14c43b6881005db6d89d4a13",
-      "html_sha256": "75921bff4b86f216358db3e128db974ce2efcac086a428c8d1f29e64ed6ff4fa",
+      "html_sha256": "82746c14c32ea5a1798a0300f43d9f83c992e022cbc924c424ed105f7ddf8175",
       "heading": "Kinematics of a particle",
       "embedded_images": 4,
       "tables": 0,
@@ -579,7 +653,7 @@
     {
       "html": "kistler_force_plate_calculation.html",
       "source_sha256": "345828b5dd3160a9489276319acc0318278f90a54098060e380e52a5334501a7",
-      "html_sha256": "93fea4bede76434f4f3cb364f893c80a54abe071c0799807ff0d826657ef604d",
+      "html_sha256": "1264ab3075a4b6515575729e2f05b5e01d9ed508e331aefd0f17f6625b1d603d",
       "heading": "Kistler force plate calculation",
       "embedded_images": 1,
       "tables": 0,
@@ -594,7 +668,7 @@
     {
       "html": "lab_acel_gravidade.html",
       "source_sha256": "d39c4946757b1939275b446714aed20e998762cd8bd55973c0123293910f263f",
-      "html_sha256": "a0b54efc8cf6a662946cc4e11e31cd59b98a5a8a00e1c6f3009d9bee3e4aecd2",
+      "html_sha256": "fc2c8a69324390e488098174efc9979f5f54b0ef47eb14749e232fff85b53fee",
       "heading": "Acelera\u00e7\u00e3o da gravidade \u2014 laborat\u00f3rio de Biomec\u00e2nica I",
       "embedded_images": 12,
       "tables": 5,
@@ -609,7 +683,7 @@
     {
       "html": "lab_filtros.html",
       "source_sha256": "783307ecc8386d4a1a5cf9a0ec3335d5df296455ff94581739351bf01c875013",
-      "html_sha256": "7ba835177144454a7f01119f4a28311b669103279f4b63b062b58fbb386db651",
+      "html_sha256": "71ef0c69b4471cf20513e9ce112687743e162fab82e6ae3c170a62f4553ca23c",
       "heading": "Uso de filtros \u2014 laborat\u00f3rio de Biomec\u00e2nica I",
       "embedded_images": 12,
       "tables": 5,
@@ -804,7 +878,7 @@
     {
       "html": "open_c3d_file.html",
       "source_sha256": "61f4a9302e61b7a873942546bce622d3ae5e434d8f70631c654410a75b6661b7",
-      "html_sha256": "dbaa992dbe6c528ebb8c3548eb7dea52a1622d521f608217c6a8ba845575cb52",
+      "html_sha256": "736441322bea86d47c6e85182ced92fe0f654ed2769dc8be505edfb6ac629bca",
       "heading": "Open C3D files",
       "embedded_images": 3,
       "tables": 0,
@@ -819,7 +893,7 @@
     {
       "html": "optimization.html",
       "source_sha256": "7fe0de6db2027857dbb66e5a8fcdd44d21cd672b7d535efc9b91ed6abeedb3e4",
-      "html_sha256": "eb85593e5c85129f88904f3b8e6413155a02c54e3da16190a7a93ab97c8bbf7c",
+      "html_sha256": "7710f1471d54e0805ab3f0f0a162c3c2b8a1ea122b3a6924266490d9886f8af7",
       "heading": "Optimization",
       "embedded_images": 2,
       "tables": 1,
@@ -849,7 +923,7 @@
     {
       "html": "pandas_data.html",
       "source_sha256": "8f4dc54a7426aa1f0b611e04746dac9b32407a2490c8036e9e5a53ee5277dc56",
-      "html_sha256": "94659bb153a8ee72696e3c165c7e2cc258f7836868fcbb3231c08a7b6e01a79e",
+      "html_sha256": "e4c87c5d73b7d29855b7746895d0edc5cdcb587acfad2d1d9097446fc44db9fa",
       "heading": "pandas Data",
       "embedded_images": 4,
       "tables": 11,
@@ -880,7 +954,7 @@
     {
       "html": "polar_basis.html",
       "source_sha256": "32210e2bdc640ef42c01098e0de7aa94d386792c4d795bb546d4000ceee5e974",
-      "html_sha256": "ed8035c16f7a59eb947e49e58d83db93bd9ba6a8f636ab03cf3e1bf4e4afd110",
+      "html_sha256": "c72e6ed49a03a9960b967271efd94298c12d85f49c91125e4a8310968b95d99f",
       "heading": "Polar and Cylindrical Frame of Reference",
       "embedded_images": 6,
       "tables": 0,
@@ -895,7 +969,7 @@
     {
       "html": "polynomial_fitting.html",
       "source_sha256": "e81f95c1599afee377c1a484507692ec11dff2fb0509090245c362b738c310d9",
-      "html_sha256": "a8ce2d925ee22de0176d35f71d753a9e855de43f569aae100ada895a04e8f93d",
+      "html_sha256": "bdb571ca598e28a16e629759895ed07a10faa8104d06ee95a869470909f4aaa1",
       "heading": "Polynomial fitting with confidence/prediction intervals",
       "embedded_images": 4,
       "tables": 0,
@@ -910,7 +984,7 @@
     {
       "html": "prediction_ellipse_ellipsoid.html",
       "source_sha256": "9c3796bbf2e11e114f583009a64513739b9d354db0e316f1022767a07fd1c096",
-      "html_sha256": "736377bd8b68a9b7ddb2511bb27bc2e9eca8b6288c87fce04bb7c396eba332a3",
+      "html_sha256": "ebbc0df48259491b4dcb7a865ae87d2f44a8b3337ad84b070453204cdfedf35a",
       "heading": "Prediction ellipse and prediction ellipsoid",
       "embedded_images": 8,
       "tables": 0,
@@ -939,15 +1013,17 @@
     },
     {
       "html": "projectile_motion.html",
-      "source_sha256": "462c50ca4f027e0703e515b1e26b3c9dc16024082c503f0083b93a8de54f89ed",
-      "html_sha256": "8a29a9062f8558d1f62178030fe336390abe602b96561839d68b00656a4983c8",
-      "pending_images": [
+      "source_sha256": "cad292cba0d142b6db34370bb31bebebc1b82e9e08983080b2d8c01649794127",
+      "html_sha256": "f0c11f885e8739e30fb3c952d44ffd4846cd49ad3b06ebe255cede02800d7d37",
+      "heading": "Projectile motion",
+      "repository_image_requests": "Fulfilled from actual local image files before publication",
+      "restored_images": [
         {
-          "src": "https://bmclab.pesquisa.ufabc.edu.br/x/salto2/jadel.gif",
-          "alt": "triple jump"
+          "src": "https://github.com/BMClab/BMC/blob/master/images/jadel.gif?raw=1",
+          "width": 636,
+          "height": 400
         }
       ],
-      "heading": "Projectile motion",
       "embedded_images": 3,
       "tables": 0,
       "math": 129,
@@ -955,7 +1031,7 @@
       "page_errors": [],
       "execution_service_requests": [],
       "status": "passed",
-      "media_status": "unavailable",
+      "media_status": "loaded",
       "initial_image_elements": 7
     },
     {
@@ -1006,7 +1082,7 @@
     {
       "html": "python_tutorial.html",
       "source_sha256": "b173fe3184df2aaa859b362da16450678a07c4c342426372ee7a25c75fa74897",
-      "html_sha256": "71d596c4d41fe9020e0b0e6558f781b8902ad354ed568d572d45ec097b4b5b1d",
+      "html_sha256": "7851bc79de6acb98f7e5bbe69216ceea412dd60a67f3558b86b76bddf107918c",
       "heading": "Tutorial on Python for scientific computing",
       "embedded_images": 0,
       "tables": 0,
@@ -1021,7 +1097,7 @@
     {
       "html": "read_c3d.html",
       "source_sha256": "e14f28f7b420b79fde4ce5cc0bec5fe6393333d2400d104af65d41031d7074ac",
-      "html_sha256": "e53bc981cf3e2c3c1c4ee19ae47646e44bdf5686abf71031260e0fd45a7749db",
+      "html_sha256": "90b3ef022e6ff8e3f11cbfe08f9e149d2ac18a7d7a3e3c7edd32b4efd71645b8",
       "heading": "Read C3D data into labelled tables",
       "embedded_images": 1,
       "tables": 4,
@@ -1036,7 +1112,7 @@
     {
       "html": "read_delsys_cortex_file.html",
       "source_sha256": "6060e99ef5b7fde17fde8e3f3b2adf7319d741bbe6c6764369c07bc40e7fea08",
-      "html_sha256": "10d06532262f8c840a4dbe1189b9be4407eef9166fba2a2024b994b9c2c3277e",
+      "html_sha256": "8820cb1688f55b500aa4468b9cec79b84d9bbc2269d2f17761984807294f4215",
       "heading": "Read Delsys data exported by Cortex",
       "embedded_images": 1,
       "tables": 2,
@@ -1051,7 +1127,7 @@
     {
       "html": "read_mac_ascii_files.html",
       "source_sha256": "22702a256856bfe4b5fa69fc9dfeca384c80eeb58fe383215916d6c27be889b7",
-      "html_sha256": "ca6ccb4a690619eac771634f5810d8db5870b6ca646bf59c953c04dc7b318152",
+      "html_sha256": "33db50ee1cec54143b1059a60368a7b2ef7144abf7fa478bb216991adf82c39c",
       "heading": "Read and write Cortex ASCII files",
       "embedded_images": 0,
       "tables": 2,
@@ -1066,7 +1142,7 @@
     {
       "html": "read_trc.html",
       "source_sha256": "3db91d634a8accc84216c4f08d96d4e83f694702e8ea81291b71db8d711a9792",
-      "html_sha256": "5e3f92a0d9ddf152d99da2acd3116044c83e1c1443bc3e1a0cbd49518a81dfba",
+      "html_sha256": "c57011e94502fa8da581566f371186e9bf239fcfa78bf3133a69d4bc69266b43",
       "heading": "Read Cortex Motion Analysis Corporation .trc file",
       "embedded_images": 0,
       "tables": 7,
@@ -1081,7 +1157,7 @@
     {
       "html": "read_trc_forces_files.html",
       "source_sha256": "d6d5fe928165e4b1b3039943197c94beab28e1c35397258648e259d8a2400b0c",
-      "html_sha256": "549b726f3ba71afdb0ff91ba0deb64c16a76d7cfaa4a592455b4dd46ddcf3a52",
+      "html_sha256": "56f967426d8532e2b038377001d7adf056f6fafb35370c183314bfcab005ab7f",
       "heading": "Read Cortex Motion Analysis Corporation .trc and .forces files (example)",
       "embedded_images": 2,
       "tables": 3,
@@ -1142,7 +1218,7 @@
     {
       "html": "resample.html",
       "source_sha256": "34be48a407f775d5520aa95f2ac36436e6b21650586c22acd0464ddf5c09eaf4",
-      "html_sha256": "f0d55ddaae1ceafc2667e30eca4cdd4cc442720dbe96e40cbe4782bc5ef94b1e",
+      "html_sha256": "c764ffd327d47e4b55dc2599c4c7cc58cade91cef4554679e2a5ab2fbcd59b1c",
       "heading": "Resample a sampled signal",
       "embedded_images": 1,
       "tables": 2,
@@ -1202,7 +1278,7 @@
     {
       "html": "similarity.html",
       "source_sha256": "dae44078d7be216f31fc70db864f67707ce0a331fd0203fb6065b6443024ca1d",
-      "html_sha256": "6279c0b5b4ce77c2c03ad4a1a76467254da234cab21a1ba1a295c25fcff8f273",
+      "html_sha256": "9b4aaa2376aadeffee061d4a78f5203f23afe1afe568254c31b3e3bbec0c3ae4",
       "heading": "Select data vectors by similarity using a metric score",
       "embedded_images": 1,
       "tables": 0,
@@ -1217,7 +1293,7 @@
     {
       "html": "sistema_coordenadas.html",
       "source_sha256": "17f41e90e779899bc4cd9534f75699f29bb6065c01f953a14ef8775ea7711e5d",
-      "html_sha256": "8a5b1537e4d3adf6933367136a1f5282cd7da157dd141d3bca335f450824b898",
+      "html_sha256": "3ede56077c1e180d1fb65f0a2c69b861bc7d69f3aac43d54fe4c4b4146bfa324",
       "heading": "Determina\u00e7\u00e3o de sistemas de coordenadas anat\u00f4micos com dados experimentais",
       "embedded_images": 7,
       "tables": 1,
@@ -1231,15 +1307,17 @@
     },
     {
       "html": "spatial_temporal_characteristics.html",
-      "source_sha256": "535fa39b94b13b555b0aa24ebe33608c349d8686504289d8d87127ac179c5f1f",
-      "html_sha256": "b8588da6667a996604cce2b9c2dbc891b3824951dc79860730dec1212c6c1c18",
-      "pending_images": [
+      "source_sha256": "0f8610e6623fa0dd40a1c2d802151c26979a21522e2ae3a5a696d6ce48832365",
+      "html_sha256": "7681a8896edd5ddfccb9fdf6c359ac55c632f665efcc5476baca12c4498073d5",
+      "heading": "Spatial and temporal characteristics of a movement pattern",
+      "repository_image_requests": "Fulfilled from actual local image files before publication",
+      "restored_images": [
         {
-          "src": "https://bmclab.pesquisa.ufabc.edu.br/wp-content/uploads/2016/08/walkAnimation.gif",
-          "alt": "walking"
+          "src": "https://github.com/BMClab/BMC/blob/master/images/walking_animation.gif?raw=1",
+          "width": 720,
+          "height": 576
         }
       ],
-      "heading": "Spatial and temporal characteristics of a movement pattern",
       "embedded_images": 0,
       "tables": 0,
       "math": 13,
@@ -1247,7 +1325,7 @@
       "page_errors": [],
       "execution_service_requests": [],
       "status": "passed",
-      "media_status": "unavailable",
+      "media_status": "loaded",
       "initial_image_elements": 3
     },
     {
@@ -1283,7 +1361,7 @@
     {
       "html": "statistics_descriptive.html",
       "source_sha256": "54d1d30acb60747fb6415277018908a0fa3e08996d2a6e48a2301eb9fa089377",
-      "html_sha256": "08388d37e57a37fa06b6e041fcc96e058c386c255fa8cda963e07581f2666e21",
+      "html_sha256": "754925b87abb5bc11f80d9bda7f23c7b66685b58bcaaa08f54168aa483ecd909",
       "heading": "Descriptive statistics of data",
       "embedded_images": 8,
       "tables": 0,
@@ -1344,7 +1422,7 @@
     {
       "html": "transformation_3d.html",
       "source_sha256": "3ab37bd1ac114eea777f4799415197ff7421223129832556986c11539a83b33e",
-      "html_sha256": "8f26d7fd41051f284456c3e260c513f8c4852dd9ad6a28924cf83c767402b27d",
+      "html_sha256": "9a1f5fe0c7694c49bb60834bb7fd84c6cfa4928040f7def195067757bd7f06db",
       "heading": "Rigid-body transformations in three dimensions",
       "embedded_images": 4,
       "tables": 2,
@@ -1360,7 +1438,7 @@
     {
       "html": "trigonometry_basics.html",
       "source_sha256": "0a699a08197d5e9938282d6cc3629072b0c880849d6e9e152e1844fb99ecf361",
-      "html_sha256": "60469800a9de898a1c588ab36d33e3bc28e683313498ebf6ab07832d51a5dac8",
+      "html_sha256": "be3d8d789b7ea51cce3c498aa0c845324d2c17f9a3f027f81d17e7c78da7a1f4",
       "heading": "Basic trigonometry",
       "embedded_images": 0,
       "tables": 3,
@@ -1402,5 +1480,6 @@
       "media_status": "loaded",
       "initial_image_elements": 6
     }
-  ]
+  ],
+  "additional_blocked_host": "bmclab.pesquisa.ufabc.edu.br"
 }

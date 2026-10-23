@@ -43,7 +43,7 @@ def _(mo):
     ## A jump worth understanding
 
     <div style="background-color:#F1F1F1;border:1px solid black;padding:10px;">
-        <figure aria-describedby="figure-caption-1"><img src="https://bmclab.pesquisa.ufabc.edu.br/x/salto2/jadel.gif" alt="triple jump"/><br></figure>
+        <figure aria-describedby="figure-caption-1"><img src="https://github.com/BMClab/BMC/blob/master/images/jadel.gif?raw=1" alt="triple jump"/><br></figure>
     </div>
 
     <span id="figure-caption-1" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Animations of a triple jump performed by athlete Jadel Gregório during training. The jump distance was 16.20 meters. The two animations are synchronized and represent the same athlete during the same jump, with the one on the left representing the athlete's movement subtracting the horizontal displacement of his center of gravity. From the website <a href="https://bmclab.pesquisa.ufabc.edu.br/analise-biomecanica-do-salto-em-distancia/">Análise do salto em distância</a>.</span>

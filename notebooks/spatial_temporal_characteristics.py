@@ -156,7 +156,7 @@ def _(mo):
     mo.md(r"""
     ### Example of a clinical gait analysis
 
-    <img src="https://bmclab.pesquisa.ufabc.edu.br/wp-content/uploads/2016/08/walkAnimation.gif" alt="walking" width="480" height="480" />
+    <img src="https://github.com/BMClab/BMC/blob/master/images/walking_animation.gif?raw=1" alt="walking" width="480" height="480" />
     """)
     return
 

@@ -111,8 +111,34 @@ The reusable [exporter](../../scripts/export_notebooks.py) and [instructions](..
 
 The display audit repaired **16 cells in nine guides** that created plots without displaying them, or discarded an accordion by closing its figure as the final expression. These fixes expose existing figures and final-answer panels. Comparison against `d05435c` confirms that scientific computations and standalone dependency metadata are unchanged in all 87 guides. The collection includes **319 cells with saved figures**. Earlier flat-script and WebAssembly execution hashes are retained; this follow-up reran native reactive HTML, not the cloud execution UI or WebAssembly computations.
 
-All **88 pages passed actual Chromium rendering checks** with molab and marimo.app blocked: headings rendered, source-specific launch targets matched, and no JavaScript page errors or execution-service requests occurred. Seven representative mobile layouts fit without horizontal overflow; all five repaired final-plot accordion panels opened and displayed their images. A stricter image-loading pass identified four unavailable historical images on `bmclab.pesquisa.ufabc.edu.br`, in the laboratory, projectile-motion and spatial/temporal guides. The user confirmed that host is down; its original image references are retained. A transient GitHub image failure passed the targeted retry. Saved figures and the remaining images loaded. Exact source/output hashes, media exceptions and per-page results are recorded in [static-html-browser-results.json](static-html-browser-results.json). The full local suite passes **106 tests and 232 subtests**; strict marimo checks pass for all 88 notebooks. The updater's freshness check reports **88/88 current**, and an incremental rerun skips all 88.
+All **88 pages passed actual Chromium rendering checks** with molab and marimo.app blocked: headings rendered, source-specific launch targets matched, and no JavaScript page errors or execution-service requests occurred. Seven representative mobile layouts fit without horizontal overflow; all five repaired final-plot accordion panels opened and displayed their images. At initial publication, a stricter image-loading pass identified four unavailable historical images on `bmclab.pesquisa.ufabc.edu.br`, in the laboratory, projectile-motion and spatial/temporal guides. The user confirmed that host is down; the original image references were initially retained. These images have now been restored from repository assets, as described below. A transient GitHub image failure passed the targeted retry. Exact current source/output hashes and per-page results are recorded in [static-html-browser-results.json](static-html-browser-results.json). The full local suite passes **106 tests and 232 subtests**; strict marimo checks pass for all 88 notebooks. The updater's freshness check reports **88/88 current**, and an incremental rerun skips all 88.
 
 These are **read-only snapshots** made with `marimo export html`. Expandable answers work, but Python-dependent controls cannot recompute results. They require no Python kernel or execution service; CDN display assets and external media still need Internet access, as the user accepted. The distinct `html-wasm` run/edit modes are not part of this export workflow.
 
 The GitHub Pages configuration now selects the officially supported **Cayman** theme, with a site title and description and download buttons disabled. This updates Markdown pages; the exported notebooks retain their approved marimo layout.
+
+## Laboratory media restoration — 2026-10-23
+
+The user supplied copies of the three missing laboratory media files. Added
+`images/bmclab_lab.png`, `images/jadel.gif` and `images/walking_animation.gif`,
+preserving the supplied bytes exactly. The two GIFs retain all **54 and 214
+frames**, respectively; every frame was decoded successfully. The fourth missing
+image, the laboratory banner, now uses the existing `images/BMClab_header.png`.
+The laboratory overview, projectile-motion and spatial/temporal guides use plain
+repository image links in the established format. Website/article references
+remain for provenance; image display no longer depends on that down host.
+
+All **88 native HTML exports** were refreshed because shared-image changes
+invalidate the collection. Browser checks passed for all 88 pages with both
+execution services and the down laboratory host blocked, including all four
+restored image elements. Before publication, repository image requests for the
+three edited guides were fulfilled from the actual local image files; notebook
+outputs and frontend assets were not mocked. Other linked media used the network.
+There were no broken images or JavaScript page errors. The current browser report
+records exact source/output hashes and the restoration details. All 414 internal
+reading links and section anchors resolve.
+
+Strict checks pass for the three changed guides, and the caption regression
+passes **one test and 119 subtests**. Comparison confirms that computations and
+standalone dependency metadata are unchanged. The inventory and native execution
+hashes were updated; historical flat-script/WebAssembly results remain separate.

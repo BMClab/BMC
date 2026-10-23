@@ -20,7 +20,7 @@ def _(mo):
 
     **BMClab @ UFABC: Why, How, What For?**
 
-    ![BMClab](https://bmclab.pesquisa.ufabc.edu.br/wp-content/uploads/2016/05/cropped-BMClab0.png)
+    ![BMClab](https://github.com/BMClab/BMC/blob/master/images/BMClab_header.png?raw=1)
     """)
     return
 
@@ -164,7 +164,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    <div class='center-align'><figure><img src="https://bmclab.pesquisa.ufabc.edu.br/wp-content/uploads/2016/01/BMClab4.png" alt="BMClab lab"/></figure></div>
+    <div class='center-align'><figure><img src="https://github.com/BMClab/BMC/blob/master/images/bmclab_lab.png?raw=1" alt="BMClab lab"/></figure></div>
     """)
     return
 

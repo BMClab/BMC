@@ -91,3 +91,9 @@ Approved basis: the published body-segment HTML demonstration and the user's
   is down. The transient GitHub image failure passes its retry. These media
   exceptions remain explicit in the browser evidence; notebook rendering and
   saved plots/tables pass.
+- User-supplied media follow-up: three original files are now copied into
+  `images/`, and the existing laboratory banner replaces the fourth missing
+  image. All four image references now use repository assets. All 88 exports
+  were refreshed after the shared-input change; all 88 browser checks pass with
+  the down host blocked and no broken images. The browser report preserves the
+  previous unavailable-image list alongside the restoration evidence.

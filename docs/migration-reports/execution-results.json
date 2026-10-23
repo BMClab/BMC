@@ -93,7 +93,7 @@
       "changes_since_flat_and_webassembly_execution": "Presentation only: explanatory text, figure-caption Markdown, image sources, and whitespace; scientific computations and PEP 723 metadata unchanged."
     },
     "bmclab": {
-      "sha256": "767e8044b3dbd0a6a1ff94d327fdcb1eebff19f38002133517a12db4a64981e2",
+      "sha256": "7c22df1437b789cd0464b014bf97a156b628f02a9b5e109392c91e24ec4a4372",
       "script": 0,
       "html": 0,
       "execution": 0,
@@ -101,7 +101,8 @@
       "native_script_export_sha256": "767e8044b3dbd0a6a1ff94d327fdcb1eebff19f38002133517a12db4a64981e2",
       "native_flat_execution_sha256": "767e8044b3dbd0a6a1ff94d327fdcb1eebff19f38002133517a12db4a64981e2",
       "webassembly_sha256": "767e8044b3dbd0a6a1ff94d327fdcb1eebff19f38002133517a12db4a64981e2",
-      "native_html_sha256": "767e8044b3dbd0a6a1ff94d327fdcb1eebff19f38002133517a12db4a64981e2"
+      "native_html_sha256": "7c22df1437b789cd0464b014bf97a156b628f02a9b5e109392c91e24ec4a4372",
+      "changes_since_flat_and_webassembly_execution": "Presentation updates include repository-hosted image links replacing the down laboratory host; scientific computation AST and PEP 723 metadata preserved. Native reactive HTML rerun; earlier flat/WebAssembly hashes retained."
     },
     "body_segment_parameters": {
       "sha256": "65c5176ac5e713c8570f00917cb6b2aa980a954f1e89a38e0c56b405c3a9c127",
@@ -725,7 +726,7 @@
       "native_html_sha256": "7c3cd046ad6a4ba14771ea3bd6b0ca96b5a0d40d0a159b3f0d63a958939e52dc"
     },
     "projectile_motion": {
-      "sha256": "462c50ca4f027e0703e515b1e26b3c9dc16024082c503f0083b93a8de54f89ed",
+      "sha256": "cad292cba0d142b6db34370bb31bebebc1b82e9e08983080b2d8c01649794127",
       "script": 0,
       "html": 0,
       "execution": 0,
@@ -733,8 +734,8 @@
       "native_script_export_sha256": "347a98cd752bb20c55e0c9ae0e614db71dabe04afca706348b6c1a579218d1c5",
       "native_flat_execution_sha256": "347a98cd752bb20c55e0c9ae0e614db71dabe04afca706348b6c1a579218d1c5",
       "webassembly_sha256": "347a98cd752bb20c55e0c9ae0e614db71dabe04afca706348b6c1a579218d1c5",
-      "native_html_sha256": "462c50ca4f027e0703e515b1e26b3c9dc16024082c503f0083b93a8de54f89ed",
-      "changes_since_flat_and_webassembly_execution": "Presentation only: explanatory text, figure-caption Markdown, image sources, and whitespace; scientific computations and PEP 723 metadata unchanged."
+      "native_html_sha256": "cad292cba0d142b6db34370bb31bebebc1b82e9e08983080b2d8c01649794127",
+      "changes_since_flat_and_webassembly_execution": "Presentation updates include repository-hosted image links replacing the down laboratory host; scientific computation AST and PEP 723 metadata preserved. Native reactive HTML rerun; earlier flat/WebAssembly hashes retained."
     },
     "propagation_uncertainty": {
       "sha256": "a0f13467a02def107d8b7dd61d6ab13f4b19f8cce5dbef580508fef5339ba8ff",
@@ -948,7 +949,7 @@
       "changes_since_flat_and_webassembly_execution": "Only explanatory text and whitespace; computational AST and PEP 723 metadata unchanged."
     },
     "spatial_temporal_characteristics": {
-      "sha256": "535fa39b94b13b555b0aa24ebe33608c349d8686504289d8d87127ac179c5f1f",
+      "sha256": "0f8610e6623fa0dd40a1c2d802151c26979a21522e2ae3a5a696d6ce48832365",
       "script": 0,
       "html": 0,
       "execution": 0,
@@ -956,8 +957,8 @@
       "native_script_export_sha256": "93e067faa085a6e9b2e21d0fd35fad9d0738a7d28c6257a2d39a4bec5a5514d0",
       "native_flat_execution_sha256": "93e067faa085a6e9b2e21d0fd35fad9d0738a7d28c6257a2d39a4bec5a5514d0",
       "webassembly_sha256": "93e067faa085a6e9b2e21d0fd35fad9d0738a7d28c6257a2d39a4bec5a5514d0",
-      "native_html_sha256": "535fa39b94b13b555b0aa24ebe33608c349d8686504289d8d87127ac179c5f1f",
-      "changes_since_flat_and_webassembly_execution": "Presentation only: explanatory text, figure-caption Markdown, image sources, and whitespace; scientific computations and PEP 723 metadata unchanged."
+      "native_html_sha256": "0f8610e6623fa0dd40a1c2d802151c26979a21522e2ae3a5a696d6ce48832365",
+      "changes_since_flat_and_webassembly_execution": "Presentation updates include repository-hosted image links replacing the down laboratory host; scientific computation AST and PEP 723 metadata preserved. Native reactive HTML rerun; earlier flat/WebAssembly hashes retained."
     },
     "stabilography": {
       "sha256": "3d87b7742dd980838a69e5f2c8b9de1d2e0d30c9613c95405b354aac1b3920f3",
@@ -1320,6 +1321,7 @@
       "missing_paths_or_anchors": 0
     },
     "updated_source_guides": [
+      "notebooks/bmclab.py",
       "notebooks/fourier_series.py",
       "notebooks/free_body_diagram_for_rigid_bodies.py",
       "notebooks/kinematic_chain.py",
@@ -1332,13 +1334,65 @@
       "notebooks/multibody_dynamics.py",
       "notebooks/pandas_data.py",
       "notebooks/polynomial_fitting.py",
+      "notebooks/projectile_motion.py",
+      "notebooks/spatial_temporal_characteristics.py",
       "notebooks/transformation_2d.py",
       "notebooks/transformation_3d.py",
       "notebooks/vertical_jump.py"
     ],
     "scientific_computations_and_pep723_metadata_preserved": true,
     "theme": "jekyll-theme-cayman; title/description configured and downloads disabled",
-    "media_exceptions": "Four historical images on bmclab.pesquisa.ufabc.edu.br are unavailable; user confirmed the host is down. Original references retained; saved figures and remaining images load.",
+    "media_exceptions": "The four previously unavailable laboratory images now use repository assets. All images loaded in post-restoration browser checks; prepublication image requests for the three edited guides were served from their actual local files.",
     "reading_requirements": "Static read-only snapshots; no Python kernel, molab or marimo.app needed. CDN display assets and external media still need Internet access."
+  },
+  "media_restoration_2026_10_23": {
+    "copied_assets": [
+      {
+        "original_filename": "BMClab4.png",
+        "repository_path": "images/bmclab_lab.png",
+        "sha256": "d0ecf1c329bf9fa8cc6c1d0813468bb1c2ca68f922b29513ea302fcf276778c1",
+        "bytes": 408478,
+        "format": "PNG",
+        "width": 1024,
+        "height": 768,
+        "frames": 1,
+        "all_frames_decoded": true
+      },
+      {
+        "original_filename": "jadel.gif",
+        "repository_path": "images/jadel.gif",
+        "sha256": "e19a4d8c6d41133f915d31ae027473038f69d23e622b822a32b7a04de48763aa",
+        "bytes": 356839,
+        "format": "GIF",
+        "width": 636,
+        "height": 400,
+        "frames": 54,
+        "all_frames_decoded": true
+      },
+      {
+        "original_filename": "walkAnimation.gif",
+        "repository_path": "images/walking_animation.gif",
+        "sha256": "4b5c12ceec5b18d72e1c19a493e0efa1969359627edbc70b32e1a98b431789ac",
+        "bytes": 3266939,
+        "format": "GIF",
+        "width": 720,
+        "height": 576,
+        "frames": 214,
+        "all_frames_decoded": true
+      }
+    ],
+    "changed_guides": [
+      "notebooks/bmclab.py",
+      "notebooks/projectile_motion.py",
+      "notebooks/spatial_temporal_characteristics.py"
+    ],
+    "existing_header_reused": "images/BMClab_header.png",
+    "native_exports_passed": 88,
+    "strict_changed_guides_passed": 3,
+    "caption_regression": "1 test and 119 subtests passed",
+    "browser_validation": "static-html-browser-results.json",
+    "scientific_computations_and_pep723_metadata_preserved": true,
+    "cloud_execution_ui_tested": false,
+    "external_article_references_retained": true
   }
 }
