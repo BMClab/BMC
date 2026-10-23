@@ -91,14 +91,8 @@ def repo_file(path, *, base_url="https://raw.githubusercontent.com/BMClab/BMC/ma
 
 @app.cell(hide_code=True)
 def _(mo):
-    _vitruvian_image = mo.image(
-        repo_file("images/vitruvian_man.jpg"),
-        width=240,
-        alt="Leonardo da Vinci's Vitruvian Man",
-        style={"float": "right", "margin": "20px 0 0 50px"},
-    )
-    mo.md(rf"""
-    <figure>{_vitruvian_image.text}</figure>
+    mo.md(r"""
+    <figure><center><img src='https://github.com/BMClab/BMC/blob/master/images/vitruvian_man.jpg?raw=1' width=240 alt='Vitruvian Man by Leonardo da Vinci'/></center></figure>
     <br><br>
     <i>"Le proporzioni del corpo umano secondo Vitruvio"</i>, also known as the <a href="https://en.wikipedia.org/wiki/Vitruvian_Man" target="_blank">Vitruvian Man</a>, drawing by <a href="https://en.wikipedia.org/wiki/Leonardo_da_Vinci" target="_blank">Leonardo da Vinci</a> circa 1490 based on the work of <a href="https://en.wikipedia.org/wiki/Vitruvius" target="_blank">Marcus Vitruvius Pollio</a> (1st century BC), depicting a man in supposedly ideal human proportions. Image: <a href="https://commons.wikimedia.org/wiki/File:Da_Vinci_Vitruve_Luc_Viatour.jpg">Wikimedia Commons</a>, digitization by <a href="https://lucnix.be/">Luc Viatour / Lucnix</a>.
     <br><br>

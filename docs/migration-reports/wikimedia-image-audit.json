@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-23T03:42:21.114360+00:00",
+  "checked_at": "2026-10-23T04:09:45.386539+00:00",
   "images": [
     {
       "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ec/Bandform_template.svg/960px-Bandform_template.svg.png",
@@ -360,7 +360,7 @@
       "notebook": "notebooks/body_segment_parameters.py",
       "old_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Da_Vinci_Vitruve_Luc_Viatour.jpg/353px-Da_Vinci_Vitruve_Luc_Viatour.jpg",
       "old_status": 400,
-      "replacement": "images/vitruvian_man.jpg",
+      "replacement": "https://github.com/BMClab/BMC/blob/master/images/vitruvian_man.jpg?raw=1",
       "source": "https://commons.wikimedia.org/wiki/File:Da_Vinci_Vitruve_Luc_Viatour.jpg",
       "download_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Da_Vinci_Vitruve_Luc_Viatour.jpg/500px-Da_Vinci_Vitruve_Luc_Viatour.jpg",
       "download_status": 200,
@@ -369,7 +369,13 @@
         680
       ],
       "sha256": "0abe3492f16087750789f114b5cf9b57062430099417c269a261df2546d3aab3",
-      "method": "Unmodified JPEG; repo_file local/cloud resolver and mo.image; exact bytes embedded in native HTML export. Credit in notebook and images/README.md."
+      "method": "Plain HTML img with a direct GitHub URL, matching the other illustrations. GET returned HTTP 200 image/jpeg with bytes identical to the credited repository asset. Previous repo_file/mo.image embedding removed after the user reported it did not display.",
+      "repository_asset": "images/vitruvian_man.jpg",
+      "verified_wikimedia_alternative": {
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/22/Da_Vinci_Vitruve_Luc_Viatour.jpg/250px-Da_Vinci_Vitruve_Luc_Viatour.jpg",
+        "status": 200,
+        "content_type": "image/jpeg"
+      }
     },
     {
       "notebook": "notebooks/lagrangian_mechanics.py",
@@ -385,5 +391,22 @@
       "replacement": "https://upload.wikimedia.org/wikipedia/commons/f/fb/RLC_series_circuit_v1.svg",
       "source": "https://commons.wikimedia.org/wiki/File:RLC_series_circuit_v1.svg"
     }
-  ]
+  ],
+  "rendered_html_check": {
+    "notebooks": [
+      "notebooks/biomechanics.py",
+      "notebooks/data_filtering.py",
+      "notebooks/fourier_series.py",
+      "notebooks/kinematic_chain.py",
+      "notebooks/kinematics_angular_2d.py",
+      "notebooks/kinetics_fundamental_concepts.py",
+      "notebooks/lagrangian_mechanics.py",
+      "notebooks/matrix.py",
+      "notebooks/reference_frame.py",
+      "notebooks/scalar_vector.py",
+      "notebooks/transformation_2d.py",
+      "notebooks/transformation_3d.py"
+    ],
+    "result": "22/22 external Wikimedia URLs already use direct HTML img src attributes; all retained as actual images by mo.md. No Python image embedding to simplify."
+  }
 }
