@@ -9,35 +9,35 @@
 ## Lecture Schedule
 
 ### Lecture 1   
-- [Introduction](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/Notebooks/Biomechanics.ipynb)
+- [Introduction](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/biomechanics.py)
 
 ### Lecture 2
-- [Python for scientific Computing](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/Notebooks/PythonForScientificComputing.ipynb)
--[Python Tutorial](https://nbviewer.jupyter.org/github/demotu/BMC/blob/master/notebooks/PythonTutorial.ipynb)
+- [Python for scientific Computing](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/python_for_scientific_computing.py)
+-[Python Tutorial](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/python_tutorial.py)
 
 
 ### Lecture 3
-- [Particle kinematics](http://nbviewer.jupyter.org/github/demotu/BMC/blob/master/notebooks/KinematicsParticle.ipynb)
-- [Reference frames](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/ReferenceFrame.ipynb)
-- [Scalar and vectors](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/ScalarVector.ipynb)
+- [Particle kinematics](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/kinematics_particle.py)
+- [Reference frames](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/reference_frame.py)
+- [Scalar and vectors](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/scalar_vector.py)
 
 ### Lecture 4
 
-- [Time-varying frames](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/Notebooks/Time-varying%20frames.ipynb)
-- [Projectile motion](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/ProjectileMotion.ipynb)
+- [Time-varying frames](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/path_frame.py)
+- [Projectile motion](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/projectile_motion.py)
  
 ### Lecture 5 
-- [Polar coordinates](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/PolarCoordinates.ipynb)
-- [Angular kinematics](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/KinematicsAngular2D.ipynb)
+- [Polar coordinates](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/polar_basis.py)
+- [Angular kinematics](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/kinematics_angular_2d.py)
 
 ### Lecture 6
-- [Kinematic chain](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/KinematicChain.ipynb)
+- [Kinematic chain](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/kinematic_chain.py)
 
 ### Lecture 7
-- [Kinematics of rigid body](https://github.com/BMClab/bmc/blob/master/notebooks/KinematicsOfRigidBody.ipynb)
+- [Kinematics of rigid body](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/kinematics_of_rigid_body.py)
 
 ### Lecture 8
-- [Transformation 2D](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/Transformation2D.ipynb)
+- [Transformation 2D](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/transformation_2d.py)
 
 ### Lecture 9
-- [Transformation 3D](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/Transformation3D.ipynb)
+- [Transformation 3D](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/transformation_3d.py)

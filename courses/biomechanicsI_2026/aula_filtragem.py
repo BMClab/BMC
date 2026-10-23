@@ -187,9 +187,9 @@ def _(mo):
 
     ## Uma possível solução: filtrar dados
 
-    *   Data filtering in signal processing:  https://colab.research.google.com/github/BMClab/BMC/blob/master/notebooks/DataFiltering.ipynb
-    *   Residual analysis to determine the optimal cutoff frequency:  https://colab.research.google.com/github/BMClab/BMC/blob/master/notebooks/ResidualAnalysis.ipynb
-    *   Revisão: Basic properties of signals:  https://colab.research.google.com/github/BMClab/BMC/blob/master/notebooks/SignalBasicProperties.ipynb
+    * [Data filtering in signal processing](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/data_filtering.py)
+    * [Residual analysis to determine the optimal cutoff frequency](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/residual_analysis.py)
+    * Revisão: [Basic properties of signals](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/signal_basic_properties.py)
     """)
 
 
@@ -402,7 +402,7 @@ def optcutfreq(y, freq=1, fclim=[], show=False, ax=None):
     ----------
     .. [1] Winter DA (2009) Biomechanics and motor control of human movement.
     .. [2] http://www.clinicalgaitanalysis.com/faq/cutoff.html
-    .. [3] https://github.com/demotu/optcutfreq/blob/master/docs/optcutfreq.ipynb
+    .. [3] https://github.com/demotu/optcutfreq/blob/master/docs/optcutfreq_notebook.py
 
     Examples
     --------
@@ -603,7 +603,6 @@ def _(mo):
     mo.md(r"""
     ## Referências
 
-    - Welcome to Colab!, https://colab.research.google.com/
     - Tracker Video Analysis and Modeling Tool, http://physlets.org/tracker/
     - marimo, https://marimo.io/
     """)

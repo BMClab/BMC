@@ -70,7 +70,8 @@ def read_trc(
         Change the units of the data if desired.
         Accepted output units are 'm' or 'mm'.
     dropna : bool (default = False)
-        True: Delete column if it has only missing or NaN values.
+        True: Delete a marker only if all three XYZ columns contain no data.
+        Partially missing markers keep their complete XYZ group and NaNs.
         False: preserve column and replace column values by parameter `na`
         (see below) if inputed, otherwise maintain default pandas value (NaN).
     na : float or None (default = 0.0)
@@ -127,9 +128,13 @@ def read_trc(
             encoding="utf-8",
             engine="c",
         )
-        # drop markers with no data (column has NaN only)
+        # Drop only whole empty markers; partial XYZ groups must remain intact.
         if dropna:
-            df.dropna(axis=1, how="all", inplace=True)
+            keep = [0, 1]
+            for start in range(2, df.shape[1], 3):
+                if not df.iloc[:, start:start + 3].isna().to_numpy().all():
+                    keep.extend(range(start, start + 3))
+            df = df.iloc[:, keep].copy()
         elif na is not None:
             for col in df:
                 if df.loc[:, col].isnull().sum() == df.shape[0]:
@@ -148,6 +153,8 @@ def read_trc(
         n3 = np.repeat(range(1, nmarkers + 1), 3).tolist()
         xyz = [a + str(b) for a, b in zip(["X", "Y", "Z"] * nmarkers, n3)]
         header[4] = ["", ""] + xyz
+        if units in ("m", "mm") and units != header[2][4]:
+            df = df.astype({column: float for column in df.columns[2:]})
         if units == "m":
             if header[2][4] == "mm":
                 df.iloc[:, 2:] = df.iloc[:, 2:] / 1000
@@ -301,10 +308,10 @@ def read_cal(fname, show_msg=True):
     with open(file=fname, mode="rt", encoding="utf-8", newline="") as f:
         if show_msg:
             print(f'Opening file "{fname}" ... ', end="")
-        reader = csv.reader(f, delimiter=" ")
+        reader = (line.split() for line in f if line.strip())
         for row in reader:
             # force plate number
-            fp.append(int(row[0][0]))
+            fp.append(int(row[0].removesuffix("K")))
             # number of rows for Kistler or AMTI/Bertec force plate
             n = 8 if row[0][-1] == "K" else 6
             # scale (inverse of the gain)
@@ -343,8 +350,7 @@ def read_forces(fname, time=True, forcepla=[], mm2m=True, show_msg=True):
 
     The .forces file in ASCII contains force plate data. The data is saved
     based on the forcepla.cal file of the trial and converts the raw force
-    plate data into calibrated forces. The units used are Newtons and
-    Newton-meters and each line in the file equates to one analog sample.
+    plate data into calibrated forces. The source units used are N, mm (COP), and N mm (free moment) and each line in the file equates to one analog sample.
 
     Example of .forces file structure:
 
@@ -365,7 +371,7 @@ def read_forces(fname, time=True, forcepla=[], mm2m=True, show_msg=True):
         List of force plates to read. An empty list reads all force plates.
         Enter a list of force plate numbers to read.
     mm2m : bool (default = True)
-        Whether to change the COP units from mm to m (True) or not (False).
+        Whether to convert COP from mm to m and free moment from N mm to N m.
     show_msg : bool (default = True)
         Whether to print messages about the execution of the intermediary steps
         (True) or not (False).
@@ -392,31 +398,32 @@ def read_forces(fname, time=True, forcepla=[], mm2m=True, show_msg=True):
             "NumberOfSamples": int(header[3][0].split("=")[1]),
             "ch_names": header[4][1:],
         }
-        if forcepla:
-            if not isinstance(forcepla, list):
-                forcepla = [forcepla]
-            h["NumberOfForcePlates"] = len(forcepla)
-            usecols = []
-            for fp in forcepla:
-                usecols.extend(
-                    [i + 1 for i, s in enumerate(h["ch_names"]) if str(fp) in s]
-                )
-            h["ch_names"] = [h["ch_names"][col - 1] for col in usecols]
-        else:
-            usecols = np.arange(1, 1 + 7 * h["NumberOfForcePlates"])
-        # force plate data
-        df = pd.read_csv(
-            f,
-            sep="\t",
-            names=h["ch_names"],
-            index_col=False,
-            usecols=usecols,
-            engine="c",
-        )
+        # Match the entire numeric suffix, never "1" inside plate "10".
+        import re
+        channel_pattern = re.compile(r"^(FX|FY|FZ|X|Y|Z|MZ)(\d+)$")
+        requested = ([int(forcepla)] if np.isscalar(forcepla)
+                     else [int(plate) for plate in forcepla])
+        all_names = h["ch_names"]
+        df = pd.read_csv(f, sep="\t", header=None, usecols=range(1, len(all_names) + 1),
+                         dtype=float, engine="c")
+        df.columns = all_names
+        if requested:
+            selected = []
+            for plate in dict.fromkeys(requested):
+                names = [name for name in all_names
+                         if (match := channel_pattern.fullmatch(name))
+                         and int(match.group(2)) == plate]
+                if len(names) != 7:
+                    raise ValueError(f"Force plate {plate} does not have seven channels")
+                selected.extend(names)
+            df = df.loc[:, selected].copy()
+            h["NumberOfForcePlates"] = len(set(requested))
+            h["ch_names"] = selected
         if mm2m:
-            cols = [[3 + c, 4 + c, 5 + c, 6 + c] for c in range(0, int(df.shape[1]), 7)]
-            cols = [item for sublist in cols for item in sublist]  # flat list
-            df.iloc[:, cols] = df.iloc[:, cols] / 1000
+            cols = [name for name in df.columns
+                    if (match := channel_pattern.fullmatch(name))
+                    and match.group(1) in ("X", "Y", "Z", "MZ")]
+            df.loc[:, cols] = df.loc[:, cols] / 1000
         if time:
             df.index = df.index / h["SampleRate"]
             df.index.name = "Time"
@@ -561,16 +568,12 @@ def read_delsys(
         The units of df_emg will be mV (the raw signal is multiplied by 1000).
         The units of the IMU data are according to Delsys specification.
     """
-    with open(file=fname, mode="rt", newline=None) as f:
+    with open(file=fname, mode="rt", encoding="utf-8", newline=None) as f:
         if show_msg:
             print(f'Opening file "{fname}" ... ', end="")
         file = f.read().splitlines()
         if file[0] != "Cortex generated Asynchronous device data file (.add)":
-            print(f'\n"{fname}" is not a valid Delsys from Cortex file.')
-            if emg and imu:
-                return None, None
-            elif emg or imu:
-                return None
+            raise ValueError("Not a Cortex asynchronous Delsys export")
         # find start and final lines of data in file
         idx = file.index("[Devices]") + 2
         count = int(file[idx].split("=")[1])
@@ -602,11 +605,10 @@ def read_delsys(
                 usecols=[2],
                 skiprows=idxs[0, 0],
                 nrows=nrows_emg,
-                squeeze=True,
                 dtype=np.float32,
                 encoding="utf-8",
                 engine="c",
-            ).values
+            ).squeeze("columns").to_numpy()
             # the above is faster than simply:
             # np.array([x.split(',')[2] for x in file[idxs[0, 0]:idxs[0, 1]+1]], dtype=np.float32)
             # and faster than:
@@ -630,11 +632,10 @@ def read_delsys(
                     usecols=[3],
                     skiprows=idxs[i, 0],
                     nrows=len(t_emg),
-                    squeeze=True,
-                    dtype=np.float32,
+                        dtype=np.float32,
                     encoding="utf-8",
                     engine="c",
-                ).values
+                ).squeeze("columns").to_numpy()
 
                 if resample[0]:
                     if resample[0] < 1000:
@@ -648,7 +649,7 @@ def read_delsys(
                     y = signal.resample_poly(y, fr.numerator, fr.denominator)
                 ys[:, i] = y * 1000
             df_emg = pd.DataFrame(data=ys, columns=sensors)
-            df_emg.index = df_emg.index / freq_emg2
+            df_emg.index = float(t_emg[0]) / freq_trc + df_emg.index / freq_emg2
             df_emg.index.name = "Time"
 
         # read IM data
@@ -669,11 +670,10 @@ def read_delsys(
                 usecols=[2],
                 skiprows=idxs[0, 2],
                 nrows=nrows_imu,
-                squeeze=True,
                 dtype=np.float32,
                 encoding="utf-8",
                 engine="c",
-            ).values
+            ).squeeze("columns").to_numpy()
             freq_imu = np.mean(freq_trc / np.diff(t_imu))
             if resample[1]:
                 fr = Fraction(resample[1] / freq_imu).limit_denominator(1000)
@@ -689,14 +689,13 @@ def read_delsys(
                     header=None,
                     names=cols[cs],
                     index_col=None,
-                    usecols=range(3, 12),
+                    usecols=range(3, 3 + n_im),
                     skiprows=idxs[i, 2],
                     nrows=len(t_imu),
-                    squeeze=False,
                     dtype=np.float32,
                     encoding="utf-8",
                     engine="c",
-                ).values
+                ).squeeze("columns").to_numpy()
                 if resample[1]:
                     y2 = np.empty((nrows_imu, y.shape[1]), dtype=np.float32)
                     for c in range(y.shape[1]):
@@ -707,7 +706,7 @@ def read_delsys(
                     y2 = y
                 ys[:, cs] = y2
             df_imu = pd.DataFrame(data=ys, columns=cols)
-            df_imu.index = df_imu.index / freq_imu
+            df_imu.index = float(t_imu[0]) / freq_trc + df_imu.index / freq_imu
             df_imu.index.name = "Time"
 
         if show_msg:
@@ -912,99 +911,130 @@ def write_mot(fname, df, show_msg=True, in_degrees=False):
 
 
 def write_v3dtxt(fname, trc, forces, freq=0, show_msg=True):
-    """Write Visual3d text file from .trc and .forces files or dataframes.
+    """Write synchronized marker/force tables in Visual3D ASCII format.
 
-    The .trc and .forces data are assumed to correspond to the same time
-    interval. If the data have different number of samples (different
-    frequencies), the data will be resampled to the highest frequency (or to
-    the inputed frequency if it is higher than the former two) using the tnorm
-    function.
+    TRC input is a filename or a flat DataFrame with Frame#, Time and complete
+    XYZ marker groups. Force input is a filename or a DataFrame whose index is
+    time in seconds. Empty strings omit either stream. Filename TRC data are
+    converted to meters; DataFrame inputs must already use m, N and N m.
 
-    Parameters
-    ----------
-    fname : string
-        Full file name of the Visual3d text file to be saved.
-    trc : pandas dataframe or string
-        If string, it is a full file name of the .trc file to read.
-        If dataframe, data of the .trc file has shape (nsamples, 2 + 3*nmarkers)
-        where the first two columns are from the Frame and Time values.
-        Input an empty string '' if there is no .trc file/dataframe (in this
-        case there must be forces and the input freq is the forces frequency).
-    forces : pandas dataframe or string
-        If string, it is a full file name of the .forces file to read.
-        If dataframe, data of the .forces file has shape (nsamples, 7*nforceplates)
-        Input an empty string '' if there is no forces file/dataframe (in this
-        case there must be a trc file/dataframe).
-    freq : float (optional, dafault=0)
-        Sampling frequency in Hz to resample data if desired.
-        Data will be resampled to the highest frequency between freq, trc, forces.
-    show_msg : bool (default = True)
-        Whether to print messages about the execution of the intermediary steps
-        (True) or not (False).
+    Timestamps must increase, share their start, and describe the same recording
+    interval (within timestamp rounding). The output uses the highest native
+    or requested ``freq`` in Hz. Linear interpolation uses actual timestamps
+    only over the common measured time span, never beyond either last sample.
+    Thus final analog samples after the last marker sample are omitted.
+    Missing coordinate values remain missing; interpolation does not bridge
+    gaps. Frame numbers restart at 1, but the original time origin is retained.
+
+    A force DataFrame with a RangeIndex has no time information; in that case
+    ``freq`` must explicitly specify its sampling rate. For a time-indexed
+    force DataFrame, ``freq`` specifies only a requested output rate.
     """
-    if isinstance(trc, str):
-        if trc:
-            _, trc = read_trc(trc, fname2="", units="", df_multi=False)
+    import csv
+    import os
+    import numpy as np
+    import pandas as pd
+
+    if not np.isfinite(freq) or freq < 0:
+        raise ValueError("freq must be a finite, nonnegative sampling rate")
+    trc_rate = None
+    force_rate = None
+    if isinstance(trc, (str, os.PathLike)):
+        if str(trc):
+            header, trc = read_trc(trc, fname2="", units="m", na=None,
+                                   df_multi=False, show_msg=show_msg)
+            trc_rate = header["data_rate"]
         else:
             trc = pd.DataFrame()
-    if isinstance(forces, str):
-        if forces:
-            _, forces = read_forces(forces)
+    if isinstance(forces, (str, os.PathLike)):
+        if str(forces):
+            header, forces = read_forces(forces, show_msg=show_msg)
+            force_rate = header["SampleRate"]
         else:
             forces = pd.DataFrame()
+    if trc.empty and forces.empty:
+        raise ValueError("Provide marker or force data with timestamps")
 
-    if trc.shape[0] != forces.shape[0] or freq:
-        from tnorm import tnorm
+    def timeline(values, rate, name):
+        times = np.asarray(values, dtype=float)
+        if len(times) < 2 or not np.isfinite(times).all() or np.any(np.diff(times) <= 0):
+            raise ValueError(f"{name} time must contain at least two increasing finite values")
+        rate = float(rate) if rate is not None else (len(times) - 1) / (times[-1] - times[0])
+        if not np.isfinite(rate) or rate <= 0:
+            raise ValueError(f"{name} sampling rate must be positive")
+        return times, rate
 
-        freq_trc = 0 if trc.empty else 1 / np.nanmean(np.diff(trc.iloc[:, 1].values))
-        if freq_trc:
-            freq_forces = (
-                0 if forces.empty else freq_trc * (forces.shape[0] / trc.shape[0])
-            )
+    streams = []
+    if not trc.empty:
+        if trc.shape[1] < 5 or (trc.shape[1] - 2) % 3:
+            raise ValueError("TRC data must contain Frame#, Time and complete XYZ marker groups")
+        trc_time, trc_rate = timeline(trc.iloc[:, 1], trc_rate, "TRC")
+        streams.append((trc_time, trc_rate))
+    if not forces.empty:
+        if isinstance(forces.index, pd.RangeIndex):
+            if not freq:
+                raise ValueError("Force data need a time index or an explicit sampling frequency")
+            force_values = np.arange(len(forces)) / freq
+            force_rate = freq
         else:
-            freq_forces = freq
-        freq = np.max([freq, freq_trc, freq_forces])
-        nsample = (
-            np.max([trc.shape[0], forces.shape[0]])
-            * freq
-            / (np.max([freq_trc, freq_forces]))
-        )
-        frame_time = np.vstack(
-            (np.arange(1, nsample + 1, 1), np.arange(0, nsample, 1) / freq)
-        ).T
-        if freq_trc:
-            trc2, _, _ = tnorm(trc.iloc[:, 2:].values, step=-nsample)
-            trc2 = np.hstack((frame_time, trc2))
-            trc = pd.DataFrame(trc2, index=None, columns=trc.columns)
-        else:
-            trc = pd.DataFrame(frame_time, index=None, columns=["Frame#", "Time"])
-        if freq_forces:
-            forces2, _, _ = tnorm(forces.values, step=-nsample)
-            forces = pd.DataFrame(forces2, index=None, columns=forces.columns)
+            force_values = forces.index
+        force_time, force_rate = timeline(force_values, force_rate, "Force")
+        streams.append((force_time, force_rate))
+    if len(streams) == 2:
+        # Native sample bins may end at different last sample timestamps.
+        # Compare their exclusive ends, allowing the precision of TRC text.
+        tolerance = max(1e-6, 0.1 * max(1 / rate for _, rate in streams))
+        if not np.isclose(trc_time[0], force_time[0], rtol=0, atol=1e-6):
+            raise ValueError("TRC and force time origins differ; synchronize them before export")
+        if abs((trc_time[-1] + 1 / trc_rate) - (force_time[-1] + 1 / force_rate)) > tolerance:
+            raise ValueError("TRC and force data describe different recording intervals")
 
-    ntrc = trc.shape[1]
-    nforces = forces.shape[1]
-    if nforces:
-        data = pd.concat([trc, forces], axis=1)
-    else:
-        data = trc
+    start = max(times[0] for times, _ in streams)
+    end = min(times[-1] for times, _ in streams)
+    output_rate = max([float(freq)] + [rate for _, rate in streams])
+    count = int(np.floor((end - start) * output_rate + 1e-8)) + 1
+    output_time = np.minimum(start + np.arange(count) / output_rate, end)
 
-    with open(file=fname, mode="wt", encoding="utf-8", newline="") as f:
+    def interpolate(table, times):
+        return np.column_stack([
+            np.interp(output_time, times, column, left=np.nan, right=np.nan)
+            for column in table.to_numpy(dtype=float).T
+        ])
+
+    values = [np.arange(1, count + 1), output_time]
+    signal_names = ["TIME"]
+    signal_types = ["FRAME_NUMBERS"]
+    components = ["0"]
+    if not trc.empty:
+        values.extend(interpolate(trc.iloc[:, 2:], trc_time).T)
+        marker_columns = list(trc.columns[2:])
+        for start_column in range(0, len(marker_columns), 3):
+            group = marker_columns[start_column:start_column + 3]
+            names = [str(column)[:-1] for column in group]
+            if len(set(names)) != 1:
+                raise ValueError("Marker columns must be named as matching x/y/z triplets")
+            signal_names.extend(names)
+        signal_types.extend(["TARGET"] * len(marker_columns))
+        components.extend(list("XYZ") * (len(marker_columns) // 3))
+    if not forces.empty:
+        values.extend(interpolate(forces, force_time).T)
+        signal_names.extend(forces.columns)
+        signal_types.extend(["ANALOG"] * forces.shape[1])
+        components.extend(["0"] * forces.shape[1])
+    data = np.column_stack(values)
+    rows = [
+        [""] + ["default"] * len(signal_names),
+        [""] + signal_names,
+        [""] + signal_types,
+        [""] + ["ORIGINAL"] * len(signal_names),
+        ["ITEM"] + components,
+    ]
+    with open(file=fname, mode="wt", encoding="utf-8", newline="") as stream:
         if show_msg:
             print(f'Saving file "{fname}" ... ', end="")
-        rows = [
-            [""] + ["default"] * (ntrc + nforces - 1),
-            [""] + data.columns.tolist()[1:],
-            [""] + ["FRAME_NUMBERS"] + ["TARGET"] * (ntrc - 2) + ["ANALOG"] * nforces,
-            [""] + ["ORIGINAL"] * (ntrc + nforces - 1),
-            [data.columns[0]]
-            + ["0"]
-            + ["X", "Y", "Z"] * int((ntrc - 2) / 3)
-            + ["0"] * nforces,
-        ]
-        write = csv.writer(f, delimiter="\t")
-        write.writerows(rows)
-        write.writerows(data.values)
+        writer = csv.writer(stream, delimiter="\t")
+        writer.writerows(rows)
+        writer.writerows(data)
         if show_msg:
             print("done.")
 
@@ -1025,24 +1055,16 @@ def grf_moments(data, O, show_msg=True):
 
     Returns
     -------
-    grf : Numpy array (n, 8)
+    grf : Numpy array (n, 6)
         array with [Fx, Fy, Fz, Mx, My, Mz]
     """
-    Fx, Fy, Fz, COPx, COPy, COPz, Tz = np.hsplit(data, 7)
-
-    COPz = np.nanmean(COPz)  # most cases is zero
-
-    Mx = COPy * Fz + COPz * Fy
-    My = -COPx * Fz - COPz * Fx
-    Mz = Tz + COPx * Fy - COPy * Fx
-
-    Mx = Mx - Fy * O[2] + Fz * O[1]
-    My = My - Fz * O[0] + Fx * O[2]
-    Mz = Mz - Fx * O[1] + Fy * O[0]
-
-    grf = np.hstack((Fx, Fy, Fz, Mx, My, Mz))
-
-    return grf
+    values = np.asarray(data, dtype=float)
+    origin = np.asarray(O, dtype=float)
+    force = values[:, :3]
+    lever = values[:, 3:6] - origin
+    moment = np.cross(lever, force)
+    moment[:, 2] += values[:, 6]
+    return np.column_stack((force, moment))
 
 
 def step_id(df_f, df_t, forcepla=[2], R="RCAL", L="LCAL", show_msg=True):

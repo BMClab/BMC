@@ -32,12 +32,12 @@ Readings (for Lecture 5):
 
 ### Lecture 2
 
- * [Python for scientific computing](http://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/PythonForScientificComputing.ipynb)
- * [Python Tutorial](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/PythonTutorial.ipynb)
+ * [Python for scientific computing](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/python_for_scientific_computing.py)
+ * [Python Tutorial](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/python_tutorial.py)
  
 Tasks (for Lecture 4):
 
-- Write a Jupyter notebook to compute and plot the acceleration of the particle with displacement data contained in the file [pezzack.txt](http://isbweb.org/data/pezzack/index.html). Additionally, compare the computed acceleration with the true acceleration (contained in the same data).
+- Write a marimo notebook to compute and plot the acceleration of the particle with displacement data contained in the file [pezzack.txt](http://isbweb.org/data/pezzack/index.html). Additionally, compare the computed acceleration with the true acceleration (contained in the same data).
  
 Readings:
 
@@ -51,7 +51,7 @@ Readings:
 ### Lecture 4
 
  * Python programming  
-   + [Python Tutorial](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/PythonTutorial.ipynb)
+   + [Python Tutorial](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/python_tutorial.py)
  
  Tasks (for Lecture 6):
  
@@ -66,11 +66,11 @@ Readings:
 
 ### Lecture 6
  
- * Numerical methods to solve ordinary differential equations. [https://github.com/BMClab/bmc/blob/master/notebooks/newtonLawForParticles.ipynb](https://github.com/BMClab/bmc/blob/master/notebooks/newtonLawForParticles.ipynb),[https://github.com/BMClab/bmc/blob/master/notebooks/OrdinaryDifferentialEquation.ipynb](https://github.com/BMClab/bmc/blob/master/notebooks/OrdinaryDifferentialEquation.ipynb)
+ * Numerical methods to solve ordinary differential equations. [https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/newton_law_for_particles.py](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/newton_law_for_particles.py),[https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/ordinary_differential_equation.py](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/ordinary_differential_equation.py)
  
  Task for this class:
  
- * Write a Jupyter notebook to find the trajectory of a ball considering the air drag proportional to the square root of the ball velocity. Consider that the initial velocity of the particle is v0 = 30 m/s and the initial angle with the horizontal plane is 30 degrees, the gravity acceleration is g = 9.81 m/s^2, the mass of the ball is m = 0.43 kg and the air drag coefficient is $b= 0.006 kg.m^{1/2}/s^{3/2}$.
+ * Write a marimo notebook to find the trajectory of a ball considering the air drag proportional to the square root of the ball velocity. Consider that the initial velocity of the particle is v0 = 30 m/s and the initial angle with the horizontal plane is 30 degrees, the gravity acceleration is g = 9.81 m/s^2, the mass of the ball is m = 0.43 kg and the air drag coefficient is $b= 0.006 kg.m^{1/2}/s^{3/2}$.
  
  Readings (for Lecture 7):
  
@@ -108,7 +108,7 @@ Readings:
    
 ### Lecture 10
   
-  [Nigg and Herzog model implemented in the class](https://github.com/BMClab/bmc/blob/master/courses/modsim2018/renatowatanabe/Lecture9_MotorControl-Copy1.ipynb)
+  Nigg and Herzog model implemented in the class (historical notebook, no longer included)
   
   Task (for Lecture 11)
   
@@ -130,7 +130,7 @@ Readings:
  
  Task (for Lecture 13):  
  
- * Implement the Knee simulation of the Nigg and Herzog's book (chapter 4.8.6, [knee.m](http://isbweb.org/~tgcs/resources/software/bogert/knee.m)) in Python using the muscle model implemented in class. You can use your own model or the contained on this [link](https://github.com/BMClab/bmc/blob/af01ef219d8634d22f8d577dd63ffff7b4691487/courses/modsim2018/renatowatanabe/MuscleModel.ipynb).
+ * Implement the Knee simulation of the Nigg and Herzog's book (chapter 4.8.6, [knee.m](http://isbweb.org/~tgcs/resources/software/bogert/knee.m)) in Python using the muscle model implemented in class. You can use your own model or adapt the examples in the [muscle modeling guide](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/muscle_modeling.py).
  
 ### Lecture 13
  
@@ -151,7 +151,7 @@ Readings:
  
  Task (for Lecture 15):
  
- * Write a Python Class to implement the muscle model developed during the course. [You can use this notebook](https://github.com/BMClab/bmc/blob/master/courses/modsim2018/renatowatanabe/AnkleModel_aula_15.ipynb) and continue the implememtation of the Class.
+ * Write a Python Class to implement the muscle model developed during the course. You can use this notebook (historical notebook, no longer included) and continue the implememtation of the Class.
  
 ### Lecture 15
  
@@ -167,7 +167,7 @@ Readings:
  
 ### Lecture 18
   
- * [Optimization](http://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/Optimization.ipynb)
+ * [Optimization](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/optimization.py)
  
  Task (for Lecture 19):
  
@@ -175,7 +175,7 @@ Readings:
  
 ### Lecture 19
  
- * [Optimization](http://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/Optimization.ipynb)
+ * [Optimization](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/optimization.py)
  
  Task (for Lecture 20):
  
@@ -183,11 +183,11 @@ Readings:
  
 ### Lecture 20
  
- * [Multibody Dynamics](http://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/MultibodyDynamics.ipynb)
+ * [Multibody Dynamics](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/multibody_dynamics.py)
  
 ### Lecture 21
  
- * [Multibody Dynamics](http://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/MultibodyDynamics.ipynb)
+ * [Multibody Dynamics](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/multibody_dynamics.py)
  
  Task (for Lecture 23):
  

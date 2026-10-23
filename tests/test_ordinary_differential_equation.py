@@ -8,8 +8,8 @@ import numpy as np
 
 NOTEBOOK_PATH = (
     Path(__file__).resolve().parents[1]
-    / "notebooks_marimo"
-    / "OrdinaryDifferentialEquation.py"
+    / "notebooks"
+    / "ordinary_differential_equation.py"
 )
 
 
@@ -109,7 +109,7 @@ class OrdinaryDifferentialEquationTests(unittest.TestCase):
         self.assertGreaterEqual(source.count("**Challenge"), 6)
         self.assertGreaterEqual(source.count("**Guiding questions"), 4)
         self.assertIn("Before you run the next cell", source)
-        self.assertIn("## Practice problems", source)
+        self.assertIn("## Problems", source)
         self.assertIn("Design a mass-spring-damper system", source)
         self.assertIn("## Go deeper", source)
         self.assertIn(

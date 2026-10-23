@@ -1,0 +1,524 @@
+[
+  {
+    "notebook": "amti_bsf_file.py",
+    "exercises": 2,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "angular_velocity_3d.py",
+    "exercises": 6,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "basic_mechanical_elements_muscle_model.py",
+    "exercises": 4,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "biomechanics.py",
+    "exercises": 4,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "bmclab.py",
+    "exercises": 3,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "body_segment_parameters.py",
+    "exercises": 4,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "center_of_mass_and_moment_of_inertia.py",
+    "exercises": 5,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "ch2_viscoelastic_models.py",
+    "exercises": 5,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "code_structure.py",
+    "exercises": 3,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "confidence_prediction_intervals.py",
+    "exercises": 5,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "coordinate_system.py",
+    "exercises": 5,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "curve_fitting.py",
+    "exercises": 6,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "data_filtering.py",
+    "exercises": 8,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "dlt.py",
+    "exercises": 2,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "electromyography.py",
+    "exercises": 5,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "ellipsoid_3d_rotation_matrix_1.py",
+    "exercises": 3,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "ellipsoid_rotation_matrix_3d.py",
+    "exercises": 2,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "ensemble_average.py",
+    "exercises": 3,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "fbd_particles.py",
+    "exercises": 5,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "force_plate_calibration.py",
+    "exercises": 4,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "fourier_series.py",
+    "exercises": 5,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "fourier_transform.py",
+    "exercises": 6,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "free_body_diagram.py",
+    "exercises": 5,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "free_body_diagram_for_rigid_bodies.py",
+    "exercises": 5,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "gait_analysis_2d.py",
+    "exercises": 3,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "iep.py",
+    "exercises": 5,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "ip_model.py",
+    "exercises": 3,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "kinematic_chain.py",
+    "exercises": 6,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "kinematics_angular_2d.py",
+    "exercises": 3,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "kinematics_of_rigid_body.py",
+    "exercises": 6,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "kinematics_particle.py",
+    "exercises": 3,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "kinetics_3d_rigid_body.py",
+    "exercises": 4,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "kinetics_fundamental_concepts.py",
+    "exercises": 4,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "kistler_force_plate_calculation.py",
+    "exercises": 3,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "lab_acel_gravidade.py",
+    "exercises": 6,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "lab_filtros.py",
+    "exercises": 6,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "lagrangian_mechanics.py",
+    "exercises": 5,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "lagrangian_mechanics_generalized.py",
+    "exercises": 4,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "matrix.py",
+    "exercises": 5,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "matrix_formalism.py",
+    "exercises": 3,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "minimum_jerk_hypothesis.py",
+    "exercises": 3,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "multibody_dynamics.py",
+    "exercises": 4,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "multibody_inverse_dynamics.py",
+    "exercises": 3,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "muscle_modeling.py",
+    "exercises": 5,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "muscle_simulation.py",
+    "exercises": 3,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "musculoskeletal_modeling_simulation.py",
+    "exercises": 3,
+    "reference_lists": 2,
+    "issues": []
+  },
+  {
+    "notebook": "newton_euler_equations.py",
+    "exercises": 4,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "newton_law_for_particles.py",
+    "exercises": 4,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "open_c3d_file.py",
+    "exercises": 3,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "optimization.py",
+    "exercises": 8,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "ordinary_differential_equation.py",
+    "exercises": 7,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "pandas_data.py",
+    "exercises": 3,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "path_frame.py",
+    "exercises": 4,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "polar_basis.py",
+    "exercises": 3,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "polynomial_fitting.py",
+    "exercises": 4,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "prediction_ellipse_ellipsoid.py",
+    "exercises": 4,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "principle_of_least_action.py",
+    "exercises": 3,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "projectile_motion.py",
+    "exercises": 4,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "propagation_uncertainty.py",
+    "exercises": 3,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "python_for_scientific_computing.py",
+    "exercises": 3,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "python_installation.py",
+    "exercises": 3,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "python_tutorial.py",
+    "exercises": 5,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "read_c3d.py",
+    "exercises": 2,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "read_delsys_cortex_file.py",
+    "exercises": 3,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "read_mac_ascii_files.py",
+    "exercises": 3,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "read_trc.py",
+    "exercises": 2,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "read_trc_forces_files.py",
+    "exercises": 2,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "read_zebris_pressure_platform_ascii_files.py",
+    "exercises": 3,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "reference_frame.py",
+    "exercises": 6,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "rep_missing.py",
+    "exercises": 3,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "resample.py",
+    "exercises": 2,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "residual_analysis.py",
+    "exercises": 5,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "scalar_vector.py",
+    "exercises": 5,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "signal_basic_properties.py",
+    "exercises": 7,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "similarity.py",
+    "exercises": 3,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "sistema_coordenadas.py",
+    "exercises": 5,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "spatial_temporal_characteristics.py",
+    "exercises": 3,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "stabilography.py",
+    "exercises": 4,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "statistics_bayesian.py",
+    "exercises": 3,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "statistics_descriptive.py",
+    "exercises": 3,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "svd_algorithm.py",
+    "exercises": 3,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "text_and_binary_files.py",
+    "exercises": 2,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "transformation_2d.py",
+    "exercises": 6,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "transformation_3d.py",
+    "exercises": 6,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "trigonometry_basics.py",
+    "exercises": 6,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "version_control_git_github.py",
+    "exercises": 4,
+    "reference_lists": 1,
+    "issues": []
+  },
+  {
+    "notebook": "vertical_jump.py",
+    "exercises": 4,
+    "reference_lists": 1,
+    "issues": []
+  }
+]

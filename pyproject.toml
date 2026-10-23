@@ -3,34 +3,29 @@ name = "bmc"
 version = "0.1.0"
 requires-python = ">=3.14"
 dependencies = [
+    "c3d>=0.6",
     "detecta>=0.0.5",
-    "ipykernel>=7.2.0",
-    "ipywidgets>=8.1.8",
-    "jupyter>=1.1.1",
-    "jupyter-contrib-nbextensions>=0.7.0",
-    "jupyterlab>=4.6.1",
+    "ipython>=9.15.0",
     "marimo>=0.23.9",
     "matplotlib>=3.10.9",
     "numpy>=2.4.6",
-    "openai>=2.41.0",
     "optcutfreq>=0.0.10",
     "pandas>=3.0.3",
     "psd2>=0.0.5",
-    "pydantic-ai-slim>=1.106.0",
-    "pyversions>=0.0.3",
-    "rise>=5.7.1",
     "ruff>=0.15.16",
     "scipy>=1.17.1",
     "seaborn>=0.13.2",
     "statsmodels>=0.14.6",
     "sympy>=1.14.0",
     "tnorma>=0.0.3",
+    "uncertainties>=3.2.3",
+    "urllib3>=2.2",
     "watermark>=2.6.0",
+    "xarray>=2026.9.0",
 ]
 
 [dependency-groups]
 dev = [
-    "nbstripout>=0.9.1",
     "pytest>=9.0.3",
 ]
 

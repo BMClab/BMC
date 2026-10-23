@@ -43,7 +43,7 @@ def cogve(COP, freq, mass, height, show=False, ax=None):
 
     References
     ----------
-    .. [1] http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/IP_Model.ipynb
+    .. [1] https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/ip_model.py
 
     Examples
     --------

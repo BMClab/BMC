@@ -22,14 +22,14 @@
  * [OpenSim software](https://simtk.org/projects/opensim), [Mendeley](https://www.mendeley.com), [Github](https://www.github.com), [Python](https://www.python.org/), [Anaconda](https://www.anaconda.com/) 
 
 
- * [Python for scientific computing](http://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/PythonForScientificComputing.ipynb)
- * [Python Tutorial](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/PythonTutorial.ipynb)
+ * [Python for scientific computing](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/python_for_scientific_computing.py)
+ * [Python Tutorial](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/python_tutorial.py)
  
 Tasks (for Lecture 2):
 
 *  Install OpenSim and do the first three tutorials (Help menu).
 
-- Write a Jupyter notebook to compute and plot the acceleration of the particle with displacement data contained in the file [pezzack.txt](http://isbweb.org/data/pezzack/index.html). Additionally, compare the computed acceleration with the true acceleration (contained in the same data).
+- Write a marimo notebook to compute and plot the acceleration of the particle with displacement data contained in the file [pezzack.txt](http://isbweb.org/data/pezzack/index.html). Additionally, compare the computed acceleration with the true acceleration (contained in the same data).
  
 
 
@@ -47,12 +47,12 @@ Tasks (for Lecture 2):
 
 * OpenSim tutorials
 
-* Numerical methods to solve ordinary differential equations. [https://github.com/BMClab/bmc/blob/master/notebooks/newtonLawForParticles.ipynb](https://github.com/BMClab/bmc/blob/master/notebooks/newtonLawForParticles.ipynb),[https://github.com/BMClab/bmc/blob/master/notebooks/OrdinaryDifferentialEquation.ipynb](https://github.com/BMClab/bmc/blob/master/notebooks/OrdinaryDifferentialEquation.ipynb)
+* Numerical methods to solve ordinary differential equations. [https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/newton_law_for_particles.py](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/newton_law_for_particles.py),[https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/ordinary_differential_equation.py](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/ordinary_differential_equation.py)
 
  
  Task for lecture 3:
  
- * Write a Jupyter notebook to find the trajectory of a ball considering the air drag proportional to the square root of the ball velocity. Consider that the initial velocity of the particle is $v_0 = 30 m/s$ and the initial angle with the horizontal plane is 30 degrees, the gravity acceleration is $g = 9.81 m/s^2$, the mass of the ball is m = 0.43 kg and the air drag coefficient is $b= 0.006 kg.m^{1/2}/s^{3/2}$.
+ * Write a marimo notebook to find the trajectory of a ball considering the air drag proportional to the square root of the ball velocity. Consider that the initial velocity of the particle is $v_0 = 30 m/s$ and the initial angle with the horizontal plane is 30 degrees, the gravity acceleration is $g = 9.81 m/s^2$, the mass of the ball is m = 0.43 kg and the air drag coefficient is $b= 0.006 kg.m^{1/2}/s^{3/2}$.
 
 Readings (for Lecture 3):
 

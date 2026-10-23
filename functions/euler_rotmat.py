@@ -81,7 +81,7 @@ def euler_rotmat(
 
     References
     ----------
-    .. [1] http://nbviewer.ipython.org/github/duartexyz/BMC/blob/master/Transformation3D.ipynb
+    .. [1] https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/transformation_3d.py
 
     Examples
     --------

@@ -50,7 +50,7 @@ def minjerk(r0, rf, duration=1, unit='m', N=101,
 
     References
     ----------
-    .. [1] http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/MinimumJerkHypothesis.ipynb
+    .. [1] https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/minimum_jerk_hypothesis.py
 
     Examples
     --------

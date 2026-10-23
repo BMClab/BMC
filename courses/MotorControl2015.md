@@ -32,7 +32,7 @@
 
 **Assignments**   
  + Write a computer program to plot the results of Example 2 (page 537 of Nigg & Herzog (2006)). Your code should have as inputs the initial position, initial velocity, and acceleration (constant) and as outputs, plots of the position, velocity and acceleration of the particle.  
- + Write a computer program to perform inverse dynamics with the data in [Inverse dynamics benchmark data](http://isbweb.org/data/invdyn/index.html). See [this notebook](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/GaitAnalysis2D.ipynb) for a solution in Python.
+ + Write a computer program to perform inverse dynamics with the data in [Inverse dynamics benchmark data](http://isbweb.org/data/invdyn/index.html). See [this notebook](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/gait_analysis_2d.py) for a solution in Python.
  
 ### Week 3
 - Muscle modeling and simulation   
@@ -47,8 +47,8 @@
  
 ### Week 4
 - Muscle modeling and simulation
- + [Muscle modeling](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/MuscleModeling.ipynb)  
- + [Muscle simulation](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/MuscleSimulation.ipynb) 
+ + [Muscle modeling](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/muscle_modeling.py)
+ + [Muscle simulation](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/muscle_simulation.py)
  
 **Readings**   
  + Zajac (1989)  
@@ -59,7 +59,7 @@
  + Write computer programs to plot each component of a Hill-type muscle model having parameters as inputs.
  
 ### Week 5
-- [Ordinary differential equation and numerical integration](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/OrdinaryDifferentialEquation.ipynb)
+- [Ordinary differential equation and numerical integration](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/ordinary_differential_equation.py)
 
 **Readings**   
  + Chapter 8 of Downey (2011)
@@ -68,7 +68,7 @@
  + Write computer programs to solve the exercises 8.1 and 8.2 of Downey (2011).
  
 ### Week 6
-- [Musculoskeletal modeling and simulation](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/MusculoskeletaModelingSimulation.ipynb)
+- [Musculoskeletal modeling and simulation](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/musculoskeletal_modeling_simulation.py)
 
 **Readings**   
  + Chapter 4 of Nigg & Herzog (2006)  
@@ -82,7 +82,7 @@
  + Change knee.m to use another integrator (e.g., ode45) and add plots for muscle length and velocity.  
  
 ### Week 7
-- [Optimization](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/Optimization.ipynb)
+- [Optimization](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/optimization.py)
 
 **Readings**   
  + Chapter 4 (page 609-621) of Nigg & Herzog (2006)  
@@ -91,7 +91,7 @@
  + Solve the example on the elbow forces using a different method
  
 ### Week 8
-- [Multibody dynamics of simple biomechanical models](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/MultibodyDynamics.ipynb)
+- [Multibody dynamics of simple biomechanical models](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/multibody_dynamics.py)
 
 **Readings**
  + Chapter 5 of Zatsiorsky (2002)

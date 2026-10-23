@@ -44,13 +44,15 @@ def fpcalibra(Lfp, Flc, COP, threshold=1e-10, method='SVD'):
     threshold  : float, optional
         threshold to stop the optimization (default 1e-10)
     method  : string, optional
-        method for the pseudiinverse calculation, 'SVD' (default) or 'lstsq'
-        SVD is the Singular Value Decomposition and lstsq is least-squares
+        legacy pseudoinverse selector, 'SVD' (default) or 'lstsq'. Both values
+        now use scipy.linalg.pinv, which is SVD-based.
     
     Returns
     -------
     C   : numpy 2-D (6-by-6) array
-        optimal force plate re-calibration matrix (in dimensionless units)
+        force plate re-calibration matrix. Force/force and moment/moment blocks
+        are dimensionless; force/moment and moment/force blocks have units 1/m
+        and m, respectively, when loads use N and Nm.
     ang : numpy 1-D array [ang0, ..., angk]
         optimal angles of rotation (in rad) of the load cells at the
         measurement sites
@@ -58,7 +60,7 @@ def fpcalibra(Lfp, Flc, COP, threshold=1e-10, method='SVD'):
     References
     ----------
     .. [1] Cedraro A, Cappello A, Chiari L (2008) Gait & Posture, 28, 488–494. 
-    .. [2] http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/ForcePlateCalibration.ipynb
+    .. [2] https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/force_plate_calibration.py
 
     Example
     -------
@@ -142,7 +144,7 @@ def fpcalibra(Lfp, Flc, COP, threshold=1e-10, method='SVD'):
     Li = np.empty((6, ns*nk))
     start = time.time()
     # the optimization
-    while np.all(delta_ang > threshold):
+    while np.any(delta_ang > threshold):
         for k in range(nk):
             Li[:,k*ns:(k+1)*ns] = (P[:,:,k] @ R(ang0[k])) @ Flc[:,k*ns:(k+1)*ns]
         C = Li @ Lpinv
@@ -152,6 +154,11 @@ def fpcalibra(Lfp, Flc, COP, threshold=1e-10, method='SVD'):
         delta_ang = np.abs(res.x - ang0)
         ang0 = res.x
         da.append(delta_ang.sum())
+
+    # Return a calibration consistent with the final angle estimate.
+    for k in range(nk):
+        Li[:,k*ns:(k+1)*ns] = (P[:,:,k] @ R(ang0[k])) @ Flc[:,k*ns:(k+1)*ns]
+    C = Li @ Lpinv
 
     tdelta = time.time() - start
     print('\nOptimization finished in %.1f s after %d steps.\n' %(tdelta, len(da)))

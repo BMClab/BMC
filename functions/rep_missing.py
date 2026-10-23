@@ -3,11 +3,7 @@
 """Replace missing data in different ways."""
 
 import numpy as np
-from detect_seq import detect_seq
-try:
-    from tnorm import tnorm
-except:
-    print('Function tnorm.py not found. Method "interp" not available.')
+
 
 __author__ = 'Marcos Duarte, https://github.com/demotu/BMC'
 __version__ = 'rep_missing.py v.1.0.0 2019/03/17'
@@ -21,7 +17,7 @@ def rep_missing(x, value=np.nan, new_value='interp', max_alert=100):
     x : 1D numpy array_like
         data
     value : number, optional. Default = np.nan.
-        Value to be found in x marking missing data.
+        Scalar value in x marking missing data. The input is never modified.
     new_value : number or string, optional. Default = 'interp'.
         Value or string for the method to use for replacing missing data:
         'delete': delete missing data.
@@ -36,7 +32,8 @@ def rep_missing(x, value=np.nan, new_value='interp', max_alert=100):
         
     This function can handle NaNs separately from missing data (in case they
     are different), but the 'interp' method will interpolate on both the
-    missing data and NaNs.    
+    missing data and NaNs. Interpolation uses sample indices, assumes uniform sampling,
+    and extends the nearest observed value at missing endpoints.
     
         
     Returns
@@ -47,7 +44,7 @@ def rep_missing(x, value=np.nan, new_value='interp', max_alert=100):
             
     References
     ----------
-    .. [1] http://nbviewer.jupyter.org/github/demotu/BMC/blob/master/notebooks/rep_missing.ipynb
+    .. [1] https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/rep_missing.py
 
     Examples
     --------
@@ -55,22 +52,36 @@ def rep_missing(x, value=np.nan, new_value='interp', max_alert=100):
 
     """
     
-    y = np.asarray(x)
+    from numbers import Number
 
-    idx = detect_seq(y, value, index=False, max_alert=max_alert)
-
-    if idx.any():
-        if new_value == 'delete':
-            y = y[~idx]
-        elif np.isreal(new_value) or np.iscomplex(new_value):
-            y[idx] = new_value
-        elif new_value == 'mean':
-            y[idx] = np.nanmean(y[~idx])
-        elif new_value == 'median':
-            y[idx] = np.nanmedian(y[~ĩdx]) 
-        elif new_value == 'interp':
-            y = y.astype(float)
-            y[idx] = np.nan
-            y, t, indie = tnorm(y, step=0, k=1, smooth=0, nan_at_ext='replace')
-            
+    y = np.array(x, dtype=complex if np.iscomplexobj(x) else float, copy=True)
+    if y.ndim != 1:
+        raise ValueError("x must be one-dimensional")
+    idx = np.isnan(y) if np.isnan(value) else y == value
+    if new_value == "interp":
+        idx = idx | np.isnan(y)
+    if isinstance(new_value, str) and new_value not in {"delete", "mean", "median", "interp"}:
+        raise ValueError("new_value must be numeric, delete, mean, median, or interp")
+    if max_alert and idx.any():
+        edges = np.diff(np.r_[False, idx, False].astype(int))
+        lengths = np.flatnonzero(edges == -1) - np.flatnonzero(edges == 1)
+        if np.any(lengths >= max_alert):
+            import warnings
+            warnings.warn("Long missing-data sequence; assess whether replacement is justified.", stacklevel=2)
+    if isinstance(new_value, Number):
+        y[idx] = new_value
+    elif new_value == "delete":
+        y = y[~idx]
+    elif idx.any():
+        valid = ~idx & np.isfinite(y)
+        if not valid.any():
+            raise ValueError("Replacement requires at least one finite observed value")
+        if new_value == "mean":
+            y[idx] = np.mean(y[valid])
+        elif new_value == "median":
+            y[idx] = np.median(y[valid])
+        else:
+            missing = idx | np.isnan(y)
+            samples = np.arange(y.size)
+            y[missing] = np.interp(samples[missing], samples[valid], y[valid])
     return y

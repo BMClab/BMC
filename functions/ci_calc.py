@@ -46,7 +46,7 @@ def ci_calc(y, estimate=np.nanmean, level=95, axis=0, method='bootstrap',
     See Also
     --------
     https://stackoverflow.com/questions/60654248/
-    https://github.com/BMClab/BMC/blob/master/notebooks/ConfidencePredictionIntervals.ipynb
+    https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/confidence_prediction_intervals.py
     """
     if method == 'bootstrap':
         import seaborn as sns

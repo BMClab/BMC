@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def load_notebook(name):
     spec = importlib.util.spec_from_file_location(
-        name, ROOT / "notebooks_marimo" / f"{name}.py"
+        name, ROOT / "notebooks" / f"{name}.py"
     )
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
@@ -22,7 +22,7 @@ def load_notebook(name):
 class SignalBasicPropertiesTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.notebook = load_notebook("SignalBasicProperties")
+        cls.notebook = load_notebook("signal_basic_properties")
 
     def test_quantize_uses_2_to_the_n_levels_and_half_step_error(self):
         x = np.linspace(-1, 1, 10001)
@@ -40,14 +40,32 @@ class SignalBasicPropertiesTests(unittest.TestCase):
 class DataFilteringTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.notebook = load_notebook("DataFiltering")
+        cls.notebook = load_notebook("data_filtering")
 
     def test_critic_damp_butter_option_matches_scipy(self):
         b, a, fc = self.notebook.critic_damp(10, 100, npass=2, filt="butter")
-        self.assertAlmostEqual(fc, 10 / (2**0.5 - 1) ** 0.25)
+        correction = (2**0.5 - 1) ** 0.25
+        expected = 100 / np.pi * np.arctan(np.tan(np.pi * 10 / 100) / correction)
+        self.assertAlmostEqual(fc, expected)
         b_sp, a_sp = signal.butter(2, fc / 50)
         np.testing.assert_allclose(b, b_sp)
         np.testing.assert_allclose(a, a_sp)
+
+    def test_critic_damp_combined_response_is_half_power_at_requested_cutoff(self):
+        for kind in ("butter", "critic"):
+            for cutoff in (2, 10, 35):
+                for passes in (1, 2, 4):
+                    with self.subTest(kind=kind, cutoff=cutoff, passes=passes):
+                        b, a, _ = self.notebook.critic_damp(
+                            cutoff, 100, npass=passes, filt=kind
+                        )
+                        _, response = signal.freqz(b, a, worN=[cutoff], fs=100)
+                        self.assertAlmostEqual(abs(response[0]) ** (2 * passes), 0.5)
+
+    def test_critic_damp_rejects_invalid_cutoff(self):
+        for cutoff in (0, -1, 50, 60):
+            with self.subTest(cutoff=cutoff), self.assertRaises(ValueError):
+                self.notebook.critic_damp(cutoff, 100)
 
     def test_critic_damp_has_unit_dc_gain_and_no_step_overshoot(self):
         b, a, _ = self.notebook.critic_damp(10, 100, npass=2, filt="critic")

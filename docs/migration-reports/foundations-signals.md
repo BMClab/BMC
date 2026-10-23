@@ -1,0 +1,61 @@
+# Foundations follow-up: four signal guides and polynomial helper
+
+Scope was explicitly extended by the coordinator after the 18 foundations notebooks were completed: `DataFiltering`, `FourierTransform`, `ResidualAnalysis`, and `SignalBasicProperties`. A later explicit extension authorized synchronizing the polynomial interval correction into `functions/polyfit.py` and updating focused tests. No commits, directory moves, shared dependency changes or edits to other notebook groups were made by this worker.
+
+## Content comparison and teaching outcomes
+
+The existing marimo guides were compared with their paired Jupyter Markdown and code by content, not modification date. Each already contained a substantial conversational rewrite; that prose, the demonstrations, the scientific topics, and the original problems were retained. Baseline Markdown word counts were marimo/Jupyter: DataFiltering 6246/3688, FourierTransform 3547/519, ResidualAnalysis 2436/650, SignalBasicProperties 4519/2183.
+
+| Notebook | Final teaching outcome | Substantive corrections | Runtime/data |
+| --- | --- | --- | --- |
+| SignalBasicProperties | Seven distributed worked Exercises, checkpoint answers, all eleven original Problems answered. Added collapsed final plots for the six functions, triangular wave and four sampling rates. Preserved the EMG, phase/harmonics, AC/DC, symmetry, sampling, quantization and noise examples. | Nyquist boundary now explains the zero-crossing counterexample and practical anti-alias margin. The stored EMG cannot establish adequate analog anti-aliasing or uniquely identify ADC hardware. Quantization inference is explicitly conditional. Distinguished pseudorandom software from hardware entropy. Made the averaging interval in Problems 4/7 explicit; supplied the removable value at zero and triangle corner values. | PEP 723: marimo, numpy, pandas, matplotlib. Reads original EMG data remotely; no data writes. |
+| FourierTransform | Six distributed worked Exercises and final answers to all six original Problems. Preserved transform definitions, synthesis, leakage/window examples, noisy spectra, Welch/psd2 and spectrograms. | Separated DFT bin spacing from resolving nearby components. Corrected one-sided DC/Nyquist normalization and included the Nyquist bin in the introductory plot. Discrete periodogram power is summed by bins, preserving Parseval; Welch need not equal full-record variance exactly. Corrected continuous pulse-transform versus amplitude-spectrum normalization and the impossible 512-sample window for a 500-sample record. Removed unsupported claims that the sampled PSD proves absence of aliasing or uniquely identifies fatigue. | PEP 723: marimo, numpy, pandas, matplotlib, scipy, psd2. EMG read remotely. |
+| DataFiltering | Eight distributed worked Exercises and final answers to all six original Problems. Retained moving averages, frequency response, Butterworth/critical/FIR, moving RMS/median, Pezzack, polynomial differentiation and ball-toss comparisons. | Replaced approximate digital cutoff scaling with exact prewarped correction; notebook-local `critic_damp` now reaches the requested combined half-power cutoff and rejects invalid cutoff/pass values. Clearly distinguishes order per pass and total roll-off. Qualified endpoint/critical-damping claims. Uses the same interior acceleration samples for the three benchmark RMSE comparisons. Treats accelerometer output as a measured reference rather than uncertainty-free truth. | PEP 723: marimo, numpy, scipy, pandas, matplotlib. Pezzack, EMG and ball-toss data read remotely. No data writes. |
+| ResidualAnalysis | Five distributed worked Exercises and final answers to all four original Problems, including seeded synthetic numerical results and all sixteen Winter marker-coordinate cutoffs. Preserved the residual curve, tail-fitting, automatic package, RMSE sweep and noisier-data examples. | The linear noise tail is an empirical approximation, not a consequence guaranteed by whiteness. The historical `optcutfreq` C=0.802 convention is explicitly labeled and distinguished from exact digital correction. Removed universal oversmoothing claims. Explained the 60 Hz alias at approximately 49.75 Hz sampling. The critique Problem is now self-contained; the unreachable historical discussion is optional reading. | PEP 723: marimo, numpy, scipy, pandas, matplotlib, optcutfreq. Pezzack data read remotely. Original package behavior retained and documented. |
+
+Each includes the established title/authors, How to use, opening Challenge, Python setup, guided topics, Exercises with collapsed worked solutions, Checkpoint questions, Problems with collapsed final answers only, Go deeper, Video lectures on the Internet, and References. Existing author information was preserved for central normalization. Reference blocks use actual Markdown bullet lists.
+
+## Scientific checks and evidence
+
+- `critic_damp` now corrects the prewarped frequency: `wc = tan(pi*fcut/fs)*corr`, followed by `fc_design = fs/pi*atan(wc)`. At desired 10 Hz, fs=100 Hz, two-pass Butterworth, the design value is 12.2492406 Hz rather than the approximate 12.47 Hz. Direct `freqz` checks establish combined power 0.5 for both filter families, cutoffs 2/10/35 Hz, and pass counts 1/2/4. The existing SciPy coefficient-equivalence test was updated; invalid-cutoff coverage was added.
+- Numerical final answers were calculated from the actual repository data, not guessed. EMG before/after mean removal, 8-bit quantization (nine occupied levels), supplied-seed SNR, pulse normalization, Parseval (1698.51629126209 on each side), zero-padding amplitude, moving-average half-power frequencies, ball-flight quadratic estimates, and tuned Pezzack comparisons were checked.
+- Residual Problem 1 resets NumPy RNG seed 42 for each noise SD and fixes grids and endpoint conventions. Results: residual cutoffs 6.2780768/4.0500597 Hz; estimated noise 0.00889525/0.04783148; signal-optimal cutoffs 8.1/5.8 Hz; acceleration-optimal cutoffs 5.7/4.3 Hz. The reported values are conditional on that explicitly stated procedure.
+- Residual Problem 2 explicitly uses exact digital correction for both families and the same fixed 8–18 Hz tail fit. Results: Butterworth 5.98424 Hz; critical 7.00702 Hz. These intentionally differ from the package’s automatic historical-convention result.
+- Pezzack method comparisons use common interior samples. Tuned noisy-data results: Butterworth 5.1 Hz, RMSE 4.51; Savitzky–Golay window 15/order 4, RMSE 4.59; quintic spline s=0.005452474, RMSE 4.24 rad/s². The answer documents search grids and warns against interpreting benchmark tuning as general superiority.
+
+## Shared polynomial helper extension
+
+`functions/polyfit.py` now uses the full Vandermonde coefficient covariance for confidence/prediction bands at every polynomial degree. Prediction variance adds `chi2red*yerr**2` under the documented relative-weight convention. Positive finite `yerr` values are validated without mutating the caller, returned-array dimensions are corrected in the documentation, and coefficient labels follow descending powers. Plotting evaluates the full covariance on its plotting grid and orders x values, instead of linearly interpolating confidence widths on potentially unsorted x. The same plotting correction was applied to the embedded helper in `PolynomialFitting.py`.
+
+`tests/test_polyfit_intervals.py` compares weighted quadratic and cubic intervals with an independently assembled least-squares design/covariance calculation, checks invariance to a common weight rescaling, and checks invalid-scale rejection/caller preservation. It does not merely repeat the production expression as an expected-value fixture.
+
+The shared `functions/critic_damp.py` initially remained outside this worker’s assignment. A later explicit extension authorized synchronizing the exact digital correction and adding a focused physical-response regression suite. That work is now complete; see [the independent review report](root-guides-review.md) for the correction, evidence and downstream I/O checks.
+
+## Verification
+
+- All four signal guides: strict marimo structure check passed; strict static WebAssembly check passed.
+- All four signal guides: `marimo export script` followed by execution of the actual exported cells from `/tmp`, `MPLBACKEND=Agg`, empty `PYTHONPATH`: exit 0. Only expected noninteractive Matplotlib warnings occurred.
+- All four signal guides: actual-cell HTML export passed. Final DataFiltering/ResidualAnalysis prose changes were exported again.
+- PolynomialFitting: strict structure/static compatibility checks and exported-cell execution/HTML export passed again after synchronizing the plotting fix.
+- `uv run pytest -q tests/test_polyfit_intervals.py tests/test_signal_processing_notebooks.py`: **16 passed, 31 subtests passed**.
+- Scoped Ruff passed with `EXE002` excluded because the legacy shared helper already has an executable file mode without a shebang. Imports/formatting were fixed only in the touched helper/tests; no broad notebook formatting was performed.
+- Scoped `git diff --check` passed. Source audit confirmed the common sections, PEP 723 blocks and collapsed-answer markup across all 22 worker-owned notebooks. Direct Markdown rendering confirmed reference `<li>` elements in all four guides and collapsed `<details>` output in SignalBasicProperties; central full visual checks remain separate.
+- Temporary exports, logs and numerical checking scripts are under `/tmp/bmc-foundations` and `/tmp/signals_*`; none were written into original data directories.
+
+## Documentation and link checks
+
+Context7 current NumPy documentation confirmed rfft/rfftfreq endpoint conventions and default normalization; current SciPy documentation confirmed filtfilt doubled order/squared magnitude, bilinear transformation, Hz-aware freqz and edge handling. The earlier polynomial pass consulted NumPy’s weighted polyfit covariance conventions. No Context7 entry was available for optcutfreq; its official repository and installed source were inspected instead.
+
+Verified primary/documentation/reference destinations include:
+
+- [MIT Sampling lecture](https://ocw.mit.edu/courses/res-6-007-signals-and-systems-spring-2011/resources/lecture-16-sampling/).
+- [MIT Digital Butterworth Filters lecture](https://ocw.mit.edu/courses/res-6-008-digital-signal-processing-spring-2011/resources/lecture-16-digital-butterworth-filters/).
+- [3Blue1Brown Fourier introduction](https://www.youtube.com/watch?v=spUNpyF58BY) (landing-page availability, not full playback).
+- [ISB Pezzack benchmark description](https://isbweb.org/data/pezzack/index.html), which identifies the digitized acceleration reference and the added-noise source.
+- [Pezzack paper bibliographic record](https://pubmed.ncbi.nlm.nih.gov/893476/) and [Robertson–Dowling filter paper](https://pubmed.ncbi.nlm.nih.gov/14573371/). Search retrieved complete primary bibliographic records when direct PubMed fetch showed a browser challenge. The obsolete Ottawa PDF link was replaced with the verified record.
+- [Smith’s DSP book](https://www.dspguide.com/) and [DFT chapter](https://www.dspguide.com/ch8.htm), replacing the inaccessible dspGuru link.
+- [optcutfreq source](https://github.com/demotu/optcutfreq), [FFTW](https://www.fftw.org/), [RANDOM.ORG explanation](https://www.random.org/randomness/), [mains-frequency demonstration](https://www.mainsfrequency.com/), [Fourier-transform introduction](https://www.thefouriertransform.com/transform/fourier.php).
+- [Tracker’s current home](https://opensourcephysics.github.io/tracker-website/), verified through the original site’s redirect.
+- [Alonso et al. proceedings PDF](https://lim.ii.udc.es/docs/proceedings/2009_09_EUROMECH_Automatic.pdf).
+
+The historical clinicalgaitanalysis cutoff discussion timed out repeatedly. Its original optional reference was retained, but no required exercise depends on it and no claim is made to have read its unavailable content. The four notebooks still use direct raw-GitHub pandas data reads; the coordinator owns cross-platform asset-loader normalization. No pyodide imports or dependencies were introduced. These local and static checks do not establish actual execution on marimo.app or molab, and no such cloud-site execution is claimed.

@@ -6,7 +6,7 @@ from pathlib import Path
 import numpy as np
 
 NOTEBOOK_PATH = (
-    Path(__file__).resolve().parents[1] / "notebooks_marimo" / "PathFrame.py"
+    Path(__file__).resolve().parents[1] / "notebooks" / "path_frame.py"
 )
 
 

@@ -150,3 +150,51 @@ class IoCortexMacWriterTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class ForceMomentTests(unittest.TestCase):
+    def test_moment_uses_point_minus_origin_cross_force(self):
+        io = load_io_cortexmac()
+        data = np.array([[5., 6., 7., 2., 3., 4., 8.]])
+        actual = io.grf_moments(data, [1., 1., 1.], show_msg=False)
+        np.testing.assert_allclose(actual, [[5., 6., 7., -4., 8., 4.]])
+
+
+class DelsysReaderTests(unittest.TestCase):
+    def test_current_pandas_reads_separate_rates_and_scales_emg_to_millivolts(self):
+        source = ROOT / 'functions' / 'delsys_demo.py'
+        demo_spec = importlib.util.spec_from_file_location('delsys_demo', source)
+        demo = importlib.util.module_from_spec(demo_spec)
+        demo_spec.loader.exec_module(demo)
+        with tempfile.TemporaryDirectory() as folder:
+            path = Path(folder) / 'synthetic.add'
+            path.write_text(demo.delsys_demo_text())
+            emg, imu = load_io_cortexmac().read_delsys(path, fname2='', emg=True, imu=True, resample=[0, 0], show_msg=False)
+        self.assertEqual(emg.shape, (1000, 1))
+        self.assertEqual(imu.shape, (100, 9))
+        self.assertAlmostEqual(emg.index[1], 0.001, places=7)
+        self.assertAlmostEqual(imu.index[1], 0.01, places=7)
+        self.assertLessEqual(emg.iloc[:, 0].abs().max(), 1.001)
+        self.assertGreater(emg.iloc[:, 0].abs().max(), 0.95)
+
+
+class DelsysOffsetTests(unittest.TestCase):
+    def test_asynchronous_native_start_times_remain_distinct(self):
+        demo_spec = importlib.util.spec_from_file_location('delsys_offset_demo', ROOT / 'functions' / 'delsys_demo.py')
+        demo = importlib.util.module_from_spec(demo_spec)
+        demo_spec.loader.exec_module(demo)
+        lines = demo.delsys_demo_text().splitlines()
+        for i in range(22, 1022):
+            fields = lines[i].split(',')
+            fields[2] = str(float(fields[2]) + 150)
+            lines[i] = ','.join(fields)
+        for i in range(1024, 1124):
+            fields = lines[i].split(',')
+            fields[2] = str(float(fields[2]) + 300)
+            lines[i] = ','.join(fields)
+        with tempfile.TemporaryDirectory() as folder:
+            path = Path(folder) / 'offset.add'
+            path.write_text('\n'.join(lines) + '\n')
+            emg, imu = load_io_cortexmac().read_delsys(path, fname2='', emg=True, imu=True, resample=[0, 0], show_msg=False)
+        self.assertAlmostEqual(emg.index[0], 1)
+        self.assertAlmostEqual(imu.index[0], 2)

@@ -26,13 +26,13 @@ Tasks (for Lecture 3):
 
 ### Lecture 2
 
- * Python for scientific computing -- [English](http://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/PythonForScientificComputing.ipynb), [Portuguese](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/PT-BR/PythonForScientificComputing_PT-BR.ipynb)
+ * Python for scientific computing -- [English](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/python_for_scientific_computing.py), [current English guide](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/python_for_scientific_computing.py)
 
- * Python Tutorial -- [English](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/PythonTutorial.ipynb), [Portuguese](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/PT-BR/PythonTutorial_PT-BR.ipynb)
+ * Python Tutorial -- [English](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/python_tutorial.py), [current English guide](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/python_tutorial.py)
  
 Tasks (for Lecture 4):
 
-- Write a Jupyter notebook to compute and plot the acceleration of the particle with displacement data contained in the file [pezzack.txt](http://isbweb.org/data/pezzack/index.html). Additionally, compare the computed acceleration with the true acceleration (contained in the same data).
+- Write a marimo notebook to compute and plot the acceleration of the particle with displacement data contained in the file [pezzack.txt](http://isbweb.org/data/pezzack/index.html). Additionally, compare the computed acceleration with the true acceleration (contained in the same data).
  
 Readings:
 
@@ -49,13 +49,13 @@ Readings (for Lecture 5):
 
 ### Lecture 4
 
-* Newton Law for particles.-[English](https://github.com/BMClab/bmc/blob/master/notebooks/newtonLawForParticles.ipynb), [Portuguese](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/PT-BR/newtonLawForParticles_PT-BR.ipynb)
+* Newton Law for particles.-[English](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/newton_law_for_particles.py), [current English guide](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/newton_law_for_particles.py)
 
-* Numerical methods to solve ordinary differential equations.- [English](https://github.com/BMClab/bmc/blob/master/notebooks/OrdinaryDifferentialEquation.ipynb), [Portuguese](https://nbviewer.jupyter.org/github/BMClab/bmc/blob/master/notebooks/PT-BR/OrdinaryDifferentialEquation_PT-BR.ipynb)
+* Numerical methods to solve ordinary differential equations.- [English](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/ordinary_differential_equation.py), [current English guide](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/ordinary_differential_equation.py)
 
 Task for lecture 6:
  
- * Write a Jupyter notebook to find the trajectory of a ball considering the air drag proportional to the square root of the ball velocity. Consider that the initial velocity of the particle is $v_0 = 30 m/s$ and the initial angle with the horizontal plane is 30 degrees, the gravity acceleration is $g = 9.81 m/s^2$, the mass of the ball is m = 0.43 kg and the air drag coefficient is $b= 0.006 kg.m^{1/2}/s^{3/2}$.
+ * Write a marimo notebook to find the trajectory of a ball considering the air drag proportional to the square root of the ball velocity. Consider that the initial velocity of the particle is $v_0 = 30 m/s$ and the initial angle with the horizontal plane is 30 degrees, the gravity acceleration is $g = 9.81 m/s^2$, the mass of the ball is m = 0.43 kg and the air drag coefficient is $b= 0.006 kg.m^{1/2}/s^{3/2}$.
 
 
 ### Lecture 5

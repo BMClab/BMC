@@ -79,7 +79,7 @@ def loadbsf(filename, plot=1, axs=None):
     References
     ----------
     .. [1] http://www.amti.biz/NetForce.aspx
-    .. [2] https://github.com/demotu/BMC/blob/master/notebooks/AMTIbsfFile.ipynb
+    .. [2] https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/amti_bsf_file.py
     
     Examples
     --------

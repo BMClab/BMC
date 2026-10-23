@@ -47,7 +47,7 @@ def invdyn2d(rcm, rd, rp, acm, alpha, mass, Icm, Fd, Md):
     References
     ----------
     .. [1] http://isbweb.org/data/invdyn/index.html
-    .. [2] http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/GaitAnalysis2D.ipynb
+    .. [2] https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/gait_analysis_2d.py
 
     """
 

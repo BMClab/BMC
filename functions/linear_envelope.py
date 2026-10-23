@@ -22,13 +22,14 @@ def linear_envelope(x, freq=1000, fc_bp=[10, 400], fc_lp=8, method='rect'):
         Cutoff frequencies for the band-pass filter (in Hz). Enter None to
         not use this option.
     fc_lp : number, optional. Default = 8
-        Cutoff frequency for the low-pass filter (in Hz).
+        For rectification: per-pass Butterworth low-pass cutoff (Hz).
+        For RMS: inverse window-duration parameter (Hz), not a half-power cutoff.
     method: string, optional. Default = 'rect'
         Method to calculate the linear envelope. Enter 'rect' for using a
         full-wave rectification followed by low-pass Butterworth filter.
         Enter 'rms' for a moving-RMS filter. For the 'rms' method, the
-        window size is computed as the nearest integer of freq/fc_lp and
-        the filter is applied twice calling convolution twice.
+        window size is the nearest integer of freq/fc_lp. One centered
+        mean-square convolution is followed by a square root.
 
     Returns
     -------
@@ -38,7 +39,7 @@ def linear_envelope(x, freq=1000, fc_bp=[10, 400], fc_lp=8, method='rect'):
     Notes
     -----
     A 2nd-order Butterworth filter with zero lag is used for the filtering
-    The moving-RMS filter is calculated by convolution with the paramter mode
+    The moving-RMS filter is calculated by one convolution with mode
     equal to 'same', so the extremities of the signal of size 'window'/2 are
     not reliable.
 
@@ -46,7 +47,7 @@ def linear_envelope(x, freq=1000, fc_bp=[10, 400], fc_lp=8, method='rect'):
 
     References
     ----------
-    .. [1] https://nbviewer.jupyter.org/github/demotu/BMC/blob/master/notebooks/Electromyography.ipynb
+    .. [1] https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/electromyography.py
 
     Version history
     ---------------

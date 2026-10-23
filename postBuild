@@ -1,3 +1,0 @@
-jupyter contrib nbextension install --user
-jupyter nbextension enable equation-numbering/main
-jupyter nbextension enable --py --sys-prefix widgetsnbextension

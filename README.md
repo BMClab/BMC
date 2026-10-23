@@ -1,121 +1,149 @@
 # Notes on Scientific Computing for Biomechanics and Motor Control
 
-This repository is a collection of lecture notes and code on scientific computing and data analysis for Biomechanics and Motor Control.  
-These notes (notebooks) are written using [Jupyter Notebook](http://org/), part of the [Python ecosystem for scientific computing]( http://scipy.org/).
+Interactive guides by Marcos Duarte and Renato Naville Watanabe, [Laboratory of Biomechanics and Motor Control, UFABC](https://bmclab.pesquisa.ufabc.edu.br/).
 
-[![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/BMClab/BMC/blob/master/README.ipynb)  
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/BMClab/BMC/master?filepath=README.ipynb) Classic Notebook  
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/BMClab/BMC/master?labpath=README.ipynb) JupyterLab  
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4599319.svg)](https://doi.org/10.5281/zenodo.4599319)  
+The notebooks in this repository use [marimo](https://marimo.io/). Each guide combines explanations, executable examples, checkpoint questions, worked exercises, and independent problems with expandable final answers. Python introductions cover basic concepts directly in marimo.
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4599319.svg)](https://doi.org/10.5281/zenodo.4599319)
+
+## Open a guide
+
+Click a guide title for its molab preview. The compact **molab** and **marimo** badges open an interactive browser session. The [Python sources](notebooks/) can also be downloaded and opened locally or uploaded to either service. Cloud links read the version published on this repository's `master` branch.
+
+For local use, install [uv](https://docs.astral.sh/uv/getting-started/installation/), clone the repository, and run these commands from its root:
+
+```bash
+uv sync
+uv run marimo edit notebooks/reference_frame.py
+```
+
+The repository environment uses Python 3.14 or newer. Each notebook also declares its own dependencies for standalone use. There is no need to install or import `pyodide` in a notebook.
+
+Examples use bundled data when the repository is available. Standalone notebooks download the same public assets into a temporary cache when needed. Keep an Internet connection for those assets and external media; file-format and analysis errors remain visible.
 
 ## Introduction
 
-* [Biomechanics](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/Biomechanics.ipynb)  [![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks_marimo/Biomechanics.py)
-* [The Biomechanics and Motor Control Laboratory @ UFABC](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/BMClab.ipynb)  
+- [The Biomechanics and Motor Control Laboratory](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/bmclab.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/bmclab.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/bmclab.py)
+- [Introduction to Biomechanics](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/biomechanics.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/biomechanics.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/biomechanics.py)
 
-## Scientific programming
+## Python and notebook workflow
 
-* [Python for scientific computing](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/PythonForScientificComputing.ipynb)  
-* [Python tutorial](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/PythonTutorial.ipynb)
-* [Version control with Git and GitHub](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/VersionControlGitGitHub.ipynb)  
-* [Code structure for data analysis](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/CodeStructure.ipynb)  
+- [How to install Python for scientific computing](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/python_installation.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/python_installation.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/python_installation.py)
+- [Python for scientific computing](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/python_for_scientific_computing.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/python_for_scientific_computing.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/python_for_scientific_computing.py)
+- [Tutorial on Python for scientific computing](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/python_tutorial.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/python_tutorial.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/python_tutorial.py)
+- [Version control with Git and GitHub](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/version_control_git_github.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/version_control_git_github.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/version_control_git_github.py)
+- [Code structure for data analysis](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/code_structure.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/code_structure.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/code_structure.py)
 
-## Numerical data analysis
+## Mathematics and statistics
 
-* [Scalar and vector](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/ScalarVector.ipynb)  
-* [Basic trigonometry](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/TrigonometryBasics.ipynb)  
-* [Matrix](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/Matrix.ipynb)  
-* [Descriptive statistics](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/Statistics-Descriptive.ipynb)  
-* [Bayesian Statistics](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/statistics_bayesian.ipynb)
-* Confidence and prediction intervals  
-  * [One-dimensional intervals](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/ConfidencePredictionIntervals.ipynb)  
-  * [Prediction ellipse (2D) and prediction ellipsoid (3D)](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/PredictionEllipseEllipsoid.ipynb)  
-* Curve fitting  
-  * [Fundamentals of curve fitting](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/CurveFitting.ipynb)  
-  * [Polynomial fitting](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/PolynomialFitting.ipynb)  
-* [Propagation of uncertainty](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/PropagationUncertainty.ipynb)  
-* Frequency analysis  
-  * [Basic properties of signals](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/SignalBasicProperties.ipynb)  
-  * [Fourier series](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/FourierSeries.ipynb)
-  * [Fourier transform](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/FourierTransform.ipynb)
-* Signal processing  
-  * [Data filtering](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/DataFiltering.ipynb)  
-  * [Residual analysis for the optimal cutoff frequency](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/ResidualAnalysis.ipynb)  
-* [Ordinary Differential Equation](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/OrdinaryDifferentialEquation.ipynb)  
-* [Optimization](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/Optimization.ipynb)  
-* Change detection  
-  * [Detection of peaks](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/DetectPeaks.ipynb)  
-  * [Detection of onset](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/DetectOnset.ipynb)  
-  * [Detection of changes using the Cumulative Sum (CUSUM)](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/DetectCUSUM.ipynb)  
-  * [Detection of sequential data](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/detect_seq.ipynb)  
-* [Time normalization of data](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/TimeNormalization.ipynb)  
-* [Ensemble average](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/EnsembleAverage.ipynb)  
-* [Select data vectors by similarity using a metric score](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/Similarity.ipynb)  
-* [Open files in C3D format](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/OpenC3Dfile.ipynb)  
-* [Camera calibration and point reconstruction based on direct linear transformation (DLT)](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/DLT.ipynb)  
+- [Scalar and vector](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/scalar_vector.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/scalar_vector.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/scalar_vector.py)
+- [Basic trigonometry](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/trigonometry_basics.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/trigonometry_basics.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/trigonometry_basics.py)
+- [Matrix](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/matrix.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/matrix.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/matrix.py)
+- [Descriptive statistics of data](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/statistics_descriptive.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/statistics_descriptive.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/statistics_descriptive.py)
+- [Bayesian Statistics](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/statistics_bayesian.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/statistics_bayesian.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/statistics_bayesian.py)
+- [Confidence and prediction intervals](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/confidence_prediction_intervals.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/confidence_prediction_intervals.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/confidence_prediction_intervals.py)
+- [Prediction ellipse and prediction ellipsoid](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/prediction_ellipse_ellipsoid.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/prediction_ellipse_ellipsoid.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/prediction_ellipse_ellipsoid.py)
+- [Curve fitting](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/curve_fitting.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/curve_fitting.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/curve_fitting.py)
+- [Polynomial fitting with confidence/prediction intervals](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/polynomial_fitting.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/polynomial_fitting.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/polynomial_fitting.py)
+- [Propagation of uncertainty (error)](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/propagation_uncertainty.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/propagation_uncertainty.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/propagation_uncertainty.py)
+- [Introduction to numerical solution of Ordinary Differential Equation](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/ordinary_differential_equation.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/ordinary_differential_equation.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/ordinary_differential_equation.py)
+- [Optimization](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/optimization.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/optimization.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/optimization.py)
 
-## Mechanics
+## Kinematics
 
-### Kinematics
+- [Angular velocity in 3D movements](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/angular_velocity_3d.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/angular_velocity_3d.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/angular_velocity_3d.py)
+- [Determination of a coordinate system](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/coordinate_system.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/coordinate_system.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/coordinate_system.py)
+- [Frame of reference](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/reference_frame.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/reference_frame.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/reference_frame.py)
+- [Path frame](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/path_frame.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/path_frame.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/path_frame.py)
+- [Polar and Cylindrical Frame of Reference](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/polar_basis.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/polar_basis.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/polar_basis.py)
+- [Kinematics of a particle](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/kinematics_particle.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/kinematics_particle.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/kinematics_particle.py)
+- [Projectile motion](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/projectile_motion.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/projectile_motion.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/projectile_motion.py)
+- [Spatial and temporal characteristics of a movement pattern](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/spatial_temporal_characteristics.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/spatial_temporal_characteristics.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/spatial_temporal_characteristics.py)
+- [The minimum jerk hypothesis](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/minimum_jerk_hypothesis.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/minimum_jerk_hypothesis.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/minimum_jerk_hypothesis.py)
+- [Angular kinematics in a plane (2D)](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/kinematics_angular_2d.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/kinematics_angular_2d.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/kinematics_angular_2d.py)
+- [Kinematic chain in a plane (2D)](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/kinematic_chain.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/kinematic_chain.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/kinematic_chain.py)
+- [Velocity and acceleration of a point of a rigid body](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/kinematics_of_rigid_body.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/kinematics_of_rigid_body.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/kinematics_of_rigid_body.py)
+- [Rigid-body transformations in a plane (2D)](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/transformation_2d.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/transformation_2d.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/transformation_2d.py)
+- [Rigid-body transformations in three dimensions](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/transformation_3d.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/transformation_3d.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/transformation_3d.py)
+- [Determining rigid body transformation using the SVD algorithm](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/svd_algorithm.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/svd_algorithm.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/svd_algorithm.py)
+- [Determinação de sistemas de coordenadas anatômicos com dados experimentais](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/sistema_coordenadas.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/sistema_coordenadas.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/sistema_coordenadas.py)
+- [Rotating an ellipsoid about one axis](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/ellipsoid_rotation_matrix_3d.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/ellipsoid_rotation_matrix_3d.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/ellipsoid_rotation_matrix_3d.py)
+- [Ellipsoids, rotation sequences and a marker-derived basis](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/ellipsoid_3d_rotation_matrix_1.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/ellipsoid_3d_rotation_matrix_1.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/ellipsoid_3d_rotation_matrix_1.py)
+- [Inverse dynamics (2D) for gait analysis](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/gait_analysis_2d.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/gait_analysis_2d.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/gait_analysis_2d.py)
+- [Direct Linear Transformation (DLT)](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/dlt.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/dlt.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/dlt.py)
 
-* [Frame of reference](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/ReferenceFrame.ipynb)  
-* [Time-varying frame of reference](https://nbviewer.org/github/BMClab/bmc/blob/master/notebooks/PathFrame.ipynb)
-* [Polar and cylindrical frame of reference](https://nbviewer.org/github/BMClab/bmc/blob/master/notebooks/PolarBasis.ipynb)
-* Kinematics of particle  
-  * [One-dimensional motion](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/KinematicsParticle.ipynb)  
-  * [Projectile motion](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/ProjectileMotion.ipynb)  
-  * [Spatial and temporal characteristics](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/SpatialTemporalCharacteristcs.ipynb)  
-  * [Minimum jerk hypothesis](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/MinimumJerkHypothesis.ipynb)  
-* Kinematics of Rigid Body  
-  * [Angular kinematics (2D)](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/KinematicsAngular2D.ipynb)  
-  * [Kinematic chain](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/KinematicChain.ipynb)  
-  * [Velocity and Acceleration of a point of a rigid body](https://nbviewer.org/github/BMClab/bmc/blob/master/notebooks/KinematicsOfRigidBody.ipynb)  
-  * [Rigid-body transformations (2D)](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/Transformation2D.ipynb)  
-  * [Rigid-body transformations (3D)](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/Transformation3D.ipynb)  
-  * [Determining rigid body transformation using the SVD algorithm](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/SVDalgorithm.ipynb)  
-  * [Angular velocity in three-dimension movements](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/AngularVelocity3D.ipynb)
+## Dynamics and modeling
 
-### Kinetics
+- [Body segment parameters](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/body_segment_parameters.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/body_segment_parameters.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/body_segment_parameters.py)
+- [Center of Mass and Moment of Inertia](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/center_of_mass_and_moment_of_inertia.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/center_of_mass_and_moment_of_inertia.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/center_of_mass_and_moment_of_inertia.py)
+- [Free-Body Diagram for particles](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/fbd_particles.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/fbd_particles.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/fbd_particles.py)
+- [Free body diagram](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/free_body_diagram.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/free_body_diagram.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/free_body_diagram.py)
+- [Free Body Diagram for Rigid Bodies](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/free_body_diagram_for_rigid_bodies.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/free_body_diagram_for_rigid_bodies.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/free_body_diagram_for_rigid_bodies.py)
+- [Three-dimensional rigid body kinetics](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/kinetics_3d_rigid_body.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/kinetics_3d_rigid_body.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/kinetics_3d_rigid_body.py)
+- [Kinetics: fundamental concepts](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/kinetics_fundamental_concepts.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/kinetics_fundamental_concepts.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/kinetics_fundamental_concepts.py)
+- [Matrix Formalism of the  Equations of Movement](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/matrix_formalism.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/matrix_formalism.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/matrix_formalism.py)
+- [Multibody dynamics of one and two-link systems](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/multibody_dynamics.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/multibody_dynamics.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/multibody_dynamics.py)
+- [Muscle modeling](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/muscle_modeling.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/muscle_modeling.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/muscle_modeling.py)
+- [Muscle simulation](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/muscle_simulation.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/muscle_simulation.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/muscle_simulation.py)
+- [Musculoskeletal modeling and simulation](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/musculoskeletal_modeling_simulation.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/musculoskeletal_modeling_simulation.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/musculoskeletal_modeling_simulation.py)
+- [Basic Mechanical Elements of a Muscle Model](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/basic_mechanical_elements_muscle_model.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/basic_mechanical_elements_muscle_model.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/basic_mechanical_elements_muscle_model.py)
+- [Viscoelastic Models of Biological Tissues](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/ch2_viscoelastic_models.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/ch2_viscoelastic_models.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/ch2_viscoelastic_models.py)
+- [Lagrangian mechanics](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/lagrangian_mechanics.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/lagrangian_mechanics.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/lagrangian_mechanics.py)
+- [Lagrangian mechanics in generalized coordinates](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/lagrangian_mechanics_generalized.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/lagrangian_mechanics_generalized.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/lagrangian_mechanics_generalized.py)
+- [Motion of a particle - Newtonian approach](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/newton_law_for_particles.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/newton_law_for_particles.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/newton_law_for_particles.py)
+- [Newton-Euler equations for rigid bodies](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/newton_euler_equations.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/newton_euler_equations.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/newton_euler_equations.py)
+- [Principle of least action](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/principle_of_least_action.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/principle_of_least_action.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/principle_of_least_action.py)
+- [The inverted pendulum model of the human standing](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/ip_model.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/ip_model.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/ip_model.py)
+- [Biomechanical analysis of vertical jumps](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/vertical_jump.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/vertical_jump.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/vertical_jump.py)
+- [Matrix Formalism of the Newton-Euler equations](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/multibody_inverse_dynamics.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/multibody_inverse_dynamics.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/multibody_inverse_dynamics.py)
 
-* [Fundamental concepts](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/KineticsFundamentalConcepts.ipynb)  
-* [Center of Mass and Moment of Inertia](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/CenterOfMassAndMomentOfInertia.ipynb)
-* [Newton Laws for particles](https://nbviewer.org/github/BMClab/bmc/blob/master/notebooks/newtonLawForParticles.ipynb)
-* [Newton-Euler Laws](https://nbviewer.org/github/BMClab/bmc/blob/master/notebooks/newton_euler_equations.ipynb)
-* [Free body diagram](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/FreeBodyDiagram.ipynb)
-  * [Free body diagram for particles](https://nbviewer.org/github/BMClab/bmc/blob/master/notebooks/FBDParticles.ipynb)
-  * [Free body diagram for rigid bodies](https://nbviewer.org/github/BMClab/bmc/blob/master/notebooks/FreeBodyDiagramForRigidBodies.ipynb)
-* [3D Rigid body kinetics](https://nbviewer.org/github/BMClab/bmc/blob/master/notebooks/Kinetics3dRigidBody.ipynb)
-* [Matrix formalism of the Equations of Motion](https://nbviewer.org/github/BMClab/bmc/blob/master/notebooks/MatrixFormalism.ipynb)  
-* [Lagrangian Mechanics](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/lagrangian_mechanics.ipynb)  
+## Signals, data files, and biomechanical measurements
 
-## Modeling and simulation of human movement
+- [Change detection](https://github.com/demotu/detecta)
+- [Time normalization of data](https://github.com/demotu/tnorma)
+- [Open AMTI .bsf file](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/amti_bsf_file.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/amti_bsf_file.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/amti_bsf_file.py)
+- [Data filtering in signal processing](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/data_filtering.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/data_filtering.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/data_filtering.py)
+- [Introduction to data analysis in electromyography](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/electromyography.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/electromyography.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/electromyography.py)
+- [Ensemble average](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/ensemble_average.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/ensemble_average.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/ensemble_average.py)
+- [Algorithm for force plate calibration](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/force_plate_calibration.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/force_plate_calibration.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/force_plate_calibration.py)
+- [Fourier series](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/fourier_series.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/fourier_series.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/fourier_series.py)
+- [Fourier transform](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/fourier_transform.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/fourier_transform.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/fourier_transform.py)
+- [Postural sway: rambling and trembling](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/iep.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/iep.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/iep.py)
+- [Kistler force plate calculation](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/kistler_force_plate_calculation.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/kistler_force_plate_calculation.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/kistler_force_plate_calculation.py)
+- [Open C3D files](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/open_c3d_file.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/open_c3d_file.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/open_c3d_file.py)
+- [Read Zebris pressure platform ASCII files](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/read_zebris_pressure_platform_ascii_files.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/read_zebris_pressure_platform_ascii_files.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/read_zebris_pressure_platform_ascii_files.py)
+- [Residual analysis to determine the optimal cutoff frequency](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/residual_analysis.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/residual_analysis.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/residual_analysis.py)
+- [Basic properties of signals](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/signal_basic_properties.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/signal_basic_properties.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/signal_basic_properties.py)
+- [Select data vectors by similarity using a metric score](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/similarity.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/similarity.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/similarity.py)
+- [Measurements in stabilography](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/stabilography.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/stabilography.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/stabilography.py)
+- [Text and binary files](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/text_and_binary_files.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/text_and_binary_files.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/text_and_binary_files.py)
+- [pandas Data](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/pandas_data.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/pandas_data.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/pandas_data.py)
+- [Read C3D data into labelled tables](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/read_c3d.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/read_c3d.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/read_c3d.py)
+- [Read Delsys data exported by Cortex](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/read_delsys_cortex_file.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/read_delsys_cortex_file.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/read_delsys_cortex_file.py)
+- [Read and write Cortex ASCII files](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/read_mac_ascii_files.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/read_mac_ascii_files.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/read_mac_ascii_files.py)
+- [Read Cortex Motion Analysis Corporation .trc file](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/read_trc.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/read_trc.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/read_trc.py)
+- [Read Cortex Motion Analysis Corporation .trc and .forces files (example)](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/read_trc_forces_files.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/read_trc_forces_files.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/read_trc_forces_files.py)
+- [Replace missing data](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/rep_missing.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/rep_missing.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/rep_missing.py)
+- [Resample a sampled signal](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/resample.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/resample.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/resample.py)
 
-* [Body segment parameters](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/BodySegmentParameters.ipynb)
-* [Muscle modeling](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/MuscleModeling.ipynb)  
-* [Muscle simulation](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/MuscleSimulation.ipynb)  
-* [Musculoskeletal modeling and simulation](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/MusculoskeletaModelingSimulation.ipynb)  
-* [Multibody dynamics of simple biomechanical models](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/MultibodyDynamics.ipynb)  
+## Verification and maintenance
 
-## Biomechanical tasks Analysis
+```bash
+uv run pytest -q
+uv run marimo check --strict notebooks/*.py
+```
 
-* [The inverted pendulum model of the human standing posture](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/IP_Model.ipynb)
-* [Measurements in stabilography](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/Stabilography.ipynb)  
-* [Rambling and Trembling decomposition of the COP](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/IEP.ipynb)  
-* [Biomechanical analysis of vertical jumps](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/VerticalJump.ipynb)  
-* [Gait analysis (2D)](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/GaitAnalysis2D.ipynb)  
-* Force plates  
-  * [Kistler force plate calculation](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/KistlerForcePlateCalculation.ipynb)  
-  * [Zebris pressure platform](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/ReadZebrisPressurePlatformASCIIfiles.ipynb)  
+To execute one notebook headlessly, use `uv run marimo export html notebooks/reference_frame.py -o /tmp/ReferenceFrame.html`. Running a notebook as `python notebook.py` opens its application; it does not verify all cell bodies.
 
-## Electromyography
-
-* [Introduction to data analysis in electromyography](https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/Electromyography.ipynb)  
+The common repository-file resolver is maintained in `functions/notebook_resources.py` and embedded in standalone notebooks. After changing it, run `uv run python scripts/sync_notebook_resources.py`. Generated session state and saved outputs under `__marimo__/` are ignored and are not shipped with the sources; run the notebooks to generate their outputs.
 
 ## How to cite this work
 
+Release metadata for Zenodo is maintained in [.zenodo.json](.zenodo.json). The citation below refers to the archived 2021 release.
+
 Here is a suggestion to cite this GitHub repository:
 
-> Marcos Duarte and Renato Naville Watanabe. (2021). Notes on Scientific Computing for Biomechanics and Motor Control (Version v0.0.2). Zenodo. <http://doi.org/10.5281/zenodo.4599319>
+> Marcos Duarte and Renato Naville Watanabe. (2021). Notes on Scientific Computing for Biomechanics and Motor Control (Version v0.0.2). Zenodo. <https://doi.org/10.5281/zenodo.4599319>
 
 And a BibTeX entry:
 
@@ -134,4 +162,7 @@ And a BibTeX entry:
 
 ## License
 
-The non-software content of this project is licensed under a [Creative Commons Attribution 4.0 International License](http://creativecommons.org/licenses/by/4.0/), and the software code is licensed under the [MIT license](https://opensource.org/licenses/mit-license.php).
+The non-software content of this project is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/), and the software code is licensed under the [MIT license](https://opensource.org/licenses/mit-license.php).
+
+[molab-badge]: https://img.shields.io/badge/molab-6757D4?style=flat-square
+[marimo-badge]: https://img.shields.io/badge/marimo-2D8A4E?style=flat-square

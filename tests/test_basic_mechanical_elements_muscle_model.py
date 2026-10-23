@@ -8,8 +8,8 @@ import numpy as np
 
 NOTEBOOK_PATH = (
     Path(__file__).resolve().parents[1]
-    / "notebooks_marimo"
-    / "BasicMechanicalElementsMuscleModel.py"
+    / "notebooks"
+    / "basic_mechanical_elements_muscle_model.py"
 )
 
 

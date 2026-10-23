@@ -51,7 +51,8 @@ def read_trc(
         Change the units of the data if desired.
         Accepted output units are 'm' or 'mm'.
     dropna : bool (default = False)
-        True: Delete column if it has only missing or NaN values.
+        True: Delete a marker only if all three XYZ columns contain no data.
+        Partially missing markers keep their complete XYZ group and NaNs.
         False: preserve column and replace column values by parameter `na`
         (see below) if inputed, otherwise maintain default pandas value (NaN).
     na : float or None (default = 0.0)
@@ -131,9 +132,13 @@ def read_trc(
             engine="c",
             skip_blank_lines=True,
         )
-        # drop markers with no data (column has NaN only)
+        # Drop only whole empty markers; partial XYZ groups must remain intact.
         if dropna:
-            df.dropna(axis=1, how="all", inplace=True)
+            keep = [0, 1]
+            for start in range(2, df.shape[1], 3):
+                if not df.iloc[:, start:start + 3].isna().to_numpy().all():
+                    keep.extend(range(start, start + 3))
+            df = df.iloc[:, keep].copy()
         elif na is not None:
             for col in df:
                 if df.loc[:, col].isnull().sum() == df.shape[0]:
@@ -152,6 +157,8 @@ def read_trc(
         n3 = np.repeat(range(1, nmarkers + 1), 3).tolist()
         XYZs = [a + str(b) for a, b in zip(XYZ * nmarkers, n3)]
         header[4] = ["", ""] + XYZs
+        if units in ("m", "mm") and units != header[2][4]:
+            df = df.astype({column: float for column in df.columns[2:]})
         if units == "m":
             if header[2][4] == "mm":
                 df.iloc[:, 2:] = df.iloc[:, 2:] / 1000

@@ -1,0 +1,578 @@
+# /// script
+# requires-python = ">=3.11"
+# dependencies = ["marimo>=0.23.9"]
+# ///
+
+import marimo
+
+__generated_with = "0.24.2"
+app = marimo.App()
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    # Newton-Euler equations for rigid bodies
+
+    > Renato Naville Watanabe, Marcos Duarte<br>
+    > [Laboratory of Biomechanics and Motor Control](https://bmclab.pesquisa.ufabc.edu.br/)<br>
+    > Federal University of ABC, Brazil
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## How to use this guide
+
+    Start from linear and angular momentum, then combine forces into equivalent force–couple systems. We will use moments about the center of mass and identify the extra care needed for moving reference points. A free-body diagram should support every term in the equations.
+
+    Try the distributed **Exercises** before opening their collapsed worked solutions. Then use the **Checkpoint questions** and attempt the **Problems** independently; their panels contain final answers only. Predict the effect of a parameter change before running it, and check units and limiting cases.
+
+    **Opening challenge.** Can two force systems have the same resultant force but produce different rotational motions of a rigid body?
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## Python setup
+
+    The dependency declaration at the top of this file lists the packages used by this guide. Marimo runs cells in dependency order. Run the notebook in an editor to use its displays and controls; the computational examples below explain their inputs before using them.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## Mechanics
+
+    In Mechanics we are interested in the study of motion (including deformation) and forces (and the relation between them) of anything in nature.
+
+    As a good rule of thumb, we model the phenomenon of interest as simple as possible, with just enough complexity to understand the phenomenon.
+
+    For example, we could model a person jumping as a particle (the center of gravity, with no size) moving in one direction (the vertical) if all we want is to estimate the jump height and relate that to the external forces to the human body. So, mechanics of a particle might be all we need.
+
+    However, if the person jumps and performs a somersault, to understand this last part of the motion we have to model the human body as one of more objects which displaces and rotates in two or three dimensions. In this case, we would need what is called mechanics of rigid bodies.
+
+    If, besides the gross motions of the segments of the body, we are interested in understanding the deformation in the the human body segments and tissues, now we would have to describe the mechanical behavior of the body (e.g., how it deforms) under the action of forces. In this case we would have to include some constitutive laws describing the mechanical properties of the body.
+
+    In the chapter mechanics of rigid bodies, the body deformation is neglected, i.e., the distance between every pair of points in the body is considered constant. Consequently, the position and orientation of a rigid body can be completely described by a corresponding coordinate system attached to it.
+
+    Let's review some Newton's laws of motion for a particle and then extend these equations to motion of rigid bodies.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## Recapitulation
+
+    ### Newton's laws of motion
+
+    The Newton's laws of motion describe the relationship between the forces acting on a body and the resultant linear motion due to those forces:
+
+    - **First law**: An object will remain at rest or in uniform motion in a straight line unless an external force acts on the body.
+    - **Second law**: The acceleration of an object is directly proportional to the net force acting on the object and inversely proportional to the mass of the object: <span class="notranslate">$\mathbf{\vec{F}} = m\mathbf{\vec{a}}.$</span>
+    - **Third law**: Whenever an object exerts a force <span class="notranslate">$\mathbf{\vec{F}}_1$</span> (action) on a second object, this second object simultaneously exerts a force <span class="notranslate">$\mathbf{\vec{F}}_2$</span> on the first object with the same magnitude but opposite direction (reaction): <span class="notranslate">$\mathbf{\vec{F}}_2 = −\mathbf{\vec{F}}_1.$</span>
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ### Linear momentum
+
+    The linear momentum, or quantity of motion, is defined as the product between mass and velocity:
+
+    $$
+    \mathbf{\vec{L}} = m\mathbf{\vec{v}}
+    $$
+
+    ### Angular momentum
+
+    In analogy to the linear momentum, the angular momentum is the quantity of movement of a particle rotating around an axis passing through any point O at a distance $\mathbf{\vec{r}}$ to the particle:
+
+    $$
+    \mathbf{\vec{H_O}} = \mathbf{\vec{r_{O}}} \times \mathbf{\vec{L}}
+    $$
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ### Torque (moment of force)
+
+    In analogy to the second Newton's law for the linear case, torque or moment of force (or simply moment) is the time derivative of angular momentum:
+
+    $$
+    \mathbf{\vec{M_O}} = \frac{d\mathbf{\vec{H_O}}}{dt} = \frac{d}{dt}(\mathbf{\mathbf{\vec{r}} \times \mathbf{\vec{L}}}) = \frac{d\mathbf{\vec{r_O}}}{dt} \times \mathbf{\vec{L}} + \mathbf{\vec{r_O}} \times \frac{d\mathbf{\vec{L}}}{dt} = \frac{d\mathbf{\vec{r_O}}}{dt} \times (m\mathbf{\mathbf{\vec{v}}}) + \mathbf{\vec{r_O}} \times \frac{d(m\mathbf{\vec{v}})}{dt} = \mathbf{\vec{v}} \times (m\mathbf{\mathbf{\vec{v}}}) + \mathbf{\vec{r_O}} \times \frac{d(m\mathbf{\vec{v}})}{dt} = 0 + \mathbf{\vec{r_O}} \times \mathbf{\vec{F}}
+    $$
+
+    $$
+    \mathbf{\vec{M_O}} = \mathbf{\vec{r_O}} \times \mathbf{\vec{F}}
+    $$
+
+    $$
+    \mathbf{\vec{M_O}} = (r_{O_x}\:\mathbf{\hat{i}}+r_{O_y}\:\mathbf{\hat{j}}+r_{O_z}\:\mathbf{\hat{k}}) \times  (F_x\:\mathbf{\hat{i}}+F_y\:\mathbf{\hat{j}}+F_z\:\mathbf{\hat{k}})
+    $$
+
+    Where the symbol $\times$ stands for the [cross product](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/scalar_vector.py) mathematical function.<br>
+    The the moment of force can be calculated as the determinant of the following matrix:
+
+    $$
+    \mathbf{\vec{M_O}} = \det \begin{bmatrix}
+    \mathbf{\hat{i}} & \mathbf{\hat{j}} & \mathbf{\hat{k}} \\
+    r_{O_x} & r_{O_y} & r_{O_z} \\
+    F_x & F_y & F_z
+    \end{bmatrix}
+    $$
+
+    $$
+    \mathbf{\vec{M_O}} = (r_{O_y}F_z-r_{O_z}F_y)\mathbf{\hat{i}}+(r_{O_z}F_x-r_{O_x}F_z)\mathbf{\hat{j}}+(r_{O_x}F_y-r_{O_y}F_x)\mathbf{\hat{k}}
+    $$
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    The magnitude of moment of force can also be calculated by the geometric equivalent formula:
+
+    <span class="notranslate">$||\mathbf{\vec{M_O}}|| = ||\mathbf{r_O} \times \mathbf{\vec{F}}|| = ||\mathbf{\vec{r_O}}||\:||\mathbf{\vec{F}}||\sin(\theta)$</span>
+
+    Where <span class="notranslate">$\theta$</span> is the angle between the vectors <span class="notranslate">$\mathbf{\vec{r_O}}$</span> and <span class="notranslate">$\mathbf{\vec{F}}$<span>.
+
+    The animation below illustrates the relationship between force, torque, and momentum vectors:
+
+    <center><figure><img src="https://github.com/BMClab/BMC/blob/master/images/TorqueAnim.gif?raw=1" alt="Torque animation" width="300"/><figcaption><i>Figure. Relationship between force ($\mathbf{\vec{F}}$), torque ($\mathbf{\vec{M}}$), linear momentum ($\mathbf{\vec{L}}$) and angular momentum ($\mathbf{\vec{H}}$). Adapted from <a href="https://en.wikipedia.org/wiki/File:Torque_animation.gif">Wikipedia</a>.</i></figcaption></figure></center>
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ### Moment of inertia
+
+    Let's use the example above, where $\mathbf{\vec{r_O}}$ and $\mathbf{\vec{F}}$ are orthogonal and derive an expression for the magnitude of these quantities as the equivalent of Newton's second law for angular motion:
+
+    $$
+    M_O = r_OF = r_Oma
+    $$
+
+    Replacing the linear acceleration $a$ by the angular acceleration $\alpha$:
+
+    $$
+    M_O = r_Omr_O\alpha = mr_O^2 \alpha
+    $$
+
+    In analogy to Newton's second law, where the constant of proportionality between $a$ and $F$ is called inertia (mass), the constant of proportionality between $M_O$ and $\alpha$ is called rotational inertia or moment of inertia, $I_O=mr_O^2$ for a particle with mass $m$ rotating at a distance $r$ from the center of rotation O.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    **Exercise 1 — Compute a vector moment.** A force $(0,10,0)$ N acts at $(0.2,0,0)$ m from the origin. Find its moment and identify the rotation axis.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.accordion(
+        {'Solution to Exercise 1': mo.md(r"""
+    $\mathbf M=\mathbf r\times\mathbf F=(0,0,2)$ N m. The positive z component follows the right-hand rule. Reversing the force reverses the moment.
+    """)},
+        expanded=False,
+    )
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## Principle of transmissibility and Principle of moments
+
+    On the effects of forces, there are two important principles:
+
+    ### Principle of transmissibility
+
+    > *For rigid bodies with no deformation, an external force can be applied at any point on its line of action without changing the resultant effect of the force.*
+
+    ### Varignon's Theorem (Principle of Moments)
+
+    > *The moment of a force about a point is equal to the sum of moments of the components of the force about the same point.*<br>
+    Note that the components of the force don't need to be orthogonal.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    **Exercise 2 — Replace a displaced force.** Move the preceding force to the origin. What must be added to preserve its external effect on a rigid body?
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.accordion(
+        {'Solution to Exercise 2': mo.md(r"""
+    Add a free couple $(0,0,2)$ N m at the same time. The resultant force alone is unchanged, but without the couple its moment about the origin would become zero.
+    """)},
+        expanded=False,
+    )
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## Equivalent systems
+
+
+    A set of forces and moments is considered equivalent if its resultant force and sum of the moments computed relative to a given point are the same. Normally, we want to reduce all the forces and moments being applied to a body into a single force and a single moment.
+
+    We have done this with particles for the resultant force. The resultant force is simply the sum of all the forces being applied to the body.
+
+    <span class="notranslate">$\vec{\bf{F}} = \sum\limits_{i=1}^n \vec{\bf{F_i}}$</span>
+
+
+    where <span class="notranslate">$\vec{\bf{F_i}}$</span> is each force applied to the body.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    Similarly, the total moment applied to the body relative to a point O is:
+
+    $$
+    \vec{\bf{M_O}} = \sum\limits_{i}\vec{\bf{r_{i/O}}} \times \vec{\bf{F_i}} + \sum\limits_{i}\vec{\bf{M_{F_i}}}
+    $$
+
+    where $\vec{\bf{r_{i/O}}}$ is the vector from the point O to the point where the force $\vec{\bf{F_i}}$ is being applied and $\vec{\bf{M_{F_i}}}$ are the free moments.
+
+    Free moments are moments created by a pair of forces. They do not sum um to the resultant force, since they have have the same magnitude and opposite directions, but create a moment because there is a distance between these forces.
+
+    <center><figure><img src="https://github.com/BMClab/BMC/blob/master/images/freeMoment.png?raw=1" width=500/></figure></center>
+
+    But where the resultant force should be applied in the body? If the resultant force were applied to any point different from the point O, it would produce an additional  moment to the body relative to point O. So, the resultant force must be applied to the point O.
+
+    So, any set of forces can be reduced to a moment relative to a chosen point O and a resultant force applied to the point O.
+
+    To compute the resultant force and moment relative to another point O', the new moment is:
+
+    $$
+    \vec{\bf{M_{O'}}} = \vec{\bf{M_O}} + \vec{\bf{r_{O'/O}}} \times \vec{\bf{F}}
+    $$
+
+    And the resultant force is the same.
+
+    It is worth to note that if the resultant force  $\vec{\bf{F}}$ is zero, than the moment is the same relative to any point.
+
+    <center><figure><img src="https://github.com/BMClab/BMC/blob/master/images/equivalentSystem.png?raw=1" width=850/></figure></center>
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## Mechanics (dynamics) of rigid bodies
+
+    A [rigid body](https://en.wikipedia.org/wiki/Rigid_body) is a model (an idealization) for a body in which deformation is neglected, i.e., the distance between every pair of points in the body is considered constant. This definition also also implies that the total mass of a rigid body is constant.
+
+    Consequently, the motion of a rigid body can be completely described by its pose (position and orientation) in space. In a three-dimensional space, at least three coordinates and three angles are necessary to describe the pose of the rigid body, totalizing six degrees of freedom for a rigid body. This also implies that we will need six equations of motion for these components to describe the dynamics of a rigid body.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    **Exercise 3 — Use both balances.** A 3 kg body has resultant force $(6,0)$ N and center moment 0.4 N m, with center inertia 0.2 kg m². Find its planar accelerations.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.accordion(
+        {'Solution to Exercise 3': mo.md(r"""
+    $\mathbf a_C=\mathbf F/m=(2,0)$ m/s² and $\alpha=M_C/I_C=2$ rad/s². Translation and rotation are distinct parts of the rigid-body motion.
+    """)},
+        expanded=False,
+    )
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## Euler's laws of motion (for a rigid body)
+
+    Euler's laws of motion extend Newton's laws of motion for particles for the motion of a rigid body.
+
+    **First law**: The linear momentum of a body is equal to the product of the mass of the body and the velocity of its center of mass:
+
+    <span class="notranslate">$\mathbf{\vec{L}} = m\mathbf{\vec{v}}_{cm}$</span>
+
+    And calculating the time derivative of this equation:
+
+    <span class="notranslate">$\mathbf{\vec{F}} = m\mathbf{\vec{a}}_{cm}$</span>
+
+    **Second law**: The rate of change of angular momentum about a point that is fixed in an inertial reference frame is equal to the resultant external moment of force about that point:
+
+    <span class="notranslate">$\mathbf{\vec{M_O}} = \frac{d\mathbf{\vec{H_O}}}{dt}$</span>
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ### Derivation of the Euler's laws of motion
+
+    **First law**:
+
+    The sum of the linear momentum of all the particles of a rigid body (considering the body as a discrete sum of elements, but this also holds for the continuous case):
+
+    <span class="notranslate">$\mathbf{\vec{L}} = \sum m_i\mathbf{\vec{v}}_i$</span>
+
+    Looking at the definition of center of mass:
+
+    <span class="notranslate">$\mathbf{\vec{r}}_{cm} = \frac{1}{m_{B}}\sum m_{i}\mathbf{\vec{r}}_i \quad \text{where} \quad m_{B} = \sum m_{i}$<span>
+
+    By differentiation, the velocity of the center of mass is:
+
+    <span class="notranslate">$\mathbf{\vec{v}}_{cm} = \frac{1}{m_{B}}\sum m_{i}\mathbf{\vec{v}}_i$</span>
+
+    And finally:
+
+    <span class="notranslate">$\mathbf{\vec{L}} = m_{B} \mathbf{\vec{v}}_{cm} = m_B \mathbf{\vec{v}}_{cm}$</span>
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    We can get the second equation of the first law calculating the time derivative of the equation above.<br>
+    Another way to derive this second equation is considering the effects of all forces acting on each particle of the rigid body and apply Newton's second law to them:
+
+    <span class="notranslate">$\sum \mathbf{\vec{F}}_i = \sum m_i\mathbf{\vec{a}}_i$</span>
+
+    With respect to the origin of these forces, they can be divided in two types: external and internal forces to the rigid body. Internal forces are interaction forces between particles inside the body and because of Newton's third law (action and reaction) they cancel each other. So, the equation above becomes:
+
+    <span class="notranslate">$\sum \mathbf{\vec{F}}_{external} = \sum m_i\mathbf{\vec{a}}_i$</span>
+
+    But the acceleration of the center of mass is:
+
+    <span class="notranslate">$\mathbf{\vec{a}}_{cm} = \frac{1}{m_B}\sum m_{i}\mathbf{\vec{a}}_i$</span>
+
+    And finally:
+
+    <span class="notranslate">$\mathbf{\vec{F}} = \sum \mathbf{\vec{F}}_{external} = m_B\mathbf{\vec{a}}_{cm}$</span>
+
+    This means that for a rigid body the internal forces between the particles of the body do not contribute to changing the total momentum nor changing the acceleration of the center of mass.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    **Second law**:
+
+    For a complete derivation of the second Euler's law of motion, see for example Taylor (2005) or [http://emweb.unl.edu/NEGAHBAN/EM373/note19/note19.htm](http://emweb.unl.edu/NEGAHBAN/EM373/note19/note19.htm).
+
+    Let's derive the second Euler's law of motion for a simpler case of a rigid body rotating in a plane.
+
+    First, a general consideration about the total angular momentum of a rotting rigid body:<br>
+    The total angular momentum of a rigid body rotating around a point $O$ can be expressed as the angular momentum of the body center of mass around the point $O$ plus the sum of the angular momentum of each particle around the body center of mass (for a proof see page 368 of Taylor, 2005):
+
+    $$
+    \mathbf{\vec{H_O}} = \mathbf{\vec{r}}_{cm/O} \times m\mathbf{\vec{v}}_{cm/O} + \sum \mathbf{\vec{r}}_{i/cm} \times m_i\mathbf{\vec{v}}_{i/cm}
+    $$
+
+    For a two-dimensional case, where the rigid body rotates around its own center of mass and also rotates around another parallel axis (fixed), the second term of the right side of the equation above can be simplified to $\sum (m_i\mathbf{r}^2_{i/cm}) \mathbf{\vec{\omega}}$ and calculating the time derivative of the whole equation,
+
+    $$
+    \mathbf{\vec{M_O}} = \frac{d\mathbf{\vec{H_O}}}{dt} \rightarrow \mathbf{\vec{M_O}} = \frac{d\left( \mathbf{\vec{r}}_{cm/O} \times m\mathbf{\vec{v}}_{cm/O} + \sum \mathbf{\vec{r}}_{i/cm} \times m_i\mathbf{\vec{v}}_{i/cm} \right)}{dt}
+    $$
+
+    the second Euler's law of motion simplifies to:
+
+    $$
+    \mathbf{\vec{M_O}} = \mathbf{\vec{r}}_{cm/O} \times m\mathbf{\vec{a}}_{cm} + I_{cm} \mathbf{\vec{\alpha}}
+    $$
+
+    where $\mathbf{\vec{r}}_{cm}$ is the position vector of the center of mass with respect to the point $O$ about which moments are summed, $\mathbf{\vec{\alpha}}$ is the angular acceleration of the body about its center of mass, and $I_{cm}$ is the moment of inertia of the body about its center of mass.
+
+    If $d$ is the (shortest) distance between the point $O$ and the line of the acceleration vector, then the equation above becomes:
+
+    $$
+    \mathbf{M} = ma_{cm}d + I_{cm} \mathbf{\alpha}
+    $$
+
+    Note that if the acceleration of the center of mass is zero or the sum of moments of force is calculated around the center of mass (then $\mathbf{r}_{cm}=0$), this case of rotation in a plane simplifies to the well-known simple equation:
+
+    $$
+    \mathbf{\vec{M_{cm}}} = I_{cm} \mathbf{\vec{\alpha}}
+    $$
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    *Three-dimensional case*
+
+    In the three-dimensional space, if we describe the rotation of a rigid body using a rotating reference frame with axes parallel to the principal axes of inertia (referred by the subscripts 1,2,3) of the body, the Euler's second law becomes:
+
+    <span class="notranslate">$M_1 = I_1\dot{\omega_1} + (I_3-I_2)\omega_2\omega_3$$M_2 = I_2\dot{\omega_2} + (I_1-I_3)\omega_3\omega_1$$M_3 = I_3\dot{\omega_3} + (I_2-I_1)\omega_1\omega_2$</span>
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    **Exercise 4 — Know the 3D limitation.** Why is $\mathbf M=I\boldsymbol\alpha$ generally insufficient in a rotating body frame?
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.accordion(
+        {'Solution to Exercise 4': mo.md(r"""
+    The inertia is a tensor and the rotating basis contributes $\boldsymbol\omega\times(\mathbf I\boldsymbol\omega)$. In principal body axes, $\mathbf M=\mathbf I\dot{\boldsymbol\omega}+\boldsymbol\omega\times(\mathbf I\boldsymbol\omega)$. The simpler scalar form is appropriate for fixed-axis planar rotation.
+    """)},
+        expanded=False,
+    )
+    return
+
+
+@app.cell
+def _():
+    import marimo as mo
+
+    return (mo,)
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## Checkpoint questions
+
+    1. What must match for two force systems to be externally equivalent?
+    2. When is a force movable without adding a couple?
+    3. Why is the center of mass a useful point for taking moments?
+    4. Does zero resultant force ensure static equilibrium?
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.accordion(
+        {'Checkpoint answers': mo.md(r"""
+    1. Resultant force and resultant moment about one common point.
+    2. Along its line of action for an ideal rigid body.
+    3. The translational contribution simplifies, giving the center angular-momentum balance.
+    4. No; a couple can still cause angular acceleration.
+    """)},
+        expanded=False,
+    )
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## Problems
+
+    1. (Sample problem 2/5, Taylor's book)Calculate the magnitude of the moment about the base point *O* of the 600-N force in five different ways for the structure shown below (hint: use the equation for torque in different ways, and also the principles of moments and of transmissibility)
+    <center><figure><img src="https://github.com/BMClab/BMC/blob/master/images/torque2.png?raw=1" alt="Torque" width="250"/></figure></center>
+
+    2. (Example 17.7, Hibbeler's book) A uniform $50kg$ crate rests on a horizontal surface for which the coefficient of kinetic friction is $\mu_k = 0.2$. Determine the acceleration if a force of $P = 600 N$ is applied to the crate as shown in the figure.<br>
+    <center><figure><img src="https://github.com/BMClab/BMC/blob/master/images/hibbeler_17_7.png?raw=1" alt="crate" width="350"/></figure></center>
+
+    3. (Example 17.10, Hibbeler's book) At the instant shown in the figure, the $20kg$ slender rod has an angular velocity of $\omega = 5 rad/s$. Determine the angular acceleration and the horizontal and vertical components of reaction of the pin on the rod at this instant.<br>
+    <center><figure><img src="https://github.com/BMClab/BMC/blob/master/images/hibbeler_17_10.png?raw=1" alt="rod" width="350"/></figure></center>
+
+    4. (Example 17.12, Hibbeler's book) The slender rod shown in the figure has a mass $m$ and length $l$ and is released from rest when $\theta = 0^o$. Determine the horizontal and vertical components of force which the pin at $A$ exerts on the rod at the instant $\theta = 90^o$.<br>
+    <center><figure><img src="https://github.com/BMClab/BMC/blob/master/images/hibbeler_17_12.png?raw=1" alt="pendulum" width="300"/></figure></center>
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.accordion(
+        {'Final answers to original Problems': mo.md(r"""
+    1. Moment magnitude: 2609.85 N m, clockwise.
+
+    2. Acceleration: 10.038 m/s² right ($g=9.81$ m/s²). The normal resultant lies 0.46697 m right of the center, still inside the 0.5 m half-width, so the assumed translating contact is consistent.
+
+    3. The figure specifies $\omega=5$ rad/s (the original “S” is a typographical error). With counterclockwise positive: $\alpha=-5.905$ rad/s², $O_x=-750$ N and $O_y=19.05$ N.
+
+    4. At the downward vertical position: $A_x=0$, $A_y=5mg/2$ upward; the rod is uniform and released from the horizontal.
+    """)},
+        expanded=False,
+    )
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## Go deeper
+
+    Use [KineticsFundamentalConcepts](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/kinetics_fundamental_concepts.py) to connect this guide with the surrounding mechanics and modeling material. Return to the assumptions behind each equation when applying it to a new experiment.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ### Video lectures on the Internet
+
+    [MIT OpenCourseWare](https://ocw.mit.edu/courses/2-003sc-engineering-dynamics-fall-2011/pages/free-body-diagrams-and-fictitious-forces/) — Free-body diagrams: practice selecting a body and frame before writing force and moment equations.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## References
+
+    - Hibbeler RC (2010) [Engineering Mechanics Dynamics](https://drive.google.com/file/d/1sDLluWCiBCog2C11_Iu1fjv-BtfVUxBU/view). 12th Edition. Pearson Prentice Hall.
+
+    - Ruina A, Rudra P (2019) [Introduction to Statics and Dynamics](https://ruina.tam.cornell.edu/Book/index.html). Oxford University Press.
+
+    - Taylor JR (2005) [Classical Mechanics](https://books.google.com.br/books?id=P1kCtNr-pJsC). University Science Books.
+    """)
+    return
+
+
+if __name__ == "__main__":
+    app.run()

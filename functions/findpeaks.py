@@ -55,7 +55,7 @@ def findpeaks(x, mph=None, mpd=1, threshold=None, edge='rising', kpsh=False,
 
     References
     ----------
-    .. [1] http://nbviewer.ipython.org/github/duartexyz/BMC/blob/master/notebooks/FindPeaks.ipynb
+    .. [1] https://github.com/demotu/detecta
 
     Examples
     --------

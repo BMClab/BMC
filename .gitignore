@@ -77,8 +77,8 @@ target/
 # Jupyter Notebook
 .ipynb_checkpoints
 
-# Marimo generated session state
-notebooks_marimo/__marimo__/
+# marimo generated session state and saved outputs (regenerated locally)
+**/__marimo__/
 
 # IPython
 profile_default/

@@ -10,7 +10,7 @@ __license__ = "MIT"
 
 def invkin(t, r, L1, L2, unit=['m', '^o'],
            show=True, legenda=['X', 'Y', 'Ang 1', 'Ang 2'], ax=None):
-    
+
     """Inverse kinematics for a planar two-link system.
 
     Parameters
@@ -41,7 +41,7 @@ def invkin(t, r, L1, L2, unit=['m', '^o'],
 
     References
     ----------
-    .. [1] http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/KinematicChain.ipynb
+    .. [1] https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/kinematic_chain.py
 
     Examples
     --------
@@ -66,23 +66,23 @@ def invkin(t, r, L1, L2, unit=['m', '^o'],
         plot_invkin(t, r, ang, unit, legenda, ax)
 
     return ang
-    
+
 
 def plot_invkin(t, r, ang, unit, legenda, ax):
     """Plot inverse kinematics data."""
-    
+
     try:
         import matplotlib.pyplot as plt
     except ImportError:
         print('matplotlib is not available.')
         return
-    
+
     if ax is None:
         _, ax = plt.subplots(2, 2, figsize=(8, 5))
 
     if unit[1] in ['^o', 'deg', 'degrees']:
         ang = ang*180/np.pi
-        
+
     ax[0, 0].plot(t, r)
     ax[0, 0].set_xlabel(r'Time [$s$]')
     ax[0, 0].set_ylabel(r'Displacement [$\mathrm{%s}$]'%unit[0])
@@ -100,7 +100,7 @@ def plot_invkin(t, r, ang, unit, legenda, ax):
     for i, axi in enumerate(ax.flat):
         axi.xaxis.set_major_locator(plt.MaxNLocator(4))
         axi.yaxis.set_major_locator(plt.MaxNLocator(4))
-        
+
     plt.tight_layout()
     plt.show()  
-      
+

@@ -45,7 +45,7 @@ def onset_detection(x, threshold=0, n_above=1, n_below=0, show=False, ax=None):
 
     References
     ----------
-    .. [1] http://nbviewer.ipython.org/github/duartexyz/BMC/blob/master/notebooks/ChangeDetection.ipynb
+    .. [1] https://github.com/demotu/detecta
 
     Examples
     --------

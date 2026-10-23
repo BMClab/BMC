@@ -37,8 +37,9 @@ def kistler_fp_cal(data, S_matrix=None, fxfy_range=0, fz_range=0, origin=None,
         and the last four columns of the corresponding row are selected.
     origin  : array_like [a, b, az0]
         coordinates of the force plate origin (az0 is negative, in meters)
-    fp_type  : number [1, 2, 3, 4]
+    fp_type  : number [0, 1, 2, 3, 4]
         type of force plate to be used in the COP correction  
+        0: no COP correction
         1: type 9281E11
         2: type 9281E and 9281EA (SN: <= 616901)
         3: type 9281E and 9281EA (SN: >= 616902)
@@ -49,19 +50,19 @@ def kistler_fp_cal(data, S_matrix=None, fxfy_range=0, fz_range=0, origin=None,
     
     Returns
     -------
-    grf    : numpy array [Fx, Fy, Fz, Mx, My, Mz]
-            ground reaction force data
+    grf    : numpy array [Fx, Fy, Fz, Mx, My, Tz]
+            Forces in N, surface-origin Mx/My and free moment Tz in Nm.
     cop    : numpy array [COPx, COPy]
             center of pressure data
 
     References
     ----------
     .. [1] http://isbweb.org/software/movanal/vaughan/kistler.pdf
-    .. [2] http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/KistlerForcePlateCalculation.ipynb
+    .. [2] https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/kistler_force_plate_calculation.py
 
     """
 
-    if not S_matrix:
+    if S_matrix is None:
         # sensitivity matrix for Kistler force plate 9281EA Serial no. 4402018
         # calibrated range
         # Fx/Fy [kN]: 0.25, 1.25, 2.5, 5
@@ -71,9 +72,12 @@ def kistler_fp_cal(data, S_matrix=None, fxfy_range=0, fz_range=0, origin=None,
                              [ 3.803,  3.761,  3.800,  3.796,  1.951,  1.945,  1.944,  1.948],
                              [ 1.901,  1.881,  1.900,  1.898,  0.976,  0.973,  0.972,  0.974]])
     S_matrix = np.atleast_2d(S_matrix)
-    S_matrix = np.hstack((S_matrix[fxfy_range, 0:4], S_matrix[fz_range, 4:9]))
+    if S_matrix.shape[0] == 1:
+        S_matrix = S_matrix[0]
+    else:
+        S_matrix = np.hstack((S_matrix[fxfy_range, 0:4], S_matrix[fz_range, 4:8]))
 
-    if not origin:
+    if origin is None:
         # origin for Kistler force plate 9281EA Serial no. 4402018
         origin = np.array([0.120, 0.200, -0.048])
     a, b, az0 = np.hsplit(np.asarray(origin), 3)
@@ -124,13 +128,16 @@ def kistler_fp_cal(data, S_matrix=None, fxfy_range=0, fz_range=0, origin=None,
     #COFx = Fx / Fz
     # Coefficient of Friction y-component
     #COFy = Fy / Fz
-    # COP correction
+    # The manufacturer's polynomial table uses measured COP in millimetres.
+    # Evaluate both corrections from the original coordinates, then return metres.
+    # Kistler 9287C_002-462e-03.11, section 8.4.3.
+    axm, aym = 1000 * ax, 1000 * ay
     if Px:
-        Dax = (Px[0]*ay**4 + Px[1]*ay**2 + Px[2])*ax**3 + (Px[3]*ay**4 + Px[4]*ay**2 + Px[5])*ax
-        ax = ax - Dax
+        Dax = (Px[0]*aym**4 + Px[1]*aym**2 + Px[2])*axm**3 + (Px[3]*aym**4 + Px[4]*aym**2 + Px[5])*axm
+        ax = ax - Dax / 1000
     if Py:
-        Day = (Py[0]*ax**4 + Py[1]*ax**2 + Py[2])*ay**3 + (Py[3]*ax**4 + Py[4]*ax**2 + Py[5])*ay
-        ay = ay - Day
+        Day = (Py[0]*axm**4 + Py[1]*axm**2 + Py[2])*aym**3 + (Py[3]*axm**4 + Py[4]*axm**2 + Py[5])*aym
+        ay = ay - Day / 1000
     # Free moment
     Mz = Mz - Fy*ax + Fx*ay
 

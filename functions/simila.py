@@ -40,7 +40,8 @@ def mse(y: np.ndarray, target: np.ndarray | None = None, axis1: int = 0, axis2: 
     central : Python function, optional, default = np.nanmedian
         Function to calculate statistics on `y` w.r.t. mse is computed.
     normalization : Python function, optional, default = np.nanmedian
-        Function to normalize the calculated mse values
+        Function to normalize the calculated mse values. With a zero scale,
+        exact matches have score zero and positive errors have score infinity.
 
     Returns
     -------
@@ -49,7 +50,7 @@ def mse(y: np.ndarray, target: np.ndarray | None = None, axis1: int = 0, axis2: 
 
     References
     ----------
-    .. [1] https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/Similarity.ipynb
+    .. [1] https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/similarity.py
 
     Examples
     --------
@@ -73,12 +74,21 @@ def mse(y: np.ndarray, target: np.ndarray | None = None, axis1: int = 0, axis2: 
     y = y.swapaxes(0, axis2)[idx, ...].swapaxes(0, axis2)  # faster than .take
     if target is not None:
         logger.debug('target shape: %s', target.shape)
-        score[idx] = np.nanmean((y - target)**2, axis=axis1)
+        reference = np.asarray(target)
+        if reference.ndim == 1:
+            shape = [1] * y.ndim
+            shape[axis1] = reference.size
+            reference = reference.reshape(shape)
+        score[idx] = np.nanmean((y - reference)**2, axis=axis1)
     else:
         score[idx] = np.nanmean((y - central(y, axis=axis2, keepdims=True))**2, axis=axis1)
 
     if normalization is not None:
-        score = score/normalization(score)
+        scale = normalization(score)
+        if scale == 0:
+            score = np.where(score > 0, np.inf, score)
+        else:
+            score = score/scale
     logger.debug('idx: %s, score: %s', idx, score)
 
     return score
@@ -101,10 +111,11 @@ def similarity(y: np.ndarray, axis1: int = 0, axis2: int = 1, threshold: float =
     can be specified with parameter `nmin`.
 
     The default `metric` and target are the mean squared error (`mse`) of `y`
-    w.r.t. the median of `y` along `axis2`. The `mse` metric is equivalent
-    to the squared Euclidean distance and it is prefered because it
-    penalizes largest differences more than the Euclidian distance. But any
-    other `metric` that can be calculated with a function can be used.
+    w.r.t. the median of `y` along `axis2`. For complete equal-length vectors,
+    unnormalized MSE is squared Euclidean distance divided by sample count;
+    the default normalization further rescales this score. Squaring emphasizes
+    large sample differences. MSE is a score, not a distance metric satisfying
+    the triangle inequality. Other score functions can also be supplied.
 
     A possible use of this function is to discard the time-series data from bad
     trials (treated as outliers) stored in a 2-D array (each trial as a column
@@ -180,7 +191,7 @@ def similarity(y: np.ndarray, axis1: int = 0, axis2: int = 1, threshold: float =
 
     References
     ----------
-    .. [1] https://nbviewer.org/github/BMClab/BMC/blob/master/notebooks/Similarity.ipynb
+    .. [1] https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/similarity.py
 
     Examples
     --------
@@ -232,7 +243,9 @@ def similarity(y: np.ndarray, axis1: int = 0, axis2: int = 1, threshold: float =
     if nmin < 0:
         nmin = np.max([3, nkept + nmin])
     if threshold == 0:  # automatic threshold calculation
-        qs: np.ndarray = np.nanquantile(a=score, q=[.25, .50, .75])
+        # Infinite scores denote nonzero error against an exactly zero baseline.
+        # Keep them eligible for rejection without interpolating 0 and infinity.
+        qs: np.ndarray = np.quantile(a=score[np.isfinite(score)], q=[.25, .50, .75])
         threshold = np.min([qs[2] + 1.5*(qs[2]-qs[0]), score[-2], 3.])
         if msg:
             print(f'Calculated threshold: {threshold}')

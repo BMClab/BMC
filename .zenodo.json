@@ -1,0 +1,27 @@
+{
+  "title": "Notes on Scientific Computing for Biomechanics and Motor Control",
+  "creators": [
+    {
+      "name": "Duarte, Marcos",
+      "orcid": "0000-0002-0344-7460",
+      "affiliation": "Laboratory of Biomechanics and Motor Control, Federal University of ABC, Brazil"
+    },
+    {
+      "name": "Watanabe, Renato Naville",
+      "orcid": "0000-0003-2872-6543",
+      "affiliation": "Laboratory of Biomechanics and Motor Control, Federal University of ABC, Brazil"
+    }
+  ],
+  "upload_type": "lesson",
+  "access_right": "open",
+  "license": "cc-by-4.0",
+  "description": "<p>Interactive lessons on scientific computing for biomechanics and motor control, implemented as marimo notebooks. The collection combines explanations, executable Python examples, checkpoint questions, exercises with expandable solutions, and problems with expandable final answers.</p><p>The educational content is licensed under the Creative Commons Attribution 4.0 International license (CC BY 4.0). Software code is licensed under the MIT license, as specified in the repository README and license files. The record-level license describes the educational content; it does not replace the separate software license.</p>",
+  "keywords": [
+    "biomechanics",
+    "motor control",
+    "scientific computing",
+    "Python",
+    "marimo",
+    "interactive lessons"
+  ]
+}
