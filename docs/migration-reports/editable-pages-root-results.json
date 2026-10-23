@@ -1,0 +1,80 @@
+{
+  "date": "2026-10-23",
+  "scope": "Root publishing layout and saved HTML directory rename; supersedes deployment paths in earlier rollout reports. Scientific notebook sources are unchanged.",
+  "edit_directory": ".",
+  "project_url_prefix": "/BMC/",
+  "read_directory": "notebooks_html",
+  "discovery_configuration": "scripts/notebooks.json",
+  "native_saved_exports_passed": 88,
+  "native_editable_exports_passed": 88,
+  "saved_snapshot_freshness": "88/88 current",
+  "link_audit": {
+    "root_editors_and_source_html_hashes": 88,
+    "mode_links_both_directions": 88,
+    "linked_local_assets_and_pages": 303,
+    "notebook_redirects": 440,
+    "readme_root_targets": 84,
+    "plain_readme_molab_urls": 84,
+    "source_nbs_directory_removed": true,
+    "source_nbs_read_directory_removed": true
+  },
+  "tests": {
+    "passed": 119,
+    "subtests_passed": 235,
+    "expected_c3d_fixture_warnings": 2
+  },
+  "ruff_check": "passed",
+  "ruff_format_check": "passed",
+  "independent_review": "One generated-local-catalog regression fixed with an observed failing/passing test; no deferred findings.",
+  "browser_method": "Actual Chromium WebAssembly Python under /BMC/; molab and marimo.app blocked; real CodeMirror keyboard editing and execution.",
+  "browser_smoke_checks": [
+    {
+      "html": "body_segment_parameters.html",
+      "cell_states": {
+        "idle": 48
+      },
+      "tables": 6,
+      "plots": 1,
+      "keyboard_edit_results": [
+        42,
+        48
+      ],
+      "mode_switch_both_directions": true,
+      "editable_redirects_preserve_query_and_fragment": true,
+      "saved_redirects_preserve_query_and_fragment": true,
+      "source": "notebooks/body_segment_parameters.py",
+      "source_sha256": "65c5176ac5e713c8570f00917cb6b2aa980a954f1e89a38e0c56b405c3a9c127"
+    },
+    {
+      "html": "courses/biomechanicsI_2026/aula_filtragem.html",
+      "cell_states": {
+        "idle": 22
+      },
+      "tables": 1,
+      "plots": 0,
+      "mode_switch_both_directions": true,
+      "editable_redirects_preserve_query_and_fragment": true,
+      "saved_redirects_preserve_query_and_fragment": true,
+      "source": "courses/biomechanicsI_2026/aula_filtragem.py",
+      "source_sha256": "4d22c37e522a906374af810d7ca3bea60f3ecb9821b249ea82348295bdb54955"
+    }
+  ],
+  "browser_limitations": "Two representative pages exercised for this path change. Prior all-88 runtime checks remain in editable-pages-results.json. The course lecture had zero data-image plot elements before and after the move; its data table and idle/error-free cell states match that baseline.",
+  "editable_manifest_sha256": "1aa70ff6dbec26a754d8a24e3934a9e0c6c60e1b8a710d751100192059dcbb1d",
+  "exporter_sha256": "91dc0b52e3fa814d9f825e7c35242dbaa57f986eefe9b86b8add220757a25ecd",
+  "publication_performed": false,
+  "saved_directory_rename": {
+    "from": "nbs_read",
+    "to": "notebooks_html",
+    "source_files_moved": 91,
+    "old_published_urls_redirect": true
+  },
+  "legacy_alias_families": [
+    "html",
+    "notebooks_read",
+    "nbs_read",
+    "notebooks_edit",
+    "nbs"
+  ],
+  "publication_recording_stage": "Prepared commit after the user authorized push. Live deployment verification follows; its result is recorded in the final handoff and the Actions run."
+}

@@ -21,9 +21,8 @@ from urllib.parse import urlsplit, urlunsplit
 import marimo
 
 ROOT = Path(__file__).resolve().parents[1]
-READ_DIR = "nbs_read"
-EDIT_DIR = "nbs"
-EDITABLE_LIST = f"{EDIT_DIR}/notebooks.json"
+READ_DIR = "notebooks_html"
+EDITABLE_LIST = "scripts/notebooks.json"
 SESSION = re.compile(r'(?m)^(\s*"session": )(.+)(,\s*)$')
 PREVIEW = re.compile(
     r"https://molab\.marimo\.io/github/BMClab/BMC/blob/master/"
@@ -183,7 +182,7 @@ def decorate_export(
     )
     edit_link = ""
     if source in editable_sources:
-        target = local(PurePosixPath("..") / EDIT_DIR / output_path(source))
+        target = local(PurePosixPath("..") / output_path(source))
         edit_link = f'<a href="{target}">Edit in browser</a> · '
     nav = f'''
 <nav id="bmc-static-navigation" aria-label="Notebook viewing and execution modes">

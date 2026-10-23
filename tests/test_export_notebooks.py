@@ -81,11 +81,17 @@ class StaticPageTests(unittest.TestCase):
         page, _ = exporter.decorate_export(
             native_html(), self.paths[0], self.paths, editable_sources=[self.paths[0]]
         )
-        self.assertIn('href="../nbs/example.html"', page)
+        self.assertIn('href="../example.html"', page)
         other, _ = exporter.decorate_export(
             native_html(), self.paths[1], self.paths, editable_sources=[self.paths[0]]
         )
-        self.assertNotIn('href="../nbs/reference_frame.html"', other)
+        self.assertNotIn("Edit in browser", other)
+
+    def test_nested_saved_page_links_to_the_root_editable_course_page(self):
+        page, _ = exporter.decorate_export(
+            native_html(), self.paths[2], self.paths, editable_sources=[self.paths[2]]
+        )
+        self.assertIn('href="../../../courses/2026/example.html"', page)
 
 
 class ExportUpdateTests(unittest.TestCase):
@@ -101,7 +107,7 @@ class ExportUpdateTests(unittest.TestCase):
         self.source.write_text("import marimo\napp = marimo.App()\n")
         self.asset = self.root / "data/example.txt"
         self.asset.write_text("first input")
-        self.page = self.root / "nbs_read/example.html"
+        self.page = self.root / "notebooks_html/example.html"
 
     def run_exporter(self, *args):
         with (
@@ -158,17 +164,17 @@ class ExportUpdateTests(unittest.TestCase):
             exporter.subprocess, "run", side_effect=self.fake_export
         ) as execute:
             self.assertEqual(self.run_exporter(), 0)
-            other_page = self.root / "nbs_read/other.html"
+            other_page = self.root / "notebooks_html/other.html"
             previous = other_page.read_bytes()
             self.assertEqual(self.run_exporter("notebooks/example.py", "--force"), 0)
             self.assertEqual(execute.call_count, 3)
         self.assertEqual(other_page.read_bytes(), previous)
-        manifest = json.loads((self.root / "nbs_read/manifest.json").read_text())
+        manifest = json.loads((self.root / "notebooks_html/manifest.json").read_text())
         self.assertEqual(len(manifest["notebooks"]), 2)
 
     def test_check_is_read_only_even_when_no_export_exists(self):
         self.assertEqual(self.run_exporter("--check"), 1)
-        self.assertFalse((self.root / "nbs_read").exists())
+        self.assertFalse((self.root / "notebooks_html").exists())
 
     def test_bad_export_format_does_not_overwrite_a_previous_good_page(self):
         with patch.object(exporter.subprocess, "run", side_effect=self.fake_export):
@@ -214,12 +220,12 @@ def _(mo):
 """)
         with patch.object(exporter.subprocess, "run", side_effect=self.fake_export):
             self.assertEqual(self.run_exporter(), 0)
-        catalog = (self.root / "nbs_read/index.html").read_text()
+        catalog = (self.root / "notebooks_html/index.html").read_text()
         self.assertIn("A readable guide title", catalog)
         self.assertNotIn("/// script", catalog)
 
     def test_changed_editable_list_invalidates_the_saved_navigation(self):
-        registry = self.root / "nbs/notebooks.json"
+        registry = self.root / "scripts/notebooks.json"
         registry.parent.mkdir()
         registry.write_text("[]")
         with patch.object(
@@ -230,10 +236,10 @@ def _(mo):
             self.assertEqual(self.run_exporter("--check"), 1)
             self.assertEqual(self.run_exporter(), 0)
             self.assertEqual(execute.call_count, 2)
-        self.assertIn('href="../nbs/example.html"', self.page.read_text())
+        self.assertIn('href="../example.html"', self.page.read_text())
 
     def test_editable_list_rejects_unknown_duplicate_or_nonlist_sources(self):
-        registry = self.root / "nbs/notebooks.json"
+        registry = self.root / "scripts/notebooks.json"
         registry.parent.mkdir()
         for value in (
             ["notebooks/missing.py"],
@@ -246,7 +252,7 @@ def _(mo):
                     exporter.editable_sources(self.root)
 
     def test_all_registry_picks_up_new_notebooks_automatically(self):
-        registry = self.root / "nbs/notebooks.json"
+        registry = self.root / "scripts/notebooks.json"
         registry.parent.mkdir()
         registry.write_text('{"include": "all"}')
         self.assertEqual(len(exporter.editable_sources(self.root)), 1)
@@ -270,6 +276,6 @@ def _(plt):
     return
 """)
         self.assertEqual(self.run_exporter(), 0)
-        manifest = json.loads((self.root / "nbs_read/manifest.json").read_text())
+        manifest = json.loads((self.root / "notebooks_html/manifest.json").read_text())
         self.assertGreater(manifest["notebooks"][0]["cells_with_saved_figures"], 0)
         self.assertIn("Result: 2", self.page.read_text())

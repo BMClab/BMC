@@ -14,7 +14,6 @@ from pathlib import Path, PurePosixPath
 
 import marimo
 from export_notebooks import (
-    EDIT_DIR,
     EDITABLE_LIST,
     READ_DIR,
     ROOT,
@@ -26,13 +25,15 @@ from export_notebooks import (
     output_path,
 )
 
+CATALOG_MARKER = '<meta name="bmc-editable-catalog" content="generated">'
+
 
 def decorate(document: str, source: PurePosixPath, sources=()) -> str:
     if document.count("<body>") != 1 or document.count("</head>") != 1:
         raise ValueError("Unsupported marimo WASM HTML document")
     parent = output_path(source).parent
     saved = posixpath.relpath(
-        str(PurePosixPath("..") / READ_DIR / output_path(source)), str(parent)
+        str(PurePosixPath(READ_DIR) / output_path(source)), str(parent)
     )
     catalog = posixpath.relpath("index.html", str(parent))
     nav = f'''
@@ -104,17 +105,23 @@ def reading_links(source: PurePosixPath, sources) -> str:
     ).replace("__BMC_SOURCE__", json.dumps(str(source)))
 
 
-def legacy_redirects(site: Path) -> None:
-    for alias, current in (
-        ("html", READ_DIR),
-        ("notebooks_read", READ_DIR),
-        ("notebooks_edit", EDIT_DIR),
+def legacy_redirects(site: Path, sources) -> None:
+    saved_pages = [
+        PurePosixPath(page.relative_to(site / READ_DIR).as_posix())
+        for page in (site / READ_DIR).rglob("*.html")
+    ]
+    editable_pages = [PurePosixPath("index.html"), *map(output_path, sources)]
+    for alias, current, pages in (
+        ("html", READ_DIR, saved_pages),
+        ("notebooks_read", READ_DIR, saved_pages),
+        ("nbs_read", READ_DIR, saved_pages),
+        ("notebooks_edit", ".", editable_pages),
+        ("nbs", ".", editable_pages),
     ):
         old_root = site / alias
         if old_root.exists():
             shutil.rmtree(old_root)
-        for page in (site / current).rglob("*.html"):
-            relative = page.relative_to(site / current)
+        for relative in pages:
             old = old_root / relative
             target = posixpath.relpath(
                 str(PurePosixPath(current) / relative.as_posix()),
@@ -135,6 +142,8 @@ def build(site: Path, *, root: Path = ROOT) -> dict:
     sources = editable_sources(root)
     if not sources:
         raise ValueError(f"No notebooks selected in {EDITABLE_LIST}")
+    if any(output_path(source) == PurePosixPath("index.html") for source in sources):
+        raise ValueError("index.html is reserved for the site home page")
     for source in sources:
         if not (site / READ_DIR / output_path(source)).is_file():
             raise ValueError(
@@ -144,7 +153,7 @@ def build(site: Path, *, root: Path = ROOT) -> dict:
         raise ValueError("Build the read-only catalog before exporting editable pages")
     entries = []
     with tempfile.TemporaryDirectory(dir=site, prefix=".bmc-edit-") as temporary:
-        staging = Path(temporary) / EDIT_DIR
+        staging = Path(temporary) / "editable"
         staging.mkdir()
         for source in sources:
             before = digest(root / source)
@@ -189,26 +198,39 @@ def build(site: Path, *, root: Path = ROOT) -> dict:
             f'<li><a href="{output_path(source)}">{escape(notebook_title(root / source))}</a></li>'
             for source in sources
         )
-        atomic_write(
-            staging / "index.html",
-            f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Editable BMC notebooks</title><style>body{{max-width:65rem;margin:3rem auto;padding:0 1.2rem;font:17px/1.6 system-ui,sans-serif;color:#172b3a}}a{{color:#176d52}}li{{margin:.4rem 0}}</style></head><body>
-<h1>Editable BMC notebooks</h1><p>Run Python and experiment in your browser. Edits do not update the GitHub repository; download your Python file to keep a copy.</p><ul>{links}</ul><p><a href="../{READ_DIR}/index.html">Read saved outputs for all guides</a></p></body></html>\n""",
-        )
+        home = site / "index.html"
+        if not home.exists() or CATALOG_MARKER in home.read_text():
+            atomic_write(
+                staging / "index.html",
+                f"""<!doctype html><html lang="en"><head><meta charset="utf-8">{CATALOG_MARKER}<meta name="viewport" content="width=device-width, initial-scale=1"><title>Editable BMC notebooks</title><style>body{{max-width:65rem;margin:3rem auto;padding:0 1.2rem;font:17px/1.6 system-ui,sans-serif;color:#172b3a}}a{{color:#176d52}}li{{margin:.4rem 0}}</style></head><body>
+<h1>Editable BMC notebooks</h1><p>Run Python and experiment in your browser. Edits do not update the GitHub repository; download your Python file to keep a copy.</p><ul>{links}</ul><p><a href="{READ_DIR}/index.html">Read saved outputs for all guides</a></p></body></html>\n""",
+            )
         manifest = {"marimo": marimo.__version__, "mode": "edit", "notebooks": entries}
         atomic_write(
             staging / "export-manifest.json", json.dumps(manifest, indent=2) + "\n"
         )
-        destination = site / EDIT_DIR
-        previous = Path(temporary) / "previous"
-        if destination.exists():
-            destination.replace(previous)
-        try:
-            staging.replace(destination)
-        except OSError:
-            if previous.exists():
-                previous.replace(destination)
-            raise
-    legacy_redirects(site)
+        previous_path = site / "export-manifest.json"
+        previous = (
+            json.loads(previous_path.read_text()) if previous_path.is_file() else {}
+        )
+        previous_pages = set()
+        for entry in previous.get("notebooks", []):
+            source = PurePosixPath(entry["source"])
+            page = PurePosixPath(entry["html"])
+            if (
+                source.parts[0] in {"notebooks", "courses"}
+                and not source.is_absolute()
+                and ".." not in source.parts
+                and page == output_path(source)
+                and page != PurePosixPath("index.html")
+            ):
+                previous_pages.add(page)
+        # Native exports have all succeeded. Merge their files into the site:
+        # replacing the root would discard Cayman, saved outputs and course files.
+        shutil.copytree(staging, site, dirs_exist_ok=True)
+        for retired in previous_pages - set(map(output_path, sources)):
+            (site / retired).unlink(missing_ok=True)
+    legacy_redirects(site, sources)
     (site / ".nojekyll").touch()
     return manifest
 
@@ -223,9 +245,7 @@ def main() -> None:
     )
     args = parser.parse_args()
     manifest = build(args.site)
-    print(
-        f"Exported {len(manifest['notebooks'])} editable notebook(s) to {args.site / EDIT_DIR}"
-    )
+    print(f"Exported {len(manifest['notebooks'])} editable notebook(s) to {args.site}")
 
 
 if __name__ == "__main__":

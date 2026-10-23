@@ -215,3 +215,51 @@ helper bodies, decorators, Markdown and calculations are identical. No notebook
 now starts with an app.function helper. All seven pass strict checks, native
 HTML export and actual browser execution. Current hashes and browser records
 were refreshed. The full suite still passes 115 tests and 235 subtests.
+
+## Editable pages at the site root — 2026-10-23
+
+Editable pages now build directly at `/BMC/<name>.html`, with course notebooks
+retaining their `courses/...` paths. All 84 README notebook links use the root
+layout. The source `nbs/` directory was removed and its discovery configuration
+moved to `scripts/notebooks.json`; automatic discovery on push is unchanged.
+The deployed `/nbs/` path contains compatibility redirects only. Earlier
+`/notebooks_edit/`, `/notebooks_read/` and `/html/` redirects also remain.
+
+The exporter stages every native export before merging files into the site.
+It preserves the Cayman home page, theme assets, saved pages and course material.
+Local builds without a home page get a generated catalog that stays current
+on subsequent builds. A regression test reproduced and then verified the fix
+for stale links in that generated catalog.
+
+All 88 saved pages were regenerated and all 88 editable pages exported.
+The link audit checked every source/output hash, both mode links for each page,
+303 distinct local asset/page targets, 352 notebook redirects and all README
+guide targets. Actual Chromium execution passed for a root guide and the nested
+course lecture, including mode switches and query/fragment-preserving redirects.
+Keyboard editing and execution changed a result from 42 to 48. No scientific
+notebook source changed. The full suite passes **119 tests and 235 subtests**,
+with the two expected C3D fixture warnings; scoped Ruff checks pass.
+
+[editable-pages-root-results.json](editable-pages-root-results.json) records
+these checks. Earlier reports retain their original rollout-path evidence.
+Publication was requested after the saved-directory follow-up below; deployment
+verification follows the prepared commit.
+
+## Saved HTML directory rename — 2026-10-23
+
+At the user's request, `nbs_read/` is now `notebooks_html/`. All 91 files moved,
+including 88 saved notebook pages, the catalog, manifest and README. README.md,
+the exporters, repository instructions and maintenance documentation use the new
+name. Editable notebooks continue to build at the site root and link directly
+to their saved versions under `notebooks_html/`.
+
+The deployed `/nbs_read/` path now contains redirects, alongside the four previous
+alias families. All 440 notebook redirects and 88 mode-link pairs resolve
+correctly, including nested course paths. Both native collections exported
+successfully, saved snapshots are current, and the two representative Chromium
+checks passed with real execution/editing, both mode directions and all five
+alias families preserving queries and fragments. The full suite still passes
+119 tests and 235 subtests with two expected C3D fixture warnings; scoped Ruff
+and diff checks pass. The root-layout results report reflects the final names.
+The user authorized committing and pushing the combined layout changes.
+Live deployment results are recorded in the final handoff and the Pages run.

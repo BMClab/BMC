@@ -8,9 +8,9 @@ uv run python scripts/export_notebooks.py
 ```
 
 The updater executes every new or changed guide in `notebooks/` and every course
-notebook in `courses/`. It writes saved outputs and source code under `nbs_read/`,
+notebook in `courses/`. It writes saved outputs and source code under `notebooks_html/`,
 adds source-specific molab/marimo.app launch badges, and refreshes the static
-catalog at `nbs_read/index.html`. Reading links to other guides point to their local
+catalog at `notebooks_html/index.html`. Reading links to other guides point to their local
 HTML pages. Explicit interactive launch links and external references are kept.
 
 Update one notebook:
@@ -46,7 +46,7 @@ adjust these settings. A failed or timed-out export leaves the previous HTML
 intact, records the failure, and returns a nonzero status. Fix the problem and
 rerun the command before publishing.
 
-Commit the changed notebook sources, generated HTML and `nbs_read/manifest.json`
+Commit the changed notebook sources, generated HTML and `notebooks_html/manifest.json`
 together. Publishing to `master` updates the repository's existing GitHub Pages
 site; the updater itself does not commit, push, or change hosting settings.
 New notebook titles can be added to the README's existing bullet list manually.
@@ -70,31 +70,39 @@ does not prove that every intended display is visible.
 ## Editable GitHub Pages and automatic publication
 
 All 87 guides and the course lecture are exported in editable mode. The configuration
-`nbs/notebooks.json` contains `{"include": "all"}`, so new marimo notebooks added under
+`scripts/notebooks.json` contains `{"include": "all"}`, so new marimo notebooks added under
 `notebooks/` or `courses/` are discovered automatically. Every README guide title opens
 its editor; mode-navigation links provide the corresponding saved version.
 
 `.github/workflows/pages.yml` runs on every push to `master` and supports manual
 runs from the Actions tab. It installs the locked environment, refreshes saved
 outputs, builds the existing Cayman site with Jekyll, then adds editable pages
-using `marimo export html-wasm --mode edit`. The workflow first restores runner
+using `marimo export html-wasm --mode edit` directly at the published site root
+(`/BMC/<name>.html`). The workflow first restores runner
 ownership of Jekyll’s container-created output so the Python exporter can write
 its additional files. The complete site is uploaded and
 deployed only after successful build steps. Generated editor assets live in the
-Pages artifact, not Git. Pages must use **GitHub Actions** as its publishing source.
+Pages artifact, not Git. The exporter stages all native exports before merging
+them into the site, preserving the Cayman home page, theme assets, course material
+and saved pages. A notebook named `notebooks/index.py` is rejected because
+`index.html` is reserved for the home page. Pages must use **GitHub Actions** as
+its publishing source.
 
 To build/test the editable part locally without installing Jekyll:
 
 ```bash
 uv run python scripts/export_notebooks.py
-uv run python -c "import shutil; shutil.copytree('nbs_read', '_site/nbs_read', dirs_exist_ok=True)"
+uv run python -c "import shutil; shutil.copytree('notebooks_html', '_site/notebooks_html', dirs_exist_ok=True)"
 uv run python scripts/export_editable.py --site _site
 uv run python -m http.server --directory _site 8000
 ```
 
-Open `http://localhost:8000/nbs/body_segment_parameters.html`.
+Open `http://localhost:8000/body_segment_parameters.html`.
 This local shortcut contains the notebook pages; the workflow also renders the
-full Cayman homepage. The native WASM export includes its frontend assets, so
+full Cayman homepage. If no home page exists, the exporter creates a simple
+catalog for local use and refreshes that generated catalog on later builds.
+An existing Cayman or custom home page is preserved. The native WASM export
+includes its frontend assets, so
 serve the whole `_site/` folder over HTTP. The Python runtime, packages and
 notebook data are downloaded in the browser; a first run can take longer.
 No notebook needs to import the browser runtime.
@@ -102,12 +110,16 @@ No notebook needs to import the browser runtime.
 Click **Run all** after opening the editor. Changes run locally in the browser
 and do not update GitHub. Download the Python file to keep a modified copy.
 The editor and saved pages have direct links to switch between modes. Older
-published `/html/` and `/notebooks_read/` paths redirect to `nbs_read/`;
-`/notebooks_edit/` redirects to `nbs/`. Redirects preserve query strings
-and section anchors. A failed editable build preserves previous local editor
-files and prevents a workflow deployment.
+published `/html/`, `/notebooks_read/` and `/nbs_read/` paths redirect to `notebooks_html/`;
+`/notebooks_edit/` and `/nbs/` redirect to editors at the site root. Redirects
+preserve query strings and section anchors. The `nbs/` directory is no longer
+present in the source repository; only compatibility redirects use that path
+in the deployment. A failed native notebook export preserves previous local
+editor files and prevents a workflow deployment.
 
 Links between rendered guides resolve to their editable Pages versions, including
 links added when an answer panel opens. Original Python source and external source
-references are retained. The editable catalog is at `/BMC/nbs/`; the saved catalog
-is at `/BMC/nbs_read/`.
+references are retained. The home page at `/BMC/` lists the editable guides;
+the saved catalog is at `/BMC/notebooks_html/`. Rebuilding an existing local site removes
+retired editor HTML recorded in the previous export manifest, leaving unrelated
+pages intact.
