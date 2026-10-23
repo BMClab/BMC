@@ -91,10 +91,16 @@ def repo_file(path, *, base_url="https://raw.githubusercontent.com/BMClab/BMC/ma
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(r"""
-    <figure><img src='https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Da_Vinci_Vitruve_Luc_Viatour.jpg/353px-Da_Vinci_Vitruve_Luc_Viatour.jpg' width="240" alt="Vitruvian Man" style="float:right;margin: 20px 0 0 50px;"/></figure>
+    _vitruvian_image = mo.image(
+        repo_file("images/vitruvian_man.jpg"),
+        width=240,
+        alt="Leonardo da Vinci's Vitruvian Man",
+        style={"float": "right", "margin": "20px 0 0 50px"},
+    )
+    mo.md(rf"""
+    <figure>{_vitruvian_image.text}</figure>
     <br><br>
-    <i>"Le proporzioni del corpo umano secondo Vitruvio"</i>, also known as the <a href="https://en.wikipedia.org/wiki/Vitruvian_Man" target="_blank">Vitruvian Man</a>, drawing by <a href="https://en.wikipedia.org/wiki/Leonardo_da_Vinci" target="_blank">Leonardo da Vinci</a> circa 1490 based on the work of <a href="https://en.wikipedia.org/wiki/Vitruvius" target="_blank">Marcus Vitruvius Pollio</a> (1st century BC), depicting a man in supposedly ideal human proportions (image from <a href="https://en.wikipedia.org/wiki/Vitruvian_Man" target="_blank">Wikipedia</a>).
+    <i>"Le proporzioni del corpo umano secondo Vitruvio"</i>, also known as the <a href="https://en.wikipedia.org/wiki/Vitruvian_Man" target="_blank">Vitruvian Man</a>, drawing by <a href="https://en.wikipedia.org/wiki/Leonardo_da_Vinci" target="_blank">Leonardo da Vinci</a> circa 1490 based on the work of <a href="https://en.wikipedia.org/wiki/Vitruvius" target="_blank">Marcus Vitruvius Pollio</a> (1st century BC), depicting a man in supposedly ideal human proportions. Image: <a href="https://commons.wikimedia.org/wiki/File:Da_Vinci_Vitruve_Luc_Viatour.jpg">Wikimedia Commons</a>, digitization by <a href="https://lucnix.be/">Luc Viatour / Lucnix</a>.
     <br><br>
     In fact, Leonardo's drawing does not follow the proportions according Vitruvius, but rather the proportions he found after his own anthropometrical studies of the human body. Leonardo was unable to fit a human body inside a circle and a square with the same center, one of the Vitruvius' claims.
     <br><br>
@@ -187,7 +193,9 @@ def _(mo):
 
     The segments defined in the Zatsiorsky's model (Zatsiorsky, 2002) adjusted by de Leva (1996) are illustrated in the next figure.
 
-    <figure><center><img src='https://github.com/BMClab/BMC/blob/master/images/BSP_ZdeLeva.png?raw=1' alt='Zatsiorsky anthropometric model'/></center><figcaption><center><i>Figure. Segment definition employed in the anthropometric model of Zatsiorsky and Seluyanov (Zatsiorsky, 2002) adjusted by de Leva (1996).<br>Image from a <a href="http://motionanalysis.com/" target="_blank">Motion Analysis Corporation</a> manual.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-1"><center><img src='https://github.com/BMClab/BMC/blob/master/images/BSP_ZdeLeva.png?raw=1' alt='Zatsiorsky anthropometric model'/></center></figure>
+
+    <span id="figure-caption-1" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Segment definition employed in the anthropometric model of Zatsiorsky and Seluyanov (Zatsiorsky, 2002) adjusted by de Leva (1996).<br>Image from a <a href="http://motionanalysis.com/" target="_blank">Motion Analysis Corporation</a> manual.</span>
     """)
     return
 
@@ -519,7 +527,9 @@ def _(mo):
 
     For the human body submerged in water, because different parts of the body have different densities, the center of buoyancy is at a different place than the center of gravity, see for example [Yanai and Wilson (2008)](https://onlinelibrary.wiley.com/doi/pdf/10.1002/jst.23).
 
-    <figure><center><img src='https://github.com/BMClab/BMC/blob/master/images/buoyance.png?raw=1' width=400 alt='Center of gravity and center of buoyancy.'/></center><figcaption><center><i>Figure. Forces of gravity and buoyancy acting respectively on the center of gravity and center of buoyancy in a submerged human body (figure from Yanai and Wilson (2008)).</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-2"><center><img src='https://github.com/BMClab/BMC/blob/master/images/buoyance.png?raw=1' width=400 alt='Center of gravity and center of buoyancy.'/></center></figure>
+
+    <span id="figure-caption-2" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Forces of gravity and buoyancy acting respectively on the center of gravity and center of buoyancy in a submerged human body (figure from Yanai and Wilson (2008)).</span>
     """)
     return
 

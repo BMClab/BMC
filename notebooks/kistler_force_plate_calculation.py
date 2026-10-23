@@ -44,7 +44,9 @@ def _(mo):
     mo.md(r"""
     In order to get proper signals of a Kistler force plate, we have to calibrate the acquired data according to the factory calibration (i.e., transform the recorded values in volts of the 8 channels to values in newtons for fx12, fx34, fy14, fy23, fz1, fz2, fz3, fz4) and then calculate the resultant forces (Fx, Fy, Fz), resultant moments of force (Mx, My, Mz), and center of pressure (COPx, COPy) quantities (see figure below for the convention used).
 
-    <div class='center-align'><figure><img src="https://github.com/BMClab/BMC/blob/master/images/KistlerForcePlate.png?raw=1"alt="Kistler force plate and its coordinate system convention"/><figcaption><center><i>Figure. Kistler force plate and its coordinate system convention (from [Kistler Force Plate Formulae](https://isbweb.org/software/movanal/vaughan/kistler.pdf)).</i></center></figcaption></figure></div>
+    <div class='center-align'><figure aria-describedby="figure-caption-1"><img src="https://github.com/BMClab/BMC/blob/master/images/KistlerForcePlate.png?raw=1"alt="Kistler force plate and its coordinate system convention"/></figure></div>
+
+    <span id="figure-caption-1" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Kistler force plate and its coordinate system convention (from [Kistler Force Plate Formulae](https://isbweb.org/software/movanal/vaughan/kistler.pdf)).</span>
 
     The function `kistler_fp_cal.py` performs such calculations for the Kistler force plates of the BMClab, and its defaults belong to one specific plate/amplifier setup. Another plate requires its own channel order, sensitivity table, amplifier ranges, geometry and applicable COP correction; these values are not interchangeable. The function signature is:<br>
     ```python

@@ -47,9 +47,13 @@ def _(mo):
 
     Gait is the pattern of movement with the limbs by animals during terrestrial locomotion and for humans, gait consists of walking or running. Gait is typically a repetitive task where the overall pattern of movement repeats after a certain period or cycle. In the context of human gait, the movement of interest, walking or running, can be defined by steps or strides performed with the limbs. A step is the movement of one foot in front of the other and a stride is two consecutive steps with alternation of the limbs, as illustrated next.<br>
     <br>
-    <div class='center-align'><figure><img src="https://github.com/BMClab/BMC/blob/master/images/gaitstepstride.png?raw=1"alt="Gait step and stride"/><figcaption><center><i>Step and stride in human gait.</i></center></figcaption></figure></div>
+    <div class='center-align'><figure aria-describedby="figure-caption-1"><img src="https://github.com/BMClab/BMC/blob/master/images/gaitstepstride.png?raw=1"alt="Gait step and stride"/></figure></div>
+
+    <span id="figure-caption-1" class="figure-caption" style="display:block;text-align:center;font-style:italic">Step and stride in human gait.</span>
     <br />
-    <div class='center-align'><figure><img src="https://github.com/BMClab/BMC/blob/master/images/gaitcycle.png?raw=1" width=720 alt="Gait cycle"/><figcaption><center><i>Figure. The gait cycle of walking and its subphases ([http://www.gla.ac.uk/t4/~fbls/files/fab/](http://www.gla.ac.uk/t4/~fbls/files/fab/)). HS: heel strike. TO: toe off.</i></center></figcaption></figure></div>
+    <div class='center-align'><figure aria-describedby="figure-caption-2"><img src="https://github.com/BMClab/BMC/blob/master/images/gaitcycle.png?raw=1" width=720 alt="Gait cycle"/></figure></div>
+
+    <span id="figure-caption-2" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. The gait cycle of walking and its subphases ([http://www.gla.ac.uk/t4/~fbls/files/fab/](http://www.gla.ac.uk/t4/~fbls/files/fab/)). HS: heel strike. TO: toe off.</span>
     """)
     return
 

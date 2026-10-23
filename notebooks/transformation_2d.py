@@ -96,7 +96,9 @@ def _(mo):
 
     Translation and rotation are two examples of [affine transformations](https://en.wikipedia.org/wiki/Affine_transformation). Affine transformations preserve straight lines, but not necessarily the distances between points. Other examples are scaling, shear and reflection. The figure below illustrates different affine transformations in a plane. On top of each one is a 3×3 matrix, its transformation matrix, which is the mathematical representation of the physical transformation. We will build exactly this kind of matrix for the translation and rotation of a rigid body.
 
-    <figure><center><img src="https://upload.wikimedia.org/wikipedia/commons/2/2c/2D_affine_transformation_matrix.svg" width=360 alt="Affine transformations"/></center><figcaption><center><i>Figure. Examples of affine transformations in a plane applied to a square (with the letter <b>F</b> in it) and the corresponding transformation matrices (<a href="https://en.wikipedia.org/wiki/Affine_transformation">image from Wikipedia</a>).</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-1"><center><img src="https://upload.wikimedia.org/wikipedia/commons/2/2c/2D_affine_transformation_matrix.svg" width=360 alt="Affine transformations"/></center></figure>
+
+    <span id="figure-caption-1" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Examples of affine transformations in a plane applied to a square (with the letter <b>F</b> in it) and the corresponding transformation matrices (<a href="https://en.wikipedia.org/wiki/Affine_transformation">image from Wikipedia</a>).</span>
 
     Translation and rotation keep every distance unchanged. So does reflection, but a reflection turns a right hand into a left hand, which no physical body can do. Translations, rotations and their combinations are the only transformations a rigid body can undergo.
     """)
@@ -128,7 +130,9 @@ def _(mo):
 
     A pure translation of one coordinate system relative to another, and the representation of a point in both, is illustrated below. Remember that this is equivalent to describing the translation between two rigid bodies.
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/translation2D.png?raw=1" width=310 alt="translation 2D"/></center><figcaption><center><i>Figure. A point in two-dimensional space represented in two coordinate systems (Global and local), with one system translated.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-2"><center><img src="https://github.com/BMClab/BMC/blob/master/images/translation2D.png?raw=1" width=310 alt="translation 2D"/></center></figure>
+
+    <span id="figure-caption-2" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. A point in two-dimensional space represented in two coordinate systems (Global and local), with one system translated.</span>
 
     The position of point $\mathbf{P}$, originally described in the local coordinate system, described in the Global coordinate system in vector form is
 
@@ -222,7 +226,9 @@ def _(mo):
 
     A pure rotation of one coordinate system relative to another, and the representation of a point in both, is illustrated below (again, this is equivalent to describing the rotation between two rigid bodies). The rotation is about an axis perpendicular to the page, not shown in the figure; in a three-dimensional coordinate system it would be the $\mathbf{Z}$ axis.
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/rotation2D.png?raw=1" width=270 alt="rotation 2D"/></center><figcaption><center><i>Figure. A point in the two-dimensional space represented in two coordinate systems (Global and local), with one system rotated in relation to the other around an axis orthogonal to both coordinate systems.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-3"><center><img src="https://github.com/BMClab/BMC/blob/master/images/rotation2D.png?raw=1" width=270 alt="rotation 2D"/></center></figure>
+
+    <span id="figure-caption-3" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. A point in the two-dimensional space represented in two coordinate systems (Global and local), with one system rotated in relation to the other around an axis orthogonal to both coordinate systems.</span>
 
     We want to express the position of point $\mathbf{P}$ in the Global coordinate system knowing only its coordinates in the local coordinate system and the angle of rotation between the two. There are several ways to work it out; here are three.
     """)
@@ -236,7 +242,9 @@ def _(mo):
 
     From the figure below, the coordinates of point $\mathbf{P}$ in the Global coordinate system can be found from the sides of the triangles marked in red.
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/rotation2Db.png?raw=1" width=600 alt="rotation 2D, trigonometry"/></center><figcaption><center><i>Figure. The coordinates of a point in the Global coordinate system in terms of its coordinates in the local coordinate system.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-4"><center><img src="https://github.com/BMClab/BMC/blob/master/images/rotation2Db.png?raw=1" width=600 alt="rotation 2D, trigonometry"/></center></figure>
+
+    <span id="figure-caption-4" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. The coordinates of a point in the Global coordinate system in terms of its coordinates in the local coordinate system.</span>
 
     Then:
 
@@ -369,7 +377,9 @@ def _(mo):
 
     With two coordinate systems, they are the cosines of the angles between each axis of one coordinate system and each axis of the other. The figure below illustrates these direction angles, expressing the local coordinate system in terms of the Global coordinate system.
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/directioncosine2D.png?raw=1" width=285 alt="direction angles 2D"/></center><figcaption><center><i>Figure. Definition of direction angles in two-dimensional space.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-5"><center><img src="https://github.com/BMClab/BMC/blob/master/images/directioncosine2D.png?raw=1" width=285 alt="direction angles 2D"/></center></figure>
+
+    <span id="figure-caption-5" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Definition of direction angles in two-dimensional space.</span>
 
     $$
     \mathbf{R_{Gl}} = \begin{bmatrix}
@@ -402,7 +412,9 @@ def _(mo):
 
     > A basis is a set of linearly independent vectors that can represent every vector in a given vector space, that is, a basis defines a coordinate system.
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/basis2D2.png?raw=1" width=285 alt="basis 2D"/></center><figcaption><center><i>Figure. Definition of the rotation matrix using a basis in two-dimensional space.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-6"><center><img src="https://github.com/BMClab/BMC/blob/master/images/basis2D2.png?raw=1" width=285 alt="basis 2D"/></center></figure>
+
+    <span id="figure-caption-6" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Definition of the rotation matrix using a basis in two-dimensional space.</span>
 
     The versors of the local coordinate system, written in terms of the versors of the Global coordinate system, are
 
@@ -436,7 +448,9 @@ def _(mo):
 
     For the inverse operation, expressing the position of point $\mathbf{P}$ in the local coordinate system in terms of the Global coordinate system, the figure below shows the trigonometry.
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/rotation2Dc.png?raw=1" width=600 alt="rotation 2D, inverse"/></center><figcaption><center><i>Figure. The coordinates of a point in the local coordinate system in terms of its coordinates in the Global coordinate system.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-7"><center><img src="https://github.com/BMClab/BMC/blob/master/images/rotation2Dc.png?raw=1" width=600 alt="rotation 2D, inverse"/></center></figure>
+
+    <span id="figure-caption-7" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. The coordinates of a point in the local coordinate system in terms of its coordinates in the Global coordinate system.</span>
 
     Then:
 
@@ -586,7 +600,9 @@ def _(mo):
 
     The rotation matrix has another use: to rotate a vector by a given angle around an axis of the coordinate system, as in the figure below.
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/rotation2Dvector.png?raw=1" width=205 alt="rotation of a vector in 2D"/></center><figcaption><center><i>Figure. Rotation of a position vector $\mathbf{P}$ by an angle $\alpha$ in two-dimensional space.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-8"><center><img src="https://github.com/BMClab/BMC/blob/master/images/rotation2Dvector.png?raw=1" width=205 alt="rotation of a vector in 2D"/></center></figure>
+
+    <span id="figure-caption-8" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Rotation of a position vector $\mathbf{P}$ by an angle $\alpha$ in two-dimensional space.</span>
 
     This time the coordinate system stays where it is and the vector turns. We will not prove it, but the same rotation matrix does the job: the coordinates of the position vector $\mathbf{P'}$, rotated by an angle $\alpha$, are the rotation matrix for the angle $\alpha$ times the coordinates of $\mathbf{P}$:
 
@@ -727,7 +743,9 @@ def _(mo):
 
     Let's calculate a basis from the markers' positions. Consider markers at $m_1=[1,1]$, $m_2=[1,2]$ and $m_3=[-1,1]$, measured in the Global coordinate system, as illustrated in the figure below:
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/transrot2Db.png?raw=1" width=700 alt="translation and rotation 2D"/></center><figcaption><center><i>Figure. Three points in two-dimensional space, two possible vectors given these points, and the corresponding basis.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-9"><center><img src="https://github.com/BMClab/BMC/blob/master/images/transrot2Db.png?raw=1" width=700 alt="translation and rotation 2D"/></center></figure>
+
+    <span id="figure-caption-9" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Three points in two-dimensional space, two possible vectors given these points, and the corresponding basis.</span>
 
     A possible local coordinate system with origin at $m_1$ is also shown in the figure. The three markers were chosen on purpose so that the two vectors between them are orthogonal. The translation vector between the two coordinate systems is
 
@@ -1288,7 +1306,9 @@ def _(mo):
 
     Consider now a local coordinate system that is both translated and rotated in relation to the Global coordinate system, with a point described in both, as in the figure below (once again, this is equivalent to describing the translation and rotation between two rigid bodies).
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/transrot2D.png?raw=1" width=345 alt="translation and rotation 2D"/></center><figcaption><center><i>Figure. A point in two-dimensional space represented in two coordinate systems, with one system translated and rotated.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-10"><center><img src="https://github.com/BMClab/BMC/blob/master/images/transrot2D.png?raw=1" width=345 alt="translation and rotation 2D"/></center></figure>
+
+    <span id="figure-caption-10" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. A point in two-dimensional space represented in two coordinate systems, with one system translated and rotated.</span>
 
     The position of point $\mathbf{P}$, originally described in the local coordinate system, described in the Global coordinate system in vector form is
 

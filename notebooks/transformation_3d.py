@@ -136,7 +136,9 @@ def _(mo):
 
     A pure three-dimensional translation of a rigid body (or of a coordinate system attached to it) in relation to another rigid body (with another coordinate system) is illustrated in the figure below.
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/translation3D.png?raw=1" width=450 alt="translation 3D"/></center><figcaption><center><i>Figure. A point in three-dimensional space represented in two coordinate systems, with one coordinate system translated.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-1"><center><img src="https://github.com/BMClab/BMC/blob/master/images/translation3D.png?raw=1" width=450 alt="translation 3D"/></center></figure>
+
+    <span id="figure-caption-1" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. A point in three-dimensional space represented in two coordinate systems, with one coordinate system translated.</span>
 
     The position of the point $\mathbf{P}$, originally described in the $xyz$ (local) coordinate system but now described in the $\mathbf{XYZ}$ (Global) coordinate system, is in vector form
 
@@ -240,11 +242,15 @@ def _(mo):
 
     A pure three-dimensional rotation of an $xyz$ (local) coordinate system in relation to another, $\mathbf{XYZ}$ (Global), coordinate system, and the position of a point in these two coordinate systems, are illustrated in the next figure. Remember that this is equivalent to describing a rotation between two rigid bodies.
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/rotation3D.png?raw=1" width=450 alt="rotation 3D"/></center><figcaption><center><i>Figure. A point in three-dimensional space represented in two coordinate systems, with one coordinate system rotated.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-2"><center><img src="https://github.com/BMClab/BMC/blob/master/images/rotation3D.png?raw=1" width=450 alt="rotation 3D"/></center></figure>
+
+    <span id="figure-caption-2" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. A point in three-dimensional space represented in two coordinate systems, with one coordinate system rotated.</span>
 
     An important characteristic of rotations in three-dimensional space is that angles cannot be treated as vectors: the result of a sequence of rotations of a rigid body about different axes depends on the order of the rotations, as the next figure shows for the book of Challenge 0.
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/rotationsseqs2.png?raw=1" width=700 alt="sequences of rotations of a book"/></center><figcaption><center><i>Figure. The result of a sequence of rotations about different axes of a coordinate system depends on the order of the rotations. In the first example (first row), the rotations are about a Global (fixed) coordinate system. In the second example (second row), the rotations are about a local (rotating) coordinate system.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-3"><center><img src="https://github.com/BMClab/BMC/blob/master/images/rotationsseqs2.png?raw=1" width=700 alt="sequences of rotations of a book"/></center></figure>
+
+    <span id="figure-caption-3" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. The result of a sequence of rotations about different axes of a coordinate system depends on the order of the rotations. In the first example (first row), the rotations are about a Global (fixed) coordinate system. In the second example (second row), the rotations are about a local (rotating) coordinate system.</span>
 
     Compare the figure with your sketches from Challenge 0. Notice also something that the figure shows without saying: the two orders *about the fixed axes* give results that reappear, in the opposite order, *about the rotating axes*. We will come back to that.
     """)
@@ -268,7 +274,9 @@ def _(mo):
 
     Note, however, that for rotations about more than one axis these angles do not lie in the main planes ($\mathbf{XY, YZ, ZX}$) of the $\mathbf{XYZ}$ coordinate system, as illustrated in the figure below for the direction angles of the $y$ axis alone. Determining these angles by simple inspection, as we did in two dimensions, is no longer simple.
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/directioncosine3D.png?raw=1" width=260 alt="direction angles 3D"/></center><figcaption><center><i>Figure. Definition of the direction angles of the $y$ axis of the local coordinate system in relation to the $\mathbf{XYZ}$ Global coordinate system.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-4"><center><img src="https://github.com/BMClab/BMC/blob/master/images/directioncosine3D.png?raw=1" width=260 alt="direction angles 3D"/></center></figure>
+
+    <span id="figure-caption-4" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Definition of the direction angles of the $y$ axis of the local coordinate system in relation to the $\mathbf{XYZ}$ Global coordinate system.</span>
 
     The nine angles in the matrix are also obviously redundant, since only three angles are needed to describe the orientation of a rigid body in three-dimensional space.
     """)
@@ -369,7 +377,9 @@ def _(mo):
 
     In the 18th century, [Leonhard Euler](https://en.wikipedia.org/wiki/Leonhard_Euler) showed that two three-dimensional coordinate systems with a common origin can be related by a sequence of up to three elemental rotations about the axes of the local coordinate system, where no two successive rotations may be about the same axis. The angles of these rotations are now known as [Euler (or Eulerian) angles](https://en.wikipedia.org/wiki/Euler_angles).
 
-    <figure><center><img src="https://upload.wikimedia.org/wikipedia/commons/8/85/Euler2a.gif" width=300 alt="Euler angles"/></center><figcaption><center><i>Figure. Euler angles: a way to reach any orientation using a specific sequence of elemental rotations (<a href="https://en.wikipedia.org/wiki/Euler_angles">image from Wikipedia</a>).</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-5"><center><img src="https://upload.wikimedia.org/wikipedia/commons/8/85/Euler2a.gif" width=300 alt="Euler angles"/></center></figure>
+
+    <span id="figure-caption-5" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Euler angles: a way to reach any orientation using a specific sequence of elemental rotations (<a href="https://en.wikipedia.org/wiki/Euler_angles">image from Wikipedia</a>).</span>
     """)
     return
 
@@ -381,7 +391,9 @@ def _(mo):
 
     First, let's look at rotations about a fixed Global coordinate system, as we did in two dimensions. The next figure illustrates elemental rotations of the local coordinate system about each axis of the fixed Global coordinate system.
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/rotations.png?raw=1" width=700 alt="elemental rotations"/></center><figcaption><center><i>Figure. Elemental rotations of the $xyz$ coordinate system about each axis, $\mathbf{X}$, $\mathbf{Y}$ and $\mathbf{Z}$, of the fixed $\mathbf{XYZ}$ coordinate system. For clarity, the axis of each rotation is drawn perpendicular to the page.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-6"><center><img src="https://github.com/BMClab/BMC/blob/master/images/rotations.png?raw=1" width=700 alt="elemental rotations"/></center></figure>
+
+    <span id="figure-caption-6" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Elemental rotations of the $xyz$ coordinate system about each axis, $\mathbf{X}$, $\mathbf{Y}$ and $\mathbf{Z}$, of the fixed $\mathbf{XYZ}$ coordinate system. For clarity, the axis of each rotation is drawn perpendicular to the page.</span>
     """)
     return
 
@@ -572,7 +584,9 @@ def _(mo):
 
     Consider now a sequence of elemental rotations about the $\mathbf{X}$, $\mathbf{Y}$ and $\mathbf{Z}$ axes of the fixed $\mathbf{XYZ}$ coordinate system, illustrated in the next figure.
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/rotations_XYZ.png?raw=1" width=700 alt="sequence of rotations about the fixed axes"/></center><figcaption><center><i>Figure. Sequence of elemental rotations of the $xyz$ coordinate system about each axis, $\mathbf{X}$, $\mathbf{Y}$, $\mathbf{Z}$, of the fixed $\mathbf{XYZ}$ coordinate system.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-7"><center><img src="https://github.com/BMClab/BMC/blob/master/images/rotations_XYZ.png?raw=1" width=700 alt="sequence of rotations about the fixed axes"/></center></figure>
+
+    <span id="figure-caption-7" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Sequence of elemental rotations of the $xyz$ coordinate system about each axis, $\mathbf{X}$, $\mathbf{Y}$, $\mathbf{Z}$, of the fixed $\mathbf{XYZ}$ coordinate system.</span>
 
     This sequence of elemental rotations, each one of the local coordinate system with respect to the fixed Global coordinate system, is represented mathematically by a product of rotation matrices:
 
@@ -739,7 +753,9 @@ def _(mo):
 
     We can also calculate a sequence of elemental rotations about the $x$, $y$, $z$ axes of the rotating $xyz$ coordinate system, illustrated in the next figure.
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/rotations_xyz2.png?raw=1" width=700 alt="sequence of rotations about the local axes"/></center><figcaption><center><i>Figure. Sequence of elemental rotations of a second $xyz$ local coordinate system about each axis, $x$, $y$, $z$, of the rotating $xyz$ coordinate system.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-8"><center><img src="https://github.com/BMClab/BMC/blob/master/images/rotations_xyz2.png?raw=1" width=700 alt="sequence of rotations about the local axes"/></center></figure>
+
+    <span id="figure-caption-8" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Sequence of elemental rotations of a second $xyz$ local coordinate system about each axis, $x$, $y$, $z$, of the rotating $xyz$ coordinate system.</span>
 
     Likewise, this sequence of elemental rotations, each one of the local coordinate system with respect to the rotating local coordinate system, is represented by a product of rotation matrices, which are the inverses of the matrices for the rotations about $\mathbf{X,Y,Z}$, as we saw earlier:
 
@@ -1231,7 +1247,9 @@ def _(mo):
 
     Which order to use is a matter of convention, but because the order affects the results, it is fundamental to follow a convention and to report it. In engineering mechanics (including biomechanics), the $xyz$ order is more common; in physics, the $zxz$ order is more common (but the letters chosen for the axes are arbitrary; what matters is the directions they represent). In biomechanics, the order of the Cardan angles is most often based on the angle of most interest or of most reliable measurement. Accordingly, the axis of flexion–extension is typically the first axis, the axis of abduction–adduction the second, and the axis of internal–external rotation the last one; for the knee, this is the order of the joint coordinate system of Grood and Suntay (1983). The $zyx$ order is commonly used to describe the orientation of a ship or an aircraft, and the rotations are known as the nautical angles: yaw, pitch and roll, respectively (see next figure).
 
-    <figure><center><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Yaw_Axis.svg/330px-Yaw_Axis.svg.png" width=320 alt="principal axes of an aircraft"/></center><figcaption><center><i>Figure. The principal axes of an aircraft and the names of the rotations about them (<a href="https://en.wikipedia.org/wiki/Euler_angles">image from Wikipedia</a>).</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-9"><center><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Yaw_Axis.svg/330px-Yaw_Axis.svg.png" width=320 alt="principal axes of an aircraft"/></center></figure>
+
+    <span id="figure-caption-9" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. The principal axes of an aircraft and the names of the rotations about them (<a href="https://en.wikipedia.org/wiki/Euler_angles">image from Wikipedia</a>).</span>
 
     If, instead of rotations about the rotating local coordinate system, we perform rotations about the fixed Global coordinate system, we have another 12 sequences of three elemental rotations, called simply rotation angles. In total there are 24 possible sequences, but they are not independent: with the 12 sequences of Euler angles in the local coordinate system we can obtain the other 12 in the Global coordinate system.
 
@@ -1308,7 +1326,9 @@ def _(mo):
 
     The second axis of rotation in the rotating coordinate system is also referred to as the nodal axis, or line of nodes. It coincides with the intersection of two perpendicular planes, one from each coordinate system, Global (fixed) and local (rotating). The figure below shows an example of rotations and the nodal axis for the $xyz$ sequence of Cardan angles.
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/Node.png?raw=1" width=700 alt="line of nodes"/></center><figcaption><center><i>Figure. First row: example of rotations for the $xyz$ sequence of Cardan angles. The Global (fixed) $XYZ$ coordinate system is shown in green, the local (rotating) $xyz$ coordinate system in blue. The nodal axis (<b>N</b>, in red) is defined by the intersection of the $YZ$ and $xy$ planes, and all rotations can be described in relation to this nodal axis or to an axis perpendicular to it. Second row: starting from no rotation, the local coordinate system is rotated by $\alpha$ about the $x$ axis, then by $\beta$ about the rotated $y$ axis, and finally by $\gamma$ about the twice-rotated $z$ axis. The line of nodes coincides with the $y$ axis of the second rotation.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-10"><center><img src="https://github.com/BMClab/BMC/blob/master/images/Node.png?raw=1" width=700 alt="line of nodes"/></center></figure>
+
+    <span id="figure-caption-10" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. First row: example of rotations for the $xyz$ sequence of Cardan angles. The Global (fixed) $XYZ$ coordinate system is shown in green, the local (rotating) $xyz$ coordinate system in blue. The nodal axis (<b>N</b>, in red) is defined by the intersection of the $YZ$ and $xy$ planes, and all rotations can be described in relation to this nodal axis or to an axis perpendicular to it. Second row: starting from no rotation, the local coordinate system is rotated by $\alpha$ about the $x$ axis, then by $\beta$ about the rotated $y$ axis, and finally by $\gamma$ about the twice-rotated $z$ axis. The line of nodes coincides with the $y$ axis of the second rotation.</span>
     """)
     return
 
@@ -1683,7 +1703,9 @@ def _(mo):
 
     Consider the case where the local coordinate system is translated and rotated in relation to the Global coordinate system, as illustrated in the next figure.
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/transrot3D.png?raw=1" width=450 alt="translation and rotation 3D"/></center><figcaption><center><i>Figure. A point in three-dimensional space represented in two coordinate systems, with one coordinate system translated and rotated.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-11"><center><img src="https://github.com/BMClab/BMC/blob/master/images/transrot3D.png?raw=1" width=450 alt="translation and rotation 3D"/></center></figure>
+
+    <span id="figure-caption-11" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. A point in three-dimensional space represented in two coordinate systems, with one coordinate system translated and rotated.</span>
 
     The position of the point $\mathbf{P}$, originally described in the local coordinate system, is described in the Global coordinate system in vector form by:
 

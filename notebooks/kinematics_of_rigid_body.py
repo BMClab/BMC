@@ -90,7 +90,9 @@ def _(mo):
 
     The concept of reference frame is central to the understanding of human motion, in biomechanics and in motor control. For example, do we see, plan and control the movement of our hand with respect to reference frames within our body, or in the environment we move in? Or a combination of both? The figure below, although drawn for a robot, illustrates well that we may have to deal with several coordinate systems at once.
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/coordinatesystems.png?raw=1" width=450 alt="multiple coordinate systems of a robot"/></center><figcaption><center><i>Figure. Multiple coordinate systems for use in robots (figure from Corke (2017)).</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-1"><center><img src="https://github.com/BMClab/BMC/blob/master/images/coordinatesystems.png?raw=1" width=450 alt="multiple coordinate systems of a robot"/></center></figure>
+
+    <span id="figure-caption-1" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Multiple coordinate systems for use in robots (figure from Corke (2017)).</span>
 
     In three-dimensional motion analysis we use several frames of reference for convenience, and call them global, laboratory, local, anatomical or technical reference frames or coordinate systems. Different standardizations have been proposed for how to define the frames of reference of the main segments and joints of the human body; the International Society of Biomechanics keeps a [page listing standardization proposals](https://isbweb.org/activities/standards) by its standardization committee and subcommittees.
 
@@ -120,7 +122,9 @@ def _(mo):
     \hat{\mathbf{j}}' = -\sin(\theta)\,\hat{\mathbf{i}} + \cos(\theta)\,\hat{\mathbf{j}}
     $$
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/rotBody.png?raw=1" width=500 alt="point of a rotating rigid body"/></center><figcaption><center><i>Figure. A point P of a rigid body rotating about the origin O.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-2"><center><img src="https://github.com/BMClab/BMC/blob/master/images/rotBody.png?raw=1" width=500 alt="point of a rotating rigid body"/></center></figure>
+
+    <span id="figure-caption-2" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. A point P of a rigid body rotating about the origin O.</span>
 
     This is what rigidity means, written as an equation. As the body rotates, the versors $\hat{\mathbf{i}}'$ and $\hat{\mathbf{j}}'$ turn with it, but the coefficients $x_{P/O}^*$ and $y_{P/O}^*$ of a given point never change. Every bit of the motion of P is carried by the versors.
     """)
@@ -138,7 +142,9 @@ def _(mo):
     \vec{\mathbf{r}}_{P/O} = \vec{\mathbf{r}}_{A/O} + \vec{\mathbf{r}}_{P/A} = \vec{\mathbf{r}}_{A/O} + x_{P/A}^*\,\hat{\mathbf{i}}' + y_{P/A}^*\,\hat{\mathbf{j}}'
     $$
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/rotTrBody.png?raw=1" width=500 alt="point of a rotating and translating rigid body"/></center><figcaption><center><i>Figure. A point P of a rigid body that rotates and translates, described from the point A of the same body.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-3"><center><img src="https://github.com/BMClab/BMC/blob/master/images/rotTrBody.png?raw=1" width=500 alt="point of a rotating and translating rigid body"/></center></figure>
+
+    <span id="figure-caption-3" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. A point P of a rigid body that rotates and translates, described from the point A of the same body.</span>
 
     The first term carries the translation, the motion of A. The second carries the rotation, and has exactly the form of the previous section, with A in place of O.
     """)
@@ -162,7 +168,9 @@ def _(mo):
     \vec{\boldsymbol{\omega}} = \omega\,\hat{\mathbf{k}}
     $$
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/angvel.png?raw=1" width=400 alt="angular velocity vector"/></center><figcaption><center><i>Figure. The angular velocity vector is perpendicular to the plane of rotation.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-4"><center><img src="https://github.com/BMClab/BMC/blob/master/images/angvel.png?raw=1" width=400 alt="angular velocity vector"/></center></figure>
+
+    <span id="figure-caption-4" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. The angular velocity vector is perpendicular to the plane of rotation.</span>
 
     By the right-hand rule, a positive $\omega$ is a counterclockwise rotation seen from above the plane. Note that the angular velocity belongs to the body as a whole: every line drawn on a rigid body turns through the same angle in the same time, so there is one $\omega$ for the whole body, not one per point.
     """)

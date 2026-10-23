@@ -111,12 +111,16 @@ def _(mo):
 
     With respect to the equations of motion to determine the dynamics of a system, there are two general approaches: forward (or direct) and inverse dynamics. For example, consider the solution of Newton's second law for a particle. If we know the force(s) and want to find the trajectory, this is **forward dynamics**. If instead, we know the trajectory and want to find the force(s), this is **inverse dynamics**:
 
-    <figure><img src="https://github.com/BMClab/BMC/blob/master/images/dynamics.png?raw=1" alt="Forward and inverse dynamics." width=220/><figcaption><i><center>Figure. The equation of motion and the forward and inverse dynamics approaches.</center></i></figcaption></figure>
+    <figure aria-describedby="figure-caption-1"><img src="https://github.com/BMClab/BMC/blob/master/images/dynamics.png?raw=1" alt="Forward and inverse dynamics." width=220/></figure>
+
+    <span id="figure-caption-1" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. The equation of motion and the forward and inverse dynamics approaches.</span>
 
     In Biomechanics, in a typical movement analysis of the human body using inverse dynamics, we would measure the positions of the segments and measure the external forces, calculate the segments' linear and angular acceleration, and find the internal net force and moment of force at the joint using the equations of motion. In addition, we could estimate the muscle forces (if we solve the redundancy problem of having more muscles than joints).<br>
     Using forward dynamics, the muscle forces would be the inputs and the trajectories of the segments would be the outputs. The figure below compares the forward and inverse dynamics approaches.
 
-    <figure><img src="https://github.com/BMClab/BMC/blob/master/images/InvDirDyn.png?raw=1" alt="Direct and inverse dynamics."/><figcaption><i><center>Figure. Inverse dynamics and Forward (or Direct) dynamics approaches for movement analysis (adapted from Zajac and Gordon, 1989).</center></i></figcaption></figure>
+    <figure aria-describedby="figure-caption-2"><img src="https://github.com/BMClab/BMC/blob/master/images/InvDirDyn.png?raw=1" alt="Direct and inverse dynamics."/></figure>
+
+    <span id="figure-caption-2" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Inverse dynamics and Forward (or Direct) dynamics approaches for movement analysis (adapted from Zajac and Gordon, 1989).</span>
     """)
     return
 
@@ -139,7 +143,9 @@ def _(mo):
 
     The [free body diagrams](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/free_body_diagram.py) of the lower limbs are:<br>
     <br>
-    <figure><img src="https://github.com/BMClab/BMC/blob/master/images/fbdgaitb.png?raw=1" width=640 alt="FBD lowerlimb"/><figcaption><center><i>Figure. Free body diagrams of the lower limbs for a gait analysis. <b>GRF</b> is the resultant ground reaction force applied on the foot at the center of pressure, <b>COP</b>, position.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-3"><img src="https://github.com/BMClab/BMC/blob/master/images/fbdgaitb.png?raw=1" width=640 alt="FBD lowerlimb"/></figure>
+
+    <span id="figure-caption-3" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Free body diagrams of the lower limbs for a gait analysis. <b>GRF</b> is the resultant ground reaction force applied on the foot at the center of pressure, <b>COP</b>, position.</span>
     """)
     return
 

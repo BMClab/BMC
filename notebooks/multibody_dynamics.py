@@ -125,7 +125,9 @@ def _(mo):
 
     Let's study the dynamics of a planar inverted pendulum as a model for the movement of a human body segment with an external force acting on the segment (see Figure 1).
 
-    <figure><img src="https://github.com/BMClab/BMC/blob/master/images/invpend1.png?raw=1" alt="Inverted pendulum"/><figcaption><i><center>Figure 1. Planar inverted pendulum (one link attached to a fixed body by a hinge joint in a plane) with a joint actuators and corresponding free body diagram as a model of a human body segment. See text for notation convention.</center></i></figcaption>
+    <figure aria-describedby="figure-caption-1"><img src="https://github.com/BMClab/BMC/blob/master/images/invpend1.png?raw=1" alt="Inverted pendulum"/></figure>
+
+    <span id="figure-caption-1" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure 1. Planar inverted pendulum (one link attached to a fixed body by a hinge joint in a plane) with a joint actuators and corresponding free body diagram as a model of a human body segment. See text for notation convention.</span>
 
     The following notation convention will be used for this problem:
 
@@ -509,7 +511,9 @@ def _(mo):
 
     Let's study the dynamics of a planar double inverted pendulum (see Figure 2) as a model of two interconnected segments in the human body with an external force acting on the distal segment. Once again, we will consider that there are muscles around each joint and they generate torques.
 
-    <figure><img src="https://github.com/BMClab/BMC/blob/master/images/invpend2.png?raw=1" alt="Double inverted pendulum"/><figcaption><i><center>Figure 2. Planar double inverted pendulum connected by hinge joints with joint actuators and corresponding free body diagrams. See text for notation convention.</center></i></figcaption>
+    <figure aria-describedby="figure-caption-2"><img src="https://github.com/BMClab/BMC/blob/master/images/invpend2.png?raw=1" alt="Double inverted pendulum"/></figure>
+
+    <span id="figure-caption-2" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure 2. Planar double inverted pendulum connected by hinge joints with joint actuators and corresponding free body diagrams. See text for notation convention.</span>
 
     The following notation convention will be used for this problem:<br>
      - Subscript $i$ runs 1 or 2 meaning first (most proximal) or second joint when referring to angles, joint moments, or joint reaction forces, or meaning first or second segment when referring to everything else.<br>

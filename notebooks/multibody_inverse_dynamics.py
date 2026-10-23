@@ -79,7 +79,9 @@ def _(mo):
 
     For the inverse dynamics analysis, we will obtain the joint torques and forces, from the joint kinematics and external forces.
 
-    <figure><img src="https://github.com/BMClab/BMC/blob/master/images/inv.png?raw=1" width=600 /> <figcaption><i><center>Adapted from Erdemir et al. (2007) </center></i></figcaption>
+    <figure aria-describedby="figure-caption-1"><img src="https://github.com/BMClab/BMC/blob/master/images/inv.png?raw=1" width=600 /> </figure>
+
+    <span id="figure-caption-1" class="figure-caption" style="display:block;text-align:center;font-style:italic">Adapted from Erdemir et al. (2007)</span>
 
 
       As an example, we will consider the problem of estimating the forces and torques in the ankle and knee joints during the gait, considering a 3D movement. At this point, we consider that the  accelerations, angular velocities, angular accelerations, masses, moments of inertia and rotation matrices necessary  to compute the forces and moments are known.

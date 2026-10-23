@@ -104,7 +104,9 @@ def _(mo):
 
     Although many forces and moments of force can actuate on a rigid body, their effects in terms of motion, translation and rotation of the body, are the same of a single force acting on the body center of gravity and a couple of antiparallel forces (or simply, a <a href="https://en.wikipedia.org/wiki/Couple_(mechanics)">force couple</a>) that generates a moment of force. This moment of force has the particularity that is not around a fixed axis of rotation and because of that it is also called free moment or pure moment.  The next figure illustrates this principle:
 
-    <figure><img src="https://github.com/BMClab/BMC/blob/master/images/forcecouple.png?raw=1" width=660 alt="force couple"/><figcaption><center><i>Figure. Any system of forces applied to a rigid body can be reduced to a resultant force applied on the center of mass of the body plus a force couple.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-1"><img src="https://github.com/BMClab/BMC/blob/master/images/forcecouple.png?raw=1" width=660 alt="force couple"/></figure>
+
+    <span id="figure-caption-1" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Any system of forces applied to a rigid body can be reduced to a resultant force applied on the center of mass of the body plus a force couple.</span>
 
     Based on the concept of force couple, we can make a distinction between torque and moment of force: torque is the moment of force caused by a force couple. We can also refer to torque as the moment of a couple. This distinction is more common in Engineering Mechanics.
 
@@ -129,7 +131,9 @@ def _(mo):
 
     **Example** (From Meriam 1997). For the figure below, calculate the magnitude of the moment about the base point *O* of the 600-N force in five different ways. [See the five methods](https://raw.githubusercontent.com/BMClab/BMC/master/images/torque.png).
 
-    <figure><img src="https://raw.githubusercontent.com/BMClab/BMC/master/images/torque2.png" alt="Torque" width="250"/><figcaption><center><i>Figure. Can you calculate the torque of the force above by five different ways?</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-2"><img src="https://raw.githubusercontent.com/BMClab/BMC/master/images/torque2.png" alt="Torque" width="250"/></figure>
+
+    <span id="figure-caption-2" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Can you calculate the torque of the force above by five different ways?</span>
 
     One way:
     """)
@@ -172,7 +176,9 @@ def _(mo):
 
     Our interest is to draw the FBD for the ball:<br>
     <br>
-    <figure><img src="https://github.com/BMClab/BMC/blob/master/images/fbd01.png?raw=1" width="380" alt="FBD01"/><figcaption><center><i>Figure. Free-body diagram of a ball resting on the ground.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-3"><img src="https://github.com/BMClab/BMC/blob/master/images/fbd01.png?raw=1" width="380" alt="FBD01"/></figure>
+
+    <span id="figure-caption-3" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Free-body diagram of a ball resting on the ground.</span>
 
     W is the weight force due to the gravitational forces which act on all particles of the ball but the effects of the weight force on each particle of the ball are the same if we draw only one force (the ball weight) acting on the center of gravity of the ball.<br>
     N is the normal force, it is perpendicular to the surface of contact and prevents the ball from penetrating the surface.
@@ -215,7 +221,9 @@ def _(mo):
 
     Our interest is to draw the FBD for a person standing still:<br>
     <br>
-    <figure><img src="https://github.com/BMClab/BMC/blob/master/images/fbd02.png?raw=1" width="340" alt="FBD02"/><figcaption><center><i>Figure. Free-body diagram of a person standing.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-4"><img src="https://github.com/BMClab/BMC/blob/master/images/fbd02.png?raw=1" width="340" alt="FBD02"/></figure>
+
+    <span id="figure-caption-4" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Free-body diagram of a person standing.</span>
 
     The FBD for the standing person above is similar to the previous one; the difference is that now there are two surfaces of contact (the two feet). And under each foot, there is an area of contact, not just a single point.
 
@@ -264,7 +272,9 @@ def _(mo):
 
     Our interest is to draw the FBD for both boxes:<br>
     <br>
-    <figure><img src="https://github.com/BMClab/BMC/blob/master/images/fbd03.png?raw=1" width="540" alt="FBD03"/><figcaption><center><i>Figure. Free-body diagram of two boxes on the ground.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-5"><img src="https://github.com/BMClab/BMC/blob/master/images/fbd03.png?raw=1" width="540" alt="FBD03"/></figure>
+
+    <span id="figure-caption-5" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Free-body diagram of two boxes on the ground.</span>
 
     Now we have to consider the forces between the two boxes.
 
@@ -307,7 +317,9 @@ def _(mo):
 
     Now we have a segment fixed to a base by a joint and we want to draw the FBD for the segment:<br>
     <br>
-    <figure><img src="https://github.com/BMClab/BMC/blob/master/images/fbd04.png?raw=1" width="420" alt="FBD04"/><figcaption><center><i>Figure. Free-body diagram of one segment and one joint.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-6"><img src="https://github.com/BMClab/BMC/blob/master/images/fbd04.png?raw=1" width="420" alt="FBD04"/></figure>
+
+    <span id="figure-caption-6" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Free-body diagram of one segment and one joint.</span>
 
     On any joint one can have a force and a moment of force (but a joint with a free axis of rotation, offering no resistance to rotation, generates no moment of force, only joint forces).<br>
     For this example, we guessed the most general case, a joint with a force and a moment of force, but we may find later that one of these quantities is zero, this is ok.<br>
@@ -407,7 +419,9 @@ def _(mo):
 
     Now we have two segments and two joints and we want to draw the FBD for each segment:<br>
     <br>
-    <figure><img src="https://github.com/BMClab/BMC/blob/master/images/fbd05.png?raw=1" width="640" alt="FBD05"/><figcaption><center><i>Figure. Free-body diagram of two segments and two joints.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-7"><img src="https://github.com/BMClab/BMC/blob/master/images/fbd05.png?raw=1" width="640" alt="FBD05"/></figure>
+
+    <span id="figure-caption-7" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Free-body diagram of two segments and two joints.</span>
 
     Note that the action-reaction principle applies to both forces and moments of force.
 
@@ -741,13 +755,17 @@ def _(mo):
      a) Calculate the muscle and joint forces at the knee angles 0$^o$, 45$^o$, and 90$^o$.
 
     3. A simple and clever device to estimate the position of the center of mass position on a body is the reaction board illustrated below.<br>
-    <figure><img src="https://github.com/BMClab/BMC/blob/master/images/reactionboard.png?raw=1" alt="Reaction board"/><figcaption><center><i>Figure. Illustration of the reaction board device for the estimation of the center of mass position on a body.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-8"><img src="https://github.com/BMClab/BMC/blob/master/images/reactionboard.png?raw=1" alt="Reaction board"/></figure>
+
+    <span id="figure-caption-8" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Illustration of the reaction board device for the estimation of the center of mass position on a body.</span>
 
      a) Derive the equation to determine the center of mass position considering the parameters shown in the figure above.<br>
      b) Show that it's possible to estimate the mass and center of mass position of a segment by asking the subject to move his or her segment and recalculating the center of mass position.
 
     4. Consider the situation illustrated in the figure below where a person is holding a dumbbell.<br>
-    <figure><img src="https://github.com/BMClab/BMC/blob/master/images/arm.png?raw=1" width=400 alt="lever arm"/><figcaption><center><i>Figure. A person holding a dumbbell and some of the physical quantities related to the mechanics of the task.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-9"><img src="https://github.com/BMClab/BMC/blob/master/images/arm.png?raw=1" width=400 alt="lever arm"/></figure>
+
+    <span id="figure-caption-9" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. A person holding a dumbbell and some of the physical quantities related to the mechanics of the task.</span>
 
      a) Determine the value of the elbow flexion force.<br>
      b) Determine the forces acting on the elbow joint.
@@ -760,12 +778,16 @@ def _(mo):
      c) The moment of force at the joint
 
     7. Consider the foot segment during standing still (foot acceleration is zero) where the entire body is supported by the foot as illustrated in the figure. The distance in relation to the ankle joint of the foot center of mass is $6 cm$ and of the point of application of the resultant ground reaction force (center of pressure, COP) is $4 cm$ as illustrated in the figure. The foot mass is $0.9 kg$ and the ground reaction force (Ry1) is $588 N$. Consider $g=-9.8 m/s^2$.<br>
-    <figure><img src="https://github.com/BMClab/BMC/blob/master/images/Winter5_6.png?raw=1" width="360" alt="foot"/><figcaption><center><i>Figure. A foot and its free-body diagram. Figure from Winter (2009).</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-10"><img src="https://github.com/BMClab/BMC/blob/master/images/Winter5_6.png?raw=1" width="360" alt="foot"/></figure>
+
+    <span id="figure-caption-10" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. A foot and its free-body diagram. Figure from Winter (2009).</span>
 
      a) Determine the moment of force and force at the ankle.
 
     8. Consider the foot segment at an instant during gait when the entire body is supported by the foot as illustrated in the figure. The coordinates of the ankle joint, foot center of mass and the point of application of the resultant ground reaction force (center of pressure, COP) are given in centimeters at the laboratory coordinate system. The foot accelerations are $a = (3.25, 1.78) m/s^2$, and $\alpha_z = −45.35 rad/s^2$ and the moment of inertia is $0.01 kgm^2$. Consider $g=-9.8 m/s^2$.<br>
-    <figure><img src="https://github.com/BMClab/BMC/blob/master/images/Winter5_13.png?raw=1" width="400" alt="foot"/><figcaption><center><i>Figure. Free-body diagram of the foot. Figure from Winter (2009).</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-11"><img src="https://github.com/BMClab/BMC/blob/master/images/Winter5_13.png?raw=1" width="400" alt="foot"/></figure>
+
+    <span id="figure-caption-11" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Free-body diagram of the foot. Figure from Winter (2009).</span>
 
      a) Determine the moment of force and force at the ankle.
     """)

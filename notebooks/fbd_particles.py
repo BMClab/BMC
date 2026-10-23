@@ -195,7 +195,9 @@ def _(mo):
 
     The free-body diagram is below, with no force vectors acting on the particle.
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/ballNoGrav.png?raw=1" alt="free-body diagram of a ball" width="500"/><figcaption><i>Figure. Free-body diagram of a ball with no force acting on it.</i></figcaption></center></figure>
+    <figure aria-describedby="figure-caption-1"><center><img src="https://github.com/BMClab/BMC/blob/master/images/ballNoGrav.png?raw=1" alt="free-body diagram of a ball" width="500"/></center></figure>
+
+    <span id="figure-caption-1" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Free-body diagram of a ball with no force acting on it.</span>
 
     In this situation, the resultant force is:
 
@@ -221,7 +223,9 @@ def _(mo):
 
     Now, let's consider a ball with the gravity force acting on it. The free-body diagram is depicted below.
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/ballGrav.png?raw=1" alt="free-body diagram of a ball" width="500"/><figcaption><i>Figure. Free-body diagram of a ball under the influence of gravity.</i></figcaption></center></figure>
+    <figure aria-describedby="figure-caption-2"><center><img src="https://github.com/BMClab/BMC/blob/master/images/ballGrav.png?raw=1" alt="free-body diagram of a ball" width="500"/></center></figure>
+
+    <span id="figure-caption-2" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Free-body diagram of a ball under the influence of gravity.</span>
 
     The only force acting on the ball is the gravitational force:
 
@@ -251,7 +255,9 @@ def _(mo):
 
     Now, we will analyze the situation of a particle at rest in contact with the ground. To simplify the analysis, only the vertical movement will be considered.
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/ballGravGRF.png?raw=1" alt="free-body diagram of a ball" width="400"/><figcaption><i>Figure. Free-body diagram of a ball at rest in contact with the ground.</i></figcaption></center></figure>
+    <figure aria-describedby="figure-caption-3"><center><img src="https://github.com/BMClab/BMC/blob/master/images/ballGravGRF.png?raw=1" alt="free-body diagram of a ball" width="400"/></center></figure>
+
+    <span id="figure-caption-3" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Free-body diagram of a ball at rest in contact with the ground.</span>
     """)
     return
 
@@ -261,7 +267,9 @@ def _(mo):
     mo.md(r"""
     The forces acting on the particle are the ground reaction force (often called as normal force) and the gravity force. The free-body diagram of the particle is below:
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/ballGravGRFFBD.png?raw=1" alt="free-body diagram of a ball" width="200"/><figcaption><i>Figure. Free-body diagram of a ball under the influence of gravity.</i></figcaption></center></figure>
+    <figure aria-describedby="figure-caption-4"><center><img src="https://github.com/BMClab/BMC/blob/master/images/ballGravGRFFBD.png?raw=1" alt="free-body diagram of a ball" width="200"/></center></figure>
+
+    <span id="figure-caption-4" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Free-body diagram of a ball under the influence of gravity.</span>
 
     So, the resultant force in the particle is:
 
@@ -306,7 +314,9 @@ def _(mo):
 
     The example below represents a mass attached to a spring and the other extremity of the spring is fixed.
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/ballspring.png?raw=1" alt="free-body diagram of a ball" width="500"/><figcaption><i>Figure. Mass-spring system with horizontal movement.</i></figcaption></center></figure>
+    <figure aria-describedby="figure-caption-5"><center><img src="https://github.com/BMClab/BMC/blob/master/images/ballspring.png?raw=1" alt="free-body diagram of a ball" width="500"/></center></figure>
+
+    <span id="figure-caption-5" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Mass-spring system with horizontal movement.</span>
     """)
     return
 
@@ -316,7 +326,9 @@ def _(mo):
     mo.md(r"""
     The only force force acting on the mass is from the spring. Below is the free-body diagram from the mass.
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/ballspringFBD.png?raw=1" alt="free-body diagram of a ball" width="200"/><figcaption><i>Figure. Free-body diagram of a mass-spring system.</i></figcaption></center></figure>
+    <figure aria-describedby="figure-caption-6"><center><img src="https://github.com/BMClab/BMC/blob/master/images/ballspringFBD.png?raw=1" alt="free-body diagram of a ball" width="200"/></center></figure>
+
+    <span id="figure-caption-6" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Free-body diagram of a mass-spring system.</span>
 
     Since the movement is horizontal, we can neglect the gravity force.
 
@@ -386,7 +398,9 @@ def _(mo):
     This example below represents a system with two masses attached to a spring.<br>
     To solve the motion of both masses, we have to draw a free-body diagram for each one of the masses.
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/twoballspring.png?raw=1" alt="Linear spring" width="500"/><figcaption><i>Figure. Linear spring in bidimensional movement at horizontal plane.</i></figcaption></center></figure>
+    <figure aria-describedby="figure-caption-7"><center><img src="https://github.com/BMClab/BMC/blob/master/images/twoballspring.png?raw=1" alt="Linear spring" width="500"/></center></figure>
+
+    <span id="figure-caption-7" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Linear spring in bidimensional movement at horizontal plane.</span>
     """)
     return
 
@@ -396,7 +410,9 @@ def _(mo):
     mo.md(r"""
     The only force acting on each mass is the force due to the spring. Since the movement is happening at the horizontal plane, the gravity force can be neglected.
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/twoballspringFBD.png?raw=1" alt="Linear spring" width="200"/><figcaption><i>Figure. FBD of linear spring in bidimensional movement at horizontal plane.</i></figcaption></center></figure>
+    <figure aria-describedby="figure-caption-8"><center><img src="https://github.com/BMClab/BMC/blob/master/images/twoballspringFBD.png?raw=1" alt="Linear spring" width="200"/></center></figure>
+
+    <span id="figure-caption-8" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. FBD of linear spring in bidimensional movement at horizontal plane.</span>
 
     So, the forces acting on mass 1 is:
 
@@ -572,7 +588,9 @@ def _(mo):
 
     Below is the free-body diagram of a particle with the gravity force and a linear drag force due to the air resistance.
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/ballGravLinearRes.png?raw=1" alt="Linear spring" width="700"/><figcaption><i>Figure. Particle under action of gravity and linear air resistance.</i></figcaption></center></figure>
+    <figure aria-describedby="figure-caption-9"><center><img src="https://github.com/BMClab/BMC/blob/master/images/ballGravLinearRes.png?raw=1" alt="Linear spring" width="700"/></center></figure>
+
+    <span id="figure-caption-9" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Particle under action of gravity and linear air resistance.</span>
 
     the forces being applied in the ball are:
 
@@ -600,7 +618,9 @@ def _(mo):
 
     Below, is the free-body diagram of a particle with the gravity force and a drag force due to the air resistance proportional to the square of the particle velocity.
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/ballGravSquareRes.png?raw=1" alt="Linear spring" width="700"/><figcaption><i>Figure. Particle under action of gravity and nonlinear air resistance.</i></figcaption></center></figure>
+    <figure aria-describedby="figure-caption-10"><center><img src="https://github.com/BMClab/BMC/blob/master/images/ballGravSquareRes.png?raw=1" alt="Linear spring" width="700"/></center></figure>
+
+    <span id="figure-caption-10" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Particle under action of gravity and nonlinear air resistance.</span>
 
     The forces being applied in the ball are:
 
@@ -647,7 +667,9 @@ def _(mo):
 
     This situation is very similar to the example of horizontal movement with one spring and two masses, with a damper added in parallel to the spring.
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/twomassDamp.png?raw=1" alt="Linear spring"/><figcaption><i>Figure. Linear spring and damping on bidimensional horizontal movement.</i></figcaption></center></figure>
+    <figure aria-describedby="figure-caption-11"><center><img src="https://github.com/BMClab/BMC/blob/master/images/twomassDamp.png?raw=1" alt="Linear spring"/></center></figure>
+
+    <span id="figure-caption-11" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Linear spring and damping on bidimensional horizontal movement.</span>
     """)
     return
 
@@ -657,7 +679,9 @@ def _(mo):
     mo.md(r"""
     Now, the forces acting on each mass are the force due to the spring and the force due to the damper.
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/twomassDampFBD.png?raw=1" alt="Linear spring" width="200"/><figcaption><i>Figure. FBD of linear spring and damping on bidimensional horizontal movement.</i></figcaption></center></figure>
+    <figure aria-describedby="figure-caption-12"><center><img src="https://github.com/BMClab/BMC/blob/master/images/twomassDampFBD.png?raw=1" alt="Linear spring" width="200"/></center></figure>
+
+    <span id="figure-caption-12" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. FBD of linear spring and damping on bidimensional horizontal movement.</span>
 
     So, the forces acting on mass 1 is:
 
@@ -844,7 +868,9 @@ def _(mo):
 
     The length $L_{MT}$ is the length of the muscle plus the tendon. In our model $L_{MT}$ is constant, but it could be a function of the joint angle.
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/simpleMuscle.png?raw=1" alt="Linear spring" width="500"/><figcaption><i>Figure. Simple muscle model.</i></figcaption></center></figure>
+    <figure aria-describedby="figure-caption-13"><center><img src="https://github.com/BMClab/BMC/blob/master/images/simpleMuscle.png?raw=1" alt="Linear spring" width="500"/></center></figure>
+
+    <span id="figure-caption-13" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Simple muscle model.</span>
 
     The length of the tendon will be denoted by $l_T(t)$ and the muscle length, by $l_{m}(t)$. Both lengths are related by each other  by the following expression:
 
@@ -860,7 +886,9 @@ def _(mo):
     mo.md(r"""
     The free-body diagram of the muscle mass is depicted below.
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/simpleMuscleFBD.png?raw=1" alt="Linear spring" width="200"/><figcaption><i>Figure. FBD of simple muscle model.</i></figcaption></center></figure>
+    <figure aria-describedby="figure-caption-14"><center><img src="https://github.com/BMClab/BMC/blob/master/images/simpleMuscleFBD.png?raw=1" alt="Linear spring" width="200"/></center></figure>
+
+    <span id="figure-caption-14" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. FBD of simple muscle model.</span>
 
     The resultant force being applied in the muscle mass is:
 

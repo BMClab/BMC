@@ -88,7 +88,9 @@ def _(mo):
 
     A usual problem in biomechanics, and in mechanics in general, is to find the angular velocity of an object. We consider that a basis $\hat{\mathbf{e}}_1$, $\hat{\mathbf{e}}_2$ and $\hat{\mathbf{e}}_3$ is attached to the body and is known at every instant. To learn how to find such a basis from the positions of markers, see [Frame of reference](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/reference_frame.py) and [Determination of a coordinate system](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/coordinate_system.py).
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/3DbodyrefMove.png?raw=1" width=600 alt="a body and its basis at two instants"/></center><figcaption><center><i>Figure. A body with its basis $\hat{\mathbf{e}}_1, \hat{\mathbf{e}}_2, \hat{\mathbf{e}}_3$ at two instants, described in the laboratory's basis $\hat{\mathbf{i}}, \hat{\mathbf{j}}, \hat{\mathbf{k}}$.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-1"><center><img src="https://github.com/BMClab/BMC/blob/master/images/3DbodyrefMove.png?raw=1" width=600 alt="a body and its basis at two instants"/></center></figure>
+
+    <span id="figure-caption-1" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. A body with its basis $\hat{\mathbf{e}}_1, \hat{\mathbf{e}}_2, \hat{\mathbf{e}}_3$ at two instants, described in the laboratory's basis $\hat{\mathbf{i}}, \hat{\mathbf{j}}, \hat{\mathbf{k}}$.</span>
 
     Everything about the body's rotation is in how this basis turns. The position of the body is a separate matter, carried by the origin of the basis.
     """)
@@ -430,7 +432,9 @@ def _(mo):
     \frac{d\theta_1}{dt} = \frac{d\hat{\mathbf{e}}_2}{dt}\cdot \hat{\mathbf{e}}_3
     $$
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/derivVersor.png?raw=1" width=350 alt="derivatives of the versors"/></center><figcaption><center><i>Figure. The versors of the body's basis (black), the same versors a moment later (red), and their derivatives (blue). The rotation $\theta_1$ about $\hat{\mathbf{e}}_1$ moves $\hat{\mathbf{e}}_2$ towards $\hat{\mathbf{e}}_3$.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-2"><center><img src="https://github.com/BMClab/BMC/blob/master/images/derivVersor.png?raw=1" width=350 alt="derivatives of the versors"/></center></figure>
+
+    <span id="figure-caption-2" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. The versors of the body's basis (black), the same versors a moment later (red), and their derivatives (blue). The rotation $\theta_1$ about $\hat{\mathbf{e}}_1$ moves $\hat{\mathbf{e}}_2$ towards $\hat{\mathbf{e}}_3$.</span>
 
     Similarly, the same is valid for the angles in the other two directions:
 

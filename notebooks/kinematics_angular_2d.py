@@ -92,7 +92,9 @@ def _(mo):
 
     An angle is always measured *between two specific things*, *from* one of them *to* the other, in a chosen direction. Change any of those choices and the number changes, while the knee stays exactly where it was. The figure below shows the convention used in Winter's textbook, which is also the one used for the data at the end of this notebook:
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/jointangles.png?raw=1" width=350 alt="Joint angle convention"/></center><figcaption><center><i>Figure. Convention for the sagittal joint angles of the lower limb (from Winter, 2009).</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-1"><center><img src="https://github.com/BMClab/BMC/blob/master/images/jointangles.png?raw=1" width=350 alt="Joint angle convention"/></center></figure>
+
+    <span id="figure-caption-1" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Convention for the sagittal joint angles of the lower limb (from Winter, 2009).</span>
 
     In this convention, each *segment* angle is measured counterclockwise from the forward horizontal, with the segment pointing from its distal marker to its proximal one; for instance, the leg (shank) angle $\theta_{43}$ goes from the ankle, marker 4, to the head of the fibula, marker 3. A *joint* angle is then a difference of segment angles. The knee angle is $\theta_{21}-\theta_{43}$, positive for flexion, so a straight knee is at $0^o$. Many clinicians report instead the included angle between thigh and leg, which is $180^o$ for the same straight knee.
 
@@ -137,7 +139,9 @@ def _(mo):
 
     In the planar case, computing an angle reduces to trigonometry on the kinematic data. Given the coordinates in the plane of two markers on a segment, as in the figure below, the angle of the segment can be found with the inverse of the sine, the cosine or the tangent.
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/segment.png?raw=1" width=250 alt="segment"/></center><figcaption><center><i>Figure. A segment in a plane and its coordinates.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-2"><center><img src="https://github.com/BMClab/BMC/blob/master/images/segment.png?raw=1" width=250 alt="segment"/></center></figure>
+
+    <span id="figure-caption-2" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. A segment in a plane and its coordinates.</span>
 
     The inverse of the tangent is preferred, because it uses both coordinates and so keeps its accuracy at every orientation. For the segment in the figure:
 
@@ -685,7 +689,9 @@ def _(mo):
 
     which is in fact the definition of the radian:
 
-    <figure><center><img src="https://upload.wikimedia.org/wikipedia/commons/3/3d/Radian_cropped_color.svg" width=200 alt="radian"/></center><figcaption><center><i>Figure. An arc of a circle with the same length as the radius of that circle corresponds to an angle of 1 radian (<a href="https://en.wikipedia.org/wiki/Radian">image from Wikipedia</a>).</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-3"><center><img src="https://upload.wikimedia.org/wikipedia/commons/3/3d/Radian_cropped_color.svg" width=200 alt="radian"/></center></figure>
+
+    <span id="figure-caption-3" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. An arc of a circle with the same length as the radius of that circle corresponds to an angle of 1 radian (<a href="https://en.wikipedia.org/wiki/Radian">image from Wikipedia</a>).</span>
 
     The distance travelled by the particle is therefore the arc length $s = r\theta$, and because the radius is constant, the speed and the rate of change of the speed follow directly:
 

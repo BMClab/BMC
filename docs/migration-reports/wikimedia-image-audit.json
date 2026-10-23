@@ -1,0 +1,389 @@
+{
+  "checked_at": "2026-10-23T03:42:21.114360+00:00",
+  "images": [
+    {
+      "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ec/Bandform_template.svg/960px-Bandform_template.svg.png",
+      "notebooks": [
+        "notebooks/data_filtering.py"
+      ],
+      "status": 200,
+      "final_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ec/Bandform_template.svg/960px-Bandform_template.svg.png",
+      "content_type": "image/png",
+      "bytes": 47789,
+      "sha256": "e1f045ccc1904bd9b94794d14d7b829af5cd239bafd61fbfac8439afe542255e",
+      "valid_image": true,
+      "dimensions": [
+        960,
+        407
+      ],
+      "frames": 1,
+      "validation": "Decoded image header and verified image structure with Pillow"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/0/09/Torque_animation.gif",
+      "notebooks": [
+        "notebooks/kinetics_fundamental_concepts.py"
+      ],
+      "status": 200,
+      "final_url": "https://upload.wikimedia.org/wikipedia/commons/0/09/Torque_animation.gif",
+      "content_type": "image/gif",
+      "bytes": 159804,
+      "sha256": "ccc7a0b999b68f61ca67096c459b789df6ff0076034b5ab5c62b0ec57cd49df1",
+      "valid_image": true,
+      "dimensions": [
+        220,
+        154
+      ],
+      "frames": 61,
+      "validation": "Decoded image header and verified image structure with Pillow"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/2/24/Vector_subtraction.svg",
+      "notebooks": [
+        "notebooks/scalar_vector.py"
+      ],
+      "status": 200,
+      "final_url": "https://upload.wikimedia.org/wikipedia/commons/2/24/Vector_subtraction.svg",
+      "content_type": "image/svg+xml",
+      "bytes": 9382,
+      "sha256": "955f42abcec69886c71ceb9682ed2af12da18f68f706763b84ab110e2e598441",
+      "valid_image": true,
+      "validation": "Parsed SVG document"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/2/28/Vector_addition.svg",
+      "notebooks": [
+        "notebooks/scalar_vector.py"
+      ],
+      "status": 200,
+      "final_url": "https://upload.wikimedia.org/wikipedia/commons/2/28/Vector_addition.svg",
+      "content_type": "image/svg+xml",
+      "bytes": 25289,
+      "sha256": "dddcb3ea171aa755926506eb36e5f4f30903b97554795dccb1c0986271cbec24",
+      "valid_image": true,
+      "validation": "Parsed SVG document"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/2/2b/Fourier_series_and_transform.gif",
+      "notebooks": [
+        "notebooks/fourier_series.py"
+      ],
+      "status": 200,
+      "final_url": "https://upload.wikimedia.org/wikipedia/commons/2/2b/Fourier_series_and_transform.gif",
+      "content_type": "image/gif",
+      "bytes": 278023,
+      "sha256": "b04fb61d79de7ee1e629c4bb4603c67e43961b1292e00738cd2bd5868a972bdf",
+      "valid_image": true,
+      "dimensions": [
+        300,
+        240
+      ],
+      "frames": 93,
+      "validation": "Decoded image header and verified image structure with Pillow"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/2/2c/2D_affine_transformation_matrix.svg",
+      "notebooks": [
+        "notebooks/transformation_2d.py"
+      ],
+      "status": 200,
+      "final_url": "https://upload.wikimedia.org/wikipedia/commons/2/2c/2D_affine_transformation_matrix.svg",
+      "content_type": "image/svg+xml",
+      "bytes": 35861,
+      "sha256": "219cc879267c1acf8b32f451203b33dfa776e46a82d0f5101fd457dcd05a0348",
+      "valid_image": true,
+      "validation": "Parsed SVG document"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/2/2c/Modele_cinematique_corps_humain.svg",
+      "notebooks": [
+        "notebooks/kinematic_chain.py"
+      ],
+      "status": 200,
+      "final_url": "https://upload.wikimedia.org/wikipedia/commons/2/2c/Modele_cinematique_corps_humain.svg",
+      "content_type": "image/svg+xml",
+      "bytes": 59895,
+      "sha256": "896394a6ae3edbc4f48adbacbd7ba19ea15eba7841c217f1c7daeac183f91257",
+      "valid_image": true,
+      "validation": "Parsed SVG document"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/2/2d/Animal_mechanism-_a_treatise_on_terrestrial_and_a%C3%ABrial_locomotion_%281874%29_%2818198040265%29.jpg",
+      "notebooks": [
+        "notebooks/biomechanics.py"
+      ],
+      "status": 200,
+      "final_url": "https://upload.wikimedia.org/wikipedia/commons/2/2d/Animal_mechanism-_a_treatise_on_terrestrial_and_a%C3%ABrial_locomotion_%281874%29_%2818198040265%29.jpg",
+      "content_type": "image/jpeg",
+      "bytes": 1620762,
+      "sha256": "be29e23d3f09a0a6e5ec062afe161921c17f372bfcc878c3622318eb822dad7e",
+      "valid_image": true,
+      "dimensions": [
+        4112,
+        2822
+      ],
+      "frames": 1,
+      "validation": "Decoded image header and verified image structure with Pillow"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/3/34/BodyPlanes.jpg",
+      "notebooks": [
+        "notebooks/reference_frame.py"
+      ],
+      "status": 200,
+      "final_url": "https://upload.wikimedia.org/wikipedia/commons/3/34/BodyPlanes.jpg",
+      "content_type": "image/jpeg",
+      "bytes": 29541,
+      "sha256": "b90ed3e5cc35d60a4ad837d678aeed9d2152498e695f6c3c08f014546190a4f6",
+      "valid_image": true,
+      "dimensions": [
+        300,
+        361
+      ],
+      "frames": 1,
+      "validation": "Decoded image header and verified image structure with Pillow"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/3/3d/Radian_cropped_color.svg",
+      "notebooks": [
+        "notebooks/kinematics_angular_2d.py"
+      ],
+      "status": 200,
+      "final_url": "https://upload.wikimedia.org/wikipedia/commons/3/3d/Radian_cropped_color.svg",
+      "content_type": "image/svg+xml",
+      "bytes": 2077,
+      "sha256": "290823f453af663a6c26d2c34111dfee41316172407ab9fe26e75aed8bc36c73",
+      "valid_image": true,
+      "validation": "Parsed SVG document"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/4/4e/Cross_product_parallelogram.svg",
+      "notebooks": [
+        "notebooks/scalar_vector.py"
+      ],
+      "status": 200,
+      "final_url": "https://upload.wikimedia.org/wikipedia/commons/4/4e/Cross_product_parallelogram.svg",
+      "content_type": "image/svg+xml",
+      "bytes": 923,
+      "sha256": "cde06211752190976e3ab7a0bc7c009958a5a1e6285c47204857637500e39839",
+      "valid_image": true,
+      "validation": "Parsed SVG document"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/6/65/Mobility_analogy_resonator_vertical.svg",
+      "notebooks": [
+        "notebooks/lagrangian_mechanics.py"
+      ],
+      "status": 200,
+      "final_url": "https://upload.wikimedia.org/wikipedia/commons/6/65/Mobility_analogy_resonator_vertical.svg",
+      "content_type": "image/svg+xml",
+      "bytes": 138037,
+      "sha256": "5cea8702700406e5c0b58350fc82e4ccfdbdcfa367a071cf611811cec79129fd",
+      "valid_image": true,
+      "validation": "Parsed SVG document"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/6/66/Sarrus_rule.svg",
+      "notebooks": [
+        "notebooks/matrix.py"
+      ],
+      "status": 200,
+      "final_url": "https://upload.wikimedia.org/wikipedia/commons/6/66/Sarrus_rule.svg",
+      "content_type": "image/svg+xml",
+      "bytes": 30788,
+      "sha256": "b8ea1ee280abbaa1fbb1123f9d1c2a43afec0fe08d0088e6602baeff316ec397",
+      "valid_image": true,
+      "validation": "Parsed SVG document"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/8/85/Euler2a.gif",
+      "notebooks": [
+        "notebooks/transformation_3d.py"
+      ],
+      "status": 200,
+      "final_url": "https://upload.wikimedia.org/wikipedia/commons/8/85/Euler2a.gif",
+      "content_type": "image/gif",
+      "bytes": 625172,
+      "sha256": "d83e2b109c2db9e5c3b28bc2b346e1c14618d123516a1116f32c4f9e90fbced2",
+      "valid_image": true,
+      "dimensions": [
+        368,
+        348
+      ],
+      "frames": 44,
+      "validation": "Decoded image header and verified image structure with Pillow"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/d/d2/The_Horse_in_Motion_high_res.jpg",
+      "notebooks": [
+        "notebooks/biomechanics.py"
+      ],
+      "status": 200,
+      "final_url": "https://upload.wikimedia.org/wikipedia/commons/d/d2/The_Horse_in_Motion_high_res.jpg",
+      "content_type": "image/jpeg",
+      "bytes": 8592297,
+      "sha256": "f1cf088bde1b75455ce58f13cb0ccbe2046b0ad8a85dae06641d1c3252bdf136",
+      "valid_image": true,
+      "dimensions": [
+        5694,
+        3510
+      ],
+      "frames": 1,
+      "validation": "Decoded image header and verified image structure with Pillow"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/d/d5/Giovanni_Borelli_-_lim_joints_%28De_Motu_Animalium%29.jpg",
+      "notebooks": [
+        "notebooks/biomechanics.py"
+      ],
+      "status": 200,
+      "final_url": "https://upload.wikimedia.org/wikipedia/commons/d/d5/Giovanni_Borelli_-_lim_joints_%28De_Motu_Animalium%29.jpg",
+      "content_type": "image/jpeg",
+      "bytes": 96786,
+      "sha256": "81c5a18849ee45927d4a2b48cd1541362fc62e64170296e23d425925f2fccdf4",
+      "valid_image": true,
+      "dimensions": [
+        446,
+        548
+      ],
+      "frames": 1,
+      "validation": "Decoded image header and verified image structure with Pillow"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/e/ee/Gram-Schmidt_orthonormalization_process.gif",
+      "notebooks": [
+        "notebooks/reference_frame.py"
+      ],
+      "status": 200,
+      "final_url": "https://upload.wikimedia.org/wikipedia/commons/e/ee/Gram-Schmidt_orthonormalization_process.gif",
+      "content_type": "image/gif",
+      "bytes": 715742,
+      "sha256": "f42c39e363c179a2db620ea11478ce60f7a1bfa75a3d777b75cdbb7747d95252",
+      "valid_image": true,
+      "dimensions": [
+        440,
+        330
+      ],
+      "frames": 153,
+      "validation": "Decoded image header and verified image structure with Pillow"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/f/fb/RLC_series_circuit_v1.svg",
+      "notebooks": [
+        "notebooks/lagrangian_mechanics.py"
+      ],
+      "status": 200,
+      "final_url": "https://upload.wikimedia.org/wikipedia/commons/f/fb/RLC_series_circuit_v1.svg",
+      "content_type": "image/svg+xml",
+      "bytes": 28623,
+      "sha256": "9d846add2ea01a562533ab8517f39cc5950e1db91a5d95ffdcec45f29a895cad",
+      "valid_image": true,
+      "validation": "Parsed SVG document"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Yaw_Axis.svg/330px-Yaw_Axis.svg.png",
+      "notebooks": [
+        "notebooks/transformation_3d.py"
+      ],
+      "status": 200,
+      "final_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Yaw_Axis.svg/330px-Yaw_Axis.svg.png",
+      "content_type": "image/png",
+      "bytes": 13723,
+      "sha256": "219bd00ff9f6311f8629d9f8d068dacdf4d4be668d093c0020c5a3ec1ee8d151",
+      "valid_image": true,
+      "dimensions": [
+        330,
+        249
+      ],
+      "frames": 1,
+      "validation": "Decoded image header and verified image structure with Pillow"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Da_Vinci_Vitruve_Luc_Viatour.jpg/250px-Da_Vinci_Vitruve_Luc_Viatour.jpg",
+      "notebooks": [
+        "notebooks/biomechanics.py"
+      ],
+      "status": 200,
+      "final_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Da_Vinci_Vitruve_Luc_Viatour.jpg/250px-Da_Vinci_Vitruve_Luc_Viatour.jpg",
+      "content_type": "image/jpeg",
+      "bytes": 32849,
+      "sha256": "3a7b49e2f50b357ed800ce74de3bae2b875682d48628d2e6eaf8db4ea0f66a9e",
+      "valid_image": true,
+      "dimensions": [
+        250,
+        340
+      ],
+      "frames": 1,
+      "validation": "Decoded image header and verified image structure with Pillow"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Mechanics_Overview_Table.jpg/1280px-Mechanics_Overview_Table.jpg",
+      "notebooks": [
+        "notebooks/biomechanics.py"
+      ],
+      "status": 200,
+      "final_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Mechanics_Overview_Table.jpg/1280px-Mechanics_Overview_Table.jpg",
+      "content_type": "image/jpeg",
+      "bytes": 162725,
+      "sha256": "4323c1f4e2aada64d18e2f311505e925b5d136b86478ddac09c09a49e44748ff",
+      "valid_image": true,
+      "dimensions": [
+        1280,
+        700
+      ],
+      "frames": 1,
+      "validation": "Decoded image header and verified image structure with Pillow"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Physicsdomains.svg/500px-Physicsdomains.svg.png",
+      "notebooks": [
+        "notebooks/biomechanics.py"
+      ],
+      "status": 200,
+      "final_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Physicsdomains.svg/500px-Physicsdomains.svg.png",
+      "content_type": "image/png",
+      "bytes": 44495,
+      "sha256": "4f6801fa61b2c61a0cdead08d5aec0b117c0092602c61ed922d6e0621b5da0d4",
+      "valid_image": true,
+      "dimensions": [
+        500,
+        399
+      ],
+      "frames": 1,
+      "validation": "Decoded image header and verified image structure with Pillow"
+    }
+  ],
+  "scope": "All external Wikipedia/Wikimedia image URLs in notebooks and courses, including SVG, PNG, JPEG and GIF; GET response and image structure checked. Availability may change.",
+  "original_unique_image_urls": 23,
+  "repairs": [
+    {
+      "notebook": "notebooks/body_segment_parameters.py",
+      "old_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Da_Vinci_Vitruve_Luc_Viatour.jpg/353px-Da_Vinci_Vitruve_Luc_Viatour.jpg",
+      "old_status": 400,
+      "replacement": "images/vitruvian_man.jpg",
+      "source": "https://commons.wikimedia.org/wiki/File:Da_Vinci_Vitruve_Luc_Viatour.jpg",
+      "download_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Da_Vinci_Vitruve_Luc_Viatour.jpg/500px-Da_Vinci_Vitruve_Luc_Viatour.jpg",
+      "download_status": 200,
+      "dimensions": [
+        500,
+        680
+      ],
+      "sha256": "0abe3492f16087750789f114b5cf9b57062430099417c269a261df2546d3aab3",
+      "method": "Unmodified JPEG; repo_file local/cloud resolver and mo.image; exact bytes embedded in native HTML export. Credit in notebook and images/README.md."
+    },
+    {
+      "notebook": "notebooks/lagrangian_mechanics.py",
+      "old_url": "https://upload.wikimedia.org/wikipedia/en/thumb/6/65/Mobility_analogy_resonator_vertical.svg/198px-Mobility_analogy_resonator_vertical.svg.png",
+      "old_status": 400,
+      "replacement": "https://upload.wikimedia.org/wikipedia/commons/6/65/Mobility_analogy_resonator_vertical.svg",
+      "source": "https://commons.wikimedia.org/wiki/File:Mobility_analogy_resonator_vertical.svg"
+    },
+    {
+      "notebook": "notebooks/lagrangian_mechanics.py",
+      "old_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/RLC_series_circuit_v1.svg/173px-RLC_series_circuit_v1.svg.png",
+      "old_status": 400,
+      "replacement": "https://upload.wikimedia.org/wikipedia/commons/f/fb/RLC_series_circuit_v1.svg",
+      "source": "https://commons.wikimedia.org/wiki/File:RLC_series_circuit_v1.svg"
+    }
+  ]
+}

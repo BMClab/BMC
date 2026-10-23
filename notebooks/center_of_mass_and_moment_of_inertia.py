@@ -131,7 +131,9 @@ def _(mo):
 
     Consider the set of particles shown below.
 
-    <figure><center><img src='https://github.com/BMClab/BMC/blob/master/images/cmparticles.png?raw=1' width=400 alt='center of mass of particles'/></center><figcaption><center><i>Figure. The center of mass of a set of particles.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-1"><center><img src='https://github.com/BMClab/BMC/blob/master/images/cmparticles.png?raw=1' width=400 alt='center of mass of particles'/></center></figure>
+
+    <span id="figure-caption-1" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. The center of mass of a set of particles.</span>
 
     The sum of the vectors linking the center of mass to each particle is:
 
@@ -209,7 +211,9 @@ def _(mo):
 
     For a rigid body, the center of mass is defined as the point where the integral of the vectors  linking this point to each differential part of mass, weighted by this differential mass, is zero.
 
-    <figure><center><img src='https://github.com/BMClab/BMC/blob/master/images/cmbody.png?raw=1' width=300 alt='center of mass of a rigid body'/></center><figcaption><center><i>Figure. The center of mass of a rigid body.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-2"><center><img src='https://github.com/BMClab/BMC/blob/master/images/cmbody.png?raw=1' width=300 alt='center of mass of a rigid body'/></center></figure>
+
+    <span id="figure-caption-2" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. The center of mass of a rigid body.</span>
 
     This integral is:
 
@@ -242,7 +246,9 @@ def _(mo):
 
     Let's calculate the center of mass of a homogeneous (with equal density) bar shown below.
 
-    <figure><center><img src='https://github.com/BMClab/BMC/blob/master/images/bar.png?raw=1' width=200 alt='bar'/></center><figcaption><center><i>Figure. A bar.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-3"><center><img src='https://github.com/BMClab/BMC/blob/master/images/bar.png?raw=1' width=200 alt='bar'/></center></figure>
+
+    <span id="figure-caption-3" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. A bar.</span>
 
     $$
     \vec{r}_{cm} = \frac{ \int \vec{r}\,\mathrm d m}{m}
@@ -307,7 +313,9 @@ def _(mo):
 
     Let's compute the center of mass of the triangle shown below.
 
-    <figure><center><img src='https://github.com/BMClab/BMC/blob/master/images/triangle.png?raw=1' width=400 alt='triangle'/></center><figcaption><center><i>Figure. A triangle.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-4"><center><img src='https://github.com/BMClab/BMC/blob/master/images/triangle.png?raw=1' width=400 alt='triangle'/></center></figure>
+
+    <span id="figure-caption-4" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. A triangle.</span>
 
     The center of mass is given by Eq.(\ref{eq:cm}):
 
@@ -403,7 +411,9 @@ def _(mo):
 
     Let's compute the center of mass of the system shown below.
 
-    <figure><center><img src='https://github.com/BMClab/BMC/blob/master/images/threebars.png?raw=1' width=350 alt='system with three bars'/></center><figcaption><center><i>Figure. A system with three bars.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-5"><center><img src='https://github.com/BMClab/BMC/blob/master/images/threebars.png?raw=1' width=350 alt='system with three bars'/></center></figure>
+
+    <span id="figure-caption-5" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. A system with three bars.</span>
 
     The system can be seen as a set of three bars; we can compute the center of mass by considering each bar as a particle located at its respective center of mass.
 
@@ -554,7 +564,9 @@ def _(mo):
 
     where $\vec{r}$ is the position of the particle relative to the chosen origin $O$.
 
-    <figure><center><img src='https://github.com/BMClab/BMC/blob/master/images/momentum.png?raw=1' width=150 style="margin:10px 0px" alt='momentum'/></center><figcaption><center><i>Figure. A particle at position <b>r</b> with linear momentum and angular momentum relative to origin <i>O</i>.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-6"><center><img src='https://github.com/BMClab/BMC/blob/master/images/momentum.png?raw=1' width=150 style="margin:10px 0px" alt='momentum'/></center></figure>
+
+    <span id="figure-caption-6" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. A particle at position <b>r</b> with linear momentum and angular momentum relative to origin O.</span>
 
     For simplicity (later we will generalize this problem), let's consider that the particle rotates at a fixed plane and at a fixed distance, $r$, to point $O$ (i.e., circular motion). In this case, the magnitude of the angular momentum is:
 
@@ -734,7 +746,9 @@ def _(mo):
 
     In the figure below, the axis is perpendicular to the plane.
 
-    <figure><center><img src='https://github.com/BMClab/BMC/blob/master/images/inmomparallel.png?raw=1' width=300 alt='parallel axis theorem'/></center><figcaption><center><i>Figure. The parallel axis theorem for the calculation of the moment of inertia of a body.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-7"><center><img src='https://github.com/BMClab/BMC/blob/master/images/inmomparallel.png?raw=1' width=300 alt='parallel axis theorem'/></center></figure>
+
+    <span id="figure-caption-7" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. The parallel axis theorem for the calculation of the moment of inertia of a body.</span>
 
     The moment of inertia relative to the axis passing through the point O is given by:
 
@@ -808,7 +822,9 @@ def _(mo):
 
     Let's compute the moment of inertia of the set of eight equal and homogeneous bars depicted in the figure below relative to its center of mass.
 
-    <figure><center><img src='https://github.com/BMClab/BMC/blob/master/images/eigthbars.png?raw=1' width=350 alt='Moment of inertia of a system with eight bars'/></center><figcaption><center><i>Figure. Moment of inertia of a system with eight bars.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-8"><center><img src='https://github.com/BMClab/BMC/blob/master/images/eigthbars.png?raw=1' width=350 alt='Moment of inertia of a system with eight bars'/></center></figure>
+
+    <span id="figure-caption-8" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Moment of inertia of a system with eight bars.</span>
 
     By symmetry, the center of mass of this system is in the point $O$. So, to compute the moment of inertia relative to this point, we must use the parallel axis theorem to each bar, and then sum the results, as in Eq.(\ref{eq:paral}).
 
@@ -961,7 +977,9 @@ def _(mo):
     Consider a cylinder with constant density shown in the figure below and compute the moment of inertia around the three axes relative to the center of mass.<br>
     The mass of this cylinder is $m = \rho h \pi R^2$ and, by symmetry, the moment of inertia is in the center (centroid) of the cylinder.
 
-    <figure><center><img src='https://github.com/BMClab/BMC/blob/master/images/cilinder.png?raw=1' width=300 alt='Moment of inertia of a cylinder'/></center><figcaption><center><i>Figure. Moment of inertia of a cylinder.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-9"><center><img src='https://github.com/BMClab/BMC/blob/master/images/cilinder.png?raw=1' width=300 alt='Moment of inertia of a cylinder'/></center></figure>
+
+    <span id="figure-caption-9" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Moment of inertia of a cylinder.</span>
 
     The easiest approach to this problem is to use cylindrical coordinates $\theta, r, z$. In the integrals, the differential term $\mathrm d m$ will be replaced by $\rho r \,\mathrm d \theta\,\mathrm d r\,\mathrm d z$ and the limits of the integral will be $[0,2\pi]$, $[0,R]$, $[-h/2,h/2]$.
 

@@ -153,7 +153,9 @@ def _(mo):
 
     The animation below illustrates the relationship between force, torque, and momentum vectors:
 
-    <center><figure><img src="https://github.com/BMClab/BMC/blob/master/images/TorqueAnim.gif?raw=1" alt="Torque animation" width="300"/><figcaption><i>Figure. Relationship between force ($\mathbf{\vec{F}}$), torque ($\mathbf{\vec{M}}$), linear momentum ($\mathbf{\vec{L}}$) and angular momentum ($\mathbf{\vec{H}}$). Adapted from <a href="https://en.wikipedia.org/wiki/File:Torque_animation.gif">Wikipedia</a>.</i></figcaption></figure></center>
+    <center><figure aria-describedby="figure-caption-1"><img src="https://github.com/BMClab/BMC/blob/master/images/TorqueAnim.gif?raw=1" alt="Torque animation" width="300"/></figure></center>
+
+    <span id="figure-caption-1" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Relationship between force ($\mathbf{\vec{F}}$), torque ($\mathbf{\vec{M}}$), linear momentum ($\mathbf{\vec{L}}$) and angular momentum ($\mathbf{\vec{H}}$). Adapted from <a href="https://en.wikipedia.org/wiki/File:Torque_animation.gif">Wikipedia</a>.</span>
     """)
     return
 

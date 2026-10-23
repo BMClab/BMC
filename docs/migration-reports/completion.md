@@ -10,7 +10,7 @@ Actual notebook contents were compared against the baseline; file dates were not
 
 The requested detection notebooks, TimeNormalization, Untitled and duplicate Portuguese viscoelastic chapter were retired. The two Jupyter course labs were converted and retained in the main collection; the entire requested `courses/biomechanicsI_2022/` directory was deleted. Their default data loader retrieves the identical original table from the immutable baseline commit, with optional uploads for new experiments. `fig2_16.png` now resides in `images/` and its notebook reference was repaired.
 
-README now uses **85 guide bullets**, with three links each: a molab preview on the title, a compact molab WebAssembly badge, and a compact marimo.app badge. Badge widths are 43 and 53 pixels respectively. The two Portuguese labs are omitted from the README index at the user's request. Change detection and Time normalization of data each have one external repository link to detecta and tnorma. Colab, Jupyter and Classic Notebook launch links were removed from active navigation. The existing 2026 course marimo lecture remains in place with its reference links updated.
+README now uses **84 guide bullets**, with three links each: a molab preview on the title, a compact molab WebAssembly badge, and a compact marimo.app badge. Badge widths are 43 and 53 pixels respectively. The two Portuguese labs and the anatomical coordinate-system guide are omitted from the README index at the user's request; their notebooks are retained. Change detection and Time normalization of data each have one external repository link to detecta and tnorma. Colab, Jupyter and Classic Notebook launch links were removed from active navigation. The existing 2026 course marimo lecture remains in place with its reference links updated.
 
 The [filename map](notebook-filenames.json) relates baseline marimo names to final filenames. The [inventory](../notebook-migration-inventory.csv) preserves baseline paths/hashes and adds final paths/hashes. Group reports intentionally retain the names used during comparison.
 
@@ -42,14 +42,14 @@ Current source SHA-256, per-stage executed source SHA-256, and terminal outcomes
 
 | Check | Result |
 | --- | --- |
-| Full local suite, `uv run pytest -q` | **94 tests and 113 subtests passed**; two expected warnings from synthetic C3D fixtures without analog data/labels |
+| Full local suite, `uv run pytest -q` | **95 tests and 232 subtests passed**; two expected warnings from synthetic C3D fixtures without analog data/labels |
 | `uv lock --check` | Passed |
 | `uv run marimo check --strict notebooks/*.py` | **87 passed** |
 | `uv run marimo check --strict --select MW notebooks/*.py` | **87 passed** |
-| Native `marimo export script`, reactive `marimo export html`, execution of exported scripts | **87/87 passed in all three stages** |
-| Real WebAssembly Python execution of exported scripts | **87/87 passed** |
+| Native `marimo export script`, reactive `marimo export html`, execution of exported scripts | **87/87 passed in all three stages** for the calculations; presentation follow-up reran reactive HTML for all 35 changed guides |
+| Real WebAssembly Python execution of exported scripts | **87/87 passed** for the earlier source hashes; later presentation changes were not rerun in WebAssembly |
 | Rendered bylines, References lists and teaching-section audit | **87 passed**, no flagged guide |
-| README/index paths and names | 85 guides, 170 badges; all 87 filenames mapped and snake_case |
+| README/index paths and names | 84 guides, 168 badges; all 87 filenames mapped and snake_case |
 | `.zenodo.json` | Valid JSON; passes the official legacy deposit JSON Schema |
 
 Native verification used Python 3.14.5 and marimo 0.25.1, with the Agg backend for headless plots. HTML export executed the actual reactive graph; running only the notebook's `app.run()` guard was not treated as verification. The full native 87-guide run took about 163 seconds with four workers.
@@ -85,3 +85,11 @@ The final dependency cleanup removed unused direct dependencies `openai`, `pydan
 The final reactive HTML execution passed **87/87 current guides** in the trimmed 79-package environment. Exact source hashes are recorded per verification stage; four whitespace-only source cleanups were checked against the final files. The computational AST and standalone metadata still match the previously verified calculations. Publication cleanup also removed 17 orphan bytecode caches and resolved all 12 staged whitespace diagnostics.
 
 Presentation follow-up: `body_segment_parameters.py` now opens with its title and authors, followed by How to use and Python setup. The unchanged file resolver follows those opening cells with `hide_code=True`. Registered cell order and hidden-source configuration were checked directly; strict checks and native reactive HTML export passed. Function bodies and dependency metadata were preserved.
+
+## Caption, image and index follow-up — 2026-10-23
+
+Moved **127 captions in 34 guides** outside raw HTML figure blocks into Markdown-enabled caption spans, retaining centered italic styling, source links and image associations. This fixes all **18 math-bearing captions** and also allows Markdown links in captions to render. Four missing figure closing tags and two malformed polar-basis captions were repaired. The regression test reproduced 18 failures before the fix and now passes all 119 caption-cell subtests using marimo's real Markdown renderer. Source comparisons confirm that scientific computations and standalone dependency metadata are unchanged.
+
+The broken Vitruvian Man thumbnail in `body_segment_parameters.py` now uses the credited, unmodified `images/vitruvian_man.jpg` through the existing local/cloud resolver and `mo.image`. The exact JPEG bytes are embedded in the executed HTML export. The [Wikimedia image audit](wikimedia-image-audit.json) checked every external Wikipedia/Wikimedia image URL in the notebooks and courses. Two further broken thumbnails in `lagrangian_mechanics.py` were replaced with the original SVG URLs, including the file moved from English Wikipedia to Commons; author/license credits were added. All **22 current external URLs return HTTP 200 and valid image data**; SVGs were parsed and raster formats checked with Pillow, including animated GIFs. Availability is verified at the recorded time and may change.
+
+Removed the requested anatomical coordinate-system entry from README while retaining `notebooks/sistema_coordenadas.py`. The index now contains 84 guide bullets and 168 compact badges. All 35 changed guides passed native reactive HTML execution; all 87 passed strict checks and the rendered teaching-section/byline/References audit. The full suite passes 95 tests and 232 subtests with the same two expected C3D-fixture warnings. Earlier flat-script and WebAssembly hashes are retained separately; those stages and the cloud website UI were not rerun for these presentation changes.

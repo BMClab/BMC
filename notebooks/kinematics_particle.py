@@ -45,8 +45,10 @@ def _(mo):
     Here is a plot of Usain Bolt's world-record 100 m final in Berlin, 2009, measured with a laser radar. The horizontal axis is where he was on the track; the vertical axis is how fast he was moving at that place.
 
     <div style="background-color:#F1F1F1;border:1px solid black;padding:10px;">
-        <figure><img src="https://github.com/BMClab/BMC/blob/master/images/usain_bolt_berlin2009.png?raw=1" width=700 alt="Momentary velocity vs location for Usain Bolt"/><figcaption><center><br><i><b>Figure. Momentary velocity vs location for Usain Bolt in the men's 100 m final at the IAAF World Championships in Athletics, Berlin 2009. This measurement represents the velocity of the body (considered as a particle) and was measured with a laser radar. From <a href="http://www.meathathletics.ie/devathletes/pdf/Biomechanics%20of%20Sprints.pdf">Graubner and Nixdorf (2011)</a>.</b></i></center></figcaption></figure>
+        <figure aria-describedby="figure-caption-1"><img src="https://github.com/BMClab/BMC/blob/master/images/usain_bolt_berlin2009.png?raw=1" width=700 alt="Momentary velocity vs location for Usain Bolt"/></figure>
      </div>
+
+    <span id="figure-caption-1" class="figure-caption" style="display:block;text-align:center;font-style:italic"><br><b>Figure. Momentary velocity vs location for Usain Bolt in the men's 100 m final at the IAAF World Championships in Athletics, Berlin 2009. This measurement represents the velocity of the body (considered as a particle) and was measured with a laser radar. From <a href="http://www.meathathletics.ie/devathletes/pdf/Biomechanics%20of%20Sprints.pdf">Graubner and Nixdorf (2011)</a>.</b></span>
 
     Look at it for a moment before reading on. A few things in that curve are worth noticing, and each one is a kinematic statement:
 
@@ -149,7 +151,9 @@ def _(mo):
 
     Consider a point in the three-dimensional Euclidean space, described in a Cartesian coordinate system. See the notebook [Frame of reference](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/reference_frame.py) for an introduction to coordinate systems in mechanics and biomechanics.
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/vector3Dijk.png?raw=1" width=350 alt="Position vector in a Cartesian coordinate system"/></center><figcaption><center><i>Figure. Representation of a point $\mathbf{P}$ and its position vector $\overrightarrow{\mathbf{r}}$ in a Cartesian coordinate system. The versors $\hat{\mathbf{i}},\, \hat{\mathbf{j}},\, \hat{\mathbf{k}}$ form a basis for this coordinate system and are usually represented in the color sequence RGB (red, green, blue) for easier visualization.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-2"><center><img src="https://github.com/BMClab/BMC/blob/master/images/vector3Dijk.png?raw=1" width=350 alt="Position vector in a Cartesian coordinate system"/></center></figure>
+
+    <span id="figure-caption-2" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Representation of a point $\mathbf{P}$ and its position vector $\overrightarrow{\mathbf{r}}$ in a Cartesian coordinate system. The versors $\hat{\mathbf{i}},\, \hat{\mathbf{j}},\, \hat{\mathbf{k}}$ form a basis for this coordinate system and are usually represented in the color sequence RGB (red, green, blue) for easier visualization.</span>
 
     The position of this point can be written as a triple of values, each the coordinate along one axis, following the $\mathbf{X, Y, Z}$ convention order, which is then omitted:
 
@@ -217,7 +221,9 @@ def _(mo):
     \overrightarrow{\mathbf{d}} = \overrightarrow{\mathbf{r}}_2 - \overrightarrow{\mathbf{r}}_1.
     $$
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/displacement.png?raw=1" width=450 alt="Displacement between two positions"/></center><figcaption><center><i>Figure. Representation of the displacement vector $\overrightarrow{\mathbf{d}}$ between two positions $\overrightarrow{\mathbf{r}}_1$ and $\overrightarrow{\mathbf{r}}_2$.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-3"><center><img src="https://github.com/BMClab/BMC/blob/master/images/displacement.png?raw=1" width=450 alt="Displacement between two positions"/></center></figure>
+
+    <span id="figure-caption-3" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Representation of the displacement vector $\overrightarrow{\mathbf{d}}$ between two positions $\overrightarrow{\mathbf{r}}_1$ and $\overrightarrow{\mathbf{r}}_2$.</span>
 
     Displacement is not the same thing as the distance traveled. Distance is a scalar and accumulates along the whole path; displacement only cares about the endpoints.
 
@@ -647,7 +653,9 @@ def _(mo):
 
     The study of the biomechanics of the 100 m dash is a case where the analysis of the human body reduces honestly to the analysis of a particle. A technical report with the kinematic data for Usain Bolt's world record can be downloaded from the [website for research projects](http://www.iaaf.org/development/research) of the International Association of Athletics Federations; [here is a direct link to the report](http://www.iaaf.org/download/download?filename=76ade5f9-75a0-4fda-b9bf-1b30be6f60d2.pdf&urlSlug=1-biomechanics-report-wc-berlin-2009-sprint). The table below shows the data for the three medalists.
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/Berlin2009_100m.png?raw=1" width=700 alt="Partial times of the 100 m race at Berlin 2009"/></center><figcaption><center><i>Figure. Data from the three medalists of the 100 m dash in Berlin, 2009 (<a href="http://www.iaaf.org/download/download?filename=76ade5f9-75a0-4fda-b9bf-1b30be6f60d2.pdf&urlSlug=1-biomechanics-report-wc-berlin-2009-sprint">IAAF report</a>).</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-4"><center><img src="https://github.com/BMClab/BMC/blob/master/images/Berlin2009_100m.png?raw=1" width=700 alt="Partial times of the 100 m race at Berlin 2009"/></center></figure>
+
+    <span id="figure-caption-4" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Data from the three medalists of the 100 m dash in Berlin, 2009 (<a href="http://www.iaaf.org/download/download?filename=76ade5f9-75a0-4fda-b9bf-1b30be6f60d2.pdf&urlSlug=1-biomechanics-report-wc-berlin-2009-sprint">IAAF report</a>).</span>
 
     The column **RT** is the reaction time of each athlete. The IAAF rule on it is strict: any athlete with a reaction time below 100 ms is disqualified, on the grounds that no one can respond to the gun that fast, so they must have anticipated it. See [Reaction Times and Sprint False Starts](http://condellpark.com/kd/reactiontime.htm) for a discussion of the rule, and you can measure your own at [humanbenchmark.com](http://www.humanbenchmark.com/tests/reactiontime).
 
@@ -663,7 +671,9 @@ def _(mo):
 
     Graubner and Nixdorf (2011) published the 10 m split times for that final:
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/Berlin2009_100m_10.png?raw=1" width=600 alt="10-m split times of the 100 m race at Berlin 2009"/></center><figcaption><center><i>Figure. Split times every 10 m for the three medalists of the 100 m dash in Berlin, 2009 (Graubner and Nixdorf, 2011).</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-5"><center><img src="https://github.com/BMClab/BMC/blob/master/images/Berlin2009_100m_10.png?raw=1" width=600 alt="10-m split times of the 100 m race at Berlin 2009"/></center></figure>
+
+    <span id="figure-caption-5" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Split times every 10 m for the three medalists of the 100 m dash in Berlin, 2009 (Graubner and Nixdorf, 2011).</span>
 
     That is all we have: eleven positions, eleven instants. No velocity was measured, and no acceleration. Everything else has to be computed with the two definitions from earlier in this notebook — each velocity as $\Delta r / \Delta t$ over one 10 m segment, and each acceleration as $\Delta v / \Delta t$ between consecutive velocities.
 

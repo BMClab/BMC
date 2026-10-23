@@ -490,7 +490,9 @@ def _(np, plt):
 def _(mo):
     mo.md(r"""
     This animation resumes the steps we have done to compute the Fourier series of a square wave function:
-    <div class='center-align'><figure><img src="https://upload.wikimedia.org/wikipedia/commons/2/2b/Fourier_series_and_transform.gif" alt="Fourier series" /><figcaption><center><i>Figure. Fourier series of a square wave function (<a href="https://en.wikipedia.org/wiki/Fourier_series" target="_blank">from Wikipedia</a>).</i></center></figcaption></figure></div>
+    <div class='center-align'><figure aria-describedby="figure-caption-1"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2b/Fourier_series_and_transform.gif" alt="Fourier series" /></figure></div>
+
+    <span id="figure-caption-1" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Fourier series of a square wave function (<a href="https://en.wikipedia.org/wiki/Fourier_series" target="_blank">from Wikipedia</a>).</span>
     """)
     return
 

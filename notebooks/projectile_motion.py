@@ -43,8 +43,10 @@ def _(mo):
     ## A jump worth understanding
 
     <div style="background-color:#F1F1F1;border:1px solid black;padding:10px;">
-        <figure><img src="https://bmclab.pesquisa.ufabc.edu.br/x/salto2/jadel.gif" alt="triple jump"/><br><figcaption><center><i>Figure. Animations of a triple jump performed by athlete Jadel Gregório during training. The jump distance was 16.20 meters. The two animations are synchronized and represent the same athlete during the same jump, with the one on the left representing the athlete's movement subtracting the horizontal displacement of his center of gravity. From the website <a href="https://bmclab.pesquisa.ufabc.edu.br/analise-biomecanica-do-salto-em-distancia/">Análise do salto em distância</a>.</i></center></figcaption></figure>
+        <figure aria-describedby="figure-caption-1"><img src="https://bmclab.pesquisa.ufabc.edu.br/x/salto2/jadel.gif" alt="triple jump"/><br></figure>
     </div>
+
+    <span id="figure-caption-1" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Animations of a triple jump performed by athlete Jadel Gregório during training. The jump distance was 16.20 meters. The two animations are synchronized and represent the same athlete during the same jump, with the one on the left representing the athlete's movement subtracting the horizontal displacement of his center of gravity. From the website <a href="https://bmclab.pesquisa.ufabc.edu.br/analise-biomecanica-do-salto-em-distancia/">Análise do salto em distância</a>.</span>
 
     Watch the animation on the right for a while before reading on. The athlete is doing a great deal: swinging his arms, cycling his legs, rotating his trunk. And yet, between each take-off and each landing, there is one thing about him that is entirely out of his control.
 
@@ -381,7 +383,9 @@ def _(mo):
 
     The track and field event long jump has some particularities we must consider to analyze it as a projectile motion; the figure below shows the kinematic characteristics relevant for this analysis.
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/longjump.png?raw=1" width=700 alt="longjump"/></center><figcaption><center><i>Figure. Diagram of a long jump and its kinematic characteristics. The red circle represents the center of mass of the jumper. Adapted from Linthorne (2007).</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-2"><center><img src="https://github.com/BMClab/BMC/blob/master/images/longjump.png?raw=1" width=700 alt="longjump"/></center></figure>
+
+    <span id="figure-caption-2" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Diagram of a long jump and its kinematic characteristics. The red circle represents the center of mass of the jumper. Adapted from Linthorne (2007).</span>
 
     The distance officially considered as the jump distance, $d_{jump}$, can be described as the sum of three distances as indicated in the figure:
 
@@ -668,7 +672,9 @@ def _(mo):
 
     The angle of the projectile with the horizontal (in the context of a human jump, the angle of the trajectory of the center of gravity with the horizontal in the sagittal plane) at a given instant is, by definition, the arc whose tangent is the ratio of the vertical ($y$) and horizontal ($x$) displacements:
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/segment.png?raw=1" width=250 alt="segment"/></center><figcaption><center><i>Figure. A segment in a plane and its coordinates.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-3"><center><img src="https://github.com/BMClab/BMC/blob/master/images/segment.png?raw=1" width=250 alt="segment"/></center></figure>
+
+    <span id="figure-caption-3" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. A segment in a plane and its coordinates.</span>
 
     Given the coordinates at two instants:
 

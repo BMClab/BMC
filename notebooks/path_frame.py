@@ -97,11 +97,15 @@ def _(mo):
 
     We perceive the space around us as three-dimensional, and the usual way to describe it is the [Cartesian coordinate system](https://en.wikipedia.org/wiki/Cartesian_coordinate_system) in [Euclidean space](https://en.wikipedia.org/wiki/Euclidean_space): three orthogonal axes, their directions fixed by the [right-hand rule](https://en.wikipedia.org/wiki/Right-hand_rule) and labelled X, Y and Z. Because the axes are orthogonal, motion along one of them is independent of motion along the others, which is what makes the coordinate system so convenient in classical mechanics.
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/CCS.png?raw=1" width=350 alt="Cartesian coordinate system"/></center><figcaption><center><i>Figure. Representation of a point and its position vector in a Cartesian coordinate system.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-1"><center><img src="https://github.com/BMClab/BMC/blob/master/images/CCS.png?raw=1" width=350 alt="Cartesian coordinate system"/></center></figure>
+
+    <span id="figure-caption-1" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Representation of a point and its position vector in a Cartesian coordinate system.</span>
 
     In biomechanics we use several coordinate systems at once, and call them global, laboratory, local, anatomical or technical reference frames, depending on what they are attached to. Whatever the name, each is defined by a <a href="https://en.wikipedia.org/wiki/Basis_(linear_algebra)">basis</a>: a set of mutually orthogonal unit vectors (**versors**) from which any vector can be built by [linear combination](https://en.wikipedia.org/wiki/Linear_combination). Such a set is called an **orthonormal basis**.
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/vector3Dijk.png?raw=1" width=350 alt="versors of the Cartesian basis"/></center><figcaption><center><i>Figure. Representation of a point $\mathbf{P}$ and its position vector $\vec{\mathbf{r}}$ in a Cartesian coordinate system. The versors $\hat{\mathbf{i}},\, \hat{\mathbf{j}},\, \hat{\mathbf{k}}$ form a basis for this coordinate system and are usually drawn in the colour sequence RGB (red, green, blue).</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-2"><center><img src="https://github.com/BMClab/BMC/blob/master/images/vector3Dijk.png?raw=1" width=350 alt="versors of the Cartesian basis"/></center></figure>
+
+    <span id="figure-caption-2" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Representation of a point $\mathbf{P}$ and its position vector $\vec{\mathbf{r}}$ in a Cartesian coordinate system. The versors $\hat{\mathbf{i}},\, \hat{\mathbf{j}},\, \hat{\mathbf{k}}$ form a basis for this coordinate system and are usually drawn in the colour sequence RGB (red, green, blue).</span>
 
     In the Cartesian coordinate system itself, the versors of this basis have the coordinates
 
@@ -133,7 +137,9 @@ def _(mo):
 
     As it moves, the particle covers a distance $s(t)$ measured along the path: the **arc length**. The rate at which the arc length grows is the speed, $ds/dt = \Vert\vec{\mathbf{v}}\Vert$.
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/velRefFrame.png?raw=1" width=500 alt="position vector of a moving particle"/></center><figcaption><center><i>Figure. Position vector of a moving particle in relation to a coordinate system.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-3"><center><img src="https://github.com/BMClab/BMC/blob/master/images/velRefFrame.png?raw=1" width=500 alt="position vector of a moving particle"/></center></figure>
+
+    <span id="figure-caption-3" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Position vector of a moving particle in relation to a coordinate system.</span>
 
     Instead of describing every kinematic variable in the fixed frame, we attach a basis to the particle itself and let it travel along the path. Its three versors are built one at a time.
     """)
@@ -203,7 +209,9 @@ def _(mo):
 
     Like $\hat{\mathbf{e}}_t$, it comes with a condition. Where the path is straight, $\vec{\mathbf{C}} = 0$ and there is no direction to normalize: $\hat{\mathbf{e}}_n$ is undefined.
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/velRefFrameeten.png?raw=1" width=500 alt="path basis of a moving particle"/></center><figcaption><center><i>Figure. A moving particle and a corresponding path basis.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-4"><center><img src="https://github.com/BMClab/BMC/blob/master/images/velRefFrameeten.png?raw=1" width=500 alt="path basis of a moving particle"/></center></figure>
+
+    <span id="figure-caption-4" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. A moving particle and a corresponding path basis.</span>
     """)
     return
 

@@ -1835,7 +1835,7 @@ def _(mo):
 
     ### Example: Lagrangian formalism for RLC eletrical circuits
 
-    <figure><img src="https://upload.wikimedia.org/wikipedia/en/thumb/6/65/Mobility_analogy_resonator_vertical.svg/198px-Mobility_analogy_resonator_vertical.svg.png" width="150" alt="RLC analogy" style="float:right;margin: 10px 10px 10px 10px;"/></figure>
+    <figure><img src="https://upload.wikimedia.org/wikipedia/commons/6/65/Mobility_analogy_resonator_vertical.svg" width="150" alt="RLC analogy" style="float:right;margin: 10px 10px 10px 10px;"/></figure>
 
     It's possible to solve a RLC (Resistance-Inductance-Capacitance) electrical circuit using the Lagrangian formalism as an analogy with a mass-spring-damper system.
 
@@ -1843,7 +1843,9 @@ def _(mo):
 
     Let's see how to deduce the equivalent of equation of motion for a RLC series circuit (the Kirchhoff’s Voltage Law (KVL) equation).
 
-    <figure><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/RLC_series_circuit_v1.svg/173px-RLC_series_circuit_v1.svg.png" width="140" alt="RLC circuit" style="float:right;margin: 0px 10px 0px 10px;"/></figure>
+    <figure><img src="https://upload.wikimedia.org/wikipedia/commons/f/fb/RLC_series_circuit_v1.svg" width="140" alt="RLC circuit" style="float:right;margin: 0px 10px 0px 10px;"/></figure>
+
+    *Image credits: mechanical/electrical analogy by [Spinningspark](https://commons.wikimedia.org/wiki/File:Mobility_analogy_resonator_vertical.svg); RLC circuit by [V4711](https://commons.wikimedia.org/wiki/File:RLC_series_circuit_v1.svg). Both images are licensed under [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/).*
 
     For a series RLC circuit, consider the following notation:<br>
     $q$: charge<br>

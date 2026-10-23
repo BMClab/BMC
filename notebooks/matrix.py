@@ -389,7 +389,9 @@ def _(mo):
 
     One way to manually calculate the determinant of a matrix is to use the [rule of Sarrus](https://en.wikipedia.org/wiki/Rule_of_Sarrus): we repeat the first two columns in the right side of the matrix and calculate the sum of the products of three diagonal north-west to south-east lines of matrix elements, minus the sum of the products of three diagonal south-west to north-east lines of elements as illustrated in the following figure:<br>
     <br>
-    <figure><img src='https://upload.wikimedia.org/wikipedia/commons/6/66/Sarrus_rule.svg' width=300 alt='Rule of Sarrus'/><center><figcaption><i>Figure. Rule of Sarrus: the sum of the products of the solid diagonals minus the sum of the products of the dashed diagonals (<a href="https://en.wikipedia.org/wiki/Rule_of_Sarrus">image from Wikipedia</a>).</i></figcaption></center> </figure>
+    <figure aria-describedby="figure-caption-1"><img src='https://upload.wikimedia.org/wikipedia/commons/6/66/Sarrus_rule.svg' width=300 alt='Rule of Sarrus'/><center></center> </figure>
+
+    <span id="figure-caption-1" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Rule of Sarrus: the sum of the products of the solid diagonals minus the sum of the products of the dashed diagonals (<a href="https://en.wikipedia.org/wiki/Rule_of_Sarrus">image from Wikipedia</a>).</span>
 
     In Numpy, the determinant is computed with the `linalg.det` function:
     """)

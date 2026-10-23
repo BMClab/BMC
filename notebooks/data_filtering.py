@@ -397,7 +397,9 @@ def _(mo):
 
     With respect to the frequencies that are *not* removed from the data, with a boundary given by the critical or cutoff frequency, a filter can be low-pass, high-pass, band-pass or band-stop. The frequency responses of these filters are illustrated in the next figure.
 
-    <figure><center><img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ec/Bandform_template.svg/960px-Bandform_template.svg.png" width=500 alt="Filters"/></center><figcaption><center><i>Figure. Frequency response of filters (<a href="https://en.wikipedia.org/wiki/Filter_(signal_processing)">from Wikipedia</a>).</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-1"><center><img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ec/Bandform_template.svg/960px-Bandform_template.svg.png" width=500 alt="Filters"/></center></figure>
+
+    <span id="figure-caption-1" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Frequency response of filters (<a href="https://en.wikipedia.org/wiki/Filter_(signal_processing)">from Wikipedia</a>).</span>
 
     The critical or cutoff frequency of a filter is the frequency at which the power (the amplitude squared) of the filtered signal is half the power of the input signal, or, equivalently, the output amplitude is 0.707 times the input amplitude. For instance, if a low-pass filter has a cutoff frequency of 10 Hz, a 10 Hz component comes out with 50% of its power and about 71% of its amplitude. (The same $1/\sqrt{2}$ as the RMS of a sinusoid, in [Basic properties of signals](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/signal_basic_properties.py).)
 

@@ -114,7 +114,9 @@ def _(mo):
 
     For a function of one variable, if the maximum or minimum of a function is not at the limits of the domain and if at least the first and second derivatives of the function exist, a maximum and minimum can be found as the point where the first derivative of the function is zero. If the second derivative on that point is positive, then it's a minimum, if it is negative, it's a maximum.
 
-    <div class='center-align'><figure><img src='https://github.com/BMClab/BMC/blob/master/images/maxmin.png?raw=1' width=350 alt='minima and maxima of a function'/> <figcaption><center><i>Figure. Maxima and minima of a function of one variable.</i></center></figcaption> </figure></div>
+    <div class='center-align'><figure aria-describedby="figure-caption-1"><img src='https://github.com/BMClab/BMC/blob/master/images/maxmin.png?raw=1' width=350 alt='minima and maxima of a function'/>  </figure></div>
+
+    <span id="figure-caption-1" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Maxima and minima of a function of one variable.</span>
 
      - Note that the requirement that the second derivative on the extremum to be positive for a minimum or negative for a maximum is sufficient but not a necessary condition. For instance, the function $f(x)=x^4$ has an extremum in $x=0$ since $f'(x)=4x^3$ and $f'(0)=0$, but its second derivative at $x=0$ is also zero: $f''(x)=12x^2;\: f''(0)=0$. If the first nonzero derivative after the first is of even order, a positive sign gives a local minimum and a negative sign gives a local maximum; an odd order gives neither: $f''''(0)=24$; the extremum is a minimum.
     """)
@@ -153,7 +155,9 @@ def _(mo):
     We want to make a box from a square cardboard with side $a$ such that its volume should be maximum.<br>
     What is the optimal distance where the square cardboard should be cut and folded to make a box with maximum volume?
 
-    <div class='center-align'><figure><img src='https://github.com/BMClab/BMC/blob/master/images/box.png?raw=1' width=450 alt='box optimization'/> <figcaption><center><i>Figure. A box to be made from a cardboard such that its volume should be maximum. Where we should cut?</i></center></figcaption> </figure></div>
+    <div class='center-align'><figure aria-describedby="figure-caption-2"><img src='https://github.com/BMClab/BMC/blob/master/images/box.png?raw=1' width=450 alt='box optimization'/>  </figure></div>
+
+    <span id="figure-caption-2" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. A box to be made from a cardboard such that its volume should be maximum. Where we should cut?</span>
     """)
     return
 
@@ -426,7 +430,9 @@ def _(mo):
 
     Consider the following main flexors of the elbow joint (see figure below): biceps long head, biceps short head, and brachialis. Suppose that the elbow net joint torque determined using inverse dynamics is 20 Nm (flexor). How much each of these muscles contributed to the net torque?
 
-    <div class='center-align'><figure><img src='https://github.com/BMClab/BMC/blob/master/images/elbowflexors.png?raw=1' alt='Elbow flexors'/> <figcaption><center><i>Figure. A view in OpenSim of the arm26 model showing three elbow flexors (Biceps long and short heads and Brachialis).</i></center></figcaption> </figure></div>
+    <div class='center-align'><figure aria-describedby="figure-caption-3"><img src='https://github.com/BMClab/BMC/blob/master/images/elbowflexors.png?raw=1' alt='Elbow flexors'/>  </figure></div>
+
+    <span id="figure-caption-3" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. A view in OpenSim of the arm26 model showing three elbow flexors (Biceps long and short heads and Brachialis).</span>
 
     For the optimization, we will need experimental data for the moment arm, maximum moment, and *pcsa* of each muscle. Let's import these data from the OpenSim arm26 model:
     """)
@@ -550,7 +556,9 @@ def _(mo):
 
     In the context of biomechanics, we can solve the distribution problem separately for each angle (instant) of the elbow; we will refer to that as static optimization. However, there is no guarantee that when we analyze all these solutions across the range of angles, they will be the best solution overall. One reason is that static optimization ignores the time history of the muscle force. Dynamic optimization refers to the optimization over a period of time. For such, we will need to input a cost function spanning the entire period of time at once. Dynamic optimization usually has a higher computational cost than static optimization. The term 'Dynamic optimization' used in Biomechanics is not related to the broader method known as '[dynamic programming](https://en.wikipedia.org/wiki/Dynamic_programming)' in mathematical optimization or computer programming.
 
-    <div class='center-align'><figure><img src='https://github.com/BMClab/BMC/blob/master/images/optim_stat_dyn.png?raw=1' width=550 alt='static versus dynamic optimization' vspace="10"/> <figcaption><center><i>Figure. Static and dynamic optimization approaches in Biomechanics. Figure taken from Robertson et al. (2013).</i></center></figcaption> </figure></div>
+    <div class='center-align'><figure aria-describedby="figure-caption-4"><img src='https://github.com/BMClab/BMC/blob/master/images/optim_stat_dyn.png?raw=1' width=550 alt='static versus dynamic optimization' vspace="10"/>  </figure></div>
+
+    <span id="figure-caption-4" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Static and dynamic optimization approaches in Biomechanics. Figure taken from Robertson et al. (2013).</span>
 
     The title 'Static and dynamic optimization solutions for gait are practically equivalent' of an article published by Anderson and Pandy (2001), where they studied normal walking (full gait cycle equals to 1.12 s), summarizes the results of such comparison. The authors reported that the dynamic solution required 1000 times more computation time than the static solution.
 

@@ -152,7 +152,9 @@ def _(mo):
 
     The good news is that only a subset of mechanics is relevant. The bodies studied in biomechanics move at moderate speeds $(\ll 3 \times 10^{8}\,\mathrm{m/s})$ and are not very small $(\gg 3 \times 10^{-9}\,\mathrm{m})$, which places them squarely in classical mechanics, as shown in the diagram below. You will not need relativity or quantum mechanics to analyze a gait cycle.
 
-    <figure><center><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Physicsdomains.svg/500px-Physicsdomains.svg.png" width=500 alt="Domains of mechanics"/></center><figcaption><center><i>Figure. Domains of mechanics (image from <a href="https://en.wikipedia.org/wiki/Classical_mechanics">https://en.wikipedia.org/wiki/Classical_mechanics</a>).</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-1"><center><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Physicsdomains.svg/500px-Physicsdomains.svg.png" width=500 alt="Domains of mechanics"/></center></figure>
+
+    <span id="figure-caption-1" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Domains of mechanics (image from <a href="https://en.wikipedia.org/wiki/Classical_mechanics">https://en.wikipedia.org/wiki/Classical_mechanics</a>).</span>
     """)
     return
 
@@ -166,7 +168,9 @@ def _(mo):
 
     Within that, classical mechanics is typically partitioned first into **statics** and **dynamics**, and dynamics is then divided into **kinematics** and **kinetics**. The logic is clean: statics studies forces in the absence of changes in motion, dynamics studies bodies whose motion changes, kinematics describes motion without asking what caused it, and kinetics studies the causes.
 
-    <figure><center><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Mechanics_Overview_Table.jpg/1280px-Mechanics_Overview_Table.jpg" width=800 alt="Branches of mechanics"/></center><figcaption><center><i>Figure. Branches of mechanics (image from <a href="https://en.wikibooks.org/wiki/Engineering_Statics/Introduction">https://en.wikibooks.org/wiki/Engineering_Statics/Introduction</a>).</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-2"><center><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Mechanics_Overview_Table.jpg/1280px-Mechanics_Overview_Table.jpg" width=800 alt="Branches of mechanics"/></center></figure>
+
+    <span id="figure-caption-2" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Branches of mechanics (image from <a href="https://en.wikibooks.org/wiki/Engineering_Statics/Introduction">https://en.wikibooks.org/wiki/Engineering_Statics/Introduction</a>).</span>
     """)
     return
 

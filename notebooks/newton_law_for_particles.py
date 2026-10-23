@@ -140,7 +140,9 @@ def _(mo):
 
     The free-body diagram of the ball is depicted below:
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/ballGrav.png?raw=1" alt="free-body diagram of a ball" width="500"/><figcaption><i>Figure. Free-body diagram of a ball under the influence of gravity.</i></figcaption></center></figure>
+    <figure aria-describedby="figure-caption-1"><center><img src="https://github.com/BMClab/BMC/blob/master/images/ballGrav.png?raw=1" alt="free-body diagram of a ball" width="500"/></center></figure>
+
+    <span id="figure-caption-1" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Free-body diagram of a ball under the influence of gravity.</span>
     """)
     return
 
@@ -336,7 +338,9 @@ def _(mo):
 
     Now, besides the gravity, we consider the drag due to the air resistance ($b$= 0.006 Ns/m). First we will consider the drag force  proportional to the speed and opposite direction to the velocity vector.
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/ballGravLinearRes.png?raw=1" alt="free-body diagram of the ball" width="600"/><figcaption><i>Figure. Free-body diagram of a ball under the influence of gravity and drag.</i></figcaption></center></figure>
+    <figure aria-describedby="figure-caption-2"><center><img src="https://github.com/BMClab/BMC/blob/master/images/ballGravLinearRes.png?raw=1" alt="free-body diagram of the ball" width="600"/></center></figure>
+
+    <span id="figure-caption-2" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Free-body diagram of a ball under the influence of gravity and drag.</span>
 
     So the forces being applied on the ball are:
     <span class="notranslate">$\vec{\bf{F}} = -mg \; \hat{\bf{j}} - b\vec{\bf{v}} = -mg \; \hat{\bf{j}} - b\frac{d\vec{\bf{r}}}{dt} = -mg \;  \hat{\bf{j}} - b\left(\frac{dx}{dt} \; \hat{\bf{i}}+\frac{dy}{dt} \; \hat{\bf{j}}\right) = - b\frac{dx}{dt} \; \hat{\bf{i}} - \left(mg + b\frac{dy}{dt}\right) \; \hat{\bf{j}}$</span>
@@ -551,7 +555,9 @@ def _(mo):
 
     Now, we will consider the drag force due to the air resistance proportional to the square of speed and still in the opposite direction of the velocity vector.
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/ballGravSquareRes.png?raw=1" alt="free-body diagram of the ball" width="600"/><figcaption><i>Figure. Free-body diagram of a ball under the influence of gravity and drag proportional to the square of speed.</i></figcaption></center></figure>
+    <figure aria-describedby="figure-caption-3"><center><img src="https://github.com/BMClab/BMC/blob/master/images/ballGravSquareRes.png?raw=1" alt="free-body diagram of the ball" width="600"/></center></figure>
+
+    <span id="figure-caption-3" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Free-body diagram of a ball under the influence of gravity and drag proportional to the square of speed.</span>
     """)
     return
 

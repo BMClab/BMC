@@ -97,9 +97,11 @@ def _(mo):
 
     A Hill-type muscle model has three components (see figure below): two for the muscle, an active contractile element (CE) and a passive elastic element (PE) in parallel with the CE, and one component for the tendon, an elastic element (SE) in series with the muscle. In some variations, a damping component is added parallel to the CE as a fourth element. A [pennation angle](https://en.wikipedia.org/wiki/Muscle_architecture) (angle of the pennate fibers with respect to the force-generating axis) is also included in the model. In a simpler approach, the muscle and tendon are assumed massless.
 
-    <figure>
-        <center><img src="https://raw.githubusercontent.com/BMClab/BMC/master/images/muscle_hill.png" width=400 alt="Hill-type muscle model."/></center><figcaption><center><i>Figure. A Hill-type muscle model with three components: two for the muscle, an active contractile element, $\mathsf{CE}$, and a passive elastic element in parallel, $\mathsf{PE}$, with the $\mathsf{CE}$, and one component for the tendon, an elastic element in series, $\mathsf{SE}$, with the muscle. $\mathsf{L_{MT}}$: muscle–tendon length, $\mathsf{L_T}$: tendon length, $\mathsf{L_M}$: muscle fiber length, $\mathsf{F_T}$: tendon force, $\mathsf{F_M}$: muscle force, and $α$: pennation angle.</i></center></figcaption>
+    <figure aria-describedby="figure-caption-1">
+        <center><img src="https://raw.githubusercontent.com/BMClab/BMC/master/images/muscle_hill.png" width=400 alt="Hill-type muscle model."/></center>
     </figure>
+
+    <span id="figure-caption-1" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. A Hill-type muscle model with three components: two for the muscle, an active contractile element, $\mathsf{CE}$, and a passive elastic element in parallel, $\mathsf{PE}$, with the $\mathsf{CE}$, and one component for the tendon, an elastic element in series, $\mathsf{SE}$, with the muscle. $\mathsf{L_{MT}}$: muscle–tendon length, $\mathsf{L_T}$: tendon length, $\mathsf{L_M}$: muscle fiber length, $\mathsf{F_T}$: tendon force, $\mathsf{F_M}$: muscle force, and $α$: pennation angle.</span>
 
     Let's now revise the models of a Hill-type muscle with three components and activation dynamics by two references:
      1. [Thelen (2003)](http://simtk-confluence.stanford.edu:8080/display/OpenSim/Thelen+2003+Muscle+Model) with some of the adjustments described in Millard et al. (2013). Hereafter, Thelen2003Muscle or T03.

@@ -391,7 +391,9 @@ def _(mo):
 
     The animation below (from [Wikipedia](https://en.wikipedia.org/wiki/File:Torque_animation.gif)) illustrates the relationship between force ($\vec{F}$), torque ($\tau$), and momentum vectors ($\mathbf{p}$ and $\vec{L}$):
 
-    <figure><img src="https://upload.wikimedia.org/wikipedia/commons/0/09/Torque_animation.gif" alt="Torque animation" width="300"/><figcaption><center><i>Figure. Relationship between force ($\mathbf{F}$), torque ($\tau$), and momentum vectors ($\mathbf{p}$ and $\mathbf{L}$) (from [Wikipedia](https://en.wikipedia.org/wiki/File:Torque_animation.gif)).</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-1"><img src="https://upload.wikimedia.org/wikipedia/commons/0/09/Torque_animation.gif" alt="Torque animation" width="300"/></figure>
+
+    <span id="figure-caption-1" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Relationship between force ($\mathbf{F}$), torque ($\tau$), and momentum vectors ($\mathbf{p}$ and $\mathbf{L}$) (from [Wikipedia](https://en.wikipedia.org/wiki/File:Torque_animation.gif)).</span>
     """)
     return
 

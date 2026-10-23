@@ -141,7 +141,9 @@ def _(mo):
 
     Let's start with a system made of one planar hinge joint and one link. Technically it is not a chain, but it introduces, one at a time, all the concepts we will need.
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/onelink.gif?raw=1" width=350 alt="one link attached to a fixed body by a hinge joint"/></center><figcaption><center><i>Figure. One link attached to a fixed body by a hinge joint in a plane.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-1"><center><img src="https://github.com/BMClab/BMC/blob/master/images/onelink.gif?raw=1" width=350 alt="one link attached to a fixed body by a hinge joint"/></center></figure>
+
+    <span id="figure-caption-1" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. One link attached to a fixed body by a hinge joint in a plane.</span>
 
     We need a Cartesian coordinate system and the symbols for time, $t$, the length of the link, $\ell$, and the joint angle, $\theta$, which is a function of time:
     """)
@@ -342,7 +344,9 @@ def _(mo):
     mo.md(r"""
     The direction of $\overrightarrow{\mathbf{v}}$ is tangent to the circular trajectory of the endpoint, as the figure below shows, together with the components of the velocity.
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/onelink_vel.gif?raw=1" width=350 alt="endpoint velocity of one link"/></center><figcaption><center><i>Figure. Endpoint velocity of one link attached to a fixed body by a hinge joint in a plane.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-2"><center><img src="https://github.com/BMClab/BMC/blob/master/images/onelink_vel.gif?raw=1" width=350 alt="endpoint velocity of one link"/></center></figure>
+
+    <span id="figure-caption-2" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Endpoint velocity of one link attached to a fixed body by a hinge joint in a plane.</span>
     """)
     return
 
@@ -408,7 +412,9 @@ def _(mo):
     mo.md(r"""
     So the endpoint accelerates even when the angular acceleration is zero: the magnitude of its velocity is then constant, but its direction keeps changing, and the centripetal acceleration is what changes it. These are the tangential and normal accelerations of [Path frame](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/path_frame.py), for a path whose radius of curvature is always $\ell$.
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/onelink_acc.gif?raw=1" width=350 alt="tangential and centripetal acceleration of one link"/></center><figcaption><center><i>Figure. Endpoint tangential and centripetal acceleration terms of one link attached to a fixed body by a hinge joint in a plane.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-3"><center><img src="https://github.com/BMClab/BMC/blob/master/images/onelink_acc.gif?raw=1" width=350 alt="tangential and centripetal acceleration of one link"/></center></figure>
+
+    <span id="figure-caption-3" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Endpoint tangential and centripetal acceleration terms of one link attached to a fixed body by a hinge joint in a plane.</span>
     """)
     return
 
@@ -732,7 +738,9 @@ def _(mo):
 
     Now let's look at a planar kinematic chain with two links, as shown below. The derivation follows the same steps as for one link.
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/twolinks.gif?raw=1" width=400 alt="two-link chain"/></center><figcaption><center><i>Figure. Kinematics of a two-link chain with hinge joints in a plane.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-4"><center><img src="https://github.com/BMClab/BMC/blob/master/images/twolinks.gif?raw=1" width=400 alt="two-link chain"/></center></figure>
+
+    <span id="figure-caption-4" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Kinematics of a two-link chain with hinge joints in a plane.</span>
 
     We reuse the coordinate system and the time symbol, and define the link lengths $\ell_1, \ell_2$ and the joint angles $\theta_1, \theta_2$, functions of time:
     """)
@@ -835,7 +843,9 @@ def _(mo):
 
     There are two possible sets of angles $(\theta_1, \theta_2)$ for the same endpoint coordinates $(x_P, y_P)$. The figure below shows in orange the other configuration of the chain with the same endpoint. The other solution is $\theta_2'=2\pi - \theta_2$ (equivalently, $-\theta_2$); since $\sin(\theta_2')=-\sin(\theta_{2})$, the second arctangent in the last equation changes sign. Even a simple two-link chain already has more than one joint configuration for the same endpoint position, and the problem gets much worse for chains with more links (more degrees of freedom).
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/twolinks_ik.gif?raw=1" width=350 alt="two solutions of the inverse kinematics"/></center><figcaption><center><i>Figure. Indetermination in the inverse kinematics of a two-link chain with hinge joints in a plane: two configurations reach the same endpoint.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-5"><center><img src="https://github.com/BMClab/BMC/blob/master/images/twolinks_ik.gif?raw=1" width=350 alt="two solutions of the inverse kinematics"/></center></figure>
+
+    <span id="figure-caption-5" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Indetermination in the inverse kinematics of a two-link chain with hinge joints in a plane: two configurations reach the same endpoint.</span>
 
     Let's write the inverse kinematics as a function, together with the forward kinematics to check it. As announced in the one-link section, the code uses `arctan2` for both arctangents, so that the angles come out right in every quadrant:
     """)

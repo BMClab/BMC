@@ -60,7 +60,9 @@ def _(mo):
 
     For the forward dynamics analysis, we will consider that we know the torques and find the angular accelerations. Naturally, we could begin our analysis from the muscle forces, from the muscle activations or even from the neural commands from the motor cortex.
 
-    <figure><img src="https://github.com/BMClab/BMC/blob/master/images/foward.png?raw=1" width=600/> <figcaption><i><center>Adapted from Erdemir et al. (2007) </center></i></figcaption>
+    <figure aria-describedby="figure-caption-1"><img src="https://github.com/BMClab/BMC/blob/master/images/foward.png?raw=1" width=600/> </figure>
+
+    <span id="figure-caption-1" class="figure-caption" style="display:block;text-align:center;font-style:italic">Adapted from Erdemir et al. (2007)</span>
     """)
     return
 

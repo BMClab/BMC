@@ -93,7 +93,9 @@ def _(mo):
 
     As we perceive the surrounding space as three-dimensional, a convenient coordinate system to use is the [Cartesian coordinate system](https://en.wikipedia.org/wiki/Cartesian_coordinate_system), with three orthogonal axes in [Euclidean space](https://en.wikipedia.org/wiki/Euclidean_space). From [linear algebra](https://en.wikipedia.org/wiki/Linear_algebra), a set of linearly independent unit vectors that can represent any vector via [linear combination](https://en.wikipedia.org/wiki/Linear_combination) is called a <a href="https://en.wikipedia.org/wiki/Basis_(linear_algebra)">basis</a>; when the vectors are also mutually orthogonal, it is an orthonormal basis. The figure below shows a point, its position vector in the Cartesian coordinate system, and the versors (unit vectors) of the basis of this coordinate system.
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/vector3Dijk.png?raw=1" width=350 alt="versors of the Cartesian basis"/></center><figcaption><center><i>Figure. Representation of a point $\mathbf{P}$ and its position vector $\overrightarrow{\mathbf{a}}$ in a Cartesian coordinate system. The versors $\hat{\mathbf{i}},\, \hat{\mathbf{j}},\, \hat{\mathbf{k}}$ form a basis for this coordinate system and are usually drawn in the colour sequence RGB (red, green, blue) for easier visualization.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-1"><center><img src="https://github.com/BMClab/BMC/blob/master/images/vector3Dijk.png?raw=1" width=350 alt="versors of the Cartesian basis"/></center></figure>
+
+    <span id="figure-caption-1" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Representation of a point $\mathbf{P}$ and its position vector $\overrightarrow{\mathbf{a}}$ in a Cartesian coordinate system. The versors $\hat{\mathbf{i}},\, \hat{\mathbf{j}},\, \hat{\mathbf{k}}$ form a basis for this coordinate system and are usually drawn in the colour sequence RGB (red, green, blue) for easier visualization.</span>
 
     In the Cartesian coordinate system itself, the versors of this basis have the coordinates
 

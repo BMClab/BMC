@@ -185,7 +185,9 @@ def _(mo):
 
     For instance, consider the position of a point in space represented by a vector:
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/vector3D.png?raw=1" width=300 alt="position vector"/></center><figcaption><center><i>Figure. Position of a point represented by a vector in a Cartesian coordinate system.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-1"><center><img src="https://github.com/BMClab/BMC/blob/master/images/vector3D.png?raw=1" width=300 alt="position vector"/></center></figure>
+
+    <span id="figure-caption-1" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Position of a point represented by a vector in a Cartesian coordinate system.</span>
 
     The position of the point (the vector) above can be represented as a tuple of values:
 
@@ -235,7 +237,9 @@ def _(mo):
     \overrightarrow{\mathbf{a}} = a_x\hat{\mathbf{i}} + a_y\hat{\mathbf{j}} + a_z\hat{\mathbf{k}}
     $$
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/vector3Dijk.png?raw=1" width=300 alt="vector components"/></center><figcaption><center><i>Figure. A vector representation in a Cartesian coordinate system. The versors $\hat{\mathbf{i}},\, \hat{\mathbf{j}},\, \hat{\mathbf{k}}\,$ are usually represented in the color sequence <b>rgb</b> (red, green, blue) for easier visualization.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-2"><center><img src="https://github.com/BMClab/BMC/blob/master/images/vector3Dijk.png?raw=1" width=300 alt="vector components"/></center></figure>
+
+    <span id="figure-caption-2" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. A vector representation in a Cartesian coordinate system. The versors $\hat{\mathbf{i}},\, \hat{\mathbf{j}},\, \hat{\mathbf{k}}\,$ are usually represented in the color sequence <b>rgb</b> (red, green, blue) for easier visualization.</span>
 
     where $\hat{\mathbf{i}},\, \hat{\mathbf{j}},\, \hat{\mathbf{k}}\,$ are unit vectors, each representing a direction, and $a_x\hat{\mathbf{i}},\: a_y\hat{\mathbf{j}},\: a_z\hat{\mathbf{k}}$ are the vector components of the vector $\overrightarrow{\mathbf{a}}$.
 
@@ -366,7 +370,9 @@ def _(mo):
 
     A position vector from the coordinate origin to a point has that point’s coordinates as components. A displacement from another point is instead represented by the difference of the endpoint coordinates. For instance, consider the following vector:
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/vector2.png?raw=1" width=260 alt="a vector in space"/></center><figcaption><center><i>Figure. A vector in space.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-3"><center><img src="https://github.com/BMClab/BMC/blob/master/images/vector2.png?raw=1" width=260 alt="a vector in space"/></center></figure>
+
+    <span id="figure-caption-3" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. A vector in space.</span>
 
     Such a vector cannot be represented by $(b_x, b_y, b_z)$, because that would be the vector from the origin to the point B. The free displacement vector has components $\mathbf{b}-\mathbf{a}$. To specify its application point as well, retain $\mathbf{a}$ (for example when computing a force moment). This distinction matters in mechanics.
 
@@ -388,7 +394,9 @@ def _(mo):
     (a_x+b_x)\hat{\mathbf{i}} + (a_y+b_y)\hat{\mathbf{j}} + (a_z+b_z)\hat{\mathbf{k}}
     $$
 
-    <figure><center><img src="https://upload.wikimedia.org/wikipedia/commons/2/28/Vector_addition.svg" width=300 alt="Vector addition"/></center><figcaption><center><i>Figure. Vector addition (image from Wikipedia).</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-4"><center><img src="https://upload.wikimedia.org/wikipedia/commons/2/28/Vector_addition.svg" width=300 alt="Vector addition"/></center></figure>
+
+    <span id="figure-caption-4" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Vector addition (image from Wikipedia).</span>
 
     The subtraction of two vectors is also another vector:
 
@@ -398,7 +406,9 @@ def _(mo):
     (a_x-b_x)\hat{\mathbf{i}} + (a_y-b_y)\hat{\mathbf{j}} + (a_z-b_z)\hat{\mathbf{k}}
     $$
 
-    <figure><center><img src="https://upload.wikimedia.org/wikipedia/commons/2/24/Vector_subtraction.svg" width=160 alt="Vector subtraction"/></center><figcaption><center><i>Figure. Vector subtraction (image from Wikipedia).</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-5"><center><img src="https://upload.wikimedia.org/wikipedia/commons/2/24/Vector_subtraction.svg" width=160 alt="Vector subtraction"/></center></figure>
+
+    <span id="figure-caption-5" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Vector subtraction (image from Wikipedia).</span>
 
     Both of these you have already used without naming them. Adding vectors is what you do to two forces acting on the same body. Subtracting them is what you do to two positions to get a displacement, which is where the notebook [Kinematics of a particle](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/kinematics_particle.py) begins.
 
@@ -680,7 +690,9 @@ def _(mo):
 
     The definition above also implies that the magnitude of the cross product is the area of the parallelogram spanned by the two vectors:
 
-    <figure><center><img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Cross_product_parallelogram.svg" width=160 alt="cross product parallelogram"/></center><figcaption><center><i>Figure. Area of a parallelogram as the magnitude of the cross product (image from Wikipedia).</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-6"><center><img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Cross_product_parallelogram.svg" width=160 alt="cross product parallelogram"/></center></figure>
+
+    <span id="figure-caption-6" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Area of a parallelogram as the magnitude of the cross product (image from Wikipedia).</span>
     """)
     return
 

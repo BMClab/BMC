@@ -457,7 +457,9 @@ def _(mo):
 
     In anatomy, we use a simplified reference frame made of perpendicular planes to provide a standard reference for qualitatively describing the structures and movements of the human body, as shown in the next figure.
 
-    <figure><center><img src="https://upload.wikimedia.org/wikipedia/commons/3/34/BodyPlanes.jpg" width=300 alt="Anatomical body position and body planes"/></center><figcaption><center><i>Figure. Anatomical body position and body planes (<a href="https://en.wikipedia.org/wiki/Human_anatomical_terms">image from Wikipedia</a>).</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-1"><center><img src="https://upload.wikimedia.org/wikipedia/commons/3/34/BodyPlanes.jpg" width=300 alt="Anatomical body position and body planes"/></center></figure>
+
+    <span id="figure-caption-1" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Anatomical body position and body planes (<a href="https://en.wikipedia.org/wiki/Human_anatomical_terms">image from Wikipedia</a>).</span>
 
     The planes are qualitative. "The knee flexes in the sagittal plane" is a description, not a measurement. To measure, we need numbers, and numbers need a coordinate system.
     """)
@@ -471,7 +473,9 @@ def _(mo):
 
     As we perceive the surrounding space as three-dimensional, a convenient coordinate system is the [Cartesian coordinate system](https://en.wikipedia.org/wiki/Cartesian_coordinate_system) in [Euclidean space](https://en.wikipedia.org/wiki/Euclidean_space), with three orthogonal axes as shown below. The directions of the axes are commonly defined by the [right-hand rule](https://en.wikipedia.org/wiki/Right-hand_rule) and labelled X, Y and Z. The orthogonality of the Cartesian coordinate system is what makes it so convenient in classical mechanics: space is assumed to have [Euclidean geometry](https://en.wikipedia.org/wiki/Euclidean_geometry), and as a consequence, the motions along different axes are independent of each other.
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/CCS.png?raw=1" width=350 alt="Cartesian coordinate system"/></center><figcaption><center><i>Figure. A point in three-dimensional Euclidean space described in a Cartesian coordinate system.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-2"><center><img src="https://github.com/BMClab/BMC/blob/master/images/CCS.png?raw=1" width=350 alt="Cartesian coordinate system"/></center></figure>
+
+    <span id="figure-caption-2" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. A point in three-dimensional Euclidean space described in a Cartesian coordinate system.</span>
     """)
     return
 
@@ -485,7 +489,9 @@ def _(mo):
 
     The figure below, although drawn for a robot, illustrates well that we may have to deal with several coordinate systems at once.
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/coordinatesystems.png?raw=1" width=450 alt="multiple coordinate systems of a robot"/></center><figcaption><center><i>Figure. Multiple coordinate systems for use in robots (figure from Corke (2017)).</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-3"><center><img src="https://github.com/BMClab/BMC/blob/master/images/coordinatesystems.png?raw=1" width=450 alt="multiple coordinate systems of a robot"/></center></figure>
+
+    <span id="figure-caption-3" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Multiple coordinate systems for use in robots (figure from Corke (2017)).</span>
 
     In three-dimensional motion analysis we routinely use several frames of reference, and call them global, laboratory, local, anatomical or technical, depending on what they are attached to. In a standard gait analysis there is one global, or laboratory, coordinate system fixed to the floor, and a coordinate system for each segment of the body, so that the motion of a segment can be described in relation to the anatomical axes of another one. The knee angle, for example, is the orientation of the shank's coordinate system relative to the thigh's.
 
@@ -528,7 +534,9 @@ def _(mo):
 
     From [linear algebra](https://en.wikipedia.org/wiki/Linear_algebra), a set of linearly independent unit vectors that can represent any vector via [linear combination](https://en.wikipedia.org/wiki/Linear_combination) is called a <a href="https://en.wikipedia.org/wiki/Basis_(linear_algebra)">basis</a>. When its vectors are also mutually orthogonal, as in the Cartesian coordinate system, it is an orthonormal basis. The figure below shows a point, its position vector, and the versors (unit vectors) of the basis of a Cartesian coordinate system. See [Scalar and vector](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/scalar_vector.py) for a description of vectors.
 
-    <figure><center><img src="https://github.com/BMClab/BMC/blob/master/images/vector3Dijk.png?raw=1" width=350 alt="versors of the Cartesian basis"/></center><figcaption><center><i>Figure. Representation of a point $\mathbf{P}$ and its position vector $\overrightarrow{\mathbf{r}}$ in a Cartesian coordinate system. The versors $\hat{\mathbf{i}},\, \hat{\mathbf{j}},\, \hat{\mathbf{k}}$ form a basis for this coordinate system and are usually drawn in the colour sequence RGB (red, green, blue) for easier visualization.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-4"><center><img src="https://github.com/BMClab/BMC/blob/master/images/vector3Dijk.png?raw=1" width=350 alt="versors of the Cartesian basis"/></center></figure>
+
+    <span id="figure-caption-4" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Representation of a point $\mathbf{P}$ and its position vector $\overrightarrow{\mathbf{r}}$ in a Cartesian coordinate system. The versors $\hat{\mathbf{i}},\, \hat{\mathbf{j}},\, \hat{\mathbf{k}}$ form a basis for this coordinate system and are usually drawn in the colour sequence RGB (red, green, blue) for easier visualization.</span>
 
     In the Cartesian coordinate system itself, the versors of this basis have the coordinates
 
@@ -922,7 +930,9 @@ def _(mo):
 
     Here is an animation of the process at work:
 
-    <figure><center><img src="https://upload.wikimedia.org/wikipedia/commons/e/ee/Gram-Schmidt_orthonormalization_process.gif" width=450 alt="animation of the Gram-Schmidt process"/></center><figcaption><center><i>Figure. The Gram–Schmidt process executed on three vectors of a basis for R<sup>3</sup> (<a href="https://commons.wikimedia.org/w/index.php?curid=24396471">image from Wikipedia</a>).</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-5"><center><img src="https://upload.wikimedia.org/wikipedia/commons/e/ee/Gram-Schmidt_orthonormalization_process.gif" width=450 alt="animation of the Gram-Schmidt process"/></center></figure>
+
+    <span id="figure-caption-5" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. The Gram–Schmidt process executed on three vectors of a basis for R<sup>3</sup> (<a href="https://commons.wikimedia.org/w/index.php?curid=24396471">image from Wikipedia</a>).</span>
     """)
     return
 

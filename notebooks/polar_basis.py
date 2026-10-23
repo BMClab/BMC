@@ -66,7 +66,9 @@ def _(mo):
     <br>
     <span class="notranslate">${\bf\vec{r}}(t) = x(t){\bf\hat{i}} + y(t){\bf\hat{j}} + z(t){\bf\hat{k}}$</span>
 
-    <figure><img src="https://github.com/BMClab/BMC/blob/master/images/polarCoord.png?raw=1" width=500/><figcaption><center><i>Figure. Position vector of a moving particle moving in a circular path.</i></center></figcaption></figure>
+    <figure aria-describedby="figure-caption-1"><img src="https://github.com/BMClab/BMC/blob/master/images/polarCoord.png?raw=1" width=500/></figure>
+
+    <span id="figure-caption-1" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Position vector of a moving particle moving in a circular path.</span>
     """)
     return
 
@@ -89,7 +91,9 @@ def _(mo):
 
     The third vector of the basis is the conventional ${\bf\hat{k}}$ vector.
 
-    <figure><img src="https://github.com/BMClab/BMC/blob/master/images/polarCoorderetheta.png?raw=1" width=500/><figcaption><center><i>Figure. Position vector of a particle moving in a circular path and a time-varying basis></figure>
+    <figure aria-describedby="figure-caption-2"><img src="https://github.com/BMClab/BMC/blob/master/images/polarCoorderetheta.png?raw=1" width=500/></figure>
+
+    <span id="figure-caption-2" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Position vector of a particle moving in a circular path and a time-varying basis.</span>
     """)
     return
 
@@ -102,7 +106,9 @@ def _(mo):
     <br>
     <span class="notranslate">${\bf\hat{e_R}} =  \frac{\bf\vec{r} - ({\bf\vec{r}.{\bf\hat{k}}){\bf\hat{k}}}}{\Vert\bf\vec{r} - ({\bf\vec{r}.{\bf\hat{k}}){\bf\hat{k}}\Vert}}$</span>
 
-    <figure><img src="https://github.com/BMClab/BMC/blob/master/images/polarCilindrical.png?raw=1" width=500/><figcaption><center><i>Figure. Position vector of a moving particle and a time-varying basis></figure>
+    <figure aria-describedby="figure-caption-3"><img src="https://github.com/BMClab/BMC/blob/master/images/polarCilindrical.png?raw=1" width=500/></figure>
+
+    <span id="figure-caption-3" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Position vector of a moving particle and a time-varying basis.</span>
 
     Note that if the movement is in the $z=0$ plane, the expression above is equal to <span class="notranslate">${\bf\hat{e_R}} =  \frac{\bf\vec{r}}{\Vert{\bf\vec{r} }\Vert}$</span> since the projection of <span class="notranslate">$\bf\vec{r}$</span> on the <span class="notranslate">$\bf\hat{k}$</span> versor is zero.
     """)
