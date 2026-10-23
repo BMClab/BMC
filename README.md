@@ -154,7 +154,6 @@ And a BibTeX entry:
   month        = mar,
   year         = 2021,
   publisher    = {Zenodo},
-  version      = {v0.0.2},
   doi          = {10.5281/zenodo.4599319},
   url          = {https://doi.org/10.5281/zenodo.4599319}
 }
