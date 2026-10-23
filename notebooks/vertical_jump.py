@@ -161,9 +161,9 @@ def _(mo):
     So, the true measurement of the height of a vertical jump is the displacement of the center of gravity in the vertical direction. A problem is that to measure the center of gravity position is usually too complicated because we would have to estimate the position of each body segment.<br>
     Instead, there are alternative methods with varying degrees of accuracy for measuring the height of vertical jump ([see here for a list](http://www.topendsports.com/testing/equipment-verticaljump.htm)):
 
-     - [**Sargent Jump Test**](http://www.brianmac.co.uk/sgtjump.htm). How high you can reach an object.
-     - **Flight time measurement**. From Newton's laws of motion, the height of a jump is related to the flight time under controlled conditions. One can measure the flight time using a [contact mat](http://www.probotics.org/JustJump/verticalJump.htm), light sensor, [accelerometer](http://www.jssm.org/vol11/n1/17/v11n1-17pdf.pdf), video (the number of frames the jumper is in the air), attaching a cable to the jumper's waist and measuring the displacement of this cable, etc.
-     - **Force platform measurements**. A device called [force platform](https://en.wikipedia.org/wiki/Force_platform) which measures the forces applied on the ground as a function of time can also be used to measure the flight time and then the height of vertical jump. But the real utility of the force platform is that it can actually measure the force produced by the jumper to find the displacement of the center of gravity using Newton's laws of motion.
+    - [**Sargent Jump Test**](http://www.brianmac.co.uk/sgtjump.htm). How high you can reach an object.
+    - **Flight time measurement**. From Newton's laws of motion, the height of a jump is related to the flight time under controlled conditions. One can measure the flight time using a [contact mat](http://www.probotics.org/JustJump/verticalJump.htm), light sensor, [accelerometer](http://www.jssm.org/vol11/n1/17/v11n1-17pdf.pdf), video (the number of frames the jumper is in the air), attaching a cable to the jumper's waist and measuring the displacement of this cable, etc.
+    - **Force platform measurements**. A device called [force platform](https://en.wikipedia.org/wiki/Force_platform) which measures the forces applied on the ground as a function of time can also be used to measure the flight time and then the height of vertical jump. But the real utility of the force platform is that it can actually measure the force produced by the jumper to find the displacement of the center of gravity using Newton's laws of motion.
     """)
     return
 
@@ -341,11 +341,11 @@ def _(mo):
     mo.md(r"""
     This graph of the vertical component of the ground reaction force shown above has very interesting things:
 
-     1. At the beginning the jumper was standing still and the GRF is equal to the jumper's body weight;
-     2. After the jumper started the movement to jump there is a phase where GRF is lower than the body weight even with the jumper completely on the ground;
-     3. The GRF increases to about two times the body weight while the jumper is still on the ground;
-     4. When the jumper is in the air is clearly indicated by the zero values of GRF;
-     5. After landing the GRF reaches a peak of about six times the jumper's body weight.
+    1. At the beginning the jumper was standing still and the GRF is equal to the jumper's body weight;
+    2. After the jumper started the movement to jump there is a phase where GRF is lower than the body weight even with the jumper completely on the ground;
+    3. The GRF increases to about two times the body weight while the jumper is still on the ground;
+    4. When the jumper is in the air is clearly indicated by the zero values of GRF;
+    5. After landing the GRF reaches a peak of about six times the jumper's body weight.
 
     These are all interesting things but we will discuss only some of them next.<br>
     We can detect the takeoff and landing instants by detecting the first and last time GRF is under a certain threshold (close to zero):

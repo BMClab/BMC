@@ -824,8 +824,7 @@ def _(mo):
     Under constant load \(F_0\), the total deformation is
 
     $$
-    x(t)=\frac{F_0}{k_s}
-    + \frac{F_0}{k_p}\left(1-e^{-t/\tau}\right),
+    x(t)=\frac{F_0}{k_s} + \frac{F_0}{k_p}\left(1-e^{-t/\tau}\right),
     \qquad \tau=\frac{b}{k_p}.
     $$
 
@@ -1127,11 +1126,7 @@ def _(mo):
     For the Kelvin solid:
 
     $$
-    \dot{F}
-    =
-    k_s\dot{x}
-    + \frac{k_sk_p}{b}x
-    - \frac{k_s+k_p}{b}F.
+    \dot{F} = k_s\dot{x} + \frac{k_sk_p}{b}x - \frac{k_s+k_p}{b}F.
     $$
 
     The code below uses a simple forward Euler update for the two force ODEs. The point is not to advocate Euler for every simulation. The point is to expose the state update: current force plus a small time increment times the current rate of change.

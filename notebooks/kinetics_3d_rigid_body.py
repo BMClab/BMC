@@ -330,7 +330,9 @@ def _(mo):
 
     Now we can get back to the equation describing the derivative of the angular momentum:
 
-    <span class="notranslate">
+    <a id="eq:derivangmomVec"></a>
+
+    $$
     \begin{align}
         \begin{split}
         \frac{d\vec{H_{cm}}}{dt} =&I_1\dot{\omega_1}\hat{\boldsymbol{e_1}} + I_2\dot{\omega_2}\hat{\boldsymbol{e_2}}+I_3\dot{\omega_3}\hat{\boldsymbol{e_3}} + I_1\omega_1\frac{d\hat{\boldsymbol{e_1}}}{dt} + I_2\omega_2\frac{d\hat{\boldsymbol{e_2}}}{dt}+I_3\omega_3\frac{d\hat{\boldsymbol{e_3}}}{dt}=\\
@@ -339,19 +341,18 @@ def _(mo):
        =& I_1\dot{\omega_1}\hat{\boldsymbol{e_1}} + I_2\dot{\omega_2}\hat{\boldsymbol{e_2}}+I_3\dot{\omega_3}\hat{\boldsymbol{e_3}} + \vec{\boldsymbol{\omega}} \times (I_1\omega_1\hat{\boldsymbol{e_1}} + I_2\omega_2\hat{\boldsymbol{e_2}} +  I_3\omega_3\hat{\boldsymbol{e_3}})=\\
        =&I\vec{\dot{\omega}} + \vec{\omega} \times (I\vec{\omega})
        \end{split}
-       \label{eq:derivangmomVec}
     \end{align}
-    </span>
+    $$
 
     Performing the cross products, we can get the expressions for each of the coordinates attached to the body:
 
-    <span class="notranslate">
+    $$
     \begin{align}
         \begin{split}
         \frac{d\vec{H_{cm}}}{dt} =\left[\begin{array}{c}I_1\dot{\omega_1}\\I_2\dot{\omega_2}\\I_3\dot{\omega_3}\end{array}\right] + \left[\begin{array}{c}\omega_1\\\omega_2\\\omega_3\end{array}\right]  \times \left[\begin{array}{c}I_1\omega_1\\I_2\omega_2\\I_3\omega_3\end{array}\right]  = \left[\begin{array}{c}I_1\dot{\omega_1} + \omega_2\omega_3(I_3-I_2)\\I_2\dot{\omega_2}+\omega_1\omega_3(I_1-I_3)\\I_3\dot{\omega_3}+\omega_1\omega_2(I_2-I_1)\end{array}\right]
        \end{split}
     \end{align}
-    </span>
+    $$
     """)
     return
 
@@ -433,16 +434,17 @@ def _(mo):
 
     So, the first Newton-Euler law, at each component of the global  basis, is written as:
 
-    <span class="notranslate">
+    <a id="eq:fnependulum"></a>
+
+    $$
     \begin{align}
-        \begin{split}
+        \begin{aligned}
             F_{O_x} &=  ma_{cm_x} &\rightarrow  F_{O_x} &=  ma_{cm_x} \\
             F_{O_y} &= ma_{cm_y} &\rightarrow  F_{O_y} &=  ma_{cm_y}\\
             F_{O_z} - mg &= ma_{cm_z} &\rightarrow  F_{O_z} &=  ma_{cm_z} + mg
-        \end{split}
-        \label{eq:fnependulum}
+        \end{aligned}
     \end{align}
-    </span >
+    $$
     """)
     return
 

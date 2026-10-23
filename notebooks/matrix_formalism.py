@@ -74,14 +74,14 @@ def _(mo):
 
     In the notebook about [free-body diagram](free_body_diagram_for_rigid_bodies.py#double-pendulum-with-actuators), we found the following equations of motion to the double-pendulum with actuators.
 
-    <span class="notranslate">
+    $$
     \begin{align}
     \begin{split}
          \left(\frac{m_1l_1^2}{3} +m_2l_1^2\right)\frac{d^2\theta_1}{dt^2} + \frac{m_2l_1l_2}{2} \cos(\theta_1-\theta_2)\frac{d^2\theta_2}{dt^2}  &=  -\frac{m_1gl_1}{2}\sin(\theta_1)- m_2l_1g \sin(\theta_1)   - \frac{m_2l_1l_2}{2}\left(\frac{d\theta_2}{dt}\right)^2 \sin(\theta_1-\theta_2)  + M_1 - M_{12} \\
         \frac{m_2l_1l_2}{2}\cos(\theta_1-\theta_2)\frac{d^2\theta_1}{dt^2} + \frac{m_2l_2^2}{3}\frac{d^2\theta_2}{dt^2} &= -\frac{m_2gl_2}{2}\sin(\theta_2) + \frac{m_2l_1l_2}{2}\left(\frac{d\theta_1}{dt}\right)^2 \sin(\theta_1-\theta_2)+ M_{12}
         \end{split}
     \end{align}
-    </span>
+    $$
     """)
     return
 
@@ -301,8 +301,8 @@ def _(mo):
     ## Examples
 
     See examples of the deduction of the equations of motion in matrix form for the following systems:
-      - [A cart attached to a spring and a pendulum](https://youtu.be/gsi_0cVZ5-s)
-      - [Two sliding masses attached to two springs](https://youtu.be/dqtZwZmMh4w)
+    - [A cart attached to a spring and a pendulum](https://youtu.be/gsi_0cVZ5-s)
+    - [Two sliding masses attached to two springs](https://youtu.be/dqtZwZmMh4w)
     """)
     return
 

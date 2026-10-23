@@ -1404,8 +1404,8 @@ def _(mo):
 
     We can model this system as composed by two particles with two degrees of freedom and we need two generalized coordinates to describe the system's configuration; two obvious options are:
 
-     - ${y_1, y_2}$, positions of masses $m_1,\, m_2$ w.r.t. ceiling (origin).<br>
-     - ${z_1, z_2}$, position of mass $m_1$ w.r.t. ceiling and position of mass $m_2$ w.r.t. mass $m_1$.
+    - ${y_1, y_2}$, positions of masses $m_1,\, m_2$ w.r.t. ceiling (origin).<br>
+    - ${z_1, z_2}$, position of mass $m_1$ w.r.t. ceiling and position of mass $m_2$ w.r.t. mass $m_1$.
 
     The set ${y_1, y_2}$ is at an inertial reference frame, while the second set it's not.<br>
     Let's find the EOM's using both sets of generalized coordinates and compare them.

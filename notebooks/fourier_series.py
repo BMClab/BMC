@@ -913,14 +913,14 @@ def _(mo):
     mo.md(r"""
     ## Problems
 
-     1. Using a trigonometric identity, verify that $\cos(x)=\sin(x+\pi/2)$.
-     2. Using the Euler's formula, deduce the expressions for sine and cosine.
-     3. Using the complex exponential forms, show that their integrals over a complete period are zero for nonzero integer harmonics.
-     4. Verify the orthogonality integrals over a complete period for positive integer harmonics.
-     5. Deduce the Fourier series for the triangular wave function using the complex form.
-     6. Deduce the Fourier series for the function $x(t) = t$ in the interval $[0, 1]$.
-     7. Deduce the Fourier series for the saw-tooth function $x(t) = 2t/T$ in the interval $0 \leq t < T/2$ and $x(t)=2(t-T)/T$ in the interval $T/2 \leq t < T$.
-     8. Calculate the power and phase spectra for the functions $x(t) = 2\sin(4\pi t)$ and $x(t) = 2\cos(4\pi t)$.
+    1. Using a trigonometric identity, verify that $\cos(x)=\sin(x+\pi/2)$.
+    2. Using the Euler's formula, deduce the expressions for sine and cosine.
+    3. Using the complex exponential forms, show that their integrals over a complete period are zero for nonzero integer harmonics.
+    4. Verify the orthogonality integrals over a complete period for positive integer harmonics.
+    5. Deduce the Fourier series for the triangular wave function using the complex form.
+    6. Deduce the Fourier series for the function $x(t) = t$ in the interval $[0, 1]$.
+    7. Deduce the Fourier series for the saw-tooth function $x(t) = 2t/T$ in the interval $0 \leq t < T/2$ and $x(t)=2(t-T)/T$ in the interval $T/2 \leq t < T$.
+    8. Calculate the power and phase spectra for the functions $x(t) = 2\sin(4\pi t)$ and $x(t) = 2\cos(4\pi t)$.
     """)
     return
 

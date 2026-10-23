@@ -527,9 +527,9 @@ def _(mo):
 
     This solution makes sense:
 
-     - The force in joint 1 is the necessary force to support the weight of body 1, while the force in joint 2 is the necessary force to support the weight of bodies 1 and 2.
-     - Both $\mathbf{M_1}$ and $\mathbf{M_2}$ should be positive (counterclockwise direction) because these joint moments of force are necessary to support the bodies against gravity (which generates a negative (clockwise direction) moment of force on the joints).<br>
-     - The magnitudes of the moments of force due to the weight of each body are simply the product between the correspondent body weight and the horizontal distance of the body center of gravity to the joint.
+    - The force in joint 1 is the necessary force to support the weight of body 1, while the force in joint 2 is the necessary force to support the weight of bodies 1 and 2.
+    - Both $\mathbf{M_1}$ and $\mathbf{M_2}$ should be positive (counterclockwise direction) because these joint moments of force are necessary to support the bodies against gravity (which generates a negative (clockwise direction) moment of force on the joints).<br>
+    - The magnitudes of the moments of force due to the weight of each body are simply the product between the correspondent body weight and the horizontal distance of the body center of gravity to the joint.
 
     This problem could have been solved calculating the moments of force around each joint instead of around the center of gravity; maybe it would have been simpler, but it would give the same results.<br>
     You are invited to check that.

@@ -598,8 +598,8 @@ def _(mo):
     ## Go deeper
 
     **Optional Winter-table assignment.** Consider the kinematic data from table A.1 of the Winter's book (Winter, 2009) used in problem 2 of the notebook [Angular kinematics in a plane (2D)](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/kinematics_angular_2d.py).<br>
-      1. Calculate the center of mass position for each segment and for the whole body (beware that no data are given for the head and arms segments) using the Dempster's and Zatsiorsky's models.<br>
-      2. Perform these calculations also for the moment of inertia (of each segment and of the whole body around the corresponding centers of mass).
+    1. Calculate the center of mass position for each segment and for the whole body (beware that no data are given for the head and arms segments) using the Dempster's and Zatsiorsky's models.<br>
+    2. Perform these calculations also for the moment of inertia (of each segment and of the whole body around the corresponding centers of mass).
 
     The external table is needed for numerical work. Without head and arm data, report partial-body quantities; whole-body center and inertia are underdetermined.
 

@@ -987,15 +987,15 @@ def _(mo):
 
     2. Plot the following periodic function in the interval $t=[-3\pi, 3\pi]$:
 
-       $$
-       x(t) = \left\{
-       \begin{array}{l l}
-           1+t/\pi & \quad \text{if } -\pi < t < 0\\
-           1-t/\pi & \quad \text{if } 0 < t < +\pi
-       \end{array} \right.
-       \qquad
-       x(t + 2\pi) = x(t), \quad \text{for all } t
-       $$
+    $$
+    x(t) = \left\{
+    \begin{array}{l l}
+        1+t/\pi & \quad \text{if } -\pi < t < 0\\
+        1-t/\pi & \quad \text{if } 0 < t < +\pi
+    \end{array} \right.
+    \qquad
+    x(t + 2\pi) = x(t), \quad \text{for all } t
+    $$
 
     Take the continuous extension at the corners: $x(0)=1$ and $x(\pm\pi)=0$.
 
@@ -1007,17 +1007,17 @@ def _(mo):
 
     6. The [power line frequency](https://en.wikipedia.org/wiki/Utility_frequency) in Brazil is 60 Hz (the same as in the US; in Europe it is 50 Hz; [see an online measurement of the frequency in Europe](https://www.mainsfrequency.com/)). The power line voltage is usually specified as 110 V or 127 V RMS. For a discrete signal, RMS is given by:
 
-       $$
-       RMS = \sqrt{\frac{1}{N}\sum_{i=1}^{N} x_i^2}
-       $$
+    $$
+    RMS = \sqrt{\frac{1}{N}\sum_{i=1}^{N} x_i^2}
+    $$
 
-       and for a continuous periodic signal with period $T$:
+    and for a continuous periodic signal with period $T$:
 
-       $$
-       RMS = \sqrt{\frac{1}{T}\int_{t_0}^{t_0+T} x(t)^2 \:\mathrm{d}t}
-       $$
+    $$
+    RMS = \sqrt{\frac{1}{T}\int_{t_0}^{t_0+T} x(t)^2 \:\mathrm{d}t}
+    $$
 
-       If the power line waveform is a sinusoid, what is the amplitude that results in 110 V RMS?
+    If the power line waveform is a sinusoid, what is the amplitude that results in 110 V RMS?
 
     7. Calculate the average power and the RMS values of the signals in problem 1.
 

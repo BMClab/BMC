@@ -80,15 +80,15 @@ def _(mo):
     mo.md(r"""
     ## Some jargon in mathematical optimization
 
-     - **Linear versus nonlinear optimization**: linear optimization refers to when the objective function and the constraints are linear mathematical functions. For linear objectives over a convex feasible set, every local minimum is global. If a finite optimum exists on a polytope, at least one vertex attains it; unbounded or infeasible problems need separate treatment. See [Wikipedia 1](https://en.wikipedia.org/wiki/Linear_programming) and [Wikipedia 2](https://en.wikipedia.org/wiki/Nonlinear_programming).
-     - **Constrained versus unconstrained optimization**: unconstrained optimization has no constraints; constrained optimization restricts the feasible set.
-     - **Convex optimization**: the field of optimization that deals with finding the minimum of convex functions (or the maximum of concave functions) over a convex constraint set. The convexity of a function facilitates the optimization because a local minimum must be a global minimum and first-order conditions (the first derivatives) are sufficient conditions for finding the optimal solution. Note that although convex optimization is a particular case of nonlinear optimization, it is a relatively simple optimization problem, with robust and mature methods of solution. See [Wikipedia](https://en.wikipedia.org/wiki/Convex_optimization).
-     - **Multivariate optimization**: optimization of a function of several variables.
-     - **Multimodal optimization**: optimization of a function with several local minima to find the multiple (locally) optimal solutions, as opposed to a single best solution.
-     - **Multi-objective optimization**: optimization involving more than one objective function to be optimized simultaneously.
-     - **Optimal control**: finding a control law for a given system such that a certain optimality criterion is achieved. See [Wikipedia](https://en.wikipedia.org/wiki/Optimal_control).
-     - **Quadratic programming**: optimization of a quadratic function subject to linear constraints. See [Wikipedia](https://en.wikipedia.org/wiki/Quadratic_programming).
-     - **Simplex algorithm**: linear optimization algorithm that begins at a starting vertex and moves along the edges of the polytope (the feasible region) until it reaches the vertex of the optimum solution. See [Wikipedia](https://en.wikipedia.org/wiki/Simplex_algorithm).
+    - **Linear versus nonlinear optimization**: linear optimization refers to when the objective function and the constraints are linear mathematical functions. For linear objectives over a convex feasible set, every local minimum is global. If a finite optimum exists on a polytope, at least one vertex attains it; unbounded or infeasible problems need separate treatment. See [Wikipedia 1](https://en.wikipedia.org/wiki/Linear_programming) and [Wikipedia 2](https://en.wikipedia.org/wiki/Nonlinear_programming).
+    - **Constrained versus unconstrained optimization**: unconstrained optimization has no constraints; constrained optimization restricts the feasible set.
+    - **Convex optimization**: the field of optimization that deals with finding the minimum of convex functions (or the maximum of concave functions) over a convex constraint set. The convexity of a function facilitates the optimization because a local minimum must be a global minimum and first-order conditions (the first derivatives) are sufficient conditions for finding the optimal solution. Note that although convex optimization is a particular case of nonlinear optimization, it is a relatively simple optimization problem, with robust and mature methods of solution. See [Wikipedia](https://en.wikipedia.org/wiki/Convex_optimization).
+    - **Multivariate optimization**: optimization of a function of several variables.
+    - **Multimodal optimization**: optimization of a function with several local minima to find the multiple (locally) optimal solutions, as opposed to a single best solution.
+    - **Multi-objective optimization**: optimization involving more than one objective function to be optimized simultaneously.
+    - **Optimal control**: finding a control law for a given system such that a certain optimality criterion is achieved. See [Wikipedia](https://en.wikipedia.org/wiki/Optimal_control).
+    - **Quadratic programming**: optimization of a quadratic function subject to linear constraints. See [Wikipedia](https://en.wikipedia.org/wiki/Quadratic_programming).
+    - **Simplex algorithm**: linear optimization algorithm that begins at a starting vertex and moves along the edges of the polytope (the feasible region) until it reaches the vertex of the optimum solution. See [Wikipedia](https://en.wikipedia.org/wiki/Simplex_algorithm).
     """)
     return
 
@@ -118,7 +118,7 @@ def _(mo):
 
     <span id="figure-caption-1" class="figure-caption" style="display:block;text-align:center;font-style:italic">Figure. Maxima and minima of a function of one variable.</span>
 
-     - Note that the requirement that the second derivative on the extremum to be positive for a minimum or negative for a maximum is sufficient but not a necessary condition. For instance, the function $f(x)=x^4$ has an extremum in $x=0$ since $f'(x)=4x^3$ and $f'(0)=0$, but its second derivative at $x=0$ is also zero: $f''(x)=12x^2;\: f''(0)=0$. If the first nonzero derivative after the first is of even order, a positive sign gives a local minimum and a negative sign gives a local maximum; an odd order gives neither: $f''''(0)=24$; the extremum is a minimum.
+    - Note that the requirement that the second derivative on the extremum to be positive for a minimum or negative for a maximum is sufficient but not a necessary condition. For instance, the function $f(x)=x^4$ has an extremum in $x=0$ since $f'(x)=4x^3$ and $f'(0)=0$, but its second derivative at $x=0$ is also zero: $f''(x)=12x^2;\: f''(0)=0$. If the first nonzero derivative after the first is of even order, a positive sign gives a local minimum and a negative sign gives a local maximum; an odd order gives neither: $f''''(0)=24$; the extremum is a minimum.
     """)
     return
 

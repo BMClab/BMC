@@ -78,9 +78,8 @@ def _(mo):
     mo.md(r"""
     The equations of motion for each FBD of the feet and rest-of-body segments at the sagittal plane ($xy$ plane) can be expressed in the form of the Newton-Euler equations.<br>
     <br>
-    <div style="background-color:#FBFBEF;border:1px solid black;padding:10px;">
-    <b>The Newton-Euler equations</b>
-    <br />
+    /// admonition | The Newton-Euler equations
+
     The <a href="https://en.wikipedia.org/wiki/Newton%E2%80%93Euler_equations">Newton-Euler equations</a> are a formalism to describe the combined translational and rotational dynamics of a rigid body.<br>
     For a two-dimensional (at the $xy$ plane) movement, their general form are given by:<br>
     <br />
@@ -103,7 +102,7 @@ def _(mo):
 
     Where $\mathbf{r}_{cm,o}$ is the position vector of the center of mass in relation to the reference point $o$ and $\mathbf{\ddot{r}}_o$ is the linear acceleration of this reference point.<br>
     <a href="free_body_diagram.py">See this notebook about free-body diagram</a>.<br>
-    </div>
+    ///
     """)
     return
 
@@ -204,10 +203,10 @@ def _(mo):
 
     These two last equations express a very simple relation between body segment parameters, $COG_v$, $COP$, body acceleration, and horizontal force.<br>
     Solely based on these equations it is possible to predict some interesting relations among the variables in these equations, which have been experimentally observed:<br>
-     -	$COG_v-COP$ is positively correlated with the horizontal ground reaction force in the anterior-posterior direction (Winter et al. 1998; Morasso and Schieppati 1999; Zatsiorsky and Duarte 2000);<br>
-     -	$COG_v$ behaves as a low-pass filtered version of the $COP$ signal and this fact has been used in a method to derive $COG_v$ from the $COP$ signal (Winter 1995; Caron et al. 1997; Morasso and Schieppati 1999). This method produces similar results as other methods (Lafond et al. 2004);<br>
-     -	For a continuously regulated inverted pendulum (like the standing still posture), the common frequencies of $COG_v$ and $COP$ signals are in phase (Morasso and Schieppati 1999);<br>
-     -	When the horizontal force is zero, $COG_v$ and $COP$ coincide and this fact has been used as a method to derive $COG_v$ from the $COP$ displacement and the horizontal $GRF$ (King and Zatsiorsky 1997; Zatsiorsky and Duarte 2000).
+    - $COG_v-COP$ is positively correlated with the horizontal ground reaction force in the anterior-posterior direction (Winter et al. 1998; Morasso and Schieppati 1999; Zatsiorsky and Duarte 2000);<br>
+    - $COG_v$ behaves as a low-pass filtered version of the $COP$ signal and this fact has been used in a method to derive $COG_v$ from the $COP$ signal (Winter 1995; Caron et al. 1997; Morasso and Schieppati 1999). This method produces similar results as other methods (Lafond et al. 2004);<br>
+    - For a continuously regulated inverted pendulum (like the standing still posture), the common frequencies of $COG_v$ and $COP$ signals are in phase (Morasso and Schieppati 1999);<br>
+    - When the horizontal force is zero, $COG_v$ and $COP$ coincide and this fact has been used as a method to derive $COG_v$ from the $COP$ displacement and the horizontal $GRF$ (King and Zatsiorsky 1997; Zatsiorsky and Duarte 2000).
 
     Note that the four predictions made above are based entirely on the mechanical derivation of the inverted pendulum model. Nothing has been said about what type of neural control is being used for the regulation of the standing posture. This means that the statements above are consequence of the mechanical nature of the modeled phenomenon.
 
@@ -254,8 +253,8 @@ def _(mo):
     The equation above is a linear ordinary differential equation of second order. This equation is solvable in the time domain, but if we transform it to the frequency domain using the Fourier transform, we will find a simpler relation between $COG_v$ and $COP$.
 
     <br>
-    <div style="background-color:#FBFBEF;border:1px solid black;padding:10px;">
-    <b>The Fourier transform</b><br>
+    /// admonition | The Fourier transform
+
     The <a href="https://en.wikipedia.org/wiki/Fourier_transform">Fourier transform</a> is a mathematical operation to transform a signal which is function of time, $g(t)$, into a signal which is function of frequency, $G(f)$, and it is defined by:<br>
     <br />
 
@@ -272,7 +271,7 @@ def _(mo):
 
     The function $G(f)$ is the representation in the frequency domain of the time-domain signal, $g(t)$, and vice-versa. The functions $g(t)$ and $G(f)$ are referred to as a Fourier integral pair, or Fourier transform pair, or simply the Fourier pair.<br>
     <a href="http://www.thefouriertransform.com/transform/fourier.php">See here for an introduction to Fourier transform</a> and <a href="http://www.thefouriertransform.com/applications/differentialequations.php">see here for the use of Fourier transform to solve differential equations</a>.
-    </div>
+    ///
 
     <br>
     Let's apply the Fourier transform to the differential equation with $COG_v$ and $COP$:

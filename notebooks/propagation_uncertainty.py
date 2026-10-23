@@ -351,9 +351,9 @@ def _(mo):
     ## Other Python packages for uncertainty analysis
 
     The `uncertainties` package propagates means and standard deviations using a local linear approximation. It does not require Gaussian inputs for that propagation, but converting the result into a coverage probability needs distributional assumptions. Strong nonlinearity over the uncertainty range can make the approximation inaccurate. Alternatives include:<br>
-     - [NIST Uncertainty Machine](https://uncertainty.nist.gov/): *A Web-based software application to evaluate the measurement uncertainty associated with an output quantity defined by a measurement model of the form $y=f(x_0,	\ldots,x_n)$.*  The NIST Uncertainty Machine allows to select a probability distribution for each of the input quantities and can evaluate the measurement uncertainty using two methods: the linear approximation and the Monte Carlo method,
-     - [mcerp](https://github.com/tisimst/mcerp): *A stochastic calculator for Monte Carlo methods that uses latin-hypercube sampling to perform non-order specific error propagation (or uncertainty analysis).*<br>
-     - [soerp](https://github.com/tisimst/soerp): *Python implementation of the original Fortran code SOERP by N. D. Cox to apply a second-order analysis to error propagation (or uncertainty analysis). The soerp package allows you to easily and transparently track the effects of uncertainty through mathematical calculations.*
+    - [NIST Uncertainty Machine](https://uncertainty.nist.gov/): *A Web-based software application to evaluate the measurement uncertainty associated with an output quantity defined by a measurement model of the form $y=f(x_0,	\ldots,x_n)$.*  The NIST Uncertainty Machine allows to select a probability distribution for each of the input quantities and can evaluate the measurement uncertainty using two methods: the linear approximation and the Monte Carlo method,
+    - [mcerp](https://github.com/tisimst/mcerp): *A stochastic calculator for Monte Carlo methods that uses latin-hypercube sampling to perform non-order specific error propagation (or uncertainty analysis).*<br>
+    - [soerp](https://github.com/tisimst/soerp): *Python implementation of the original Fortran code SOERP by N. D. Cox to apply a second-order analysis to error propagation (or uncertainty analysis). The soerp package allows you to easily and transparently track the effects of uncertainty through mathematical calculations.*
     """)
     return
 
@@ -363,8 +363,8 @@ def _(mo):
     mo.md(r"""
     And there are other packages using linear error propagation:
 
-     - [scinum](https://github.com/riga/scinum): *Provides a simple Number class that wraps plain floats or NumPy arrays and adds support for multiple uncertainties, automatic (gaussian) error propagation, and scientific rounding.*
-     - [GUM Tree Calculator](https://github.com/MSLNZ/GTC): *A Python package for processing data with measurement uncertainty.*
+    - [scinum](https://github.com/riga/scinum): *Provides a simple Number class that wraps plain floats or NumPy arrays and adds support for multiple uncertainties, automatic (gaussian) error propagation, and scientific rounding.*
+    - [GUM Tree Calculator](https://github.com/MSLNZ/GTC): *A Python package for processing data with measurement uncertainty.*
     """)
     return
 

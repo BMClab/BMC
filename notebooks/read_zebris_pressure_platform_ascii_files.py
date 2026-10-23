@@ -44,15 +44,15 @@ def _(mo):
     mo.md(r"""
     The Zebris Medical GmbH (https://www.zebris.de/en/) builds devices for measuring pressure on the foot/platform interface.<br>
     The BMClab (https://bmclab.pesquisa.ufabc.edu.br/) originally recorded the following setup notes for its two Zebris FDM 1.5 platforms. These are historical laboratory notes, not specifications for every model or firmware:
-     - Measuring principle: capacitive force measurement
-     - Dimensions: 158 x 60.5 x 2.1 cm (L x W x H)
-     - Sensor area: 149 x 54.2 cm (L x W)
-     - Number of sensors: 11264
-     - Physical resolution: 1.4 sensors /cm2  (0.714 cm2)
-     - Sampling frequency: 100 Hz
-     - Measuring Range: 1 - 120 N/cm2
-     - Accuracy of the calibrated measuring range: (1 – 80 N/cm2), ±5% (FS)
-     - Hysteresis: < 3 % (FS)
+    - Measuring principle: capacitive force measurement
+    - Dimensions: 158 x 60.5 x 2.1 cm (L x W x H)
+    - Sensor area: 149 x 54.2 cm (L x W)
+    - Number of sensors: 11264
+    - Physical resolution: 1.4 sensors /cm2  (0.714 cm2)
+    - Sampling frequency: 100 Hz
+    - Measuring Range: 1 - 120 N/cm2
+    - Accuracy of the calibrated measuring range: (1 – 80 N/cm2), ±5% (FS)
+    - Hysteresis: < 3 % (FS)
 
     The [manufacturer's 2015 hardware manual](https://www.zebris.de/fileadmin/Editoren/zebris-PDF-Manuals/Medizin/Hardware/Alte_Versionen/FDM_Hardware-Manual_151203_en.pdf) lists a 1440 × 560 mm sensor area and 120 Hz standard sampling for its FDM 1.5 version, which differs from some historical notes above. Use the manual for your model and the acquisition metadata. The sample APD files provide sensor spacing but no pressure time series.
 
