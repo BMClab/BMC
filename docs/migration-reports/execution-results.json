@@ -37,7 +37,8 @@
     "title_target": "All 84 README titles target editable nbs/ pages",
     "editable_html_guides": 84,
     "read_directory": "nbs_read",
-    "edit_directory": "nbs"
+    "edit_directory": "nbs",
+    "molab_wasm_suffix": false
   },
   "zenodo": {
     "file": ".zenodo.json",
@@ -196,7 +197,7 @@
       "native_html_sha256": "3a4b50a7b9f860139d6dde24e76c4bca41d22b223f99246925713d358fea8124"
     },
     "data_filtering": {
-      "sha256": "f925c1abb332aca63c70dcc265c11877c37214cbdfef39edc3654c4d4cceb35a",
+      "sha256": "0f6ee6d6556d068538dd1f6c0740535cc67cb9851d78d56136f1f54f6f66c515",
       "script": 0,
       "html": 0,
       "execution": 0,
@@ -204,8 +205,8 @@
       "native_script_export_sha256": "1195d897ae00fab58216fd9e6ba5e25a15ef5eec752e4a781cef7012408db247",
       "native_flat_execution_sha256": "1195d897ae00fab58216fd9e6ba5e25a15ef5eec752e4a781cef7012408db247",
       "webassembly_sha256": "1195d897ae00fab58216fd9e6ba5e25a15ef5eec752e4a781cef7012408db247",
-      "native_html_sha256": "f925c1abb332aca63c70dcc265c11877c37214cbdfef39edc3654c4d4cceb35a",
-      "changes_since_flat_and_webassembly_execution": "Presentation only: explanatory text, figure-caption Markdown, image sources, and whitespace; scientific computations and PEP 723 metadata unchanged."
+      "native_html_sha256": "0f6ee6d6556d068538dd1f6c0740535cc67cb9851d78d56136f1f54f6f66c515",
+      "changes_since_flat_and_webassembly_execution": "Presentation updates include moving unchanged repo_file below opening/Python setup cells. All code bodies, prose and metadata preserved; native HTML and actual browser execution rerun."
     },
     "dlt": {
       "sha256": "dee56838e9f7787d35aac9f46996f208c442c2da32c3cc497d99c2f5c7656c83",
@@ -301,7 +302,7 @@
       "changes_since_flat_and_webassembly_execution": "Later presentation updates include display expressions or repaired reading links; scientific computation AST and PEP 723 metadata preserved. Native reactive HTML rerun; flat/WebAssembly hashes retained."
     },
     "fourier_transform": {
-      "sha256": "ff4daa0e5e74943b1808f6d430050834d300997c709e8d84f8d4e411dfeb6bff",
+      "sha256": "6f0ecc940be9e6eb8e89182f6e77e809d2ec74a8094e006abaac5e9fe9d1c2fc",
       "script": 0,
       "html": 0,
       "execution": 0,
@@ -309,8 +310,8 @@
       "native_script_export_sha256": "cf458acf727ef6fbd42952d67f177413ed9aed5607b83e1f61b2d0885b03c1d3",
       "native_flat_execution_sha256": "cf458acf727ef6fbd42952d67f177413ed9aed5607b83e1f61b2d0885b03c1d3",
       "webassembly_sha256": "cf458acf727ef6fbd42952d67f177413ed9aed5607b83e1f61b2d0885b03c1d3",
-      "native_html_sha256": "ff4daa0e5e74943b1808f6d430050834d300997c709e8d84f8d4e411dfeb6bff",
-      "changes_since_flat_and_webassembly_execution": "Only explanatory text and whitespace; computational AST and PEP 723 metadata unchanged."
+      "native_html_sha256": "6f0ecc940be9e6eb8e89182f6e77e809d2ec74a8094e006abaac5e9fe9d1c2fc",
+      "changes_since_flat_and_webassembly_execution": "Presentation updates include moving unchanged repo_file below opening/Python setup cells. All code bodies, prose and metadata preserved; native HTML and actual browser execution rerun."
     },
     "free_body_diagram": {
       "sha256": "65141ae768d6de3e3e20fd078d99b163783535380d1aba0ff63942dafc095907",
@@ -385,7 +386,7 @@
       "changes_since_flat_and_webassembly_execution": "Later presentation updates include display expressions or repaired reading links; scientific computation AST and PEP 723 metadata preserved. Native reactive HTML rerun; flat/WebAssembly hashes retained."
     },
     "kinematics_angular_2d": {
-      "sha256": "285ae6fb3f1b8a19545bd529280a4100d5ad6ae7e1da2b85017aa88252a8633a",
+      "sha256": "a158c072dc8fbc647e1002e6ad2654c6278d0307b03969cfe2fe4918e1c218a9",
       "script": 0,
       "html": 0,
       "execution": 0,
@@ -393,8 +394,8 @@
       "native_script_export_sha256": "af1f4402d70e09f9231cdaae017d69429913bd6712721798027e7cf76a54d5cb",
       "native_flat_execution_sha256": "af1f4402d70e09f9231cdaae017d69429913bd6712721798027e7cf76a54d5cb",
       "webassembly_sha256": "af1f4402d70e09f9231cdaae017d69429913bd6712721798027e7cf76a54d5cb",
-      "native_html_sha256": "285ae6fb3f1b8a19545bd529280a4100d5ad6ae7e1da2b85017aa88252a8633a",
-      "changes_since_flat_and_webassembly_execution": "Later presentation updates include display expressions or repaired reading links; scientific computation AST and PEP 723 metadata preserved. Native reactive HTML rerun; flat/WebAssembly hashes retained."
+      "native_html_sha256": "a158c072dc8fbc647e1002e6ad2654c6278d0307b03969cfe2fe4918e1c218a9",
+      "changes_since_flat_and_webassembly_execution": "Presentation updates include moving unchanged repo_file below opening/Python setup cells. All code bodies, prose and metadata preserved; native HTML and actual browser execution rerun."
     },
     "kinematics_of_rigid_body": {
       "sha256": "b2c7b442b04d0763644d52350a5f6ed9f50f68d17a306fbb2dd5fe593e25d295",
@@ -892,7 +893,7 @@
       "changes_since_flat_and_webassembly_execution": "Only explanatory text and whitespace; computational AST and PEP 723 metadata unchanged."
     },
     "residual_analysis": {
-      "sha256": "9cef136b0632424e847f65d432b24c65f07730c57156f8d855eeb2fc1dd4b3a6",
+      "sha256": "a92973275d0a907d6785ed9414c22a0bc844844678369cb477e64d3c7d75d597",
       "script": 0,
       "html": 0,
       "execution": 0,
@@ -900,8 +901,8 @@
       "native_script_export_sha256": "f6bf8765b88d88df8ea2bdf7e51ad43d9873d8d3bde268a2d56187d88d75d12c",
       "native_flat_execution_sha256": "f6bf8765b88d88df8ea2bdf7e51ad43d9873d8d3bde268a2d56187d88d75d12c",
       "webassembly_sha256": "f6bf8765b88d88df8ea2bdf7e51ad43d9873d8d3bde268a2d56187d88d75d12c",
-      "native_html_sha256": "9cef136b0632424e847f65d432b24c65f07730c57156f8d855eeb2fc1dd4b3a6",
-      "changes_since_flat_and_webassembly_execution": "Only explanatory text and whitespace; computational AST and PEP 723 metadata unchanged."
+      "native_html_sha256": "a92973275d0a907d6785ed9414c22a0bc844844678369cb477e64d3c7d75d597",
+      "changes_since_flat_and_webassembly_execution": "Presentation updates include moving unchanged repo_file below opening/Python setup cells. All code bodies, prose and metadata preserved; native HTML and actual browser execution rerun."
     },
     "scalar_vector": {
       "sha256": "024651bb25daa3601a902df0b18de18186e23992be8559cd2a688bea105c7122",
@@ -916,7 +917,7 @@
       "changes_since_flat_and_webassembly_execution": "Presentation only: explanatory text, figure-caption Markdown, image sources, and whitespace; scientific computations and PEP 723 metadata unchanged."
     },
     "signal_basic_properties": {
-      "sha256": "c6c502e4cc6beae8d097be1cd79f8da9c12a98d39669c6937cf537e3418703f6",
+      "sha256": "950b6c3eb328fa3302036afbac4d8b9f65c3b3ce7e18c299e467bae6c856a751",
       "script": 0,
       "html": 0,
       "execution": 0,
@@ -924,8 +925,8 @@
       "native_script_export_sha256": "08776586a12461a8e9f51bafc6e556748f5a9b8f2adf71719c888988840b6a55",
       "native_flat_execution_sha256": "08776586a12461a8e9f51bafc6e556748f5a9b8f2adf71719c888988840b6a55",
       "webassembly_sha256": "08776586a12461a8e9f51bafc6e556748f5a9b8f2adf71719c888988840b6a55",
-      "native_html_sha256": "c6c502e4cc6beae8d097be1cd79f8da9c12a98d39669c6937cf537e3418703f6",
-      "changes_since_flat_and_webassembly_execution": "Only explanatory text and whitespace; computational AST and PEP 723 metadata unchanged."
+      "native_html_sha256": "950b6c3eb328fa3302036afbac4d8b9f65c3b3ce7e18c299e467bae6c856a751",
+      "changes_since_flat_and_webassembly_execution": "Presentation updates include moving unchanged repo_file below opening/Python setup cells. All code bodies, prose and metadata preserved; native HTML and actual browser execution rerun."
     },
     "similarity": {
       "sha256": "dae44078d7be216f31fc70db864f67707ce0a331fd0203fb6065b6443024ca1d",
@@ -940,7 +941,7 @@
       "changes_since_flat_and_webassembly_execution": "Only explanatory text and whitespace; computational AST and PEP 723 metadata unchanged."
     },
     "sistema_coordenadas": {
-      "sha256": "17f41e90e779899bc4cd9534f75699f29bb6065c01f953a14ef8775ea7711e5d",
+      "sha256": "2ea0722c9481bdd91fda95522dc103b8e8ac5bb4ba4be6156b11e97376b72a33",
       "script": 0,
       "html": 0,
       "execution": 0,
@@ -948,8 +949,8 @@
       "native_script_export_sha256": "705caa89bfb5812bdc9d2d59389810fc5e1d70e65a14c3ec56cac74fa57d23db",
       "native_flat_execution_sha256": "705caa89bfb5812bdc9d2d59389810fc5e1d70e65a14c3ec56cac74fa57d23db",
       "webassembly_sha256": "705caa89bfb5812bdc9d2d59389810fc5e1d70e65a14c3ec56cac74fa57d23db",
-      "native_html_sha256": "17f41e90e779899bc4cd9534f75699f29bb6065c01f953a14ef8775ea7711e5d",
-      "changes_since_flat_and_webassembly_execution": "Only explanatory text and whitespace; computational AST and PEP 723 metadata unchanged."
+      "native_html_sha256": "2ea0722c9481bdd91fda95522dc103b8e8ac5bb4ba4be6156b11e97376b72a33",
+      "changes_since_flat_and_webassembly_execution": "Presentation updates include moving unchanged repo_file below opening/Python setup cells. All code bodies, prose and metadata preserved; native HTML and actual browser execution rerun."
     },
     "spatial_temporal_characteristics": {
       "sha256": "0f8610e6623fa0dd40a1c2d802151c26979a21522e2ae3a5a696d6ce48832365",
@@ -1067,7 +1068,7 @@
       "native_html_sha256": "a831eb79ebb938b1540059ec7f1fa5b829425374d131ce4e92a8a46cef35001c"
     },
     "vertical_jump": {
-      "sha256": "45ca8f9eb94da05a3ed91d139c9864a6f4f83e5bae7f6d74cb08e966628ea4ae",
+      "sha256": "4774a54fa4edaf2b764038b4c408f4aa5126419ebf617c4b0a53cedb7f7b1f48",
       "script": 0,
       "html": 0,
       "execution": 0,
@@ -1075,8 +1076,8 @@
       "native_script_export_sha256": "58f6e52fca84b3845842c6da61cf1ab8a235b7539fc216db42c04ec5b5086ab3",
       "native_flat_execution_sha256": "58f6e52fca84b3845842c6da61cf1ab8a235b7539fc216db42c04ec5b5086ab3",
       "webassembly_sha256": "58f6e52fca84b3845842c6da61cf1ab8a235b7539fc216db42c04ec5b5086ab3",
-      "native_html_sha256": "45ca8f9eb94da05a3ed91d139c9864a6f4f83e5bae7f6d74cb08e966628ea4ae",
-      "changes_since_flat_and_webassembly_execution": "Later presentation updates include display expressions or repaired reading links; scientific computation AST and PEP 723 metadata preserved. Native reactive HTML rerun; flat/WebAssembly hashes retained."
+      "native_html_sha256": "4774a54fa4edaf2b764038b4c408f4aa5126419ebf617c4b0a53cedb7f7b1f48",
+      "changes_since_flat_and_webassembly_execution": "Presentation updates include moving unchanged repo_file below opening/Python setup cells. All code bodies, prose and metadata preserved; native HTML and actual browser execution rerun."
     }
   },
   "source_hash_policy": "sha256 identifies current source. Each execution stage has its own tested source hash. All 87 current guides and the 2026 course lecture passed native reactive HTML export for the static collection. Later presentation changes relative to earlier flat/WebAssembly runs preserve scientific computations and PEP 723 metadata. Presentation changes have not been rerun in WebAssembly or the cloud execution website UI; separate browser evidence verifies static reading.",
@@ -1422,5 +1423,21 @@
       "notebooks_edit"
     ],
     "auto_republish": "Push to master; workflow refreshes read-only outputs and generates editable site assets"
+  },
+  "opening_cell_followup": {
+    "moved_guides": [
+      "notebooks/data_filtering.py",
+      "notebooks/fourier_transform.py",
+      "notebooks/kinematics_angular_2d.py",
+      "notebooks/residual_analysis.py",
+      "notebooks/signal_basic_properties.py",
+      "notebooks/sistema_coordenadas.py",
+      "notebooks/vertical_jump.py"
+    ],
+    "position": "After opening guide and Python setup",
+    "helper_bodies_and_decorators_preserved": true,
+    "other_helpers_first": 0,
+    "native_exports_passed": 7,
+    "browser_executions_passed": 7
   }
 }

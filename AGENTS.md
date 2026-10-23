@@ -65,6 +65,8 @@ MPLBACKEND=Agg uv run python /tmp/flat.py   # clean = exit 0, only Agg "cannot b
 
 - Tutorial notebooks follow a prose-first teaching structure:
   title/author → "How to use" → guiding questions / challenges → worked examples → references.
+- Place `repo_file` after the opening title/authors, How to use and Python setup cells;
+  it must not be the first registered cell.
 - Keep figure captions outside raw HTML blocks so Markdown links and LaTeX are rendered.
   Use a blank line after the closed image/figure block, then an inline
   `<span class="figure-caption">…</span>` in `mo.md`; raw `<figcaption>` suppresses math parsing.

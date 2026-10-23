@@ -9,6 +9,42 @@ __generated_with = "0.24.2"
 app = marimo.App()
 
 
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    # Biomechanical analysis of vertical jumps
+
+    > Marcos Duarte, Renato Naville Watanabe<br>
+    > [Laboratory of Biomechanics and Motor Control](https://bmclab.pesquisa.ufabc.edu.br/)<br>
+    > Federal University of ABC, Brazil
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## How to use this guide
+
+    We will connect flight time, net impulse and force-platform integration. The force plate measures ground reaction force; acceleration needs that force minus body weight. Before comparing jump-height estimates, choose takeoff/landing events, the force baseline and the initial velocity.
+
+    Try the distributed **Exercises** before opening their collapsed worked solutions. Then use the **Checkpoint questions** and attempt the **Problems** independently; their panels contain final answers only. Predict the effect of a parameter change before running it, and check units and limiting cases.
+
+    **Opening challenge.** Two jumps have the same flight time, but one lands with deeply bent knees. Does the usual flight-time formula necessarily give the same true rise of the center of mass?
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## Python setup
+    """)
+    return
+
+
 @app.function
 def repo_file(path, *, base_url="https://raw.githubusercontent.com/BMClab/BMC/master/"):
     """Find a repository file beside this notebook, or fetch a temporary copy.
@@ -52,39 +88,6 @@ def repo_file(path, *, base_url="https://raw.githubusercontent.com/BMClab/BMC/ma
             temporary.unlink(missing_ok=True)
     return cached
 
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    # Biomechanical analysis of vertical jumps
-
-    > Marcos Duarte, Renato Naville Watanabe<br>
-    > [Laboratory of Biomechanics and Motor Control](https://bmclab.pesquisa.ufabc.edu.br/)<br>
-    > Federal University of ABC, Brazil
-    """)
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    ## How to use this guide
-
-    We will connect flight time, net impulse and force-platform integration. The force plate measures ground reaction force; acceleration needs that force minus body weight. Before comparing jump-height estimates, choose takeoff/landing events, the force baseline and the initial velocity.
-
-    Try the distributed **Exercises** before opening their collapsed worked solutions. Then use the **Checkpoint questions** and attempt the **Problems** independently; their panels contain final answers only. Predict the effect of a parameter change before running it, and check units and limiting cases.
-
-    **Opening challenge.** Two jumps have the same flight time, but one lands with deeply bent knees. Does the usual flight-time formula necessarily give the same true rise of the center of mass?
-    """)
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    ## Python setup
-    """)
-    return
 
 
 @app.cell

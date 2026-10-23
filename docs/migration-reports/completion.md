@@ -198,3 +198,20 @@ and makes the browser example work. The failure and successful corrected plot
 were both observed in the actual editor. No other notebook source or dependency
 metadata changed. The native serializer may update generated-version/return
 metadata in downloadable source; this is distinct from scientific code changes.
+
+
+## Opening cells and molab links — 2026-10-23
+
+Removed `/wasm` from all 84 molab links in README, as requested; marimo.app and
+GitHub Pages remain the browser-execution choices. The original service-badge
+counts and guide omissions are unchanged.
+
+Audited all 88 notebooks for a resource helper as the first registered cell.
+Moved `repo_file` below the opening guide/Python setup cells in seven guides:
+`data_filtering`, `fourier_transform`, `kinematics_angular_2d`, `residual_analysis`,
+`signal_basic_properties`, `sistema_coordenadas` and `vertical_jump`.
+A full AST multiset comparison proves these are cell-order changes only:
+helper bodies, decorators, Markdown and calculations are identical. No notebook
+now starts with an app.function helper. All seven pass strict checks, native
+HTML export and actual browser execution. Current hashes and browser records
+were refreshed. The full suite still passes 115 tests and 235 subtests.

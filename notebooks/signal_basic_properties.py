@@ -9,6 +9,46 @@ __generated_with = "0.24.2"
 app = marimo.App(width="medium")
 
 
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    # Basic properties of signals
+
+    > Marcos Duarte, Renato Naville Watanabe<br>
+    > [Laboratory of Biomechanics and Motor Control](https://bmclab.pesquisa.ufabc.edu.br/)<br>
+    > Federal University of ABC, Brazil
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## How to use this guide
+
+    Every measurement in biomechanics ends up as a signal: a force plate, a marker on the heel, an electrode on a muscle. Before anything can be filtered, differentiated or interpreted, it helps to know the vocabulary used to describe a signal, and what a computer actually stores when it records one.
+
+    This notebook introduces that vocabulary: amplitude, frequency, period and phase; harmonics; AC and DC components; even and odd functions; continuous and discrete, analog and digital signals; sampling and quantization; signal and noise. Along the way it keeps returning to one real recording, the electrical activity of a muscle, and by the end you will have estimated its sampling interval and amplitude step, and learned which hardware details the file cannot establish.
+
+    Read it in order and run each cell as you reach it. Try the distributed Exercises before opening their worked solutions. At the end, the independent Problems have collapsed final answers without derivations. Where you find a **Challenge** or a set of **Guiding questions**, stop and answer on a scratchpad before moving on. Several of them ask you to predict a number *before* the code prints it; the prediction is the point, and being wrong is the most useful thing that can happen to you here.
+
+    **Challenge 0.** Pick a sensor you have used or would like to use: a force plate, a motion-capture camera, an accelerometer, an EMG electrode. Write down two guesses. How many numbers per second does it store? And how many *different* values can each of those numbers take? Keep the guesses; the sections on sampling and quantization answer both questions for one real sensor.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## Python setup
+
+    NumPy does the computation, pandas reads the data file, and Matplotlib draws the plots. These dependencies are declared in the notebook metadata. Open this file in marimo; the EMG example requires access to the linked repository data. No sensor or external recording software is needed.
+    """)
+    return
+
+
 @app.function
 def repo_file(path, *, base_url="https://raw.githubusercontent.com/BMClab/BMC/master/"):
     """Find a repository file beside this notebook, or fetch a temporary copy.
@@ -52,43 +92,6 @@ def repo_file(path, *, base_url="https://raw.githubusercontent.com/BMClab/BMC/ma
             temporary.unlink(missing_ok=True)
     return cached
 
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    # Basic properties of signals
-
-    > Marcos Duarte, Renato Naville Watanabe<br>
-    > [Laboratory of Biomechanics and Motor Control](https://bmclab.pesquisa.ufabc.edu.br/)<br>
-    > Federal University of ABC, Brazil
-    """)
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    ## How to use this guide
-
-    Every measurement in biomechanics ends up as a signal: a force plate, a marker on the heel, an electrode on a muscle. Before anything can be filtered, differentiated or interpreted, it helps to know the vocabulary used to describe a signal, and what a computer actually stores when it records one.
-
-    This notebook introduces that vocabulary: amplitude, frequency, period and phase; harmonics; AC and DC components; even and odd functions; continuous and discrete, analog and digital signals; sampling and quantization; signal and noise. Along the way it keeps returning to one real recording, the electrical activity of a muscle, and by the end you will have estimated its sampling interval and amplitude step, and learned which hardware details the file cannot establish.
-
-    Read it in order and run each cell as you reach it. Try the distributed Exercises before opening their worked solutions. At the end, the independent Problems have collapsed final answers without derivations. Where you find a **Challenge** or a set of **Guiding questions**, stop and answer on a scratchpad before moving on. Several of them ask you to predict a number *before* the code prints it; the prediction is the point, and being wrong is the most useful thing that can happen to you here.
-
-    **Challenge 0.** Pick a sensor you have used or would like to use: a force plate, a motion-capture camera, an accelerometer, an EMG electrode. Write down two guesses. How many numbers per second does it store? And how many *different* values can each of those numbers take? Keep the guesses; the sections on sampling and quantization answer both questions for one real sensor.
-    """)
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    ## Python setup
-
-    NumPy does the computation, pandas reads the data file, and Matplotlib draws the plots. These dependencies are declared in the notebook metadata. Open this file in marimo; the EMG example requires access to the linked repository data. No sensor or external recording software is needed.
-    """)
-    return
 
 
 @app.cell

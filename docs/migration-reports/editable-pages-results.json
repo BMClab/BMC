@@ -20,7 +20,7 @@
   },
   "reading_link_checks": "All rendered current guide links remain on Pages; separate real-DOM checks passed normal, lazy, shadow, course, source, explicit execution and fragment cases",
   "iep_fix": "Rename only the private plotting helper declaration/call to plot_cogve. Reproduced show=True NameError before fix; actual browser plot passed afterward. Arithmetic unchanged.",
-  "source_note": "Native serialization updates generated-version/cell metadata; the builder changes rendered links rather than editing notebook Python. Only notebook file edit is the IEP helper name.",
+  "source_note": "IEP plotting helper declaration/call renamed; repo_file moved below Python setup in seven guides. All other code/prose/decorators are unchanged. Native serialization may update generated-version/cell metadata.",
   "independent_review": "Ready; no material findings",
   "limitations": "Default examples and the IEP optional plot tested, not every optional upload/hardware/input branch. Runtime/package/media downloads need Internet. Publication/live verification follows this prepared commit.",
   "pages": [
@@ -261,17 +261,17 @@
     {
       "source": "notebooks/data_filtering.py",
       "html": "data_filtering.html",
-      "source_sha256": "f925c1abb332aca63c70dcc265c11877c37214cbdfef39edc3654c4d4cceb35a",
-      "html_sha256": "766e14c032dcaadee1231334aedd54aad1305ae2e942f2d551259fea4beaa42b",
+      "source_sha256": "0f6ee6d6556d068538dd1f6c0740535cc67cb9851d78d56136f1f54f6f66c515",
+      "html_sha256": "e4d3a331804f99f51f4aca3528a8a2573e0172e37410e5ad1bf2101929b14119",
       "cell_states": {
         "idle": 93
       },
       "tables": 0,
       "plots": 15,
-      "editors": 61,
+      "editors": 60,
       "reading_links": [],
       "status": "passed",
-      "seconds": 63.0,
+      "seconds": 67.7,
       "page_errors": [],
       "failed_requests": [],
       "execution_service_requests": []
@@ -423,8 +423,8 @@
     {
       "source": "notebooks/fourier_transform.py",
       "html": "fourier_transform.html",
-      "source_sha256": "ff4daa0e5e74943b1808f6d430050834d300997c709e8d84f8d4e411dfeb6bff",
-      "html_sha256": "49493822e97721d8fd2be645b8055e45634e99b82a0c218905d77010c27f9cd6",
+      "source_sha256": "6f0ecc940be9e6eb8e89182f6e77e809d2ec74a8094e006abaac5e9fe9d1c2fc",
+      "html_sha256": "784c6e7022aaaff7f979b3deb7ee2c827809e0030ddb557263cfdd60a2a4663f",
       "cell_states": {
         "idle": 55
       },
@@ -433,7 +433,7 @@
       "editors": 55,
       "reading_links": [],
       "status": "passed",
-      "seconds": 30.8,
+      "seconds": 44.4,
       "page_errors": [],
       "failed_requests": [],
       "execution_service_requests": []
@@ -550,8 +550,8 @@
     {
       "source": "notebooks/kinematics_angular_2d.py",
       "html": "kinematics_angular_2d.html",
-      "source_sha256": "285ae6fb3f1b8a19545bd529280a4100d5ad6ae7e1da2b85017aa88252a8633a",
-      "html_sha256": "49c084d9ec1d458cb73fde536426b17bdaa47818da519dd923d477ed2c83ab62",
+      "source_sha256": "a158c072dc8fbc647e1002e6ad2654c6278d0307b03969cfe2fe4918e1c218a9",
+      "html_sha256": "01f059c285277341177389886b785b94b33f2ff86db31b7ac779596a457439b6",
       "cell_states": {
         "idle": 50
       },
@@ -560,7 +560,7 @@
       "editors": 50,
       "reading_links": [],
       "status": "passed",
-      "seconds": 28.9,
+      "seconds": 43.2,
       "page_errors": [],
       "failed_requests": [],
       "execution_service_requests": []
@@ -1346,8 +1346,8 @@
     {
       "source": "notebooks/residual_analysis.py",
       "html": "residual_analysis.html",
-      "source_sha256": "9cef136b0632424e847f65d432b24c65f07730c57156f8d855eeb2fc1dd4b3a6",
-      "html_sha256": "bd56e5ee25227a2da5d5175513377581871baf075c0a29ee04fd206a03ede023",
+      "source_sha256": "a92973275d0a907d6785ed9414c22a0bc844844678369cb477e64d3c7d75d597",
+      "html_sha256": "fc52868dc558533891dc913a456f68e8f3c676167d6122bf2103e9af0e820ba1",
       "cell_states": {
         "idle": 40
       },
@@ -1356,7 +1356,7 @@
       "editors": 40,
       "reading_links": [],
       "status": "passed",
-      "seconds": 32.1,
+      "seconds": 38.3,
       "page_errors": [],
       "failed_requests": [],
       "execution_service_requests": []
@@ -1382,8 +1382,8 @@
     {
       "source": "notebooks/signal_basic_properties.py",
       "html": "signal_basic_properties.html",
-      "source_sha256": "c6c502e4cc6beae8d097be1cd79f8da9c12a98d39669c6937cf537e3418703f6",
-      "html_sha256": "d670a2208307838b2c1137ba0f9acb644ca928dcb39c7dc1462c41d690a994ae",
+      "source_sha256": "950b6c3eb328fa3302036afbac4d8b9f65c3b3ce7e18c299e467bae6c856a751",
+      "html_sha256": "1a9686362a17f1d728afe002b1e27d9dd40722adebca8496d2c6444a78875576",
       "cell_states": {
         "idle": 65
       },
@@ -1392,7 +1392,7 @@
       "editors": 65,
       "reading_links": [],
       "status": "passed",
-      "seconds": 45.5,
+      "seconds": 51.9,
       "page_errors": [],
       "failed_requests": [],
       "execution_service_requests": []
@@ -1418,17 +1418,17 @@
     {
       "source": "notebooks/sistema_coordenadas.py",
       "html": "sistema_coordenadas.html",
-      "source_sha256": "17f41e90e779899bc4cd9534f75699f29bb6065c01f953a14ef8775ea7711e5d",
-      "html_sha256": "592565280ffb03946866d8cb2fe3ec3ddd411b2caa392e22ad7528fe70986042",
+      "source_sha256": "2ea0722c9481bdd91fda95522dc103b8e8ac5bb4ba4be6156b11e97376b72a33",
+      "html_sha256": "ce82805192a8fc71ca6df786e6571160ea90ad2f26cf65821d87a633488e9b48",
       "cell_states": {
         "idle": 77
       },
       "tables": 1,
       "plots": 7,
-      "editors": 57,
+      "editors": 50,
       "reading_links": [],
       "status": "passed",
-      "seconds": 45.3,
+      "seconds": 49.9,
       "page_errors": [],
       "failed_requests": [],
       "execution_service_requests": []
@@ -1616,8 +1616,8 @@
     {
       "source": "notebooks/vertical_jump.py",
       "html": "vertical_jump.html",
-      "source_sha256": "45ca8f9eb94da05a3ed91d139c9864a6f4f83e5bae7f6d74cb08e966628ea4ae",
-      "html_sha256": "23782426198c07c335aaa3325e7a71caa70ec971ab44a27aaeabd305d212df8e",
+      "source_sha256": "4774a54fa4edaf2b764038b4c408f4aa5126419ebf617c4b0a53cedb7f7b1f48",
+      "html_sha256": "a949327f6b59fa18d4908f09ee8f9c0fd1f690d0302bfb6a8286864c1acee79c",
       "cell_states": {
         "idle": 52
       },
@@ -1626,7 +1626,7 @@
       "editors": 52,
       "reading_links": [],
       "status": "passed",
-      "seconds": 26.3,
+      "seconds": 28.1,
       "page_errors": [],
       "failed_requests": [
         {
@@ -1656,5 +1656,26 @@
       ],
       "execution_service_requests": []
     }
-  ]
+  ],
+  "opening_cell_followup": {
+    "moved_guides": [
+      "notebooks/data_filtering.py",
+      "notebooks/fourier_transform.py",
+      "notebooks/kinematics_angular_2d.py",
+      "notebooks/residual_analysis.py",
+      "notebooks/signal_basic_properties.py",
+      "notebooks/sistema_coordenadas.py",
+      "notebooks/vertical_jump.py"
+    ],
+    "position": "After opening guide and Python setup",
+    "helper_bodies_and_decorators_preserved": true,
+    "other_helpers_first": 0,
+    "native_exports_passed": 7,
+    "browser_executions_passed": 7
+  },
+  "readme_molab_links": {
+    "count": 84,
+    "wasm_suffix": false,
+    "reason": "Requested server/default molab links; marimo.app and GitHub Pages provide browser WASM modes"
+  }
 }

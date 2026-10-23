@@ -9,6 +9,46 @@ __generated_with = "0.24.2"
 app = marimo.App(width="medium")
 
 
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    # Fourier transform
+
+    > Marcos Duarte, Renato Naville Watanabe<br>
+    > [Laboratory of Biomechanics and Motor Control](https://bmclab.pesquisa.ufabc.edu.br/)<br>
+    > Federal University of ABC, Brazil
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## How to use this guide
+
+    A signal recorded in time can also be described by the frequencies it contains. The Fourier transform is the mathematical tool that moves between the two descriptions, and the fast Fourier transform (FFT) is the algorithm that makes it practical. Filters, sampling rates, cutoff frequencies and the fatigue of a muscle are all discussed in terms of frequency, so it pays to be able to compute and read a spectrum yourself.
+
+    This notebook continues [Fourier series](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/fourier_series.py). It defines the Fourier transform and its discrete version, computes the FFT of simple signals and reads their amplitude and phase, shows the traps of a finite recording (frequency resolution and leakage), and then estimates the power spectral density of noisy signals and of a real muscle. It ends with the spectrogram, which shows how the frequency content changes in time. You will also need [Basic properties of signals](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/signal_basic_properties.py): sampling, the Nyquist frequency, power and RMS.
+
+    Read it in order and run each cell as you reach it. Try the distributed Exercises before opening their worked solutions. The final Problems have collapsed final answers for independent practice. Where you find a **Challenge** or a set of **Guiding questions**, stop and answer on a scratchpad before moving on. Several of them ask you to predict a number *before* the code prints it; the prediction is the point, and being wrong is the most useful thing that can happen to you here.
+
+    **Challenge 0.** Pick a signal from your own field: walking, a tremor, an EMG, the force under a runner's foot. Write down the range of frequencies you think it contains, from the lowest to the highest that matters. Keep it; by the end you will be able to check a guess like this with a few lines of code.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## Python setup
+
+    NumPy has the FFT itself, SciPy the spectral estimators, pandas reads the data file, and Matplotlib draws the plots. The declared dependencies also include `psd2` for spectral summaries. Open this file in marimo; the EMG example needs access to the repository data. The synthetic examples need no data download.
+    """)
+    return
+
+
 @app.function
 def repo_file(path, *, base_url="https://raw.githubusercontent.com/BMClab/BMC/master/"):
     """Find a repository file beside this notebook, or fetch a temporary copy.
@@ -52,43 +92,6 @@ def repo_file(path, *, base_url="https://raw.githubusercontent.com/BMClab/BMC/ma
             temporary.unlink(missing_ok=True)
     return cached
 
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    # Fourier transform
-
-    > Marcos Duarte, Renato Naville Watanabe<br>
-    > [Laboratory of Biomechanics and Motor Control](https://bmclab.pesquisa.ufabc.edu.br/)<br>
-    > Federal University of ABC, Brazil
-    """)
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    ## How to use this guide
-
-    A signal recorded in time can also be described by the frequencies it contains. The Fourier transform is the mathematical tool that moves between the two descriptions, and the fast Fourier transform (FFT) is the algorithm that makes it practical. Filters, sampling rates, cutoff frequencies and the fatigue of a muscle are all discussed in terms of frequency, so it pays to be able to compute and read a spectrum yourself.
-
-    This notebook continues [Fourier series](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/fourier_series.py). It defines the Fourier transform and its discrete version, computes the FFT of simple signals and reads their amplitude and phase, shows the traps of a finite recording (frequency resolution and leakage), and then estimates the power spectral density of noisy signals and of a real muscle. It ends with the spectrogram, which shows how the frequency content changes in time. You will also need [Basic properties of signals](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/signal_basic_properties.py): sampling, the Nyquist frequency, power and RMS.
-
-    Read it in order and run each cell as you reach it. Try the distributed Exercises before opening their worked solutions. The final Problems have collapsed final answers for independent practice. Where you find a **Challenge** or a set of **Guiding questions**, stop and answer on a scratchpad before moving on. Several of them ask you to predict a number *before* the code prints it; the prediction is the point, and being wrong is the most useful thing that can happen to you here.
-
-    **Challenge 0.** Pick a signal from your own field: walking, a tremor, an EMG, the force under a runner's foot. Write down the range of frequencies you think it contains, from the lowest to the highest that matters. Keep it; by the end you will be able to check a guess like this with a few lines of code.
-    """)
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    ## Python setup
-
-    NumPy has the FFT itself, SciPy the spectral estimators, pandas reads the data file, and Matplotlib draws the plots. The declared dependencies also include `psd2` for spectral summaries. Open this file in marimo; the EMG example needs access to the repository data. The synthetic examples need no data download.
-    """)
-    return
 
 
 @app.cell

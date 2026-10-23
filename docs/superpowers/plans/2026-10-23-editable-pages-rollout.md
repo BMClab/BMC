@@ -38,3 +38,10 @@ successfully and normalizes Jekyll container output ownership. Native sources ar
   the remaining checks. No other notebook source or dependency changes intended.
 
 - Final browser batch: 88/88 pass. IEP was rechecked after the helper fix, including show=True. Current source/output hashes are recorded in editable-pages-results.json. Full suite after the fix:115tests235subtests; publication/live checks follow the prepared commit.
+
+- User steering: README's84molablinks now omit/wasm. Audited88notebooks and moved
+  unchanged repo_file cells after opening/Python setup in7guides, including
+  fourier_transform. No notebook starts with app.function. AST contents unchanged;
+  strict/native/browser checks pass for all7; fullsuite115tests235subtests passes.
+- Initial full rollout deployment39913984802 succeeded. The following publication
+  includes these approved presentation/link followups; final handoff records it.

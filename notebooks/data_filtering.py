@@ -9,6 +9,46 @@ __generated_with = "0.24.2"
 app = marimo.App(width="medium")
 
 
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    # Data filtering in signal processing
+
+    > Marcos Duarte, Renato Naville Watanabe<br>
+    > [Laboratory of Biomechanics and Motor Control](https://bmclab.pesquisa.ufabc.edu.br/)<br>
+    > Federal University of ABC, Brazil
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## How to use this guide
+
+    This notebook is an introduction to data filtering and to the most basic filters used to process biomechanical data: the moving average, the Butterworth filter, the critically damped filter and a few others. It starts from a concrete problem, getting an acceleration out of measured positions, and keeps coming back to it until the problem is solved reasonably well.
+
+    You should be familiar with the [basic properties of signals](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/signal_basic_properties.py) before proceeding: frequency, harmonics, sampling, noise and the signal-to-noise ratio. Finite differences, as used in [Kinematics of a particle](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/kinematics_particle.py), will also come up.
+
+    Read it in order and run each cell as you reach it. Work through the distributed Exercises before opening their solutions. The final Problems have collapsed final answers for independent practice. Where you find a **Challenge** or a set of **Guiding questions**, stop and answer on a scratchpad before moving on. Several of them ask you to predict a number *before* the code prints it; the prediction is the point, and being wrong is the most useful thing that can happen to you here.
+
+    **Challenge 0.** Think of a quantity you would like to know but can only get by differentiating a measured position: the acceleration of a body segment, the velocity of a marker, the jerk of a reaching movement. If the position has an error of 1 mm, guess how large the error in the acceleration will be. Write the guess down; you will be able to check its order of magnitude on real data in a moment.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## Python setup
+
+    NumPy and SciPy do the computation (SciPy's `signal` module has the filters), pandas reads the data files, and Matplotlib draws the plots. These packages are declared in the notebook metadata. Open the file in marimo; the Pezzack, EMG and ball-toss examples need access to the repository data. No motion-capture hardware or video software is needed to run the supplied examples.
+    """)
+    return
+
+
 @app.function
 def repo_file(path, *, base_url="https://raw.githubusercontent.com/BMClab/BMC/master/"):
     """Find a repository file beside this notebook, or fetch a temporary copy.
@@ -52,43 +92,6 @@ def repo_file(path, *, base_url="https://raw.githubusercontent.com/BMClab/BMC/ma
             temporary.unlink(missing_ok=True)
     return cached
 
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    # Data filtering in signal processing
-
-    > Marcos Duarte, Renato Naville Watanabe<br>
-    > [Laboratory of Biomechanics and Motor Control](https://bmclab.pesquisa.ufabc.edu.br/)<br>
-    > Federal University of ABC, Brazil
-    """)
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    ## How to use this guide
-
-    This notebook is an introduction to data filtering and to the most basic filters used to process biomechanical data: the moving average, the Butterworth filter, the critically damped filter and a few others. It starts from a concrete problem, getting an acceleration out of measured positions, and keeps coming back to it until the problem is solved reasonably well.
-
-    You should be familiar with the [basic properties of signals](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/signal_basic_properties.py) before proceeding: frequency, harmonics, sampling, noise and the signal-to-noise ratio. Finite differences, as used in [Kinematics of a particle](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/kinematics_particle.py), will also come up.
-
-    Read it in order and run each cell as you reach it. Work through the distributed Exercises before opening their solutions. The final Problems have collapsed final answers for independent practice. Where you find a **Challenge** or a set of **Guiding questions**, stop and answer on a scratchpad before moving on. Several of them ask you to predict a number *before* the code prints it; the prediction is the point, and being wrong is the most useful thing that can happen to you here.
-
-    **Challenge 0.** Think of a quantity you would like to know but can only get by differentiating a measured position: the acceleration of a body segment, the velocity of a marker, the jerk of a reaching movement. If the position has an error of 1 mm, guess how large the error in the acceleration will be. Write the guess down; you will be able to check its order of magnitude on real data in a moment.
-    """)
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    ## Python setup
-
-    NumPy and SciPy do the computation (SciPy's `signal` module has the filters), pandas reads the data files, and Matplotlib draws the plots. These packages are declared in the notebook metadata. Open the file in marimo; the Pezzack, EMG and ball-toss examples need access to the repository data. No motion-capture hardware or video software is needed to run the supplied examples.
-    """)
-    return
 
 
 @app.cell
