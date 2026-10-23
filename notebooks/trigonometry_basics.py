@@ -622,7 +622,7 @@ def _(mo):
 
     - [Trigonometric identities — Wikipedia](https://en.wikipedia.org/wiki/List_of_trigonometric_identities).
 
-    - [Trigonometry — S.O.S. Mathematics](http://www.sosmath.com/trig/trig.html).
+    - [Trigonometry — Coddy](https://coddy.tech/landing/trigonometry).
 
     - [Python's mathematical functions](https://docs.python.org/3/library/math.html#trigonometric-functions).
     """)

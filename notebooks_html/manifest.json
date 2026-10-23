@@ -854,10 +854,10 @@
     },
     {
       "source": "notebooks/trigonometry_basics.py",
-      "source_sha256": "0a699a08197d5e9938282d6cc3629072b0c880849d6e9e152e1844fb99ecf361",
+      "source_sha256": "8c3c5352cb160242e19134b554892eb7af84bd1bfe521d758765e9b6189ba0d0",
       "shared_inputs_sha256": "3b11bd67c8670eecd1072fde337d4888d9f8427a95dd22a5c07c4933fde97e5d",
       "html": "trigonometry_basics.html",
-      "html_sha256": "216036e36a6051884ce795d3a7248a41898e7331982124faf4c6d2f5515014f7",
+      "html_sha256": "fc04f660921123d9056e81e74718bc83ea0f23a5c71210e11850f5bc3ad66e47",
       "native_export": "passed",
       "cells": 34,
       "cells_with_saved_figures": 0
