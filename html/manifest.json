@@ -1,0 +1,41 @@
+{
+  "scope": "One notebook demonstration; other notebooks are not exported yet.",
+  "exporter": "marimo 0.25.1; executed native export with code and outputs, plus an HTML launch bar.",
+  "viewing": "No Python kernel, molab or marimo.app required. Display assets from a CDN and external images still need Internet access.",
+  "notebooks": [
+    {
+      "source": "../notebooks/body_segment_parameters.py",
+      "source_sha256": "65c5176ac5e713c8570f00917cb6b2aa980a954f1e89a38e0c56b405c3a9c127",
+      "html": "body_segment_parameters.html",
+      "html_sha256": "90613e91746edff32c47555eb936383ff7d000197f4017bf6eafece9ea538ea5",
+      "native_export": "passed",
+      "strict_check": "passed",
+      "browser": {
+        "engine": "Headless Chromium through Playwright; local file URL",
+        "viewports": [
+          [
+            1366,
+            950
+          ],
+          [
+            390,
+            844
+          ]
+        ],
+        "execution_services_blocked": [
+          "molab.marimo.io",
+          "marimo.app"
+        ],
+        "execution_service_requests": 0,
+        "rendered_tables": 6,
+        "rendered_matplotlib_plots": 1,
+        "rendered_math_expressions": 17,
+        "loaded_images_including_plot": 4,
+        "expandable_solution": "opened successfully",
+        "mobile_horizontal_overflow": false,
+        "page_errors": []
+      },
+      "plot_repair": "The plotting cell created an Axes without displaying it; hax is now its final expression. Calculations are unchanged."
+    }
+  ]
+}

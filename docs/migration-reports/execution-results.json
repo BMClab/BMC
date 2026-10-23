@@ -31,7 +31,9 @@
       "lab_acel_gravidade.py",
       "lab_filtros.py",
       "sistema_coordenadas.py"
-    ]
+    ],
+    "static_html_guides": 1,
+    "static_html_pilot": "body_segment_parameters.html"
   },
   "zenodo": {
     "file": ".zenodo.json",
@@ -101,7 +103,7 @@
       "native_html_sha256": "767e8044b3dbd0a6a1ff94d327fdcb1eebff19f38002133517a12db4a64981e2"
     },
     "body_segment_parameters": {
-      "sha256": "cac511360959cbfcd547f511a1eec7679206a40b9b32a17a17076723f66a7478",
+      "sha256": "65c5176ac5e713c8570f00917cb6b2aa980a954f1e89a38e0c56b405c3a9c127",
       "script": 0,
       "html": 0,
       "execution": 0,
@@ -109,8 +111,8 @@
       "native_script_export_sha256": "508bedf451166ed038e36c14f4b308ecc5e5c1dd058a1e03d501950ab4367665",
       "native_flat_execution_sha256": "508bedf451166ed038e36c14f4b308ecc5e5c1dd058a1e03d501950ab4367665",
       "webassembly_sha256": "508bedf451166ed038e36c14f4b308ecc5e5c1dd058a1e03d501950ab4367665",
-      "native_html_sha256": "cac511360959cbfcd547f511a1eec7679206a40b9b32a17a17076723f66a7478",
-      "changes_since_flat_and_webassembly_execution": "Presentation only: resolver moved below title/guide/setup with hidden source; figure-caption Markdown; broken external image replaced by credited repository JPEG displayed with one direct HTML img tag. Scientific computations, helper functions and PEP 723 metadata unchanged.",
+      "native_html_sha256": "65c5176ac5e713c8570f00917cb6b2aa980a954f1e89a38e0c56b405c3a9c127",
+      "changes_since_flat_and_webassembly_execution": "Presentation only: resolver moved below title/guide/setup with hidden source; figure-caption Markdown; broken external image replaced by credited repository JPEG displayed with one direct HTML img tag. Scientific computations, helper functions and PEP 723 metadata unchanged. The center-of-mass plotting cell now displays its existing Axes as the final expression; calculations unchanged.",
       "layout_check": {
         "first_cell": "Body segment parameters title and authors",
         "loader_cell_index": 3,
@@ -1283,5 +1285,12 @@
       "wikimedia_images": 22,
       "cloud_website_ui_tested": false
     }
+  },
+  "static_html_pilot": {
+    "manifest": "../../html/manifest.json",
+    "html_sha256": "90613e91746edff32c47555eb936383ff7d000197f4017bf6eafece9ea538ea5",
+    "native_html_source_sha256": "65c5176ac5e713c8570f00917cb6b2aa980a954f1e89a38e0c56b405c3a9c127",
+    "browser_validation": "Saved tables, plot, math, images and an expandable solution verified with both execution-service domains blocked; desktop and mobile layout checked.",
+    "source_repair": "Display existing hax as the final expression in its plot cell."
   }
 }

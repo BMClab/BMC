@@ -8,7 +8,9 @@ The notebooks in this repository use [marimo](https://marimo.io/). Each guide co
 
 ## Open a guide
 
-Click a guide title for its molab preview. The compact **molab** and **marimo** badges open an interactive browser session. The [Python sources](notebooks/) can also be downloaded and opened locally or uploaded to either service. Cloud links read the version published on this repository's `master` branch.
+**Static HTML demonstration:** the **Body segment parameters** title below opens its [static page](https://bmclab.github.io/BMC/html/body_segment_parameters.html), stored in [html/](html/), with saved text, tables and plots. Reading this version does not require molab or marimo.app. The other guide titles currently open molab previews.
+
+The compact **molab** and **marimo** badges open interactive versions where you can execute and edit the notebook. The static page also includes these launch badges. The [Python sources](notebooks/) can be downloaded and opened locally or uploaded to either service. Cloud links read the version published on this repository's `master` branch.
 
 For local use, install [uv](https://docs.astral.sh/uv/getting-started/installation/), clone the repository, and run these commands from its root:
 
@@ -73,7 +75,7 @@ Examples use bundled data when the repository is available. Standalone notebooks
 
 ## Dynamics and modeling
 
-- [Body segment parameters](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/body_segment_parameters.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/body_segment_parameters.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/body_segment_parameters.py)
+- [Body segment parameters](https://bmclab.github.io/BMC/html/body_segment_parameters.html) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/body_segment_parameters.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/body_segment_parameters.py)
 - [Center of Mass and Moment of Inertia](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/center_of_mass_and_moment_of_inertia.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/center_of_mass_and_moment_of_inertia.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/center_of_mass_and_moment_of_inertia.py)
 - [Free-Body Diagram for particles](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/fbd_particles.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/fbd_particles.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/fbd_particles.py)
 - [Free body diagram](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/free_body_diagram.py) [![molab][molab-badge]](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/free_body_diagram.py/wasm) [![marimo][marimo-badge]](https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/free_body_diagram.py)

@@ -342,6 +342,7 @@ def _(plt, r, rcm, rcm_foot, rcm_leg, rcm_thigh):
     hax.set_ylabel('y [m]')
     hax.set_title('Determination of center of mass', fontsize=16)
     hax.grid()
+    hax
     return
 
 
