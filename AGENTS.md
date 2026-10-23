@@ -20,7 +20,7 @@ notebook content and examples.
 
 ## Notebooks
 
-- `notebooks/*.py` — **marimo** notebooks, the active source-of-truth set (87), with snake_case filenames. They are
+- `notebooks/*.py` — **marimo** notebooks, the active source-of-truth set (88), with snake_case filenames. They are
   *reactive*: edit with `uv run marimo edit <file>`. Do **not** run them as plain scripts —
   `python file.py` only hits the `app.run()` guard, never the cell bodies.
 - The Jupyter migration is complete: do not add `.ipynb` notebooks or Jupyter dependencies

@@ -69,7 +69,7 @@ does not prove that every intended display is visible.
 
 ## Editable GitHub Pages and automatic publication
 
-All 87 guides and the course lecture are exported in editable mode. The configuration
+All 88 notebooks are exported in editable mode. The configuration
 `scripts/notebooks.json` contains `{"include": "all"}`, so new marimo notebooks added under
 `notebooks/` or `courses/` are discovered automatically. Every README guide title opens
 its editor; mode-navigation links provide the corresponding saved version.

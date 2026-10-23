@@ -12,8 +12,8 @@ The HTML uses marimo's display assets from a CDN and the original image links,
 so an Internet connection is still needed for those resources. Neither notebook
 execution service is needed to read the page.
 
-The Python sources remain in [notebooks/](../notebooks/) and [courses/](../courses/).
-All 87 guides and the 2026 course lecture are included. Main guide exports use
+The 88 Python notebook sources remain in [notebooks/](../notebooks/).
+All are included. Main guide exports use
 the source filename with an `.html` extension; course exports preserve their
 directory structure under `notebooks_html/courses/`.
 
