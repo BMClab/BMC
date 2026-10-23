@@ -13,8 +13,8 @@
     "limitations": "Does not test marimo.app or molab website UI, service package resolution, or browser CORS. A shared runtime includes the union of required packages; standalone dependency declarations were reviewed separately."
   },
   "suite": {
-    "tests_passed": 106,
-    "subtests_passed": 232,
+    "tests_passed": 112,
+    "subtests_passed": 235,
     "expected_c3d_fixture_warnings": 2
   },
   "structural_check": {
@@ -32,9 +32,10 @@
       "lab_filtros.py",
       "sistema_coordenadas.py"
     ],
-    "static_html_guides": 84,
+    "static_html_guides": 83,
     "static_html_pilot": "body_segment_parameters.html",
-    "title_target": "GitHub Pages static HTML; both compact badges remain interactive"
+    "title_target": "Body segment parameters: editable GitHub Pages pilot; other 83 titles: read-only GitHub Pages",
+    "editable_html_guides": 1
   },
   "zenodo": {
     "file": ".zenodo.json",
@@ -1290,7 +1291,7 @@
     }
   },
   "static_html_pilot": {
-    "manifest": "Historical pilot manifest is in commit d05435c; the current ../../html/manifest.json covers the full collection",
+    "manifest": "Historical pilot manifest is in commit d05435c; the current ../../notebooks_read/manifest.json covers the read-only collection",
     "html_sha256": "90613e91746edff32c47555eb936383ff7d000197f4017bf6eafece9ea538ea5",
     "native_html_source_sha256": "65c5176ac5e713c8570f00917cb6b2aa980a954f1e89a38e0c56b405c3a9c127",
     "browser_validation": "Saved tables, plot, math, images and an expandable solution verified with both execution-service domains blocked; desktop and mobile layout checked.",
@@ -1298,7 +1299,7 @@
   },
   "static_html_collection": {
     "date": "2026-10-23",
-    "manifest": "../../html/manifest.json",
+    "manifest": "../../notebooks_read/manifest.json",
     "updater": "../../scripts/export_notebooks.py",
     "instructions": "../../scripts/README.md",
     "browser_validation": "static-html-browser-results.json",
@@ -1306,7 +1307,7 @@
     "course_notebooks": 1,
     "native_exports_passed": 88,
     "freshness_check": "88/88 current; incremental run 0 exported, 88 unchanged, 0 failed",
-    "readme_static_titles": 84,
+    "readme_static_titles": 83,
     "interactive_badges": 168,
     "saved_figure_cells": 319,
     "display_repairs": {
@@ -1343,7 +1344,8 @@
     "scientific_computations_and_pep723_metadata_preserved": true,
     "theme": "jekyll-theme-cayman; title/description configured and downloads disabled",
     "media_exceptions": "The four previously unavailable laboratory images now use repository assets. All images loaded in post-restoration browser checks; prepublication image requests for the three edited guides were served from their actual local files.",
-    "reading_requirements": "Static read-only snapshots; no Python kernel, molab or marimo.app needed. CDN display assets and external media still need Internet access."
+    "reading_requirements": "Static read-only snapshots; no Python kernel, molab or marimo.app needed. CDN display assets and external media still need Internet access.",
+    "directory": "notebooks_read"
   },
   "media_restoration_2026_10_23": {
     "copied_assets": [
@@ -1394,5 +1396,15 @@
     "scientific_computations_and_pep723_metadata_preserved": true,
     "cloud_execution_ui_tested": false,
     "external_article_references_retained": true
+  },
+  "editable_pages_pilot": {
+    "notebook": "notebooks/body_segment_parameters.py",
+    "mode": "edit",
+    "approved_list": "../../notebooks_edit/notebooks.json",
+    "builder": "../../scripts/export_editable.py",
+    "workflow": "../../.github/workflows/pages.yml",
+    "read_directory": "notebooks_read",
+    "edit_directory": "notebooks_edit",
+    "notes": "One editable pilot only. Native WASM execution and a real editor change from 42 to 48 verified locally. Deployment results are recorded in the final handoff."
   }
 }

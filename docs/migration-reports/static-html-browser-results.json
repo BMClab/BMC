@@ -1481,5 +1481,8 @@
       "initial_image_elements": 6
     }
   ],
-  "additional_blocked_host": "bmclab.pesquisa.ufabc.edu.br"
+  "additional_blocked_host": "bmclab.pesquisa.ufabc.edu.br",
+  "snapshot_commit": "d58c744",
+  "snapshot_directory": "html",
+  "historical_note": "Full static browser validation before relocation to notebooks_read/. The Python sources are unchanged; editable pilot validation is recorded separately."
 }

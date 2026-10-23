@@ -1,0 +1,42 @@
+{
+  "date": "2026-10-23",
+  "source": "notebooks/body_segment_parameters.py",
+  "source_sha256": "65c5176ac5e713c8570f00917cb6b2aa980a954f1e89a38e0c56b405c3a9c127",
+  "marimo": "0.25.1",
+  "editable_html_sha256": "b1c40d0c8930b31a7da7b94e41327f4fcfcf1283b1f600a8682bc7edd50e8403",
+  "approved_editable_notebooks": 1,
+  "read_only_native_exports_passed": 88,
+  "read_only_freshness": "88/88 current",
+  "local_browser": {
+    "runtime": "actual Chromium WebAssembly Python; no computation stubs",
+    "url_prefix": "/BMC/",
+    "blocked_execution_services": [
+      "molab.marimo.io",
+      "marimo.app"
+    ],
+    "tables": 6,
+    "saved_plot": 1,
+    "source_edit_and_recomputation": {
+      "before": 42,
+      "after": 48,
+      "edit": "6 * 7 -> 6 * 8 in a new scratch cell",
+      "method": "Add-cell button, CodeMirror keyboard editing and Ctrl+Enter"
+    },
+    "navigation": {
+      "read_mode": "/BMC/notebooks_read/body_segment_parameters.html",
+      "legacy_redirect_preserves_query_and_fragment": true,
+      "edit_link_present": true
+    },
+    "desktop_editor_visible_below_navigation": true,
+    "mobile_navigation_fits": true,
+    "mobile_runtime_execution_tested": false,
+    "page_errors": []
+  },
+  "tests": {
+    "passed": 112,
+    "subtests_passed": 235,
+    "expected_c3d_fixture_warnings": 2
+  },
+  "review": "Fresh independent review: Ready; no Critical, Important or Minor findings",
+  "deployment": "Actions publication and live verification follow the prepared commit; final handoff records results"
+}

@@ -135,3 +135,6 @@ dmypy.json
 .claude/
 /CLAUDE.md
 /CLAUDE.local.md
+
+# Generated GitHub Pages build (including editable WASM assets)
+/_site/

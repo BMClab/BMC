@@ -42,7 +42,7 @@ Current source SHA-256, per-stage executed source SHA-256, and terminal outcomes
 
 | Check | Result |
 | --- | --- |
-| Full local suite, `uv run pytest -q` | **106 tests and 232 subtests passed**; two expected warnings from synthetic C3D fixtures without analog data/labels |
+| Full local suite, `uv run pytest -q` | **112 tests and 235 subtests passed**; two expected warnings from synthetic C3D fixtures without analog data/labels |
 | `uv lock --check` | Passed |
 | `uv run marimo check --strict notebooks/*.py` | **87 passed** |
 | `uv run marimo check --strict --select MW notebooks/*.py` | **87 passed** |
@@ -107,7 +107,7 @@ Browser inspection caught a missing plot: its cell created `hax` but did not dis
 
 After approval of the demonstration, all **87 guides and the 2026 course lecture** were exported to `html/`. Each page includes saved text, tables and figures, an All guides link and two source-specific interactive launch badges. All 84 README titles now link to static GitHub Pages versions; the 168 compact interactive badges and the requested index omissions remain. Internal reading links stay within the HTML collection, including expandable solutions and section anchors. The audit verifies **414 local reading links**, with no missing page or unresolved section target. Ten outdated source/section links in seven guides were corrected using the actual current names and headings.
 
-The reusable [exporter](../../scripts/export_notebooks.py) and [instructions](../../scripts/README.md) support full, single-notebook, incremental, forced and read-only freshness-check runs. It records source, shared-input and output hashes in [the manifest](../../html/manifest.json). Shared asset/helper/dependency/exporter changes invalidate cached outputs. Failed execution or an invalid export preserves the previous good page and returns failure. Remote input changes require `--force`. No production dependency was added.
+The reusable [exporter](../../scripts/export_notebooks.py) and [instructions](../../scripts/README.md) support full, single-notebook, incremental, forced and read-only freshness-check runs. It records source, shared-input and output hashes in [the manifest](../../notebooks_read/manifest.json). Shared asset/helper/dependency/exporter changes invalidate cached outputs. Failed execution or an invalid export preserves the previous good page and returns failure. Remote input changes require `--force`. No production dependency was added.
 
 The display audit repaired **16 cells in nine guides** that created plots without displaying them, or discarded an accordion by closing its figure as the final expression. These fixes expose existing figures and final-answer panels. Comparison against `d05435c` confirms that scientific computations and standalone dependency metadata are unchanged in all 87 guides. The collection includes **319 cells with saved figures**. Earlier flat-script and WebAssembly execution hashes are retained; this follow-up reran native reactive HTML, not the cloud execution UI or WebAssembly computations.
 
@@ -142,3 +142,27 @@ Strict checks pass for the three changed guides, and the caption regression
 passes **one test and 119 subtests**. Comparison confirms that computations and
 standalone dependency metadata are unchanged. The inventory and native execution
 hashes were updated; historical flat-script/WebAssembly results remain separate.
+
+## Editable GitHub Pages pilot — 2026-10-23
+
+At the user's request, saved HTML has moved from `html/` to `notebooks_read/`.
+The body-segment guide is the only editable pilot: its README title points to
+`notebooks_edit/body_segment_parameters.html`. The other 83 README title links
+point to saved versions; the 168 existing service badges and index omissions
+are preserved. Python notebook sources and their computations are unchanged.
+Earlier full-static browser results identify their historical snapshot commit.
+
+The new Pages workflow refreshes read-only outputs in the locked environment,
+builds Cayman with the official Jekyll action, exports only the explicit approved
+list in edit mode, then uploads and deploys the combined site. Editable HTML and
+browser assets are generated in the Pages artifact rather than committed. Legacy
+`/html/` reading URLs redirect to the saved pages, preserving query/section values.
+The updater, failure cases and native editable export are covered by tests.
+
+Local browser execution loads all six data tables and the plot. Actual keyboard
+editing and cell execution change a computed result from 42 to 48, with both
+execution-service domains blocked. Mode navigation and project-prefix assets
+are included in the pilot verification. The full local suite passes 112 tests
+and 235 subtests with the same two expected C3D fixture warnings. Publication
+through Actions and live verification follow the prepared commit; their results
+are recorded in the final handoff.

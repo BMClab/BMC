@@ -21,6 +21,8 @@ from urllib.parse import urlsplit, urlunsplit
 import marimo
 
 ROOT = Path(__file__).resolve().parents[1]
+READ_DIR = "notebooks_read"
+EDITABLE_LIST = "notebooks_edit/notebooks.json"
 SESSION = re.compile(r'(?m)^(\s*"session": )(.+)(,\s*)$')
 PREVIEW = re.compile(
     r"https://molab\.marimo\.io/github/BMClab/BMC/blob/master/"
@@ -77,6 +79,26 @@ def discover(root: Path) -> list[PurePosixPath]:
     ]
 
 
+def editable_sources(root: Path) -> list[PurePosixPath]:
+    registry = root / EDITABLE_LIST
+    if not registry.is_file():
+        return []
+    values = json.loads(registry.read_text())
+    if not isinstance(values, list) or any(
+        not isinstance(value, str) for value in values
+    ):
+        raise ValueError(
+            f"{EDITABLE_LIST} must contain a list of notebook source paths"
+        )
+    known = set(discover(root))
+    paths = [PurePosixPath(value) for value in values]
+    if len(paths) != len(set(paths)) or any(path not in known for path in paths):
+        raise ValueError(
+            f"{EDITABLE_LIST} contains duplicate or unknown notebook sources"
+        )
+    return paths
+
+
 def badge(label: str, url: str, width: int, color: str) -> str:
     return f'''<a href="{escape(url, quote=True)}" target="_blank" rel="noopener noreferrer" aria-label="Run this notebook in {label}">
       <svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="26" viewBox="0 0 {width} 26" role="img" aria-label="{label}">
@@ -87,7 +109,11 @@ def badge(label: str, url: str, width: int, color: str) -> str:
 
 
 def decorate_export(
-    document: str, source: PurePosixPath, sources: list[PurePosixPath]
+    document: str,
+    source: PurePosixPath,
+    sources: list[PurePosixPath],
+    *,
+    editable_sources=(),
 ) -> tuple[str, dict]:
     """Rewrite saved reading links, preserving original code and live launch URLs."""
     match = SESSION.search(document)
@@ -152,10 +178,14 @@ def decorate_export(
         108,
         "#235b43",
     )
+    edit_link = ""
+    if source in editable_sources:
+        target = local(PurePosixPath("../notebooks_edit") / output_path(source))
+        edit_link = f'<a href="{target}">Edit in browser</a> · '
     nav = f'''
 <nav id="bmc-static-navigation" aria-label="Notebook viewing and execution modes">
   <p><a href="{local("index.html")}">All guides</a> · <strong>Static version</strong> · Saved text, tables and plots</p>
-  <div class="bmc-launches"><span>Run interactively:</span>{launches}</div>
+  <div class="bmc-launches">{edit_link}<span>Run interactively:</span>{launches}</div>
 </nav>
 '''
     document = document.replace("</head>", STYLE + "</head>", 1).replace(
@@ -177,7 +207,7 @@ def shared_digest(root: Path, sources: list[PurePosixPath]) -> str:
         f"{sys.version}\n{marimo.__version__}\n{digest(Path(__file__))}\n".encode()
     )
     hasher.update("\n".join(map(str, sources)).encode())
-    paths = [root / name for name in ("pyproject.toml", "uv.lock")]
+    paths = [root / name for name in ("pyproject.toml", "uv.lock", EDITABLE_LIST)]
     for directory in ("data", "functions", "images"):
         paths += [
             path
@@ -240,10 +270,12 @@ def export_one(
         )
         if result.returncode:
             raise RuntimeError((result.stdout + result.stderr)[-6000:])
-        page, statistics = decorate_export(native.read_text(), source, sources)
+        page, statistics = decorate_export(
+            native.read_text(), source, sources, editable_sources=editable_sources(root)
+        )
     if digest(root / source) != source_sha:
         raise RuntimeError("Notebook changed during execution; rerun the exporter")
-    destination = root / "html" / output_path(source)
+    destination = root / READ_DIR / output_path(source)
     atomic_write(destination, page)
     return {
         "source": str(source),
@@ -257,7 +289,7 @@ def export_one(
 
 
 def is_current(root: Path, source: PurePosixPath, entry: dict, shared: str) -> bool:
-    destination = root / "html" / output_path(source)
+    destination = root / READ_DIR / output_path(source)
     return bool(
         not entry.get("last_error")
         and destination.is_file()
@@ -288,7 +320,7 @@ def notebook_title(path: Path) -> str:
 def write_catalog(root: Path, sources: list[PurePosixPath]) -> None:
     items = []
     for source in sources:
-        if not (root / "html" / output_path(source)).is_file():
+        if not (root / READ_DIR / output_path(source)).is_file():
             continue
         label = notebook_title(root / source)
         items.append(f'<li><a href="{output_path(source)}">{escape(label)}</a></li>')
@@ -301,7 +333,7 @@ def write_catalog(root: Path, sources: list[PurePosixPath]) -> None:
         + "\n".join(items)
         + "\n</ul></body></html>\n"
     )
-    atomic_write(root / "html/index.html", page)
+    atomic_write(root / READ_DIR / "index.html", page)
 
 
 def main(argv: list[str] | None = None, *, root: Path = ROOT) -> int:
@@ -335,6 +367,10 @@ def main(argv: list[str] | None = None, *, root: Path = ROOT) -> int:
         parser.error("--jobs and --timeout must be positive")
     sources = discover(root)
     try:
+        editable_sources(root)
+    except ValueError as error:
+        parser.error(str(error))
+    try:
         selected = (
             list(
                 dict.fromkeys(
@@ -351,7 +387,7 @@ def main(argv: list[str] | None = None, *, root: Path = ROOT) -> int:
     for source in selected:
         if source not in sources:
             parser.error(f"Not a repository notebook: {source}")
-    manifest_path = root / "html/manifest.json"
+    manifest_path = root / READ_DIR / "manifest.json"
     try:
         previous = json.loads(manifest_path.read_text())
     except FileNotFoundError, json.JSONDecodeError:
