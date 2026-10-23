@@ -49,3 +49,5 @@
 - Final unmodified generated page: editor visibly fills the viewport below navigation; actual edit 42→48, read-mode switch, old URL query/fragment preservation and mobile navigation fit all pass under `/BMC/`.
 - Fresh independent review: Ready; no Critical, Important or Minor findings. Reviewer declined only live Actions/hosted behavior; those are the remaining publication checks below, not omitted scope.
 - Final local suite after the layout fix: 112 tests and 235 subtests passed, with two expected C3D warnings. New/changed scripts and tests pass Ruff. README preserves all168servicebadges and has83savedtitlesplus1editabletitle.
+
+- First Actions run 39909126211: all 88 read-only refreshes and the Cayman/Jekyll build passed. The editable step failed creating its staging directory because Docker-created `_site/` was root-owned. Deployment was correctly skipped and the previous live site retained. Added an ownership-normalization step before post-processing; the next actual Actions run is the regression check for this runner-only condition.

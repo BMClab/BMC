@@ -77,7 +77,9 @@ while other guide titles open saved versions.
 `.github/workflows/pages.yml` runs on every push to `master` and supports manual
 runs from the Actions tab. It installs the locked environment, refreshes saved
 outputs, builds the existing Cayman site with Jekyll, then adds editable pages
-using `marimo export html-wasm --mode edit`. The complete site is uploaded and
+using `marimo export html-wasm --mode edit`. The workflow first restores runner
+ownership of Jekyll’s container-created output so the Python exporter can write
+its additional files. The complete site is uploaded and
 deployed only after successful build steps. Generated editor assets live in the
 Pages artifact, not Git. Pages must use **GitHub Actions** as its publishing source.
 

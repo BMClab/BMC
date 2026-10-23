@@ -35,6 +35,8 @@ jobs:
         with:
           source: ./
           destination: ./_site
+      - name: Allow post-processing of the container-built site
+        run: sudo chown -R "$(id -u):$(id -g)" _site
       - name: Export approved editable notebooks
         run: uv run python scripts/export_editable.py --site _site
       - name: Upload complete site
