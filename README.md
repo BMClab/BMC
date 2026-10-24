@@ -55,29 +55,21 @@ To refresh the saved pages after editing a notebook, use [the export/update scri
 - [Descriptive statistics of data](https://bmclab.github.io/BMC/notebooks_html/statistics_descriptive.html)
 - [Bayesian Statistics](https://bmclab.github.io/BMC/notebooks_html/statistics_bayesian.html)
 - Confidence and prediction intervals
-
     - [Confidence and prediction intervals](https://bmclab.github.io/BMC/notebooks_html/confidence_prediction_intervals.html)
     - [Prediction ellipse and prediction ellipsoid](https://bmclab.github.io/BMC/notebooks_html/prediction_ellipse_ellipsoid.html)
-
 - Curve fitting
-
     - [Curve fitting](https://bmclab.github.io/BMC/notebooks_html/curve_fitting.html)
     - [Polynomial fitting with confidence/prediction intervals](https://bmclab.github.io/BMC/notebooks_html/polynomial_fitting.html)
-
 - [Propagation of uncertainty (error)](https://bmclab.github.io/BMC/notebooks_html/propagation_uncertainty.html)
 - Frequency analysis
-
     - [Basic properties of signals](https://bmclab.github.io/BMC/notebooks_html/signal_basic_properties.html)
     - [Fourier series](https://bmclab.github.io/BMC/notebooks_html/fourier_series.html)
     - [Fourier transform](https://bmclab.github.io/BMC/notebooks_html/fourier_transform.html)
-
 - Signal processing
-
     - [Data filtering in signal processing](https://bmclab.github.io/BMC/notebooks_html/data_filtering.html)
     - [Residual analysis to determine the optimal cutoff frequency](https://bmclab.github.io/BMC/notebooks_html/residual_analysis.html)
     - [Replace missing data](https://bmclab.github.io/BMC/notebooks_html/rep_missing.html)
     - [Resample a sampled signal](https://bmclab.github.io/BMC/notebooks_html/resample.html)
-
 - [Introduction to numerical solution of Ordinary Differential Equation](https://bmclab.github.io/BMC/notebooks_html/ordinary_differential_equation.html)
 - [Optimization](https://bmclab.github.io/BMC/notebooks_html/optimization.html)
 - [Change detection](https://github.com/demotu/detecta)
@@ -85,7 +77,6 @@ To refresh the saved pages after editing a notebook, use [the export/update scri
 - [Ensemble average](https://bmclab.github.io/BMC/notebooks_html/ensemble_average.html)
 - [Select data vectors by similarity using a metric score](https://bmclab.github.io/BMC/notebooks_html/similarity.html)
 - Data files
-
     - [Text and binary files](https://bmclab.github.io/BMC/notebooks_html/text_and_binary_files.html)
     - [pandas Data](https://bmclab.github.io/BMC/notebooks_html/pandas_data.html)
     - [Open C3D files](https://bmclab.github.io/BMC/notebooks_html/open_c3d_file.html)
@@ -94,7 +85,6 @@ To refresh the saved pages after editing a notebook, use [the export/update scri
     - [Read and write Cortex ASCII files](https://bmclab.github.io/BMC/notebooks_html/read_mac_ascii_files.html)
     - [Read Cortex Motion Analysis Corporation .trc file](https://bmclab.github.io/BMC/notebooks_html/read_trc.html)
     - [Read Cortex Motion Analysis Corporation .trc and .forces files (example)](https://bmclab.github.io/BMC/notebooks_html/read_trc_forces_files.html)
-
 - [Direct Linear Transformation (DLT)](https://bmclab.github.io/BMC/notebooks_html/dlt.html)
 
 ## Mechanics
@@ -106,14 +96,11 @@ To refresh the saved pages after editing a notebook, use [the export/update scri
 - [Path frame](https://bmclab.github.io/BMC/notebooks_html/path_frame.html)
 - [Polar and Cylindrical Frame of Reference](https://bmclab.github.io/BMC/notebooks_html/polar_basis.html)
 - Particle kinematics
-
     - [Kinematics of a particle](https://bmclab.github.io/BMC/notebooks_html/kinematics_particle.html)
     - [Projectile motion](https://bmclab.github.io/BMC/notebooks_html/projectile_motion.html)
     - [Spatial and temporal characteristics of a movement pattern](https://bmclab.github.io/BMC/notebooks_html/spatial_temporal_characteristics.html)
     - [The minimum jerk hypothesis](https://bmclab.github.io/BMC/notebooks_html/minimum_jerk_hypothesis.html)
-
 - Rigid-body kinematics
-
     - [Angular kinematics in a plane (2D)](https://bmclab.github.io/BMC/notebooks_html/kinematics_angular_2d.html)
     - [Kinematic chain in a plane (2D)](https://bmclab.github.io/BMC/notebooks_html/kinematic_chain.html)
     - [Velocity and acceleration of a point of a rigid body](https://bmclab.github.io/BMC/notebooks_html/kinematics_of_rigid_body.html)
@@ -131,10 +118,8 @@ To refresh the saved pages after editing a notebook, use [the export/update scri
 - [Motion of a particle - Newtonian approach](https://bmclab.github.io/BMC/notebooks_html/newton_law_for_particles.html)
 - [Newton-Euler equations for rigid bodies](https://bmclab.github.io/BMC/notebooks_html/newton_euler_equations.html)
 - [Free body diagram](https://bmclab.github.io/BMC/notebooks_html/free_body_diagram.html)
-
     - [Free-Body Diagram for particles](https://bmclab.github.io/BMC/notebooks_html/fbd_particles.html)
     - [Free Body Diagram for Rigid Bodies](https://bmclab.github.io/BMC/notebooks_html/free_body_diagram_for_rigid_bodies.html)
-
 - [Three-dimensional rigid body kinetics](https://bmclab.github.io/BMC/notebooks_html/kinetics_3d_rigid_body.html)
 - [Matrix Formalism of the  Equations of Movement](https://bmclab.github.io/BMC/notebooks_html/matrix_formalism.html)
 - [Lagrangian mechanics](https://bmclab.github.io/BMC/notebooks_html/lagrangian_mechanics.html)
@@ -160,7 +145,6 @@ To refresh the saved pages after editing a notebook, use [the export/update scri
 - [Biomechanical analysis of vertical jumps](https://bmclab.github.io/BMC/notebooks_html/vertical_jump.html)
 - [Inverse dynamics (2D) for gait analysis](https://bmclab.github.io/BMC/notebooks_html/gait_analysis_2d.html)
 - Force plates
-
     - [Algorithm for force plate calibration](https://bmclab.github.io/BMC/notebooks_html/force_plate_calibration.html)
     - [Open AMTI .bsf file](https://bmclab.github.io/BMC/notebooks_html/amti_bsf_file.html)
     - [Kistler force plate calculation](https://bmclab.github.io/BMC/notebooks_html/kistler_force_plate_calculation.html)
