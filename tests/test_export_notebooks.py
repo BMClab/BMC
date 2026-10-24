@@ -55,7 +55,10 @@ class StaticPageTests(unittest.TestCase):
         self.assertIn(preview + "/wasm", page)
         self.assertIn("https://en.wikipedia.org/wiki/Frame_of_reference", page)
         self.assertIn('<script id="source">' + preview, page)
-        self.assertIn("/master/notebooks/example.py/wasm", page)
+        self.assertIn(
+            'href="https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/example.py"',
+            page,
+        )
         self.assertIn(
             "https://marimo.app/github.com/BMClab/BMC/blob/master/notebooks/example.py",
             page,
@@ -63,7 +66,10 @@ class StaticPageTests(unittest.TestCase):
 
     def test_course_launch_and_catalog_links_use_the_course_path(self):
         page, _ = exporter.decorate_export(native_html(), self.paths[2], self.paths)
-        self.assertIn("/master/courses/2026/example.py/wasm", page)
+        self.assertIn(
+            'href="https://molab.marimo.io/github/BMClab/BMC/blob/master/courses/2026/example.py"',
+            page,
+        )
         self.assertIn('href="../../index.html"', page)
         self.assertEqual(
             exporter.output_path(self.paths[2]),

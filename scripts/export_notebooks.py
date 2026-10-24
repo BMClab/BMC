@@ -185,7 +185,7 @@ def decorate_export(
     path = str(source)
     launches = badge(
         "molab",
-        f"https://molab.marimo.io/github/BMClab/BMC/blob/master/{path}/wasm",
+        f"https://molab.marimo.io/github/BMClab/BMC/blob/master/{path}",
         "https://marimo.io/molab-shield.svg",
     )
     launches += badge(
