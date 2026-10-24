@@ -203,7 +203,7 @@ def decorate_export(
       </svg><span>Edit in browser</span></a>'''
     nav = f'''
 <nav id="bmc-static-navigation" aria-label="Notebook viewing and execution modes">
-  <p><a href="{local("index.html")}">All guides</a> · <strong>Static version</strong> · Saved text, tables and plots</p>
+  <p><a href="{local("index.html")}">All guides</a> · <strong>Static version</strong></p>
   <div class="bmc-launches">{edit_link}{launches}</div>
 </nav>
 '''
