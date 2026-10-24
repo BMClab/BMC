@@ -36,20 +36,39 @@ STYLE = """
   body { display: flex; flex-direction: column; height: 100vh; margin: 0; }
   #root { flex: 1; min-height: 0; height: 0; }
   #bmc-static-navigation {
+    --bmc-launch-icon-height: 16px;
+    --bmc-control-height: 28px;
     position: relative; z-index: 100; flex: none;
     display: flex; align-items: center; justify-content: space-between;
     flex-wrap: wrap; gap: 8px 24px; padding: 12px 24px;
-    background: #f8fafc; color: #172b3a; border-bottom: 1px solid #d8e1e8;
-    font: 14px/1.4 system-ui, sans-serif;
+    background: var(--background, Canvas); color: var(--foreground, CanvasText);
+    border-bottom: 1px solid var(--border, GrayText);
+    font-family: var(--marimo-text-font, var(--text-font, sans-serif));
+    font-size: 14px; line-height: 1.4;
   }
   #bmc-static-navigation p { margin: 0; }
-  #bmc-static-navigation .bmc-launches { display: flex; align-items: center; gap: 10px; }
-  #bmc-static-navigation a { display: inline-flex; border-radius: 4px; }
-  #bmc-static-navigation a:focus-visible { outline: 3px solid #2563eb; outline-offset: 3px; }
-  #bmc-static-navigation svg { display: block; }
+  #bmc-static-navigation .bmc-launches { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
+  #bmc-static-navigation a { display: inline-flex; border-radius: 4px; color: var(--link, LinkText); }
+  #bmc-static-navigation a:focus-visible { outline: 3px solid var(--link, Highlight); outline-offset: 3px; }
+  #bmc-static-navigation .bmc-launches > a { min-height: var(--bmc-control-height); align-items: center; }
+  #bmc-static-navigation .bmc-launches img { display: block; height: var(--bmc-control-height); width: auto; }
+  #bmc-static-navigation .bmc-edit-button {
+    align-items: center; justify-content: center; gap: 6px;
+    box-sizing: border-box; min-height: var(--bmc-control-height); padding: 0 12px;
+    border: 1px solid var(--input, ButtonBorder);
+    background: var(--secondary, ButtonFace); color: var(--secondary-foreground, ButtonText);
+    font-family: inherit;
+    font-weight: 600; text-decoration: none;
+  }
+  #bmc-static-navigation .bmc-edit-button:hover {
+    background: var(--accent, ButtonFace); color: var(--accent-foreground, ButtonText);
+  }
+  #bmc-static-navigation .bmc-edit-button:active {
+    background: var(--muted, ButtonFace); color: var(--foreground, ButtonText);
+  }
+  #bmc-static-navigation .bmc-edit-button svg { flex: none; width: var(--bmc-launch-icon-height); height: var(--bmc-launch-icon-height); }
   @media (max-width: 540px) {
     #bmc-static-navigation { padding: 10px 14px; }
-    #bmc-static-navigation .bmc-launches { flex-wrap: wrap; }
   }
   @media print { #bmc-static-navigation { display: none; } }
 </style>
@@ -101,13 +120,9 @@ def editable_sources(root: Path) -> list[PurePosixPath]:
     return paths
 
 
-def badge(label: str, url: str, width: int, color: str) -> str:
+def badge(label: str, url: str, image_url: str) -> str:
     return f'''<a href="{escape(url, quote=True)}" target="_blank" rel="noopener noreferrer" aria-label="Run this notebook in {label}">
-      <svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="26" viewBox="0 0 {width} 26" role="img" aria-label="{label}">
-        <rect width="{width}" height="26" rx="4" fill="{color}"/>
-        <path d="M10 8 L10 18 L18 13 Z" fill="white"/>
-        <text x="24" y="17" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="white">{label}</text>
-      </svg></a>'''
+      <img src="{escape(image_url, quote=True)}" alt="Open in {label}" height="28"/></a>'''
 
 
 def decorate_export(
@@ -171,23 +186,25 @@ def decorate_export(
     launches = badge(
         "molab",
         f"https://molab.marimo.io/github/BMClab/BMC/blob/master/{path}/wasm",
-        70,
-        "#334155",
+        "https://marimo.io/molab-shield.svg",
     )
     launches += badge(
         "marimo.app",
         f"https://marimo.app/github.com/BMClab/BMC/blob/master/{path}",
-        108,
-        "#235b43",
+        "https://marimo.io/shield.svg",
     )
     edit_link = ""
     if source in editable_sources:
         target = local(PurePosixPath("..") / output_path(source))
-        edit_link = f'<a href="{target}">Edit in browser</a> · '
+        edit_link = f'''<a class="bmc-edit-button" href="{target}">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+        <path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+        <path d="m16 3 5 5-10 10-5 1 1-5Z"/>
+      </svg><span>Edit in browser</span></a>'''
     nav = f'''
 <nav id="bmc-static-navigation" aria-label="Notebook viewing and execution modes">
   <p><a href="{local("index.html")}">All guides</a> · <strong>Static version</strong> · Saved text, tables and plots</p>
-  <div class="bmc-launches">{edit_link}<span>Run interactively:</span>{launches}</div>
+  <div class="bmc-launches">{edit_link}{launches}</div>
 </nav>
 '''
     document = document.replace("</head>", STYLE + "</head>", 1).replace(

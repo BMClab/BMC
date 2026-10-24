@@ -9,8 +9,8 @@ uv run python scripts/export_notebooks.py
 
 The updater executes every new or changed guide in `notebooks/` and every course
 notebook in `courses/`. It writes saved outputs and source code under `notebooks_html/`,
-adds source-specific molab/marimo.app launch badges, and refreshes the static
-catalog at `notebooks_html/index.html`. Reading links to other guides point to their local
+adds source-specific launch links with the official molab/marimo badges, and
+refreshes the static catalog at `notebooks_html/index.html`. Reading links to other guides point to their local
 HTML pages. Explicit interactive launch links and external references are kept.
 
 Update one notebook:
@@ -55,8 +55,9 @@ New notebook titles can be added to the README's existing bullet list manually.
 
 The updater uses `marimo export html`: these pages contain saved outputs rather
 than a Python runtime. Expandable solutions work, while controls that require
-Python cannot recompute results. The launch badges open the same notebook in
-interactive mode. Reading the static pages needs neither execution service;
+Python cannot recompute results. The **Edit in browser** button and launch badges
+open the same notebook in interactive mode. The header uses the notebook's active
+theme colors and text font. Reading the static pages needs neither execution service;
 the marimo display assets from a CDN and linked external media still need an
 Internet connection. These saved pages are distinct from the editable WASM exports below.
 
@@ -72,7 +73,7 @@ does not prove that every intended display is visible.
 All 88 notebooks are exported in editable mode. The configuration
 `scripts/notebooks.json` contains `{"include": "all"}`, so new marimo notebooks added under
 `notebooks/` or `courses/` are discovered automatically. Every README guide title opens
-its editor; mode-navigation links provide the corresponding saved version.
+its saved HTML page; the page header offers browser editing, molab and marimo.app.
 
 `.github/workflows/pages.yml` runs on every push to `master` and supports manual
 runs from the Actions tab. It installs the locked environment, refreshes saved
@@ -119,7 +120,7 @@ editor files and prevents a workflow deployment.
 
 Links between rendered guides resolve to their editable Pages versions, including
 links added when an answer panel opens. Original Python source and external source
-references are retained. The home page at `/BMC/` lists the editable guides;
+references are retained. The home page at `/BMC/` links to the saved guides;
 the saved catalog is at `/BMC/notebooks_html/`. Rebuilding an existing local site removes
 retired editor HTML recorded in the previous export manifest, leaving unrelated
 pages intact.
