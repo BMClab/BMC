@@ -4,7 +4,7 @@ Interactive guides by Marcos Duarte and Renato Naville Watanabe, [Laboratory of 
 
 The notebooks in this repository use [marimo](https://marimo.io/). Each guide combines explanations, executable examples, checkpoint questions, worked exercises, and independent problems with expandable final answers. Python introductions cover basic concepts directly in marimo.
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23606126.svg)](https://doi.org/10.5281/zenodo.23606126)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23654869.svg)](https://doi.org/10.5281/zenodo.23654869)
 
 ## Open a guide
 
@@ -168,23 +168,23 @@ The common repository-file resolver is maintained in `functions/notebook_resourc
 
 ## How to cite this work
 
-Release metadata for Zenodo is maintained in [.zenodo.json](.zenodo.json). The citation below refers to the archived `v0.1.0` release.
+Release metadata for Zenodo is maintained in [.zenodo.json](.zenodo.json). The citation below refers to the archived `v0.2.0` release.
 
 Here is a suggestion to cite this GitHub repository:
 
-> Marcos Duarte and Renato Naville Watanabe. (2026). Notes on Scientific Computing for Biomechanics and Motor Control (Version v0.1.0). Zenodo. <https://doi.org/10.5281/zenodo.23606126>
+> Marcos Duarte and Renato Naville Watanabe. (2026). Notes on Scientific Computing for Biomechanics and Motor Control (Version v0.2.0). Zenodo. <https://doi.org/10.5281/zenodo.23654869>
 
 And a BibTeX entry:
 
 ```tex
-@misc{marcos_duarte_2026_23606126,
+@misc{marcos_duarte_2026_23654869,
   author       = {Marcos Duarte and Renato Naville Watanabe},
   title        = {{Notes on Scientific Computing for Biomechanics and Motor Control}},
   month        = oct,
   year         = 2026,
   publisher    = {Zenodo},
-  doi          = {10.5281/zenodo.23606126},
-  url          = {https://doi.org/10.5281/zenodo.23606126}
+  doi          = {10.5281/zenodo.23654869},
+  url          = {https://doi.org/10.5281/zenodo.23654869}
 }
 ```
 
