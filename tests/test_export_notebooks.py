@@ -7,8 +7,10 @@ import json
 import subprocess
 import tempfile
 import unittest
+from html.parser import HTMLParser
 from pathlib import Path, PurePosixPath
 from unittest.mock import patch
+from urllib.request import urlopen
 
 _SCRIPT = Path(__file__).resolve().parents[1] / "scripts/export_notebooks.py"
 _SPEC = importlib.util.spec_from_file_location("export_notebooks", _SCRIPT)
@@ -48,7 +50,9 @@ class StaticPageTests(unittest.TestCase):
         original = native_html(content).replace(
             "Original source links are untouched", preview
         )
-        page, _ = exporter.decorate_export(original, self.paths[0], self.paths)
+        page, _ = exporter.decorate_export(
+            original, self.paths[0], self.paths, source_bytes=b"# Original source\n"
+        )
         self.assertIn('href="reference_frame.html#axes"', page.replace('\\"', '"'))
         self.assertIn("reference_frame.html#vectors", page)
         self.assertIn("reference_frame.html#axes", page)
@@ -65,7 +69,12 @@ class StaticPageTests(unittest.TestCase):
         )
 
     def test_course_launch_and_catalog_links_use_the_course_path(self):
-        page, _ = exporter.decorate_export(native_html(), self.paths[2], self.paths)
+        page, _ = exporter.decorate_export(
+            native_html(),
+            self.paths[2],
+            self.paths,
+            source_bytes=b"# Original source\n",
+        )
         self.assertIn(
             'href="https://molab.marimo.io/github/BMClab/BMC/blob/master/courses/2026/example.py"',
             page,
@@ -78,24 +87,39 @@ class StaticPageTests(unittest.TestCase):
 
     def test_output_strings_cannot_terminate_the_export_script(self):
         page, _ = exporter.decorate_export(
-            native_html("</script><p>Saved text</p>"), self.paths[0], self.paths
+            native_html("</script><p>Saved text</p>"),
+            self.paths[0],
+            self.paths,
+            source_bytes=b"# Original source\n",
         )
         self.assertEqual(page.count("</script>"), 2)
         self.assertIn("Saved text", page)
 
     def test_only_an_approved_notebook_has_a_local_edit_link(self):
         page, _ = exporter.decorate_export(
-            native_html(), self.paths[0], self.paths, editable_sources=[self.paths[0]]
+            native_html(),
+            self.paths[0],
+            self.paths,
+            source_bytes=b"# Original source\n",
+            editable_sources=[self.paths[0]],
         )
         self.assertIn('href="../example.html"', page)
         other, _ = exporter.decorate_export(
-            native_html(), self.paths[1], self.paths, editable_sources=[self.paths[0]]
+            native_html(),
+            self.paths[1],
+            self.paths,
+            source_bytes=b"# Original source\n",
+            editable_sources=[self.paths[0]],
         )
         self.assertNotIn("Edit in browser", other)
 
     def test_nested_saved_page_links_to_the_root_editable_course_page(self):
         page, _ = exporter.decorate_export(
-            native_html(), self.paths[2], self.paths, editable_sources=[self.paths[2]]
+            native_html(),
+            self.paths[2],
+            self.paths,
+            source_bytes=b"# Original source\n",
+            editable_sources=[self.paths[2]],
         )
         self.assertIn('href="../../../courses/2026/example.html"', page)
 
@@ -126,6 +150,40 @@ class ExportUpdateTests(unittest.TestCase):
         self.assertEqual(kwargs["env"]["MPLBACKEND"], "module://marimo._output.mpl")
         Path(args[args.index("-o") + 1]).write_text(native_html())
         return subprocess.CompletedProcess(args, 0, stdout="", stderr="")
+
+    def test_header_downloads_the_exact_source_with_a_python_filename(self):
+        # The saved HTML's serialized source can differ from the original file.
+        # Downloads must use the file itself and work without a remote server.
+        code = 'import marimo\napp = marimo.App()\n# café <tag> & "quote" % #\n'
+        self.source.write_text(code)
+        course = self.root / "courses/2026/example.py"
+        course.parent.mkdir(parents=True)
+        course.write_text(code + "# Course-specific source\n")
+        with patch.object(exporter.subprocess, "run", side_effect=self.fake_export):
+            self.assertEqual(self.run_exporter(), 0)
+
+        class Downloads(HTMLParser):
+            def __init__(self):
+                super().__init__()
+                self.links = []
+
+            def handle_starttag(self, tag, attrs):
+                attrs = dict(attrs)
+                if tag == "a" and "download" in attrs:
+                    self.links.append(attrs)
+
+        for page, source in (
+            (self.page, self.source),
+            (self.root / "notebooks_html/courses/2026/example.html", course),
+        ):
+            with self.subTest(source=source):
+                parser = Downloads()
+                parser.feed(page.read_text())
+                self.assertEqual(len(parser.links), 1)
+                link = parser.links[0]
+                self.assertEqual(link["download"], "example.py")
+                with urlopen(link["href"]) as response:
+                    self.assertEqual(response.read(), source.read_bytes())
 
     def test_incremental_updates_detect_source_shared_input_and_output_changes(self):
         with patch.object(

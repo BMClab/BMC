@@ -10,9 +10,10 @@ The notebooks in this repository use [marimo](https://marimo.io/). Each guide co
 
 Click a guide title to open its **static HTML page**, with saved text, tables and plots. You can also [browse all guides](https://bmclab.github.io/BMC/notebooks_html/).
 
-Each page's header offers four choices:
+Each page's header offers five choices:
 
 - **Static version**: read the saved outputs.
+- **Download .py**: save the corresponding marimo Python notebook for local use.
 - **Edit in browser**: edit and run the notebook in your current browser.
 - **molab**: open and run the notebook in molab.
 - **marimo.app**: open and run the notebook in marimo.app.

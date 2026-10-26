@@ -56,8 +56,9 @@ New notebook titles can be added to the README's existing bullet list manually.
 The updater uses `marimo export html`: these pages contain saved outputs rather
 than a Python runtime. Expandable solutions work, while controls that require
 Python cannot recompute results. The **Edit in browser** button and launch badges
-open the same notebook in interactive mode. The header uses the notebook's active
-theme colors and text font. Reading the static pages needs neither execution service;
+open the same notebook in interactive mode. **Download .py** saves the exact Python
+source included with the static page, including when opened locally. The header
+uses the notebook's active theme colors and text font. Reading the static pages needs neither execution service;
 the marimo display assets from a CDN and linked external media still need an
 Internet connection. These saved pages are distinct from the editable WASM exports below.
 

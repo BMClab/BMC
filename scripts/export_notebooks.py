@@ -16,7 +16,7 @@ import textwrap
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from html import escape, unescape
 from pathlib import Path, PurePosixPath
-from urllib.parse import urlsplit, urlunsplit
+from urllib.parse import quote_from_bytes, urlsplit, urlunsplit
 
 import marimo
 
@@ -125,11 +125,20 @@ def badge(label: str, url: str, image_url: str) -> str:
       <img src="{escape(image_url, quote=True)}" alt="Open in {label}" height="28"/></a>'''
 
 
+def source_download(source: PurePosixPath, content: bytes) -> str:
+    """Keep the exact Python source downloadable from local and hosted HTML."""
+    url = "data:text/x-python;charset=utf-8," + quote_from_bytes(content, safe="")
+    return (
+        f'<a href="{url}" download="{escape(source.name, quote=True)}">Download .py</a>'
+    )
+
+
 def decorate_export(
     document: str,
     source: PurePosixPath,
     sources: list[PurePosixPath],
     *,
+    source_bytes: bytes,
     editable_sources=(),
 ) -> tuple[str, dict]:
     """Rewrite saved reading links, preserving original code and live launch URLs."""
@@ -203,7 +212,7 @@ def decorate_export(
       </svg><span>Edit in browser</span></a>'''
     nav = f'''
 <nav id="bmc-static-navigation" aria-label="Notebook viewing and execution modes">
-  <p><a href="{local("index.html")}">All guides</a> · <strong>Static version</strong></p>
+  <p><a href="{local("index.html")}">All guides</a> · <strong>Static version</strong> · {source_download(source, source_bytes)}</p>
   <div class="bmc-launches">{edit_link}{launches}</div>
 </nav>
 '''
@@ -290,7 +299,11 @@ def export_one(
         if result.returncode:
             raise RuntimeError((result.stdout + result.stderr)[-6000:])
         page, statistics = decorate_export(
-            native.read_text(), source, sources, editable_sources=editable_sources(root)
+            native.read_text(),
+            source,
+            sources,
+            source_bytes=(root / source).read_bytes(),
+            editable_sources=editable_sources(root),
         )
     if digest(root / source) != source_sha:
         raise RuntimeError("Notebook changed during execution; rerun the exporter")
