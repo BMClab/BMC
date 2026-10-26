@@ -69,7 +69,7 @@ def _():
 
 
 @app.cell
-def _(np):
+def _(np, repo_file):
     import pandas as pd
 
     # load data file
@@ -159,12 +159,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 1': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 1
+
     No: the Nyquist frequency is 250 Hz, below the desired upper cutoff. Use data acquired at a sufficiently high sampling rate with appropriate anti-alias filtering, or choose a valid band within the acquired bandwidth. Upsampling cannot recover already aliased content.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -319,12 +319,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 2': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 2
+
     The signed values cancel, giving mean 0 mV. Every absolute value is 2 mV, so mean absolute value is 2 mV. The mean square is 4 mV² and RMS is 2 mV. This resolves the opening challenge.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -352,48 +352,20 @@ def _(mo):
     return
 
 
-@app.function
-def repo_file(path, *, base_url="https://raw.githubusercontent.com/BMClab/BMC/master/"):
-    """Find a repository file beside this notebook, or fetch a temporary copy.
-
-    Local files take precedence. Only file acquisition falls back to GitHub;
-    parsing errors remain visible to the calling notebook. urllib3 selects its
-    browser transport automatically without platform-specific imports.
-    """
-    import hashlib
-    import tempfile
-    from pathlib import Path, PurePosixPath
-    from urllib.parse import quote
-
-    import marimo as mo
-    import urllib3
-
-    relative = PurePosixPath(path)
-    if relative.is_absolute() or ".." in relative.parts or "\\" in str(path):
-        raise ValueError("Use a repository-relative path such as data/walk.trc")
-    location = mo.notebook_dir()
-    if location is not None:
-        directory = Path(location).resolve()
-        for base in (directory, *directory.parents):
-            local = base.joinpath(*relative.parts)
-            if local.is_file():
-                return local
-    url = base_url.rstrip("/") + "/" + quote(relative.as_posix(), safe="/")
-    key = hashlib.sha256(base_url.rstrip("/").encode()).hexdigest()[:16]
-    cached = (Path(tempfile.gettempdir()) / "bmc-notebooks-v2" / key).joinpath(*relative.parts)
-    if not cached.is_file():
-        response = urllib3.request("GET", url, timeout=30.0, retries=2)
-        if response.status != 200:
-            raise OSError(f"Cannot load {path}: HTTP {response.status} from {url}")
-        cached.parent.mkdir(parents=True, exist_ok=True)
-        with tempfile.NamedTemporaryFile(dir=cached.parent, delete=False) as download:
-            temporary = Path(download.name)
-            download.write(response.data)
-        try:
-            temporary.replace(cached)
-        finally:
-            temporary.unlink(missing_ok=True)
-    return cached
+@app.cell(hide_code=True)
+def _():
+    try:
+        from notebook_resources import repo_file
+    except ModuleNotFoundError as _error:
+        if _error.name != "notebook_resources":
+            raise
+        raise ModuleNotFoundError(
+            "This notebook needs notebook_resources.py. Download it from:\n"
+            "https://raw.githubusercontent.com/BMClab/BMC/master/functions/notebook_resources.py\n"
+            "Save it in the same folder as this notebook, then rerun this cell.",
+            name="notebook_resources",
+        ) from None
+    return (repo_file,)
 
 
 @app.cell
@@ -498,12 +470,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 3': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 3
+
     They correspond to nominal sample-count durations of 50 ms and 10 ms. The exact first-to-last timestamp span of 50 consecutive samples is 49 ms. Threshold crossings are algorithmic events, not direct neural-onset measurements.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -747,12 +719,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 4': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 4
+
     The rectified area is $0.2(0.5)=0.1$ mV s. Signed positive and negative lobes can cancel, so a signed integral measures net area rather than total amplitude activity.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -783,12 +755,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 5': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 5
+
     The windows last 0.128 and 0.512 s and have bin spacings 7.8125 and 1.953125 Hz. The shorter window localizes change better; the longer window resolves closer frequencies, subject to window shape and stationarity.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -855,12 +827,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Checkpoint answers': mo.md(r"""
+    mo.md(r"""
+    /// details | Checkpoint answers
+
     1. Rectification prevents positive and negative oscillations from canceling in the smoother. 2. No; forward–backward filtering uses future samples. 3. No; it trades false detections against missed/delayed events. 4. No; contraction, conduction, geometry, noise and processing also affect the spectrum.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -882,8 +854,9 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Final answers to Problems': mo.md(r"""
+    mo.md(r"""
+    /// details | Final answers to Problems
+
     1. $1/\sqrt2\approx0.7071$ mV and $2/\pi\approx0.6366$ mV.
 
     2. 50 samples.
@@ -891,9 +864,8 @@ def _(mo):
     3. 0.1 mV s.
 
     4. 4 Hz and 512 Hz.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 

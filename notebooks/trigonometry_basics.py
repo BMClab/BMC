@@ -142,17 +142,17 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {"Solution to Exercise 1": mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 1
+
     The ratios are $\sin\theta=3/5=0.6$, $\cos\theta=4/5=0.8$,
     and $\tan\theta=3/4=0.75$. None has a unit: the length units cancel.
 
     After doubling the sides, the ratios are $6/10$, $8/10$, and $6/8$,
     respectively. All are unchanged. The angle determines the ratios;
     the size of the triangle does not.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -178,8 +178,9 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {"Solution to Exercise 2": mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 2
+
     $$x=0.30\frac{\sqrt{3}}{2}\approx0.260\ \text{m},\qquad
     y=0.30\frac{1}{2}=0.150\ \text{m}.$$
 
@@ -187,9 +188,8 @@ def _(mo):
     horizontal the segment is closer to horizontal than vertical,
     which agrees with the sketch. These are distances from the elbow,
     not absolute coordinates in the laboratory.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -252,8 +252,9 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {"Solution to Exercise 3": mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 3
+
     The first angle is $0.20/0.40=0.50$ rad, or
     $0.50\times180/\pi\approx28.65^\circ$.
     The second is $60\pi/180=\pi/3\approx1.0472$ rad.
@@ -261,9 +262,8 @@ def _(mo):
     Doubling both lengths leaves their ratio unchanged:
     $0.40/0.80=0.50$ rad. Just as with similar triangles, scaling
     the drawing does not change its angle.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -341,8 +341,9 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {"Solution to Exercise 4": mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 4
+
     $$\tan30^\circ=\frac{1/2}{\sqrt{3}/2}
     =\frac{1}{\sqrt{3}}\approx0.57735.$$
 
@@ -351,9 +352,8 @@ def _(mo):
     and the computed tangent can be enormous. That finite result is
     not a mathematical value for $\tan90^\circ$. The slider handles
     its known $90^\circ$ endpoint explicitly and displays “undefined”.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -440,8 +440,9 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {"Solution to Exercise 6": mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 6
+
     At $60^\circ$, $x=0.50/2=0.25$ m and
     $y=0.50\sqrt{3}/2=\sqrt{3}/4\approx0.433$ m.
 
@@ -455,9 +456,8 @@ def _(mo):
     At $30^\circ$, sine and cosine exchange values: the horizontal
     distance becomes approximately 0.433 m and the vertical distance
     becomes 0.25 m. The segment's length is still 0.50 m.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -486,8 +486,9 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {"Answers to the checkpoint questions": mo.md(r"""
+    mo.md(r"""
+    /// details | Answers to the checkpoint questions
+
     1. The vertical distance increases, the horizontal distance decreases,
        and the two distances exchange values. The forearm's length stays
        the same.
@@ -501,9 +502,8 @@ def _(mo):
        uses an approximation of the angle and need not obtain an exact
        zero for its cosine.
     5. Subtraction: the second product is $\sin\alpha\sin\beta$.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -526,13 +526,13 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {"Answer to Problem 1": mo.md(r"""
+    mo.md(r"""
+    /// details | Answer to Problem 1
+
     $L=0.30$ m; $\sin\theta=0.60$;
     $\cos\theta=0.80$; $\tan\theta=0.75$.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -548,14 +548,14 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {"Answer to Problem 2": mo.md(r"""
+    mo.md(r"""
+    /// details | Answer to Problem 2
+
     $\sin15^\circ=(\sqrt{6}-\sqrt{2})/4\approx0.258819$.
 
     $\cos15^\circ=(\sqrt{6}+\sqrt{2})/4\approx0.965926$.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -573,15 +573,15 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {"Answer to Problem 3": mo.md(r"""
+    mo.md(r"""
+    /// details | Answer to Problem 3
+
     The code interprets 60 as radians; use `math.radians(60)`.
     The correct distances are $x=0.200$ m and
     $y=\sqrt{3}/5\ \text{m}\approx0.346410$ m.
     The length check alone does **not** reveal the mistake.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 

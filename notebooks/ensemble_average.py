@@ -97,9 +97,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion({'Solution to Exercise 1': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 1
+
     Padding makes array sizes equal but does not match movement phase. Here each valid trial is mapped to 0–100% cycle. This assumes that corresponding percentages represent comparable phases; it does not align every event within the cycle.
-    """)}, expanded=False)
+    ///
+    """)
     return
 
 
@@ -159,9 +162,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion({'Solution to Exercise 2': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 2
+
     The mean is 4. The sample variance is $[(2-4)^2+(4-4)^2+(6-4)^2]/(3-1)=4$, so the sample SD is 2. The plotted mean ± SD band extends from 2 to 6. It describes dispersion, not uncertainty in the mean.
-    """)}, expanded=False)
+    ///
+    """)
     return
 
 
@@ -228,9 +234,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion({'Solution to Exercise 3': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 3
+
     The median and quartiles depend on ranks and are generally less sensitive to an extreme value. Neither summary removes the need to inspect why the trial differs.
-    """)}, expanded=False)
+    ///
+    """)
     return
 
 
@@ -277,11 +286,14 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion({'Checkpoint answers': mo.md(r"""
+    mo.md(r"""
+    /// details | Checkpoint answers
+
     1. No; keep the original durations separately.
     2. No.
     3. No; the unit of analysis matters.
-    """)}, expanded=False)
+    ///
+    """)
     return
 
 
@@ -305,9 +317,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion({'Answer to Problem 1': mo.md(r"""
+    mo.md(r"""
+    /// details | Answer to Problem 1
+
     Mean = 4; median = 4.
-    """)}, expanded=False)
+    ///
+    """)
     return
 
 
@@ -321,9 +336,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion({'Answer to Problem 2': mo.md(r"""
+    mo.md(r"""
+    /// details | Answer to Problem 2
+
     101.
-    """)}, expanded=False)
+    ///
+    """)
     return
 
 

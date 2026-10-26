@@ -56,48 +56,20 @@ def _():
     return mo, np, pd, plt
 
 
-@app.function
-def repo_file(path, *, base_url="https://raw.githubusercontent.com/BMClab/BMC/master/"):
-    """Find a repository file beside this notebook, or fetch a temporary copy.
-
-    Local files take precedence. Only file acquisition falls back to GitHub;
-    parsing errors remain visible to the calling notebook. urllib3 selects its
-    browser transport automatically without platform-specific imports.
-    """
-    import hashlib
-    import tempfile
-    from pathlib import Path, PurePosixPath
-    from urllib.parse import quote
-
-    import marimo as mo
-    import urllib3
-
-    relative = PurePosixPath(path)
-    if relative.is_absolute() or ".." in relative.parts or "\\" in str(path):
-        raise ValueError("Use a repository-relative path such as data/walk.trc")
-    location = mo.notebook_dir()
-    if location is not None:
-        directory = Path(location).resolve()
-        for base in (directory, *directory.parents):
-            local = base.joinpath(*relative.parts)
-            if local.is_file():
-                return local
-    url = base_url.rstrip("/") + "/" + quote(relative.as_posix(), safe="/")
-    key = hashlib.sha256(base_url.rstrip("/").encode()).hexdigest()[:16]
-    cached = (Path(tempfile.gettempdir()) / "bmc-notebooks-v2" / key).joinpath(*relative.parts)
-    if not cached.is_file():
-        response = urllib3.request("GET", url, timeout=30.0, retries=2)
-        if response.status != 200:
-            raise OSError(f"Cannot load {path}: HTTP {response.status} from {url}")
-        cached.parent.mkdir(parents=True, exist_ok=True)
-        with tempfile.NamedTemporaryFile(dir=cached.parent, delete=False) as download:
-            temporary = Path(download.name)
-            download.write(response.data)
-        try:
-            temporary.replace(cached)
-        finally:
-            temporary.unlink(missing_ok=True)
-    return cached
+@app.cell(hide_code=True)
+def _():
+    try:
+        from notebook_resources import repo_file
+    except ModuleNotFoundError as _error:
+        if _error.name != "notebook_resources":
+            raise
+        raise ModuleNotFoundError(
+            "This notebook needs notebook_resources.py. Download it from:\n"
+            "https://raw.githubusercontent.com/BMClab/BMC/master/functions/notebook_resources.py\n"
+            "Save it in the same folder as this notebook, then rerun this cell.",
+            name="notebook_resources",
+        ) from None
+    return (repo_file,)
 
 
 @app.function
@@ -239,19 +211,19 @@ def _(mo):
 
 
 @app.cell
-def _(mo):
+def _(mo, repo_file):
     mo.vstack([mo.image(src=repo_file("images/forcevectors.png"), width=600), mo.md('Force-vector illustration during quiet standing.')])
     return
 
 
 @app.cell
-def _(mo):
+def _(mo, repo_file):
     mo.vstack([mo.image(src=repo_file("images/prolongedstanding.png"), width=600), mo.md('Illustration of prolonged-standing sway.')])
     return
 
 
 @app.cell
-def _(mo):
+def _(mo, repo_file):
     mo.vstack([mo.image(src=repo_file("images/fractal.png"), width=600), mo.md('Illustration of the scale structure of sway.')])
     return
 
@@ -269,7 +241,7 @@ def _(mo):
 
 
 @app.cell
-def _(mo):
+def _(mo, repo_file):
     mo.image(src=repo_file("images/rambtremb.png"), width=600)
     return
 
@@ -284,9 +256,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion({'Solution to Exercise 1': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 1
+
     Trembling is $2.0-1.4=0.6$ cm. Zero horizontal force implies zero horizontal acceleration under the model, not zero velocity.
-    """)}, expanded=False)
+    ///
+    """)
     return
 
 
@@ -312,9 +287,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion({'Solution to Exercise 2': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 2
+
     The zero is one quarter of the way through the interval: $0.0025$ s. Choosing the earlier sample would shift the knot by 2.5 ms.
-    """)}, expanded=False)
+    ///
+    """)
     return
 
 
@@ -329,7 +307,7 @@ def _(mo):
 
 
 @app.cell
-def _(mo, pd):
+def _(mo, pd, repo_file):
     dataset_base = "https://raw.githubusercontent.com/demotu/datasets/master/"
     metadata = pd.read_csv(repo_file("BDS/BDSinfo.txt", base_url=dataset_base), sep="\t")
     trial_choices = mo.ui.multiselect(options=metadata["Trial"].tolist(), value=["BDS00038"], label="Trials to analyse")
@@ -338,7 +316,7 @@ def _(mo, pd):
 
 
 @app.cell
-def _(dataset_base, metadata, mo, np, pd, trial_choices):
+def _(dataset_base, metadata, mo, np, pd, repo_file, trial_choices):
     selected_results = {}
     for _trial in trial_choices.value:
         _table = pd.read_csv(repo_file(f"BDS/data/{_trial}.txt", base_url=dataset_base), sep="\t")
@@ -410,9 +388,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion({'Solution to Exercise 3': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 3
+
     Beyond the knot range the curve is an extrapolation controlled by spline boundary behavior, not by surrounding IEPs. Restricting the analysis to the knot range avoids treating that extension as measured evidence.
-    """)}, expanded=False)
+    ///
+    """)
     return
 
 
@@ -546,9 +527,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion({'Solution to Exercise 4': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 4
+
     There is one person. Summarizing the repeats avoids treating repeated measurements from that person as three independent subjects; between-subject inference still requires an appropriate design.
-    """)}, expanded=False)
+    ///
+    """)
     return
 
 
@@ -588,9 +572,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion({'Solution to Exercise 5': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 5
+
     The variance is $4+1=5$, while the SD is $\sqrt5\approx2.236$. Adding the component SDs would give 3 and is incorrect. If covariance is nonzero, include twice that covariance.
-    """)}, expanded=False)
+    ///
+    """)
     return
 
 
@@ -610,11 +597,14 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion({'Checkpoint answers': mo.md(r"""
+    mo.md(r"""
+    /// details | Checkpoint answers
+
     1. No; it is a model-derived estimate.
     2. No.
     3. No; correlation must be assessed.
-    """)}, expanded=False)
+    ///
+    """)
     return
 
 
@@ -638,9 +628,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion({'Answer to Problem 1': mo.md(r"""
+    mo.md(r"""
+    /// details | Answer to Problem 1
+
     −0.4 cm.
-    """)}, expanded=False)
+    ///
+    """)
     return
 
 
@@ -654,9 +647,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion({'Answer to Problem 2': mo.md(r"""
+    mo.md(r"""
+    /// details | Answer to Problem 2
+
     $\sqrt{0.505}\approx0.71063$.
-    """)}, expanded=False)
+    ///
+    """)
     return
 
 
@@ -670,9 +666,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion({'Answer to Problem 3': mo.md(r"""
+    mo.md(r"""
+    /// details | Answer to Problem 3
+
     No; it raises a ValueError requiring at least four knots.
-    """)}, expanded=False)
+    ///
+    """)
     return
 
 

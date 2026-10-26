@@ -98,12 +98,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 1': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 1
+
     The spring force is $kx=2$ N; the dashpot force is $b\dot x=0.3$ N. The dashpot needs a velocity, so its coefficient has an extra second in its units.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -687,12 +687,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 2': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 2
+
     $F_0=kx_0=1$ N and $\tau=b/k=0.2$ s. The constant-extension equation gives $F=F_0e^{-t/\tau}$, hence $F(0.2)=0.3679$ N. At long times the ideal Maxwell force tends to zero.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -805,12 +805,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 3': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 3
+
     $x_\infty=F/k=0.02$ m. The time constant is $b/k=0.2$ s, and $1-e^{-3}=0.9502$, so about 0.6 s is required. A finite force cannot make a dashpot jump in length.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -994,12 +994,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 4': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 4
+
     The dashpot initially prevents extension of the parallel branch: $x(0^+)=F/k_s=0.03$ m. At long times the two springs carry the force in series: $x_\infty=F/k_s+F/k_p=0.045$ m. The finite extra creep distinguishes this model from Maxwell.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -1342,12 +1342,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Checkpoint answers': mo.md(r"""
+    mo.md(r"""
+    /// details | Checkpoint answers
+
     1. Force. 2. Deformation. 3. The dashpot keeps flowing under constant force. 4. The parallel dashpot prevents an instantaneous length jump under finite force. 5. The series spring supplies the immediate extension and the Voigt branch supplies bounded creep. 6. The active contractile element is typically parallel to passive fiber elasticity and in series with tendon elasticity; passive damping is an additional modeling choice.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -1375,8 +1375,9 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Final answers to original Problems': mo.md(r"""
+    mo.md(r"""
+    /// details | Final answers to original Problems
+
     1. Doubling $b$ doubles relaxation time; doubling $k$ halves it.
 
     2. Any $b/k=3/[-\ln(0.05)]\approx1.00142$ s reaches exactly 95% at 3 s; $b/k=1$ s gives about 95.02%.
@@ -1388,9 +1389,8 @@ def _(mo):
     5. At fixed sinusoidal displacement amplitude, Voigt force amplitude grows without bound with frequency; Maxwell approaches stiffness $k$ and the series-spring/Voigt Kelvin model approaches stiffness $k_s$. Transient and offset forces can also affect the plotted maximum.
 
     6. The active contractile element acts alongside a passive parallel elastic element and in series with the tendon elastic element; a passive dashpot may represent additional viscous losses. A Hill force–velocity curve is not itself an ordinary passive dashpot.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 

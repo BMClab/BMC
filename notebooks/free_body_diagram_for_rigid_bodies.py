@@ -239,12 +239,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 1': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 1
+
     Gravity supplies $-mgL/2=-9.81$ N m about the fixed hinge. With $I_O=mL^2/3=2/3$ kg m², $\alpha=-14.715$ rad/s². The hinge force has zero moment about the hinge, but it is still present in the force balance.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -531,12 +531,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 2': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 2
+
     Near the downward position, $\ddot\theta\approx-(g/L)\theta$, a restoring acceleration. Near the upward position, $\ddot\theta\approx+(g/L)\theta$, which drives a perturbation away from zero. Both positions can have zero velocity; their stability differs.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -792,12 +792,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 3': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 3
+
     For the convention $M_z=x_{COP}F_y$, $x_{COP}=30/600=0.05$ m. Reversing an axis reverses the appropriate sign. Near zero vertical force, dividing by $F_y$ becomes ill-conditioned and COP is not a useful contact descriptor.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -983,12 +983,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 4': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 4
+
     No. For a planar body-fixed point, include $\mathbf r_{C/O}\times m\mathbf a_O$: $\sum M_O=I_O\alpha+\mathbf r_{C/O}\times m\mathbf a_O$. The extra term vanishes at a fixed point or at the center, not at an arbitrary moving joint.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -1228,12 +1228,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 5': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 5
+
     The proximal link receives −4 N m. The internal pair cancels in the combined-system moment balance. Each isolated-link equation must retain its own member of the pair.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -1259,15 +1259,15 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Checkpoint answers': mo.md(r"""
+    mo.md(r"""
+    /// details | Checkpoint answers
+
     1. A particle model has no rotational degree of freedom or distributed inertia.
     2. At an inertially fixed hinge (or when the additional term vanishes).
     3. Gravity produces a moment in the direction of a small displacement from upright.
     4. No; it implies constant angular momentum about an appropriate inertial point.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -1283,12 +1283,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Final answers to original Problems': mo.md(r"""
+    mo.md(r"""
+    /// details | Final answers to original Problems
+
     1. For the referenced uniform-rod problem 6: $\alpha_z=-15$ rad/s², joint force $(-50,10)$ N and joint couple 0. For standing-foot problem 7: ankle force $(0,-579.18)$ N and moment −22.9908 N m. For gait-foot problem 8: ankle force $(-156.61,-752.9904)$ N and moment −128.4952 N m. The signs use x right, y up and positive counterclockwise moments, as in [Free body diagram](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/free_body_diagram.py).
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 

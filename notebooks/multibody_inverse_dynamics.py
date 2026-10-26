@@ -63,12 +63,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 1': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 1
+
     $S(r)=\begin{bmatrix}0&-3&2\\3&0&-1\\-2&1&0\end{bmatrix}$ and $S(r)F=(-3,0,1)$ N m. The matrix is skew-symmetric and represents $r\times F$, not $F\times r$.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -259,12 +259,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 2': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 2
+
     $F_P=m(a-g)-F_D=(2,-10.19,0)$ N. On the adjoining segment the interaction force is its negative. All vectors here are in the same laboratory frame.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -278,12 +278,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 3': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 3
+
     Both $(F_1,F_2)=(400,0)$ N and $(0,200)$ N satisfy $0.02F_1+0.04F_2=8$. Infinitely many combinations lie between them. Inverse dynamics alone does not select a recruitment pattern.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -309,15 +309,15 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Checkpoint answers': mo.md(r"""
+    mo.md(r"""
+    /// details | Checkpoint answers
+
     1. Components in different bases cannot be added directly.
     2. Internal joint force and couple pairs.
     3. Inertial demands minus known gravity and external-load contributions, with the chosen gyroscopic convention.
     4. Muscle geometry and a recruitment/optimization or activation model, among other constraints.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -333,14 +333,14 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Final answers to original Problems': mo.md(r"""
+    mo.md(r"""
+    /// details | Final answers to original Problems
+
     2. Using only laboratory-frame vectors, let $r_{pj}$ and $r_{dj}$ be proximal/distal application points relative to the COM of link j, and $S(r)v=r\times v$. For unknown loads $z=(F_1,T_1,F_2,T_2)$, the block matrix is
     $$A=\begin{bmatrix}I&0&-I&0\\S(r_{p1})&I&-S(r_{d1})&-I\\0&0&I&0\\0&0&S(r_{p2})&I\end{bmatrix}.$$
     The corresponding right-hand side is $(m_1(a_1-g)-F_{ext,1},\ I_1\alpha_1+\omega_1\times I_1\omega_1-M_{ext,1},\ m_2(a_2-g)-F_{ext,2},\ I_2\alpha_2+\omega_2\times I_2\omega_2-M_{ext,2})^T$. Here $I_j=R_jI_{Bj}R_j^T$, all external moments are about each COM, and joint 2 force/couple are defined as acting on link 2. The final joint loads solve $Az=b$.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 

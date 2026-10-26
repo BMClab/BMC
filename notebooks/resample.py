@@ -152,9 +152,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion({'Solution to Exercise 1': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 1
+
     The ratio is 10, so there are 1,000 output samples, spaced by 0.001 s. The first time is 0 and the last is 0.999 s.
-    """)}, expanded=False)
+    ///
+    """)
     return
 
 
@@ -196,9 +199,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion({'Solution to Exercise 2': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 2
+
     The new Nyquist frequency is 50 Hz. Components above 50 Hz can fold into lower frequencies unless sufficiently attenuated before downsampling. Polyphase resampling includes this filtering.
-    """)}, expanded=False)
+    ///
+    """)
     return
 
 
@@ -228,11 +234,14 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion({'Checkpoint answers': mo.md(r"""
+    mo.md(r"""
+    /// details | Checkpoint answers
+
     1. No.
     2. Padding and filtering affect boundaries.
     3. No; provide a justified uniform grid first.
-    """)}, expanded=False)
+    ///
+    """)
     return
 
 
@@ -256,9 +265,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion({'Answer to Problem 1': mo.md(r"""
+    mo.md(r"""
+    /// details | Answer to Problem 1
+
     300 samples; interval $1/150$ s.
-    """)}, expanded=False)
+    ///
+    """)
     return
 
 
@@ -272,9 +284,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion({'Answer to Problem 2': mo.md(r"""
+    mo.md(r"""
+    /// details | Answer to Problem 2
+
     3 s.
-    """)}, expanded=False)
+    ///
+    """)
     return
 
 

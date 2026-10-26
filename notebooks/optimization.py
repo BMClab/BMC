@@ -439,52 +439,24 @@ def _(mo):
     return
 
 
-@app.function
-def repo_file(path, *, base_url="https://raw.githubusercontent.com/BMClab/BMC/master/"):
-    """Find a repository file beside this notebook, or fetch a temporary copy.
-
-    Local files take precedence. Only file acquisition falls back to GitHub;
-    parsing errors remain visible to the calling notebook. urllib3 selects its
-    browser transport automatically without platform-specific imports.
-    """
-    import hashlib
-    import tempfile
-    from pathlib import Path, PurePosixPath
-    from urllib.parse import quote
-
-    import marimo as mo
-    import urllib3
-
-    relative = PurePosixPath(path)
-    if relative.is_absolute() or ".." in relative.parts or "\\" in str(path):
-        raise ValueError("Use a repository-relative path such as data/walk.trc")
-    location = mo.notebook_dir()
-    if location is not None:
-        directory = Path(location).resolve()
-        for base in (directory, *directory.parents):
-            local = base.joinpath(*relative.parts)
-            if local.is_file():
-                return local
-    url = base_url.rstrip("/") + "/" + quote(relative.as_posix(), safe="/")
-    key = hashlib.sha256(base_url.rstrip("/").encode()).hexdigest()[:16]
-    cached = (Path(tempfile.gettempdir()) / "bmc-notebooks-v2" / key).joinpath(*relative.parts)
-    if not cached.is_file():
-        response = urllib3.request("GET", url, timeout=30.0, retries=2)
-        if response.status != 200:
-            raise OSError(f"Cannot load {path}: HTTP {response.status} from {url}")
-        cached.parent.mkdir(parents=True, exist_ok=True)
-        with tempfile.NamedTemporaryFile(dir=cached.parent, delete=False) as download:
-            temporary = Path(download.name)
-            download.write(response.data)
-        try:
-            temporary.replace(cached)
-        finally:
-            temporary.unlink(missing_ok=True)
-    return cached
+@app.cell(hide_code=True)
+def _():
+    try:
+        from notebook_resources import repo_file
+    except ModuleNotFoundError as _error:
+        if _error.name != "notebook_resources":
+            raise
+        raise ModuleNotFoundError(
+            "This notebook needs notebook_resources.py. Download it from:\n"
+            "https://raw.githubusercontent.com/BMClab/BMC/master/functions/notebook_resources.py\n"
+            "Save it in the same folder as this notebook, then rerun this cell.",
+            name="notebook_resources",
+        ) from None
+    return (repo_file,)
 
 
 @app.cell
-def _(np):
+def _(np, repo_file):
     # time elbow_flexion BIClong BICshort BRA
     r_ef = np.loadtxt(repo_file('data/r_elbowflexors.mot'), skiprows=7)
     f_ef = np.loadtxt(repo_file('data/f_elbowflexors.mot'), skiprows=7)
@@ -752,16 +724,30 @@ def _(mo):
 
 
 @app.cell
-def _(M, a_1, f0, f1r, f2r, fmmax3r, fpcsa2r, m, np, pd, r):
+def _(M, a_1, f0, f1r, f2r, fmmax3r, fpcsa2r, m, mo, np, pd, r):
     dat = np.vstack((np.around(r * 100, 1), np.around(a_1, 1), np.around(f0, 0), np.around(m, 1)))
     opt = np.around(np.vstack((f1r.x, f2r.x, fpcsa2r.x, fmmax3r.x)), 1)
     er = ['-', '-', '-', '-', np.sum(r * f1r.x) - M, np.sum(r * f2r.x) - M, np.sum(r * fpcsa2r.x) - M, np.sum(r * fmmax3r.x) - M]
     data = np.vstack((np.vstack((dat, opt)).T, er)).T
-    rows = ['$\text{Moment arm}\\;[cm]$', '$pcsa\\;[cm^2]$', '$F_{max}\\;[N]$', '$M_{max}\\;[Nm]$', '$\\sum F_i$', '$\\sum F_i^2$', '$\\sum(F_i/pcsa_i)^2$', '$\\sum(F_i/M_{max,i})^3$']
+    rows = [
+        r'$\text{Moment arm}\;[cm]$',
+        r'$pcsa\;[cm^2]$',
+        r'$F_{max}\;[N]$',
+        r'$M_{max}\;[Nm]$',
+        r'$\sum F_i$',
+        r'$\sum F_i^2$',
+        r'$\sum(F_i/pcsa_i)^2$',
+        r'$\sum(F_i/M_{max,i})^3$',
+    ]
     cols = ['Biceps long head', 'Biceps short head', 'Brachialis', 'Error in M']
     _df = pd.DataFrame(data, index=rows, columns=cols)
     print('\nComparison of different cost functions for solving the distribution problem')
-    _df
+    # Format a regular column: the default DataFrame index is displayed as text.
+    mo.ui.table(
+        _df.reset_index(names='Quantity / cost function'),
+        format_mapping={'Quantity / cost function': mo.md},
+        selection=None,
+    )
     return
 
 

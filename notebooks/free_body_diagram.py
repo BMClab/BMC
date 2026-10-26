@@ -158,12 +158,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 1': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 1
+
     $M_z=xF_y-yF_x=0.3(-10)=-3$ N m. Moving along the same vertical line leaves $x$ unchanged and produces the same moment. Moving sideways would change it.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -256,12 +256,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 2': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 2
+
     The upper box requires 29.43 N upward. That contact applies 29.43 N downward to the lower box; the floor must support both weights, giving 78.48 N. The equal/opposite contact pair occurs on separate diagrams.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -403,12 +403,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 3': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 3
+
     External moment is $50(0.30)=15$ N m. Balance requires $F_M(0.03)=15$, so $F_M=500$ N. A short moment arm can require a large force even in static equilibrium; the joint reaction also balances forces.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -547,12 +547,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 4': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 4
+
     The resultant force is zero and the couple magnitude is $10(0.2)=2$ N m. Its sign follows the rotation sense. A zero resultant force therefore does not imply rotational equilibrium.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -698,12 +698,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 5': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 5
+
     $\sum\mathbf F=m\mathbf a=(2,-4)$ N; $\sum M_C=I_C\alpha=0.12$ N m. These are resultants of all external loads, including weight, rather than a prescription for one particular joint force.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -729,15 +729,15 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Checkpoint answers': mo.md(r"""
+    mo.md(r"""
+    /// details | Checkpoint answers
+
     1. The point where that force acts.
     2. No; it transmits force components but no ideal free couple.
     3. Muscle forces with short moment arms can be large and must be balanced.
     4. Not from velocity alone: linear or angular acceleration may still be nonzero.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -796,8 +796,9 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Final answers to original Problems': mo.md(r"""
+    mo.md(r"""
+    /// details | Final answers to original Problems
+
     1. The ball’s torque magnitudes are $9.81d_{wrist}$, $9.81d_{elbow}$ and $9.81d_{shoulder}$ N m, for your measured perpendicular distances in metres. All act in the downward-load rotation sense; no unique values follow without those distances. “Pulse” in the original prompt means wrist.
 
     2. Use $g=9.81$ m/s², angle $\theta$ increasing as the shank lowers from horizontal, and tendon force direction $(-\cos(\theta+30^\circ),\sin(\theta+30^\circ))$. Muscle forces at 0°, 45°, 90° are 3513.92, 2484.72 and 0 N. Knee reaction on the shank $(R_x,R_y)$ is respectively $(3043.14,-1517.72)$, $(643.09,-2160.81)$ and $(0,239.24)$ N. These values assume the specified 30° tendon angle remains fixed relative to the shank.
@@ -813,9 +814,8 @@ def _(mo):
     7. Ankle force on the foot: $(0,-579.18)$ N; ankle moment: −22.9908 N m (counterclockwise positive).
 
     8. With the figure’s 1.12 kg foot mass: ankle force $(-156.61,-752.9904)$ N; ankle moment −128.4952 N m (counterclockwise positive).
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 

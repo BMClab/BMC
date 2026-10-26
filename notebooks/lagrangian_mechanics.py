@@ -235,12 +235,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 1': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 1
+
     $L=\tfrac12m\dot x^2-\tfrac12kx^2$. The Euler–Lagrange terms are $d(\partial L/\partial\dot x)/dt=m\ddot x$ and $\partial L/\partial x=-kx$, giving $m\ddot x+kx=0$. Energy bookkeeping reproduces force balance.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -642,12 +642,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 2': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 2
+
     $\partial V/\partial\theta=mg\ell\sin\theta$ and $I=m\ell^2$. Thus $m\ell^2\ddot\theta+mg\ell\sin\theta=0$. A small positive angle produces negative acceleration, as a restoring force should.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -1174,12 +1174,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 3': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 3
+
     The second mass velocity is the sum of velocities from both links. Squaring that sum introduces twice their dot product. Their tangent directions have dot product $\cos(\theta_1-\theta_2)$, producing the cross term and an off-diagonal mass-matrix entry.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -1705,12 +1705,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 4': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 4
+
     As generalized nonconservative force $Q=-b\dot x$: $m\ddot x+kx=-b\dot x$. Equivalently use the Rayleigh function $\mathcal R=b\dot x^2/2$. Putting $b\dot x$ into ordinary position potential energy would be incorrect.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -1819,12 +1819,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 5': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 5
+
     The inward radial balance is $T-mg=mv^2/\ell$, so $T=mg+mv^2/\ell$. Eliminating tension from the angle equation does not mean the tension is zero; it can be recovered after the motion is known.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -1916,16 +1916,16 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Checkpoint answers': mo.md(r"""
+    mo.md(r"""
+    /// details | Checkpoint answers
+
     1. They incorporate geometric constraints and avoid redundant coordinates.
     2. When it derives from that potential; do not count it again in Q.
     3. The coordinate map and energy can depend explicitly on time, and moving constraints can do work.
     4. No.
     5. Check dimensions, simple limits, restoring signs, and consistency with Newton–Euler or energy balance.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -1979,8 +1979,9 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Final answers to original Problems': mo.md(r"""
+    mo.md(r"""
+    /// details | Final answers to original Problems
+
     1. With downward extension $x$ from the spring’s natural length: $m\ddot x+kx=mg$.
 
     2. With angle from upright and pivot inertia $I_O$: $I_O\ddot\theta-mgr\sin\theta=0$; for a point pendulum, $r=\ell$ and $I_O=m\ell^2$.
@@ -2002,9 +2003,8 @@ def _(mo):
     10. For $g=10$ m/s² and the triangular GRF in the figure: FBD has GRF up and $mg$ down; takeoff velocity is 2 m/s, takeoff height is 1 m and apex height is 1.2 m. In a unilateral spring model with upward coordinate y and natural leg length $L_0$, $m\ddot y=k\max(L_0-y,0)-mg$ during contact and $\ddot y=-g$ in flight. Explicit-Euler updates are $y_{n+1}=y_n+v_n\Delta t$ and $v_{n+1}=v_n+a(y_n)\Delta t$, with contact switching at the chosen leg-length boundary.
 
     11. Numerical programs should converge to the stated equations and available analytical trajectories as step size decreases. Parameter values and initial conditions must be specified for cases that provide only symbolic models.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 

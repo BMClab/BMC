@@ -1,0 +1,468 @@
+{
+  "saved-verification": {
+    "summary": {
+      "explicit_dependent_cells": 76,
+      "helper_downloads": 38,
+      "saved_figure_cells": 322,
+      "notebooks": 88,
+      "original_definitions_removed": 41
+    },
+    "notebooks": [
+      {
+        "source": "notebooks/amti_bsf_file.py",
+        "helper_download": true,
+        "saved_figure_cells": 1
+      },
+      {
+        "source": "notebooks/angular_velocity_3d.py",
+        "helper_download": true,
+        "saved_figure_cells": 3
+      },
+      {
+        "source": "notebooks/aula_filtragem.py",
+        "helper_download": false,
+        "saved_figure_cells": 6
+      },
+      {
+        "source": "notebooks/basic_mechanical_elements_muscle_model.py",
+        "helper_download": false,
+        "saved_figure_cells": 6
+      },
+      {
+        "source": "notebooks/biomechanics.py",
+        "helper_download": false,
+        "saved_figure_cells": 1
+      },
+      {
+        "source": "notebooks/bmclab.py",
+        "helper_download": false,
+        "saved_figure_cells": 0
+      },
+      {
+        "source": "notebooks/body_segment_parameters.py",
+        "helper_download": true,
+        "saved_figure_cells": 1
+      },
+      {
+        "source": "notebooks/center_of_mass_and_moment_of_inertia.py",
+        "helper_download": false,
+        "saved_figure_cells": 0
+      },
+      {
+        "source": "notebooks/ch2_viscoelastic_models.py",
+        "helper_download": true,
+        "saved_figure_cells": 6
+      },
+      {
+        "source": "notebooks/code_structure.py",
+        "helper_download": false,
+        "saved_figure_cells": 0
+      },
+      {
+        "source": "notebooks/confidence_prediction_intervals.py",
+        "helper_download": true,
+        "saved_figure_cells": 6
+      },
+      {
+        "source": "notebooks/coordinate_system.py",
+        "helper_download": true,
+        "saved_figure_cells": 3
+      },
+      {
+        "source": "notebooks/curve_fitting.py",
+        "helper_download": false,
+        "saved_figure_cells": 10
+      },
+      {
+        "source": "notebooks/data_filtering.py",
+        "helper_download": true,
+        "saved_figure_cells": 15
+      },
+      {
+        "source": "notebooks/dlt.py",
+        "helper_download": false,
+        "saved_figure_cells": 0
+      },
+      {
+        "source": "notebooks/electromyography.py",
+        "helper_download": true,
+        "saved_figure_cells": 11
+      },
+      {
+        "source": "notebooks/ellipsoid_3d_rotation_matrix_1.py",
+        "helper_download": false,
+        "saved_figure_cells": 2
+      },
+      {
+        "source": "notebooks/ellipsoid_rotation_matrix_3d.py",
+        "helper_download": false,
+        "saved_figure_cells": 1
+      },
+      {
+        "source": "notebooks/ensemble_average.py",
+        "helper_download": false,
+        "saved_figure_cells": 5
+      },
+      {
+        "source": "notebooks/fbd_particles.py",
+        "helper_download": false,
+        "saved_figure_cells": 4
+      },
+      {
+        "source": "notebooks/force_plate_calibration.py",
+        "helper_download": false,
+        "saved_figure_cells": 1
+      },
+      {
+        "source": "notebooks/fourier_series.py",
+        "helper_download": true,
+        "saved_figure_cells": 6
+      },
+      {
+        "source": "notebooks/fourier_transform.py",
+        "helper_download": true,
+        "saved_figure_cells": 13
+      },
+      {
+        "source": "notebooks/free_body_diagram.py",
+        "helper_download": false,
+        "saved_figure_cells": 0
+      },
+      {
+        "source": "notebooks/free_body_diagram_for_rigid_bodies.py",
+        "helper_download": false,
+        "saved_figure_cells": 1
+      },
+      {
+        "source": "notebooks/gait_analysis_2d.py",
+        "helper_download": true,
+        "saved_figure_cells": 6
+      },
+      {
+        "source": "notebooks/iep.py",
+        "helper_download": true,
+        "saved_figure_cells": 8
+      },
+      {
+        "source": "notebooks/ip_model.py",
+        "helper_download": true,
+        "saved_figure_cells": 1
+      },
+      {
+        "source": "notebooks/kinematic_chain.py",
+        "helper_download": false,
+        "saved_figure_cells": 8
+      },
+      {
+        "source": "notebooks/kinematics_angular_2d.py",
+        "helper_download": true,
+        "saved_figure_cells": 7
+      },
+      {
+        "source": "notebooks/kinematics_of_rigid_body.py",
+        "helper_download": false,
+        "saved_figure_cells": 7
+      },
+      {
+        "source": "notebooks/kinematics_particle.py",
+        "helper_download": false,
+        "saved_figure_cells": 6
+      },
+      {
+        "source": "notebooks/kinetics_3d_rigid_body.py",
+        "helper_download": true,
+        "saved_figure_cells": 4
+      },
+      {
+        "source": "notebooks/kinetics_fundamental_concepts.py",
+        "helper_download": false,
+        "saved_figure_cells": 1
+      },
+      {
+        "source": "notebooks/kistler_force_plate_calculation.py",
+        "helper_download": true,
+        "saved_figure_cells": 1
+      },
+      {
+        "source": "notebooks/lab_acel_gravidade.py",
+        "helper_download": true,
+        "saved_figure_cells": 12
+      },
+      {
+        "source": "notebooks/lab_filtros.py",
+        "helper_download": true,
+        "saved_figure_cells": 12
+      },
+      {
+        "source": "notebooks/lagrangian_mechanics.py",
+        "helper_download": false,
+        "saved_figure_cells": 3
+      },
+      {
+        "source": "notebooks/lagrangian_mechanics_generalized.py",
+        "helper_download": false,
+        "saved_figure_cells": 0
+      },
+      {
+        "source": "notebooks/matrix.py",
+        "helper_download": false,
+        "saved_figure_cells": 0
+      },
+      {
+        "source": "notebooks/matrix_formalism.py",
+        "helper_download": false,
+        "saved_figure_cells": 2
+      },
+      {
+        "source": "notebooks/minimum_jerk_hypothesis.py",
+        "helper_download": false,
+        "saved_figure_cells": 3
+      },
+      {
+        "source": "notebooks/multibody_dynamics.py",
+        "helper_download": true,
+        "saved_figure_cells": 6
+      },
+      {
+        "source": "notebooks/multibody_inverse_dynamics.py",
+        "helper_download": false,
+        "saved_figure_cells": 0
+      },
+      {
+        "source": "notebooks/muscle_modeling.py",
+        "helper_download": false,
+        "saved_figure_cells": 9
+      },
+      {
+        "source": "notebooks/muscle_simulation.py",
+        "helper_download": true,
+        "saved_figure_cells": 10
+      },
+      {
+        "source": "notebooks/musculoskeletal_modeling_simulation.py",
+        "helper_download": true,
+        "saved_figure_cells": 5
+      },
+      {
+        "source": "notebooks/newton_euler_equations.py",
+        "helper_download": false,
+        "saved_figure_cells": 0
+      },
+      {
+        "source": "notebooks/newton_law_for_particles.py",
+        "helper_download": false,
+        "saved_figure_cells": 6
+      },
+      {
+        "source": "notebooks/open_c3d_file.py",
+        "helper_download": true,
+        "saved_figure_cells": 2
+      },
+      {
+        "source": "notebooks/optimization.py",
+        "helper_download": true,
+        "saved_figure_cells": 2
+      },
+      {
+        "source": "notebooks/ordinary_differential_equation.py",
+        "helper_download": false,
+        "saved_figure_cells": 7
+      },
+      {
+        "source": "notebooks/pandas_data.py",
+        "helper_download": true,
+        "saved_figure_cells": 4
+      },
+      {
+        "source": "notebooks/path_frame.py",
+        "helper_download": false,
+        "saved_figure_cells": 4
+      },
+      {
+        "source": "notebooks/polar_basis.py",
+        "helper_download": false,
+        "saved_figure_cells": 6
+      },
+      {
+        "source": "notebooks/polynomial_fitting.py",
+        "helper_download": false,
+        "saved_figure_cells": 4
+      },
+      {
+        "source": "notebooks/prediction_ellipse_ellipsoid.py",
+        "helper_download": true,
+        "saved_figure_cells": 8
+      },
+      {
+        "source": "notebooks/principle_of_least_action.py",
+        "helper_download": false,
+        "saved_figure_cells": 0
+      },
+      {
+        "source": "notebooks/projectile_motion.py",
+        "helper_download": false,
+        "saved_figure_cells": 3
+      },
+      {
+        "source": "notebooks/propagation_uncertainty.py",
+        "helper_download": false,
+        "saved_figure_cells": 0
+      },
+      {
+        "source": "notebooks/python_for_scientific_computing.py",
+        "helper_download": false,
+        "saved_figure_cells": 0
+      },
+      {
+        "source": "notebooks/python_installation.py",
+        "helper_download": false,
+        "saved_figure_cells": 0
+      },
+      {
+        "source": "notebooks/python_tutorial.py",
+        "helper_download": false,
+        "saved_figure_cells": 3
+      },
+      {
+        "source": "notebooks/read_c3d.py",
+        "helper_download": true,
+        "saved_figure_cells": 1
+      },
+      {
+        "source": "notebooks/read_delsys_cortex_file.py",
+        "helper_download": false,
+        "saved_figure_cells": 1
+      },
+      {
+        "source": "notebooks/read_mac_ascii_files.py",
+        "helper_download": true,
+        "saved_figure_cells": 0
+      },
+      {
+        "source": "notebooks/read_trc.py",
+        "helper_download": true,
+        "saved_figure_cells": 0
+      },
+      {
+        "source": "notebooks/read_trc_forces_files.py",
+        "helper_download": true,
+        "saved_figure_cells": 2
+      },
+      {
+        "source": "notebooks/read_zebris_pressure_platform_ascii_files.py",
+        "helper_download": true,
+        "saved_figure_cells": 7
+      },
+      {
+        "source": "notebooks/reference_frame.py",
+        "helper_download": true,
+        "saved_figure_cells": 4
+      },
+      {
+        "source": "notebooks/rep_missing.py",
+        "helper_download": false,
+        "saved_figure_cells": 0
+      },
+      {
+        "source": "notebooks/resample.py",
+        "helper_download": false,
+        "saved_figure_cells": 1
+      },
+      {
+        "source": "notebooks/residual_analysis.py",
+        "helper_download": true,
+        "saved_figure_cells": 6
+      },
+      {
+        "source": "notebooks/scalar_vector.py",
+        "helper_download": false,
+        "saved_figure_cells": 0
+      },
+      {
+        "source": "notebooks/signal_basic_properties.py",
+        "helper_download": true,
+        "saved_figure_cells": 10
+      },
+      {
+        "source": "notebooks/similarity.py",
+        "helper_download": false,
+        "saved_figure_cells": 1
+      },
+      {
+        "source": "notebooks/sistema_coordenadas.py",
+        "helper_download": true,
+        "saved_figure_cells": 7
+      },
+      {
+        "source": "notebooks/spatial_temporal_characteristics.py",
+        "helper_download": false,
+        "saved_figure_cells": 0
+      },
+      {
+        "source": "notebooks/stabilography.py",
+        "helper_download": true,
+        "saved_figure_cells": 4
+      },
+      {
+        "source": "notebooks/statistics_bayesian.py",
+        "helper_download": false,
+        "saved_figure_cells": 0
+      },
+      {
+        "source": "notebooks/statistics_descriptive.py",
+        "helper_download": false,
+        "saved_figure_cells": 3
+      },
+      {
+        "source": "notebooks/svd_algorithm.py",
+        "helper_download": true,
+        "saved_figure_cells": 0
+      },
+      {
+        "source": "notebooks/text_and_binary_files.py",
+        "helper_download": false,
+        "saved_figure_cells": 0
+      },
+      {
+        "source": "notebooks/transformation_2d.py",
+        "helper_download": false,
+        "saved_figure_cells": 4
+      },
+      {
+        "source": "notebooks/transformation_3d.py",
+        "helper_download": true,
+        "saved_figure_cells": 6
+      },
+      {
+        "source": "notebooks/trigonometry_basics.py",
+        "helper_download": false,
+        "saved_figure_cells": 0
+      },
+      {
+        "source": "notebooks/version_control_git_github.py",
+        "helper_download": false,
+        "saved_figure_cells": 0
+      },
+      {
+        "source": "notebooks/vertical_jump.py",
+        "helper_download": true,
+        "saved_figure_cells": 3
+      }
+    ]
+  },
+  "detached-verification": {
+    "detached_missing_error": "passed",
+    "detached_recovery": "passed",
+    "wasm_helper_bytes": "passed",
+    "wheels": [
+      "public/wheels/notebook_resources-0.0.0+marimo.9f9afe92b910-py3-none-any.whl"
+    ],
+    "folder": "/home/marcos/tmp/bmc-detached-helper-dxhjf4zy"
+  },
+  "site-verification": {
+    "editable_notebooks": 88,
+    "notebooks_with_helper_wheel": 38,
+    "shared_helper_wheel": "public/wheels/notebook_resources-0.0.0+marimo.9f9afe92b910-py3-none-any.whl",
+    "exact_helper_bytes": true
+  }
+}

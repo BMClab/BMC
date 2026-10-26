@@ -164,7 +164,19 @@ uv run marimo check --strict notebooks/*.py
 
 To execute one notebook headlessly, use `uv run marimo export html notebooks/reference_frame.py -o /tmp/ReferenceFrame.html`. Running a notebook as `python notebook.py` opens its application; it does not verify all cell bodies.
 
-The common repository-file resolver is maintained in `functions/notebook_resources.py` and embedded in standalone notebooks. After changing it, run `uv run python scripts/sync_notebook_resources.py`. Generated session state and saved outputs under `__marimo__/` are ignored and are not shipped with the sources; run the notebooks to generate their outputs.
+The common repository-file resolver is imported from `functions/notebook_resources.py`.
+Marimo's source search path is configured in `pyproject.toml`; changes to the
+helper apply to every notebook that imports it.
+
+If you download a notebook on its own and it reports that `notebook_resources.py`
+is missing, use **Download helper** on its saved page, or
+[download the helper directly](https://raw.githubusercontent.com/BMClab/BMC/master/functions/notebook_resources.py).
+Save it in the same folder as the notebook, keeping the filename
+`notebook_resources.py`, then rerun the import cell. Editable Pages exports
+bundle the helper automatically.
+
+Generated session state and saved outputs under `__marimo__/` are ignored and
+are not shipped with the sources; run the notebooks to generate their outputs.
 
 ## How to cite this work
 

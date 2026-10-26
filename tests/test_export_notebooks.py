@@ -206,6 +206,40 @@ class ExportUpdateTests(unittest.TestCase):
             self.assertEqual(execute.call_count, 4)
             self.assertEqual(self.run_exporter("--check"), 0)
 
+    def test_resource_user_can_download_the_exact_helper_beside_the_notebook(self):
+        self.source.write_text(
+            "import marimo\napp = marimo.App()\n"
+            "@app.cell\ndef _():\n"
+            "    try:\n        from notebook_resources import repo_file\n"
+            "    except ModuleNotFoundError:\n        raise\n"
+            "    return (repo_file,)\n"
+        )
+        helper = self.root / "functions/notebook_resources.py"
+        helper.parent.mkdir()
+        helper.write_text("def repo_file(path):\n    return path  # café <>&\n")
+        with patch.object(exporter.subprocess, "run", side_effect=self.fake_export):
+            self.assertEqual(self.run_exporter(), 0)
+
+        class Downloads(HTMLParser):
+            def __init__(self):
+                super().__init__()
+                self.links = {}
+
+            def handle_starttag(self, tag, attrs):
+                attributes = dict(attrs)
+                if tag == "a" and "download" in attributes:
+                    self.links[attributes["download"]] = attributes["href"]
+
+        parser = Downloads()
+        parser.feed(self.page.read_text())
+        self.assertEqual(set(parser.links), {"example.py", "notebook_resources.py"})
+        for name, path in (
+            ("example.py", self.source),
+            ("notebook_resources.py", helper),
+        ):
+            with self.subTest(download=name), urlopen(parser.links[name]) as response:
+                self.assertEqual(response.read(), path.read_bytes())
+
     def test_failed_native_export_preserves_the_previous_page_and_reports_failure(self):
         with patch.object(exporter.subprocess, "run", side_effect=self.fake_export):
             self.assertEqual(self.run_exporter(), 0)

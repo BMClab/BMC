@@ -86,52 +86,24 @@ def _(mo):
     return
 
 
-@app.function
-def repo_file(path, *, base_url="https://raw.githubusercontent.com/BMClab/BMC/master/"):
-    """Find a repository file beside this notebook, or fetch a temporary copy.
-
-    Local files take precedence. Only file acquisition falls back to GitHub;
-    parsing errors remain visible to the calling notebook. urllib3 selects its
-    browser transport automatically without platform-specific imports.
-    """
-    import hashlib
-    import tempfile
-    from pathlib import Path, PurePosixPath
-    from urllib.parse import quote
-
-    import marimo as mo
-    import urllib3
-
-    relative = PurePosixPath(path)
-    if relative.is_absolute() or ".." in relative.parts or "\\" in str(path):
-        raise ValueError("Use a repository-relative path such as data/walk.trc")
-    location = mo.notebook_dir()
-    if location is not None:
-        directory = Path(location).resolve()
-        for base in (directory, *directory.parents):
-            local = base.joinpath(*relative.parts)
-            if local.is_file():
-                return local
-    url = base_url.rstrip("/") + "/" + quote(relative.as_posix(), safe="/")
-    key = hashlib.sha256(base_url.rstrip("/").encode()).hexdigest()[:16]
-    cached = (Path(tempfile.gettempdir()) / "bmc-notebooks-v2" / key).joinpath(*relative.parts)
-    if not cached.is_file():
-        response = urllib3.request("GET", url, timeout=30.0, retries=2)
-        if response.status != 200:
-            raise OSError(f"Cannot load {path}: HTTP {response.status} from {url}")
-        cached.parent.mkdir(parents=True, exist_ok=True)
-        with tempfile.NamedTemporaryFile(dir=cached.parent, delete=False) as download:
-            temporary = Path(download.name)
-            download.write(response.data)
-        try:
-            temporary.replace(cached)
-        finally:
-            temporary.unlink(missing_ok=True)
-    return cached
+@app.cell(hide_code=True)
+def _():
+    try:
+        from notebook_resources import repo_file
+    except ModuleNotFoundError as _error:
+        if _error.name != "notebook_resources":
+            raise
+        raise ModuleNotFoundError(
+            "This notebook needs notebook_resources.py. Download it from:\n"
+            "https://raw.githubusercontent.com/BMClab/BMC/master/functions/notebook_resources.py\n"
+            "Save it in the same folder as this notebook, then rerun this cell.",
+            name="notebook_resources",
+        ) from None
+    return (repo_file,)
 
 
 @app.cell
-def _():
+def _(repo_file):
     import numpy as np
     # '%matplotlib inline' command supported automatically in marimo
     import matplotlib.pyplot as plt
@@ -230,12 +202,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 1': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 1
+
     The product-to-sum identity gives $\sin t\sin2t=[\cos t-\cos3t]/2$, whose integral over the full period is zero. The square identity gives $\sin^2t=(1-\cos2t)/2$, whose integral is $\pi$.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -343,12 +315,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 2': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 2
+
     The mean is 3, $a_2=2$ and $b_1=-1$; all other non-DC coefficients vanish. The fundamental grid is 1 Hz, although the cosine component is at 2 Hz.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -508,12 +480,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 3': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 3
+
     At the jump the series converges to the midpoint, 0. Increasing terms narrows the oscillatory region, but the relative Gibbs overshoot near a jump does not vanish. Away from the jump the approximation improves.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -689,12 +661,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 4': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 4
+
     $A=\sqrt2$ and $\phi=\operatorname{atan2}(-b,a)=-3\pi/4$ (equivalently 5π/4). A one-argument arctangent loses the quadrant and would reconstruct the wrong signal.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -868,12 +840,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 5': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 5
+
     RMS is $2/\sqrt2=\sqrt2$ V and mean square is 2 V². Each of the two complex coefficients has magnitude 1 V; their squared magnitudes sum to 2 V². Peak amplitude squared alone would double the average power-like quantity.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -899,12 +871,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Checkpoint answers': mo.md(r"""
+    mo.md(r"""
+    /// details | Checkpoint answers
+
     1. The period: spacing is 1/T. 2. Sine coefficients. 3. Every phase produces the same zero contribution. 4. A nonzero periodic signal has finite mean-square power but infinite total energy over an infinite time interval.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -927,8 +899,9 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Final answers to original Problems': mo.md(r"""
+    mo.md(r"""
+    /// details | Final answers to original Problems
+
     1. $\sin(x+\pi/2)=\cos x$.
 
     2. $\cos x=(e^{ix}+e^{-ix})/2$; $\sin x=(e^{ix}-e^{-ix})/(2i)$.
@@ -944,9 +917,8 @@ def _(mo):
     7. $x(t)\sim(2/\pi)\sum_{k=1}^{\infty}(-1)^{k+1}\sin(2\pi kt/T)/k$. At the jump t=T/2 modulo T the series value is 0.
 
     8. Both have total mean-square power 2 and a one-sided power line of 2 at 2 Hz. In the cosine-with-plus-phase convention, the sine has phase −π/2 and the cosine has phase 0. Their complex two-sided coefficients each have magnitude 1 at ±2 Hz, so each two-sided power line is 1; the sine phases are −π/2 at +2 Hz and +π/2 at −2 Hz.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 @app.cell(hide_code=True)

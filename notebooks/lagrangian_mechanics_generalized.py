@@ -203,12 +203,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 1': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 1
+
     One holonomic constraint removes one of the two configuration coordinates. Choose $q=\theta$, $x=R\cos\theta$, $y=R\sin\theta$. Angle determines position; its velocity remains separate initial data.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -264,12 +264,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 2': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 2
+
     $Q_\theta=\mathbf F\cdot\partial\mathbf r/\partial\theta=R(-F_x\sin\theta+F_y\cos\theta)$. It has units N m because its coordinate is an angle. A radial ideal normal force gives zero generalized force.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -475,12 +475,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 3': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 3
+
     $L=\tfrac12mR^2\dot\theta^2+mgR\cos\theta$. Its equation is $mR^2\ddot\theta+mgR\sin\theta=0$. This uses a fixed wire and a normal force that does no virtual work.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -509,12 +509,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 4': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 4
+
     No. Virtual displacement holds time fixed and respects the instantaneous constraint. Actual velocity also includes motion of the constraint itself. A moving support can transfer energy even when its ideal reaction does no virtual work.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -540,15 +540,15 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Checkpoint answers': mo.md(r"""
+    mo.md(r"""
+    /// details | Checkpoint answers
+
     1. No; any independent parameters that specify configuration can be used.
     2. The product $Q_i\,dq_i$ must have work units.
     3. Only independent holonomic constraints do so in this simple counting rule.
     4. When their total virtual work vanishes for the allowed virtual displacements.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -568,16 +568,16 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Final answers to Problems': mo.md(r"""
+    mo.md(r"""
+    /// details | Final answers to Problems
+
     1. 23 J per unit q.
 
     2. $M=0.5$ kg m²; $G_{left}=9.81\sin\theta$ N m; $0.5\ddot\theta+9.81\sin\theta=0$.
 
     3. Zero.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 

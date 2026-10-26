@@ -97,12 +97,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 1': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 1
+
     The Earth exerts weight 19.62 N downward; the table exerts a normal force 19.62 N upward. The book’s force on the table belongs on a different diagram. No horizontal force is required merely to remain at rest.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -298,12 +298,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 2': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 2
+
     Take right as positive. $a=-6/4=-1.5$ m/s² and $v(1)=3-1.5=1.5$ m/s. The object still moves right while accelerating left. A velocity arrow is useful beside a diagram but is not a force.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -572,12 +572,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 3': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 3
+
     The length is 1 m, the extension is 0.5 m and the force magnitude is 10 N. The unit vector toward the anchor is $(-0.6,-0.8)$, giving $\mathbf F=(-6,-8)$ N. The spring pulls along its axis.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -651,12 +651,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 4': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 4
+
     With upward positive, $F_D=-c|v|v$. It is −8 N during ascent and +8 N during descent. Writing $-cv^2$ for both would make drag point downward even when the particle falls.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -850,12 +850,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 5': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 5
+
     The force opposing relative motion is $-b v=-6$ N. Its mechanical power is $Fv=-12$ W, so 12 W is converted to heat. The sign stays dissipative if the velocity reverses because $-bv^2\le0$.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -1004,15 +1004,15 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Checkpoint answers': mo.md(r"""
+    mo.md(r"""
+    /// details | Checkpoint answers
+
     1. Only if the velocity vector is constant; circular motion at constant speed still accelerates.
     2. The pair acts on two different bodies.
     3. Drag power relative to the fluid must be nonpositive.
     4. A resultant force opposite its velocity, such as kinetic friction.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -1053,8 +1053,9 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Final answers to original Problems': mo.md(r"""
+    mo.md(r"""
+    /// details | Final answers to original Problems
+
     1. (a) Weight down, equal normal up. (b) Weight down, equal tension up. (c) Weight down, normal up, push right, equal friction left. (d) Weight down larger than upward drag. (e) Weight down, normal up, kinetic friction left. (f) Weight down larger than upward cable tension.
 
     2. Once the lower block slides on the floor, $F_{max}=(m_1+m_2)g(\mu_{s,12}+\mu_{k,ground})$, with $a_{max}=\mu_{s,12}g$. The static-to-sliding threshold also depends on floor static friction; without specifying these coefficients and whether sliding has begun, there is no single numerical force.
@@ -1066,9 +1067,8 @@ def _(mo):
     5. Block B reaches 13.08 m/s upward after 2 s ($g=9.81$ m/s²).
 
     6. The normal force is $3mg\sin60^\circ=1529.2$ N toward the circle center ($g=9.81$ m/s²).
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 

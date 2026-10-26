@@ -159,9 +159,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion({'Solution to Exercise 1': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 1
+
     With the default convention the missing indices are 2, 5, and 6 (zero-based). With `value=0`, only index 7 is selected. NaNs still remain NaNs for constant, mean, and median replacement; interpolation also fills NaNs.
-    """)}, expanded=False)
+    ///
+    """)
     return
 
 
@@ -198,9 +201,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion({'Solution to Exercise 2': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 2
+
     Both give `[1, 5, 9]`: the observed values are 1 and 9, whose mean and median are both 5. Including the sentinel in the calculation would bias the result.
-    """)}, expanded=False)
+    ///
+    """)
     return
 
 
@@ -230,9 +236,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion({'Solution to Exercise 3': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 3
+
     The interior value is 4 because it lies halfway between two observations. A long gap permits many possible trajectories; linear interpolation chooses one without measuring it.
-    """)}, expanded=False)
+    ///
+    """)
     return
 
 
@@ -262,11 +271,14 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion({'Checkpoint answers': mo.md(r"""
+    mo.md(r"""
+    /// details | Checkpoint answers
+
     1. No; the file convention determines that.
     2. No; the filled values are estimates.
     3. It stays unchanged.
-    """)}, expanded=False)
+    ///
+    """)
     return
 
 
@@ -290,9 +302,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion({'Answer to Problem 1': mo.md(r"""
+    mo.md(r"""
+    /// details | Answer to Problem 1
+
     `[2, 5, 8]`.
-    """)}, expanded=False)
+    ///
+    """)
     return
 
 
@@ -306,9 +321,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion({'Answer to Problem 2': mo.md(r"""
+    mo.md(r"""
+    /// details | Answer to Problem 2
+
     5 samples; missing-sample duration 0.05 s.
-    """)}, expanded=False)
+    ///
+    """)
     return
 
 

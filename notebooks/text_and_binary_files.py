@@ -83,9 +83,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion({'Solution to Exercise 1': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 1
+
     Three bytes: one for each ASCII character `1`, `.`, and `5`. A trailing newline adds one byte in this example.
-    """)}, expanded=False)
+    ///
+    """)
     return
 
 
@@ -116,9 +119,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion({'Solution to Exercise 2': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 2
+
     No. Character decoding recovers the text, but physical interpretation requires metadata or a documented column schema.
-    """)}, expanded=False)
+    ///
+    """)
     return
 
 
@@ -138,11 +144,14 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion({'Checkpoint answers': mo.md(r"""
+    mo.md(r"""
+    /// details | Checkpoint answers
+
     1. No; it is a character encoding.
     2. No.
     3. No; both text and other formats are stored as bytes.
-    """)}, expanded=False)
+    ///
+    """)
     return
 
 
@@ -166,9 +175,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion({'Answer to Problem 1': mo.md(r"""
+    mo.md(r"""
+    /// details | Answer to Problem 1
+
     40 bytes.
-    """)}, expanded=False)
+    ///
+    """)
     return
 
 
@@ -182,9 +194,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion({'Answer to Problem 2': mo.md(r"""
+    mo.md(r"""
+    /// details | Answer to Problem 2
+
     Little-endian byte order and 32-bit floating-point representation.
-    """)}, expanded=False)
+    ///
+    """)
     return
 
 

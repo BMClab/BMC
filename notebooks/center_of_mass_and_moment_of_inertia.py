@@ -195,12 +195,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 1': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 1
+
     $x_C=(2\cdot0+3\cdot1)/(2+3)=0.6$ m. It lies 0.4 m from the heavier particle and 0.6 m from the lighter one. The distances give equal moments about the center.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -452,12 +452,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 2': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 2
+
     Each rod can be represented by its mass at its own center for this calculation. The weighted average is $[(1)(0.5,0)+(2)(1,0.5)]/3=(5/6,1/3)$ m. This replacement works for the center of mass; inertia also needs each rod’s own inertia.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -700,12 +700,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 3': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 3
+
     The center value is $mL^2/12=0.06$ kg m². Moving the axis by $L/2$ adds $m(L/2)^2=0.18$ kg m², giving $0.24$ kg m² at the end. The factor of four explains the opening challenge.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -938,12 +938,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 4': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 4
+
     Using $\mathbf I=m[(\mathbf r\cdot\mathbf r)\mathbf1-\mathbf r\mathbf r^T]$ gives $I_{xx}=8$, $I_{yy}=2$, $I_{zz}=10$ and $I_{xy}=-4$ kg m². The off-diagonal entry includes the conventional minus sign, $-mxy$; it is not a negative physical resistance to rotation.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -1097,12 +1097,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 5': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 5
+
     No: rotational kinetic energy needs kg m², whereas the section property has m⁴. You need a mass distribution and the actual rotation axis. For a uniform thin lamina, an areal density can convert a suitable area integral into a mass moment.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -1149,15 +1149,15 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Checkpoint answers': mo.md(r"""
+    mo.md(r"""
+    /// details | Checkpoint answers
+
     1. Uniform gravity makes mass and gravity centers coincide; uniform density also makes them coincide with the geometric centroid.
     2. No; it is positive semidefinite. A zero eigenvalue is possible for an ideal mass distribution entirely on an axis.
     3. Only perpendicular distance enters rotational inertia.
     4. The distances to the rotation axis changed.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -1182,14 +1182,14 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Final answers to original Problems': mo.md(r"""
+    mo.md(r"""
+    /// details | Final answers to original Problems
+
     2. For uniform bodies of mass 1 kg, the center of mass is the geometric center. With planar objects in the xy plane and dimensions in metres, principal inertia triples $(I_x,I_y,I_z)$ in kg m² are: disc $(r^2/4,r^2/4,r^2/2)$; square $(a^2/12,a^2/12,a^2/6)$; ellipse $(b^2/4,a^2/4,(a^2+b^2)/4)$; solid sphere $(2r^2/5,2r^2/5,2r^2/5)$; solid cube $(a^2/6,a^2/6,a^2/6)$; solid ellipsoid $((b^2+c^2)/5,(a^2+c^2)/5,(a^2+b^2)/5)$.
 
     3. The single-particle tensor is $\begin{bmatrix}4&-2&0\\-2&1&0\\0&0&5\end{bmatrix}$ kg m². For the two-particle set about its center, it is $\begin{bmatrix}8&-4&0\\-4&2&0\\0&0&10\end{bmatrix}$ kg m².
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 

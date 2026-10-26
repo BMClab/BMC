@@ -45,48 +45,20 @@ def _(mo):
     return
 
 
-@app.function(hide_code=True)
-def repo_file(path, *, base_url="https://raw.githubusercontent.com/BMClab/BMC/master/"):
-    """Find a repository file beside this notebook, or fetch a temporary copy.
-
-    Local files take precedence. Only file acquisition falls back to GitHub;
-    parsing errors remain visible to the calling notebook. urllib3 selects its
-    browser transport automatically without platform-specific imports.
-    """
-    import hashlib
-    import tempfile
-    from pathlib import Path, PurePosixPath
-    from urllib.parse import quote
-
-    import marimo as mo
-    import urllib3
-
-    relative = PurePosixPath(path)
-    if relative.is_absolute() or ".." in relative.parts or "\\" in str(path):
-        raise ValueError("Use a repository-relative path such as data/walk.trc")
-    location = mo.notebook_dir()
-    if location is not None:
-        directory = Path(location).resolve()
-        for base in (directory, *directory.parents):
-            local = base.joinpath(*relative.parts)
-            if local.is_file():
-                return local
-    url = base_url.rstrip("/") + "/" + quote(relative.as_posix(), safe="/")
-    key = hashlib.sha256(base_url.rstrip("/").encode()).hexdigest()[:16]
-    cached = (Path(tempfile.gettempdir()) / "bmc-notebooks-v2" / key).joinpath(*relative.parts)
-    if not cached.is_file():
-        response = urllib3.request("GET", url, timeout=30.0, retries=2)
-        if response.status != 200:
-            raise OSError(f"Cannot load {path}: HTTP {response.status} from {url}")
-        cached.parent.mkdir(parents=True, exist_ok=True)
-        with tempfile.NamedTemporaryFile(dir=cached.parent, delete=False) as download:
-            temporary = Path(download.name)
-            download.write(response.data)
-        try:
-            temporary.replace(cached)
-        finally:
-            temporary.unlink(missing_ok=True)
-    return cached
+@app.cell(hide_code=True)
+def _():
+    try:
+        from notebook_resources import repo_file
+    except ModuleNotFoundError as _error:
+        if _error.name != "notebook_resources":
+            raise
+        raise ModuleNotFoundError(
+            "This notebook needs notebook_resources.py. Download it from:\n"
+            "https://raw.githubusercontent.com/BMClab/BMC/master/functions/notebook_resources.py\n"
+            "Save it in the same folder as this notebook, then rerun this cell.",
+            name="notebook_resources",
+        ) from None
+    return (repo_file,)
 
 
 @app.cell(hide_code=True)
@@ -130,11 +102,11 @@ def _():
     # Import the necessary libraries
     import numpy as np
     import pandas as pd
-    from IPython.display import display, Math, Latex
+    from IPython.display import display
     # '%matplotlib inline' command supported automatically in marimo
     import matplotlib.pyplot as plt
     pd.set_option('max_colwidth', 100)
-    return Latex, display, np, pd, plt
+    return display, np, pd, plt
 
 
 @app.cell(hide_code=True)
@@ -146,17 +118,17 @@ def _(mo):
 
 
 @app.cell
-def _(Latex, display, pd):
+def _(display, mo, pd, repo_file):
     BSP_Dmarks = pd.read_csv(repo_file('data/BSP_DempsterWinter.txt'), sep='\t')
-    display(Latex('\\text{BSP segments from Dempster\'s model adapted by Winter (2009):}'))
+    display(mo.md("BSP segments from Dempster's model adapted by Winter (2009):"))
     display(BSP_Dmarks)
     return
 
 
 @app.cell
-def _(Latex, display, pd):
+def _(display, mo, pd, repo_file):
     bsp_D = pd.read_csv(repo_file('data/BSP_DempsterWinter.txt'), index_col=0, sep='\t')
-    display(Latex('\\text{BSP values from Dempster\'s model adapted by Winter (2009):}'))
+    display(mo.md("BSP values from Dempster's model adapted by Winter (2009):"))
     display(bsp_D)
     return (bsp_D,)
 
@@ -171,12 +143,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 1': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 1
+
     The table fraction is dimensionless: $m=70(0.0465)=3.255$ kg. Using 4.65 would give 325.5 kg, already larger than the whole person. This simple total-mass check catches a percent/fraction error.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -195,25 +167,25 @@ def _(mo):
 
 
 @app.cell
-def _(Latex, display, pd):
+def _(display, mo, pd, repo_file):
     BSP_Zmarks = pd.read_csv(repo_file('data/BSPlandmarks_ZdeLeva.txt'), sep='\t')
-    display(Latex('\\text{BSP landmarks from Zatsiorsky\'s model adjusted by de Leva (1996):}'))
+    display(mo.md("BSP landmarks from Zatsiorsky's model adjusted by de Leva (1996):"))
     display(BSP_Zmarks)
     return
 
 
 @app.cell
-def _(Latex, display, pd):
+def _(display, mo, pd, repo_file):
     bsp_Zf = pd.read_csv(repo_file('data/BSPfemale_ZdeLeva.txt'), index_col=0, sep='\t')
-    display(Latex('\\text{BSP female values from Zatsiorsky\'s model adjusted by de Leva (1996):}'))
+    display(mo.md("BSP female values from Zatsiorsky's model adjusted by de Leva (1996):"))
     display(bsp_Zf)
     return (bsp_Zf,)
 
 
 @app.cell
-def _(Latex, display, pd):
+def _(display, mo, pd, repo_file):
     bsp_Zm = pd.read_csv(repo_file('data/BSPmale_ZdeLeva.txt'), index_col=0, sep='\t')
-    display(Latex('\\text{BSP male values from Zatsiorsky\'s model adjusted by de Leva (1996):}'))
+    display(mo.md("BSP male values from Zatsiorsky's model adjusted by de Leva (1996):"))
     display(bsp_Zm)
     return (bsp_Zm,)
 
@@ -231,7 +203,7 @@ def _(mo):
 
 
 @app.cell
-def _(Latex, bsp_D, bsp_Zf, bsp_Zm, display, np, pd):
+def _(bsp_D, bsp_Zf, bsp_Zm, display, mo, np, pd):
     m_D = bsp_D.loc[['Foot', 'Leg', 'Thigh', 'Pelvis', 'Abdomen', 'Thorax', 'Trunk',
                        'Upper arm', 'Forearm', 'Hand', 'Head neck'], 'Mass']
     m_Zf = bsp_Zf.loc[['Foot', 'Shank', 'Thigh', 'Lower trunk', 'Middle trunk', 'Upper trunk',
@@ -240,7 +212,7 @@ def _(Latex, bsp_D, bsp_Zf, bsp_Zm, display, np, pd):
                        'Trunk', 'Upper arm', 'Forearm', 'Hand', 'Head'], 'Mass']
     m_D.index = m_Zf.index  # because of different names for some segments
 
-    display(Latex("\\text{Mass fraction difference (in %) of Zatsiorsky's model w.r.t. Dempster's model}"))
+    display(mo.md("Mass fraction difference (in %) of Zatsiorsky's model w.r.t. Dempster's model"))
     d = pd.DataFrame({'Females': np.around(100 * (m_Zf - m_D) / m_D), \
                       'Males': np.around(100 * (m_Zm - m_D) / m_D)})
     display(d)
@@ -356,12 +328,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 2': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 2
+
     Use the same fraction on the displacement vector: $\mathbf r_C=\mathbf r_P+0.43(\mathbf r_D-\mathbf r_P)=(0.172,0.129)$ m. The length is $\sqrt{0.4^2+0.3^2}=0.5$ m. The percentage is a position along the segment, not an absolute laboratory coordinate.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -412,12 +384,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 3': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 3
+
     The dimensional radius is $k=0.30(0.4)=0.12$ m; hence $I_C=mk^2=3(0.12)^2=0.0432$ kg m². Squaring the fraction alone would miss the length scale.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -504,12 +476,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 4': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 4
+
     $I_P=I_C+md^2=0.0432+3(0.17)^2=0.1299$ kg m². The added term is nonnegative. This statement applies to parallel axes; an axis with a different direction requires the inertia tensor.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -551,15 +523,15 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Checkpoint answers': mo.md(r"""
+    mo.md(r"""
+    /// details | Checkpoint answers
+
     1. Population, measurement method, and anatomical segment definitions differ.
     2. The first locates a point; the second determines an axis-specific inertia after squaring its dimensional radius.
     3. No; out-of-plane geometry or additional assumptions are needed.
     4. Segment mass distribution, lengths, landmarks, and axis-specific inertias remain individual quantities.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -581,14 +553,14 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Final answers to original Problems': mo.md(r"""
+    mo.md(r"""
+    /// details | Final answers to original Problems
+
     1. Your photograph determines the numerical result: $\mathbf r_C=\sum_i m_i\mathbf r_{C_i}/\sum_i m_i$. For quasi-static balance without external support, its vertical projection must lie inside the supporting foot’s contact area. Landmark, perspective and segment-model errors can explain disagreement.
 
     2. Ankle center: $(2.815,10.160,22.685)$ cm; knee center: $(6.670,41.890,20.965)$ cm; length: 0.320096 m. **Using the male de Leva shank parameters explicitly**, $m_s=0.0433M$, $c=0.4395$, and laboratory center: $(4.97573,27.94467,21.72094)$ cm. With an anatomical origin at the knee and longitudinal axis pointing proximally, the center is $(0,-0.140682,0)$ m. Principal center inertias are $m_sL^2(0.251^2,0.246^2,0.102^2)$ in the table’s sagittal/transverse/longitudinal order. In any declared orthonormal anatomical basis, $I_P=I_C+m_s[(r^Tr)\mathbf1-rr^T]$; laboratory tensors are $RI R^T$. A numerical tensor requires body mass and the full anatomical-axis convention; the markers alone do not specify these choices.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 

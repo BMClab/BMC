@@ -67,8 +67,23 @@ MPLBACKEND=Agg uv run python /tmp/flat.py   # clean = exit 0, only Agg "cannot b
 
 - Tutorial notebooks follow a prose-first teaching structure:
   title/author → "How to use" → guiding questions / challenges → worked examples → references.
-- Place `repo_file` after the opening title/authors, How to use and Python setup cells;
-  it must not be the first registered cell.
+- Import the shared `repo_file` resolver from `functions/notebook_resources.py`;
+  do not embed copies in notebooks. Marimo's `pythonpath` is configured centrally.
+  Keep the import cell after the opening title/authors, How to use and Python
+  setup cells. Its missing-helper error must give the download URL, say to save
+  `notebook_resources.py` beside the downloaded notebook, and explain how to retry.
+  Preserve errors for missing dependencies inside an existing helper.
+- Use `/// details | Title` inside `mo.md` for fixed written solutions, hints, and
+  explanations, including equations, lists, code examples, and hand-written Markdown
+  tables. Keep the title and body in the Markdown string; avoid raw HTML
+  `<details>`/`<summary>` wrappers, which can bypass Markdown and LaTeX parsing.
+- Use `mo.accordion` for content assembled in Python: computed answers, generated
+  tables, plots, DataFrames, widgets, and layouts combining display objects. Use
+  `mo.md` for its written parts and `mo.vstack` when combining outputs.
+- Keep solutions initially collapsed unless the lesson needs them open. Use the
+  default closed `/// details` block or `mo.accordion(..., expanded=False)`.
+  Keep content eagerly rendered for saved HTML pages; lazy content can require a
+  running Python backend and may be absent from static snapshots.
 - Keep figure captions outside raw HTML blocks so Markdown links and LaTeX are rendered.
   Use a blank line after the closed image/figure block, then an inline
   `<span class="figure-caption">…</span>` in `mo.md`; raw `<figcaption>` suppresses math parsing.

@@ -388,9 +388,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion({'Solution to Exercise 1': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 1
+
     One EMG sample spans $0.15/150=0.001$ s, so its sampling rate is 1,000 Hz. The Cortex rate and EMG rate are different quantities.
-    """)}, expanded=False)
+    ///
+    """)
     return
 
 
@@ -427,9 +430,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion({'Solution to Exercise 2': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 2
+
     It is 2 mV. Multiplying amplitudes by 1,000 changes the unit scale but leaves timestamps and sampling frequency unchanged.
-    """)}, expanded=False)
+    ///
+    """)
     return
 
 
@@ -467,9 +473,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion({'Solution to Exercise 3': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 3
+
     No. The new Nyquist frequency is 75 Hz. The example computes an amplitude envelope before resampling; it does not claim to preserve a 450 Hz carrier.
-    """)}, expanded=False)
+    ///
+    """)
     return
 
 
@@ -489,11 +498,14 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion({'Checkpoint answers': mo.md(r"""
+    mo.md(r"""
+    /// details | Checkpoint answers
+
     1. No; compare their times.
     2. The Cortex frame rate, format version, channel interpretation, and units.
     3. No.
-    """)}, expanded=False)
+    ///
+    """)
     return
 
 
@@ -517,9 +529,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion({'Answer to Problem 1': mo.md(r"""
+    mo.md(r"""
+    /// details | Answer to Problem 1
+
     1,000 EMG samples and 100 IMU samples.
-    """)}, expanded=False)
+    ///
+    """)
     return
 
 
@@ -533,9 +548,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion({'Answer to Problem 2': mo.md(r"""
+    mo.md(r"""
+    /// details | Answer to Problem 2
+
     75 Hz.
-    """)}, expanded=False)
+    ///
+    """)
     return
 
 

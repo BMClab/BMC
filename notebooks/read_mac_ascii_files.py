@@ -73,48 +73,20 @@ def _():
     return mo, np, pd, Path, tempfile
 
 
-@app.function
-def repo_file(path, *, base_url="https://raw.githubusercontent.com/BMClab/BMC/master/"):
-    """Find a repository file beside this notebook, or fetch a temporary copy.
-
-    Local files take precedence. Only file acquisition falls back to GitHub;
-    parsing errors remain visible to the calling notebook. urllib3 selects its
-    browser transport automatically without platform-specific imports.
-    """
-    import hashlib
-    import tempfile
-    from pathlib import Path, PurePosixPath
-    from urllib.parse import quote
-
-    import marimo as mo
-    import urllib3
-
-    relative = PurePosixPath(path)
-    if relative.is_absolute() or ".." in relative.parts or "\\" in str(path):
-        raise ValueError("Use a repository-relative path such as data/walk.trc")
-    location = mo.notebook_dir()
-    if location is not None:
-        directory = Path(location).resolve()
-        for base in (directory, *directory.parents):
-            local = base.joinpath(*relative.parts)
-            if local.is_file():
-                return local
-    url = base_url.rstrip("/") + "/" + quote(relative.as_posix(), safe="/")
-    key = hashlib.sha256(base_url.rstrip("/").encode()).hexdigest()[:16]
-    cached = (Path(tempfile.gettempdir()) / "bmc-notebooks-v2" / key).joinpath(*relative.parts)
-    if not cached.is_file():
-        response = urllib3.request("GET", url, timeout=30.0, retries=2)
-        if response.status != 200:
-            raise OSError(f"Cannot load {path}: HTTP {response.status} from {url}")
-        cached.parent.mkdir(parents=True, exist_ok=True)
-        with tempfile.NamedTemporaryFile(dir=cached.parent, delete=False) as download:
-            temporary = Path(download.name)
-            download.write(response.data)
-        try:
-            temporary.replace(cached)
-        finally:
-            temporary.unlink(missing_ok=True)
-    return cached
+@app.cell(hide_code=True)
+def _():
+    try:
+        from notebook_resources import repo_file
+    except ModuleNotFoundError as _error:
+        if _error.name != "notebook_resources":
+            raise
+        raise ModuleNotFoundError(
+            "This notebook needs notebook_resources.py. Download it from:\n"
+            "https://raw.githubusercontent.com/BMClab/BMC/master/functions/notebook_resources.py\n"
+            "Save it in the same folder as this notebook, then rerun this cell.",
+            name="notebook_resources",
+        ) from None
+    return (repo_file,)
 
 
 @app.function
@@ -675,7 +647,7 @@ def _(mo):
 
 
 @app.cell
-def _():
+def _(repo_file):
     h, df = read_trc(repo_file("data/walk1.trc"), fname2="", units="m", df_multi=False)
     df.head()
     return df, h
@@ -691,9 +663,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion({'Solution to Exercise 1': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 1
+
     A coordinate of 1,000 mm represents 1 m. Relabelling 1,000 as metres changes the physical position by a factor of 1,000. Convert the values and the metadata together.
-    """)}, expanded=False)
+    ///
+    """)
     return
 
 
@@ -729,9 +704,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion({'Solution to Exercise 2': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 2
+
     The writer rounds to a finite number of decimal places. Exact binary equality is too strict after that formatting step; a tolerance tied to the written precision checks the intended numerical accuracy.
-    """)}, expanded=False)
+    ///
+    """)
     return
 
 
@@ -746,7 +724,7 @@ def _(mo):
 
 
 @app.cell
-def _():
+def _(repo_file):
     force_header, forces = read_forces(repo_file("data/walk1.forces"), mm2m=True, show_msg=False)
     forces.head()
     return force_header, forces
@@ -778,9 +756,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion({'Solution to Exercise 3': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 3
+
     Using the right-hand cross product, $(0.2,0,0)\times(0,0,100)=(0,-20,0)$ N·m. The negative Y component is fixed by the chosen right-handed axes.
-    """)}, expanded=False)
+    ///
+    """)
     return
 
 
@@ -810,11 +791,14 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion({'Checkpoint answers': mo.md(r"""
+    mo.md(r"""
+    /// details | Checkpoint answers
+
     1. No; a schema and units are still required.
     2. No; it checks serialization, not physical interpretation.
     3. The cross product needs the lever arm relative to the target origin.
-    """)}, expanded=False)
+    ///
+    """)
     return
 
 
@@ -838,9 +822,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion({'Answer to Problem 1': mo.md(r"""
+    mo.md(r"""
+    /// details | Answer to Problem 1
+
     2 N·m.
-    """)}, expanded=False)
+    ///
+    """)
     return
 
 
@@ -854,9 +841,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion({'Answer to Problem 2': mo.md(r"""
+    mo.md(r"""
+    /// details | Answer to Problem 2
+
     `(−3, 0, 0)` N·m.
-    """)}, expanded=False)
+    ///
+    """)
     return
 
 

@@ -177,17 +177,17 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Worked solutions for this section 1': mo.md(r"""
+    mo.md(r"""
+    /// details | Worked solutions for this section 1
+
     1. $F=kx=5(0.3)=1.5$ N.
     2. $F=b\dot x=8(0.5)=4$ N.
     3. $E=kx^2/2$ is proportional to k at fixed x, so energy doubles.
     4. A dashpot converts mechanical work to heat: $P=b\dot x^2\ge0$ is dissipated, not stored for elastic recovery.
     5. A spring follows imposed length immediately. An ideal instantaneous dashpot length jump would require an impulsive force; finite-rate motion gives its time dependence.
     6. Series elements carry equal force and their deformations add. Parallel elements share deformation and their forces add.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 @app.cell
@@ -357,8 +357,9 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Worked solutions for this section 2': mo.md(r"""
+    mo.md(r"""
+    /// details | Worked solutions for this section 2
+
     1. $\tau=b/k=12/4=3$ s.
     2. Immediate extension $F/k=4$ m; dashpot rate $F/b=0.8$ m/s; after 5 s, $x=4+0.8(5)=8$ m.
     3. $F_0=kx_0=6$ N, $\tau=b/k=2$ s, $F(\tau)=6/e\approx2.207$ N and half-time $\tau\ln2\approx1.386$ s.
@@ -366,9 +367,8 @@ def _(mo):
     5. Increasing b increases $\tau$; force relaxes more slowly because the dashpot moves less for the same force.
     6. The intercept $F/k$ is spring extension and slope $F/b$ is dashpot creep. Doubling b halves the slope; doubling k halves the intercept.
     7. Doubling b doubles $\tau$; doubling k halves it.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 @app.cell
@@ -527,17 +527,17 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Worked solutions for this section 3': mo.md(r"""
+    mo.md(r"""
+    /// details | Worked solutions for this section 3
+
     1. $\tau=b/k=3$ s, $x_\infty=F/k=5$ m and $x(\tau)=5(1-e^{-1})\approx3.161$ m.
     2. The parallel dashpot cannot jump in length under finite force, so the total extension initially stays zero.
     3. A finite length step has an impulsive derivative; the ideal dashpot therefore requires a force impulse. This is a mathematical idealization, not an ordinary finite force value.
     4. With force prescribed, Voigt gives a first-order ODE for x; with deformation prescribed, Maxwell gives a first-order ODE for F.
     5. As b tends to zero, the finite-time response approaches an ideal spring; the initial transient shrinks to zero duration.
     6. Choose $b/k=3/[-\ln(0.05)]\approx1.00142$ s, for example k=3 N/m and b≈3.00425 N s/m. Using b/k=1 s gives approximately 95.02%.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 @app.cell
@@ -872,8 +872,9 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Worked solutions for this section 4': mo.md(r"""
+    mo.md(r"""
+    /// details | Worked solutions for this section 4
+
     1. For this series-spring/Voigt model, $\tau_\varepsilon=b/(k_s+k_p)=1$ s and $\tau_\sigma=b/k_p=3$ s. At 10 N, $x(0^+)=10/4=2.5$ m and $x_\infty=10/4+10/2=7.5$ m.
     2. At x₀=1 m, $F_0=k_sx_0=4$ N and $F_\infty=k_sk_px_0/(k_s+k_p)=4/3$ N.
     3. $\tau_\sigma/\tau_\varepsilon=(k_s+k_p)/k_p=1+k_s/k_p>1$.
@@ -881,9 +882,8 @@ def _(mo):
     5. An infinitely stiff series spring leaves the Voigt element k_p,b. Its ideal step-deformation force includes an impulse at t=0.
     6. Choose $k_p\gg k_s$: for example k_s=1, k_p=10 N/m and b=5 N s/m. Under the same force the extra creep is only one tenth of the immediate extension.
     7. The initial extension $F/k_s$ decreases as k_s increases.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 @app.cell
@@ -911,15 +911,15 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Worked solutions for this section 5': mo.md(r"""
+    mo.md(r"""
+    /// details | Worked solutions for this section 5
+
     1. Instantaneous extension: Maxwell yes, Voigt no, Kelvin yes. Finite creep asymptote: Maxwell no, Voigt yes, Kelvin yes. **Smooth finite-force relaxation to a positive plateau:** Maxwell no, Voigt no, Kelvin yes. Voigt has an initial force impulse under an ideal strain step, followed by a constant spring force, not a smooth relaxation curve.
     2. Kelvin fits those two qualitative creep features: the series spring jumps and the Voigt branch adds bounded extension.
     3. To represent independently an instantaneous elastic response, a nonzero equilibrium response and a time scale, a standard linear solid needs two stiffnesses and one viscosity. This does not make it adequate for every tissue or every strain range.
     4. For Kelvin creep, the series spring sets the immediate extension F/k_s, the dashpot sets the initial creep rate F/b, and both springs set the final compliance 1/k_s+1/k_p.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 @app.cell(hide_code=True)
@@ -937,15 +937,15 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Checkpoint answers': mo.md(r"""
+    mo.md(r"""
+    /// details | Checkpoint answers
+
     1. Force.
     2. Deformation.
     3. Maxwell.
     4. No; also test relaxation, recovery, rate dependence, and the relevant strain range.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -965,16 +965,16 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Final answers to Problems': mo.md(r"""
+    mo.md(r"""
+    /// details | Final answers to Problems
+
     1. 3 s; $e^{-2}=0.1353$.
 
     2. 3 m; $3(1-e^{-1})=1.8964$ m.
 
     3. 1 s and 3 s, respectively.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -1008,48 +1008,20 @@ def _(mo):
     return
 
 
-@app.function
-def repo_file(path, *, base_url="https://raw.githubusercontent.com/BMClab/BMC/master/"):
-    """Find a repository file beside this notebook, or fetch a temporary copy.
-
-    Local files take precedence. Only file acquisition falls back to GitHub;
-    parsing errors remain visible to the calling notebook. urllib3 selects its
-    browser transport automatically without platform-specific imports.
-    """
-    import hashlib
-    import tempfile
-    from pathlib import Path, PurePosixPath
-    from urllib.parse import quote
-
-    import marimo as mo
-    import urllib3
-
-    relative = PurePosixPath(path)
-    if relative.is_absolute() or ".." in relative.parts or "\\" in str(path):
-        raise ValueError("Use a repository-relative path such as data/walk.trc")
-    location = mo.notebook_dir()
-    if location is not None:
-        directory = Path(location).resolve()
-        for base in (directory, *directory.parents):
-            local = base.joinpath(*relative.parts)
-            if local.is_file():
-                return local
-    url = base_url.rstrip("/") + "/" + quote(relative.as_posix(), safe="/")
-    key = hashlib.sha256(base_url.rstrip("/").encode()).hexdigest()[:16]
-    cached = (Path(tempfile.gettempdir()) / "bmc-notebooks-v2" / key).joinpath(*relative.parts)
-    if not cached.is_file():
-        response = urllib3.request("GET", url, timeout=30.0, retries=2)
-        if response.status != 200:
-            raise OSError(f"Cannot load {path}: HTTP {response.status} from {url}")
-        cached.parent.mkdir(parents=True, exist_ok=True)
-        with tempfile.NamedTemporaryFile(dir=cached.parent, delete=False) as download:
-            temporary = Path(download.name)
-            download.write(response.data)
-        try:
-            temporary.replace(cached)
-        finally:
-            temporary.unlink(missing_ok=True)
-    return cached
+@app.cell(hide_code=True)
+def _():
+    try:
+        from notebook_resources import repo_file
+    except ModuleNotFoundError as _error:
+        if _error.name != "notebook_resources":
+            raise
+        raise ModuleNotFoundError(
+            "This notebook needs notebook_resources.py. Download it from:\n"
+            "https://raw.githubusercontent.com/BMClab/BMC/master/functions/notebook_resources.py\n"
+            "Save it in the same folder as this notebook, then rerun this cell.",
+            name="notebook_resources",
+        ) from None
+    return (repo_file,)
 
 
 if __name__ == "__main__":

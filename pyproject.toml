@@ -32,3 +32,6 @@ dev = [
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 python_files = ["test*.py"]
+
+[tool.marimo.runtime]
+pythonpath = ["functions"]

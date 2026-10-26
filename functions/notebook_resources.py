@@ -1,4 +1,7 @@
-"""Portable repository assets; embedded in notebooks by scripts/sync_notebook_resources.py."""
+"""Repository asset resolution shared by BMC tutorial notebooks.
+
+When opening an individual notebook, save this file beside its Python source.
+"""
 
 
 def repo_file(path, *, base_url="https://raw.githubusercontent.com/BMClab/BMC/master/"):

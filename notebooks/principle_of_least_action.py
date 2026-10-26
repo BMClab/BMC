@@ -83,12 +83,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 1': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 1
+
     Constant speed is 1 m/s and has action $S=\int Tdt=(1/2)(1)(1^2)(2)=1$ J s. The uneven path has $S=(1/2)(1)(2^2)(1)=2$ J s. Both reach the same endpoint at the same time; the uneven speed increases this free-particle action.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -102,12 +102,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 2': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 2
+
     It must vanish for every admissible $\eta$. Integrating the velocity-variation term by parts gives $\delta S=\int[\partial L/\partial q-d(\partial L/\partial\dot q)/dt]\eta\,dt$. The endpoint term vanishes, yielding the Euler–Lagrange equation.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -121,12 +121,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 3': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 3
+
     For $L=m\dot q^2/2-kq^2/2$, direct integration gives $\Delta S=\epsilon^2[m\pi^2/T-kT]/4$. It is negative when $T>\pi\sqrt{m/k}$. Other higher-frequency variations can give positive changes, so the stationary path is then a saddle, not a minimum.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -152,15 +152,15 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Checkpoint answers': mo.md(r"""
+    mo.md(r"""
+    /// details | Checkpoint answers
+
     1. J s.
     2. Endpoint configurations and endpoint times.
     3. No; the first variation of action is zero.
     4. A stationary path need not minimize action over all admissible paths.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -180,16 +180,16 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Final answers to Problems': mo.md(r"""
+    mo.md(r"""
+    /// details | Final answers to Problems
+
     1. 6 J s.
 
     2. $\ddot x=-g$.
 
     3. $T=\pi\sqrt{m/k}$; this variation has zero quadratic action change at that value.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 

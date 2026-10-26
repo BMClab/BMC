@@ -58,6 +58,11 @@ than a Python runtime. Expandable solutions work, while controls that require
 Python cannot recompute results. The **Edit in browser**, **Open in molab** and **Open in marimo.app** links
 open the same notebook in interactive mode. **Download .py** saves the exact Python
 source included with the static page, including when opened locally. The header
+also offers **Download helper** for notebooks that import `notebook_resources`.
+It saves the exact shared `notebook_resources.py`; place it beside a downloaded
+notebook and rerun the import cell if the notebook reports a missing helper.
+The helper's error message includes a direct source URL as another way to obtain
+the file. The header
 centers all navigation links and uses the notebook's active theme colors and text font. Reading the static pages needs neither execution service;
 the marimo display assets from a CDN and linked external media still need an
 Internet connection. These saved pages are distinct from the editable WASM exports below.
@@ -68,6 +73,48 @@ another expression, can still disappear. Finish such a cell with the intended
 Figure/Axes or accordion object, as in the body-segment example. Review changed
 plots and expandable answers after exporting; an execution-success status alone
 does not prove that every intended display is visible.
+
+### Shared repository resources
+
+`functions/notebook_resources.py` supplies `repo_file` through an ordinary Python
+import. `[tool.marimo.runtime]` in `pyproject.toml` adds `functions` to marimo's
+module search path. Keep the implementation in that file; do not synchronize
+copies into notebooks. Its local lookup and cached remote downloads also work
+when the helper is saved beside a notebook opened outside the repository.
+
+The native directory WASM exporter bundles the imported module into a wheel.
+Preserve `public/wheels` alongside the frontend assets when publishing the
+editable export. Changing the shared helper invalidates the saved snapshots;
+run the exporter without notebook arguments to refresh the collection.
+
+### Expandable content
+
+Use `/// details` for fixed written answers and explanations, keeping Markdown
+and LaTeX together:
+
+```python
+mo.md(r"""
+/// details | Solution
+
+The spring force is $F=kx$.
+///
+""")
+```
+
+Use `mo.accordion` when the content is assembled in Python, such as a computed
+answer, generated table, plot, or widget:
+
+```python
+mo.accordion(
+    {"Results": mo.vstack([mo.md("Computed force:"), mo.as_html(figure)])},
+    expanded=False,
+)
+```
+
+Both forms should start collapsed for solutions. Keep their contents eagerly
+rendered so the saved page contains the complete answer without a Python
+backend. Avoid raw HTML `<details>` wrappers around Markdown or LaTeX. The
+repository-wide rules are in [AGENTS.md](../AGENTS.md#conventions).
 
 ## Editable GitHub Pages and automatic publication
 

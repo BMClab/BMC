@@ -159,12 +159,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 1': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 1
+
     $\mathbf H=\mathbf I\boldsymbol\omega=(1,2,0)$ kg m²/s. It is not parallel to $(1,1,0)$ because the first two principal inertias differ. Parallelism occurs along a principal axis or within a repeated-eigenvalue subspace.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -244,12 +244,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 2': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 2
+
     The transport theorem gives $\mathbf M=\mathbf I\dot{\boldsymbol\omega}+\boldsymbol\omega\times(\mathbf I\boldsymbol\omega)$. Here the first term vanishes and $(1,1,0)\times(1,2,0)=(0,0,1)$ N m. This resolves the opening challenge.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -388,12 +388,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 3': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 3
+
     With $\mathbf v_G=R\mathbf v_B$, the tensor is $I_G=RI_BR^T=\operatorname{diag}(2,1,3)$ kg m². Both sides of the tensor transform; multiplying on only one side is not a change of basis.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -481,52 +481,24 @@ def _(mo):
     return
 
 
-@app.function
-def repo_file(path, *, base_url="https://raw.githubusercontent.com/BMClab/BMC/master/"):
-    """Find a repository file beside this notebook, or fetch a temporary copy.
-
-    Local files take precedence. Only file acquisition falls back to GitHub;
-    parsing errors remain visible to the calling notebook. urllib3 selects its
-    browser transport automatically without platform-specific imports.
-    """
-    import hashlib
-    import tempfile
-    from pathlib import Path, PurePosixPath
-    from urllib.parse import quote
-
-    import marimo as mo
-    import urllib3
-
-    relative = PurePosixPath(path)
-    if relative.is_absolute() or ".." in relative.parts or "\\" in str(path):
-        raise ValueError("Use a repository-relative path such as data/walk.trc")
-    location = mo.notebook_dir()
-    if location is not None:
-        directory = Path(location).resolve()
-        for base in (directory, *directory.parents):
-            local = base.joinpath(*relative.parts)
-            if local.is_file():
-                return local
-    url = base_url.rstrip("/") + "/" + quote(relative.as_posix(), safe="/")
-    key = hashlib.sha256(base_url.rstrip("/").encode()).hexdigest()[:16]
-    cached = (Path(tempfile.gettempdir()) / "bmc-notebooks-v2" / key).joinpath(*relative.parts)
-    if not cached.is_file():
-        response = urllib3.request("GET", url, timeout=30.0, retries=2)
-        if response.status != 200:
-            raise OSError(f"Cannot load {path}: HTTP {response.status} from {url}")
-        cached.parent.mkdir(parents=True, exist_ok=True)
-        with tempfile.NamedTemporaryFile(dir=cached.parent, delete=False) as download:
-            temporary = Path(download.name)
-            download.write(response.data)
-        try:
-            temporary.replace(cached)
-        finally:
-            temporary.unlink(missing_ok=True)
-    return cached
+@app.cell(hide_code=True)
+def _():
+    try:
+        from notebook_resources import repo_file
+    except ModuleNotFoundError as _error:
+        if _error.name != "notebook_resources":
+            raise
+        raise ModuleNotFoundError(
+            "This notebook needs notebook_resources.py. Download it from:\n"
+            "https://raw.githubusercontent.com/BMClab/BMC/master/functions/notebook_resources.py\n"
+            "Save it in the same folder as this notebook, then rerun this cell.",
+            name="notebook_resources",
+        ) from None
+    return (repo_file,)
 
 
 @app.cell
-def _():
+def _(repo_file):
     import numpy as np
     import matplotlib.pyplot as plt
 
@@ -769,12 +741,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 4': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 4
+
     Differentiation amplifies high-frequency measurement noise. A second derivative amplifies it more strongly. Inspect sampling, coordinate continuity and filtering before differentiating, then report the filter and assess sensitivity rather than interpreting every spike as a physical torque.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -825,7 +797,7 @@ def _(mo):
 
 
 @app.cell
-def _(np):
+def _(np, repo_file):
     data_1 = np.loadtxt(repo_file('data/postureData.txt'), skiprows=1, delimiter=',')
     t_1 = data_1[:, 0]
     dt_1 = t_1[2] - t_1[1]
@@ -985,15 +957,15 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Checkpoint answers': mo.md(r"""
+    mo.md(r"""
+    /// details | Checkpoint answers
+
     1. Rotation along a principal axis, or an isotropic inertia tensor.
     2. $\boldsymbol\omega\times\mathbf H$.
     3. No; they must be mapped using the chosen rotation sequence.
     4. Segment geometry/inertias, a frame convention, derivative estimates and all relevant external loads.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -1009,12 +981,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Final answers to original Problems': mo.md(r"""
+    mo.md(r"""
+    /// details | Final answers to original Problems
+
     1. For each segment, the required laboratory-frame derivative is $\dot H_G=R[I_B\dot\omega_B+\omega_B\times(I_B\omega_B)]$. The marker files alone do not determine a unique numerical answer: specify segment mass/inertia, anatomical-frame construction, sampling interval and the differentiation/filtering procedure. The two recordings produce different time series. The final result is a three-component torque-unit series (N m), not simply componentwise $I_B\dot\omega_B$.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 

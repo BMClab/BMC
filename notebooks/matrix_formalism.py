@@ -257,12 +257,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 1': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 1
+
     From $2a_1+a_2=3$ and $a_1+2a_2=0$, $a_1=2$ and $a_2=-1$ rad/s². The off-diagonal inertia couples the joints; zero second torque does not imply zero second acceleration. In code use `np.linalg.solve(M, f)`.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -286,12 +286,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 2': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 2
+
     It contains $l_1$: the contribution is $-m_2gl_1\sin\theta_1$. This follows from the second center height $y_2=-l_1\cos\theta_1-(l_2/2)\cos\theta_2$. The other gravity entry contains $l_2/2$.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -317,12 +317,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 3': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 3
+
     The derivative is $\dot y=(\dot q_1,\dot q_2,a_1,a_2)$, where $Ma=f$. The example uses a different but valid ordering, velocities first; the derivative and initial state must match whichever ordering you choose.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -348,15 +348,15 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Checkpoint answers': mo.md(r"""
+    mo.md(r"""
+    /// details | Checkpoint answers
+
     1. It comes from a quadratic kinetic-energy form.
     2. Kinetic energy.
     3. Test simple configurations and compare gravity torques with derivatives of potential energy.
     4. Energy drift and convergence as solver tolerances or step size are reduced.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -373,12 +373,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Final answers to original Problems': mo.md(r"""
+    mo.md(r"""
+    /// details | Final answers to original Problems
+
     2. Take downward displacements $(x_1,x_2,x_3)$ of the upper, lower-left and lower-right masses from the unstretched configuration. Then $M=\operatorname{diag}(2m,m,m)$, $K=k\begin{bmatrix}3&-1&-1\\-1&1&0\\-1&0&1\end{bmatrix}$ and $M\ddot x+Kx=(2mg,mg,mg)^T$. About static equilibrium, $M\ddot u+Ku=0$. The accelerations are the solution of this linear system.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 

@@ -294,12 +294,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 1': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 1
+
     $F_{active}=aF_0f_lf_v=0.4(1000)(0.8)(1)=320$ N. Activation scales the active branch. Passive force, if present, is added separately rather than multiplied by activation.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -649,12 +649,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 2': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 2
+
     $F_T=F_M\cos\alpha=600\cos30^\circ\approx519.6$ N. Fiber force and tendon force are equal only at zero pennation in this simple model.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -1057,12 +1057,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 3': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 3
+
     At $v=0$, $F=F_0=1000$ N. At $F=0$, $v=F_0b/a=1$ m/s. A codebase using negative fiber velocity for shortening needs a sign conversion before this formula is used.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -1205,12 +1205,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 4': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 4
+
     Both endpoints have zero power. Differentiating gives $v_*=b(\sqrt{1+F_0/a}-1)=0.3090$ m/s and $F_*=a(\sqrt{1+F_0/a}-1)=309.0$ N. The maximum is about 95.49 W, between the endpoints.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -1655,12 +1655,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 5': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 5
+
     $a(t)=1-e^{-t/\tau}$, so $a(0.02)=1-e^{-1}\approx0.632$. Activation does not jump instantly to excitation. Different rise and decay constants model asymmetry in activation and deactivation.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -1697,12 +1697,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Answers to the earlier muscle-model checkpoints': mo.md(r"""
+    mo.md(r"""
+    /// details | Answers to the earlier muscle-model checkpoints
+
     1. Activation evolves over time rather than copying excitation instantly. 2. Passive elastic force. 3. Shortening reduces force through the active force–velocity relation. 4. The modeled eccentric branch permits larger active force up to its limit. 5. Fiber and tendon lengths exchange, with pennation coupling their projections. 6. The first assumption to relax depends on the task: fatigue for repeated work, history dependence for stretch–shorten behavior, or geometry/compliance for architectural effects.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 @app.cell(hide_code=True)
@@ -1720,15 +1720,15 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Checkpoint answers': mo.md(r"""
+    mo.md(r"""
+    /// details | Checkpoint answers
+
     1. Passive muscle and tendon forces can remain if stretched.
     2. Fiber power uses force times signed lengthening velocity; positive delivered shortening power uses the opposite sign.
     3. Fiber and tendon lengths can exchange while their total projected length remains fixed.
     4. Exact curve shapes, eccentric limits, time constants, and quantitative force predictions.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -1766,8 +1766,9 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Final answers to original Problems': mo.md(r"""
+    mo.md(r"""
+    /// details | Final answers to original Problems
+
     1. There is no unique parameter-sweep curve. Larger maximum isometric force scales dimensional active force; changed optimal length or tendon slack length shifts the operating point. An alternate curve must be compared in the same normalization and velocity-sign convention.
 
     2. A normalized bilinear form is $\dot a=(u-a)[u/\tau_a+(1-u)/\tau_d]$ with $0\le u,a\le1$ and $\tau_a<\tau_d$. Steady activations for constant inputs 1, 0.6 and 0 are 1, 0.6 and 0. Rise and decay have different rates.
@@ -1789,9 +1790,8 @@ def _(mo):
     10. With tendon lengthening positive, $\dot E_T=F_T\dot L_T$: positive while storing elastic energy, negative while returning it.
 
     11. Examples: fatigue, history-dependent force enhancement/depression, detailed motor-unit recruitment, and fiber-type heterogeneity.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 

@@ -45,48 +45,20 @@ def _(mo):
     return
 
 
-@app.function
-def repo_file(path, *, base_url="https://raw.githubusercontent.com/BMClab/BMC/master/"):
-    """Find a repository file beside this notebook, or fetch a temporary copy.
-
-    Local files take precedence. Only file acquisition falls back to GitHub;
-    parsing errors remain visible to the calling notebook. urllib3 selects its
-    browser transport automatically without platform-specific imports.
-    """
-    import hashlib
-    import tempfile
-    from pathlib import Path, PurePosixPath
-    from urllib.parse import quote
-
-    import marimo as mo
-    import urllib3
-
-    relative = PurePosixPath(path)
-    if relative.is_absolute() or ".." in relative.parts or "\\" in str(path):
-        raise ValueError("Use a repository-relative path such as data/walk.trc")
-    location = mo.notebook_dir()
-    if location is not None:
-        directory = Path(location).resolve()
-        for base in (directory, *directory.parents):
-            local = base.joinpath(*relative.parts)
-            if local.is_file():
-                return local
-    url = base_url.rstrip("/") + "/" + quote(relative.as_posix(), safe="/")
-    key = hashlib.sha256(base_url.rstrip("/").encode()).hexdigest()[:16]
-    cached = (Path(tempfile.gettempdir()) / "bmc-notebooks-v2" / key).joinpath(*relative.parts)
-    if not cached.is_file():
-        response = urllib3.request("GET", url, timeout=30.0, retries=2)
-        if response.status != 200:
-            raise OSError(f"Cannot load {path}: HTTP {response.status} from {url}")
-        cached.parent.mkdir(parents=True, exist_ok=True)
-        with tempfile.NamedTemporaryFile(dir=cached.parent, delete=False) as download:
-            temporary = Path(download.name)
-            download.write(response.data)
-        try:
-            temporary.replace(cached)
-        finally:
-            temporary.unlink(missing_ok=True)
-    return cached
+@app.cell(hide_code=True)
+def _():
+    try:
+        from notebook_resources import repo_file
+    except ModuleNotFoundError as _error:
+        if _error.name != "notebook_resources":
+            raise
+        raise ModuleNotFoundError(
+            "This notebook needs notebook_resources.py. Download it from:\n"
+            "https://raw.githubusercontent.com/BMClab/BMC/master/functions/notebook_resources.py\n"
+            "Save it in the same folder as this notebook, then rerun this cell.",
+            name="notebook_resources",
+        ) from None
+    return (repo_file,)
 
 
 
@@ -225,12 +197,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 1': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 1
+
     $h=gT^2/8=0.3066$ m. The formula uses equal ascent and descent times. A lower landing COM lengthens descent and flight time, so this estimate overstates the rise above takeoff.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -316,7 +288,7 @@ def _(mo):
     return
 
 @app.cell
-def _(np, plt):
+def _(np, plt, repo_file):
     GRFv = np.loadtxt(repo_file('data/GRFZjump.txt'), skiprows=0, unpack=False)
     freq = 600
     time = np.arange(0, len(GRFv) / freq, 1 / freq)
@@ -406,12 +378,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 2': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 2
+
     Body weight is 600 N. Net impulse is $(900-600)(0.20)=60$ N s, giving $\Delta v=60/60=1$ m/s. Integrating 900 N alone would include the impulse needed merely to oppose gravity.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -490,12 +462,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 3': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 3
+
     $h=v_{TO}^2/(2g)=6.25/19.62=0.3186$ m. This is only the airborne rise. Total rise from the initial standing COM also includes the displacement accumulated before takeoff.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -644,12 +616,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 4': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 4
+
     Net-force work equals $\Delta K=100$ J. Gravity does $-mg\Delta h=-100$ J, so the GRF work on the COM is $\Delta K+mg\Delta h=200$ J. These COM-level quantities are not the sum of individual muscle-fiber work.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -685,16 +657,16 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Checkpoint answers': mo.md(r"""
+    mo.md(r"""
+    /// details | Checkpoint answers
+
     1. Net external vertical force, GRF minus weight.
     2. Initial velocity (and initial position for a second integration).
     3. A small force bias accumulates into velocity and displacement drift.
     4. Rise of COM from takeoff to apex.
     5. Account for takeoff and landing COM-height differences, or use a validated impulse estimate.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 

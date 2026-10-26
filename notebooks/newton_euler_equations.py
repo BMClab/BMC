@@ -192,12 +192,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 1': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 1
+
     $\mathbf M=\mathbf r\times\mathbf F=(0,0,2)$ N m. The positive z component follows the right-hand rule. Reversing the force reverses the moment.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -230,12 +230,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 2': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 2
+
     Add a free couple $(0,0,2)$ N m at the same time. The resultant force alone is unchanged, but without the couple its moment about the origin would become zero.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -313,12 +313,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 3': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 3
+
     $\mathbf a_C=\mathbf F/m=(2,0)$ m/s² and $\alpha=M_C/I_C=2$ rad/s². Translation and rotation are distinct parts of the rigid-body motion.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -462,12 +462,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 4': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 4
+
     The inertia is a tensor and the rotating basis contributes $\boldsymbol\omega\times(\mathbf I\boldsymbol\omega)$. In principal body axes, $\mathbf M=\mathbf I\dot{\boldsymbol\omega}+\boldsymbol\omega\times(\mathbf I\boldsymbol\omega)$. The simpler scalar form is appropriate for fixed-axis planar rotation.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -493,15 +493,15 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Checkpoint answers': mo.md(r"""
+    mo.md(r"""
+    /// details | Checkpoint answers
+
     1. Resultant force and resultant moment about one common point.
     2. Along its line of action for an ideal rigid body.
     3. The translational contribution simplifies, giving the center angular-momentum balance.
     4. No; a couple can still cause angular acceleration.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -527,8 +527,9 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Final answers to original Problems': mo.md(r"""
+    mo.md(r"""
+    /// details | Final answers to original Problems
+
     1. Moment magnitude: 2609.85 N m, clockwise.
 
     2. Acceleration: 10.038 m/s² right ($g=9.81$ m/s²). The normal resultant lies 0.46697 m right of the center, still inside the 0.5 m half-width, so the assumed translating contact is consistent.
@@ -536,9 +537,8 @@ def _(mo):
     3. The figure specifies $\omega=5$ rad/s (the original “S” is a typographical error). With counterclockwise positive: $\alpha=-5.905$ rad/s², $O_x=-750$ N and $O_y=19.05$ N.
 
     4. At the downward vertical position: $A_x=0$, $A_y=5mg/2$ upward; the rod is uniform and released from the horizontal.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 

@@ -61,48 +61,20 @@ def _():
     return butter, filtfilt, lfilter, mo, np, optcutfreq, pd, plt, sosfiltfilt
 
 
-@app.function
-def repo_file(path, *, base_url="https://raw.githubusercontent.com/BMClab/BMC/master/"):
-    """Find a repository file beside this notebook, or fetch a temporary copy.
-
-    Local files take precedence. Only file acquisition falls back to GitHub;
-    parsing errors remain visible to the calling notebook. urllib3 selects its
-    browser transport automatically without platform-specific imports.
-    """
-    import hashlib
-    import tempfile
-    from pathlib import Path, PurePosixPath
-    from urllib.parse import quote
-
-    import marimo as mo
-    import urllib3
-
-    relative = PurePosixPath(path)
-    if relative.is_absolute() or ".." in relative.parts or "\\" in str(path):
-        raise ValueError("Use a repository-relative path such as data/walk.trc")
-    location = mo.notebook_dir()
-    if location is not None:
-        directory = Path(location).resolve()
-        for base in (directory, *directory.parents):
-            local = base.joinpath(*relative.parts)
-            if local.is_file():
-                return local
-    url = base_url.rstrip("/") + "/" + quote(relative.as_posix(), safe="/")
-    key = hashlib.sha256(base_url.rstrip("/").encode()).hexdigest()[:16]
-    cached = (Path(tempfile.gettempdir()) / "bmc-notebooks-v2" / key).joinpath(*relative.parts)
-    if not cached.is_file():
-        response = urllib3.request("GET", url, timeout=30.0, retries=2)
-        if response.status != 200:
-            raise OSError(f"Cannot load {path}: HTTP {response.status} from {url}")
-        cached.parent.mkdir(parents=True, exist_ok=True)
-        with tempfile.NamedTemporaryFile(dir=cached.parent, delete=False) as download:
-            temporary = Path(download.name)
-            download.write(response.data)
-        try:
-            temporary.replace(cached)
-        finally:
-            temporary.unlink(missing_ok=True)
-    return cached
+@app.cell(hide_code=True)
+def _():
+    try:
+        from notebook_resources import repo_file
+    except ModuleNotFoundError as _error:
+        if _error.name != "notebook_resources":
+            raise
+        raise ModuleNotFoundError(
+            "This notebook needs notebook_resources.py. Download it from:\n"
+            "https://raw.githubusercontent.com/BMClab/BMC/master/functions/notebook_resources.py\n"
+            "Save it in the same folder as this notebook, then rerun this cell.",
+            name="notebook_resources",
+        ) from None
+    return (repo_file,)
 
 
 @app.cell
@@ -123,7 +95,7 @@ def _(mo):
 
 
 @app.cell
-def _(arquivo, np, pd):
+def _(arquivo, np, pd, repo_file):
     from io import BytesIO
     _conteudo = arquivo.contents()
     _fonte = BytesIO(_conteudo) if _conteudo is not None else repo_file("courses/biomechanicsI_2022/massa_A.txt", base_url="https://raw.githubusercontent.com/BMClab/BMC/5366ffa7e12fc61b3c2410c173128e468a9fe524/")
@@ -188,9 +160,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion({'Solução do exercício 1': mo.md(r"""
+    mo.md(r"""
+    /// details | Solução do exercício 1
+
     $v=\Delta x/\Delta t=2$ m/s no primeiro caso e 2,25 m/s no segundo. Dividir todos os incrementos por um intervalo errado introduz um erro de escala, mesmo sem ruído espacial.
-    """)}, expanded=False)
+    ///
+    """)
     return
 
 
@@ -256,9 +231,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion({'Solução do exercício 2': mo.md(r"""
+    mo.md(r"""
+    /// details | Solução do exercício 2
+
     As diferenças dão 1 e 3 m/s, associadas aos tempos médios 0,5 e 1,5 s. A derivada exata $2t$ vale 0, 2 e 4 m/s. `gradient(..., edge_order=2)` recupera esses três valores para essa parábola sem ruído.
-    """)}, expanded=False)
+    ///
+    """)
     return
 
 
@@ -311,9 +289,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion({'Solução do exercício 3': mo.md(r"""
+    mo.md(r"""
+    /// details | Solução do exercício 3
+
     Os módulos estimados são 9,4 e 10,2 m/s². Suavidade não garante exatidão: o filtro pode reduzir a variância e ao mesmo tempo alterar curvatura, bordas e valor médio. A qualidade deve ser avaliada com o modelo, a calibração e a sensibilidade ao processamento.
-    """)}, expanded=False)
+    ///
+    """)
     return
 
 
@@ -393,9 +374,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion({'Solução do exercício 4': mo.md(r"""
+    mo.md(r"""
+    /// details | Solução do exercício 4
+
     As saídas são 2, 4, 6 e 8. O filtro inicialmente completa o passado com zeros; a partir da quarta amostra há quatro valores reais na janela. Para este FIR, o laço e `lfilter` coincidem do índice 3 em diante.
-    """)}, expanded=False)
+    ///
+    """)
     return
 
 
@@ -488,9 +472,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion({'Solução do exercício 5': mo.md(r"""
+    mo.md(r"""
+    /// details | Solução do exercício 5
+
     A magnitude torna-se $(1/\sqrt2)^2=1/2$, aproximadamente −6,02 dB. O atraso de baixa frequência da média móvel causal é $(4-1)/(2f_s)=1,5/120=0,0125$ s. A fase zero não elimina a atenuação de amplitude.
-    """)}, expanded=False)
+    ///
+    """)
     return
 
 
@@ -608,9 +595,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion({'Solução do exercício 6': mo.md(r"""
+    mo.md(r"""
+    /// details | Solução do exercício 6
+
     A segunda derivada é −9,6 m/s², então g=9,6 m/s². Ajustar dados previamente filtrados pode alterar os coeficientes e o ápice. Compare o ajuste nos dados medidos com alternativas e relate a cadeia de processamento.
-    """)}, expanded=False)
+    ///
+    """)
     return
 
 
@@ -631,7 +621,9 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion({'Respostas às questões de verificação': mo.md(r"""
+    mo.md(r"""
+    /// details | Respostas às questões de verificação
+
     1. Há N−1 pares consecutivos; cada velocidade representa um intervalo.
 
     2. Ele revela uma lacuna; usar um dt único sem conferir os tempos muda a escala das derivadas.
@@ -643,7 +635,8 @@ def _(mo):
     5. Não. É preciso voo livre, convenção de eixos, calibração e processamento compatíveis; contatos e ruído podem invalidar a interpretação.
 
     6. Inspecionar a curva de resíduos e as hipóteses; não tratar `None` como uma frequência numérica.
-    """)}, expanded=False)
+    ///
+    """)
     return
 
 
@@ -667,7 +660,9 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion({'Respostas finais dos problemas': mo.md(r"""
+    mo.md(r"""
+    /// details | Respostas finais dos problemas
+
     1. $v_{y0}=2$ m/s; $a_y=-9,81$ m/s²; $g=9,81$ m/s²; $t_{ápice}=0,203874$ s.
 
     2. 2 m/s e 2 m/s.
@@ -677,7 +672,8 @@ def _(mo):
     4. No ápice, $v_y=0$ instantaneamente e $a_y=-g$ continua diferente de zero durante o voo livre ideal.
 
     5. Não há resultado numérico universal. O relatório deve conter o valor com unidade, as escolhas de aquisição/processamento e a sensibilidade dessas escolhas.
-    """)}, expanded=False)
+    ///
+    """)
     return
 
 

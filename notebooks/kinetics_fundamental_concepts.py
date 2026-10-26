@@ -201,12 +201,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 1': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 1
+
     $J=F\Delta t=3$ N s, and $\Delta v=J/m=1.5$ m/s along the force. This gives the velocity change, not the final velocity unless the initial velocity is known.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -256,12 +256,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 2': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 2
+
     $W=Fd\cos60^\circ=10$ J. A perpendicular force does zero work at that instant, even though it can change the direction of velocity.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -317,12 +317,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 3': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 3
+
     $P=\mathbf F\cdot\mathbf v=12$ W. Negative power means that this force removes mechanical energy from the chosen system; it is not a negative force magnitude.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -435,12 +435,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 4': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 4
+
     Angular impulse is 1 N m s and equals $I\Delta\omega$. Thus $\Delta\omega=4$ rad/s. This is the rotational counterpart of linear impulse–momentum.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -504,15 +504,15 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Checkpoint answers': mo.md(r"""
+    mo.md(r"""
+    /// details | Checkpoint answers
+
     1. N s, J and W, respectively.
     2. Yes, for example an ideal centripetal force.
     3. The net external impulse over the interval (or net external force at every instant for continuous conservation).
     4. Yes: $\Delta K=v_0J+J^2/(2m)$ in one dimension.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -532,16 +532,16 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Final answers to Problems': mo.md(r"""
+    mo.md(r"""
+    /// details | Final answers to Problems
+
     1. 1.5 m/s; 4.5 J.
 
     2. −0.4 N m; −8.4 J.
 
     3. Mechanical energy only, in general; gravity supplies external force and a generally nonzero pivot moment.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 

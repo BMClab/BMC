@@ -75,7 +75,7 @@ def _():
 
 
 @app.cell
-def _(np):
+def _(np, repo_file):
     import pandas as pd  # use Pandas to read data from a website
     fileUrl = repo_file('BDS/data/BDS00013.txt', base_url="https://raw.githubusercontent.com/demotu/datasets/master/")
     data = pd.read_csv(fileUrl, sep='\t')  # Pandas dataframe
@@ -167,12 +167,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 1': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 1
+
     The mean is 10 cm, so the demeaned values are $(0,1,-1)$ cm and range remains 2 cm. Path length is $|1-0|+|-1-1|=3$ cm before and after demeaning: constant translations do not affect differences.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -235,12 +235,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 2': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 2
+
     RMS uses denominator N: $\sqrt{2/3}=0.8165$ cm. Sample SD uses N−1: $\sqrt{2/2}=1$ cm. They are close for large N, but are not identical under these definitions.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -295,12 +295,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 3': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 3
+
     Total path is 2 cm over 2 s, so mean speed is 1 cm/s. Net displacement is zero, so mean velocity is $(0,0)$ cm/s. Repeated reversals can make path large without increasing the overall spread.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -316,52 +316,24 @@ def _(mo):
     return
 
 
-@app.function
-def repo_file(path, *, base_url="https://raw.githubusercontent.com/BMClab/BMC/master/"):
-    """Find a repository file beside this notebook, or fetch a temporary copy.
-
-    Local files take precedence. Only file acquisition falls back to GitHub;
-    parsing errors remain visible to the calling notebook. urllib3 selects its
-    browser transport automatically without platform-specific imports.
-    """
-    import hashlib
-    import tempfile
-    from pathlib import Path, PurePosixPath
-    from urllib.parse import quote
-
-    import marimo as mo
-    import urllib3
-
-    relative = PurePosixPath(path)
-    if relative.is_absolute() or ".." in relative.parts or "\\" in str(path):
-        raise ValueError("Use a repository-relative path such as data/walk.trc")
-    location = mo.notebook_dir()
-    if location is not None:
-        directory = Path(location).resolve()
-        for base in (directory, *directory.parents):
-            local = base.joinpath(*relative.parts)
-            if local.is_file():
-                return local
-    url = base_url.rstrip("/") + "/" + quote(relative.as_posix(), safe="/")
-    key = hashlib.sha256(base_url.rstrip("/").encode()).hexdigest()[:16]
-    cached = (Path(tempfile.gettempdir()) / "bmc-notebooks-v2" / key).joinpath(*relative.parts)
-    if not cached.is_file():
-        response = urllib3.request("GET", url, timeout=30.0, retries=2)
-        if response.status != 200:
-            raise OSError(f"Cannot load {path}: HTTP {response.status} from {url}")
-        cached.parent.mkdir(parents=True, exist_ok=True)
-        with tempfile.NamedTemporaryFile(dir=cached.parent, delete=False) as download:
-            temporary = Path(download.name)
-            download.write(response.data)
-        try:
-            temporary.replace(cached)
-        finally:
-            temporary.unlink(missing_ok=True)
-    return cached
+@app.cell(hide_code=True)
+def _():
+    try:
+        from notebook_resources import repo_file
+    except ModuleNotFoundError as _error:
+        if _error.name != "notebook_resources":
+            raise
+        raise ModuleNotFoundError(
+            "This notebook needs notebook_resources.py. Download it from:\n"
+            "https://raw.githubusercontent.com/BMClab/BMC/master/functions/notebook_resources.py\n"
+            "Save it in the same folder as this notebook, then rerun this cell.",
+            name="notebook_resources",
+        ) from None
+    return (repo_file,)
 
 
 @app.cell
-def _():
+def _(repo_file):
     import sys
     sys.path.insert(0, str(repo_file('functions/hyperellipsoid.py').parent))  # add to pythonpath
     from hyperellipsoid import hyperellipsoid
@@ -385,12 +357,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 4': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 4
+
     Both have area $\pi ab=2\pi$ cm². Their anisotropy differs: one is much more elongated. Area does not retain orientation, direction-specific variability or temporal ordering.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -441,12 +413,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Checkpoint answers': mo.md(r"""
+    mo.md(r"""
+    /// details | Checkpoint answers
+
     1. Differences, path length, range and covariance. 2. First-to-last timestamp duration is (N−1)/fs. 3. No; the probability interpretation depends on distributional and sampling assumptions. 4. Many rapid sample-to-sample changes accumulate into path length.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -468,8 +440,9 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Final answers to Problems': mo.md(r"""
+    mo.md(r"""
+    /// details | Final answers to Problems
+
     1. 10 cm; 5 cm/s; (3,0) cm/s.
 
     2. $1.2\pi\approx3.770$ cm².
@@ -477,9 +450,8 @@ def _(mo):
     3. 59.99 s.
 
     4. No; acquisition and processing must be made comparable, and clinical or functional meaning requires the task context.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 

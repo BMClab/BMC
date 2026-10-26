@@ -55,48 +55,20 @@ def _(mo):
     return
 
 
-@app.function
-def repo_file(path, *, base_url="https://raw.githubusercontent.com/BMClab/BMC/master/"):
-    """Find a repository file beside this notebook, or fetch a temporary copy.
-
-    Local files take precedence. Only file acquisition falls back to GitHub;
-    parsing errors remain visible to the calling notebook. urllib3 selects its
-    browser transport automatically without platform-specific imports.
-    """
-    import hashlib
-    import tempfile
-    from pathlib import Path, PurePosixPath
-    from urllib.parse import quote
-
-    import marimo as mo
-    import urllib3
-
-    relative = PurePosixPath(path)
-    if relative.is_absolute() or ".." in relative.parts or "\\" in str(path):
-        raise ValueError("Use a repository-relative path such as data/walk.trc")
-    location = mo.notebook_dir()
-    if location is not None:
-        directory = Path(location).resolve()
-        for base in (directory, *directory.parents):
-            local = base.joinpath(*relative.parts)
-            if local.is_file():
-                return local
-    url = base_url.rstrip("/") + "/" + quote(relative.as_posix(), safe="/")
-    key = hashlib.sha256(base_url.rstrip("/").encode()).hexdigest()[:16]
-    cached = (Path(tempfile.gettempdir()) / "bmc-notebooks-v2" / key).joinpath(*relative.parts)
-    if not cached.is_file():
-        response = urllib3.request("GET", url, timeout=30.0, retries=2)
-        if response.status != 200:
-            raise OSError(f"Cannot load {path}: HTTP {response.status} from {url}")
-        cached.parent.mkdir(parents=True, exist_ok=True)
-        with tempfile.NamedTemporaryFile(dir=cached.parent, delete=False) as download:
-            temporary = Path(download.name)
-            download.write(response.data)
-        try:
-            temporary.replace(cached)
-        finally:
-            temporary.unlink(missing_ok=True)
-    return cached
+@app.cell(hide_code=True)
+def _():
+    try:
+        from notebook_resources import repo_file
+    except ModuleNotFoundError as _error:
+        if _error.name != "notebook_resources":
+            raise
+        raise ModuleNotFoundError(
+            "This notebook needs notebook_resources.py. Download it from:\n"
+            "https://raw.githubusercontent.com/BMClab/BMC/master/functions/notebook_resources.py\n"
+            "Save it in the same folder as this notebook, then rerun this cell.",
+            name="notebook_resources",
+        ) from None
+    return (repo_file,)
 
 
 @app.cell(hide_code=True)
@@ -311,7 +283,7 @@ def _(read_trc):
 
 
 @app.cell
-def _():
+def _(repo_file):
     fname = str(repo_file("data/walk1.trc"))
     return (fname,)
 
@@ -339,9 +311,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion({'Solution to Exercise 1': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 1
+
     There are $28\times3+2=86$ columns. A table indexed by time and containing only marker coordinates has 84 data columns.
-    """)}, expanded=False)
+    ///
+    """)
     return
 
 
@@ -360,7 +335,7 @@ def _(fname, read_trc):
 
 
 @app.cell
-def _():
+def _(repo_file):
     fname_1 = str(repo_file("data/walk.trc"))
     return (fname_1,)
 
@@ -385,9 +360,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion({'Solution to Exercise 2': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 2
+
     Use `dropna=False, na=None`. Dropping removes the trajectory; `na=0` assigns a numerical coordinate that can be confused with a real measurement.
-    """)}, expanded=False)
+    ///
+    """)
     return
 
 
@@ -413,21 +391,21 @@ def _(fname_1, read_trc):
 
 
 @app.cell
-def _(read_trc):
+def _(read_trc, repo_file):
     (h_4, _data) = read_trc(str(repo_file('data/walk.trc')), fname2='', dropna=False, na=0.0, fmt='uni')
     _data
     return
 
 
 @app.cell
-def _(read_trc):
+def _(read_trc, repo_file):
     (h_5, _data) = read_trc(str(repo_file('data/walk.trc')), fname2='', dropna=False, na=0.0, fmt='multi')
     _data
     return
 
 
 @app.cell
-def _(read_trc):
+def _(read_trc, repo_file):
     (h_6, _data) = read_trc(str(repo_file('data/walk.trc')), fname2='', dropna=True, na=0.0, fmt='multi')
     _data
     return
@@ -456,11 +434,14 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion({'Checkpoint answers': mo.md(r"""
+    mo.md(r"""
+    /// details | Checkpoint answers
+
     1. No; compare counts, units, and time intervals with the data.
     2. Selections can refer explicitly to time, marker, and component.
     3. No; all example calls use `fname2=""`.
-    """)}, expanded=False)
+    ///
+    """)
     return
 
 
@@ -484,9 +465,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion({'Answer to Problem 1': mo.md(r"""
+    mo.md(r"""
+    /// details | Answer to Problem 1
+
     1.25 m.
-    """)}, expanded=False)
+    ///
+    """)
     return
 
 
@@ -500,9 +484,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion({'Answer to Problem 2': mo.md(r"""
+    mo.md(r"""
+    /// details | Answer to Problem 2
+
     36.
-    """)}, expanded=False)
+    ///
+    """)
     return
 
 

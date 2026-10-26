@@ -140,12 +140,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 1': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 1
+
     The projection is $L_M\cos\alpha=0.0866$ m. Constant height means $L_M\sin\alpha$ is fixed, so shortening increases $\alpha$. The geometry must be updated during a simulation.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -206,12 +206,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 2': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 2
+
     Total fiber force is 400 N; its tendon-direction component is $400\cos20^\circ=375.9$ N. Equating tendon force to active force alone would neglect both passive tension and pennation.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -648,12 +648,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 3': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 3
+
     From $L_{MT}=L_M+L_T$, fiber length decreases by 4 mm. “Isometric” at the musculotendon level does not require an isometric fiber. With pennation, use the changing projected fiber length instead.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -665,52 +665,24 @@ def _(mo):
     return
 
 
-@app.function
-def repo_file(path, *, base_url="https://raw.githubusercontent.com/BMClab/BMC/master/"):
-    """Find a repository file beside this notebook, or fetch a temporary copy.
-
-    Local files take precedence. Only file acquisition falls back to GitHub;
-    parsing errors remain visible to the calling notebook. urllib3 selects its
-    browser transport automatically without platform-specific imports.
-    """
-    import hashlib
-    import tempfile
-    from pathlib import Path, PurePosixPath
-    from urllib.parse import quote
-
-    import marimo as mo
-    import urllib3
-
-    relative = PurePosixPath(path)
-    if relative.is_absolute() or ".." in relative.parts or "\\" in str(path):
-        raise ValueError("Use a repository-relative path such as data/walk.trc")
-    location = mo.notebook_dir()
-    if location is not None:
-        directory = Path(location).resolve()
-        for base in (directory, *directory.parents):
-            local = base.joinpath(*relative.parts)
-            if local.is_file():
-                return local
-    url = base_url.rstrip("/") + "/" + quote(relative.as_posix(), safe="/")
-    key = hashlib.sha256(base_url.rstrip("/").encode()).hexdigest()[:16]
-    cached = (Path(tempfile.gettempdir()) / "bmc-notebooks-v2" / key).joinpath(*relative.parts)
-    if not cached.is_file():
-        response = urllib3.request("GET", url, timeout=30.0, retries=2)
-        if response.status != 200:
-            raise OSError(f"Cannot load {path}: HTTP {response.status} from {url}")
-        cached.parent.mkdir(parents=True, exist_ok=True)
-        with tempfile.NamedTemporaryFile(dir=cached.parent, delete=False) as download:
-            temporary = Path(download.name)
-            download.write(response.data)
-        try:
-            temporary.replace(cached)
-        finally:
-            temporary.unlink(missing_ok=True)
-    return cached
+@app.cell(hide_code=True)
+def _():
+    try:
+        from notebook_resources import repo_file
+    except ModuleNotFoundError as _error:
+        if _error.name != "notebook_resources":
+            raise
+        raise ModuleNotFoundError(
+            "This notebook needs notebook_resources.py. Download it from:\n"
+            "https://raw.githubusercontent.com/BMClab/BMC/master/functions/notebook_resources.py\n"
+            "Save it in the same folder as this notebook, then rerun this cell.",
+            name="notebook_resources",
+        ) from None
+    return (repo_file,)
 
 
 @app.cell
-def _(np):
+def _(np, repo_file):
     """Muscle modeling and simulation."""
 
     import configparser
@@ -1508,12 +1480,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Checkpoint answers': mo.md(r"""
+    mo.md(r"""
+    /// details | Checkpoint answers
+
     1. Tendon stretch and changing pennation allow fiber shortening at fixed total length. 2. Active and passive fiber curves add; the passive curve dominates sufficiently long lengths. 3. Only the fiber-force component along the tendon is transmitted in this geometry. 4. Activation a stores the history; `t_act` and `t_deact` set its rise/decay rates. 5. The length floor avoids extreme/undefined force–velocity calculations; the angle limit avoids division by nearly zero cosine. These safeguards do not validate impossible geometry. 6. Euler is useful for a converged short teaching demonstration; use an adaptive solver for fast transients, tighter accuracy or sensitive comparisons.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -1537,8 +1509,9 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Final answers to original Problems': mo.md(r"""
+    mo.md(r"""
+    /// details | Final answers to original Problems
+
     1. Steady activation tends to the excitation level. Active force is linear in activation only at fixed normalized fiber length and velocity; the compliant equilibrium can make the total isometric response nonlinear.
 
     2. Lower tendon strain parameter `epst0` makes its force–strain curve stiffer; the fiber then shortens less while the tendon stretches. Slack length primarily changes geometry and operating point and should not be treated as a pure stiffness parameter.
@@ -1552,9 +1525,8 @@ def _(mo):
     6. Shortening lowers active force relative to isometric force at the same length and activation in this model.
 
     7. No unique trace is expected. A brief excitation pulse produces delayed activation and force, followed by decay; a sustained input approaches the coupled equilibrium for the imposed length.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 

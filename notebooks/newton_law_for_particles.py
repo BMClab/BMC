@@ -322,12 +322,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 1': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 1
+
     $v=20-10t$, so the top occurs at 2 s. Gravity still acts there and $a=-10$ m/s². A zero instantaneous velocity does not imply a zero derivative of velocity.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -539,12 +539,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 2': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 2
+
     At terminal velocity $0=-mg-bv$, so $v_T=-mg/b=-5$ m/s. The negative sign indicates descent. The approach time scale is $m/b=0.5$ s.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -662,12 +662,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 3': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 3
+
     With upward positive, $2\dot v=-20-0.5|v|v$. At terminal descent $v_T=-\sqrt{mg/c}=-\sqrt{40}\approx-6.325$ m/s. The absolute value gives the correct drag direction during both ascent and descent.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -705,12 +705,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 4': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 4
+
     No. The position update omits the within-step acceleration contribution. For a total time $t=N\Delta t$, the height error is $g t\Delta t/2$ upward relative to the exact parabola. Halving the time step halves this first-order error.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -736,15 +736,15 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Checkpoint answers': mo.md(r"""
+    mo.md(r"""
+    /// details | Checkpoint answers
+
     1. Velocity relative to the surrounding fluid.
     2. No; the forces balance.
     3. Initial position and velocity.
     4. When using symmetry to set ascent and descent times equal.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -780,8 +780,9 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Final answers to original Problems': mo.md(r"""
+    mo.md(r"""
+    /// details | Final answers to original Problems
+
     1. With $g=9.81$ m/s²: 15.5556 m/s horizontally after 3 s.
 
     2. (a) 127.421 m. (b) 113.505 m, with the stated quadratic coefficient and $g=9.81$ m/s².
@@ -795,9 +796,8 @@ def _(mo):
     7. Without friction: $a=2.4525$ m/s², $T=36.7875$ N. With kinetic coefficient 0.25: $a=0.613125$ m/s², $T=45.9844$ N. The 5 kg mass accelerates downward ($g=9.81$ m/s²).
 
     8. With upward positive: gravity downward, drag opposite velocity; $m\dot v=-mg-cv^3$. Terminal downward speed is $(mg/c)^{1/3}=(2m)^{1/3}$ m/s for the stated $g$ and $c$ and mass m in kg. The prompt gives no mass, so no unique numerical speed is determined.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 

@@ -162,12 +162,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 2': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 2
+
     $\theta_2=\alpha_1+\alpha_2=90^\circ$ and $\dot\theta_2=2-1=1$ rad/s. Adding angles and rates is specific to this planar convention; mixing joint and segment variables changes the equations.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -495,12 +495,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 1': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 1
+
     Differentiate with respect to $q$: $J=(-L\sin q,L\cos q)^T$, so $\mathbf v=J\dot q$. At $q=0$, the velocity is vertical. The Jacobian maps a joint rate to a Cartesian velocity; it is not itself a rotation matrix.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -867,12 +867,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 3': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 3
+
     $\tau=M\ddot q=(2,2)$ N m. The first joint needs torque even though its acceleration is zero, because the distal segment accelerates and interacts with the proximal one.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -894,52 +894,24 @@ def _(mo):
     return
 
 
-@app.function
-def repo_file(path, *, base_url="https://raw.githubusercontent.com/BMClab/BMC/master/"):
-    """Find a repository file beside this notebook, or fetch a temporary copy.
-
-    Local files take precedence. Only file acquisition falls back to GitHub;
-    parsing errors remain visible to the calling notebook. urllib3 selects its
-    browser transport automatically without platform-specific imports.
-    """
-    import hashlib
-    import tempfile
-    from pathlib import Path, PurePosixPath
-    from urllib.parse import quote
-
-    import marimo as mo
-    import urllib3
-
-    relative = PurePosixPath(path)
-    if relative.is_absolute() or ".." in relative.parts or "\\" in str(path):
-        raise ValueError("Use a repository-relative path such as data/walk.trc")
-    location = mo.notebook_dir()
-    if location is not None:
-        directory = Path(location).resolve()
-        for base in (directory, *directory.parents):
-            local = base.joinpath(*relative.parts)
-            if local.is_file():
-                return local
-    url = base_url.rstrip("/") + "/" + quote(relative.as_posix(), safe="/")
-    key = hashlib.sha256(base_url.rstrip("/").encode()).hexdigest()[:16]
-    cached = (Path(tempfile.gettempdir()) / "bmc-notebooks-v2" / key).joinpath(*relative.parts)
-    if not cached.is_file():
-        response = urllib3.request("GET", url, timeout=30.0, retries=2)
-        if response.status != 200:
-            raise OSError(f"Cannot load {path}: HTTP {response.status} from {url}")
-        cached.parent.mkdir(parents=True, exist_ok=True)
-        with tempfile.NamedTemporaryFile(dir=cached.parent, delete=False) as download:
-            temporary = Path(download.name)
-            download.write(response.data)
-        try:
-            temporary.replace(cached)
-        finally:
-            temporary.unlink(missing_ok=True)
-    return cached
+@app.cell(hide_code=True)
+def _():
+    try:
+        from notebook_resources import repo_file
+    except ModuleNotFoundError as _error:
+        if _error.name != "notebook_resources":
+            raise
+        raise ModuleNotFoundError(
+            "This notebook needs notebook_resources.py. Download it from:\n"
+            "https://raw.githubusercontent.com/BMClab/BMC/master/functions/notebook_resources.py\n"
+            "Save it in the same folder as this notebook, then rerun this cell.",
+            name="notebook_resources",
+        ) from None
+    return (repo_file,)
 
 
 @app.cell
-def _():
+def _(repo_file):
     import numpy as np
     # '%matplotlib inline' command supported automatically in marimo
     import matplotlib
@@ -1283,12 +1255,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Solution to Exercise 4': mo.md(r"""
+    mo.md(r"""
+    /// details | Solution to Exercise 4
+
     Rates double and accelerations quadruple. Inertial terms and Coriolis/centrifugal terms therefore scale by four, while gravity at a given posture is unchanged. This predicts the comparison between slow and fast inverse dynamics.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -1350,15 +1322,15 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Checkpoint answers': mo.md(r"""
+    mo.md(r"""
+    /// details | Checkpoint answers
+
     1. Inverse: motion and external loads; forward: forces/torques and initial state.
     2. Many muscles can generate the same net moment.
     3. Gravity moments about vertical joint axes vanish; interaction terms remain.
     4. They solve the same equations; disagreement beyond numerical error signals inconsistent models, signs or inputs.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 
@@ -1384,8 +1356,9 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {'Final answers to original Problems': mo.md(r"""
+    mo.md(r"""
+    /// details | Final answers to original Problems
+
     1. For a rigid link with center distance $r$ and pivot inertia $I_O$, angle from downward vertical: $I_O\ddot\theta+mgr\sin\theta=\tau$.
 
     2. For two uniform rods with absolute downward-vertical angles, $M_{11}=m_1L_1^2/3+m_2L_1^2$, $M_{22}=m_2L_2^2/3$, $M_{12}=M_{21}=m_2L_1L_2\cos(\theta_1-\theta_2)/2$. The velocity-quadratic terms on the left are $(h\dot\theta_2^2,-h\dot\theta_1^2)^T$, with $h=m_2L_1L_2\sin(\theta_1-\theta_2)/2$; gravity terms are $((m_1/2+m_2)gL_1\sin\theta_1,m_2gL_2\sin\theta_2/2)^T$. Applied generalized torques are $(\tau_1-\tau_2,\tau_2)^T$.
@@ -1399,9 +1372,8 @@ def _(mo):
     6. With $q=(\alpha_1,\alpha_2)^T=A\theta$, $A=\begin{bmatrix}1&0\\-1&1\end{bmatrix}$, the segment-coordinate equation is $M_\theta=A^TM_qA$, $h_\theta=A^Th_q$, $g_\theta=A^Tg_q$ and $\tau_\theta=A^T\tau_q$.
 
     7. Numerical curves depend on the chosen parameters. For the same path traversed twice as fast, inertial and quadratic-velocity torques scale by four; gravity torque at each posture is unchanged.
-    """)},
-        expanded=False,
-    )
+    ///
+    """)
     return
 
 

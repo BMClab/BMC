@@ -1,0 +1,564 @@
+{
+  "summary": {
+    "span": 182,
+    "marimo-tex": 494,
+    "converted": 248,
+    "ol": 72,
+    "li": 298,
+    "files": 40,
+    "saved_figure_cells": 137,
+    "retained_accordions_in_changed_files": 3,
+    "strong": 7,
+    "a": 1,
+    "code": 30
+  },
+  "files": [
+    {
+      "source": "notebooks/basic_mechanical_elements_muscle_model.py",
+      "converted": 6,
+      "saved_figure_cells": 6,
+      "retained_accordions": 0
+    },
+    {
+      "source": "notebooks/body_segment_parameters.py",
+      "converted": 6,
+      "saved_figure_cells": 1,
+      "retained_accordions": 0
+    },
+    {
+      "source": "notebooks/center_of_mass_and_moment_of_inertia.py",
+      "converted": 7,
+      "saved_figure_cells": 0,
+      "retained_accordions": 0
+    },
+    {
+      "source": "notebooks/ch2_viscoelastic_models.py",
+      "converted": 7,
+      "saved_figure_cells": 6,
+      "retained_accordions": 0
+    },
+    {
+      "source": "notebooks/electromyography.py",
+      "converted": 7,
+      "saved_figure_cells": 11,
+      "retained_accordions": 0
+    },
+    {
+      "source": "notebooks/ensemble_average.py",
+      "converted": 6,
+      "saved_figure_cells": 5,
+      "retained_accordions": 0
+    },
+    {
+      "source": "notebooks/fbd_particles.py",
+      "converted": 7,
+      "saved_figure_cells": 4,
+      "retained_accordions": 0
+    },
+    {
+      "source": "notebooks/fourier_series.py",
+      "converted": 7,
+      "saved_figure_cells": 6,
+      "retained_accordions": 0
+    },
+    {
+      "source": "notebooks/free_body_diagram.py",
+      "converted": 7,
+      "saved_figure_cells": 0,
+      "retained_accordions": 0
+    },
+    {
+      "source": "notebooks/free_body_diagram_for_rigid_bodies.py",
+      "converted": 7,
+      "saved_figure_cells": 1,
+      "retained_accordions": 0
+    },
+    {
+      "source": "notebooks/iep.py",
+      "converted": 9,
+      "saved_figure_cells": 8,
+      "retained_accordions": 0
+    },
+    {
+      "source": "notebooks/ip_model.py",
+      "converted": 5,
+      "saved_figure_cells": 1,
+      "retained_accordions": 0
+    },
+    {
+      "source": "notebooks/kinetics_3d_rigid_body.py",
+      "converted": 6,
+      "saved_figure_cells": 4,
+      "retained_accordions": 0
+    },
+    {
+      "source": "notebooks/kinetics_fundamental_concepts.py",
+      "converted": 6,
+      "saved_figure_cells": 1,
+      "retained_accordions": 0
+    },
+    {
+      "source": "notebooks/lab_acel_gravidade.py",
+      "converted": 8,
+      "saved_figure_cells": 12,
+      "retained_accordions": 0
+    },
+    {
+      "source": "notebooks/lab_filtros.py",
+      "converted": 8,
+      "saved_figure_cells": 12,
+      "retained_accordions": 0
+    },
+    {
+      "source": "notebooks/lagrangian_mechanics.py",
+      "converted": 7,
+      "saved_figure_cells": 3,
+      "retained_accordions": 0
+    },
+    {
+      "source": "notebooks/lagrangian_mechanics_generalized.py",
+      "converted": 6,
+      "saved_figure_cells": 0,
+      "retained_accordions": 0
+    },
+    {
+      "source": "notebooks/matrix_formalism.py",
+      "converted": 5,
+      "saved_figure_cells": 2,
+      "retained_accordions": 0
+    },
+    {
+      "source": "notebooks/multibody_dynamics.py",
+      "converted": 6,
+      "saved_figure_cells": 6,
+      "retained_accordions": 0
+    },
+    {
+      "source": "notebooks/multibody_inverse_dynamics.py",
+      "converted": 5,
+      "saved_figure_cells": 0,
+      "retained_accordions": 0
+    },
+    {
+      "source": "notebooks/muscle_modeling.py",
+      "converted": 8,
+      "saved_figure_cells": 9,
+      "retained_accordions": 0
+    },
+    {
+      "source": "notebooks/muscle_simulation.py",
+      "converted": 5,
+      "saved_figure_cells": 10,
+      "retained_accordions": 0
+    },
+    {
+      "source": "notebooks/musculoskeletal_modeling_simulation.py",
+      "converted": 5,
+      "saved_figure_cells": 5,
+      "retained_accordions": 0
+    },
+    {
+      "source": "notebooks/newton_euler_equations.py",
+      "converted": 6,
+      "saved_figure_cells": 0,
+      "retained_accordions": 0
+    },
+    {
+      "source": "notebooks/newton_law_for_particles.py",
+      "converted": 6,
+      "saved_figure_cells": 6,
+      "retained_accordions": 0
+    },
+    {
+      "source": "notebooks/open_c3d_file.py",
+      "converted": 6,
+      "saved_figure_cells": 2,
+      "retained_accordions": 1
+    },
+    {
+      "source": "notebooks/pandas_data.py",
+      "converted": 6,
+      "saved_figure_cells": 4,
+      "retained_accordions": 0
+    },
+    {
+      "source": "notebooks/principle_of_least_action.py",
+      "converted": 5,
+      "saved_figure_cells": 0,
+      "retained_accordions": 0
+    },
+    {
+      "source": "notebooks/read_c3d.py",
+      "converted": 5,
+      "saved_figure_cells": 1,
+      "retained_accordions": 0
+    },
+    {
+      "source": "notebooks/read_delsys_cortex_file.py",
+      "converted": 6,
+      "saved_figure_cells": 1,
+      "retained_accordions": 0
+    },
+    {
+      "source": "notebooks/read_mac_ascii_files.py",
+      "converted": 6,
+      "saved_figure_cells": 0,
+      "retained_accordions": 0
+    },
+    {
+      "source": "notebooks/read_trc.py",
+      "converted": 5,
+      "saved_figure_cells": 0,
+      "retained_accordions": 0
+    },
+    {
+      "source": "notebooks/read_trc_forces_files.py",
+      "converted": 5,
+      "saved_figure_cells": 2,
+      "retained_accordions": 0
+    },
+    {
+      "source": "notebooks/rep_missing.py",
+      "converted": 6,
+      "saved_figure_cells": 0,
+      "retained_accordions": 0
+    },
+    {
+      "source": "notebooks/resample.py",
+      "converted": 5,
+      "saved_figure_cells": 1,
+      "retained_accordions": 0
+    },
+    {
+      "source": "notebooks/stabilography.py",
+      "converted": 6,
+      "saved_figure_cells": 4,
+      "retained_accordions": 0
+    },
+    {
+      "source": "notebooks/text_and_binary_files.py",
+      "converted": 5,
+      "saved_figure_cells": 0,
+      "retained_accordions": 0
+    },
+    {
+      "source": "notebooks/trigonometry_basics.py",
+      "converted": 9,
+      "saved_figure_cells": 0,
+      "retained_accordions": 1
+    },
+    {
+      "source": "notebooks/vertical_jump.py",
+      "converted": 5,
+      "saved_figure_cells": 3,
+      "retained_accordions": 1
+    }
+  ],
+  "inventory": {
+    "notebooks": 88,
+    "details": 511,
+    "notebooks_with_details": 87,
+    "remaining_accordions": 37,
+    "remaining_categories": {
+      "display_objects_or_layouts": 12,
+      "computed_markdown": 24,
+      "generated_section_mapping": 1
+    }
+  },
+  "retained_accordions": [
+    {
+      "source": "notebooks/angular_velocity_3d.py",
+      "line": 346,
+      "titles": [
+        "Solution to Exercise 2"
+      ],
+      "reason": "display_objects_or_layouts"
+    },
+    {
+      "source": "notebooks/angular_velocity_3d.py",
+      "line": 645,
+      "titles": [
+        "Solution to Exercise 4"
+      ],
+      "reason": "computed_markdown"
+    },
+    {
+      "source": "notebooks/angular_velocity_3d.py",
+      "line": 860,
+      "titles": [
+        "Solution to Exercise 5"
+      ],
+      "reason": "computed_markdown"
+    },
+    {
+      "source": "notebooks/angular_velocity_3d.py",
+      "line": 1085,
+      "titles": [
+        "Solution to Exercise 6"
+      ],
+      "reason": "computed_markdown"
+    },
+    {
+      "source": "notebooks/coordinate_system.py",
+      "line": 709,
+      "titles": [
+        "Solution to Exercise 4"
+      ],
+      "reason": "computed_markdown"
+    },
+    {
+      "source": "notebooks/coordinate_system.py",
+      "line": 791,
+      "titles": [
+        "Solution to Exercise 5"
+      ],
+      "reason": "computed_markdown"
+    },
+    {
+      "source": "notebooks/kinematic_chain.py",
+      "line": 998,
+      "titles": [
+        "Solution to Exercise 3"
+      ],
+      "reason": "computed_markdown"
+    },
+    {
+      "source": "notebooks/kinematic_chain.py",
+      "line": 1068,
+      "titles": [
+        "Solution to Exercise 4"
+      ],
+      "reason": "computed_markdown"
+    },
+    {
+      "source": "notebooks/kinematic_chain.py",
+      "line": 1209,
+      "titles": [
+        "Solution to Exercise 5"
+      ],
+      "reason": "computed_markdown"
+    },
+    {
+      "source": "notebooks/kinematic_chain.py",
+      "line": 1426,
+      "titles": [
+        "Solution to Exercise 6"
+      ],
+      "reason": "computed_markdown"
+    },
+    {
+      "source": "notebooks/kinematic_chain.py",
+      "line": 1963,
+      "titles": [
+        "Final plots — Problems 9 and 10"
+      ],
+      "reason": "display_objects_or_layouts"
+    },
+    {
+      "source": "notebooks/kinematics_angular_2d.py",
+      "line": 863,
+      "titles": [
+        "Final plots — Winter gait problem"
+      ],
+      "reason": "display_objects_or_layouts"
+    },
+    {
+      "source": "notebooks/kinematics_of_rigid_body.py",
+      "line": 537,
+      "titles": [
+        "Solution to Exercise 3"
+      ],
+      "reason": "computed_markdown"
+    },
+    {
+      "source": "notebooks/kinematics_of_rigid_body.py",
+      "line": 994,
+      "titles": [
+        "Solution to Exercise 5"
+      ],
+      "reason": "display_objects_or_layouts"
+    },
+    {
+      "source": "notebooks/kinematics_particle.py",
+      "line": 985,
+      "titles": [],
+      "reason": "generated_section_mapping"
+    },
+    {
+      "source": "notebooks/kinematics_particle.py",
+      "line": 1018,
+      "titles": [
+        "Final plots — analytic motion problems"
+      ],
+      "reason": "display_objects_or_layouts"
+    },
+    {
+      "source": "notebooks/open_c3d_file.py",
+      "line": 446,
+      "titles": [
+        "Original walking animation"
+      ],
+      "reason": "display_objects_or_layouts"
+    },
+    {
+      "source": "notebooks/reference_frame.py",
+      "line": 399,
+      "titles": [
+        "Solution to Exercise 2"
+      ],
+      "reason": "computed_markdown"
+    },
+    {
+      "source": "notebooks/reference_frame.py",
+      "line": 763,
+      "titles": [
+        "Solution to Exercise 5"
+      ],
+      "reason": "computed_markdown"
+    },
+    {
+      "source": "notebooks/reference_frame.py",
+      "line": 1300,
+      "titles": [
+        "Solution to Exercise 6"
+      ],
+      "reason": "computed_markdown"
+    },
+    {
+      "source": "notebooks/signal_basic_properties.py",
+      "line": 1155,
+      "titles": [
+        "Final plots — Problems 1, 2 and 8"
+      ],
+      "reason": "display_objects_or_layouts"
+    },
+    {
+      "source": "notebooks/sistema_coordenadas.py",
+      "line": 406,
+      "titles": [
+        "Solução do Exercício 1"
+      ],
+      "reason": "computed_markdown"
+    },
+    {
+      "source": "notebooks/sistema_coordenadas.py",
+      "line": 450,
+      "titles": [
+        "Solução do Exercício 2"
+      ],
+      "reason": "computed_markdown"
+    },
+    {
+      "source": "notebooks/sistema_coordenadas.py",
+      "line": 828,
+      "titles": [
+        "Solução do Exercício 4"
+      ],
+      "reason": "computed_markdown"
+    },
+    {
+      "source": "notebooks/sistema_coordenadas.py",
+      "line": 976,
+      "titles": [
+        "Solução do Exercício 5"
+      ],
+      "reason": "computed_markdown"
+    },
+    {
+      "source": "notebooks/transformation_2d.py",
+      "line": 716,
+      "titles": [
+        "Solution to Exercise 2"
+      ],
+      "reason": "computed_markdown"
+    },
+    {
+      "source": "notebooks/transformation_2d.py",
+      "line": 1191,
+      "titles": [
+        "Solution to Exercise 3"
+      ],
+      "reason": "computed_markdown"
+    },
+    {
+      "source": "notebooks/transformation_2d.py",
+      "line": 1426,
+      "titles": [
+        "Solution to Exercise 4"
+      ],
+      "reason": "computed_markdown"
+    },
+    {
+      "source": "notebooks/transformation_2d.py",
+      "line": 1774,
+      "titles": [
+        "Solution to Exercise 6"
+      ],
+      "reason": "computed_markdown"
+    },
+    {
+      "source": "notebooks/transformation_2d.py",
+      "line": 1958,
+      "titles": [
+        "Final path — Problem 13"
+      ],
+      "reason": "display_objects_or_layouts"
+    },
+    {
+      "source": "notebooks/transformation_3d.py",
+      "line": 511,
+      "titles": [
+        "Solution to Exercise 3"
+      ],
+      "reason": "display_objects_or_layouts"
+    },
+    {
+      "source": "notebooks/transformation_3d.py",
+      "line": 1439,
+      "titles": [
+        "Solution to Exercise 4"
+      ],
+      "reason": "computed_markdown"
+    },
+    {
+      "source": "notebooks/transformation_3d.py",
+      "line": 1947,
+      "titles": [
+        "Solution to Exercise 5"
+      ],
+      "reason": "computed_markdown"
+    },
+    {
+      "source": "notebooks/transformation_3d.py",
+      "line": 2194,
+      "titles": [
+        "Solution to Exercise 6"
+      ],
+      "reason": "display_objects_or_layouts"
+    },
+    {
+      "source": "notebooks/transformation_3d.py",
+      "line": 2335,
+      "titles": [
+        "Final stride plots — Problems 8, 11 and 12"
+      ],
+      "reason": "display_objects_or_layouts"
+    },
+    {
+      "source": "notebooks/trigonometry_basics.py",
+      "line": 396,
+      "titles": [
+        "Solution to Exercise 5"
+      ],
+      "reason": "display_objects_or_layouts"
+    },
+    {
+      "source": "notebooks/vertical_jump.py",
+      "line": 790,
+      "titles": [
+        "Final answers to original Problems"
+      ],
+      "reason": "computed_markdown"
+    }
+  ]
+}

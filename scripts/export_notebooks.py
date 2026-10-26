@@ -105,11 +105,13 @@ def launch_link(label: str, url: str) -> str:
     return f'<a href="{escape(url, quote=True)}" target="_blank" rel="noopener noreferrer">Open in {escape(label)}</a>'
 
 
-def source_download(source: PurePosixPath, content: bytes) -> str:
+def source_download(
+    source: PurePosixPath, content: bytes, *, label: str = "Download .py"
+) -> str:
     """Keep the exact Python source downloadable from local and hosted HTML."""
     url = "data:text/x-python;charset=utf-8," + quote_from_bytes(content, safe="")
     return (
-        f'<a href="{url}" download="{escape(source.name, quote=True)}">Download .py</a>'
+        f'<a href="{url}" download="{escape(source.name, quote=True)}">{escape(label)}</a>'
     )
 
 
@@ -119,6 +121,7 @@ def decorate_export(
     sources: list[PurePosixPath],
     *,
     source_bytes: bytes,
+    helper_bytes: bytes | None = None,
     editable_sources=(),
 ) -> tuple[str, dict]:
     """Rewrite saved reading links, preserving original code and live launch URLs."""
@@ -177,6 +180,14 @@ def decorate_export(
         "<strong>Static version</strong>",
         source_download(source, source_bytes),
     ]
+    if helper_bytes is not None:
+        links.append(
+            source_download(
+                PurePosixPath("notebook_resources.py"),
+                helper_bytes,
+                label="Download helper",
+            )
+        )
     if source in editable_sources:
         target = local(PurePosixPath("..") / output_path(source))
         links.append(f'<a href="{target}">Edit in browser</a>')
@@ -279,11 +290,19 @@ def export_one(
         )
         if result.returncode:
             raise RuntimeError((result.stdout + result.stderr)[-6000:])
+        source_bytes = (root / source).read_bytes()
+        uses_helper = any(
+            isinstance(node, ast.ImportFrom) and node.module == "notebook_resources"
+            for node in ast.walk(ast.parse(source_bytes))
+        )
         page, statistics = decorate_export(
             native.read_text(),
             source,
             sources,
-            source_bytes=(root / source).read_bytes(),
+            source_bytes=source_bytes,
+            helper_bytes=(root / "functions/notebook_resources.py").read_bytes()
+            if uses_helper
+            else None,
             editable_sources=editable_sources(root),
         )
     if digest(root / source) != source_sha:
