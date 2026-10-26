@@ -9,7 +9,7 @@ uv run python scripts/export_notebooks.py
 
 The updater executes every new or changed guide in `notebooks/` and every course
 notebook in `courses/`. It writes saved outputs and source code under `notebooks_html/`,
-adds source-specific launch links with the official molab/marimo badges, and
+adds source-specific links for browser editing, molab and marimo.app, and
 refreshes the static catalog at `notebooks_html/index.html`. Reading links to other guides point to their local
 HTML pages. Explicit interactive launch links and external references are kept.
 
@@ -55,10 +55,10 @@ New notebook titles can be added to the README's existing bullet list manually.
 
 The updater uses `marimo export html`: these pages contain saved outputs rather
 than a Python runtime. Expandable solutions work, while controls that require
-Python cannot recompute results. The **Edit in browser** button and launch badges
+Python cannot recompute results. The **Edit in browser**, **Open in molab** and **Open in marimo.app** links
 open the same notebook in interactive mode. **Download .py** saves the exact Python
 source included with the static page, including when opened locally. The header
-uses the notebook's active theme colors and text font. Reading the static pages needs neither execution service;
+centers all navigation links and uses the notebook's active theme colors and text font. Reading the static pages needs neither execution service;
 the marimo display assets from a CDN and linked external media still need an
 Internet connection. These saved pages are distinct from the editable WASM exports below.
 

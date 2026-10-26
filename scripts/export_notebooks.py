@@ -36,37 +36,18 @@ STYLE = """
   body { display: flex; flex-direction: column; height: 100vh; margin: 0; }
   #root { flex: 1; min-height: 0; height: 0; }
   #bmc-static-navigation {
-    --bmc-launch-icon-height: 16px;
-    --bmc-control-height: 28px;
     position: relative; z-index: 100; flex: none;
-    display: flex; align-items: center; justify-content: space-between;
+    display: flex; align-items: center; justify-content: center;
     flex-wrap: wrap; gap: 8px 24px; padding: 12px 24px;
     background: var(--background, Canvas); color: var(--foreground, CanvasText);
     border-bottom: 1px solid var(--border, GrayText);
     font-family: var(--marimo-text-font, var(--text-font, sans-serif));
-    font-size: 14px; line-height: 1.4;
+    font-size: 14px; line-height: 1.4; text-align: center;
   }
   #bmc-static-navigation p { margin: 0; }
-  #bmc-static-navigation .bmc-launches { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
+  #bmc-static-navigation .bmc-launches { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 10px; }
   #bmc-static-navigation a { display: inline-flex; border-radius: 4px; color: var(--link, LinkText); }
   #bmc-static-navigation a:focus-visible { outline: 3px solid var(--link, Highlight); outline-offset: 3px; }
-  #bmc-static-navigation .bmc-launches > a { min-height: var(--bmc-control-height); align-items: center; }
-  #bmc-static-navigation .bmc-launches img { display: block; height: var(--bmc-control-height); width: auto; }
-  #bmc-static-navigation .bmc-edit-button {
-    align-items: center; justify-content: center; gap: 6px;
-    box-sizing: border-box; min-height: var(--bmc-control-height); padding: 0 12px;
-    border: 1px solid var(--input, ButtonBorder);
-    background: var(--secondary, ButtonFace); color: var(--secondary-foreground, ButtonText);
-    font-family: inherit;
-    font-weight: 600; text-decoration: none;
-  }
-  #bmc-static-navigation .bmc-edit-button:hover {
-    background: var(--accent, ButtonFace); color: var(--accent-foreground, ButtonText);
-  }
-  #bmc-static-navigation .bmc-edit-button:active {
-    background: var(--muted, ButtonFace); color: var(--foreground, ButtonText);
-  }
-  #bmc-static-navigation .bmc-edit-button svg { flex: none; width: var(--bmc-launch-icon-height); height: var(--bmc-launch-icon-height); }
   @media (max-width: 540px) {
     #bmc-static-navigation { padding: 10px 14px; }
   }
@@ -120,9 +101,8 @@ def editable_sources(root: Path) -> list[PurePosixPath]:
     return paths
 
 
-def badge(label: str, url: str, image_url: str) -> str:
-    return f'''<a href="{escape(url, quote=True)}" target="_blank" rel="noopener noreferrer" aria-label="Run this notebook in {label}">
-      <img src="{escape(image_url, quote=True)}" alt="Open in {label}" height="28"/></a>'''
+def launch_link(label: str, url: str) -> str:
+    return f'<a href="{escape(url, quote=True)}" target="_blank" rel="noopener noreferrer">Open in {escape(label)}</a>'
 
 
 def source_download(source: PurePosixPath, content: bytes) -> str:
@@ -192,30 +172,31 @@ def decorate_export(
         encoded = encoded.replace(character, replacement)
     document = document[: match.start(2)] + encoded + document[match.end(2) :]
     path = str(source)
-    launches = badge(
-        "molab",
-        f"https://molab.marimo.io/github/BMClab/BMC/blob/master/{path}",
-        "https://marimo.io/molab-shield.svg",
-    )
-    launches += badge(
-        "marimo.app",
-        f"https://marimo.app/github.com/BMClab/BMC/blob/master/{path}",
-        "https://marimo.io/shield.svg",
-    )
-    edit_link = ""
+    links = [
+        f'<a href="{local("index.html")}">All guides</a>',
+        "<strong>Static version</strong>",
+        source_download(source, source_bytes),
+    ]
     if source in editable_sources:
         target = local(PurePosixPath("..") / output_path(source))
-        edit_link = f'''<a class="bmc-edit-button" href="{target}">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
-        <path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
-        <path d="m16 3 5 5-10 10-5 1 1-5Z"/>
-      </svg><span>Edit in browser</span></a>'''
-    nav = f'''
+        links.append(f'<a href="{target}">Edit in browser</a>')
+    links.append(
+        launch_link(
+            "molab",
+            f"https://molab.marimo.io/github/BMClab/BMC/blob/master/{path}",
+        )
+    )
+    links.append(
+        launch_link(
+            "marimo.app",
+            f"https://marimo.app/github.com/BMClab/BMC/blob/master/{path}",
+        )
+    )
+    nav = f"""
 <nav id="bmc-static-navigation" aria-label="Notebook viewing and execution modes">
-  <p><a href="{local("index.html")}">All guides</a> · <strong>Static version</strong> · {source_download(source, source_bytes)}</p>
-  <div class="bmc-launches">{edit_link}{launches}</div>
+  <p>{" · ".join(links)}</p>
 </nav>
-'''
+"""
     document = document.replace("</head>", STYLE + "</head>", 1).replace(
         "<body>", "<body>" + nav, 1
     )
@@ -360,7 +341,7 @@ def write_catalog(root: Path, sources: list[PurePosixPath]) -> None:
         """<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1"><title>BMC static notebooks</title>
 <style>body{max-width:65rem;margin:3rem auto;padding:0 1.2rem;font:17px/1.6 system-ui,sans-serif;color:#172b3a}a{color:#176d52}li{margin:.4rem 0}p{max-width:52rem}</style></head><body>
-<h1>Biomechanics and Motor Control</h1><p>Read saved notebook outputs without molab or marimo.app. Each page has optional badges for interactive execution. Display assets and external media still need Internet access.</p><ul>
+<h1>Biomechanics and Motor Control</h1><p>Read saved notebook outputs without molab or marimo.app. Each page has optional links for interactive execution. Display assets and external media still need Internet access.</p><ul>
 """
         + "\n".join(items)
         + "\n</ul></body></html>\n"
