@@ -5,9 +5,9 @@
     {
       "source": "notebooks/amti_bsf_file.py",
       "source_sha256": "d3358fbd0a13e9bbd3451461a906f417d23095c441d97515b2ecbbac4be87258",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "amti_bsf_file.html",
-      "html_sha256": "6f7296b44228bda85d0d51e0b5cf804c409c6de7477325b765db02ff1492d147",
+      "html_sha256": "3fc3c42d9a3758fbf3bf315526d2e567360eb613df294caadbefd089616d93bf",
       "native_export": "passed",
       "cells": 20,
       "cells_with_saved_figures": 1
@@ -15,9 +15,9 @@
     {
       "source": "notebooks/angular_velocity_3d.py",
       "source_sha256": "a14f4af87b42421bc7224cef7517c984099725086360a2d6e95d75edbd41635c",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "angular_velocity_3d.html",
-      "html_sha256": "f40f6a7be4a0aaae2f2a0788a1171e5655001faf0346f8096fa47bd68c5d85df",
+      "html_sha256": "90f369f50564673e0984c08d2dccda6c163edea98bc0eab8a0d203352b0905d4",
       "native_export": "passed",
       "cells": 75,
       "cells_with_saved_figures": 3
@@ -25,9 +25,9 @@
     {
       "source": "notebooks/aula_filtragem.py",
       "source_sha256": "4d22c37e522a906374af810d7ca3bea60f3ecb9821b249ea82348295bdb54955",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "aula_filtragem.html",
-      "html_sha256": "e3d06142c41879d93fe07ed0ac1f62a2c01d0a34011fee22d091b1bbac2146df",
+      "html_sha256": "29dfd115b0d1836f3c0fe2d00c1d1fc0dd7c53670ac1cf10cacfe8718f6bc910",
       "native_export": "passed",
       "cells": 37,
       "cells_with_saved_figures": 6
@@ -35,9 +35,9 @@
     {
       "source": "notebooks/basic_mechanical_elements_muscle_model.py",
       "source_sha256": "356cecfc5357f4660fc764667bebf78014c35ff2f5a1a43f69ec9b527aadf44a",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "basic_mechanical_elements_muscle_model.html",
-      "html_sha256": "2591182f5b93e7b5d0b40550405730d338c8b1183609ed571e04a85279110015",
+      "html_sha256": "37746f2a2f3a60df01d8ff0bc3bcad79badf08809b1b84bdc6bb6c1a50ffec3f",
       "native_export": "passed",
       "cells": 63,
       "cells_with_saved_figures": 6
@@ -45,7 +45,7 @@
     {
       "source": "notebooks/biomechanics.py",
       "source_sha256": "300d307ab6c1d1fbe63eb608f7b4f3742683eea2c62bb81a85793322f822beb8",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "biomechanics.html",
       "html_sha256": "65f8e42e6dce5574ecfa4d0e4cc71ef05ece5c4f6f3b443f0653c744300a8000",
       "native_export": "passed",
@@ -55,9 +55,9 @@
     {
       "source": "notebooks/bmclab.py",
       "source_sha256": "7c22df1437b789cd0464b014bf97a156b628f02a9b5e109392c91e24ec4a4372",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "bmclab.html",
-      "html_sha256": "8a6966111b873ed1b1acfce32f1af1169c131b00fb0139a84b1c0b0943691220",
+      "html_sha256": "e5db2a75004a3b4549c8fef16516bc56c7d51cbbbc162a1cb38e424d9c730c2e",
       "native_export": "passed",
       "cells": 28,
       "cells_with_saved_figures": 0
@@ -65,9 +65,9 @@
     {
       "source": "notebooks/body_segment_parameters.py",
       "source_sha256": "f5d02bc83feccb8f118bbb05788d084ab8093657bb25f5e7838e8f6d67f55ce6",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "body_segment_parameters.html",
-      "html_sha256": "829f47b68f35055c5b07b94dab24bcb91c1c71ea2fc9564fad71a8e4a855cad3",
+      "html_sha256": "f9f81f69b2f39880543c87803a5edf1287f6acab565a807c051e3ecc06feee84",
       "native_export": "passed",
       "cells": 48,
       "cells_with_saved_figures": 1
@@ -75,7 +75,7 @@
     {
       "source": "notebooks/center_of_mass_and_moment_of_inertia.py",
       "source_sha256": "25cf39f5ae4e9f2e2314940f714c995ec18e490e7d15127e43bf36493c56c22f",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "center_of_mass_and_moment_of_inertia.html",
       "html_sha256": "5484ca91086f31a35c664b9afa5a63da4a15fba309705d399c13893f1438ab09",
       "native_export": "passed",
@@ -85,9 +85,9 @@
     {
       "source": "notebooks/ch2_viscoelastic_models.py",
       "source_sha256": "11d90575341c217e32196e9dee06fa296822428d2fb58c8b7d8eb4621677cd6d",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "ch2_viscoelastic_models.html",
-      "html_sha256": "eeb87c04181733181b732521f11666a8ee529217d62f78cc198483e2522bb11a",
+      "html_sha256": "5e9ae01c00fa65db0c48fc6ec48293490c34c56e87d8b6306bb2bf008f1ece2f",
       "native_export": "passed",
       "cells": 39,
       "cells_with_saved_figures": 6
@@ -95,9 +95,9 @@
     {
       "source": "notebooks/code_structure.py",
       "source_sha256": "2633518b0a64c15c196aeb9f905375ddcb97f6b9cbe7562d3af815db69b04667",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "code_structure.html",
-      "html_sha256": "d6a20aa00fcc0852ad127b077e9e81826667afa24ad0b1697e4e3aab1ceacc69",
+      "html_sha256": "ece53eba24b9e2682d761ed189af7e21b2cdbdfe97bf761f564c874f744e2fc1",
       "native_export": "passed",
       "cells": 29,
       "cells_with_saved_figures": 0
@@ -105,9 +105,9 @@
     {
       "source": "notebooks/confidence_prediction_intervals.py",
       "source_sha256": "a6d5f75378a7a7e20adda77df958d87257256cbf68dab695d14243e0ae9c1ebb",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "confidence_prediction_intervals.html",
-      "html_sha256": "6b5cce6452ace801114ae9b8efb4d78d74d6a5b8e812c3b88350c9037d56fc83",
+      "html_sha256": "ee0591a8a7efb81385520ceaf97fee51d415e639b4c41221930bedc4d44da7a3",
       "native_export": "passed",
       "cells": 44,
       "cells_with_saved_figures": 6
@@ -115,7 +115,7 @@
     {
       "source": "notebooks/coordinate_system.py",
       "source_sha256": "c9bafe87d5eeeb2d27bf361b0c62a7c50f160993545b8d79546180f0e270ab1b",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "coordinate_system.html",
       "html_sha256": "550c648a36847a60d5b40558322ca1a3f91ec9abc71437c31a7231fd7c525443",
       "native_export": "passed",
@@ -125,9 +125,9 @@
     {
       "source": "notebooks/curve_fitting.py",
       "source_sha256": "3a4b50a7b9f860139d6dde24e76c4bca41d22b223f99246925713d358fea8124",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "curve_fitting.html",
-      "html_sha256": "c007c79433b3fbdefd54a4df591bd29832282859e037e24055beb4acfacea5f0",
+      "html_sha256": "284c9d5171a13acb561f5b9e5bc956ee5964132cf78ac7765c9e2643361c7c6f",
       "native_export": "passed",
       "cells": 61,
       "cells_with_saved_figures": 10
@@ -135,9 +135,9 @@
     {
       "source": "notebooks/data_filtering.py",
       "source_sha256": "bddd3c54c2d299a42a8c990c28b2e6f6eb793275da9706b94b028d21d029091a",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "data_filtering.html",
-      "html_sha256": "fb238040e44ef3e2d9dacfd15226cc6d33a42db8c85ce984ba2bbfe71230902f",
+      "html_sha256": "b60ddbcc6fe1cef1ebf9d33f39fa6dbd205c529b5451a95653d37ca1219ff1bd",
       "native_export": "passed",
       "cells": 93,
       "cells_with_saved_figures": 15
@@ -145,7 +145,7 @@
     {
       "source": "notebooks/dlt.py",
       "source_sha256": "dee56838e9f7787d35aac9f46996f208c442c2da32c3cc497d99c2f5c7656c83",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "dlt.html",
       "html_sha256": "c6cd3f9a7b89864682aa2a2f891adc2beb4dd64f79db358b080cb20222c099e5",
       "native_export": "passed",
@@ -155,7 +155,7 @@
     {
       "source": "notebooks/electromyography.py",
       "source_sha256": "d9691066b583e7cff4c47b80d2ec9fa42dfe3817858e8c19c68208c82007b3a4",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "electromyography.html",
       "html_sha256": "704fde02f18920ce7e254a7a08e8cbc79e68181da9891bc953713affaae2dabb",
       "native_export": "passed",
@@ -165,7 +165,7 @@
     {
       "source": "notebooks/ellipsoid_3d_rotation_matrix_1.py",
       "source_sha256": "d8371cf41c0457643070b1ffb5e68b379cb8f486d13b3c333c7b1449c08a1479",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "ellipsoid_3d_rotation_matrix_1.html",
       "html_sha256": "6aa4c11aa7c52d5b76a2a6adbc6ea8027e4a359323faec92cb2b7d3b6bdf59aa",
       "native_export": "passed",
@@ -175,7 +175,7 @@
     {
       "source": "notebooks/ellipsoid_rotation_matrix_3d.py",
       "source_sha256": "468b1d6b78e2e6f3b4ca8c198664a87898158f08adddb1890b0537ea47839a3d",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "ellipsoid_rotation_matrix_3d.html",
       "html_sha256": "fe626ef3137d7cd27e54058da465a693b4c4d2d9816a1763889dd2f993343f19",
       "native_export": "passed",
@@ -185,7 +185,7 @@
     {
       "source": "notebooks/ensemble_average.py",
       "source_sha256": "1051019e50ee57fc837bf8214b949db44b0fb82a1e25f2793f37817bd74081a1",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "ensemble_average.html",
       "html_sha256": "035a7d65c4809cfa569af44be75dc6e79073c033de1e70fd9926a43402595c4f",
       "native_export": "passed",
@@ -195,7 +195,7 @@
     {
       "source": "notebooks/fbd_particles.py",
       "source_sha256": "4196a92264c731b81a74d1ecadfe674afc3c480df7e001e9953bfdf0b399b264",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "fbd_particles.html",
       "html_sha256": "65343ffa28a9986c42943128a4c16bcce0784881b64b855a9cbf97f9d216a348",
       "native_export": "passed",
@@ -205,9 +205,9 @@
     {
       "source": "notebooks/force_plate_calibration.py",
       "source_sha256": "d87bd583ec93012ea588b4127973f0267c155cfdd3be5942e656bd3e9b7d0ed6",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "force_plate_calibration.html",
-      "html_sha256": "ee0c606c04bf1e9baecd6d3eac7feb5ef09543b7e1ab31e628d4b5c68d362385",
+      "html_sha256": "0dd4355eb97fa7b1aebf6dc58183f2c4d3d8fdebcc085d453e636f0e00cb9235",
       "native_export": "passed",
       "cells": 35,
       "cells_with_saved_figures": 1
@@ -215,7 +215,7 @@
     {
       "source": "notebooks/fourier_series.py",
       "source_sha256": "eb571db0b2ac14ac6de6a8f877097ee192b32290835a0424798b409f5e047595",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "fourier_series.html",
       "html_sha256": "2f439c15550b59d771e0b3d72e7a34525f9bed170e9aa189f20d102287f9cbef",
       "native_export": "passed",
@@ -225,7 +225,7 @@
     {
       "source": "notebooks/fourier_transform.py",
       "source_sha256": "78782e2cfa0b95df57f64a9746bff83cda6ed5463a79debd3816dd985f0ee983",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "fourier_transform.html",
       "html_sha256": "b842ab3a06f0d5dff658fc81010e69147b2e0ecc4baf26887d743764ff57d043",
       "native_export": "passed",
@@ -235,7 +235,7 @@
     {
       "source": "notebooks/free_body_diagram.py",
       "source_sha256": "4075c9780d0dd6742be7fcd5bd868ff3478d3ea3f2213d0243c0460703eee120",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "free_body_diagram.html",
       "html_sha256": "e8c793dd82bc2aeddb509864d81b0d39f21b4d63a9bdb72b6f8e232f5722efe9",
       "native_export": "passed",
@@ -245,7 +245,7 @@
     {
       "source": "notebooks/free_body_diagram_for_rigid_bodies.py",
       "source_sha256": "ea33f14e794b41cf46aa1617845fcb6136615df85acdc601cd171a3bf78da581",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "free_body_diagram_for_rigid_bodies.html",
       "html_sha256": "5dc58eb67a8d58bbf34714c6885b7a8ad58a5d79f2399e8a46d049a3aaab3e76",
       "native_export": "passed",
@@ -255,9 +255,9 @@
     {
       "source": "notebooks/gait_analysis_2d.py",
       "source_sha256": "9d3b9c5286d7b07e47b0da9161326019689fac290e15c1224551032e6786a327",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "gait_analysis_2d.html",
-      "html_sha256": "44d6dcd78f9e25316577fe819b58569d8165a29d4e828385eccd56932cd8e441",
+      "html_sha256": "c433d63cc65d3c56723eb255d799f55668d9e88e970205f1eb041288cfa9c57e",
       "native_export": "passed",
       "cells": 57,
       "cells_with_saved_figures": 6
@@ -265,9 +265,9 @@
     {
       "source": "notebooks/iep.py",
       "source_sha256": "5c279c3646f5f19a43f8de8e5ad5c742218869a906202524e963c72185baa7c3",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "iep.html",
-      "html_sha256": "56c31ed6da569a0c17aa49762114e87ae674868967e9503808aa8a5d7dc46b4a",
+      "html_sha256": "8a91a3daddfc015c3b4b516c5465f2da63496e927e004640206aa54a3ee87dcb",
       "native_export": "passed",
       "cells": 52,
       "cells_with_saved_figures": 8
@@ -275,9 +275,9 @@
     {
       "source": "notebooks/ip_model.py",
       "source_sha256": "e5e8b877dc53ec229075276504d17edd3b6bcc77fdda4850a89166c8003dc08f",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "ip_model.html",
-      "html_sha256": "0d92a9085934601b0ca428642d1267405cfe49ee06fc857460282e2e56560b05",
+      "html_sha256": "65e777e88a7513bab869009c5857de42bc95e94254294af9720891b05a25ee7e",
       "native_export": "passed",
       "cells": 30,
       "cells_with_saved_figures": 1
@@ -285,9 +285,9 @@
     {
       "source": "notebooks/kinematic_chain.py",
       "source_sha256": "d07cb2caa6a14c3da9650c4d51924b7e239a991b83440439b933110baeef7517",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "kinematic_chain.html",
-      "html_sha256": "fafecb143d03cb64f7fcf5954ba7ce3de02e8d1b5baead9c7dadc94b6ba810cc",
+      "html_sha256": "ed44119b7d4e535b66a80d39440ed05431f9356f3f80322f2cf86573f77dc39b",
       "native_export": "passed",
       "cells": 136,
       "cells_with_saved_figures": 8
@@ -295,7 +295,7 @@
     {
       "source": "notebooks/kinematics_angular_2d.py",
       "source_sha256": "c6be88940c9d8df9f3445ac5a213036dd78918bb09ce43180d96e99b5ad5d407",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "kinematics_angular_2d.html",
       "html_sha256": "8c3394226a68544def442a19034810cac1e13c490bb0597158b7d0856063952e",
       "native_export": "passed",
@@ -305,9 +305,9 @@
     {
       "source": "notebooks/kinematics_of_rigid_body.py",
       "source_sha256": "b2c7b442b04d0763644d52350a5f6ed9f50f68d17a306fbb2dd5fe593e25d295",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "kinematics_of_rigid_body.html",
-      "html_sha256": "fe98ab8a5d00702a4e0bea0205dce358c3258977237f076f0c3244b0a7850d7b",
+      "html_sha256": "c43a9a6e643d4f26f73e7575b8794e534c6c0d2199bcb09838dd2ed3e68dc4b2",
       "native_export": "passed",
       "cells": 67,
       "cells_with_saved_figures": 7
@@ -315,9 +315,9 @@
     {
       "source": "notebooks/kinematics_particle.py",
       "source_sha256": "4dfa39c15574cd0cf88c0ce4e16e632a5903952c14c43b6881005db6d89d4a13",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "kinematics_particle.html",
-      "html_sha256": "9c593ea22b0aae3cd1b99248743b209b519d1db3f5dfbb5dd30580339dbbf75d",
+      "html_sha256": "bcbb85595e078e7fc521d240c904cbc29e8ec0b479093ef9f9aa84a016f94375",
       "native_export": "passed",
       "cells": 54,
       "cells_with_saved_figures": 6
@@ -325,7 +325,7 @@
     {
       "source": "notebooks/kinetics_3d_rigid_body.py",
       "source_sha256": "4b0594d8f217c4556b5a1c6625e925885676b5654e8df472aeca9ef052f4c6a0",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "kinetics_3d_rigid_body.html",
       "html_sha256": "abafb4c9501f996d5027355f4226fca63e2893b27ad0a7b9d062b191e225ab5d",
       "native_export": "passed",
@@ -335,7 +335,7 @@
     {
       "source": "notebooks/kinetics_fundamental_concepts.py",
       "source_sha256": "0151fa241e31e9d1717f16f081a5f886146f0aa705cded2dec96903241adcaeb",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "kinetics_fundamental_concepts.html",
       "html_sha256": "cdfb85556ec26a3774a35c96d687112c7d3fc91c24a16ece23a91c292c5c6f2d",
       "native_export": "passed",
@@ -345,9 +345,9 @@
     {
       "source": "notebooks/kistler_force_plate_calculation.py",
       "source_sha256": "09ed347ac01ddc66b58829c096eb490a7e82362b868797d5d5419d4774b6ca99",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "kistler_force_plate_calculation.html",
-      "html_sha256": "c0936b514dc1826d9e66e533bced0d1a47141261115e1b9219af720ed8fe6d27",
+      "html_sha256": "676875bcde6485c479e198242306c67e5318a02ab1967e70379e45b1f0b8197c",
       "native_export": "passed",
       "cells": 18,
       "cells_with_saved_figures": 1
@@ -355,9 +355,9 @@
     {
       "source": "notebooks/lab_acel_gravidade.py",
       "source_sha256": "00d961df9f0e566df4a1af18578139e6b503800ca75d2b605c745a8e8b11db7b",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "lab_acel_gravidade.html",
-      "html_sha256": "77174119ecf280ee6a49feede852751162c958c8f9b3e6fc2fd68c511778ca3f",
+      "html_sha256": "5a37c2f8ad4fd141235372b24c69acce70daaebfeddd50dd653875b510a4bb50",
       "native_export": "passed",
       "cells": 54,
       "cells_with_saved_figures": 12
@@ -365,9 +365,9 @@
     {
       "source": "notebooks/lab_filtros.py",
       "source_sha256": "f62a0f6c89760455b072604c191a18ccc19a943dfe044b78181c05ad2a7e44b6",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "lab_filtros.html",
-      "html_sha256": "5c1e3a008e015221960e67a02506dbb396b340c0044827e56241454e7d4aa5a2",
+      "html_sha256": "8b6de309493a0486618c24b814e324959991735f88d8c1c9b9f639365bf1a4c2",
       "native_export": "passed",
       "cells": 54,
       "cells_with_saved_figures": 12
@@ -375,7 +375,7 @@
     {
       "source": "notebooks/lagrangian_mechanics.py",
       "source_sha256": "868eddf2f51fe45ce83b7c096401eb03613aec5b11160c6616aa7afe272056a9",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "lagrangian_mechanics.html",
       "html_sha256": "7d03f91dc79d93cbea96ce6f2b6be44c051bff41b5f662240b0d79f98ebc241e",
       "native_export": "passed",
@@ -385,7 +385,7 @@
     {
       "source": "notebooks/lagrangian_mechanics_generalized.py",
       "source_sha256": "4a90f1fd379e43edab4fbe8172df070b032ef0fede4c915731664b183aed5499",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "lagrangian_mechanics_generalized.html",
       "html_sha256": "330da9a4352710813cbef7692181a91950afa0130c999475e0978cc945bf4bc2",
       "native_export": "passed",
@@ -395,7 +395,7 @@
     {
       "source": "notebooks/matrix.py",
       "source_sha256": "2056a2d66015634c9356f402ae6417e5d88d890b28018d75b851e343633bf814",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "matrix.html",
       "html_sha256": "58b8435237198cbd1f3eaaf4ea3ba681d05a4b311ef61a162d86e60fbc2dbd75",
       "native_export": "passed",
@@ -405,7 +405,7 @@
     {
       "source": "notebooks/matrix_formalism.py",
       "source_sha256": "24800d54b495ba940ad5e9d7258fcee3fac1e9e353fde14837d1cdc534ead8f4",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "matrix_formalism.html",
       "html_sha256": "2ebdec310f6abcfd9a4274c2b461b6595cf8d2c24dab71a38a56b87e361c9d86",
       "native_export": "passed",
@@ -415,7 +415,7 @@
     {
       "source": "notebooks/minimum_jerk_hypothesis.py",
       "source_sha256": "d216252e15aaae22e48625025c2b619acb419b8b71942a76bac85d20cdf97d08",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "minimum_jerk_hypothesis.html",
       "html_sha256": "7a35f05cc7154158cd63c4d4c35221fd0af1136617269818a5028327732e1431",
       "native_export": "passed",
@@ -425,7 +425,7 @@
     {
       "source": "notebooks/multibody_dynamics.py",
       "source_sha256": "1d0469c46556f07519deb260462082e0eecca3e65886a8fce47885a6c100f859",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "multibody_dynamics.html",
       "html_sha256": "208beb8e41cbc273d395422c4ad2038903fee2596f9a581abe4470ce6f02fb9e",
       "native_export": "passed",
@@ -435,7 +435,7 @@
     {
       "source": "notebooks/multibody_inverse_dynamics.py",
       "source_sha256": "e15ece8a5c33d702b6bb29cc27f76fbb93cb4b85e3c6d97ea4eac0250c2934ae",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "multibody_inverse_dynamics.html",
       "html_sha256": "b8f7cbe5c72c8d8ee155b4e6d99c4ee491fa1d234e5d84030d35cbfa4d22ee35",
       "native_export": "passed",
@@ -445,7 +445,7 @@
     {
       "source": "notebooks/muscle_modeling.py",
       "source_sha256": "1ea4e2d68c550a08951d0d055f0d27ce6e1e51ba91294e0e53e4172e1d1ad76d",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "muscle_modeling.html",
       "html_sha256": "e79227b63d3d4cee43f037cf938f65d205a7c6144d469118220b1eb8f7149a4c",
       "native_export": "passed",
@@ -455,7 +455,7 @@
     {
       "source": "notebooks/muscle_simulation.py",
       "source_sha256": "39105c9fd7b733684ae93f55daee71e65151e0bb4a3960b505d91603e75447a4",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "muscle_simulation.html",
       "html_sha256": "2bec18081bb59c85e1fade4bbb30caf89351f170dba66be3407821e968a7ede3",
       "native_export": "passed",
@@ -465,7 +465,7 @@
     {
       "source": "notebooks/musculoskeletal_modeling_simulation.py",
       "source_sha256": "6e41310a05305f97de7492bad490b75c96d53b59def1d56492a85002d717219c",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "musculoskeletal_modeling_simulation.html",
       "html_sha256": "b2e4d18e6a78722645447be5f26848c5040d8a360e7484a50b3ba032e1fd30c0",
       "native_export": "passed",
@@ -475,7 +475,7 @@
     {
       "source": "notebooks/newton_euler_equations.py",
       "source_sha256": "d688adbe65470664ac0f1069c10d48b53b008a12e82ef25282265cea9e93cd35",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "newton_euler_equations.html",
       "html_sha256": "1b87844b30cba99eaaa4b00c67943c404ff67e554c873383b7e599ea128a5774",
       "native_export": "passed",
@@ -485,7 +485,7 @@
     {
       "source": "notebooks/newton_law_for_particles.py",
       "source_sha256": "1a59c36e6691388a2cbc9ffa5c1299ae80969a10c0585d3d3f4abe1a14ed4ae1",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "newton_law_for_particles.html",
       "html_sha256": "24095493ddbeef432aecc97410dbd64bfd2c7e414788ba5922ce2a6341916d57",
       "native_export": "passed",
@@ -495,9 +495,9 @@
     {
       "source": "notebooks/open_c3d_file.py",
       "source_sha256": "c5700b7900e3b92f2cc6939fed6682fc58e0bbeae1472b428bc3e17953424186",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "open_c3d_file.html",
-      "html_sha256": "3e8b7e685eb2b0e4e66d8f61c4dc64a4010a7adc80b9c19f2102ab85759b9fe3",
+      "html_sha256": "8e819cbf5cb0c3ae306fc72f2f76065718971daea5822f8640935c86cff047be",
       "native_export": "passed",
       "cells": 33,
       "cells_with_saved_figures": 2
@@ -505,9 +505,9 @@
     {
       "source": "notebooks/optimization.py",
       "source_sha256": "1dc2b117a176d4c164b95a881b3930f6b98d0cc3aef53bb69e5911e27064f45e",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "optimization.html",
-      "html_sha256": "7826f6b586195247c32ae96a94de6e5bbacf0abb1c898d28553eb178aed51941",
+      "html_sha256": "34558bf2a0275c8c3f10cd9a5159bc01f27e11c9025852be140d6d780cfec615",
       "native_export": "passed",
       "cells": 61,
       "cells_with_saved_figures": 2
@@ -515,7 +515,7 @@
     {
       "source": "notebooks/ordinary_differential_equation.py",
       "source_sha256": "62a6825cf6eb607efbeeae9703f16fb3fff0f00946e74f9ee5dead30c2e9d23b",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "ordinary_differential_equation.html",
       "html_sha256": "9307ba65b3ced492524d5ad3397decd0388d9b3e4ecf1011b56734486d0b7ec8",
       "native_export": "passed",
@@ -525,9 +525,9 @@
     {
       "source": "notebooks/pandas_data.py",
       "source_sha256": "5844a59ec36036d743f8fb492a4ed22b4c7ed17830be92b621c7098c38b6d316",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "pandas_data.html",
-      "html_sha256": "932ad3c78af41468012ae4dd1b6dcac62e17894ae1409bff9768af2a6a27ff97",
+      "html_sha256": "746f25aa740a98abb7b29a10999dcf8d8ca8305bd315fbcf133e89fa2e3237b3",
       "native_export": "passed",
       "cells": 41,
       "cells_with_saved_figures": 4
@@ -535,7 +535,7 @@
     {
       "source": "notebooks/path_frame.py",
       "source_sha256": "0895d6fa3052a0d9d391e829b2d432b41435f7c3ff2414f3b0af59a75f7ae98b",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "path_frame.html",
       "html_sha256": "0ec4eb7c594ceb6e0a9822f2517323100ca66276c7419833ea282f0b467f57a5",
       "native_export": "passed",
@@ -545,9 +545,9 @@
     {
       "source": "notebooks/polar_basis.py",
       "source_sha256": "32210e2bdc640ef42c01098e0de7aa94d386792c4d795bb546d4000ceee5e974",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "polar_basis.html",
-      "html_sha256": "8b2dfd0c468e98f429260a70ab6bbb3c9b58dd866945d8eb7e456eb9e14d2b0d",
+      "html_sha256": "ae3b0fa063aec8293db77a8cc92da759e3338d5c439cf93e950b81f969ed780a",
       "native_export": "passed",
       "cells": 54,
       "cells_with_saved_figures": 6
@@ -555,9 +555,9 @@
     {
       "source": "notebooks/polynomial_fitting.py",
       "source_sha256": "091abdca4240d8f25a01b6099e2caca53107b8647257f70222625752ab6c914b",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "polynomial_fitting.html",
-      "html_sha256": "6bc49acc3f43952bfdb5261ce86a2a7363eba17ca4164b7cadcbb097943432ee",
+      "html_sha256": "ebc5ee6af4e2aa38ae3785b0bafe2864b78fc5c91638666574afd9ec7baeb7cb",
       "native_export": "passed",
       "cells": 29,
       "cells_with_saved_figures": 4
@@ -565,9 +565,9 @@
     {
       "source": "notebooks/prediction_ellipse_ellipsoid.py",
       "source_sha256": "48b818fc31ad27c83dfb3fbcc437b99d56045087fd6b8a3533aca7355f7705a1",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "prediction_ellipse_ellipsoid.html",
-      "html_sha256": "c3b312d65406e91b857554abb4b78c66abd66c211eb7d92e862bd4dd2677e775",
+      "html_sha256": "b45ea4a499b7f7fe7a0a563c8dcf7a7f488549465902dbd7b5a3da3b58598950",
       "native_export": "passed",
       "cells": 42,
       "cells_with_saved_figures": 8
@@ -575,7 +575,7 @@
     {
       "source": "notebooks/principle_of_least_action.py",
       "source_sha256": "eee449d50cd93ed072f8c7178768746c8ddc2fe298edf5cda6dfa3f168a04285",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "principle_of_least_action.html",
       "html_sha256": "bb4d2d84eacc81f94bd0f984dc9eed040b157ee6e08fb1c9955b4763d6bbcf29",
       "native_export": "passed",
@@ -585,7 +585,7 @@
     {
       "source": "notebooks/projectile_motion.py",
       "source_sha256": "cad292cba0d142b6db34370bb31bebebc1b82e9e08983080b2d8c01649794127",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "projectile_motion.html",
       "html_sha256": "8d883a69caeff2c1ba3142f9472d73b4dfd059c9ae483de1d707505044196cf2",
       "native_export": "passed",
@@ -595,7 +595,7 @@
     {
       "source": "notebooks/propagation_uncertainty.py",
       "source_sha256": "f71641e0e0ab5a49232335cfac05618c5e6f01c0152ee6aeaca689c1d00d8d5a",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "propagation_uncertainty.html",
       "html_sha256": "d67c941bae1b3610e37764a4fb905c9d2858747aea32a6a490aa0591d5cf5086",
       "native_export": "passed",
@@ -605,7 +605,7 @@
     {
       "source": "notebooks/python_for_scientific_computing.py",
       "source_sha256": "cc854cd0e470a308278729429b184858581451499937cff6c7c83676854867e6",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "python_for_scientific_computing.html",
       "html_sha256": "ed398f5c4085a3d8ed2a52d98661f1d966e87de3f66b275d87d3d24b616ee93a",
       "native_export": "passed",
@@ -615,7 +615,7 @@
     {
       "source": "notebooks/python_installation.py",
       "source_sha256": "bba2daf6d8bb801df7d9bf1e83d4ab2bac56833a94e298c093c7c4049dfdee47",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "python_installation.html",
       "html_sha256": "7b8e3e5f01293b27a9f8583e31b39abc9ce5ead381c311b7268eb05748ad9546",
       "native_export": "passed",
@@ -625,9 +625,9 @@
     {
       "source": "notebooks/python_tutorial.py",
       "source_sha256": "b4cf3582da3d9a39fc17963853b35a24548090eee9ad5868680834219c714877",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "python_tutorial.html",
-      "html_sha256": "0ddd0ecda0a51b166044cc4f941e55857ab8f9d095e6106a3857ea61db644d21",
+      "html_sha256": "f40d7fc966cc45172bffb7c3faa22083e8d22bcda636091892c2a4aa6666b0af",
       "native_export": "passed",
       "cells": 107,
       "cells_with_saved_figures": 3
@@ -635,9 +635,9 @@
     {
       "source": "notebooks/read_c3d.py",
       "source_sha256": "83bfae03508db8adebb43128b9acdc7b7cc2d83e8aee54d1341c5da794b55e74",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "read_c3d.html",
-      "html_sha256": "3bac1ecf27d118136ad7b103380eefe2d5e06c451821a3743c731d1d13cc220a",
+      "html_sha256": "9be8b9c34ead3c991049cc1524c4e17a6d88fc34a516776442c88c611946beb9",
       "native_export": "passed",
       "cells": 27,
       "cells_with_saved_figures": 1
@@ -645,9 +645,9 @@
     {
       "source": "notebooks/read_delsys_cortex_file.py",
       "source_sha256": "2f293762991a9be690edfee5548f94aafee9113c618958610e1d7a6fb7c212b0",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "read_delsys_cortex_file.html",
-      "html_sha256": "a9850a3afec072abdcb543df77104e8f3f75408ae05475c14756789201428f28",
+      "html_sha256": "9e0f148aced47ca59c6fadd7705a9b4a8f4a9d41f23f598bb451bdbda471fa98",
       "native_export": "passed",
       "cells": 32,
       "cells_with_saved_figures": 1
@@ -655,9 +655,9 @@
     {
       "source": "notebooks/read_mac_ascii_files.py",
       "source_sha256": "caf534c9a0f0f9907a28a27c4ccd99f23a8a72be33eff533498ec9e2843481ef",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "read_mac_ascii_files.html",
-      "html_sha256": "750a637149a9efa9f96e27ec6644b3566967d2208a2947c6513bd67aa2061539",
+      "html_sha256": "2b57cd9103ca5759f6bf460e44a1775162e6582bbf694a3d53897da1e090e086",
       "native_export": "passed",
       "cells": 37,
       "cells_with_saved_figures": 0
@@ -665,9 +665,9 @@
     {
       "source": "notebooks/read_trc.py",
       "source_sha256": "767dc4e1d4a0e99c7ad578c970b37473c590a812fed4d6f2c473d7bf32c13d86",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "read_trc.html",
-      "html_sha256": "6bf65237ffa75136f33005efbba82a31946373d7667e819db26705ab2611f25b",
+      "html_sha256": "806967b6d8446ca2f4337062560cf76b173585bd6e6a3a51f898631196d9eee3",
       "native_export": "passed",
       "cells": 35,
       "cells_with_saved_figures": 0
@@ -675,9 +675,9 @@
     {
       "source": "notebooks/read_trc_forces_files.py",
       "source_sha256": "2e64b2d72676f084cab4330522440d612a2eef120f875d2b4dde634fcbea4eb8",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "read_trc_forces_files.html",
-      "html_sha256": "3ce9e15c60d5f92db2486cfbba4d6f2622fd7108755d3fcf9c91ab4c4a3ed2f2",
+      "html_sha256": "f97e72f0c191126cd6e35d75ea8b5492094e59e67a19ddae4f90223fe2eaf2b8",
       "native_export": "passed",
       "cells": 39,
       "cells_with_saved_figures": 2
@@ -685,7 +685,7 @@
     {
       "source": "notebooks/read_zebris_pressure_platform_ascii_files.py",
       "source_sha256": "572a315518684b62047f81a7aa0e03fd3b8819c5ca7e13c2bd1cb7e5c7213418",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "read_zebris_pressure_platform_ascii_files.html",
       "html_sha256": "28c08891e783dee6099ed2cde0e564d9165dc2177b001c89af8158932ac22c27",
       "native_export": "passed",
@@ -695,7 +695,7 @@
     {
       "source": "notebooks/reference_frame.py",
       "source_sha256": "b006a2a63326f14df82f7a41000decd58022fd46bdd302faec472fccc2158bc6",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "reference_frame.html",
       "html_sha256": "581a85ddbec512a401db22cda0067f59798894d8bf91ff832714f9dbda283c46",
       "native_export": "passed",
@@ -705,7 +705,7 @@
     {
       "source": "notebooks/rep_missing.py",
       "source_sha256": "f31631cbe2c5224dda25c7a6136b8163d575bb96e4edda2019c32f85ab45402d",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "rep_missing.html",
       "html_sha256": "2eb288dca947d36a068eade7d8ebfc604f0d254bd71d1de911ed3902a7d1a3eb",
       "native_export": "passed",
@@ -715,9 +715,9 @@
     {
       "source": "notebooks/resample.py",
       "source_sha256": "fef81a355c1ced26d44cb979a5be11142c6a16a41ce79d661d9541b9b2e6c012",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "resample.html",
-      "html_sha256": "d1cd233fc03b94605243685e4d1839a92d998204784ac0c890e6e904d6f8b7b1",
+      "html_sha256": "c92dd8592a8c8eb52064dbdc528abd034b5c3c876abd75df9b99ab04d776adf2",
       "native_export": "passed",
       "cells": 24,
       "cells_with_saved_figures": 1
@@ -725,7 +725,7 @@
     {
       "source": "notebooks/residual_analysis.py",
       "source_sha256": "be77dcd6123610249800b0f1448ec5d1f56171da8df68b06a2ec33373cd0c02c",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "residual_analysis.html",
       "html_sha256": "fca83ad27928deee6905512794345277fe4aa672eda80486f79736d8164a5aee",
       "native_export": "passed",
@@ -735,7 +735,7 @@
     {
       "source": "notebooks/scalar_vector.py",
       "source_sha256": "024651bb25daa3601a902df0b18de18186e23992be8559cd2a688bea105c7122",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "scalar_vector.html",
       "html_sha256": "e1ca071c683221ff933867b5b536e8892f1487248f71bd755fd4f16f90486f2a",
       "native_export": "passed",
@@ -745,7 +745,7 @@
     {
       "source": "notebooks/signal_basic_properties.py",
       "source_sha256": "11dcd7614fdfc18b024265506b837688a4ae2eeee74a9ce2e106bd34115c030b",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "signal_basic_properties.html",
       "html_sha256": "c9f8c8433f8139450d253db788c5e7ec8153b328a9ac50e7240326cd9b46ec32",
       "native_export": "passed",
@@ -755,9 +755,9 @@
     {
       "source": "notebooks/similarity.py",
       "source_sha256": "951ba6384ba753894b2dbe826ac35cabf3cb54541bb5b10261a86957022c2194",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "similarity.html",
-      "html_sha256": "2890d8cbe8243f9e5a4b2d39b885bf913257df8694b57dcc84631103ad2e2b85",
+      "html_sha256": "58b59418bc568288ad48e06241cf25fe70cb19ff43b85ceebc049029603d0b41",
       "native_export": "passed",
       "cells": 29,
       "cells_with_saved_figures": 1
@@ -765,9 +765,9 @@
     {
       "source": "notebooks/sistema_coordenadas.py",
       "source_sha256": "7bebdc459f6ee2109931d3524e3731f83c7343e71fa9fe423c3cde34b0606eb1",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "sistema_coordenadas.html",
-      "html_sha256": "122cbecd3c3d78dd8a5c4bff3a8918eadc3daccf4ba4444a1926c26e45fb9425",
+      "html_sha256": "ecc1fb528e08556cccf72e84cdbe3d83a053c7c7ad72549630b66b57b898dcda",
       "native_export": "passed",
       "cells": 77,
       "cells_with_saved_figures": 7
@@ -775,7 +775,7 @@
     {
       "source": "notebooks/spatial_temporal_characteristics.py",
       "source_sha256": "0f8610e6623fa0dd40a1c2d802151c26979a21522e2ae3a5a696d6ce48832365",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "spatial_temporal_characteristics.html",
       "html_sha256": "9c2c70eb82df1345786613bfc92bb03fe721ad45e8230b03d622f62429cba43c",
       "native_export": "passed",
@@ -785,7 +785,7 @@
     {
       "source": "notebooks/stabilography.py",
       "source_sha256": "ebc3a5e7189a6be5da7df4bc9a16d150acd5916691b72f11c002eef90241e98b",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "stabilography.html",
       "html_sha256": "72d9bc23111353793f48115c01976b1e0b8c7dbbf36117d5cbe0c273b3a586d1",
       "native_export": "passed",
@@ -795,7 +795,7 @@
     {
       "source": "notebooks/statistics_bayesian.py",
       "source_sha256": "75f0355e0867e6443caaf9c029a5b36f3d2973524393d865480b8a401a1d9710",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "statistics_bayesian.html",
       "html_sha256": "5a8ba738e973f03a9666c7c63559d02a3733d72f2266e42eff2a1559805ed1d6",
       "native_export": "passed",
@@ -805,9 +805,9 @@
     {
       "source": "notebooks/statistics_descriptive.py",
       "source_sha256": "54d1d30acb60747fb6415277018908a0fa3e08996d2a6e48a2301eb9fa089377",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "statistics_descriptive.html",
-      "html_sha256": "d56837f4c7ba02bf8cfa0fa292b8a0156ad4a8d8d2a50ebe033049b141141f45",
+      "html_sha256": "14cdedb6f2db1df193b3f1d57b1b3e4a492943a4b4d0227b983f7237eb980db7",
       "native_export": "passed",
       "cells": 15,
       "cells_with_saved_figures": 3
@@ -815,7 +815,7 @@
     {
       "source": "notebooks/svd_algorithm.py",
       "source_sha256": "dee7a95e24fff1d99416ec57c436da0d147b8ed6eb9aeb598ccfd274c44d8771",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "svd_algorithm.html",
       "html_sha256": "3cc1c41fc3e84c0a8436d3b9521374d942e912049dfab2bfb1a3682fefd3dff1",
       "native_export": "passed",
@@ -825,7 +825,7 @@
     {
       "source": "notebooks/text_and_binary_files.py",
       "source_sha256": "296521684e0dd9cb2e05480b8e29886d894a411e58c3f71dcb99f1b4fa53022c",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "text_and_binary_files.html",
       "html_sha256": "18e64367c1843ccf2aaa22fe71aec6fd5455144e9b64e4a30cf6d375e3d309cd",
       "native_export": "passed",
@@ -835,7 +835,7 @@
     {
       "source": "notebooks/transformation_2d.py",
       "source_sha256": "a79848ee93061d0141a0cb21cc681de9e831f7696324f4c8949f74b8837310a7",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "transformation_2d.html",
       "html_sha256": "92029f4248b9ba80b42b796ce91655b44cc40ceac74f4926f7ae4b0523cadd0c",
       "native_export": "passed",
@@ -845,9 +845,9 @@
     {
       "source": "notebooks/transformation_3d.py",
       "source_sha256": "c547c2ff1ef2f91bdd7412d7fc8714c76bb6215c1861d6958c074552f22e7b41",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "transformation_3d.html",
-      "html_sha256": "f48c21bbe625308d5292a827c3277f5aaac3e9674941b8cc9f0ff7a4e0cc6cc1",
+      "html_sha256": "f453707c024c52ff7efab839ef74a0fa67c40897a4ccca089f4652ca870ffcc7",
       "native_export": "passed",
       "cells": 141,
       "cells_with_saved_figures": 6
@@ -855,9 +855,9 @@
     {
       "source": "notebooks/trigonometry_basics.py",
       "source_sha256": "076cdde76d90b61c350f48794d225b3de1206f9b9fe1544e5fa560194d97aa3c",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "trigonometry_basics.html",
-      "html_sha256": "8dbdcc8ffe4c4172a4fd94a0848a5075be27feae23116c3b095b5c43277ac7bd",
+      "html_sha256": "735266536ba73a2b0cfe873cee9c01a7d07f5d09fa50eb2c63d1a650e67bd1a9",
       "native_export": "passed",
       "cells": 34,
       "cells_with_saved_figures": 0
@@ -865,7 +865,7 @@
     {
       "source": "notebooks/version_control_git_github.py",
       "source_sha256": "a831eb79ebb938b1540059ec7f1fa5b829425374d131ce4e92a8a46cef35001c",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "version_control_git_github.html",
       "html_sha256": "036628fff47af057e277026afff00f255aed0b3ca30c87a014ddead5fba22912",
       "native_export": "passed",
@@ -875,7 +875,7 @@
     {
       "source": "notebooks/vertical_jump.py",
       "source_sha256": "4efc367e07f56ff3c8ed9fa139358a03ff783a82c28cb349b4c6051825508c69",
-      "shared_inputs_sha256": "a144ff0b7ab881d66ffa7cb252833d6f19000431558ccf6b69f369ac7e678526",
+      "shared_inputs_sha256": "01b406161af59514ac17513c421fdc4ee418922d2b279174693fd43cd009a31b",
       "html": "vertical_jump.html",
       "html_sha256": "e032d54fdc943aaf63091fa84f69a601f2465a58ad139359cf8435e4368ad554",
       "native_export": "passed",
