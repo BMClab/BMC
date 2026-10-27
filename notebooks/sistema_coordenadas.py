@@ -9,8 +9,6 @@ __generated_with = "0.25.1"
 app = marimo.App(width="medium")
 
 
-
-
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
@@ -44,10 +42,6 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## A coxa está flexionada?
-
-    O arquivo `walk1.trc`, na pasta `data` deste repositório, tem 2,4 s de uma pessoa andando, com 28 marcadores na pelve e nos dois membros inferiores, registrados a 150 Hz. Uma pergunta simples sobre esses dados, quanto o joelho direito flexiona durante o passo, não pode ser respondida olhando para nenhuma coluna do arquivo. O joelho é a relação entre dois segmentos, a coxa e a perna, e para compará-los precisamos saber como cada um está orientado.
-
     **Perguntas norteadoras 0.**
 
     1. Por que um segmento precisa de pelo menos três marcadores não colineares para ter sua orientação definida?
@@ -83,7 +77,6 @@ def _():
     return (repo_file,)
 
 
-
 @app.cell
 def _():
     import numpy as np
@@ -107,15 +100,29 @@ def check_basis(e1, e2, e3):
     import numpy as np
 
     norms = all(np.allclose(np.linalg.norm(e, axis=1), 1) for e in (e1, e2, e3))
-    orthogonal = all(np.allclose(np.sum(a * b, axis=1), 0) for a, b in ((e1, e2), (e1, e3), (e2, e3)))
+    orthogonal = all(
+        np.allclose(np.sum(a * b, axis=1), 0)
+        for a, b in ((e1, e2), (e1, e3), (e2, e3))
+    )
     det = np.linalg.det(np.stack((e1, e2, e3), axis=1))
     print(f"Versores de norma 1: {norms}")
     print(f"Versores ortogonais entre si: {orthogonal}")
-    print(f"Determinante de [e1; e2; e3]: de {det.min():.4f} a {det.max():.4f} (dextrógira: {bool(np.allclose(det, 1))})")
+    print(
+        f"Determinante de [e1; e2; e3]: de {det.min():.4f} a {det.max():.4f} (dextrógira: {bool(np.allclose(det, 1))})"
+    )
 
 
 @app.function
-def plot_basis(origin, basis, markers, labels, axis_names=("x", "y", "z"), ax=None, length=0.12, azim=35):
+def plot_basis(
+    origin,
+    basis,
+    markers,
+    labels,
+    axis_names=("x", "y", "z"),
+    ax=None,
+    length=0.12,
+    azim=35,
+):
     """Draw markers and a basis (versors in the rows) at `origin`, in the laboratory, with Y upwards.
 
     If `ax` is given, draw on it and leave its limits alone; otherwise create a figure.
@@ -126,13 +133,31 @@ def plot_basis(origin, basis, markers, labels, axis_names=("x", "y", "z"), ax=No
     new_figure = ax is None
     if new_figure:
         ax = plt.figure(figsize=(6, 6)).add_subplot(projection="3d")
-    origin, basis, markers = np.asarray(origin), np.asarray(basis), np.atleast_2d(markers)
+    origin, basis, markers = (
+        np.asarray(origin),
+        np.asarray(basis),
+        np.atleast_2d(markers),
+    )
     ax.scatter(*markers.T, s=40, color="gold", edgecolors="k", depthshade=False)
     for p, label in zip(markers, labels):
         ax.text(*p, f"  {label}", fontsize=9)
-    for e, name, color in zip(basis, axis_names, ["tab:red", "tab:green", "tab:blue"]):
-        ax.quiver(*origin, *(length * e), color=color, linewidth=2.5, arrow_length_ratio=0.15)
-        ax.text(*(origin + 1.2 * length * e), name, color=color, fontsize=12, fontweight="bold")
+    for e, name, color in zip(
+        basis, axis_names, ["tab:red", "tab:green", "tab:blue"]
+    ):
+        ax.quiver(
+            *origin,
+            *(length * e),
+            color=color,
+            linewidth=2.5,
+            arrow_length_ratio=0.15,
+        )
+        ax.text(
+            *(origin + 1.2 * length * e),
+            name,
+            color=color,
+            fontsize=12,
+            fontweight="bold",
+        )
     if new_figure:
         equal_axes(ax, np.vstack((markers, origin, origin + length * basis)))
         ax.view_init(elev=15, azim=azim, vertical_axis="y")
@@ -170,7 +195,7 @@ def _(mo):
 def _(mo, pd, repo_file):
     _path = mo.notebook_dir() / ".." / "data" / "walk1.trc"
     if not _path.exists():  # e.g., on molab, where only the notebook is available
-        _path = repo_file('data/walk1.trc')
+        _path = repo_file("data/walk1.trc")
     data_trc = pd.read_csv(_path, skiprows=3, sep="\t")
     _cols = list(data_trc.columns)
     _cols = [_col.replace(".", "") for _col in _cols]
@@ -207,10 +232,16 @@ def _(mo):
 
 @app.cell
 def _(data_trc):
-    _asis = data_trc[["RASISX", "RASISY", "RASISZ"]].values - data_trc[["LASISX", "LASISY", "LASISZ"]].values
+    _asis = (
+        data_trc[["RASISX", "RASISY", "RASISZ"]].values
+        - data_trc[["LASISX", "LASISY", "LASISZ"]].values
+    )
     _travel = data_trc[["RASISX", "RASISY", "RASISZ"]].values[[0, -1]]
     print("RASIS - LASIS, média no ensaio [m]:", _asis.mean(axis=0).round(3))
-    print("Deslocamento da RASIS do primeiro ao último quadro [m]:", (_travel[1] - _travel[0]).round(3))
+    print(
+        "Deslocamento da RASIS do primeiro ao último quadro [m]:",
+        (_travel[1] - _travel[0]).round(3),
+    )
     print("Altura média da RASIS [m]:", data_trc["RASISY"].mean().round(3))
     return
 
@@ -356,7 +387,13 @@ def _(LASIS, LPSIS, Op, RASIS, RPSIS, e1p, e2p, e3p, np, plt):
     _markers = np.vstack((RASIS[0], LASIS[0], RPSIS[0], LPSIS[0]))
     _basis = np.vstack((e1p[0], e2p[0], e3p[0]))
 
-    plot_basis(Op[0], _basis, _markers, ["RASIS", "LASIS", "RPSIS", "LPSIS"], axis_names=("xp", "yp", "zp"))
+    plot_basis(
+        Op[0],
+        _basis,
+        _markers,
+        ["RASIS", "LASIS", "RPSIS", "LPSIS"],
+        axis_names=("xp", "yp", "zp"),
+    )
     plt.show()
     return
 
@@ -518,7 +555,14 @@ def _(CA, FM, Of, SM, VM, e1f, e2f, e3f, np, plt):
     _markers = np.vstack((CA[0], FM[0], SM[0], VM[0]))
     _basis = np.vstack((e1f[0], e2f[0], e3f[0]))
 
-    plot_basis(Of[0], _basis, _markers, ["CA", "FM", "SM", "VM"], axis_names=("xf", "yf", "zf"), length=0.08)
+    plot_basis(
+        Of[0],
+        _basis,
+        _markers,
+        ["CA", "FM", "SM", "VM"],
+        axis_names=("xf", "yf", "zf"),
+        length=0.08,
+    )
     plt.show()
     return
 
@@ -608,7 +652,9 @@ def _(HF, ML, MM, Os, TT, e1s, e2s, e3s, np, plt):
     _markers = np.vstack((HF[0], TT[0], MM[0], ML[0]))
     _basis = np.vstack((e1s[0], e2s[0], e3s[0]))
 
-    plot_basis(Os[0], _basis, _markers, ["HF", "TT", "MM", "ML"], axis_names=("xs", "ys", "zs"))
+    plot_basis(
+        Os[0], _basis, _markers, ["HF", "TT", "MM", "ML"], axis_names=("xs", "ys", "zs")
+    )
     plt.show()
     return
 
@@ -684,7 +730,9 @@ def _(LASIS, Op, RASIS, e1p, e2p, e3p, np):
     FH = Op + dASIS * (-0.19 * e1p - 0.30 * e2p + 0.36 * e3p)
 
     _d = FH[0] - RASIS[0]
-    print(f"Distância entre as espinhas ilíacas ântero-superiores: {dASIS[0, 0] * 100:.1f} cm")
+    print(
+        f"Distância entre as espinhas ilíacas ântero-superiores: {dASIS[0, 0] * 100:.1f} cm"
+    )
     print(
         "FH em relação à RASIS, na base da pelve [cm]:",
         f"{_d @ e1p[0] * 100:.1f} (frente), {_d @ e2p[0] * 100:.1f} (cima), {_d @ e3p[0] * 100:.1f} (direita)",
@@ -707,7 +755,12 @@ def _(FH, LASIS, LPSIS, Op, RASIS, RPSIS, data, e1p, e2p, e3p, np, plt):
     _basis = np.vstack((e1p[0], e2p[0], e3p[0]))
 
     plot_basis(
-        Op[0], _basis, _markers, ["RASIS", "LASIS", "RPSIS", "LPSIS", "FH", "GTR"], axis_names=("xp", "yp", "zp"), azim=60
+        Op[0],
+        _basis,
+        _markers,
+        ["RASIS", "LASIS", "RPSIS", "LPSIS", "FH", "GTR"],
+        axis_names=("xp", "yp", "zp"),
+        azim=60,
     )
     plt.show()
 
@@ -716,7 +769,9 @@ def _(FH, LASIS, LPSIS, Op, RASIS, RPSIS, data, e1p, e2p, e3p, np, plt):
         "GTR em relação a FH no primeiro quadro, na base da pelve [cm]:",
         f"{_d[0] @ e1p[0] * 100:.1f} (frente), {_d[0] @ e2p[0] * 100:.1f} (cima), {_d[0] @ e3p[0] * 100:.1f} (direita)",
     )
-    print(f"Distância FH-GTR no ensaio: de {np.linalg.norm(_d, axis=1).min() * 100:.1f} a {np.linalg.norm(_d, axis=1).max() * 100:.1f} cm")
+    print(
+        f"Distância FH-GTR no ensaio: de {np.linalg.norm(_d, axis=1).min() * 100:.1f} a {np.linalg.norm(_d, axis=1).max() * 100:.1f} cm"
+    )
     return
 
 
@@ -776,7 +831,14 @@ def _(FH, LE, ME, Ot, e1t, e2t, e3t, np, plt):
     _markers = np.vstack((LE[0], ME[0], FH[0]))
     _basis = np.vstack((e1t[0], e2t[0], e3t[0]))
 
-    plot_basis(Ot[0], _basis, _markers, ["LE", "ME", "FH"], axis_names=("xt", "yt", "zt"), length=0.15)
+    plot_basis(
+        Ot[0],
+        _basis,
+        _markers,
+        ["LE", "ME", "FH"],
+        axis_names=("xt", "yt", "zt"),
+        length=0.15,
+    )
     plt.show()
     return
 
@@ -824,7 +886,9 @@ def _(mo):
 @app.cell
 def _(mo, t):
     frame_slider = mo.ui.slider(0, len(t) - 1, step=1, value=0, label="Quadro")
-    azim_slider = mo.ui.slider(-180, 180, step=5, value=35, label="Azimute da vista [graus]")
+    azim_slider = mo.ui.slider(
+        -180, 180, step=5, value=35, label="Azimute da vista [graus]"
+    )
     mo.vstack([frame_slider, azim_slider])
     return azim_slider, frame_slider
 
@@ -879,7 +943,15 @@ def _(
     _points = []
     for _origin, _basis, _markers in _segments:
         _m = np.vstack([_mk[_i] for _mk in _markers])
-        plot_basis(_origin[_i], np.vstack([_e[_i] for _e in _basis]), _m, (), axis_names=("", "", ""), ax=_ax, length=0.1)
+        plot_basis(
+            _origin[_i],
+            np.vstack([_e[_i] for _e in _basis]),
+            _m,
+            (),
+            axis_names=("", "", ""),
+            ax=_ax,
+            length=0.1,
+        )
         _points.append(_m)
     _chain = np.vstack((FH[_i], Ot[_i], Os[_i], CA[_i]))
     _ax.plot(*_chain.T, color="gray", linewidth=1.5, linestyle="--")
@@ -894,48 +966,6 @@ def _(
 def _(mo):
     mo.md(r"""
     Os versores estão em vermelho ($x$, para a frente), verde ($y$, para cima) e azul ($z$, para a direita), e a linha tracejada liga o centro do quadril, a origem da coxa, a origem da perna e o calcâneo.
-
-    ### Quanto o joelho flexiona?
-
-    Agora podemos responder à pergunta do começo. A flexão do joelho é a inclinação da perna em relação à coxa, no plano sagital da coxa. O eixo longo da perna, $\hat{\mathbf{e}}_{2s}$, escrito na base da coxa, tem componentes $(\hat{\mathbf{e}}_{2s}\cdot\hat{\mathbf{e}}_{1t},\; \hat{\mathbf{e}}_{2s}\cdot\hat{\mathbf{e}}_{2t},\; \hat{\mathbf{e}}_{2s}\cdot\hat{\mathbf{e}}_{3t})$. Quando o joelho flexiona, o pé vai para trás e o eixo da perna, que aponta do tornozelo para o joelho, inclina para a frente da coxa, e o ângulo da sua projeção no plano $x_t y_t$ é a flexão:
-
-    $$
-    \theta_{flex} = \arctan\left(\frac{\hat{\mathbf{e}}_{2s}\cdot\hat{\mathbf{e}}_{1t}}{\hat{\mathbf{e}}_{2s}\cdot\hat{\mathbf{e}}_{2t}}\right)
-    $$
-
-    Para descrever as três rotações do joelho de uma vez é preciso a matriz de rotação entre as duas bases e um conjunto de ângulos de Cardan, como em [Rigid-body transformations in 3D](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/transformation_3d.py); para a flexão, os produtos escalares bastam.
-
-    **Antes de executar a próxima célula**, preveja: qual é a maior flexão do joelho durante a marcha? Ela acontece com o pé no chão ou no ar?
-    """)
-    return
-
-
-@app.cell
-def _(e1t, e2s, e2t, frame_slider, np, plt, t):
-    knee_flexion = np.degrees(np.arctan2(np.sum(e2s * e1t, axis=1), np.sum(e2s * e2t, axis=1)))
-
-    _i = np.argmax(knee_flexion)
-    print(f"Flexão do joelho: de {knee_flexion.min():.1f} a {knee_flexion.max():.1f} graus; máxima em t = {t[_i]:.3f} s")
-
-    _, _ax = plt.subplots(figsize=(9, 3.5))
-    _ax.plot(t, knee_flexion, color="k", linewidth=2)
-    _ax.axvline(t[frame_slider.value], color="tab:orange", linewidth=1.5, label="quadro selecionado")
-    _ax.set_xlabel("Tempo [s]")
-    _ax.set_ylabel("Flexão do joelho [graus]")
-    _ax.legend(loc="upper left")
-    plt.tight_layout()
-    plt.show()
-    return (knee_flexion,)
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    O ensaio tem duas passadas do membro direito, e o joelho vai de uma leve hiperextensão, cerca de $-5^\circ$, a $52^\circ$ de flexão na primeira e $56^\circ$ na segunda, logo depois de $t = 1{,}5$ s. Mova o controle de quadros até esse instante e olhe o membro inteiro: o pé está no ar, com o calcanhar a mais de 20 cm do chão, no começo da fase de balanço. A grande flexão do balanço encurta o membro para o pé passar sem tocar o chão; a pequena flexão de uns $10^\circ$ que se vê logo depois do contato do calcanhar, a resposta à carga, amortece a chegada do peso do corpo.
-
-    Os números concordam com os valores típicos da marcha normal, e é isso que se espera de um primeiro resultado: antes de interpretar ângulos de um sujeito, vale conferir se as bases dão o que se sabe que deveria dar.
-
-    **Exercício 5.** Use a mesma ideia para o tornozelo: calcule o ângulo do pé em relação à perna no plano sagital da perna, positivo para a dorsiflexão (a ponta do pé subindo em direção à perna), e encontre os valores máximos de dorsiflexão e de flexão plantar no ensaio. Por que esse ângulo não é zero na posição "neutra"?
     """)
     return
 
@@ -990,12 +1020,6 @@ def _(mo):
     1. Construa os sistemas de coordenadas anatômicos do pé, da perna e da coxa *esquerdos*, com os marcadores `L.Heel`, `L.MT1`, `L.MT2`, `L.MT5`, `L.HF`, `L.TT`, `L.Ankle`, `L.Ankle.Medial`, `L.Knee` e `L.Knee.Medial`, e com o centro do quadril esquerdo (que coeficiente da equação de Bell, Brand e Pedersen muda?). Os eixos $z$ continuam apontando para a direita. Em quais produtos vetoriais é preciso trocar a ordem? Verifique as bases com `check_basis`.
 
     2. Harrington et al. (2007) propuseram, a partir de imagens de ressonância magnética, outra regressão para o centro do quadril, em milímetros e na base da pelve: $x = -0{,}24\,PD - 9{,}9$, $y = -0{,}30\,PW - 10{,}9$ e $z = 0{,}33\,PW + 7{,}3$, onde $PW$ é a distância entre as espinhas ântero-superiores e $PD$ é a distância entre os pontos médios das espinhas ântero-superiores e das póstero-superiores. Calcule o centro do quadril direito com essa regressão. Quanto ele difere da estimativa de Bell, Brand e Pedersen? Quanto muda a direção do eixo $y_t$ da coxa?
-
-    3. Calcule a matriz de rotação da perna em relação à coxa, $\mathbf{R} = \mathbf{R}_t\,\mathbf{R}_s^T$, com os versores de cada segmento nas linhas de $\mathbf{R}_t$ e $\mathbf{R}_s$, e os ângulos de Cardan do joelho na sequência $zxy$ (flexão-extensão, adução-abdução, rotação interna-externa), como em [Rigid-body transformations in 3D](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/transformation_3d.py). Compare o ângulo de flexão com `knee_flexion`.
-
-    4. Calcule a velocidade angular da coxa e da perna, como em [Angular velocity in 3D movements](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/angular_velocity_3d.py). Use o intervalo de amostragem dado pela frequência do cabeçalho do arquivo, 150 Hz, e não pela coluna `TIME`, arredondada ao milissegundo.
-
-    5. Some a cada coordenada do marcador `R.TT` um ruído aleatório com desvio-padrão de 5 mm e construa a base da perna de novo. Quanto, em graus, muda cada eixo? Qual dos três é mais sensível ao erro nesse marcador, e por quê? (Veja [Determination of a coordinate system](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/coordinate_system.py) para a propagação de erros dos marcadores para os eixos.)
     """)
     return
 
@@ -1007,20 +1031,10 @@ def _(mo):
 
     1. No lado esquerdo, o coeficiente lateral de Bell muda de +0,36 para −0,36. O eixo $z$ continua dirigido à direita: inverta a diferença medial/lateral usada para orientar o pé e as linhas de referência da perna e da coxa; feche sempre a tríade com $x\times y=z$. A base correta satisfaz $RR^T=I$ e $\det R=+1$; espelhar apenas uma coluna produz uma reflexão, não uma rotação.
     2. No primeiro quadro, centro direito de Harrington aproximadamente $(−0,217337,0,969077,0,451764)$ m. Diferença para Bell: 16,16 mm no primeiro quadro e média de 16,32 mm no ensaio. O eixo longo muda 1,59° no primeiro quadro e até 2,08° no registro, usando as regressões e a origem especificadas no enunciado.
-    3. A matriz $R_tR_s^T$ leva componentes da perna para a coxa. Com decomposição intrínseca zxy dessa matriz e $|\beta|<90^\circ$, o primeiro ângulo é o negativo de `knee_flexion` pela convenção de sinal adotada aqui. A flexão anatômica positiva deve portanto ser reportada com esse sinal invertido; os demais ângulos não são diferenças dos ângulos absolutos dos segmentos.
-    4. Com versores nas linhas e $\Delta t=1/150$ s, as componentes locais são $(\dot e_2\cdot e_3,\dot e_3\cdot e_1,\dot e_1\cdot e_2)$ rad/s. Os picos de magnitude para este registro são aproximadamente 233,57°/s na coxa e 375,91°/s na perna. As velocidades dos dois segmentos só podem ser subtraídas depois de expressas na mesma base. Usar os intervalos arredondados de TIME introduz oscilações artificiais nas derivadas.
-    5. O eixo $e_{1s}$ é exatamente inalterado, pois sua definição não usa TT. Os eixos $e_{2s}$ e $e_{3s}$ giram juntos em torno de $e_{1s}$ e têm a mesma variação angular em cada quadro; não há um deles mais sensível em magnitude. O valor numérico depende da amostra aleatória e da distância perpendicular de TT ao eixo $e_{1s}$; ruído próximo dessa linha é especialmente prejudicial. Com `np.random.default_rng(0)` e uma amostra de ruído por quadro, a mediana é 0,540°, o percentil 95 é 1,396° e o máximo é 2,340° para ambos os eixos alterados.
 
     ///
     """)
     return
-
-
-
-
-
-
-
 
 
 @app.cell
@@ -1038,7 +1052,6 @@ def _(mo):
     - [Determination of a coordinate system](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/coordinate_system.py): a construção de uma base a partir de três marcadores e como os erros dos marcadores se tornam erros nos eixos.
     - [Frame of reference](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/reference_frame.py): referenciais, bases e as convenções anatômicas para a direção de cada eixo.
     - [Rigid-body transformations in 3D](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/transformation_3d.py): matrizes de rotação e ângulos de Cardan, o próximo passo para descrever as articulações.
-    - [Angular velocity in 3D movements](https://molab.marimo.io/github/BMClab/BMC/blob/master/notebooks/angular_velocity_3d.py): a velocidade angular de um segmento a partir da sua base, quadro a quadro.
     """)
     return
 
